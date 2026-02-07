@@ -1,39 +1,46 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { ThemeProvider } from '@/components/theme-provider';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
+const inter = Inter({ 
+  subsets: ['latin'], 
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://neuraweb.tech'),
   title: {
-    default: 'NeuraWeb - Professional Web Development & AI Integration Services',
+    default: 'NeuraWeb - Développement Web & Intégration IA',
     template: '%s | NeuraWeb',
   },
-  description: 'Professional web development, AI integration, and automation services. Create stunning websites and intelligent solutions tailored to your business needs.',
-  keywords: ['web development', 'AI integration', 'automation', 'professional websites', 'business solutions', 'Next.js', 'React'],
+  description: 'Agence spécialisée en développement web sur mesure, intégration IA et automatisation. Transformez votre présence digitale avec des solutions innovantes.',
+  keywords: ['développement web', 'intégration IA', 'automatisation', 'Next.js', 'React', 'TypeScript'],
   authors: [{ name: 'NeuraWeb' }],
   creator: 'NeuraWeb',
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'fr_FR',
     url: 'https://neuraweb.tech',
     siteName: 'NeuraWeb',
-    title: 'NeuraWeb - Professional Web Development & AI Integration Services',
-    description: 'Professional web development, AI integration, and automation services. Create stunning websites and intelligent solutions tailored to your business needs.',
+    title: 'NeuraWeb - Développement Web & Intégration IA',
+    description: 'Solutions web innovantes et automatisation intelligente pour votre entreprise.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'NeuraWeb - Professional Web Development',
+        alt: 'NeuraWeb - Développement Web & IA',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NeuraWeb - Professional Web Development & AI Integration Services',
-    description: 'Professional web development, AI integration, and automation services.',
+    title: 'NeuraWeb - Développement Web & Intégration IA',
+    description: 'Solutions web innovantes et automatisation intelligente.',
     images: ['/og-image.png'],
   },
   robots: {
@@ -55,8 +62,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="fr" suppressHydrationWarning>
+      <body className={inter.variable}>
+        <ThemeProvider>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-1 pt-16">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

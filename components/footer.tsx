@@ -1,60 +1,124 @@
-import Link from 'next/link';
-import { Code2, Mail, Phone } from 'lucide-react';
+'use client';
 
-export function Footer() {
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+
+interface FooterProps {
+  language?: 'fr' | 'en';
+}
+
+export function Footer({ language = 'fr' }: FooterProps) {
+  // Traductions simplifiées (à remplacer par ton système de traduction)
+  const t = (key: string): string => {
+    const translations: Record<string, Record<string, string>> = {
+      fr: {
+        'footer.company.description': 'Solutions web innovantes et automatisation intelligente pour votre entreprise.',
+        'footer.links.title': 'Liens rapides',
+        'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. Tous droits réservés.`,
+        'services.web.title': 'Développement Web',
+        'services.automation.title': 'Automatisation',
+        'services.ai.title': 'Intégration IA',
+        'nav.contact': 'Contact',
+        'nav.quote': 'Devis',
+        'nav.booking': 'Réservation',
+      },
+      en: {
+        'footer.company.description': 'Innovative web solutions and intelligent automation for your business.',
+        'footer.links.title': 'Quick Links',
+        'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. All rights reserved.`,
+        'services.web.title': 'Web Development',
+        'services.automation.title': 'Automation',
+        'services.ai.title': 'AI Integration',
+        'nav.contact': 'Contact',
+        'nav.quote': 'Quote',
+        'nav.booking': 'Booking',
+      },
+    };
+    return translations[language][key] || key;
+  };
+
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="flex items-center space-x-2 mb-4">
-              <Code2 className="h-8 w-8 text-blue-400" />
-              <span className="text-2xl font-bold">NeuraWeb</span>
+    <footer className="bg-gray-900/95 backdrop-blur-md border-t border-white/30 shadow-2xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+          {/* Company Info */}
+          <div className="text-center sm:text-left">
+            <Link href="/" className="flex items-center justify-center sm:justify-start space-x-2 mb-3">
+              <Image
+                src="/assets/neurawebW.webp"
+                alt="NeuraWeb Logo"
+                width={120}
+                height={24}
+                className="h-6 w-auto object-contain"
+                priority={false}
+              />
             </Link>
-            <p className="text-gray-400 mb-4 max-w-md">
-              Professional web development, AI integration, and automation services.
-              Creating intelligent solutions for modern businesses.
+            <p className="text-white text-xs mb-2 max-w-sm mx-auto sm:mx-0">
+              {t('footer.company.description')}
             </p>
+            <div className="text-gray-200 text-xs">
+              <a 
+                href="mailto:contact@neuraweb.tech" 
+                className="hover:text-white transition-colors"
+              >
+                contact@neuraweb.tech
+              </a>
+            </div>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-                  Home
-                </Link>
+          {/* Services */}
+          <div className="text-center">
+            <h3 className="text-white font-medium mb-3 text-sm">Services</h3>
+            <ul className="space-y-2 text-white text-xs">
+              <li className="hover:text-gray-200 transition-colors cursor-default">
+                {t('services.web.title')}
               </li>
-              <li>
-                <Link href="/services" className="text-gray-400 hover:text-white transition-colors">
-                  Services
-                </Link>
+              <li className="hover:text-gray-200 transition-colors cursor-default">
+                {t('services.automation.title')}
               </li>
-              <li>
-                <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
-                  Contact
-                </Link>
+              <li className="hover:text-gray-200 transition-colors cursor-default">
+                {t('services.ai.title')}
               </li>
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Contact</h3>
-            <ul className="space-y-2">
-              <li className="flex items-center space-x-2 text-gray-400">
-                <Mail className="h-4 w-4" />
-                <span>contact@neuraweb.tech</span>
+          {/* Quick Links */}
+          <div className="text-center sm:col-span-2 lg:col-span-1 lg:text-right">
+            <h3 className="text-white font-medium mb-3 text-sm">
+              {t('footer.links.title')}
+            </h3>
+            <ul className="space-y-2 text-white text-xs">
+              <li>
+                <Link 
+                  href="/contact" 
+                  className="hover:text-gray-200 transition-colors"
+                >
+                  {t('nav.contact')}
+                </Link>
               </li>
-              <li className="flex items-center space-x-2 text-gray-400">
-                <Phone className="h-4 w-4" />
-                <span>+44 123 456 7890</span>
+              <li>
+                <Link 
+                  href="/quote" 
+                  className="hover:text-gray-200 transition-colors"
+                >
+                  {t('nav.quote')}
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/booking" 
+                  className="hover:text-gray-200 transition-colors"
+                >
+                  {t('nav.booking')}
+                </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} NeuraWeb. All rights reserved.</p>
+        <div className="border-t border-white/20 mt-6 pt-4 text-center text-gray-200 text-xs">
+          <p>{t('footer.copyright')}</p>
         </div>
       </div>
     </footer>
