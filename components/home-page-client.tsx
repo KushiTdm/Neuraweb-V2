@@ -2,6 +2,8 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
 
 // Dynamic imports pour code splitting
 const VideoScrollSection = dynamic(
@@ -91,16 +93,20 @@ export function HomePageClient() {
   }
 
   return (
-    <main className="homepage-container">
-      <div ref={heroRef}>
-        <HeroSection mousePosition={mousePosition} />
-      </div>
-      <VideoScrollSection />
-      <ServicesSection />
-      <AboutSection />
-      <PortfolioSection />
-      <TestimonialsSection />
-      <CTASection />
-    </main>
+    <>
+      <Header />
+      <main className="homepage-container">
+        <div ref={heroRef}>
+          <HeroSection mousePosition={mousePosition} />
+        </div>
+        <VideoScrollSection />
+        <ServicesSection />
+        <AboutSection />
+        <PortfolioSection />
+        <TestimonialsSection />
+        <CTASection />
+      </main>
+      <Footer />
+    </>
   );
 }

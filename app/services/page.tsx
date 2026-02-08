@@ -1,6 +1,4 @@
 import { Metadata } from 'next';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
 import { ServicesPageClient } from '@/components/services-page-client';
 
 export const metadata: Metadata = {
@@ -93,9 +91,7 @@ export default function ServicesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header />
       <ServicesPageClient />
-      <Footer />
     </>
   );
 }
