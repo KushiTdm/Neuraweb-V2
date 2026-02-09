@@ -104,6 +104,9 @@ export function VideoScrollSection({ language = 'fr' }: VideoScrollSectionProps)
       });
     };
 
+    // Forcer le chargement de la vidéo
+    video.load();
+    
     // Initialiser après le chargement des métadonnées
     if (video.readyState >= 2) {
       initAnimations();
@@ -137,7 +140,7 @@ export function VideoScrollSection({ language = 'fr' }: VideoScrollSectionProps)
           className="w-full h-full object-cover"
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           poster="/assets/ampoulePoster.webp"
         >
           {/* Source principale */}

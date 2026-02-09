@@ -34,7 +34,7 @@ import { HeroSection } from '@/components/sections/hero-section';
 export function HomePageClient() {
   const [mounted, setMounted] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const heroRef = useRef<HTMLDivElement>(null);
+  const servicesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -75,8 +75,8 @@ export function HomePageClient() {
     return () => observer.disconnect();
   }, [mounted]);
 
-  const scrollToHero = () => {
-    heroRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToServices = () => {
+    servicesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   if (!mounted) {
@@ -93,12 +93,12 @@ export function HomePageClient() {
       <VideoScrollSection />
       
       {/* 2. Hero Section avec texte et boutons */}
-      <div ref={heroRef}>
-        <HeroSection mousePosition={mousePosition} onScrollToNext={scrollToHero} />
-      </div>
+      <HeroSection mousePosition={mousePosition} onScrollToNext={scrollToServices} />
       
       {/* 3. Services Section */}
-      <ServicesSection />
+      <div ref={servicesRef}>
+        <ServicesSection />
+      </div>
       
       {/* 4. About Section */}
       <AboutSection />

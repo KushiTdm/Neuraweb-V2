@@ -51,9 +51,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const toggleTheme = () => setIsDark(!isDark);
 
   // Rendu neutre pendant l'hydratation
-  if (!mounted) {
-    return <>{children}</>;
-  }
 
   return (
     <ThemeContext.Provider value={{ isDark, toggleTheme }}>
