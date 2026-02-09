@@ -2,8 +2,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
 
 // Dynamic imports pour code splitting
 const VideoScrollSection = dynamic(
@@ -50,15 +48,8 @@ export function HomePageClient() {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    const scrollToHero = setTimeout(() => {
-      if (heroRef.current) {
-        heroRef.current.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 5000);
-
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      clearTimeout(scrollToHero);
     };
   }, []);
 
@@ -73,7 +64,7 @@ export function HomePageClient() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-on-scroll');
+          entry.target.classList.add('animate-in');
         }
       });
     }, observerOptions);
@@ -84,29 +75,42 @@ export function HomePageClient() {
     return () => observer.disconnect();
   }, [mounted]);
 
+  const scrollToHero = () => {
+    heroRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   if (!mounted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
-        <div className="text-4xl font-bold text-gray-800 animate-pulse">NeuraWeb</div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-purple-900">
+        <div className="text-4xl font-bold text-gray-800 dark:text-white animate-pulse">NeuraWeb</div>
       </div>
     );
   }
 
   return (
-    <>
-      <Header />
-      <main className="homepage-container">
-        <div ref={heroRef}>
-          <HeroSection mousePosition={mousePosition} />
-        </div>
-        <VideoScrollSection />
-        <ServicesSection />
-        <AboutSection />
-        <PortfolioSection />
-        <TestimonialsSection />
-        <CTASection />
-      </main>
-      <Footer />
-    </>
+    <main className="homepage-container">
+      {/* 1. Video Hero Section (première chose visible) */}
+      <VideoScrollSection />
+      
+      {/* 2. Hero Section avec texte et boutons */}
+      <div ref={heroRef}>
+        <HeroSection mousePosition={mousePosition} onScrollToNext={scrollToHero} />
+      </div>
+      
+      {/* 3. Services Section */}
+      <ServicesSection />
+      
+      {/* 4. About Section */}
+      <AboutSection />
+      
+      {/* 5. Portfolio Section */}
+      <PortfolioSection />
+      
+      {/* 6. Testimonials Section */}
+      <TestimonialsSection />
+      
+      {/* 7. CTA Section */}
+      <CTASection />
+    </main>
   );
 }

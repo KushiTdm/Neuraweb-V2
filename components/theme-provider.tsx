@@ -3,8 +3,20 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
+// Context hook - DOIT être déclaré AVANT le ThemeProvider
+interface ThemeContextType {
+  isDark: boolean;
+  toggleTheme: () => void;
+}
+
+const ThemeContext = React.createContext<ThemeContextType | undefined>(undefined);
+
 interface ThemeProviderProps {
   children: React.ReactNode;
+  attribute?: string;
+  defaultTheme?: string;
+  enableSystem?: boolean;
+  disableTransitionOnChange?: boolean;
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
@@ -49,14 +61,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     </ThemeContext.Provider>
   );
 }
-
-// Context hook
-interface ThemeContextType {
-  isDark: boolean;
-  toggleTheme: () => void;
-}
-
-const ThemeContext = React.createContext<ThemeContextType | undefined>(undefined);
 
 export const useTheme = () => {
   const context = React.useContext(ThemeContext);
