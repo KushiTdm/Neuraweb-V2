@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
+import { WhatsAppButton } from '@/components/whatsapp-button';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -65,6 +66,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          {/* Bouton WhatsApp flottant sur toutes les pages */}
+          <WhatsAppButton 
+            phoneNumber="33612345678" 
+            language="fr"
+          />
         </ThemeProvider>
       </body>
     </html>

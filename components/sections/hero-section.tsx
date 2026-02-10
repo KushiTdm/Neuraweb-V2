@@ -1,8 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+// Import dynamique pour éviter les erreurs SSR avec Three.js
+const HeroThreeBackground = dynamic(
+  () => import('@/components/hero-three-background').then((mod) => ({ default: mod.HeroThreeBackground })),
+  { ssr: false }
+);
 
 interface HeroSectionProps {
   mousePosition: { x: number; y: number };
@@ -15,6 +22,11 @@ export function HeroSection({
   onScrollToNext,
   language = 'fr' 
 }: HeroSectionProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   
   // Traductions (à remplacer par ton système de traduction)
   const t = (key: string): string => {
@@ -48,6 +60,9 @@ export function HeroSection({
 
   return (
     <section className="section-snap relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-900 overflow-hidden">
+      {/* Animation Three.js 3D */}
+      {mounted && <HeroThreeBackground />}
+
       {/* Particules d'arrière-plan */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
