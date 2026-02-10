@@ -142,6 +142,7 @@
   scroll-behavior: smooth;
 }
 
+/* DÉSACTIVÉ - Le scroll-snap empêche la vidéo de se scroller automatiquement
 @media (min-width: 1024px) {
   .homepage-container {
     height: 100vh;
@@ -156,6 +157,14 @@
     align-items: center;
     justify-content: center;
   }
+}
+*/
+
+.section-snap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Animations d'entrée */
@@ -260,10 +269,6 @@
   .section-snap {
     min-height: 100vh;
     padding: 5rem 1rem;
-  }
-  
-  .homepage-container {
-    scroll-snap-type: none;
   }
 }
 

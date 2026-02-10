@@ -9,6 +9,7 @@ interface VideoScrollSectionProps {
 
 export function VideoScrollSection({ language = 'fr' }: VideoScrollSectionProps) {
   const [mounted, setMounted] = useState(false);
+  const [videoPlayed, setVideoPlayed] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const overlayTextRef = useRef<HTMLDivElement>(null);
@@ -41,77 +42,58 @@ export function VideoScrollSection({ language = 'fr' }: VideoScrollSectionProps)
     const section = sectionRef.current;
     const overlayText = overlayTextRef.current;
 
-    // Attendre que la vidéo soit chargée
-    const initAnimations = () => {
-      // Créer une timeline GSAP
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
+    const initVideo = async () => {
+      try {
+        // Forcer le scroll en haut au chargement
+        window.scrollTo(0, 0);
+        
+        // Lancer la vidéo automatiquement
+        video.currentTime = 0;
+        await video.play();
+        
+        // Animation du texte overlay
+        if (overlayText.children.length >= 1) {
+          gsap.fromTo(
+            overlayText.children[0],
+            { opacity: 0, y: 50, scale: 0.8 },
+            { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'power2.out', delay: 0.5 }
+          );
+          
+          // Faire disparaître le texte avant la fin
+          gsap.to(
+            overlayText.children[0],
+            { opacity: 0, y: -50, scale: 0.8, duration: 0.8, delay: video.duration - 1.5 }
+          );
         }
-      });
 
-      // Animations de la vidéo
-      tl.fromTo(
-        video,
-        {
-          scale: 0.5,
-          borderRadius: '50px',
-          opacity: 0.7,
-        },
-        {
-          scale: 1,
-          borderRadius: '0px',
-          opacity: 1,
-          duration: 1,
-        }
-      )
-      .to(video, {
-        scale: 1.1,
-        duration: 1,
-      });
-
-      // Animations du texte en overlay
-      if (overlayText.children.length >= 1) {
-        tl.fromTo(
-          overlayText.children[0],
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 0.5 },
-          0.3
-        )
-        .to(
-          overlayText.children[0],
-          { opacity: 0, y: -50, duration: 0.3 },
-          1.2
-        );
-      }
-
-      // Synchroniser la lecture de la vidéo avec le scroll
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: 'bottom bottom',
-        onUpdate: (self) => {
-          if (video.duration && !isNaN(video.duration)) {
-            const progress = self.progress;
-            video.currentTime = video.duration * progress;
+        // Quand la vidéo se termine
+        video.addEventListener('ended', () => {
+          setVideoPlayed(true);
+          
+          // Scroller vers la section suivante
+          const nextSection = section.nextElementSibling;
+          if (nextSection) {
+            nextSection.scrollIntoView({ behavior: 'smooth' });
           }
-        },
-      });
+        }, { once: true });
+
+      } catch (error) {
+        console.error('Erreur lecture vidéo:', error);
+        // Si la vidéo ne peut pas se lancer, scroller directement
+        setTimeout(() => {
+          const nextSection = section.nextElementSibling;
+          if (nextSection) {
+            nextSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 500);
+      }
     };
 
-    // Forcer le chargement de la vidéo
-    video.load();
-    
-    // Initialiser après le chargement des métadonnées
+    // Attendre que la vidéo soit chargée
     if (video.readyState >= 2) {
-      initAnimations();
+      initVideo();
     } else {
-      video.addEventListener('loadedmetadata', initAnimations, { once: true });
+      video.addEventListener('loadedmetadata', initVideo, { once: true });
     }
 
     return () => {
@@ -130,7 +112,7 @@ export function VideoScrollSection({ language = 'fr' }: VideoScrollSectionProps)
 
   return (
     <section 
-      className="bg-black relative section-snap min-h-screen" 
+      className="bg-black relative min-h-screen flex items-center justify-center" 
       ref={sectionRef}
     >
       {/* Conteneur vidéo */}
@@ -147,22 +129,20 @@ export function VideoScrollSection({ language = 'fr' }: VideoScrollSectionProps)
           <source src="/assets/Idee.webm" type="video/webm" />
           <source src="/assets/Idee.mp4" type="video/mp4" />
 
-          {/* Sous-titres FR */}
+          {/* Sous-titres FR - disponibles au clic droit */}
           <track
             kind="captions"
             src="/assets/ampouleExplose_fr.vtt"
             srcLang="fr"
             label="Français"
-            default={language === 'fr'}
           />
 
-          {/* Sous-titres EN */}
+          {/* Sous-titres EN - disponibles au clic droit */}
           <track
             kind="captions"
             src="/assets/ampouleExplose_en.vtt"
             srcLang="en"
             label="English"
-            default={language === 'en'}
           />
           
           Votre navigateur ne supporte pas la lecture de vidéos.
@@ -172,32 +152,11 @@ export function VideoScrollSection({ language = 'fr' }: VideoScrollSectionProps)
       {/* Texte overlay */}
       <div
         ref={overlayTextRef}
-        className="relative z-10 text-center max-w-4xl px-6 pointer-events-none h-screen flex items-center justify-center"
+        className="relative z-10 text-center max-w-4xl px-6 pointer-events-none"
       >
         <h2 className="text-5xl md:text-7xl font-bold text-white drop-shadow-2xl">
           {t('video.title')}
         </h2>
-      </div>
-
-      {/* Indicateur de scroll */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="flex flex-col items-center text-white animate-bounce">
-          <span className="text-sm mb-2">{t('hero.scroll.discover')}</span>
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
-        </div>
       </div>
     </section>
   );
