@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { WhatsAppButton } from '@/components/whatsapp-button';
+import Chatbot from '@/components/chatbot';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -71,6 +72,8 @@ export default function RootLayout({
             phoneNumber="33612345678" 
             language="fr"
           />
+          {/* Chatbot NeuraWeb */}
+          <Chatbot language="fr" />
         </ThemeProvider>
       </body>
     </html>

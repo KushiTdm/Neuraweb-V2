@@ -40,6 +40,7 @@
     "@radix-ui/react-toggle": "^1.1.0",
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
+    "@react-three/fiber": "^8.15.0",
     "@supabase/supabase-js": "^2.58.0",
     "@types/node": "20.6.2",
     "@types/react": "18.2.22",
@@ -71,6 +72,7 @@
     "three": "^0.182.0",
     "typescript": "5.2.2",
     "vaul": "^0.9.9",
+    "z-ai-web-dev-sdk": "^0.0.16",
     "zod": "^3.23.8"
   },
   "devDependencies": {

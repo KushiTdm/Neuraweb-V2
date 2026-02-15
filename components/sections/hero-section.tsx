@@ -6,8 +6,8 @@ import { ArrowRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 // Import dynamique pour éviter les erreurs SSR avec Three.js
-const HeroThreeBackground = dynamic(
-  () => import('@/components/hero-three-background').then((mod) => ({ default: mod.HeroThreeBackground })),
+const ThreeBackground = dynamic(
+  () => import('@/components/three-background').then((mod) => ({ default: mod.ThreeBackground })),
   { ssr: false }
 );
 
@@ -28,7 +28,7 @@ export function HeroSection({
     setMounted(true);
   }, []);
   
-  // Traductions (à remplacer par ton système de traduction)
+  // Traductions
   const t = (key: string): string => {
     const translations: Record<string, Record<string, string>> = {
       fr: {
@@ -59,12 +59,15 @@ export function HeroSection({
   };
 
   return (
-    <section className="section-snap relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-900 overflow-hidden">
-      {/* Animation Three.js 3D */}
-      {mounted && <HeroThreeBackground />}
+    <section className="section-snap relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden min-h-screen flex items-center justify-center">
+      {/* Animation Three.js 3D - Fond spatial avec voyage spatial */}
+      {mounted && <ThreeBackground />}
 
-      {/* Particules d'arrière-plan */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Overlay gradient pour améliorer la lisibilité */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/20 to-slate-900/60 pointer-events-none z-[1]" />
+
+      {/* Particules d'arrière-plan supplémentaires */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-[2]">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
@@ -87,16 +90,16 @@ export function HeroSection({
           }}
         >
           {/* Titre principal */}
-          <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6 animate-on-scroll fade-up">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 animate-on-scroll fade-up drop-shadow-2xl">
             {t('hero.main.title')}{' '}
-            <span className="gradient-text">
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-pulse">
               {t('hero.title.highlight')}
             </span>{' '}
             {t('hero.title.end')}
           </h1>
 
           {/* Sous-titre */}
-          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto animate-on-scroll fade-up delay-200">
+          <p className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto animate-on-scroll fade-up delay-200 drop-shadow-lg">
             {t('hero.subtitle')}
           </p>
 
@@ -104,28 +107,46 @@ export function HeroSection({
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll fade-up delay-400">
             <button
               onClick={handleStartProject}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-8 py-4 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center group"
+              className="bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white font-semibold px-8 py-4 rounded-full hover:shadow-2xl hover:shadow-purple-500/50 transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center group relative overflow-hidden"
               aria-label={t('hero.cta.start')}
             >
-              <span>{t('hero.cta.start')}</span>
-              <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" />
+              {/* Effet de brillance au hover */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+              <span className="relative z-10">{t('hero.cta.start')}</span>
+              <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform relative z-10" />
             </button>
             
             <Link 
               href="/services" 
-              className="border-2 border-purple-600 text-purple-600 dark:text-purple-400 dark:border-purple-400 font-semibold px-8 py-4 rounded-full hover:bg-purple-600 hover:text-white dark:hover:bg-purple-500 dark:hover:border-purple-500 transition-all duration-300 inline-flex items-center justify-center"
+              className="border-2 border-cyan-400 text-cyan-300 hover:text-white font-semibold px-8 py-4 rounded-full hover:bg-cyan-500/20 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 inline-flex items-center justify-center backdrop-blur-sm"
             >
               {t('hero.cta.services')}
             </Link>
           </div>
+
+          {/* Badges de confiance */}
+          <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-gray-300 animate-on-scroll fade-up delay-500">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              <span>100% Satisfaction</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
+              <span>Support 24/7</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse" />
+              <span>Technologies Modernes</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Indicateur de scroll (optionnel) */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      {/* Indicateur de scroll animé */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
         <button
           onClick={handleStartProject}
-          className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+          className="text-cyan-400 hover:text-cyan-300 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 rounded-full p-2"
           aria-label="Scroll to next section"
         >
           <svg
