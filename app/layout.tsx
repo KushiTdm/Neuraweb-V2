@@ -3,7 +3,9 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
+import Chatbot from '@/components/chatbot';
 import { WhatsAppButton } from '@/components/whatsapp-button';
+
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -69,7 +71,9 @@ export default function RootLayout({
           <LanguageProvider>
             {children}
             {/* Bouton WhatsApp flottant sur toutes les pages */}
-            <WhatsAppButton phoneNumber="33612345678" />
+             {/*<WhatsAppButton phoneNumber="33612345678" />*/}
+             {/* Chatbot NeuraWeb */}
+          <Chatbot language="fr" />
           </LanguageProvider>
         </ThemeProvider>
       </body>
