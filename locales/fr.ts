@@ -1,5 +1,6 @@
 // Traductions françaises
 export const fr = {
+
   // Chatbot
   'chatbot.title': 'Assistant NeuraWeb',
   'chatbot.greeting': "Bonjour ! 👋 Je suis l'assistant NeuraWeb. Comment puis-je vous aider aujourd'hui ? N'hésitez pas à me poser vos questions sur nos services de développement web, d'automatisation ou d'intégration IA.",
@@ -12,6 +13,14 @@ export const fr = {
   'chatbot.contact': 'Contactez-nous directement',
   'chatbot.footer': 'Propulsé par',
   'chatbot.error.general': 'Une erreur est survenue',
+  'chatbot.online': 'En ligne',
+  'chatbot.booking.title': 'Réserver un rendez-vous',
+  'chatbot.booking.selectDate': 'Sélectionnez une date',
+  'chatbot.booking.selectTime': 'Sélectionnez une heure',
+  'chatbot.booking.confirm': 'Confirmer la réservation',
+  'chatbot.booking.confirmed': '✅ Votre rendez-vous est confirmé pour le {date} à {time}. Nous vous enverrons un rappel par email 24h avant.',
+  'chatbot.booking.prompt': 'Voici nos créneaux disponibles. Sélectionnez une date et une heure qui vous conviennent :',
+  'chatbot.error.booking': 'Une erreur est survenue lors de la réservation. Veuillez réessayer ou nous contacter directement.',
 
   // Navigation
   'nav.home': 'Accueil',

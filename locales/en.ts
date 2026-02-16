@@ -2,6 +2,7 @@ import type { TranslationKey } from './fr';
 
 // English translations
 export const en: Record<TranslationKey, string> = {
+
   // Chatbot
   'chatbot.title': 'NeuraWeb Assistant',
   'chatbot.greeting': 'Hello! 👋 I\'m the NeuraWeb assistant. How can I help you today? Feel free to ask me questions about our web development, automation or AI integration services.',
@@ -14,6 +15,14 @@ export const en: Record<TranslationKey, string> = {
   'chatbot.contact': 'Contact us directly',
   'chatbot.footer': 'Powered by',
   'chatbot.error.general': 'An error occurred',
+  'chatbot.online': 'Online',
+  'chatbot.booking.title': 'Book an appointment',
+  'chatbot.booking.selectDate': 'Select a date',
+  'chatbot.booking.selectTime': 'Select a time',
+  'chatbot.booking.confirm': 'Confirm booking',
+  'chatbot.booking.confirmed': '✅ Your appointment is confirmed for {date} at {time}. We will send you a reminder email 24 hours before.',
+  'chatbot.booking.prompt': 'Here are our available slots. Select a date and time that works for you:',
+  'chatbot.error.booking': 'An error occurred during booking. Please try again or contact us directly.',
 
   // Navigation
   'nav.home': 'Home',

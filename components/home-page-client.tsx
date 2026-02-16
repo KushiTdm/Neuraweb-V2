@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { HeroSection } from '@/components/sections/hero-section';
 
-// Dynamic imports pour code splitting
-const VideoScrollSection = dynamic(
+const VideoOverlay = dynamic(
   () => import('@/components/sections/video-scroll-section').then((mod) => ({ default: mod.VideoScrollSection })),
   { ssr: false }
 );
@@ -12,24 +12,18 @@ const VideoScrollSection = dynamic(
 const ServicesSection = dynamic(
   () => import('@/components/sections/services-section').then((mod) => ({ default: mod.ServicesSection }))
 );
-
 const AboutSection = dynamic(
   () => import('@/components/sections/about-section').then((mod) => ({ default: mod.AboutSection }))
 );
-
 const PortfolioSection = dynamic(
   () => import('@/components/sections/portfolio-section').then((mod) => ({ default: mod.PortfolioSection }))
 );
-
 const TestimonialsSection = dynamic(
   () => import('@/components/sections/testimonials-section').then((mod) => ({ default: mod.TestimonialsSection }))
 );
-
 const CTASection = dynamic(
   () => import('@/components/sections/cta-section').then((mod) => ({ default: mod.CTASection }))
 );
-
-import { HeroSection } from '@/components/sections/hero-section';
 
 export function HomePageClient() {
   const [mounted, setMounted] = useState(false);
@@ -45,33 +39,24 @@ export function HomePageClient() {
         y: (e.clientY / window.innerHeight - 0.5) * 20,
       });
     };
-
     window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
 
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px',
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-        }
-      });
-    }, observerOptions);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('animate-in');
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
+    );
 
     const elements = document.querySelectorAll('.fade-up, .fade-left, .fade-right');
     elements.forEach((el) => observer.observe(el));
-
     return () => observer.disconnect();
   }, [mounted]);
 
@@ -88,29 +73,22 @@ export function HomePageClient() {
   }
 
   return (
-    <main className="homepage-container">
-      {/* 1. Video Hero Section (première chose visible) */}
-      <VideoScrollSection />
-      
-      {/* 2. Hero Section avec texte et boutons */}
-      <HeroSection mousePosition={mousePosition} onScrollToNext={scrollToServices} />
-      
-      {/* 3. Services Section */}
-      <div ref={servicesRef}>
-        <ServicesSection />
-      </div>
-      
-      {/* 4. About Section */}
-      <AboutSection />
-      
-      {/* 5. Portfolio Section */}
-      <PortfolioSection />
-      
-      {/* 6. Testimonials Section */}
-      <TestimonialsSection />
-      
-      {/* 7. CTA Section */}
-      <CTASection />
-    </main>
+    <>
+      {/* Video intro fixed overlay — fades out, reveals the page underneath */}
+      <VideoOverlay />
+
+      <main className="homepage-container">
+        <HeroSection mousePosition={mousePosition} onScrollToNext={scrollToServices} />
+
+        <div ref={servicesRef}>
+          <ServicesSection />
+        </div>
+
+        <AboutSection />
+        <PortfolioSection />
+        <TestimonialsSection />
+        <CTASection />
+      </main>
+    </>
   );
 }
