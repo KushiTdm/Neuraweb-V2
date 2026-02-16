@@ -3,12 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Sun, Moon, Globe, User, LogOut } from 'lucide-react';
+import { Menu, X, Sun, Moon, User, LogOut } from 'lucide-react';
 import { useTheme } from '@/components/theme-provider';
+import { useTranslation } from '@/hooks/use-translation';
+import { LanguageSelector } from '@/components/language-selector';
 import Image from 'next/image';
 
 interface HeaderProps {
-  // Props pour l'authentification (à connecter plus tard avec ton système backend)
   isAuthenticated?: boolean;
   user?: {
     name?: string;
@@ -25,18 +26,13 @@ export function Header({
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [language, setLanguage] = useState<'fr' | 'en'>('fr');
   const { isDark, toggleTheme } = useTheme();
+  const { t } = useTranslation();
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  const toggleLanguage = () => {
-    setLanguage(prev => prev === 'en' ? 'fr' : 'en');
-    // TODO: Connecter avec ton système de traduction
-  };
 
   const handleLogout = () => {
     onLogout?.();
@@ -60,33 +56,6 @@ export function Header({
 
   const isHomePage = pathname === '/';
 
-  // Traductions basiques (à remplacer par ton système de traduction)
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      fr: {
-        'nav.home': 'Accueil',
-        'nav.services': 'Services',
-        'nav.booking': 'Réserver',
-        'nav.login': 'Connexion',
-        'nav.logout': 'Déconnexion',
-        'header.toggle.theme': 'Changer de thème',
-        'header.toggle.language': 'Changer de langue',
-        'header.toggle.menu': 'Menu',
-      },
-      en: {
-        'nav.home': 'Home',
-        'nav.services': 'Services',
-        'nav.booking': 'Book',
-        'nav.login': 'Login',
-        'nav.logout': 'Logout',
-        'header.toggle.theme': 'Toggle theme',
-        'header.toggle.language': 'Change language',
-        'header.toggle.menu': 'Menu',
-      },
-    };
-    return translations[language][key] || key;
-  };
-
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled || !isHomePage
@@ -105,11 +74,9 @@ export function Header({
               priority
               className="h-14 w-auto object-contain"
               onError={(e) => {
-                // Fallback en cas d'erreur de chargement
                 e.currentTarget.style.display = 'none';
               }}
             />
-            {/* Fallback logo si l'image ne charge pas */}
             <noscript>
               <div className="h-14 w-14 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">NW</span>
@@ -200,15 +167,8 @@ export function Header({
               {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             
-            {/* Language Toggle */}
-            <button
-              onClick={toggleLanguage}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center space-x-1"
-              aria-label={t('header.toggle.language')}
-            >
-              <Globe size={20} />
-              <span className="text-sm font-medium">{language.toUpperCase()}</span>
-            </button>
+            {/* Language Selector */}
+            <LanguageSelector />
 
             {/* Mobile menu button */}
             <button
@@ -225,7 +185,6 @@ export function Header({
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
             <nav className="flex flex-col space-y-4">
-              {/* Navigation Links */}
               <Link
                 href="/"
                 onClick={() => setIsMenuOpen(false)}
@@ -256,7 +215,6 @@ export function Header({
                 {t('nav.booking')}
               </Link>
 
-              {/* Mobile Authentication Section */}
               {isAuthenticated ? (
                 <>
                   <div className="pt-4 border-t border-gray-200 dark:border-gray-700">

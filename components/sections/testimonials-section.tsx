@@ -3,22 +3,21 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Star, CheckCircle } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
+import type { TranslationKey } from '@/locales';
 
 interface Testimonial {
-  nameKey: string;
-  companyKey: string;
-  textKey: string;
+  nameKey: TranslationKey;
+  companyKey: TranslationKey;
+  textKey: TranslationKey;
   rating: number;
   avatar: string;
 }
 
-interface TestimonialsSectionProps {
-  language?: 'fr' | 'en';
-}
-
-export function TestimonialsSection({ language = 'fr' }: TestimonialsSectionProps) {
+export function TestimonialsSection() {
   const [mounted, setMounted] = useState(false);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const { t } = useTranslation();
 
   const testimonials: Testimonial[] = [
     {
@@ -44,47 +43,10 @@ export function TestimonialsSection({ language = 'fr' }: TestimonialsSectionProp
     },
   ];
 
-  // Traductions
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      fr: {
-        'testimonials.title': 'Ce que disent nos clients',
-        'testimonials.subtitle': 'Découvrez les retours d\'expérience de nos clients satisfaits',
-        'testimonials.viewTestimonial': 'Voir le témoignage',
-        'testimonials.marie.name': 'Marie Dupont',
-        'testimonials.marie.company': 'CEO, TechStart',
-        'testimonials.marie.text': 'NeuraWeb a transformé notre vision en une plateforme web exceptionnelle. Leur expertise technique et leur approche créative ont dépassé toutes nos attentes.',
-        'testimonials.jean.name': 'Jean Martin',
-        'testimonials.jean.company': 'Fondateur, E-Shop Plus',
-        'testimonials.jean.text': 'Un travail remarquable sur notre site e-commerce. L\'équipe est réactive, professionnelle et livre toujours dans les délais. Je recommande vivement !',
-        'testimonials.sophie.name': 'Sophie Chen',
-        'testimonials.sophie.company': 'Directrice Marketing, InnovLab',
-        'testimonials.sophie.text': 'L\'intégration IA réalisée par NeuraWeb a révolutionné nos processus. Leur accompagnement et leur disponibilité sont irréprochables.',
-      },
-      en: {
-        'testimonials.title': 'What our clients say',
-        'testimonials.subtitle': 'Discover the experiences of our satisfied clients',
-        'testimonials.viewTestimonial': 'View testimonial',
-        'testimonials.marie.name': 'Marie Dupont',
-        'testimonials.marie.company': 'CEO, TechStart',
-        'testimonials.marie.text': 'NeuraWeb transformed our vision into an exceptional web platform. Their technical expertise and creative approach exceeded all our expectations.',
-        'testimonials.jean.name': 'Jean Martin',
-        'testimonials.jean.company': 'Founder, E-Shop Plus',
-        'testimonials.jean.text': 'Remarkable work on our e-commerce site. The team is responsive, professional and always delivers on time. Highly recommend!',
-        'testimonials.sophie.name': 'Sophie Chen',
-        'testimonials.sophie.company': 'Marketing Director, InnovLab',
-        'testimonials.sophie.text': 'The AI integration done by NeuraWeb revolutionized our processes. Their support and availability are impeccable.',
-      },
-    };
-    return translations[language][key] || key;
-  };
-
-  // Mounted state
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Autoplay
   useEffect(() => {
     if (!mounted) return;
 

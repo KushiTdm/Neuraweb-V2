@@ -2,41 +2,21 @@
 
 import { useState, useEffect } from 'react';
 import { MessageCircle, X } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
 interface WhatsAppButtonProps {
   phoneNumber?: string; 
   message?: string;
-  language?: 'fr' | 'en';
 }
 
 export function WhatsAppButton({ 
   phoneNumber = '33749775654', 
   message,
-  language = 'fr' 
 }: WhatsAppButtonProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
 
-  // Traductions
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      fr: {
-        'whatsapp.tooltip': 'Contactez-nous sur WhatsApp',
-        'whatsapp.greeting': '👋 Bonjour ! Comment pouvons-nous vous aider ?',
-        'whatsapp.button': 'Démarrer la conversation',
-        'whatsapp.close': 'Fermer',
-      },
-      en: {
-        'whatsapp.tooltip': 'Contact us on WhatsApp',
-        'whatsapp.greeting': '👋 Hello! How can we help you?',
-        'whatsapp.button': 'Start conversation',
-        'whatsapp.close': 'Close',
-      },
-    };
-    return translations[language][key] || key;
-  };
-
-  // Afficher le bouton après un petit délai (meilleure UX)
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -71,7 +51,7 @@ export function WhatsAppButton({
               </div>
               <div className="text-white">
                 <div className="font-bold">NeuraWeb</div>
-                <div className="text-xs opacity-90">En ligne</div>
+                <div className="text-xs opacity-90">{t('whatsapp.online') || 'En ligne'}</div>
               </div>
             </div>
             <button
@@ -90,7 +70,7 @@ export function WhatsAppButton({
                 {t('whatsapp.greeting')}
               </p>
               <div className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                {new Date().toLocaleTimeString(language === 'fr' ? 'fr-FR' : 'en-US', {
+                {new Date().toLocaleTimeString('fr-FR', {
                   hour: '2-digit',
                   minute: '2-digit',
                 })}

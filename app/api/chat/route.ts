@@ -1,23 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import ZAI from "z-ai-web-dev-sdk";
 
 // ============================================================
 // CONFIGURATION DU MODÈLE
 // ============================================================
-// Options disponibles (du plus économique au plus performant) :
-// - "haiku"      → Recommandé pour support client (rapide, économique)
-// - "gpt-4o-mini"→ Alternative économique (bonne qualité)
-// - "sonnet"     → Pour réponses plus complexes (coût moyen)
-// - undefined    → Utilise le modèle par défaut du SDK
+// Modèles disponibles Z.AI :
+// - "glm-4-flash"  → Le plus rapide et économique (recommandé pour chatbot)
+// - "glm-4"        → Équilibré
+// - "glm-5"        → Le plus performant
 // ============================================================
-const AI_MODEL = "haiku"; // Modèle le plus économique
+const AI_MODEL = "GLM-4.5-Flash";
 
 // Configuration des protections
 const MAX_MESSAGES_PER_SESSION = 15;
-const MAX_TOKENS = 300; // Limite les tokens de réponse (~200 mots)
-const MIN_MESSAGE_INTERVAL = 2000; // 2 secondes entre messages
+const MAX_TOKENS = 300;
+const MIN_MESSAGE_INTERVAL = 2000;
 
-// Stockage en mémoire pour le rate limiting (en production, utilisez Redis)
+// Stockage en mémoire pour le rate limiting
 const sessionData = new Map<string, { count: number; lastMessage: number }>();
 
 // Contexte business NeuraWeb
@@ -79,23 +77,20 @@ function checkRateLimit(sessionId: string): { allowed: boolean; waitTime?: numbe
     return { allowed: true };
   }
 
-  // Vérifier l'intervalle minimum entre messages
   const timeSinceLastMessage = now - data.lastMessage;
   if (timeSinceLastMessage < MIN_MESSAGE_INTERVAL) {
     return { allowed: false, waitTime: MIN_MESSAGE_INTERVAL - timeSinceLastMessage };
   }
 
-  // Vérifier le nombre max de messages
   if (data.count >= MAX_MESSAGES_PER_SESSION) {
     return { allowed: false };
   }
 
-  // Mettre à jour le compteur
   sessionData.set(sessionId, { count: data.count + 1, lastMessage: now });
   return { allowed: true };
 }
 
-// Nettoyer les anciennes sessions (toutes les 30 minutes)
+// Nettoyer les anciennes sessions
 setInterval(() => {
   const now = Date.now();
   Array.from(sessionData.entries()).forEach(([id, data]) => {
@@ -110,7 +105,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { message, sessionId, history = [] } = body;
 
-    // Validation du message
     if (!message || !isValidMessage(message)) {
       return NextResponse.json(
         { error: "Message invalide. Veuillez entrer entre 2 et 500 caractères." },
@@ -118,7 +112,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Vérifier le sessionId
     if (!sessionId) {
       return NextResponse.json(
         { error: "Session ID requis." },
@@ -126,7 +119,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Rate limiting
     const rateCheck = checkRateLimit(sessionId);
     if (!rateCheck.allowed) {
       if (rateCheck.waitTime) {
@@ -141,15 +133,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Initialiser ZAI
-    const zai = await ZAI.create();
+    const apiKey = process.env.ZAI_API_KEY;
+    if (!apiKey) {
+      console.error("ZAI_API_KEY is not set");
+      return NextResponse.json(
+        { error: "Configuration du service manquante. Veuillez contacter l'administrateur." },
+        { status: 500 }
+      );
+    }
 
-    // Construire l'historique des messages
     const messages: Array<{ role: "system" | "user" | "assistant"; content: string }> = [
       { role: "system", content: NEURAWEB_CONTEXT }
     ];
 
-    // Ajouter l'historique (limiter aux 10 derniers messages)
     const recentHistory = history.slice(-10);
     for (const msg of recentHistory) {
       if (msg.role === "user" || msg.role === "assistant") {
@@ -157,21 +153,35 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Ajouter le message actuel
     messages.push({ role: "user", content: message });
 
-    // Appeler l'IA avec le modèle configuré
-    const completion = await zai.chat.completions.create({
-      model: AI_MODEL,
-      messages,
-      max_tokens: MAX_TOKENS,
-      temperature: 0.7,
+    const response = await fetch("https://api.z.ai/api/paas/v4/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+        "Accept-Language": "fr-FR,fr"
+      },
+      body: JSON.stringify({
+        model: AI_MODEL,
+        messages,
+        max_tokens: MAX_TOKENS,
+        temperature: 0.7,
+        stream: false
+      })
     });
 
-    const responseContent = completion.choices[0]?.message?.content || 
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error("Z.AI API error:", response.status, errorData);
+      throw new Error(`API Z.AI error: ${response.status}`);
+    }
+
+    const completion = await response.json();
+
+    const responseContent = completion.choices?.[0]?.message?.content || 
       "Je suis désolé, je n'ai pas pu traiter votre demande. Veuillez nous contacter directement à contact@neuraweb.tech";
 
-    // Compter les messages restants
     const session = sessionData.get(sessionId);
     const remainingMessages = session ? MAX_MESSAGES_PER_SESSION - session.count : MAX_MESSAGES_PER_SESSION;
 

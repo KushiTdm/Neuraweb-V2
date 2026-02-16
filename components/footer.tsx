@@ -3,40 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslation } from '@/hooks/use-translation';
 
-interface FooterProps {
-  language?: 'fr' | 'en';
-}
-
-export function Footer({ language = 'fr' }: FooterProps) {
-  // Traductions simplifiées (à remplacer par ton système de traduction)
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      fr: {
-        'footer.company.description': 'Solutions web innovantes et automatisation intelligente pour votre entreprise.',
-        'footer.links.title': 'Liens rapides',
-        'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. Tous droits réservés.`,
-        'services.web.title': 'Développement Web',
-        'services.automation.title': 'Automatisation',
-        'services.ai.title': 'Intégration IA',
-        'nav.contact': 'Contact',
-        'nav.quote': 'Devis',
-        'nav.booking': 'Réservation',
-      },
-      en: {
-        'footer.company.description': 'Innovative web solutions and intelligent automation for your business.',
-        'footer.links.title': 'Quick Links',
-        'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. All rights reserved.`,
-        'services.web.title': 'Web Development',
-        'services.automation.title': 'Automation',
-        'services.ai.title': 'AI Integration',
-        'nav.contact': 'Contact',
-        'nav.quote': 'Quote',
-        'nav.booking': 'Booking',
-      },
-    };
-    return translations[language][key] || key;
-  };
+export function Footer() {
+  const { t } = useTranslation();
 
   return (
     <footer className="bg-gray-900/95 backdrop-blur-md border-t border-white/30 shadow-2xl">
@@ -69,7 +39,7 @@ export function Footer({ language = 'fr' }: FooterProps) {
 
           {/* Services */}
           <div className="text-center">
-            <h3 className="text-white font-medium mb-3 text-sm">Services</h3>
+            <h3 className="text-white font-medium mb-3 text-sm">{t('nav.services')}</h3>
             <ul className="space-y-2 text-white text-xs">
               <li className="hover:text-gray-200 transition-colors cursor-default">
                 {t('services.web.title')}

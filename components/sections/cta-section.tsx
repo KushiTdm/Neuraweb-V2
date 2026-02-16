@@ -3,36 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { Clock, Target, Sparkles, TrendingUp, Shield, Headphones } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
-interface CTASectionProps {
-  language?: 'fr' | 'en';
-}
-
-export function CTASection({ language = 'fr' }: CTASectionProps) {
-  // Traductions
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      fr: {
-        'cta.title': 'Prêt à transformer votre vision en réalité ?',
-        'cta.subtitle': 'Rejoignez les entreprises qui ont choisi l\'excellence digitale avec NeuraWeb',
-        'cta.bookCall': 'Réserver un appel',
-        'cta.requestQuote': 'Demander un devis',
-        'cta.guaranteedGrowth': 'Croissance garantie',
-        'cta.secure': '100% Sécurisé',
-        'cta.dedicatedSupport': 'Support dédié',
-      },
-      en: {
-        'cta.title': 'Ready to transform your vision into reality?',
-        'cta.subtitle': 'Join businesses that have chosen digital excellence with NeuraWeb',
-        'cta.bookCall': 'Book a call',
-        'cta.requestQuote': 'Request a quote',
-        'cta.guaranteedGrowth': 'Guaranteed growth',
-        'cta.secure': '100% Secure',
-        'cta.dedicatedSupport': 'Dedicated support',
-      },
-    };
-    return translations[language][key] || key;
-  };
+export function CTASection() {
+  const { t } = useTranslation();
 
   return (
     <section className="section-snap bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white relative overflow-hidden min-h-screen flex items-center justify-center">

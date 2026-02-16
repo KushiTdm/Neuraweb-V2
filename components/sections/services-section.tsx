@@ -3,17 +3,15 @@
 import React from 'react';
 import Image from 'next/image';
 import { Code, Bot, Brain, LucideIcon } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
+import type { TranslationKey } from '@/locales';
 
 interface Service {
   icon: LucideIcon;
-  titleKey: string;
-  descKey: string;
+  titleKey: TranslationKey;
+  descKey: TranslationKey;
   color: string;
   screenshot: string;
-}
-
-interface ServicesSectionProps {
-  language?: 'fr' | 'en';
 }
 
 const services: Service[] = [
@@ -40,33 +38,8 @@ const services: Service[] = [
   },
 ];
 
-export function ServicesSection({ language = 'fr' }: ServicesSectionProps) {
-  // Traductions
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      fr: {
-        'services.section.title': 'Nos Services',
-        'services.section.subtitle': 'Des solutions sur mesure pour transformer votre présence digitale et automatiser vos processus métier',
-        'services.web.title': 'Développement Web',
-        'services.web.desc': 'Sites web et applications modernes, performants et évolutifs construits avec les dernières technologies.',
-        'services.automation.title': 'Automatisation',
-        'services.automation.desc': 'Optimisez vos processus métier avec des solutions d\'automatisation intelligentes qui vous font gagner du temps.',
-        'services.ai.title': 'Intégration IA',
-        'services.ai.desc': 'Exploitez la puissance de l\'intelligence artificielle pour améliorer vos services et prendre de meilleures décisions.',
-      },
-      en: {
-        'services.section.title': 'Our Services',
-        'services.section.subtitle': 'Tailored solutions to transform your digital presence and automate your business processes',
-        'services.web.title': 'Web Development',
-        'services.web.desc': 'Modern, performant and scalable websites and applications built with the latest technologies.',
-        'services.automation.title': 'Automation',
-        'services.automation.desc': 'Optimize your business processes with intelligent automation solutions that save you time.',
-        'services.ai.title': 'AI Integration',
-        'services.ai.desc': 'Harness the power of artificial intelligence to improve your services and make better decisions.',
-      },
-    };
-    return translations[language][key] || key;
-  };
+export function ServicesSection() {
+  const { t } = useTranslation();
 
   return (
     <section className="section-snap bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 py-20">
@@ -102,7 +75,7 @@ export function ServicesSection({ language = 'fr' }: ServicesSectionProps) {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
                     className="object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-300"
                     quality={75}
-                    priority={index === 0} // Première image en priorité
+                    priority={index === 0}
                   />
                   <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-900/70 backdrop-blur-sm" />
                 </div>

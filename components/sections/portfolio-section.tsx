@@ -4,10 +4,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, X, Loader2, ExternalLink } from 'lucide-react';
 import { gsap } from '@/lib/gsap-setup';
+import { useTranslation } from '@/hooks/use-translation';
+import type { TranslationKey } from '@/locales';
 
 interface Project {
-  titleKey: string;
-  descriptionKey: string;
+  titleKey: TranslationKey;
+  descriptionKey: TranslationKey;
   image: string;
   gif: string;
   gifType: 'gif' | 'webm';
@@ -15,10 +17,6 @@ interface Project {
   category: string;
   url?: string;
   ariaLabel?: string;
-}
-
-interface PortfolioSectionProps {
-  language?: 'fr' | 'en';
 }
 
 const portfolio: Project[] = [
@@ -75,79 +73,23 @@ const portfolio: Project[] = [
   },
 ];
 
-export function PortfolioSection({ language = 'fr' }: PortfolioSectionProps) {
+export function PortfolioSection() {
   const [mounted, setMounted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [gifLoading, setGifLoading] = useState(false);
   const [gifLoaded, setGifLoaded] = useState(false);
+  const { t } = useTranslation();
   
   const carouselRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Traductions
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      fr: {
-        'portfolio.section.title.start': 'Nos',
-        'portfolio.section.title.highlight': 'Réalisations',
-        'portfolio.section.subtitle': 'Découvrez nos projets les plus récents et innovants',
-        'portfolio.carousel.label': 'Carrousel de projets portfolio',
-        'portfolio.card.clickToView': 'Cliquer pour voir',
-        'portfolio.nav.previous': 'Projet précédent',
-        'portfolio.nav.next': 'Projet suivant',
-        'portfolio.nav.goto': 'Aller au projet',
-        'portfolio.modal.close': 'Fermer',
-        'portfolio.modal.loading': 'Chargement...',
-        'portfolio.modal.technologies': 'Technologies',
-        'portfolio.modal.view': 'Voir le projet',
-        'portfolio.ecommerce.title': 'Plateforme E-commerce',
-        'portfolio.ecommerce.description': 'Solution e-commerce complète avec paiement Stripe et gestion des commandes',
-        'portfolio.fitness.title': 'Application Fitness',
-        'portfolio.fitness.description': 'Application mobile pour le suivi fitness et nutrition',
-        'portfolio.beauty.title': 'Site Beauté Premium',
-        'portfolio.beauty.description': 'Site vitrine élégant pour une marque de cosmétiques',
-        'portfolio.booking.title': 'Système de Réservation',
-        'portfolio.booking.description': 'Plateforme de prise de rendez-vous en ligne',
-        'portfolio.hotel.title': 'Site Hôtelier',
-        'portfolio.hotel.description': 'Site web pour hôtel avec système de réservation',
-      },
-      en: {
-        'portfolio.section.title.start': 'Our',
-        'portfolio.section.title.highlight': 'Projects',
-        'portfolio.section.subtitle': 'Discover our most recent and innovative projects',
-        'portfolio.carousel.label': 'Portfolio projects carousel',
-        'portfolio.card.clickToView': 'Click to view',
-        'portfolio.nav.previous': 'Previous project',
-        'portfolio.nav.next': 'Next project',
-        'portfolio.nav.goto': 'Go to project',
-        'portfolio.modal.close': 'Close',
-        'portfolio.modal.loading': 'Loading...',
-        'portfolio.modal.technologies': 'Technologies',
-        'portfolio.modal.view': 'View project',
-        'portfolio.ecommerce.title': 'E-commerce Platform',
-        'portfolio.ecommerce.description': 'Complete e-commerce solution with Stripe payment and order management',
-        'portfolio.fitness.title': 'Fitness App',
-        'portfolio.fitness.description': 'Mobile app for fitness and nutrition tracking',
-        'portfolio.beauty.title': 'Premium Beauty Site',
-        'portfolio.beauty.description': 'Elegant showcase site for a cosmetics brand',
-        'portfolio.booking.title': 'Booking System',
-        'portfolio.booking.description': 'Online appointment booking platform',
-        'portfolio.hotel.title': 'Hotel Website',
-        'portfolio.hotel.description': 'Hotel website with booking system',
-      },
-    };
-    return translations[language][key] || key;
-  };
-
-  // Mounted state
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Bloquer le scroll quand la modal est ouverte
   useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
@@ -160,7 +102,6 @@ export function PortfolioSection({ language = 'fr' }: PortfolioSectionProps) {
     };
   }, [selectedProject]);
 
-  // Animations GSAP
   useEffect(() => {
     if (!mounted) return;
 
@@ -172,14 +113,12 @@ export function PortfolioSection({ language = 'fr' }: PortfolioSectionProps) {
     });
   }, [mounted]);
 
-  // Update carousel on index change
   useEffect(() => {
     if (mounted && cardsRef.current.length > 0) {
       updateCarousel();
     }
   }, [currentIndex, mounted]);
 
-  // Autoplay
   useEffect(() => {
     if (!mounted || !isAutoPlay) return;
 
@@ -497,7 +436,7 @@ export function PortfolioSection({ language = 'fr' }: PortfolioSectionProps) {
                     fill
                     sizes="(max-width: 1024px) 100vw, 60vw"
                     className="object-cover animate-fadeIn"
-                    unoptimized // GIFs need unoptimized
+                    unoptimized
                   />
                 )}
 

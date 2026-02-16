@@ -2,10 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-
-interface AboutSectionProps {
-  language?: 'fr' | 'en';
-}
+import { useTranslation } from '@/hooks/use-translation';
 
 const technologies = [
   'React',
@@ -18,27 +15,8 @@ const technologies = [
   'PostgreSQL',
 ] as const;
 
-export function AboutSection({ language = 'fr' }: AboutSectionProps) {
-  // Traductions
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      fr: {
-        'about.title': 'À propos de NeuraWeb',
-        'about.description': 'Nous sommes une équipe passionnée de développeurs et d\'experts en IA dédiés à transformer vos idées en solutions digitales innovantes. Notre approche combine expertise technique, créativité et engagement pour livrer des projets qui dépassent vos attentes.',
-        'about.image.alt': 'Équipe NeuraWeb en collaboration',
-        'about.stat.projects': 'Satisfaction client',
-        'about.stat.support': 'Support disponible',
-      },
-      en: {
-        'about.title': 'About NeuraWeb',
-        'about.description': 'We are a passionate team of developers and AI experts dedicated to transforming your ideas into innovative digital solutions. Our approach combines technical expertise, creativity and commitment to deliver projects that exceed your expectations.',
-        'about.image.alt': 'NeuraWeb team collaborating',
-        'about.stat.projects': 'Client satisfaction',
-        'about.stat.support': 'Support available',
-      },
-    };
-    return translations[language][key] || key;
-  };
+export function AboutSection() {
+  const { t } = useTranslation();
 
   return (
     <section className="section-snap bg-white dark:bg-gray-900 py-20">
