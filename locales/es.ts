@@ -2,6 +2,19 @@ import type { TranslationKey } from './fr';
 
 // Spanish translations
 export const es: Record<TranslationKey, string> = {
+  // Chatbot
+  'chatbot.title': 'Asistente NeuraWeb',
+  'chatbot.greeting': '¡Hola! 👋 Soy el asistente NeuraWeb. ¿Cómo puedo ayudarte hoy? No dudes en hacerme preguntas sobre nuestros servicios de desarrollo web, automatización o integración de IA.',
+  'chatbot.placeholder': 'Haz tu pregunta...',
+  'chatbot.send': 'Enviar',
+  'chatbot.close': 'Cerrar chat',
+  'chatbot.open': 'Abrir chat',
+  'chatbot.remaining': 'mensajes restantes',
+  'chatbot.limit': 'Límite de mensajes alcanzado',
+  'chatbot.contact': 'Contáctenos directamente',
+  'chatbot.footer': 'Desarrollado por',
+  'chatbot.error.general': 'Se produjo un error',
+
   // Navigation
   'nav.home': 'Inicio',
   'nav.services': 'Servicios',
@@ -169,7 +182,7 @@ export const es: Record<TranslationKey, string> = {
   'servicePage.cta.title.word4': 'tu',
   'servicePage.cta.title.word5': 'proyecto',
   'servicePage.cta.title.word6': 'con nosotros?',
-  'servicePage.cta.title.word7': '', // Pas utilisé en espagnol
+  'servicePage.cta.title.word7': '',
   'servicePage.cta.subtitle': 'Hablemos de tus objetivos y transformemos tu visión en realidad',
   'servicePage.cta.button': 'Solicitar presupuesto',
   'servicePage.cta.feature1': 'Respuesta en 24h',

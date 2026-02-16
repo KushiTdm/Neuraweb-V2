@@ -1,5 +1,18 @@
 // Traductions françaises
 export const fr = {
+  // Chatbot
+  'chatbot.title': 'Assistant NeuraWeb',
+  'chatbot.greeting': "Bonjour ! 👋 Je suis l'assistant NeuraWeb. Comment puis-je vous aider aujourd'hui ? N'hésitez pas à me poser vos questions sur nos services de développement web, d'automatisation ou d'intégration IA.",
+  'chatbot.placeholder': 'Posez votre question...',
+  'chatbot.send': 'Envoyer',
+  'chatbot.close': 'Fermer le chat',
+  'chatbot.open': 'Ouvrir le chat',
+  'chatbot.remaining': 'messages restants',
+  'chatbot.limit': 'Limite de messages atteinte',
+  'chatbot.contact': 'Contactez-nous directement',
+  'chatbot.footer': 'Propulsé par',
+  'chatbot.error.general': 'Une erreur est survenue',
+
   // Navigation
   'nav.home': 'Accueil',
   'nav.services': 'Services',

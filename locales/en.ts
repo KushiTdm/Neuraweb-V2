@@ -2,6 +2,19 @@ import type { TranslationKey } from './fr';
 
 // English translations
 export const en: Record<TranslationKey, string> = {
+  // Chatbot
+  'chatbot.title': 'NeuraWeb Assistant',
+  'chatbot.greeting': 'Hello! 👋 I\'m the NeuraWeb assistant. How can I help you today? Feel free to ask me questions about our web development, automation or AI integration services.',
+  'chatbot.placeholder': 'Ask your question...',
+  'chatbot.send': 'Send',
+  'chatbot.close': 'Close chat',
+  'chatbot.open': 'Open chat',
+  'chatbot.remaining': 'messages remaining',
+  'chatbot.limit': 'Message limit reached',
+  'chatbot.contact': 'Contact us directly',
+  'chatbot.footer': 'Powered by',
+  'chatbot.error.general': 'An error occurred',
+
   // Navigation
   'nav.home': 'Home',
   'nav.services': 'Services',
@@ -169,7 +182,7 @@ export const en: Record<TranslationKey, string> = {
   'servicePage.cta.title.word4': 'your',
   'servicePage.cta.title.word5': 'project',
   'servicePage.cta.title.word6': 'with us?',
-  'servicePage.cta.title.word7': '', // Pas utilisé en anglais
+  'servicePage.cta.title.word7': '',
   'servicePage.cta.subtitle': 'Let\'s discuss your goals and turn your vision into reality',
   'servicePage.cta.button': 'Request a quote',
   'servicePage.cta.feature1': 'Response within 24h',

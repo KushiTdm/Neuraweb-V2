@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { MessageCircle, X, Send, Bot, User, Loader2, AlertCircle } from 'lucide-react'
+import { X, Send, Bot, User, Loader2, AlertCircle } from 'lucide-react'
+import { useTranslation } from '@/hooks/use-translation'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -20,55 +21,62 @@ function generateSessionId(): string {
   return `session_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`
 }
 
-interface ChatbotProps {
-  language?: 'fr' | 'en'
-}
+// Icône Robot IA personnalisée
+const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    className={className}
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="4" y="8" width="16" height="12" rx="2"/>
+    <path d="M2 12h2"/>
+    <path d="M20 12h2"/>
+    <path d="M8 4h8"/>
+    <circle cx="9" cy="13" r="1"/>
+    <circle cx="15" cy="13" r="1"/>
+    <path d="M9 17h6"/>
+  </svg>
+)
 
-export default function Chatbot({ language = 'fr' }: ChatbotProps) {
+export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: language === 'fr' 
-        ? "Bonjour ! 👋 Je suis l'assistant NeuraWeb. Comment puis-je vous aider aujourd'hui ? N'hésitez pas à me poser vos questions sur nos services de développement web, d'automatisation ou d'intégration IA."
-        : "Hello! 👋 I'm the NeuraWeb assistant. How can I help you today? Feel free to ask me questions about our web development, automation or AI integration services."
-    }
-  ])
+  const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [remainingMessages, setRemainingMessages] = useState(15)
   const [sessionId] = useState(generateSessionId)
+  const [mounted, setMounted] = useState(false)
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const previousGreetingRef = useRef<string>('')
+  
+  const { t, language } = useTranslation()
 
-  // Traductions
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      fr: {
-        'chatbot.placeholder': 'Posez votre question...',
-        'chatbot.send': 'Envoyer',
-        'chatbot.close': 'Fermer le chat',
-        'chatbot.open': 'Ouvrir le chat',
-        'chatbot.remaining': 'messages restants',
-        'chatbot.limit': 'Limite de messages atteinte',
-        'chatbot.contact': 'Contactez-nous directement',
-        'chatbot.footer': 'Propulsé par',
-      },
-      en: {
-        'chatbot.placeholder': 'Ask your question...',
-        'chatbot.send': 'Send',
-        'chatbot.close': 'Close chat',
-        'chatbot.open': 'Open chat',
-        'chatbot.remaining': 'messages remaining',
-        'chatbot.limit': 'Message limit reached',
-        'chatbot.contact': 'Contact us directly',
-        'chatbot.footer': 'Powered by',
-      },
+  // Message de bienvenue - se met à jour quand la langue change
+  useEffect(() => {
+    if (mounted) {
+      const greeting = t('chatbot.greeting')
+      // Mettre à jour seulement si le message a changé
+      if (greeting !== previousGreetingRef.current) {
+        previousGreetingRef.current = greeting
+        setMessages([{
+          role: 'assistant',
+          content: greeting
+        }])
+      }
     }
-    return translations[language][key] || key
-  }
+  }, [mounted, language, t])
+
+  // Mounted state
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Scroll automatique vers le bas
   const scrollToBottom = useCallback(() => {
@@ -104,14 +112,15 @@ export default function Chatbot({ language = 'fr' }: ChatbotProps) {
         body: JSON.stringify({
           message: userMessage,
           sessionId,
-          history: messages
+          history: messages,
+          language: language // Envoi de la langue du client
         })
       })
 
       const data: ChatResponse = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Une erreur est survenue')
+        throw new Error(data.error || t('chatbot.error.general'))
       }
 
       // Ajouter la réponse de l'assistant
@@ -119,7 +128,7 @@ export default function Chatbot({ language = 'fr' }: ChatbotProps) {
       setRemainingMessages(data.remainingMessages)
 
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Une erreur est survenue'
+      const errorMessage = err instanceof Error ? err.message : t('chatbot.error.general')
       setError(errorMessage)
       // Retirer le message utilisateur en cas d'erreur
       setMessages(prev => prev.slice(0, -1))
@@ -134,6 +143,8 @@ export default function Chatbot({ language = 'fr' }: ChatbotProps) {
       sendMessage()
     }
   }
+
+  if (!mounted) return null
 
   return (
     <>
@@ -150,7 +161,11 @@ export default function Chatbot({ language = 'fr' }: ChatbotProps) {
         {isOpen ? (
           <X className="w-6 h-6 text-white" />
         ) : (
-          <MessageCircle className="w-6 h-6 text-white" />
+          <RobotIcon className="w-6 h-6 text-white" />
+        )}
+        {/* Badge de notification */}
+        {!isOpen && (
+          <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
         )}
       </button>
 
@@ -166,11 +181,11 @@ export default function Chatbot({ language = 'fr' }: ChatbotProps) {
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-3">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                <Bot className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                <RobotIcon className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="text-white font-semibold">NeuraWeb Assistant</h3>
+                <h3 className="text-white font-semibold">{t('chatbot.title')}</h3>
                 <p className="text-white/70 text-xs">
                   {remainingMessages} {t('chatbot.remaining')}
                 </p>
@@ -195,7 +210,7 @@ export default function Chatbot({ language = 'fr' }: ChatbotProps) {
                   {msg.role === 'user' ? (
                     <User className="w-4 h-4 text-white" />
                   ) : (
-                    <Bot className="w-4 h-4 text-white" />
+                    <RobotIcon className="w-4 h-4 text-white" />
                   )}
                 </div>
                 <div
@@ -216,7 +231,7 @@ export default function Chatbot({ language = 'fr' }: ChatbotProps) {
             {isLoading && (
               <div className="flex gap-3">
                 <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-white" />
+                  <RobotIcon className="w-4 h-4 text-white" />
                 </div>
                 <div className="bg-gray-800 border border-gray-700 px-4 py-3 rounded-2xl rounded-bl-sm">
                   <Loader2 className="w-5 h-5 text-purple-400 animate-spin" />
