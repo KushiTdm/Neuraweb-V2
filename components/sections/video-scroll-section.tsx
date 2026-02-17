@@ -35,7 +35,10 @@ export function VideoScrollSection() {
     setTimeout(() => {
       setVisible(false);
 
-      // 3. Trigger Hero animations — elements are already in DOM, just hidden
+      // 3. Émettre l'événement custom pour déclencher les animations du Hero
+      window.dispatchEvent(new CustomEvent('hero:reveal'));
+
+      // 4. Trigger legacy Hero animations (fallback)
       requestAnimationFrame(() => {
         document
           .querySelectorAll('.animate-on-scroll, .fade-up, .fade-left, .fade-right, .scale-up')

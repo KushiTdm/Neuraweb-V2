@@ -73,7 +73,7 @@ export default function RootLayout({
             {/* Bouton WhatsApp flottant sur toutes les pages */}
              {/*<WhatsAppButton phoneNumber="33612345678" />*/}
              {/* Chatbot NeuraWeb */}
-          <Chatbot language="fr" />
+          <Chatbot />
           </LanguageProvider>
         </ThemeProvider>
       </body>

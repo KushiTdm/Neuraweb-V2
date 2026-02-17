@@ -1,7 +1,7 @@
 /**
  * =====================================================
  * NeuraWeb - Système de Réservation avec Google Sheets
- * Script corrigé pour l'encodage UTF-8 et l'alias email
+ * Version 3.0 - Encodage UTF-8 strict + Alias email forcé
  * =====================================================
  */
 
@@ -9,7 +9,7 @@
 const CONFIG = {
   SHEET_NAME: 'Rendez-vous',
   EMAIL_ALIAS: 'contact@neuraweb.tech',
-  ADMIN_EMAIL: 'benachouba.nacer@gmail.com',
+  ADMIN_EMAIL: 'contact@neuraweb.tech',
   TIME_ZONE: 'Europe/Paris',
   SLOTS_START: 9,
   SLOTS_END: 18,
@@ -260,86 +260,140 @@ function envoyerEmailConfirmationClient(reservation) {
   
   if(isFR) {
     subject = 'Confirmation de votre rendez-vous - NeuraWeb';
-    htmlBody = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>' +
-    '<body style="margin:0;padding:0;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;background-color:#f3f4f6;">' +
-    '<div style="max-width:600px;margin:0 auto;background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.1);">' +
-    '<div style="background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 100%);padding:30px;text-align:center;">' +
-    '<h1 style="color:#ffffff;margin:0;font-size:28px;font-weight:700;">NeuraWeb</h1>' +
-    '<p style="color:#e0e7ff;margin:10px 0 0 0;font-size:16px;">Confirmation de rendez-vous</p></div>' +
-    '<div style="padding:40px 30px;">' +
-    '<p style="font-size:18px;color:#1f2937;margin:0 0 20px 0;">Bonjour ' + (client || 'cher client') + ',</p>' +
-    '<p style="font-size:16px;color:#4b5563;margin:0 0 30px 0;line-height:1.6;">Votre rendez-vous a été confirmé avec succès.</p>' +
-    '<div style="background-color:#f9fafb;border-radius:8px;padding:25px;margin-bottom:30px;border-left:4px solid #4F46E5;">' +
-    '<table style="width:100%;border-collapse:collapse;">' +
-    '<tr><td style="padding:10px 0;color:#6b7280;font-size:14px;width:120px;">Date</td>' +
-    '<td style="padding:10px 0;color:#1f2937;font-size:16px;font-weight:600;">' + formatDateFR(date) + '</td></tr>' +
-    '<tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Heure</td>' +
-    '<td style="padding:10px 0;color:#1f2937;font-size:16px;font-weight:600;">' + heure + '</td></tr>' +
-    (service ? '<tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Service</td><td style="padding:10px 0;color:#1f2937;font-size:16px;font-weight:600;">' + service + '</td></tr>' : '') +
-    '</table></div>' +
-    '<div style="text-align:center;margin-top:30px;">' +
-    '<a href="mailto:contact@neuraweb.tech" style="display:inline-block;background-color:#4F46E5;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:6px;margin:0 5px;font-size:14px;">Email</a>' +
-    '<a href="https://wa.me/33600000000" style="display:inline-block;background-color:#25D366;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:6px;margin:0 5px;font-size:14px;">WhatsApp</a>' +
-    '</div></div>' +
-    '<div style="background-color:#f9fafb;padding:25px;text-align:center;border-top:1px solid #e5e7eb;">' +
-    '<p style="color:#6b7280;font-size:14px;margin:0;"><strong>NeuraWeb</strong> - Solutions web innovantes</p>' +
-    '<p style="color:#9ca3af;font-size:12px;margin:10px 0 0 0;">neuraweb.tech | contact@neuraweb.tech</p>' +
-    '</div></div></body></html>';
+    
+    // Template HTML SANS émojis - utilise du texte uniquement
+    htmlBody = '<!DOCTYPE html>' +
+    '<html lang="fr">' +
+    '<head>' +
+    '<meta charset="UTF-8">' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+    '<title>Confirmation de rendez-vous</title>' +
+    '</head>' +
+    '<body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;background-color:#f3f4f6;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f3f4f6;padding:20px 0;">' +
+    '<tr><td align="center">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;max-width:600px;width:100%;">' +
+    
+    // Header
+    '<tr><td style="background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 100%);padding:40px 30px;text-align:center;">' +
+    '<h1 style="color:#ffffff;margin:0;font-size:32px;font-weight:700;">NeuraWeb</h1>' +
+    '<p style="color:#e0e7ff;margin:12px 0 0 0;font-size:16px;">Confirmation de rendez-vous</p>' +
+    '</td></tr>' +
+    
+    // Body
+    '<tr><td style="padding:40px 30px;">' +
+    '<p style="font-size:18px;color:#1f2937;margin:0 0 8px 0;font-weight:600;">Bonjour ' + (client || 'cher client') + ',</p>' +
+    '<p style="font-size:16px;color:#4b5563;margin:0 0 32px 0;line-height:1.6;">Votre rendez-vous avec NeuraWeb est confirme !</p>' +
+    
+    // Info table
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f9fafb;border-radius:12px;border-left:4px solid #4F46E5;margin-bottom:32px;">' +
+    '<tr><td style="padding:28px;">' +
+    '<table width="100%" cellpadding="8" cellspacing="0">' +
+    '<tr>' +
+    '<td style="color:#6b7280;font-size:14px;font-weight:600;width:120px;">DATE</td>' +
+    '<td style="color:#1f2937;font-size:16px;font-weight:700;">' + formatDateFR(date) + '</td>' +
+    '</tr>' +
+    '<tr>' +
+    '<td style="color:#6b7280;font-size:14px;font-weight:600;">HEURE</td>' +
+    '<td style="color:#1f2937;font-size:16px;font-weight:700;">' + heure + '</td>' +
+    '</tr>' +
+    '<tr>' +
+    '<td style="color:#6b7280;font-size:14px;font-weight:600;">DUREE</td>' +
+    '<td style="color:#1f2937;font-size:16px;font-weight:700;">30 minutes</td>' +
+    '</tr>' +
+    (whatsapp ? 
+      '<tr><td style="color:#6b7280;font-size:14px;font-weight:600;">CONTACT</td><td style="color:#1f2937;font-size:16px;font-weight:700;">' + whatsapp + '</td></tr>' : 
+      '<tr><td style="color:#6b7280;font-size:14px;font-weight:600;">CONTACT</td><td style="color:#6b7280;font-size:14px;">Non renseigne</td></tr>') +
+    '</table>' +
+    '</td></tr></table>' +
+    
+    '<p style="font-size:15px;color:#4b5563;margin:0 0 24px 0;line-height:1.6;">Nous vous appellerons a l\'heure convenue pour discuter de votre projet.</p>' +
+    
+    // CTA
+    '<table width="100%" cellpadding="0" cellspacing="0" style="margin:32px 0;">' +
+    '<tr><td align="center">' +
+    '<p style="color:#6b7280;font-size:14px;margin:0 0 16px 0;font-weight:600;">Besoin de nous joindre avant le rendez-vous ?</p>' +
+    (whatsapp ? '<a href="https://wa.me/' + whatsapp.replace(/[^0-9]/g, '') + '" style="display:inline-block;background-color:#25D366;color:#ffffff;padding:14px 28px;text-decoration:none;border-radius:8px;margin:8px;font-size:15px;font-weight:600;">Contacter sur WhatsApp</a>' : '') +
+    '<a href="mailto:contact@neuraweb.tech" style="display:inline-block;background-color:#4F46E5;color:#ffffff;padding:14px 28px;text-decoration:none;border-radius:8px;margin:8px;font-size:15px;font-weight:600;">Envoyer un email</a>' +
+    '</td></tr></table>' +
+    
+    // Reminder
+    '<table width="100%" cellpadding="0" cellspacing="0" style="margin-top:24px;">' +
+    '<tr><td style="background-color:#ecfdf5;border-left:4px solid #10B981;padding:16px;border-radius:8px;">' +
+    '<p style="color:#047857;font-size:14px;margin:0;line-height:1.5;">Vous recevrez un rappel 24h avant votre rendez-vous.</p>' +
+    '</td></tr></table>' +
+    
+    '<p style="font-size:16px;color:#1f2937;margin:32px 0 0 0;font-weight:600;">A tres bientot !</p>' +
+    '<p style="font-size:15px;color:#6b7280;margin:4px 0 0 0;">L\'equipe NeuraWeb</p>' +
+    '</td></tr>' +
+    
+    // Footer
+    '<tr><td style="background-color:#f9fafb;padding:32px 30px;text-align:center;border-top:1px solid #e5e7eb;">' +
+    '<h3 style="color:#1f2937;font-size:18px;margin:0 0 8px 0;font-weight:700;">NeuraWeb</h3>' +
+    '<p style="color:#6b7280;font-size:14px;margin:0 0 16px 0;">Solutions web innovantes et automatisation intelligente</p>' +
+    '<p style="font-size:13px;margin:8px 0;"><a href="https://neuraweb.tech" style="color:#4F46E5;text-decoration:none;font-weight:600;">https://neuraweb.tech</a></p>' +
+    '<p style="font-size:13px;margin:8px 0;"><a href="mailto:contact@neuraweb.tech" style="color:#4F46E5;text-decoration:none;font-weight:600;">contact@neuraweb.tech</a></p>' +
+    '<p style="color:#9ca3af;font-size:12px;margin:16px 0 0 0;">&copy; ' + new Date().getFullYear() + ' NeuraWeb. Tous droits reserves.</p>' +
+    '</td></tr>' +
+    
+    '</table></td></tr></table></body></html>';
+    
   } else if(isEN) {
     subject = 'Appointment Confirmation - NeuraWeb';
-    htmlBody = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>' +
-    '<body style="margin:0;padding:0;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;background-color:#f3f4f6;">' +
-    '<div style="max-width:600px;margin:0 auto;background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.1);">' +
-    '<div style="background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 100%);padding:30px;text-align:center;">' +
-    '<h1 style="color:#ffffff;margin:0;font-size:28px;font-weight:700;">NeuraWeb</h1>' +
-    '<p style="color:#e0e7ff;margin:10px 0 0 0;font-size:16px;">Appointment Confirmation</p></div>' +
-    '<div style="padding:40px 30px;">' +
-    '<p style="font-size:18px;color:#1f2937;margin:0 0 20px 0;">Hello ' + (client || 'dear client') + ',</p>' +
-    '<p style="font-size:16px;color:#4b5563;margin:0 0 30px 0;line-height:1.6;">Your appointment has been successfully confirmed.</p>' +
-    '<div style="background-color:#f9fafb;border-radius:8px;padding:25px;margin-bottom:30px;border-left:4px solid #4F46E5;">' +
-    '<table style="width:100%;border-collapse:collapse;">' +
-    '<tr><td style="padding:10px 0;color:#6b7280;font-size:14px;width:120px;">Date</td>' +
-    '<td style="padding:10px 0;color:#1f2937;font-size:16px;font-weight:600;">' + date + '</td></tr>' +
-    '<tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Time</td>' +
-    '<td style="padding:10px 0;color:#1f2937;font-size:16px;font-weight:600;">' + heure + '</td></tr></table></div>' +
-    '<div style="text-align:center;margin-top:30px;">' +
-    '<a href="mailto:contact@neuraweb.tech" style="display:inline-block;background-color:#4F46E5;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:6px;margin:0 5px;font-size:14px;">Email</a>' +
-    '<a href="https://wa.me/33600000000" style="display:inline-block;background-color:#25D366;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:6px;margin:0 5px;font-size:14px;">WhatsApp</a>' +
-    '</div></div>' +
-    '<div style="background-color:#f9fafb;padding:25px;text-align:center;border-top:1px solid #e5e7eb;">' +
-    '<p style="color:#6b7280;font-size:14px;margin:0;"><strong>NeuraWeb</strong> - Innovative web solutions</p>' +
-    '</div></div></body></html>';
+    htmlBody = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>' +
+    '<body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background-color:#f3f4f6;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:20px;">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;max-width:600px;">' +
+    '<tr><td style="background:linear-gradient(135deg,#4F46E5,#7C3AED);padding:40px;text-align:center;">' +
+    '<h1 style="color:#fff;margin:0;font-size:32px;">NeuraWeb</h1>' +
+    '<p style="color:#e0e7ff;margin:12px 0 0;">Appointment Confirmation</p></td></tr>' +
+    '<tr><td style="padding:40px;">' +
+    '<p style="font-size:18px;color:#1f2937;margin:0 0 8px;font-weight:600;">Hello ' + (client || 'dear client') + ',</p>' +
+    '<p style="font-size:16px;color:#4b5563;margin:0 0 24px;">Your appointment with NeuraWeb has been confirmed!</p>' +
+    '<table width="100%" style="background-color:#f9fafb;border-left:4px solid #4F46E5;padding:20px;margin-bottom:24px;">' +
+    '<tr><td style="color:#6b7280;padding:8px 0;width:100px;">DATE</td><td style="color:#1f2937;font-weight:700;padding:8px 0;">' + date + '</td></tr>' +
+    '<tr><td style="color:#6b7280;padding:8px 0;">TIME</td><td style="color:#1f2937;font-weight:700;padding:8px 0;">' + heure + '</td></tr>' +
+    '</table></td></tr></table></td></tr></table></body></html>';
+    
   } else { // ES
     subject = 'Confirmacion de su cita - NeuraWeb';
-    htmlBody = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>' +
-    '<body style="margin:0;padding:0;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;background-color:#f3f4f6;">' +
-    '<div style="max-width:600px;margin:0 auto;background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.1);">' +
-    '<div style="background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 100%);padding:30px;text-align:center;">' +
-    '<h1 style="color:#ffffff;margin:0;font-size:28px;font-weight:700;">NeuraWeb</h1>' +
-    '<p style="color:#e0e7ff;margin:10px 0 0 0;font-size:16px;">Confirmacion de cita</p></div>' +
-    '<div style="padding:40px 30px;">' +
-    '<p style="font-size:18px;color:#1f2937;margin:0 0 20px 0;">Hola ' + (client || 'cliente') + ',</p>' +
-    '<p style="font-size:16px;color:#4b5563;margin:0 0 30px 0;line-height:1.6;">Su cita ha sido confirmada exitosamente.</p>' +
-    '<div style="background-color:#f9fafb;border-radius:8px;padding:25px;margin-bottom:30px;border-left:4px solid #4F46E5;">' +
-    '<table style="width:100%;border-collapse:collapse;">' +
-    '<tr><td style="padding:10px 0;color:#6b7280;font-size:14px;width:120px;">Fecha</td>' +
-    '<td style="padding:10px 0;color:#1f2937;font-size:16px;font-weight:600;">' + date + '</td></tr>' +
-    '<tr><td style="padding:10px 0;color:#6b7280;font-size:14px;">Hora</td>' +
-    '<td style="padding:10px 0;color:#1f2937;font-size:16px;font-weight:600;">' + heure + '</td></tr></table></div>' +
-    '<div style="text-align:center;margin-top:30px;">' +
-    '<a href="mailto:contact@neuraweb.tech" style="display:inline-block;background-color:#4F46E5;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:6px;margin:0 5px;font-size:14px;">Email</a>' +
-    '<a href="https://wa.me/33600000000" style="display:inline-block;background-color:#25D366;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:6px;margin:0 5px;font-size:14px;">WhatsApp</a>' +
-    '</div></div>' +
-    '<div style="background-color:#f9fafb;padding:25px;text-align:center;border-top:1px solid #e5e7eb;">' +
-    '<p style="color:#6b7280;font-size:14px;margin:0;"><strong>NeuraWeb</strong> - Soluciones web innovadoras</p>' +
-    '</div></div></body></html>';
+    htmlBody = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>' +
+    '<body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background-color:#f3f4f6;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:20px;">' +
+    '<table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;max-width:600px;">' +
+    '<tr><td style="background:linear-gradient(135deg,#4F46E5,#7C3AED);padding:40px;text-align:center;">' +
+    '<h1 style="color:#fff;margin:0;font-size:32px;">NeuraWeb</h1>' +
+    '<p style="color:#e0e7ff;margin:12px 0 0;">Confirmacion de cita</p></td></tr>' +
+    '<tr><td style="padding:40px;">' +
+    '<p style="font-size:18px;color:#1f2937;margin:0 0 8px;font-weight:600;">Hola ' + (client || 'cliente') + ',</p>' +
+    '<p style="font-size:16px;color:#4b5563;margin:0 0 24px;">Su cita con NeuraWeb ha sido confirmada!</p></td></tr>' +
+    '</table></td></tr></table></body></html>';
   }
   
-  GmailApp.sendEmail(email, subject, '', {
-    htmlBody: htmlBody,
-    from: CONFIG.EMAIL_ALIAS,
-    name: 'NeuraWeb'
-  });
+  // METHODE 1 : MailApp avec replyTo
+  try {
+    MailApp.sendEmail({
+      to: email,
+      subject: subject,
+      htmlBody: htmlBody,
+      name: 'NeuraWeb',
+      replyTo: CONFIG.EMAIL_ALIAS
+    });
+    Logger.log('Email envoyé via MailApp à : ' + email);
+  } catch(e) {
+    Logger.log('Erreur MailApp : ' + e.toString());
+    
+    // FALLBACK : GmailApp en dernier recours
+    try {
+      GmailApp.sendEmail(email, subject, '', {
+        htmlBody: htmlBody,
+        name: 'NeuraWeb'
+      });
+      Logger.log('Email envoyé via GmailApp (fallback) à : ' + email);
+    } catch(e2) {
+      Logger.log('Erreur GmailApp : ' + e2.toString());
+    }
+  }
 }
 
 function envoyerEmailNotificationAdmin(reservation) {
@@ -351,60 +405,73 @@ function envoyerEmailNotificationAdmin(reservation) {
   
   const subject = 'Nouvelle reservation - ' + (client || 'Client') + ' le ' + date;
   
-  const htmlBody = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>' +
-  '<body style="margin:0;padding:0;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;background-color:#f3f4f6;">' +
-  '<div style="max-width:600px;margin:0 auto;background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.1);">' +
-  '<div style="background:linear-gradient(135deg,#4F46E5 0%,#7C3AED 100%);padding:30px;text-align:center;">' +
-  '<h1 style="color:#ffffff;margin:0;font-size:28px;font-weight:700;">NeuraWeb</h1>' +
-  '<p style="color:#e0e7ff;margin:10px 0 0 0;font-size:16px;">Nouvelle Reservation</p></div>' +
-  '<div style="padding:40px 30px;">' +
-  '<p style="font-size:16px;color:#1f2937;margin:0 0 25px 0;">Un nouveau rendez-vous vient d\'etre reserve sur le site.</p>' +
-  '<div style="background-color:#f9fafb;border-radius:8px;padding:25px;margin-bottom:25px;border-left:4px solid #4F46E5;">' +
-  '<h3 style="color:#4F46E5;margin:0 0 20px 0;font-size:18px;">Informations Client</h3>' +
-  '<table style="width:100%;border-collapse:collapse;">' +
-  '<tr><td style="padding:8px 0;color:#6b7280;font-size:14px;width:120px;">Nom</td>' +
-  '<td style="padding:8px 0;color:#1f2937;font-size:15px;font-weight:500;">' + (client || 'Non renseigne') + '</td></tr>' +
-  '<tr><td style="padding:8px 0;color:#6b7280;font-size:14px;">Email</td>' +
-  '<td style="padding:8px 0;color:#1f2937;font-size:15px;font-weight:500;">' + (email ? '<a href="mailto:' + email + '" style="color:#4F46E5;">' + email + '</a>' : 'Non renseigne') + '</td></tr>' +
-  '<tr><td style="padding:8px 0;color:#6b7280;font-size:14px;">Telephone</td>' +
-  '<td style="padding:8px 0;color:#1f2937;font-size:15px;font-weight:500;">' + (telephone || 'Non renseigne') + '</td></tr>' +
-  '<tr><td style="padding:8px 0;color:#6b7280;font-size:14px;">WhatsApp</td>' +
-  '<td style="padding:8px 0;color:#1f2937;font-size:15px;font-weight:500;">' + (whatsapp || 'Non renseigne') + '</td></tr>' +
-  '<tr><td style="padding:8px 0;color:#6b7280;font-size:14px;">Entreprise</td>' +
-  '<td style="padding:8px 0;color:#1f2937;font-size:15px;font-weight:500;">' + (entreprise || 'Non renseigne') + '</td></tr>' +
-  '<tr><td style="padding:8px 0;color:#6b7280;font-size:14px;">Service</td>' +
-  '<td style="padding:8px 0;color:#1f2937;font-size:15px;font-weight:500;">' + (service || 'Non renseigne') + '</td></tr>' +
-  '<tr><td style="padding:8px 0;color:#6b7280;font-size:14px;">Langue</td>' +
-  '<td style="padding:8px 0;color:#1f2937;font-size:15px;font-weight:500;">' + langue + '</td></tr>' +
-  '</table></div>' +
-  '<div style="background-color:#ecfdf5;border-radius:8px;padding:25px;margin-bottom:25px;border-left:4px solid #10B981;">' +
-  '<h3 style="color:#10B981;margin:0 0 20px 0;font-size:18px;">Details du Rendez-vous</h3>' +
-  '<table style="width:100%;border-collapse:collapse;">' +
-  '<tr><td style="padding:8px 0;color:#6b7280;font-size:14px;width:120px;">Date</td>' +
-  '<td style="padding:8px 0;color:#1f2937;font-size:15px;font-weight:500;">' + formatDateFR(date) + '</td></tr>' +
-  '<tr><td style="padding:8px 0;color:#6b7280;font-size:14px;">Heure</td>' +
-  '<td style="padding:8px 0;color:#1f2937;font-size:15px;font-weight:500;">' + heure + '</td></tr>' +
-  '</table></div>' +
-  '<div style="text-align:center;margin-top:30px;">' +
-  '<p style="color:#6b7280;font-size:14px;margin:0 0 15px 0;">Actions rapides :</p>' +
-  (whatsapp ? '<a href="https://wa.me/' + whatsapp.replace(/[^0-9]/g, '') + '" style="display:inline-block;background-color:#25D366;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:6px;margin:0 5px;font-size:14px;">Contacter sur WhatsApp</a>' : '') +
-  (email ? '<a href="mailto:' + email + '" style="display:inline-block;background-color:#4F46E5;color:#ffffff;padding:12px 24px;text-decoration:none;border-radius:6px;margin:0 5px;font-size:14px;">Repondre par email</a>' : '') +
-  '</div></div>' +
-  '<div style="background-color:#f9fafb;padding:20px;text-align:center;border-top:1px solid #e5e7eb;">' +
+  const htmlBody = '<!DOCTYPE html>' +
+  '<html lang="fr">' +
+  '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>' +
+  '<body style="margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background-color:#f3f4f6;">' +
+  '<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f3f4f6;padding:20px 0;">' +
+  '<tr><td align="center">' +
+  '<table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;max-width:600px;">' +
+  
+  '<tr><td style="background:linear-gradient(135deg,#4F46E5,#7C3AED);padding:40px;text-align:center;">' +
+  '<h1 style="color:#fff;margin:0;font-size:32px;">NeuraWeb</h1>' +
+  '<p style="color:#e0e7ff;margin:12px 0 0;">Nouvelle Reservation</p>' +
+  '</td></tr>' +
+  
+  '<tr><td style="padding:40px;">' +
+  '<p style="font-size:16px;color:#1f2937;margin:0 0 28px;">Un nouveau rendez-vous vient d\'etre reserve sur le site.</p>' +
+  
+  '<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f9fafb;border-left:4px solid #4F46E5;margin-bottom:24px;">' +
+  '<tr><td style="padding:28px;">' +
+  '<h3 style="color:#4F46E5;margin:0 0 20px;font-size:18px;">Informations Client</h3>' +
+  '<table width="100%" cellpadding="8" cellspacing="0">' +
+  '<tr><td style="color:#6b7280;font-size:14px;width:130px;">Nom</td><td style="color:#1f2937;font-size:15px;font-weight:600;">' + (client || 'Non renseigne') + '</td></tr>' +
+  '<tr><td style="color:#6b7280;font-size:14px;">Email</td><td style="color:#1f2937;font-size:15px;">' + (email ? '<a href="mailto:' + email + '" style="color:#4F46E5;text-decoration:none;">' + email + '</a>' : 'Non renseigne') + '</td></tr>' +
+  '<tr><td style="color:#6b7280;font-size:14px;">Telephone</td><td style="color:#1f2937;font-size:15px;">' + (telephone || 'Non renseigne') + '</td></tr>' +
+  '<tr><td style="color:#6b7280;font-size:14px;">WhatsApp</td><td style="color:#1f2937;font-size:15px;">' + (whatsapp || 'Non renseigne') + '</td></tr>' +
+  '<tr><td style="color:#6b7280;font-size:14px;">Entreprise</td><td style="color:#1f2937;font-size:15px;">' + (entreprise || 'Non renseigne') + '</td></tr>' +
+  '<tr><td style="color:#6b7280;font-size:14px;">Service</td><td style="color:#1f2937;font-size:15px;">' + (service || 'Non renseigne') + '</td></tr>' +
+  '<tr><td style="color:#6b7280;font-size:14px;">Langue</td><td style="color:#1f2937;font-size:15px;">' + langue + '</td></tr>' +
+  '</table></td></tr></table>' +
+  
+  '<table width="100%" cellpadding="0" cellspacing="0" style="background-color:#ecfdf5;border-left:4px solid #10B981;margin-bottom:24px;">' +
+  '<tr><td style="padding:28px;">' +
+  '<h3 style="color:#10B981;margin:0 0 20px;font-size:18px;">Details du Rendez-vous</h3>' +
+  '<table width="100%" cellpadding="8" cellspacing="0">' +
+  '<tr><td style="color:#047857;font-size:14px;width:130px;">Date</td><td style="color:#065f46;font-size:16px;font-weight:700;">' + formatDateFR(date) + '</td></tr>' +
+  '<tr><td style="color:#047857;font-size:14px;">Heure</td><td style="color:#065f46;font-size:16px;font-weight:700;">' + heure + '</td></tr>' +
+  '</table></td></tr></table>' +
+  
+  '<table width="100%" cellpadding="0" cellspacing="0" style="margin:32px 0;"><tr><td align="center">' +
+  '<p style="color:#6b7280;font-size:14px;margin:0 0 16px;">Actions rapides :</p>' +
+  (whatsapp ? '<a href="https://wa.me/' + whatsapp.replace(/[^0-9]/g, '') + '" style="display:inline-block;background-color:#25D366;color:#fff;padding:14px 24px;text-decoration:none;border-radius:8px;margin:6px;font-size:14px;">Contacter sur WhatsApp</a>' : '') +
+  (email ? '<a href="mailto:' + email + '" style="display:inline-block;background-color:#4F46E5;color:#fff;padding:14px 24px;text-decoration:none;border-radius:8px;margin:6px;font-size:14px;">Repondre par email</a>' : '') +
+  '</td></tr></table>' +
+  
+  '</td></tr>' +
+  
+  '<tr><td style="background-color:#f9fafb;padding:24px;text-align:center;border-top:1px solid #e5e7eb;">' +
   '<p style="color:#9ca3af;font-size:13px;margin:0;">Reservation effectuee le ' + dateStr + ' a ' + timeStr + '</p>' +
-  '</div></div>' +
-  '<div style="max-width:600px;margin:20px auto;text-align:center;">' +
-  '<p style="color:#6b7280;font-size:14px;margin:0;"><strong>NeuraWeb</strong></p>' +
-  '<p style="color:#9ca3af;font-size:12px;margin:5px 0 0 0;">Notification automatique du systeme de reservation</p>' +
-  '<p style="color:#9ca3af;font-size:11px;margin:10px 0 0 0;">neuraweb.tech | contact@neuraweb.tech</p>' +
-  '</div></body></html>';
+  '</td></tr>' +
+  
+  '</table></td></tr></table></body></html>';
 
-  GmailApp.sendEmail(CONFIG.ADMIN_EMAIL, subject, '', {
-    htmlBody: htmlBody,
-    from: CONFIG.EMAIL_ALIAS,
-    name: 'NeuraWeb',
-    replyTo: email || CONFIG.EMAIL_ALIAS
-  });
+  try {
+    MailApp.sendEmail({
+      to: CONFIG.ADMIN_EMAIL,
+      subject: subject,
+      htmlBody: htmlBody,
+      name: 'NeuraWeb - Notifications',
+      replyTo: email || CONFIG.EMAIL_ALIAS
+    });
+    Logger.log('Email admin envoyé via MailApp');
+  } catch(e) {
+    Logger.log('Erreur email admin : ' + e.toString());
+    GmailApp.sendEmail(CONFIG.ADMIN_EMAIL, subject, '', {
+      htmlBody: htmlBody,
+      name: 'NeuraWeb - Notifications'
+    });
+  }
 }
 
 function formatDate(date) {
@@ -418,26 +485,35 @@ function formatDate(date) {
 function formatDateFR(dateStr) {
   const date = new Date(dateStr);
   const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-  return date.toLocaleDateString('fr-FR', options);
+  const formatted = date.toLocaleDateString('fr-FR', options);
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 }
 
 function testEmail() {
-  envoyerEmailNotificationAdmin({
-    client: 'Test Client',
-    email: 'test@example.com',
-    telephone: '+33600000000',
-    whatsapp: '+33600000000',
+  envoyerEmailConfirmationClient({
+    client: 'Jean Test',
+    email: 'san3neb@gmail.com',
+    telephone: '+33612345678',
+    whatsapp: '+33612345678',
     entreprise: 'Test Entreprise',
-    service: 'Consultation',
+    service: 'Consultation Web',
     langue: 'FR',
     date: '2025-02-20',
     heure: '10:00'
   });
-  return 'Email de test envoye a ' + CONFIG.ADMIN_EMAIL;
+  return 'Email de test envoye !';
 }
 
-function verifierAliasGmail() {
+function verifierConfiguration() {
   const aliases = GmailApp.getAliases();
-  console.log('Alias disponibles:', aliases);
-  return aliases;
+  Logger.log('=== VERIFICATION CONFIGURATION ===');
+  Logger.log('Alias Gmail disponibles: ' + aliases.join(', '));
+  Logger.log('Email alias configure: ' + CONFIG.EMAIL_ALIAS);
+  Logger.log('Email admin: ' + CONFIG.ADMIN_EMAIL);
+  
+  return {
+    aliases: aliases,
+    emailAlias: CONFIG.EMAIL_ALIAS,
+    emailAdmin: CONFIG.ADMIN_EMAIL
+  };
 }

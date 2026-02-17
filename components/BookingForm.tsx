@@ -1,4 +1,4 @@
-use client'
+'use client'
 
 import { useState, useEffect } from 'react'
 import { Calendar, Clock, User, Mail, Phone, MessageSquare, Building, CheckCircle, Loader2 } from 'lucide-react'
@@ -130,7 +130,7 @@ export default function BookingForm({ language, onClose, onSuccess }: BookingFor
   }, [])
 
   // Dates uniques
-  const uniqueDates = [...new Set(slots.map(s => s.date))].sort()
+  const uniqueDates = Array.from(new Set(slots.map(s => s.date))).sort()
   
   // Heures disponibles pour la date sélectionnée
   const availableTimes = slots
