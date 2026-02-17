@@ -111,17 +111,48 @@ export default function Chatbot() {
   // Charger les créneaux disponibles
   const loadAvailableSlots = async (): Promise<Slot[]> => {
     try {
+      console.log('📡 Chargement des créneaux...')
       const response = await fetch('/api/booking?action=getAvailableSlots')
       const data = await response.json()
-      if (data.slots) {
+      if (data.slots && data.slots.length > 0) {
+        console.log(`✅ ${data.slots.length} créneaux chargés`)
         setAvailableSlots(data.slots)
         return data.slots
       }
-      return []
+      console.log('⚠️ Aucun créneau reçu, génération locale...')
+      return generateFallbackSlots()
     } catch (err) {
-      console.error('Erreur chargement créneaux:', err)
-      return []
+      console.error('❌ Erreur chargement créneaux:', err)
+      return generateFallbackSlots()
     }
+  }
+
+  // Générer des créneaux de secours si l'API échoue
+  const generateFallbackSlots = (): Slot[] => {
+    const slots: Slot[] = []
+    const today = new Date()
+    const timeSlots = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00']
+
+    for (let day = 1; day <= 14; day++) {
+      const date = new Date(today)
+      date.setDate(today.getDate() + day)
+
+      if (date.getDay() === 0 || date.getDay() === 6) continue
+
+      const dateStr = date.toISOString().split('T')[0]
+
+      timeSlots.forEach(time => {
+        slots.push({
+          date: dateStr,
+          time,
+          available: true
+        })
+      })
+    }
+    
+    console.log(`📋 ${slots.length} créneaux de secours générés`)
+    setAvailableSlots(slots)
+    return slots
   }
 
   // Démarrer le processus de réservation
