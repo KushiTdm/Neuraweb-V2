@@ -13,12 +13,16 @@ export function ServicesPageClient() {
   return (
     <>
       <Header />
-      <div className="services-page-container min-h-screen bg-slate-950 overflow-x-hidden">
+      <div className="services-page-container min-h-screen bg-slate-950">
         <CustomCursor />
-        <ServicesHero />
+        <div className="overflow-x-hidden">
+          <ServicesHero />
+        </div>
         <ServicesProcess />
-        <ServicesPricing />
-        <ServicesCTA />
+        <div className="overflow-x-hidden">
+          <ServicesPricing />
+          <ServicesCTA />
+        </div>
       </div>
       <Footer />
     </>
