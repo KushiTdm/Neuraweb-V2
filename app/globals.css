@@ -442,6 +442,12 @@
   100% { transform: rotate(360deg); }
 }
 
+@keyframes ping-slow {
+  0%   { transform: scale(1.5); opacity: 0.6; }
+  70%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
 /* ============================================================
    SCROLLBAR PREMIUM
    ============================================================ */
@@ -484,6 +490,10 @@
 
 .animate-cardFloat {
   animation: cardFloat 3s ease-in-out infinite;
+}
+
+.animate-ping-slow {
+  animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
 /* ============================================================

@@ -84,14 +84,19 @@ export function PortfolioSection() {
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [gifLoading, setGifLoading] = useState(false);
   const [gifLoaded, setGifLoaded] = useState(false);
+  const [autoPlayProgress, setAutoPlayProgress] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const { t } = useTranslation();
 
   const sectionRef = useRef<HTMLElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
+  const touchStartY = useRef<number>(0);
+  const prevIndexRef = useRef<number>(0);
 
   useEffect(() => {
     setMounted(true);
@@ -144,14 +149,36 @@ export function PortfolioSection() {
     return () => ctx.revert();
   }, [mounted]);
 
-  // Filter logic
+  // Filter logic with carousel fade-out/in animation
   useEffect(() => {
-    const newFiltered =
-      activeFilter === 'all'
-        ? portfolio
-        : portfolio.filter((p) => p.category === activeFilter);
-    setFilteredProjects(newFiltered);
-    setCurrentIndex(0);
+    if (!mounted || !carouselRef.current) {
+      const newFiltered =
+        activeFilter === 'all'
+          ? portfolio
+          : portfolio.filter((p) => p.category === activeFilter);
+      setFilteredProjects(newFiltered);
+      setCurrentIndex(0);
+      return;
+    }
+
+    // Fade out current cards
+    gsap.to(cardsRef.current.filter(Boolean), {
+      duration: 0.25,
+      opacity: 0,
+      y: -20,
+      scale: 0.92,
+      ease: 'power2.in',
+      stagger: 0.04,
+      onComplete: () => {
+        const newFiltered =
+          activeFilter === 'all'
+            ? portfolio
+            : portfolio.filter((p) => p.category === activeFilter);
+        setFilteredProjects(newFiltered);
+        setCurrentIndex(0);
+      },
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFilter]);
 
   // Lock body scroll when modal is open
@@ -160,40 +187,83 @@ export function PortfolioSection() {
     return () => { document.body.style.overflow = ''; };
   }, [selectedProject]);
 
-  // Update carousel positions
+  // Update carousel positions with enhanced GSAP animations
   const updateCarousel = useCallback(() => {
     if (!mounted) return;
+
+    const isMobile = window.innerWidth < 768;
 
     cardsRef.current.forEach((card, index) => {
       if (!card) return;
 
       const offset = index - currentIndex;
       const absOffset = Math.abs(offset);
+      const isActive = offset === 0;
 
-      let x = offset * 320;
-      let z = -absOffset * 200;
-      let scale = 1 - absOffset * 0.2;
-      let opacity = absOffset <= 1 ? 1 : 0.3;
-      let rotateY = offset * 15;
-
-      if (window.innerWidth < 768) {
-        x = offset * 260;
-        z = -absOffset * 120;
-        scale = 1 - absOffset * 0.15;
-      }
+      const x = isMobile ? offset * 240 : offset * 310;
+      const z = isActive ? 0 : -absOffset * 180;
+      const scale = isActive ? 1 : Math.max(0.65, 1 - absOffset * 0.18);
+      const opacity = absOffset === 0 ? 1 : absOffset === 1 ? 0.55 : 0.2;
+      const rotateY = offset * 12;
+      const brightness = isActive ? 1 : Math.max(0.6, 1 - absOffset * 0.2);
 
       gsap.to(card, {
-        duration: 0.8,
+        duration: isActive ? 0.65 : 0.75,
         x,
         z,
         scale,
         opacity,
         rotateY,
-        ease: 'power2.out',
-        zIndex: 100 - absOffset,
+        filter: `brightness(${brightness})`,
+        ease: isActive ? 'back.out(1.4)' : 'power3.out',
+        zIndex: 100 - absOffset * 10,
+        overwrite: 'auto',
       });
+
+      // Pulse glow on active card
+      if (isActive) {
+        gsap.fromTo(
+          card,
+          { boxShadow: '0 0 0px rgba(139,92,246,0)' },
+          {
+            boxShadow: '0 0 40px rgba(139,92,246,0.35)',
+            duration: 0.5,
+            ease: 'power2.out',
+            overwrite: 'auto',
+          }
+        );
+      } else {
+        gsap.to(card, {
+          boxShadow: '0 0 0px rgba(139,92,246,0)',
+          duration: 0.4,
+          overwrite: 'auto',
+        });
+      }
     });
   }, [currentIndex, mounted]);
+
+  // Initial entrance animation for cards
+  useEffect(() => {
+    if (!mounted || cardsRef.current.length === 0) return;
+
+    cardsRef.current.forEach((card, index) => {
+      if (!card) return;
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 60, scale: 0.85 },
+        {
+          opacity: index === 0 ? 1 : index === 1 ? 0.55 : 0.2,
+          y: 0,
+          scale: index === 0 ? 1 : Math.max(0.65, 1 - index * 0.18),
+          duration: 0.7,
+          delay: 0.1 + index * 0.08,
+          ease: 'power3.out',
+          overwrite: 'auto',
+        }
+      );
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mounted, filteredProjects]);
 
   useEffect(() => {
     if (mounted && cardsRef.current.length > 0) {
@@ -201,39 +271,70 @@ export function PortfolioSection() {
     }
   }, [currentIndex, mounted, filteredProjects, updateCarousel]);
 
-  // Autoplay
+  // Autoplay with progress bar
   useEffect(() => {
-    if (!mounted || !isAutoPlay || filteredProjects.length <= 1) return;
+    if (!mounted || !isAutoPlay || filteredProjects.length <= 1) {
+      setAutoPlayProgress(0);
+      if (progressRef.current) clearInterval(progressRef.current);
+      return;
+    }
+
+    setAutoPlayProgress(0);
+    const DURATION = 4000;
+    const TICK = 50;
+
+    progressRef.current = setInterval(() => {
+      setAutoPlayProgress((prev) => {
+        if (prev >= 100) return 0;
+        return prev + (TICK / DURATION) * 100;
+      });
+    }, TICK);
 
     autoPlayRef.current = setInterval(() => {
+      prevIndexRef.current = currentIndex;
       setCurrentIndex((prev) => (prev + 1) % filteredProjects.length);
-    }, 4000);
+      setAutoPlayProgress(0);
+    }, DURATION);
 
     return () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+      if (progressRef.current) clearInterval(progressRef.current);
     };
-  }, [isAutoPlay, mounted, filteredProjects.length]);
+  }, [isAutoPlay, mounted, filteredProjects.length, currentIndex]);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    prevIndexRef.current = currentIndex;
     setCurrentIndex((prev) => (prev + 1) % filteredProjects.length);
     setIsAutoPlay(false);
-  };
+    setAutoPlayProgress(0);
+    setTimeout(() => setIsTransitioning(false), 700);
+  }, [currentIndex, filteredProjects.length, isTransitioning]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    prevIndexRef.current = currentIndex;
     setCurrentIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
     setIsAutoPlay(false);
-  };
+    setAutoPlayProgress(0);
+    setTimeout(() => setIsTransitioning(false), 700);
+  }, [currentIndex, filteredProjects.length, isTransitioning]);
 
-  // Touch / swipe handlers
+  // Touch / swipe handlers (with vertical scroll guard)
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.changedTouches[0].screenX;
+    touchStartY.current = e.changedTouches[0].screenY;
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     touchEndX.current = e.changedTouches[0].screenX;
-    const delta = touchStartX.current - touchEndX.current;
-    if (Math.abs(delta) > 50) {
-      delta > 0 ? nextSlide() : prevSlide();
+    const deltaX = touchStartX.current - touchEndX.current;
+    const deltaY = Math.abs(touchStartY.current - e.changedTouches[0].screenY);
+    // Only swipe if horizontal movement dominates
+    if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > deltaY) {
+      deltaX > 0 ? nextSlide() : prevSlide();
     }
   };
 
@@ -447,25 +548,22 @@ export function PortfolioSection() {
                 <>
                   <button
                     onClick={prevSlide}
-                    className="absolute left-2 md:left-4 lg:left-8 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 backdrop-blur-sm text-gray-900 dark:text-white p-2 md:p-3 rounded-full transition-all duration-300 hover:scale-110 z-50 shadow-lg"
+                    disabled={isTransitioning}
+                    className="absolute left-2 md:left-4 lg:left-8 top-1/2 -translate-y-1/2 group/btn bg-white/90 dark:bg-white/10 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 dark:hover:from-blue-500 dark:hover:to-purple-600 backdrop-blur-sm text-gray-900 dark:text-white hover:text-white p-2 md:p-3 rounded-full transition-all duration-300 hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed z-50 shadow-lg hover:shadow-purple-500/40"
                     aria-label={t('portfolio.nav.previous')}
                   >
-                    <ChevronLeft size={20} className="md:w-6 md:h-6" />
+                    <ChevronLeft size={20} className="md:w-6 md:h-6 transition-transform duration-200 group-hover/btn:-translate-x-0.5" />
                   </button>
                   <button
                     onClick={nextSlide}
-                    className="absolute right-2 md:right-4 lg:right-8 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 backdrop-blur-sm text-gray-900 dark:text-white p-2 md:p-3 rounded-full transition-all duration-300 hover:scale-110 z-50 shadow-lg"
+                    disabled={isTransitioning}
+                    className="absolute right-2 md:right-4 lg:right-8 top-1/2 -translate-y-1/2 group/btn bg-white/90 dark:bg-white/10 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 dark:hover:from-blue-500 dark:hover:to-purple-600 backdrop-blur-sm text-gray-900 dark:text-white hover:text-white p-2 md:p-3 rounded-full transition-all duration-300 hover:scale-110 disabled:opacity-40 disabled:cursor-not-allowed z-50 shadow-lg hover:shadow-purple-500/40"
                     aria-label={t('portfolio.nav.next')}
                   >
-                    <ChevronRight size={20} className="md:w-6 md:h-6" />
+                    <ChevronRight size={20} className="md:w-6 md:h-6 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
                   </button>
                 </>
               )}
-
-              {/* Project counter */}
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs font-semibold text-gray-500 dark:text-gray-400 bg-white/70 dark:bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full z-50">
-                {currentIndex + 1} / {filteredProjects.length}
-              </div>
             </div>
           ) : (
             <div className="flex-1 flex items-center justify-center">
@@ -473,31 +571,50 @@ export function PortfolioSection() {
             </div>
           )}
 
-          {/* Dot Indicators */}
+          {/* Dot Indicators + Autoplay progress */}
           {filteredProjects.length > 0 && (
-            <div className="flex justify-center gap-2 mt-6 md:mt-8 relative z-[60]" role="tablist" aria-label="Portfolio navigation">
-              {filteredProjects.map((_, index) => (
-                <button
-                  key={index}
-                  role="tab"
-                  aria-selected={index === currentIndex}
-                  aria-controls={`project-${index}`}
-                  onClick={() => {
-                    setCurrentIndex(index);
-                    setIsAutoPlay(false);
-                  }}
-                  className="min-w-[44px] min-h-[44px] flex items-center justify-center"
-                  aria-label={`${t('portfolio.nav.goto')} ${index + 1}`}
-                >
-                  <span
-                    className={`block h-2 md:h-3 rounded-full transition-all duration-300 ${
-                      index === currentIndex
-                        ? 'w-8 md:w-10 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400'
-                        : 'w-2 md:w-3 bg-gray-300 dark:bg-white/30'
-                    }`}
+            <div className="flex flex-col items-center gap-3 mt-4 md:mt-6 relative z-[60]">
+              <div className="flex justify-center gap-2" role="tablist" aria-label="Portfolio navigation">
+                {filteredProjects.map((_, index) => (
+                  <button
+                    key={index}
+                    role="tab"
+                    aria-selected={index === currentIndex}
+                    aria-controls={`project-${index}`}
+                    onClick={() => {
+                      setCurrentIndex(index);
+                      setIsAutoPlay(false);
+                      setAutoPlayProgress(0);
+                    }}
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center group/dot"
+                    aria-label={`${t('portfolio.nav.goto')} ${index + 1}`}
+                  >
+                    <span className="relative flex items-center justify-center">
+                      {/* Outer ring for active dot */}
+                      {index === currentIndex && (
+                        <span className="absolute inset-0 rounded-full border-2 border-purple-500/50 dark:border-purple-400/50 scale-150 animate-ping-slow" />
+                      )}
+                      <span
+                        className={`block rounded-full transition-all duration-500 ${
+                          index === currentIndex
+                            ? 'w-8 md:w-10 h-2.5 md:h-3 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 shadow-md shadow-purple-500/40'
+                            : 'w-2.5 md:w-3 h-2.5 md:h-3 bg-gray-300 dark:bg-white/30 group-hover/dot:bg-purple-400 dark:group-hover/dot:bg-purple-400 group-hover/dot:scale-125'
+                        }`}
+                      />
+                    </span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Autoplay progress bar */}
+              {isAutoPlay && filteredProjects.length > 1 && (
+                <div className="w-32 md:w-40 h-0.5 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-none"
+                    style={{ width: `${autoPlayProgress}%` }}
                   />
-                </button>
-              ))}
+                </div>
+              )}
             </div>
           )}
         </div>
