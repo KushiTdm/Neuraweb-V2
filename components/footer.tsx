@@ -47,6 +47,7 @@ export function Footer() {
                 alt="NeuraWeb"
                 width={140}
                 height={42}
+                loading="lazy"
                 className="h-9 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
               />
             </Link>

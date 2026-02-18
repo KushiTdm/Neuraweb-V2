@@ -294,23 +294,23 @@ export function ServicesSection() {
   return (
     <section
       ref={sectionRef}
-      className="section-snap bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 py-20 overflow-hidden"
+      className="section-snap bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center py-6 sm:py-10 lg:py-12">
         {/* En-tête */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 animate-on-scroll fade-up">
+        <div className="text-center mb-5 md:mb-8">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 dark:text-white mb-2 md:mb-3 animate-on-scroll fade-up">
             {t('services.section.title')}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-on-scroll fade-up delay-200">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-on-scroll fade-up delay-200 px-2">
             {t('services.section.subtitle')}
           </p>
         </div>
 
         {/* Layout principal : liste à gauche + affichage 3D à droite */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10 items-stretch">
           {/* Colonne gauche : cartes de service */}
-          <div className="flex flex-col gap-4 justify-center animate-on-scroll fade-left delay-300">
+          <div className="flex flex-col gap-3 justify-center animate-on-scroll fade-left delay-300">
             {services.map((service, index) => (
               <ServiceCard
                 key={service.titleKey}
@@ -322,50 +322,10 @@ export function ServicesSection() {
             ))}
           </div>
 
-          {/* Colonne droite : affichage 3D + image */}
-          <div className="animate-on-scroll fade-right delay-400">
+          {/* Colonne droite : affichage 3D + image — masqué sur mobile */}
+          <div className="hidden lg:block animate-on-scroll fade-right delay-400">
             <ServiceDisplay service={services[activeIndex]!} index={activeIndex} />
           </div>
-        </div>
-
-        {/* Grille de cartes mobile (visible uniquement sur mobile) */}
-        <div className="mt-12 grid grid-cols-1 gap-6 lg:hidden">
-          {services.map((service, index) => {
-            const IconComponent = service.icon;
-            return (
-              <div
-                key={service.titleKey}
-                className="relative group rounded-2xl overflow-hidden animate-on-scroll fade-up"
-                style={{ transitionDelay: `${index * 150}ms` }}
-              >
-                <div className="absolute inset-0">
-                  <Image
-                    src={service.screenshot}
-                    alt={t(service.titleKey)}
-                    fill
-                    sizes="100vw"
-                    className="object-cover opacity-20 group-hover:opacity-30 transition-opacity duration-300"
-                    quality={60}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/70 dark:from-gray-800/90 dark:to-gray-900/70 backdrop-blur-sm" />
-                </div>
-                <div className="relative p-6 border border-gray-200 dark:border-gray-700 rounded-2xl bg-white/50 dark:bg-gray-800/50">
-                  <div
-                    className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 shadow-lg"
-                    style={{ background: `linear-gradient(135deg, ${service.gradientFrom}, ${service.gradientTo})` }}
-                  >
-                    <IconComponent className="w-7 h-7 text-white" strokeWidth={2} />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                    {t(service.titleKey)}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-                    {t(service.descKey)}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -14,51 +14,6 @@ const HeroThreeBackground = dynamic(
 interface HeroSectionProps {
   mousePosition: { x: number; y: number };
   onScrollToNext?: () => void;
-}
-
-// ─── Animated counter hook (triggered by heroVisible) ────────────────────────
-function useCountUp(end: number, duration: number, active: boolean): number {
-  const [count, setCount] = useState(0);
-  const rafRef = useRef<number>();
-
-  useEffect(() => {
-    if (!active) return;
-    const startTime = performance.now();
-
-    const tick = (now: number) => {
-      const progress = Math.min((now - startTime) / duration, 1);
-      // ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * end));
-      if (progress < 1) rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, [active, end, duration]);
-
-  return count;
-}
-
-// ─── Individual animated stat ─────────────────────────────────────────────────
-interface StatConfig {
-  numericValue: number;
-  prefix?: string;
-  suffix?: string;
-  label: string;
-  duration: number;
-}
-
-function AnimatedStat({ numericValue, prefix = '', suffix = '', label, duration, active }: StatConfig & { active: boolean }) {
-  const count = useCountUp(numericValue, duration, active);
-  return (
-    <div className="text-center">
-      <div className="text-2xl font-bold gradient-text">
-        {prefix}{count}{suffix}
-      </div>
-      <div className="text-sm text-gray-500 dark:text-gray-400">{label}</div>
-    </div>
-  );
 }
 
 // ─── Hero Section ─────────────────────────────────────────────────────────────
@@ -128,7 +83,7 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
       </div>
 
       {/* Contenu principal */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 py-20">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 py-8 sm:py-12">
         <div
           className="transform transition-transform duration-300"
           style={{
@@ -152,9 +107,9 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
             </span>
           </div>
 
-          {/* Titre principal */}
+          {/* Titre principal — LCP element */}
           <h1
-            className="text-5xl md:text-7xl font-bold text-white mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 px-2 sm:px-0"
             style={{
               opacity: heroVisible ? 1 : 0,
               transform: heroVisible ? 'translateY(0)' : 'translateY(40px)',
@@ -172,7 +127,7 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
 
           {/* Sous-titre */}
           <p
-            className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 sm:px-0"
             style={{
               opacity: heroVisible ? 1 : 0,
               transform: heroVisible ? 'translateY(0)' : 'translateY(30px)',
@@ -185,7 +140,7 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
 
           {/* Boutons CTA */}
           <div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col xs:flex-row sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0"
             style={{
               opacity: heroVisible ? 1 : 0,
               transform: heroVisible ? 'translateY(0)' : 'translateY(25px)',
@@ -195,53 +150,21 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
           >
             <button
               onClick={handleStartProject}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-8 py-4 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center group"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center group text-sm sm:text-base"
               aria-label={t('hero.cta.start')}
             >
               <span>{t('hero.cta.start')}</span>
-              <ArrowRight className="ml-2 group-hover:translate-x-2 transition-transform" />
+              <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             </button>
 
             <Link
               href="/services"
-              className="border-2 border-purple-400 text-purple-300 font-semibold px-8 py-4 rounded-full hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-300 inline-flex items-center justify-center"
+              className="border-2 border-purple-400 text-purple-300 font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-300 inline-flex items-center justify-center text-sm sm:text-base"
             >
               {t('hero.cta.services')}
             </Link>
           </div>
 
-          {/* Stats rapides */}
-          <div
-            className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto"
-            style={{
-              opacity: heroVisible ? 1 : 0,
-              transform: heroVisible ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'opacity 0.9s ease, transform 0.9s ease',
-              transitionDelay: '0.75s',
-            }}
-          >
-            <AnimatedStat
-              numericValue={100}
-              suffix="+"
-              label="Projets"
-              duration={3800}
-              active={heroVisible}
-            />
-            <AnimatedStat
-              numericValue={100}
-              suffix="%"
-              label="Satisfaction"
-              duration={2200}
-              active={heroVisible}
-            />
-            <AnimatedStat
-              numericValue={24}
-              suffix="/7"
-              label="Support"
-              duration={1400}
-              active={heroVisible}
-            />
-          </div>
         </div>
       </div>
 

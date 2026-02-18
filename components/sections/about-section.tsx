@@ -235,18 +235,18 @@ export function AboutSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── En-tête ────────────────────────────────────────── */}
-        <div className="text-center mb-20 animate-on-scroll fade-up">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800/50 text-indigo-600 dark:text-indigo-400 text-sm font-semibold mb-6">
+        <div className="text-center mb-12 md:mb-20 animate-on-scroll fade-up">
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800/50 text-indigo-600 dark:text-indigo-400 text-xs sm:text-sm font-semibold mb-4 sm:mb-6">
             <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
             {t('about.badge')}
           </div>
-          <h2 className="text-4xl lg:text-5xl xl:text-6xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight px-2 sm:px-0">
             {t('about.title').split('NeuraWeb')[0]}
             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
               NeuraWeb
             </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
             {t('about.description')}
           </p>
         </div>
@@ -281,40 +281,40 @@ export function AboutSection() {
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 700px"
                   className="object-cover"
-                  quality={85}
-                  priority
+                  quality={80}
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-indigo-900/20 to-transparent" />
               </div>
 
-              {/* Badge flottant – haut gauche */}
-              <div className="absolute -top-5 -left-5 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-4 border border-gray-100 dark:border-gray-700 animate-on-scroll scale-up delay-300">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
-                    <Award className="w-5 h-5 text-white" />
+              {/* Badge flottant – haut gauche (masqué sur très petit mobile) */}
+              <div className="hidden xs:block absolute -top-4 sm:-top-5 -left-2 sm:-left-5 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-xl p-3 sm:p-4 border border-gray-100 dark:border-gray-700 animate-on-scroll scale-up delay-300 z-10">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg flex-shrink-0">
+                    <Award className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
                     <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                       {t('about.badge.certified')}
                     </div>
-                    <div className="text-sm font-bold text-gray-900 dark:text-white">
+                    <div className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">
                       {t('about.badge.topRated')}
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Badge flottant – bas droite */}
-              <div className="absolute -bottom-5 -right-5 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-4 border border-gray-100 dark:border-gray-700 animate-on-scroll scale-up delay-400">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg">
-                    <TrendingUp className="w-5 h-5 text-white" />
+              {/* Badge flottant – bas droite (masqué sur très petit mobile) */}
+              <div className="hidden xs:block absolute -bottom-4 sm:-bottom-5 -right-2 sm:-right-5 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl shadow-xl p-3 sm:p-4 border border-gray-100 dark:border-gray-700 animate-on-scroll scale-up delay-400 z-10">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg flex-shrink-0">
+                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
                   <div>
                     <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                       {t('about.badge.growth')}
                     </div>
-                    <div className="text-sm font-bold text-gray-900 dark:text-white">
+                    <div className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white">
                       {t('about.badge.growthValue')}
                     </div>
                   </div>

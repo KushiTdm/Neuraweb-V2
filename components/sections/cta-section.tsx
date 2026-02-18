@@ -80,18 +80,18 @@ export function CTASection() {
         </div>
 
         {/* Titre principal */}
-        <h2 className="animate-on-scroll fade-up delay-100 font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
+        <h2 className="animate-on-scroll fade-up delay-100 font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight tracking-tight px-2 sm:px-0">
           {t('cta.title').split('?')[0]}
           <span className="gradient-text-hero">?</span>
         </h2>
 
         {/* Sous-titre */}
-        <p className="animate-on-scroll fade-up delay-200 text-lg text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+        <p className="animate-on-scroll fade-up delay-200 text-base sm:text-lg text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed px-2 sm:px-0">
           {t('cta.subtitle')}
         </p>
 
         {/* Boutons CTA */}
-        <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center mb-16">
+        <div className="animate-on-scroll fade-up delay-300 flex flex-col xs:flex-row sm:flex-row gap-3 sm:gap-4 justify-center mb-10 sm:mb-16 px-4 sm:px-0">
           {/* Bouton principal */}
           <Link
             href="/booking"
