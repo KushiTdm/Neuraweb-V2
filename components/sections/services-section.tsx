@@ -28,7 +28,7 @@ const services: Service[] = [
     gradientTo: '#1d4ed8',
     accentColor: 'blue',
     screenshot:
-      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop',
+      '/assets/services/web_dev.jpeg',
   },
   {
     icon: Bot,
@@ -39,7 +39,7 @@ const services: Service[] = [
     gradientTo: '#7e22ce',
     accentColor: 'purple',
     screenshot:
-      'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=600&fit=crop',
+      '/assets/services/automation.jpeg',
   },
   {
     icon: Brain,
@@ -50,7 +50,7 @@ const services: Service[] = [
     gradientTo: '#be185d',
     accentColor: 'pink',
     screenshot:
-      'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',
+      '/assets/services/ia_integration.jpeg',
   },
 ];
 
