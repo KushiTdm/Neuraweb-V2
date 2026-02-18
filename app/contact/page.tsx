@@ -7,6 +7,8 @@ import { Footer } from '@/components/footer';
 import { useToast } from '@/hooks/use-toast';
 import { Toaster } from '@/components/ui/toaster';
 import { useTranslation } from '@/hooks/use-translation';
+import { useLanguage } from '@/contexts/language-context';
+import BookingForm from '@/components/BookingForm';
 import {
   Mail,
   MessageCircle,
@@ -20,7 +22,10 @@ import {
   Send,
   Calendar,
   ChevronDown,
+  X,
 } from 'lucide-react';
+
+const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface FormData {
@@ -143,6 +148,7 @@ function TrustCard({
 // ─── Page principale ──────────────────────────────────────────────────────────
 export default function ContactPage() {
   const { t } = useTranslation();
+  const { language } = useLanguage();
   const { toast } = useToast();
 
   const [formData, setFormData] = useState<FormData>({
@@ -157,10 +163,17 @@ export default function ContactPage() {
   const [cardsVisible, setCardsVisible] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
   const [trustVisible, setTrustVisible] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
 
   const cardsRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const trustRef = useRef<HTMLDivElement>(null);
+
+  // Bloquer le scroll quand la modale booking est ouverte
+  useEffect(() => {
+    document.body.style.overflow = showBooking ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [showBooking]);
 
   // Hero reveal
   useEffect(() => {
@@ -192,17 +205,46 @@ export default function ContactPage() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
+  // Envoi du formulaire vers Google Apps Script (action: saveContact)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1200));
-      toast({
-        title: t('contact.form.success.title'),
-        description: t('contact.form.success.desc'),
+      // Construire le label budget lisible
+      const budgetLabel = formData.budget
+        ? t(`contact.form.budget.${formData.budget}` as any)
+        : '';
+
+      const payload = {
+        action: 'saveContact',
+        name: formData.name,
+        email: formData.email,
+        phone: '',
+        company: '',
+        service: formData.subject,
+        message: `[Budget: ${budgetLabel}]\n\n${formData.message}`,
+        source: 'contact-form',
+      };
+
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        redirect: 'follow',
       });
-      setFormData({ name: '', email: '', subject: '', budget: '', message: '' });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast({
+          title: t('contact.form.success.title'),
+          description: t('contact.form.success.desc'),
+        });
+        setFormData({ name: '', email: '', subject: '', budget: '', message: '' });
+      } else {
+        throw new Error(result.error || 'Unknown error');
+      }
     } catch {
       toast({
         title: t('contact.form.error.title'),
@@ -651,7 +693,7 @@ export default function ContactPage() {
 
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-3">
-                      <Calendar size={18} className="text-brand-400" style={{ color: '#818cf8' }} />
+                      <Calendar size={18} style={{ color: '#818cf8' }} />
                       <h4 className="text-base font-bold text-white">
                         {t('contact.booking.title')}
                       </h4>
@@ -659,8 +701,8 @@ export default function ContactPage() {
                     <p className="text-sm text-gray-400 leading-relaxed mb-5">
                       {t('contact.booking.desc')}
                     </p>
-                    <Link
-                      href="/booking"
+                    <button
+                      onClick={() => setShowBooking(true)}
                       className="group inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300 border border-white/15 bg-white/8 hover:bg-white/15 hover:border-white/25"
                     >
                       <Calendar size={15} />
@@ -669,7 +711,7 @@ export default function ContactPage() {
                         size={14}
                         className="group-hover:translate-x-1 transition-transform"
                       />
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -680,6 +722,49 @@ export default function ContactPage() {
 
       <Footer />
       <Toaster />
+
+      {/* ══════════════════════════════════════════════════════
+          MODALE BOOKING
+      ══════════════════════════════════════════════════════ */}
+      {showBooking && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          onClick={(e) => { if (e.target === e.currentTarget) setShowBooking(false); }}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+
+          {/* Panel */}
+          <div
+            className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl border border-white/10 shadow-2xl"
+            style={{ background: '#0d0d1a' }}
+          >
+            {/* Bouton fermer */}
+            <button
+              onClick={() => setShowBooking(false)}
+              className="absolute top-3 right-3 z-10 p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-200"
+              aria-label="Fermer"
+            >
+              <X size={18} />
+            </button>
+
+            {/* Ligne lumineuse en haut */}
+            <div
+              className="absolute top-0 left-0 right-0 h-px rounded-t-2xl"
+              style={{ background: 'linear-gradient(90deg, transparent, #6366f1, #8b5cf6, #22d3ee, transparent)' }}
+            />
+
+            <BookingForm
+              language={language as 'fr' | 'en' | 'es'}
+              onClose={() => setShowBooking(false)}
+              onSuccess={(msg) => {
+                setShowBooking(false);
+                toast({ title: msg });
+              }}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 }
