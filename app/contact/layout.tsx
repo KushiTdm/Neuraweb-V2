@@ -1,9 +1,33 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Get in touch with NeuraWeb for professional web development, AI integration, and automation services. Contact us today for a free consultation.',
-  keywords: ['contact', 'web development contact', 'get in touch', 'free consultation'],
+  title: 'Contact — NeuraWeb',
+  description:
+    'Contactez NeuraWeb pour votre projet web, intégration IA ou automatisation. Réponse sous 24h, devis gratuit et sans engagement.',
+  keywords: [
+    'contact',
+    'agence web contact',
+    'devis gratuit',
+    'développement web',
+    'intégration IA',
+    'automatisation',
+    'NeuraWeb',
+  ],
+  openGraph: {
+    title: 'Contact — NeuraWeb',
+    description:
+      'Contactez NeuraWeb pour votre projet web, intégration IA ou automatisation. Réponse sous 24h, devis gratuit et sans engagement.',
+    url: 'https://neuraweb.tech/contact',
+    siteName: 'NeuraWeb',
+    locale: 'fr_FR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact — NeuraWeb',
+    description:
+      'Contactez NeuraWeb pour votre projet web, intégration IA ou automatisation. Réponse sous 24h, devis gratuit et sans engagement.',
+  },
 };
 
 export default function ContactLayout({
