@@ -28,7 +28,7 @@ const services: Service[] = [
     gradientTo: '#1d4ed8',
     accentColor: 'blue',
     screenshot:
-      '/assets/services/web_dev.jpeg',
+      '/assets/services/web_dev.webp',
   },
   {
     icon: Bot,
@@ -39,7 +39,7 @@ const services: Service[] = [
     gradientTo: '#7e22ce',
     accentColor: 'purple',
     screenshot:
-      '/assets/services/automation.jpeg',
+      '/assets/services/automation.webp',
   },
   {
     icon: Brain,
@@ -50,7 +50,7 @@ const services: Service[] = [
     gradientTo: '#be185d',
     accentColor: 'pink',
     screenshot:
-      '/assets/services/ia_integration.jpeg',
+      '/assets/services/ia_integration.webp',
   },
 ];
 

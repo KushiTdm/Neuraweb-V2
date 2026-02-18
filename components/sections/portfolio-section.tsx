@@ -44,7 +44,7 @@ const portfolio: Project[] = [
   {
     titleKey: 'portfolio.beauty.title',
     descriptionKey: 'portfolio.beauty.description',
-    image: '/assets/Lum/Lum-Cover.jpg',
+    image: '/assets/Lum/Lum-Cover.webp',
     gif: '/assets/Lum/Lum.gif',
     gifType: 'gif',
     technologies: ['React', 'TypeScript', 'GSAP'],

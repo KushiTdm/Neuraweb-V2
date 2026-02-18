@@ -42,13 +42,13 @@ export function ServicesPricing({ language = 'fr' }: ServicesPricingProps) {
     },
     {
       id: 'premium',
-      icon: '/assets/couronne.png',
+      icon: '/assets/couronne.webp',
       gradient: 'from-orange-500 to-red-500',
       featuresCount: 7,
     },
     {
       id: 'ai',
-      icon: '/assets/robot.png',
+      icon: '/assets/robot.webp',
       gradient: 'from-green-500 to-teal-500',
       featuresCount: 5,
     },
@@ -295,7 +295,9 @@ export function ServicesPricing({ language = 'fr' }: ServicesPricingProps) {
                           src={pack.icon}
                           alt={t(`servicePage.pricing.${pack.id}.name`)}
                           fill
+                          sizes="64px"
                           className="object-contain drop-shadow-lg"
+                          loading="lazy"
                         />
                       </div>
                       <h3 className="text-4xl font-bold text-white mb-4">

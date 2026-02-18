@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Sun, Moon, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 import { useTheme } from '@/components/theme-provider';
 import { useTranslation } from '@/hooks/use-translation';
 import { LanguageSelector } from '@/components/language-selector';
@@ -12,7 +12,7 @@ import Image from 'next/image';
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { isDark, toggleTheme } = useTheme();
+  const { isDark } = useTheme();
   const { t } = useTranslation();
   const pathname = usePathname();
 
@@ -105,15 +105,6 @@ export function Header() {
 
             {/* ── Actions droite ────────────────────────────── */}
             <div className="flex items-center gap-2">
-              {/* Theme toggle */}
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/60 dark:hover:bg-white/5 transition-all duration-200"
-                aria-label={t('header.toggle.theme')}
-              >
-                {isDark ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
-
               {/* Language selector */}
               <LanguageSelector />
 
