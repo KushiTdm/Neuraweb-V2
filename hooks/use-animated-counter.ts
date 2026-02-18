@@ -57,4 +57,3 @@ export function useAnimatedCounter({
   return `${count}${suffix}`;
 }
 
-export { elementRef as counterRef };

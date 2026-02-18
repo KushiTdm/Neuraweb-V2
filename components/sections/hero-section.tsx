@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -16,6 +16,52 @@ interface HeroSectionProps {
   onScrollToNext?: () => void;
 }
 
+// ─── Animated counter hook (triggered by heroVisible) ────────────────────────
+function useCountUp(end: number, duration: number, active: boolean): number {
+  const [count, setCount] = useState(0);
+  const rafRef = useRef<number>();
+
+  useEffect(() => {
+    if (!active) return;
+    const startTime = performance.now();
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * end));
+      if (progress < 1) rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, [active, end, duration]);
+
+  return count;
+}
+
+// ─── Individual animated stat ─────────────────────────────────────────────────
+interface StatConfig {
+  numericValue: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+  duration: number;
+}
+
+function AnimatedStat({ numericValue, prefix = '', suffix = '', label, duration, active }: StatConfig & { active: boolean }) {
+  const count = useCountUp(numericValue, duration, active);
+  return (
+    <div className="text-center">
+      <div className="text-2xl font-bold gradient-text">
+        {prefix}{count}{suffix}
+      </div>
+      <div className="text-sm text-gray-500 dark:text-gray-400">{label}</div>
+    </div>
+  );
+}
+
+// ─── Hero Section ─────────────────────────────────────────────────────────────
 export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps) {
   const [mounted, setMounted] = useState(false);
   const [heroVisible, setHeroVisible] = useState(false);
@@ -174,16 +220,27 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
               transitionDelay: '0.75s',
             }}
           >
-            {[
-              { value: '50+', label: 'Projets' },
-              { value: '100%', label: 'Satisfaction' },
-              { value: '24/7', label: 'Support' },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-2xl font-bold gradient-text">{stat.value}</div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">{stat.label}</div>
-              </div>
-            ))}
+            <AnimatedStat
+              numericValue={100}
+              suffix="+"
+              label="Projets"
+              duration={3800}
+              active={heroVisible}
+            />
+            <AnimatedStat
+              numericValue={100}
+              suffix="%"
+              label="Satisfaction"
+              duration={2200}
+              active={heroVisible}
+            />
+            <AnimatedStat
+              numericValue={24}
+              suffix="/7"
+              label="Support"
+              duration={1400}
+              active={heroVisible}
+            />
           </div>
         </div>
       </div>
