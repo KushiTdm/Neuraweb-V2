@@ -365,7 +365,7 @@ const sendMessage = async () => {
         }`}
       >
         {isOpen ? <X className="w-6 h-6 text-white" /> : <RobotIcon className="w-6 h-6 text-white" />}
-        {!isOpen && <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse" />}
+        {!isOpen && <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse" />}
       </button>
 
       {/* Fenêtre de chat */}
@@ -503,11 +503,13 @@ const sendMessage = async () => {
 
             {isLoading && (
               <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0">
                   <RobotIcon className="w-4 h-4 text-white" />
                 </div>
-                <div className="bg-gray-800 border border-gray-700 px-4 py-3 rounded-2xl rounded-bl-sm">
-                  <Loader2 className="w-5 h-5 text-purple-400 animate-spin" />
+                <div className="bg-gray-800 border border-gray-700 px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1">
+                  <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:0ms]" />
+                  <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:150ms]" />
+                  <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:300ms]" />
                 </div>
               </div>
             )}
@@ -554,18 +556,11 @@ const sendMessage = async () => {
             )}
           </div>
 
-          {/* Footer avec bouton RDV */}
-          <div className="px-4 py-2 bg-gray-950 border-t border-gray-800 flex items-center justify-between">
+          {/* Footer */}
+          <div className="px-4 py-2 bg-gray-950 border-t border-gray-800 flex items-center justify-center">
             <p className="text-gray-500 text-xs">
               {t('chatbot.footer')} <span className="text-purple-400">NeuraWeb</span>
             </p>
-            <button
-              onClick={startBooking}
-              className="flex items-center gap-1 px-3 py-1 bg-purple-600/20 hover:bg-purple-600/30 text-purple-400 rounded-lg text-xs font-medium transition-all"
-            >
-              <Calendar className="w-3 h-3" />
-              {language === 'fr' ? 'Prendre RDV' : language === 'es' ? 'Reservar' : 'Book now'}
-            </button>
           </div>
         </div>
       </div>
