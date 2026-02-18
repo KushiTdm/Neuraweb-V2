@@ -1,97 +1,157 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Clock, Target, Sparkles, TrendingUp, Shield, Headphones } from 'lucide-react';
+import { ArrowRight, Calendar, FileText, TrendingUp, Shield, Headphones, Sparkles } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 
 export function CTASection() {
   const { t } = useTranslation();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          entry.target.querySelectorAll('.animate-on-scroll').forEach((el, i) => {
+            setTimeout(() => el.classList.add('animate-in'), i * 120);
+          });
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const features = [
+    { icon: TrendingUp, label: t('cta.guaranteedGrowth'), color: '#22d3ee' },
+    { icon: Shield,     label: t('cta.secure'),           color: '#4ade80' },
+    { icon: Headphones, label: t('cta.dedicatedSupport'), color: '#a78bfa' },
+  ];
 
   return (
-    <section className="section-snap bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white relative overflow-hidden min-h-screen flex items-center justify-center">
-      {/* Particules flottantes */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-white rounded-full opacity-20 animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDuration: `${3 + Math.random() * 3}s`,
-              animationDelay: `${Math.random() * 3}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Contenu principal */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-12 md:py-16 w-full">
-        {/* Icon principal */}
-        <Sparkles
-          className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto mb-4 md:mb-6 animate-pulse"
-          aria-hidden="true"
+    <section
+      ref={sectionRef}
+      className="section-snap relative overflow-hidden bg-[#050510]"
+    >
+      {/* ── Fond : mesh gradient animé ──────────────────── */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Orbes de couleur */}
+        <div
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full opacity-20 blur-[100px]"
+          style={{ background: 'radial-gradient(circle, #4f46e5, transparent 70%)' }}
+        />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full opacity-15 blur-[80px]"
+          style={{ background: 'radial-gradient(circle, #7c3aed, transparent 70%)' }}
+        />
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full opacity-10 blur-[60px]"
+          style={{ background: 'radial-gradient(circle, #22d3ee, transparent 70%)' }}
         />
 
-        {/* Titre */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 animate-on-scroll fade-up px-4">
-          {t('cta.title')}
+        {/* Grille subtile */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(99,102,241,0.8) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(99,102,241,0.8) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
+          }}
+        />
+
+        {/* Ligne lumineuse en haut */}
+        <div
+          className="absolute top-0 left-0 right-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, #6366f1, #8b5cf6, #22d3ee, transparent)' }}
+        />
+      </div>
+
+      {/* ── Contenu ──────────────────────────────────────── */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+
+        {/* Badge */}
+        <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-sm font-medium text-gray-300 mb-8">
+          <Sparkles size={14} className="text-brand-400" />
+          {t('cta.subtitle')}
+        </div>
+
+        {/* Titre principal */}
+        <h2 className="animate-on-scroll fade-up delay-100 font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
+          {t('cta.title').split('?')[0]}
+          <span className="gradient-text-hero">?</span>
         </h2>
 
         {/* Sous-titre */}
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-10 max-w-3xl mx-auto opacity-90 animate-on-scroll fade-up delay-200 px-4">
+        <p className="animate-on-scroll fade-up delay-200 text-lg text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
           {t('cta.subtitle')}
         </p>
 
         {/* Boutons CTA */}
-        <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center animate-on-scroll fade-up delay-400 px-4">
+        <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          {/* Bouton principal */}
           <Link
             href="/booking"
-            className="bg-white text-purple-600 font-bold py-3 px-6 sm:py-4 sm:px-8 md:py-5 md:px-10 rounded-full hover:bg-gray-100 transition-all transform hover:scale-110 shadow-2xl inline-flex items-center justify-center text-base md:text-lg"
+            className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold text-white transition-all duration-300"
+            style={{
+              background: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
+              boxShadow: '0 8px 30px rgba(79,70,229,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 40px rgba(79,70,229,0.55), inset 0 1px 0 rgba(255,255,255,0.1)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 30px rgba(79,70,229,0.4), inset 0 1px 0 rgba(255,255,255,0.1)';
+            }}
           >
-            <Clock className="mr-2 w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
+            <Calendar size={18} />
             {t('cta.bookCall')}
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
+
+          {/* Bouton secondaire */}
           <Link
-            href="/quote"
-            className="border-2 sm:border-4 border-white text-white font-bold py-3 px-6 sm:py-4 sm:px-8 md:py-5 md:px-10 rounded-full hover:bg-white hover:text-purple-600 transition-all transform hover:scale-110 inline-flex items-center justify-center text-base md:text-lg"
+            href="/contact"
+            className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold text-white transition-all duration-300 border border-white/15 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/25"
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+            }}
           >
-            <Target className="mr-2 w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
+            <FileText size={18} />
             {t('cta.requestQuote')}
           </Link>
         </div>
 
-        {/* Features badges */}
-        <div className="mt-10 md:mt-16 flex justify-center gap-6 sm:gap-8 md:gap-12 flex-wrap px-4">
-          <div className="text-center">
-            <TrendingUp
-              className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto mb-2"
-              aria-hidden="true"
-            />
-            <div className="text-xs sm:text-sm opacity-80">
-              {t('cta.guaranteedGrowth')}
-            </div>
-          </div>
-          <div className="text-center">
-            <Shield
-              className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto mb-2"
-              aria-hidden="true"
-            />
-            <div className="text-xs sm:text-sm opacity-80">
-              {t('cta.secure')}
-            </div>
-          </div>
-          <div className="text-center">
-            <Headphones
-              className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 mx-auto mb-2"
-              aria-hidden="true"
-            />
-            <div className="text-xs sm:text-sm opacity-80">
-              {t('cta.dedicatedSupport')}
-            </div>
-          </div>
+        {/* Features */}
+        <div className="animate-on-scroll fade-up delay-400 flex flex-wrap justify-center gap-6 sm:gap-10">
+          {features.map((f) => {
+            const Icon = f.icon;
+            return (
+              <div key={f.label} className="flex items-center gap-2.5 group">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                  style={{ background: `${f.color}15`, border: `1px solid ${f.color}30` }}
+                >
+                  <Icon size={15} style={{ color: f.color }} />
+                </div>
+                <span className="text-sm font-medium text-gray-400 group-hover:text-gray-200 transition-colors">
+                  {f.label}
+                </span>
+              </div>
+            );
+          })}
         </div>
+
+        {/* Ligne décorative bas */}
+        <div className="mt-16 gradient-line opacity-40" />
       </div>
     </section>
   );

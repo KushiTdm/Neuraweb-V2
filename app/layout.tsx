@@ -1,44 +1,74 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Geist, Geist_Mono, Syne } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
 import Chatbot from '@/components/chatbot';
-import { WhatsAppButton } from '@/components/whatsapp-button';
 
+// ── Fonts premium 2026 ─────────────────────────────────────────
+const geist = Geist({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-geist',
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+});
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-geist-mono',
+  weight: ['400', '500', '600'],
+});
+
+const syne = Syne({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-syne',
+  weight: ['400', '500', '600', '700', '800'],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://neuraweb.tech'),
   title: {
-    default: 'NeuraWeb - Professional Web Development & AI Integration Services',
+    default: 'NeuraWeb — Agence Web, IA & Automatisation',
     template: '%s | NeuraWeb',
   },
-  description: 'Professional web development, AI integration, and automation services. Create stunning websites and intelligent solutions tailored to your business needs.',
-  keywords: ['web development', 'AI integration', 'automation', 'professional websites', 'business solutions', 'Next.js', 'React'],
+  description:
+    'Agence digitale premium spécialisée en développement web sur mesure, intégration IA et automatisation. Transformez votre vision en solutions digitales innovantes.',
+  keywords: [
+    'agence web',
+    'développement web',
+    'intégration IA',
+    'automatisation',
+    'Next.js',
+    'React',
+    'marketing digital',
+    'agence digitale',
+  ],
   authors: [{ name: 'NeuraWeb' }],
   creator: 'NeuraWeb',
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'fr_FR',
     url: 'https://neuraweb.tech',
     siteName: 'NeuraWeb',
-    title: 'NeuraWeb - Professional Web Development & AI Integration Services',
-    description: 'Professional web development, AI integration, and automation services. Create stunning websites and intelligent solutions tailored to your business needs.',
+    title: 'NeuraWeb — Agence Web, IA & Automatisation',
+    description:
+      'Agence digitale premium spécialisée en développement web sur mesure, intégration IA et automatisation.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'NeuraWeb - Professional Web Development',
+        alt: 'NeuraWeb — Agence Digitale Premium',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NeuraWeb - Professional Web Development & AI Integration Services',
-    description: 'Professional web development, AI integration, and automation services.',
+    title: 'NeuraWeb — Agence Web, IA & Automatisation',
+    description:
+      'Agence digitale premium spécialisée en développement web sur mesure, intégration IA et automatisation.',
     images: ['/og-image.png'],
   },
   robots: {
@@ -60,8 +90,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html
+      lang="fr"
+      suppressHydrationWarning
+      className={`${geist.variable} ${geistMono.variable} ${syne.variable}`}
+    >
+      <body className={geist.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -70,10 +104,7 @@ export default function RootLayout({
         >
           <LanguageProvider>
             {children}
-            {/* Bouton WhatsApp flottant sur toutes les pages */}
-             {/*<WhatsAppButton phoneNumber="33612345678" />*/}
-             {/* Chatbot NeuraWeb */}
-          <Chatbot />
+            <Chatbot />
           </LanguageProvider>
         </ThemeProvider>
       </body>
