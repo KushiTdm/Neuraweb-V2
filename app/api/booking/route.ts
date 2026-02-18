@@ -1,154 +1,103 @@
-import { NextRequest, NextResponse } from "next/server";
+// app/api/booking/route.ts
 
-// ============================================
-// CONFIGURATION GOOGLE APPS SCRIPT
-// ============================================
-// Supporte les deux formats de variable d'environnement
-const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL || process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL || '';
+import { NextRequest, NextResponse } from 'next/server';
 
-console.log('🔧 Configuration Google Script:', GOOGLE_SCRIPT_URL ? 'Configuré ✓' : 'Non configuré ✗');
+const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!;
 
-// Stockage local des réservations (fallback si pas de Google Script)
-const localBookings = new Map<string, { date: string; time: string; clientInfo: Record<string, string> }>();
-
-// Générer des créneaux locaux pour les 14 prochains jours
-function generateLocalSlots() {
-  const slots: { date: string; time: string; available: boolean }[] = [];
-  const today = new Date();
-  const timeSlots = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'];
-
-  for (let day = 1; day <= 14; day++) {
-    const date = new Date(today);
-    date.setDate(today.getDate() + day);
-
-    // Ignorer les weekends (samedi = 6, dimanche = 0)
-    if (date.getDay() === 0 || date.getDay() === 6) continue;
-
-    const dateStr = date.toISOString().split('T')[0];
-
-    timeSlots.forEach(time => {
-      const bookingKey = `${dateStr}-${time}`;
-      slots.push({
-        date: dateStr,
-        time,
-        available: !localBookings.has(bookingKey)
-      });
-    });
-  }
-
-  return slots;
-}
-
-// Réservation locale
-function bookLocalSlot(data: { 
-  date: string; 
-  time: string; 
-  name: string; 
-  email: string; 
-  phone?: string; 
-  whatsapp?: string; 
-  company?: string; 
-  service?: string; 
-  message?: string;
-  language?: string;
-}) {
-  const bookingKey = `${data.date}-${data.time}`;
-
-  if (localBookings.has(bookingKey)) {
-    return { success: false, error: 'Ce créneau est déjà réservé' };
-  }
-
-  localBookings.set(bookingKey, {
-    date: data.date,
-    time: data.time,
-    clientInfo: {
-      name: data.name,
-      email: data.email,
-      phone: data.phone || '',
-      whatsapp: data.whatsapp || '',
-      company: data.company || '',
-      service: data.service || '',
-      message: data.message || '',
-      language: data.language || 'fr'
+// Normalise une valeur "heure" retournée par Google Sheets
+// Google Sheets stocke les heures comme des dates: "1899-12-30T14:00:00.000Z"
+// On extrait HH:MM et on ajoute available:true
+function normalizeSlots(slots: any[]): any[] {
+  return slots.map(slot => {
+    let time = slot.time;
+    // Si c'est une date ISO (Google Sheets time bug)
+    if (typeof time === 'string' && time.includes('T')) {
+      const d = new Date(time);
+      time = String(d.getUTCHours()).padStart(2, '0') + ':' + String(d.getUTCMinutes()).padStart(2, '0');
     }
+    return {
+      ...slot,
+      time,
+      available: slot.status === 'disponible' // composant filtre sur .available
+    };
   });
-
-  console.log('📅 Nouvelle réservation (LOCAL):', bookingKey, data);
-  return { success: true, message: 'Rendez-vous réservé avec succès (local)' };
 }
 
+// GET — Récupérer les créneaux disponibles
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const action = searchParams.get('action');
-
-  // Si pas de Google Script configuré, utiliser le système local
-  if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID')) {
-    console.log('⚠️ Mode local activé (pas de Google Script configuré)');
-    if (action === 'getAvailableSlots') {
-      const slots = generateLocalSlots();
-      console.log(`📅 Créneaux générés: ${slots.length} créneaux disponibles`);
-      return NextResponse.json({ slots });
-    }
-    return NextResponse.json({ error: 'Action inconnue' }, { status: 400 });
-  }
-
-  // Sinon, utiliser Google Sheets
   try {
-    console.log('📡 Appel Google Script GET:', action);
+    const { searchParams } = new URL(request.url);
+    const date = searchParams.get('date') || '';
+
     const url = new URL(GOOGLE_SCRIPT_URL);
-    url.searchParams.set('action', action || 'getAvailableSlots');
+    url.searchParams.set('action', 'slots');
+    if (date) url.searchParams.set('date', date);
 
-    const response = await fetch(url.toString(), {
-      method: 'GET',
-      redirect: 'follow'
-    });
-    const data = await response.json();
-    console.log('✅ Réponse Google Script:', data);
+    const response = await fetch(url.toString(), { redirect: 'follow' });
 
-    return NextResponse.json(data);
-  } catch (error) {
-    console.error('❌ Google Sheets API error:', error);
-    // Fallback sur système local en cas d'erreur
-    if (action === 'getAvailableSlots') {
-      return NextResponse.json({ slots: generateLocalSlots() });
+    if (!response.ok) throw new Error(`Google Script error: ${response.status}`);
+
+    const result = await response.json();
+
+    // Normaliser les créneaux avant de les retourner
+    if (result.slots && Array.isArray(result.slots)) {
+      result.slots = normalizeSlots(result.slots);
     }
-    return NextResponse.json({ error: 'Failed to fetch from Google Sheets' }, { status: 500 });
+
+    return NextResponse.json(result);
+
+  } catch (error: any) {
+    console.error('Slots error:', error);
+    return NextResponse.json({ slots: [] });
   }
 }
 
+// POST — Confirmer une réservation
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { action, data } = body;
 
-    // Si pas de Google Script configuré, utiliser le système local
-    if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID')) {
-      console.log('⚠️ Mode local activé (pas de Google Script configuré)');
-      if (action === 'bookSlot') {
-        const result = bookLocalSlot(data);
-        return NextResponse.json(result);
-      }
-      return NextResponse.json({ error: 'Action inconnue' }, { status: 400 });
+    // Le composant envoie { action: 'bookSlot', data: { ...fields } }
+    const fields = body.data || body;
+    const { name, email, phone, service, date, time, message, language } = fields;
+
+    if (!name || !email || !date || !time) {
+      return NextResponse.json(
+        { error: 'Champs obligatoires manquants: name, email, date, time' },
+        { status: 400 }
+      );
     }
 
-    // Sinon, utiliser Google Sheets
-    console.log('📡 Appel Google Script POST:', action, data);
-    
     const response = await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-      redirect: 'follow'
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'book',
+        name, email,
+        phone:    phone    || '',
+        service:  service  || '',
+        date, time,
+        message:  message  || '',
+        language: language || 'fr'
+      }),
+      redirect: 'follow',
     });
 
-    const responseData = await response.json();
-    console.log('✅ Réponse Google Script:', responseData);
-    
-    return NextResponse.json(responseData);
-  } catch (error) {
-    console.error('❌ Booking error:', error);
-    return NextResponse.json({ error: 'Erreur lors de la réservation: ' + (error instanceof Error ? error.message : 'Erreur inconnue') }, { status: 500 });
+    if (!response.ok) throw new Error(`Google Script error: ${response.status}`);
+
+    const result = await response.json();
+
+    if (result.error) {
+      return NextResponse.json({ error: result.error }, { status: 400 });
+    }
+
+    return NextResponse.json(result);
+
+  } catch (error: any) {
+    console.error('Booking error:', error);
+    return NextResponse.json(
+      { error: 'Erreur lors de la réservation: ' + error.message },
+      { status: 500 }
+    );
   }
 }

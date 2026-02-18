@@ -111,9 +111,11 @@ export default function Chatbot() {
   // Charger les créneaux disponibles
   const loadAvailableSlots = async (): Promise<Slot[]> => {
     try {
-      console.log('📡 Chargement des créneaux...')
-      const response = await fetch('/api/booking?action=getAvailableSlots')
-      const data = await response.json()
+      console.log('📡 Appel /api/booking...')
+    const response = await fetch('/api/booking?action=getAvailableSlots')
+    console.log('📡 Status:', response.status)
+    const data = await response.json()
+    console.log('📡 Data:', JSON.stringify(data))
       if (data.slots && data.slots.length > 0) {
         console.log(`✅ ${data.slots.length} créneaux chargés`)
         setAvailableSlots(data.slots)
@@ -283,7 +285,8 @@ export default function Chatbot() {
   }
 
   // Envoyer un message
-  const sendMessage = async () => {
+
+const sendMessage = async () => {
     if (!input.trim() || isLoading || remainingMessages <= 0) return
 
     const userMessage = input.trim()
@@ -291,7 +294,6 @@ export default function Chatbot() {
     setError(null)
     setIsLoading(true)
     
-    // Reset booking state if user types
     if (bookingStep !== 'none' && bookingStep !== 'success') {
       setBookingStep('none')
     }
@@ -299,13 +301,18 @@ export default function Chatbot() {
     setMessages(prev => [...prev, { role: 'user', content: userMessage }])
 
     try {
+      // ✅ FIX: Nettoyer l'historique avant envoi (supprimer les champs UI)
+      const cleanHistory = messages
+        .filter(m => m.role === 'user' || m.role === 'assistant')
+        .map(m => ({ role: m.role, content: m.content })) // ← on garde UNIQUEMENT role + content
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: userMessage,
           sessionId,
-          history: messages,
+          history: cleanHistory, // ← historique propre sans showBooking/slots
           language
         })
       })
@@ -314,10 +321,8 @@ export default function Chatbot() {
 
       if (!response.ok) throw new Error(data.error || t('chatbot.error.general'))
 
-      // ✅ Si l'API demande d'afficher les dates de réservation
       if (data.showBookingDates) {
         const slots = await loadAvailableSlots()
-        
         setMessages(prev => [...prev, { 
           role: 'assistant', 
           content: data.response,
