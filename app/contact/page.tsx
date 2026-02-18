@@ -25,8 +25,6 @@ import {
   X,
 } from 'lucide-react';
 
-const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!;
-
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface FormData {
   name: string;
@@ -205,38 +203,33 @@ export default function ContactPage() {
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
-  // Envoi du formulaire vers Google Apps Script (action: saveContact)
+  // Envoi du formulaire via /api/contact (proxy → Google Apps Script)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Construire le label budget lisible
+      // Résoudre le label budget lisible
       const budgetLabel = formData.budget
         ? t(`contact.form.budget.${formData.budget}` as any)
         : '';
 
-      const payload = {
-        action: 'saveContact',
-        name: formData.name,
-        email: formData.email,
-        phone: '',
-        company: '',
-        service: formData.subject,
-        message: `[Budget: ${budgetLabel}]\n\n${formData.message}`,
-        source: 'contact-form',
-      };
-
-      const response = await fetch(GOOGLE_SCRIPT_URL, {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        redirect: 'follow',
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          budget: budgetLabel,
+          message: formData.message,
+          language,
+        }),
       });
 
       const result = await response.json();
 
-      if (result.success) {
+      if (response.ok && result.success) {
         toast({
           title: t('contact.form.success.title'),
           description: t('contact.form.success.desc'),

@@ -93,144 +93,6 @@ function doPost(e) {
 }
 
 // ============================================================
-// GESTION DES CRÉNEAUX
-// ============================================================
-
-function getAvailableSlots(targetDate) {
-  initializeSheets();
-  generateUpcomingSlots();
-
-  const ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(CONFIG.SHEETS.SLOTS);
-  if (!sheet || sheet.getLastRow() < 2) return { slots: [] };
-
-  const data = sheet.getRange(2, 1, sheet.getLastRow() - 1, 4).getValues();
-  const slots = [];
-
-  data.forEach(function(row) {
-    const date = row[0], time = row[1], status = row[2], bookingId = row[3];
-    if (!date) return;
-    const dateStr = formatDateISO(new Date(date));
-    if (targetDate && dateStr !== targetDate) return;
-    if (status === 'disponible') {
-      // FIX: extraire HH:MM depuis objet Date retourné par Google Sheets
-      var timeStr;
-      if (time instanceof Date) {
-  timeStr = Utilities.formatDate(time, CONFIG.TIMEZONE, 'HH:mm');
-} else if (typeof time === 'string' && time.indexOf('T') !== -1) {
-  timeStr = Utilities.formatDate(new Date(time), CONFIG.TIMEZONE, 'HH:mm');
-} else {
-  timeStr = String(time).substring(0, 5); // sécurité si format "09:00:00"
-}
-      slots.push({ date: dateStr, time: timeStr, status: status, available: true, bookingId: bookingId || '' });
-    }
-  });
-
-  return { slots: slots };
-}
-
-function generateUpcomingSlots() {
-  const ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(CONFIG.SHEETS.SLOTS);
-
-  const existing = new Set();
-  if (sheet.getLastRow() > 1) {
-    const data = sheet.getRange(2, 1, sheet.getLastRow() - 1, 2).getValues();
-    data.forEach(function(row) {
-      if (row[0]) existing.add(formatDateISO(new Date(row[0])) + '_' + row[1]);
-    });
-  }
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const newRows = [];
-
-  for (let d = 0; d < CONFIG.DAYS_AHEAD; d++) {
-    const date = new Date(today);
-    date.setDate(today.getDate() + d + 1);
-    if (date.getDay() === 0 || date.getDay() === 6) continue;
-
-    for (let h = CONFIG.WORKING_HOURS.start; h < CONFIG.WORKING_HOURS.end; h++) {
-      const time = (h < 10 ? '0' : '') + h + ':00';
-      const key = formatDateISO(date) + '_' + time;
-      if (!existing.has(key)) {
-        // Forcer le format texte pour l'heure (évite la conversion en Date par Sheets)
-        newRows.push([Utilities.formatDate(date, CONFIG.TIMEZONE, 'yyyy-MM-dd'), time, 'disponible', '']);
-      }
-    }
-  }
-
-  if (newRows.length > 0) {
-    sheet.getRange(sheet.getLastRow() + 1, 1, newRows.length, 4).setValues(newRows);
-  }
-}
-
-// ============================================================
-// SAUVEGARDE DES RÉSERVATIONS
-// ============================================================
-
-function saveBooking(data) {
-  const name = data.name, email = data.email, phone = data.phone;
-  const service = data.service, date = data.date, time = data.time;
-  const message = data.message, language = data.language;
-
-  if (!name || !email || !date || !time) {
-    return { success: false, error: 'Champs obligatoires manquants' };
-  }
-
-  const ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
-  const slotsSheet = ss.getSheetByName(CONFIG.SHEETS.SLOTS);
-  let slotRow = -1;
-
-  if (slotsSheet && slotsSheet.getLastRow() > 1) {
-    const slotsData = slotsSheet.getRange(2, 1, slotsSheet.getLastRow() - 1, 4).getValues();
-    for (let i = 0; i < slotsData.length; i++) {
-      const slotDate = formatDateISO(new Date(slotsData[i][0]));
-      var slotTime = slotsData[i][1];
-if (slotTime instanceof Date) {
-  slotTime = Utilities.formatDate(slotTime, CONFIG.TIMEZONE, 'HH:mm');
-} else if (typeof slotTime === 'string' && slotTime.indexOf('T') !== -1) {
-  slotTime = Utilities.formatDate(new Date(slotTime), CONFIG.TIMEZONE, 'HH:mm');
-} else {
-  slotTime = String(slotTime).substring(0, 5);
-}
-
-if (slotDate === date && slotTime === time && slotsData[i][2] === 'disponible') {        slotRow = i + 2;
-        break;
-      }
-    }
-  }
-
-  if (slotRow === -1) {
-    return { success: false, error: 'Créneau non disponible' };
-  }
-
-  const bookingId = 'RDV-' + Utilities.getUuid().substring(0, 8).toUpperCase();
-  const timestamp = new Date();
-
-  slotsSheet.getRange(slotRow, 3, 1, 2).setValues([['réservé', bookingId]]);
-
-  const bookingsSheet = ss.getSheetByName(CONFIG.SHEETS.BOOKINGS);
-  bookingsSheet.appendRow([
-    timestamp, bookingId, name, email,
-    phone || '', service || '', date, time,
-    message || '', language || 'fr', 'confirmé'
-  ]);
-
-  sendBookingEmails({
-    bookingId: bookingId, name: name, email: email, phone: phone,
-    service: service, date: date, time: time, message: message, language: language
-  });
-
-  return {
-    success: true,
-    bookingId: bookingId,
-    message: 'Réservation confirmée pour le ' + formatDateFR(new Date(date + 'T12:00:00')),
-    details: { bookingId: bookingId, date: date, time: time, name: name }
-  };
-}
-
-// ============================================================
 // SAUVEGARDE DES CONVERSATIONS
 // ============================================================
 
@@ -271,37 +133,275 @@ function saveConversation(data) {
 // ============================================================
 
 function saveContact(data) {
-  const name = data.name, email = data.email, phone = data.phone;
-  const company = data.company, service = data.service;
-  const message = data.message, source = data.source;
+  var name = data.name, email = data.email, phone = data.phone;
+  var company = data.company, service = data.service;
+  var message = data.message, source = data.source;
+  var language = data.language || 'fr';
 
   if (!name || !email) {
     return { success: false, error: 'Nom et email obligatoires' };
   }
 
-  const ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
-  const sheet = ss.getSheetByName(CONFIG.SHEETS.CONTACTS);
-  const timestamp = new Date();
+  var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
+  var sheet = ss.getSheetByName(CONFIG.SHEETS.CONTACTS);
+  var timestamp = new Date();
 
   sheet.appendRow([
     timestamp, name, email, phone || '',
-    company || '', service || '', message || '', source || 'chatbot'
+    company || '', service || '', message || '', source || 'contact-form'
   ]);
 
+  // Email de confirmation au client (même style que les réservations)
   try {
-    sendEmail({
-      to: CONFIG.ADMIN_EMAIL,
-      subject: '[NeurAWeb] Nouveau contact: ' + name,
-      html: getContactNotificationTemplate({
-        name: name, email: email, phone: phone, company: company,
-        service: service, message: message, timestamp: timestamp
-      })
+    sendContactEmails({
+      name: name, email: email, phone: phone,
+      company: company, service: service,
+      message: message, language: language, timestamp: timestamp
     });
   } catch (err) {
-    Logger.log('Erreur email contact: ' + err.message);
+    Logger.log('Erreur emails contact: ' + err.message);
   }
 
   return { success: true, message: 'Contact enregistré avec succès' };
+}
+
+// ============================================================
+// ENVOI DES EMAILS CONTACT (client + admin)
+// ============================================================
+
+function sendContactEmails(params) {
+  var name = params.name, email = params.email, phone = params.phone;
+  var company = params.company, service = params.service;
+  var message = params.message, language = params.language;
+  var timestamp = params.timestamp;
+
+  var isEnglish = language === 'en';
+  var isSpanish = language === 'es';
+
+  // ── Email de confirmation au CLIENT ──────────────────────
+  try {
+    var clientSubject = isEnglish
+      ? '[NeurAWeb] We received your message — We\'ll get back to you within 24h'
+      : isSpanish
+      ? '[NeurAWeb] Recibimos tu mensaje — Te responderemos en 24h'
+      : '[NeurAWeb] Votre message a bien été reçu — Réponse sous 24h';
+
+    sendEmail({
+      to: email,
+      subject: clientSubject,
+      html: getContactClientTemplate({ name: name, service: service, message: message, language: language }),
+      replyTo: CONFIG.EMAIL_ALIAS
+    });
+  } catch (err) {
+    Logger.log('Erreur email client contact: ' + err.message);
+  }
+
+  // ── Email de notification à l'ADMIN ──────────────────────
+  try {
+    sendEmail({
+      to: CONFIG.ADMIN_EMAIL,
+      subject: '[NeurAWeb] Nouveau message de ' + name,
+      html: getContactAdminTemplate({
+        name: name, email: email, phone: phone,
+        company: company, service: service,
+        message: message, timestamp: timestamp
+      }),
+      replyTo: email
+    });
+  } catch (err) {
+    Logger.log('Erreur email admin contact: ' + err.message);
+  }
+}
+
+// ============================================================
+// TEMPLATE EMAIL CLIENT — Confirmation de réception du message
+// (même style sombre que getClientEmailTemplate)
+// ============================================================
+
+function getContactClientTemplate(params) {
+  var name = params.name, service = params.service;
+  var message = params.message, language = params.language;
+
+  var isEnglish = language === 'en';
+  var isSpanish = language === 'es';
+  var year = new Date().getFullYear();
+  var lang = isEnglish ? 'en' : isSpanish ? 'es' : 'fr';
+
+  var t = isEnglish ? {
+    title: 'Message Received',
+    greeting: 'Hello ' + name + ',',
+    subtitle: 'Thank you for contacting NeurAWeb. We have received your message and will get back to you within 24 business hours.',
+    detailsTitle: 'Your Request',
+    labelService: 'Subject',
+    labelMessage: 'Your message',
+    nextSteps: 'What happens next?',
+    steps: [
+      'Our team will review your request carefully.',
+      'We will get back to you within 24 business hours.',
+      'We will prepare a personalized proposal for your project.'
+    ],
+    footer: 'Questions? Reply to this email or contact us at',
+    cta: 'Visit our website'
+  } : isSpanish ? {
+    title: 'Mensaje Recibido',
+    greeting: 'Hola ' + name + ',',
+    subtitle: 'Gracias por contactar a NeurAWeb. Hemos recibido tu mensaje y te responderemos en las próximas 24 horas hábiles.',
+    detailsTitle: 'Tu Solicitud',
+    labelService: 'Asunto',
+    labelMessage: 'Tu mensaje',
+    nextSteps: '¿Qué sigue?',
+    steps: [
+      'Nuestro equipo revisará tu solicitud con atención.',
+      'Te responderemos en las próximas 24 horas hábiles.',
+      'Prepararemos una propuesta personalizada para tu proyecto.'
+    ],
+    footer: '¿Preguntas? Responde a este email o contáctanos en',
+    cta: 'Visitar nuestro sitio'
+  } : {
+    title: 'Message Reçu',
+    greeting: 'Bonjour ' + name + ',',
+    subtitle: 'Merci de nous avoir contactés. Nous avons bien reçu votre message et vous répondrons dans les 24 heures ouvrées.',
+    detailsTitle: 'Votre Demande',
+    labelService: 'Sujet',
+    labelMessage: 'Votre message',
+    nextSteps: 'La suite ?',
+    steps: [
+      'Notre équipe va étudier votre demande avec attention.',
+      'Nous vous répondrons dans les 24 heures ouvrées.',
+      'Nous préparerons une proposition personnalisée pour votre projet.'
+    ],
+    footer: 'Des questions ? Répondez à cet email ou contactez-nous à',
+    cta: 'Visiter notre site'
+  };
+
+  var stepsHtml = t.steps.map(function(step, i) {
+    return '<tr><td style="padding:8px 0;vertical-align:top;">'
+      + '<table cellpadding="0" cellspacing="0"><tr>'
+      + '<td style="padding-right:12px;vertical-align:middle;">'
+      + '<div style="width:24px;height:24px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:50%;text-align:center;line-height:24px;color:#fff;font-size:12px;font-weight:bold;display:inline-block;">' + (i + 1) + '</div>'
+      + '</td><td><p style="color:#c0c0c0;font-size:14px;margin:3px 0;line-height:1.5;">' + step + '</p></td>'
+      + '</tr></table></td></tr>';
+  }).join('');
+
+  return '<!DOCTYPE html><html lang="' + lang + '">'
+    + '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>' + t.title + '</title></head>'
+    + '<body style="margin:0;padding:0;background-color:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Arial,sans-serif;">'
+    + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:40px 20px;">'
+    + '<tr><td align="center">'
+    + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
+
+    // HEADER sombre
+    + '<tr><td style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);border-radius:16px 16px 0 0;padding:40px 40px 32px;text-align:center;">'
+    + '<img src="https://neuraweb.tech/assets/neurawebW.png" alt="NeurAWeb" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />'
+    + '<div style="width:50px;height:3px;background:linear-gradient(135deg,#667eea,#764ba2);margin:0 auto 20px;border-radius:2px;"></div>'
+    + '<h1 style="color:#fff;font-size:20px;font-weight:700;margin:0;">&#10003; ' + t.title + '</h1>'
+    + '</td></tr>'
+
+    // CORPS
+    + '<tr><td style="background:#111;padding:40px;">'
+    + '<p style="color:#e0e0e0;font-size:16px;line-height:1.6;margin:0 0 8px;">' + t.greeting + '</p>'
+    + '<p style="color:#a0a0a0;font-size:15px;line-height:1.6;margin:0 0 32px;">' + t.subtitle + '</p>'
+
+    // Carte détails
+    + '<table width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid #2a2a4a;border-radius:12px;margin-bottom:32px;">'
+    + '<tr><td style="padding:24px;">'
+    + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 20px;">&#128203; ' + t.detailsTitle + '</p>'
+    + '<table width="100%" cellpadding="0" cellspacing="0">'
+    + (service ? '<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a4a;color:#808080;font-size:13px;">' + t.labelService + '</td><td style="padding:10px 0;border-bottom:1px solid #2a2a4a;text-align:right;color:#fff;font-size:14px;font-weight:600;">' + service + '</td></tr>' : '')
+    + (message ? '<tr><td colspan="2" style="padding:12px 0;"><p style="color:#808080;font-size:12px;margin:0 0 6px;">' + t.labelMessage + '</p><p style="color:#c0c0c0;font-size:14px;line-height:1.6;margin:0;white-space:pre-wrap;">' + message + '</p></td></tr>' : '')
+    + '</table></td></tr></table>'
+
+    // Étapes
+    + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 16px;">&#128640; ' + t.nextSteps + '</p>'
+    + '<table width="100%" cellpadding="0" cellspacing="0">' + stepsHtml + '</table>'
+    + '</td></tr>'
+
+    // CTA
+    + '<tr><td style="background:#111;padding:0 40px 32px;text-align:center;">'
+    + '<a href="https://neuraweb.tech" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:15px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:8px;">&#127758; ' + t.cta + '</a>'
+    + '</td></tr>'
+
+    // FOOTER
+    + '<tr><td style="background:#0d0d0d;border-top:1px solid #1a1a1a;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">'
+    + '<p style="color:#505050;font-size:13px;margin:0 0 8px;">' + t.footer + ' <a href="mailto:' + CONFIG.EMAIL_ALIAS + '" style="color:#667eea;text-decoration:none;">' + CONFIG.EMAIL_ALIAS + '</a></p>'
+    + '<p style="color:#303030;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; <a href="https://neuraweb.tech" style="color:#404040;text-decoration:none;">neuraweb.tech</a></p>'
+    + '</td></tr>'
+
+    + '</table></td></tr></table></body></html>';
+}
+
+// ============================================================
+// TEMPLATE EMAIL ADMIN — Nouveau message de contact
+// (même style que getAdminEmailTemplate pour les réservations)
+// ============================================================
+
+function getContactAdminTemplate(params) {
+  var name = params.name, email = params.email, phone = params.phone;
+  var company = params.company, service = params.service;
+  var message = params.message, timestamp = params.timestamp;
+  var year = new Date().getFullYear();
+
+  var rows = [
+    ['Nom', '<strong>' + name + '</strong>'],
+    ['Email', '<a href="mailto:' + email + '" style="color:#667eea;text-decoration:none;">' + email + '</a>'],
+    ['Téléphone', phone || '<span style="color:#aaa;">Non renseigné</span>'],
+    ['Entreprise', company || '<span style="color:#aaa;">Non renseignée</span>'],
+    ['Sujet / Service', service || '<span style="color:#aaa;">Non spécifié</span>'],
+    ['Date', timestamp ? timestamp.toLocaleString('fr-FR') : new Date().toLocaleString('fr-FR')]
+  ];
+
+  var rowsHtml = rows.map(function(row, i) {
+    return '<tr style="background:' + (i % 2 === 0 ? '#fff' : '#f8f8ff') + ';">'
+      + '<td style="padding:12px 16px;border-bottom:1px solid #e8e8f0;color:#888;font-size:13px;width:35%;">' + row[0] + '</td>'
+      + '<td style="padding:12px 16px;border-bottom:1px solid #e8e8f0;color:#1a1a1a;font-size:14px;">' + row[1] + '</td>'
+      + '</tr>';
+  }).join('');
+
+  return '<!DOCTYPE html><html lang="fr">'
+    + '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Nouveau message de ' + name + '</title></head>'
+    + '<body style="margin:0;padding:0;background:#f0f0f5;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Arial,sans-serif;">'
+    + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0f5;padding:40px 20px;">'
+    + '<tr><td align="center">'
+    + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
+
+    // HEADER fond blanc + logo noir
+    + '<tr><td style="background:#fff;border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;border-bottom:3px solid #667eea;">'
+    + '<img src="https://neuraweb.tech/assets/neurawebB.png" alt="NeurAWeb" width="160" style="display:block;margin:0 auto 12px;height:auto;" />'
+    + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0;">&#128235; Nouveau Message de Contact</p>'
+    + '</td></tr>'
+
+    // BANDEAU violet
+    + '<tr><td style="background:linear-gradient(135deg,#667eea,#764ba2);padding:16px 40px;text-align:center;">'
+    + '<p style="color:#fff;font-size:16px;font-weight:600;margin:0;">Message de <strong>' + name + '</strong></p>'
+    + '</td></tr>'
+
+    // DÉTAILS
+    + '<tr><td style="background:#fff;padding:32px 40px;">'
+    + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 20px;">&#128100; Informations Client</p>'
+    + '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e0e0f0;border-radius:8px;overflow:hidden;">'
+    + rowsHtml
+    + '</table>'
+
+    + (message
+        ? '<div style="margin-top:24px;background:#f8f8ff;border-left:4px solid #667eea;border-radius:4px;padding:16px;">'
+          + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin:0 0 8px;">&#128172; Message du client</p>'
+          + '<p style="color:#333;font-size:14px;line-height:1.6;margin:0;white-space:pre-wrap;">' + message + '</p>'
+          + '</div>'
+        : '')
+
+    // Boutons d'action
+    + '<div style="margin-top:28px;text-align:center;">'
+    + '<a href="mailto:' + email + '?subject=Re:%20Votre%20message%20-%20NeurAWeb" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 24px;border-radius:8px;margin:4px;">&#128231; Répondre au client</a>'
+    + '<a href="https://docs.google.com/spreadsheets/d/' + CONFIG.SPREADSHEET_ID + '" style="display:inline-block;background:#f0f0ff;color:#667eea;border:2px solid #667eea;font-size:14px;font-weight:600;text-decoration:none;padding:10px 24px;border-radius:8px;margin:4px;">&#128202; Voir Google Sheet</a>'
+    + '</div>'
+    + '</td></tr>'
+
+    // FOOTER
+    + '<tr><td style="background:#f0f0f5;border-radius:0 0 16px 16px;padding:20px 40px;text-align:center;border-top:1px solid #e0e0f0;">'
+    + '<p style="color:#999;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; Notification automatique interne</p>'
+    + '</td></tr>'
+
+    + '</table></td></tr></table></body></html>';
 }
 
 // ============================================================
@@ -456,7 +556,7 @@ function getClientEmailTemplate(params) {
 
     // HEADER
     + '<tr><td style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);border-radius:16px 16px 0 0;padding:40px 40px 32px;text-align:center;">'
-    + '<img src="https://neuraweb.tech/assets/neurawebW.webp" alt="NeurAWeb" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />'
+    + '<img src="https://neuraweb.tech/assets/neurawebW.png" alt="NeurAWeb" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />'
     + '<div style="width:50px;height:3px;background:linear-gradient(135deg,#667eea,#764ba2);margin:0 auto 20px;border-radius:2px;"></div>'
     + '<h1 style="color:#fff;font-size:20px;font-weight:700;margin:0;">&#10003; ' + t.title + '</h1>'
     + '</td></tr>'
@@ -533,7 +633,7 @@ function getAdminEmailTemplate(params) {
 
     // HEADER fond blanc + logo noir
     + '<tr><td style="background:#fff;border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;border-bottom:3px solid #667eea;">'
-    + '<img src="https://neuraweb.tech/assets/neurawebB.webp" alt="NeurAWeb" width="160" style="display:block;margin:0 auto 12px;height:auto;" />'
+    + '<img src="https://neuraweb.tech/assets/neurawebB.png" alt="NeurAWeb" width="160" style="display:block;margin:0 auto 12px;height:auto;" />'
     + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0;">&#128197; Nouvelle Réservation</p>'
     + '</td></tr>'
 
@@ -568,54 +668,6 @@ function getAdminEmailTemplate(params) {
     + '<p style="color:#999;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; Notification automatique interne</p>'
     + '</td></tr>'
 
-    + '</table></td></tr></table></body></html>';
-}
-
-// ============================================================
-// TEMPLATE EMAIL NOTIFICATION CONTACT
-// ============================================================
-
-function getContactNotificationTemplate(params) {
-  const name = params.name, email = params.email, phone = params.phone;
-  const company = params.company, service = params.service;
-  const message = params.message, timestamp = params.timestamp;
-  const year = new Date().getFullYear();
-
-  const rows = [
-    ['Nom', name],
-    ['Email', email],
-    ['Téléphone', phone || 'N/A'],
-    ['Entreprise', company || 'N/A'],
-    ['Service', service || 'N/A'],
-    ['Date', timestamp.toLocaleString('fr-FR')]
-  ];
-
-  const rowsHtml = rows.map(function(r, i) {
-    return '<tr style="background:' + (i % 2 === 0 ? '#fff' : '#f8f8ff') + ';">'
-      + '<td style="padding:10px 16px;color:#888;font-size:13px;border-bottom:1px solid #eee;width:35%;">' + r[0] + '</td>'
-      + '<td style="padding:10px 16px;color:#333;font-size:14px;border-bottom:1px solid #eee;">' + r[1] + '</td></tr>';
-  }).join('');
-
-  return '<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Nouveau contact</title></head>'
-    + '<body style="margin:0;padding:0;background:#f0f0f5;font-family:Arial,sans-serif;">'
-    + '<table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 20px;background:#f0f0f5;">'
-    + '<tr><td align="center"><table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
-    + '<tr><td style="background:#fff;border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;border-bottom:3px solid #667eea;">'
-    + '<img src="https://neuraweb.tech/assets/neurawebB.webp" alt="NeurAWeb" width="160" style="display:block;margin:0 auto 12px;height:auto;" />'
-    + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0;">&#128235; Nouveau Contact</p>'
-    + '</td></tr>'
-    + '<tr><td style="background:#fff;padding:32px 40px;">'
-    + '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e0e0f0;border-radius:8px;overflow:hidden;">'
-    + rowsHtml + '</table>'
-    + (message
-        ? '<div style="margin-top:20px;background:#f8f8ff;border-left:4px solid #667eea;padding:16px;border-radius:4px;">'
-          + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin:0 0 8px;">&#128172; Message</p>'
-          + '<p style="color:#333;font-size:14px;margin:0;">' + message + '</p></div>'
-        : '')
-    + '</td></tr>'
-    + '<tr><td style="background:#f0f0f5;border-radius:0 0 16px 16px;padding:16px 40px;text-align:center;border-top:1px solid #e0e0f0;">'
-    + '<p style="color:#999;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; Notification automatique</p>'
-    + '</td></tr>'
     + '</table></td></tr></table></body></html>';
 }
 
@@ -703,36 +755,6 @@ function cleanOldSlots() {
   }
 }
 
-// ============================================================
-// FONCTIONS DE TEST
-// ============================================================
-
-function testSetup() {
-  Logger.log('=== TEST SETUP ===');
-  initializeSheets();
-  Logger.log('Feuilles OK');
-  generateUpcomingSlots();
-  Logger.log('Créneaux générés');
-  const slots = getAvailableSlots();
-  Logger.log('Créneaux disponibles: ' + slots.slots.length);
-  Logger.log('=== OK ===');
-}
-
-function testEmail() {
-  Logger.log('Test envoi email...');
-  sendBookingEmails({
-    bookingId: 'RDV-TEST01',
-    name: 'Test Utilisateur',
-    email: CONFIG.ADMIN_EMAIL,
-    phone: '+33 6 00 00 00 00',
-    service: 'Développement Web',
-    date: '2026-03-01',
-    time: '10:00',
-    message: 'Ceci est un test de réservation.',
-    language: 'fr'
-  });
-  Logger.log('Email de test envoyé à ' + CONFIG.ADMIN_EMAIL);
-}
 // ============================================================
 // FONCTION UTILITAIRE — Extraire HH:MM depuis n'importe quel
 // format retourné par Google Sheets pour une cellule "heure"
