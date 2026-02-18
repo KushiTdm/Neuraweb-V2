@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, X, Loader2, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, Loader2, ExternalLink, Globe, Smartphone } from 'lucide-react';
 import { gsap } from '@/lib/gsap-setup';
 import { useTranslation } from '@/hooks/use-translation';
 import type { TranslationKey } from '@/locales';
@@ -14,7 +14,7 @@ interface Project {
   gif: string;
   gifType: 'gif' | 'webm';
   technologies: string[];
-  category: string;
+  category: 'web' | 'mobile';
   url?: string;
   ariaLabel?: string;
 }
@@ -73,67 +73,95 @@ const portfolio: Project[] = [
   },
 ];
 
+type FilterCategory = 'all' | 'web' | 'mobile';
+
 export function PortfolioSection() {
   const [mounted, setMounted] = useState(false);
+  const [activeFilter, setActiveFilter] = useState<FilterCategory>('all');
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>(portfolio);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [gifLoading, setGifLoading] = useState(false);
   const [gifLoaded, setGifLoaded] = useState(false);
   const { t } = useTranslation();
-  
+
+  const sectionRef = useRef<HTMLElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const autoPlayRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // Scroll-triggered entrance animation
   useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [selectedProject]);
+    if (!mounted || !sectionRef.current) return;
 
-  useEffect(() => {
-    if (!mounted) return;
+    const ctx = gsap.context(() => {
+      gsap.from('.portfolio-title', {
+        scrollTrigger: {
+          trigger: '.portfolio-title',
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+        duration: 0.9,
+        y: -40,
+        opacity: 0,
+        ease: 'power3.out',
+      });
 
-    gsap.from('.portfolio-title', {
-      duration: 1,
-      y: -50,
-      opacity: 0,
-      ease: 'power3.out',
-    });
+      gsap.from('.portfolio-subtitle', {
+        scrollTrigger: {
+          trigger: '.portfolio-subtitle',
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+        duration: 0.9,
+        y: 20,
+        opacity: 0,
+        delay: 0.15,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.portfolio-filters', {
+        scrollTrigger: {
+          trigger: '.portfolio-filters',
+          start: 'top 88%',
+          toggleActions: 'play none none none',
+        },
+        duration: 0.7,
+        y: 20,
+        opacity: 0,
+        delay: 0.25,
+        ease: 'power2.out',
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, [mounted]);
 
+  // Filter logic
   useEffect(() => {
-    if (mounted && cardsRef.current.length > 0) {
-      updateCarousel();
-    }
-  }, [currentIndex, mounted]);
+    const newFiltered =
+      activeFilter === 'all'
+        ? portfolio
+        : portfolio.filter((p) => p.category === activeFilter);
+    setFilteredProjects(newFiltered);
+    setCurrentIndex(0);
+  }, [activeFilter]);
 
+  // Lock body scroll when modal is open
   useEffect(() => {
-    if (!mounted || !isAutoPlay) return;
+    document.body.style.overflow = selectedProject ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [selectedProject]);
 
-    autoPlayRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % portfolio.length);
-    }, 4000);
-
-    return () => {
-      if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current);
-      }
-    };
-  }, [isAutoPlay, mounted]);
-
-  const updateCarousel = () => {
+  // Update carousel positions
+  const updateCarousel = useCallback(() => {
     if (!mounted) return;
 
     cardsRef.current.forEach((card, index) => {
@@ -141,7 +169,7 @@ export function PortfolioSection() {
 
       const offset = index - currentIndex;
       const absOffset = Math.abs(offset);
-      
+
       let x = offset * 320;
       let z = -absOffset * 200;
       let scale = 1 - absOffset * 0.2;
@@ -156,25 +184,57 @@ export function PortfolioSection() {
 
       gsap.to(card, {
         duration: 0.8,
-        x: x,
-        z: z,
-        scale: scale,
-        opacity: opacity,
-        rotateY: rotateY,
+        x,
+        z,
+        scale,
+        opacity,
+        rotateY,
         ease: 'power2.out',
         zIndex: 100 - absOffset,
       });
     });
-  };
+  }, [currentIndex, mounted]);
+
+  useEffect(() => {
+    if (mounted && cardsRef.current.length > 0) {
+      updateCarousel();
+    }
+  }, [currentIndex, mounted, filteredProjects, updateCarousel]);
+
+  // Autoplay
+  useEffect(() => {
+    if (!mounted || !isAutoPlay || filteredProjects.length <= 1) return;
+
+    autoPlayRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % filteredProjects.length);
+    }, 4000);
+
+    return () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    };
+  }, [isAutoPlay, mounted, filteredProjects.length]);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % portfolio.length);
+    setCurrentIndex((prev) => (prev + 1) % filteredProjects.length);
     setIsAutoPlay(false);
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + portfolio.length) % portfolio.length);
+    setCurrentIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
     setIsAutoPlay(false);
+  };
+
+  // Touch / swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].screenX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    touchEndX.current = e.changedTouches[0].screenX;
+    const delta = touchStartX.current - touchEndX.current;
+    if (Math.abs(delta) > 50) {
+      delta > 0 ? nextSlide() : prevSlide();
+    }
   };
 
   const openProject = (project: Project) => {
@@ -182,18 +242,12 @@ export function PortfolioSection() {
     setIsAutoPlay(false);
     setGifLoading(true);
     setGifLoaded(false);
-    
+
     if (project.gifType === 'gif') {
       const img = new window.Image();
       img.src = project.gif;
-      img.onload = () => {
-        setGifLoading(false);
-        setGifLoaded(true);
-      };
-      img.onerror = () => {
-        setGifLoading(false);
-        setGifLoaded(false);
-      };
+      img.onload = () => { setGifLoading(false); setGifLoaded(true); };
+      img.onerror = () => { setGifLoading(false); setGifLoaded(false); };
     }
 
     gsap.from('.modal-content', {
@@ -225,6 +279,21 @@ export function PortfolioSection() {
     }
   };
 
+  const getCategoryIcon = (category: 'web' | 'mobile') =>
+    category === 'mobile' ? (
+      <Smartphone size={11} className="inline-block mr-1" />
+    ) : (
+      <Globe size={11} className="inline-block mr-1" />
+    );
+
+  const getCategoryLabel = (category: 'web' | 'mobile') =>
+    category === 'mobile' ? t('portfolio.category.mobile') : t('portfolio.category.web');
+
+  const getCategoryColor = (category: 'web' | 'mobile') =>
+    category === 'mobile'
+      ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300'
+      : 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300';
+
   if (!mounted) {
     return (
       <section className="section-snap min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-gray-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-900 flex items-center justify-center">
@@ -233,16 +302,24 @@ export function PortfolioSection() {
     );
   }
 
+  const filters: { key: FilterCategory; label: TranslationKey }[] = [
+    { key: 'all', label: 'portfolio.filter.all' },
+    { key: 'web', label: 'portfolio.filter.web' },
+    { key: 'mobile', label: 'portfolio.filter.mobile' },
+  ];
+
   return (
     <>
       <section
+        ref={sectionRef}
         id="portfolio"
         aria-labelledby="portfolio-heading"
         className="section-snap bg-gradient-to-br from-gray-50 via-purple-50 to-gray-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-900 overflow-hidden relative min-h-screen py-20"
       >
         <div className="max-w-7xl mx-auto h-full min-h-screen flex flex-col justify-center px-4 py-8 md:py-12">
+
           {/* Header */}
-          <div className="text-center mb-4 md:mb-6 relative z-[60]">
+          <div className="text-center mb-4 md:mb-5 relative z-[60]">
             <h2
               id="portfolio-heading"
               className="portfolio-title text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2"
@@ -252,127 +329,177 @@ export function PortfolioSection() {
                 {t('portfolio.section.title.highlight')}
               </span>
             </h2>
-            <p className="text-sm md:text-base lg:text-lg text-gray-700 dark:text-gray-100 max-w-2xl mx-auto">
+            <p className="portfolio-subtitle text-sm md:text-base lg:text-lg text-gray-700 dark:text-gray-100 max-w-2xl mx-auto">
               {t('portfolio.section.subtitle')}
             </p>
           </div>
 
-          {/* 3D Carousel */}
-          <div
-            className="flex-1 relative max-h-[450px] md:max-h-[500px]"
-            style={{ perspective: '1500px' }}
-            role="region"
-            aria-label={t('portfolio.carousel.label')}
-          >
-            <div
-              ref={carouselRef}
-              className="absolute inset-0 flex items-center justify-center"
-              style={{ transformStyle: 'preserve-3d' }}
-            >
-              {portfolio.map((project, index) => (
-                <div
-                  key={index}
-                  ref={(el) => (cardsRef.current[index] = el)}
-                  className="carousel-card absolute w-60 sm:w-64 md:w-72 lg:w-80 cursor-pointer group"
-                  style={{ transformStyle: 'preserve-3d' }}
-                  onClick={() => index === currentIndex && openProject(project)}
-                  role="article"
-                  aria-label={project.ariaLabel || t(project.titleKey)}
-                  tabIndex={index === currentIndex ? 0 : -1}
-                  onKeyDown={(e) => {
-                    if (index === currentIndex && (e.key === 'Enter' || e.key === ' ')) {
-                      e.preventDefault();
-                      openProject(project);
-                    }
-                  }}
-                >
-                  <div className="bg-white dark:bg-gray-800/90 dark:backdrop-blur-lg rounded-2xl overflow-hidden shadow-xl dark:shadow-2xl border border-gray-200 dark:border-white/20 transition-all duration-300 hover:border-purple-400 dark:hover:border-purple-400 hover:shadow-2xl hover:shadow-purple-500/20">
-                    <div className="relative h-36 sm:h-40 md:h-48 overflow-hidden">
-                      <Image
-                        src={project.image}
-                        alt={t(project.titleKey)}
-                        fill
-                        sizes="320px"
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        quality={75}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                      {index === currentIndex && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <span className="bg-white/90 dark:bg-white/20 backdrop-blur-sm text-gray-900 dark:text-white px-4 py-2 rounded-full font-semibold text-sm">
-                            {t('portfolio.card.clickToView')}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-4 md:p-5 lg:p-6">
-                      <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
-                        {t(project.titleKey)}
-                      </h3>
-                      <p className="text-gray-700 dark:text-gray-100 mb-3 text-xs md:text-sm line-clamp-2">
-                        {t(project.descriptionKey)}
-                      </p>
-                      <div className="flex flex-wrap gap-1.5 md:gap-2" role="list" aria-label="Technologies used">
-                        {project.technologies.map((tech, techIndex) => (
-                          <span
-                            key={techIndex}
-                            role="listitem"
-                            className="px-2 md:px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-500/30 dark:to-purple-500/30 text-blue-600 dark:text-blue-200 rounded-full text-xs font-medium"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Navigation Arrows */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-2 md:left-4 lg:left-8 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 backdrop-blur-sm text-gray-900 dark:text-white p-2 md:p-3 rounded-full transition-all duration-300 hover:scale-110 z-50 shadow-lg"
-              aria-label={t('portfolio.nav.previous')}
-            >
-              <ChevronLeft size={20} className="md:w-6 md:h-6" />
-            </button>
-            <button
-              onClick={nextSlide}
-              className="absolute right-2 md:right-4 lg:right-8 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 backdrop-blur-sm text-gray-900 dark:text-white p-2 md:p-3 rounded-full transition-all duration-300 hover:scale-110 z-50 shadow-lg"
-              aria-label={t('portfolio.nav.next')}
-            >
-              <ChevronRight size={20} className="md:w-6 md:h-6" />
-            </button>
-          </div>
-
-          {/* Indicators */}
-          <div className="flex justify-center gap-2 mt-4 md:mt-6 relative z-[60]" role="tablist" aria-label="Portfolio navigation">
-            {portfolio.map((_, index) => (
+          {/* Filter Buttons */}
+          <div className="portfolio-filters flex justify-center gap-2 mb-4 md:mb-5 relative z-[60]" role="group" aria-label="Filtrer les projets">
+            {filters.map(({ key, label }) => (
               <button
-                key={index}
-                role="tab"
-                aria-selected={index === currentIndex}
-                aria-controls={`project-${index}`}
+                key={key}
                 onClick={() => {
-                  setCurrentIndex(index);
+                  setActiveFilter(key);
                   setIsAutoPlay(false);
                 }}
-                className={`h-2 md:h-3 rounded-full transition-all duration-300 min-w-[44px] min-h-[44px] flex items-center justify-center ${
-                  index === currentIndex ? 'w-8 md:w-10' : 'w-2 md:w-3'
+                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 border ${
+                  activeFilter === key
+                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-transparent shadow-lg shadow-purple-500/30 scale-105'
+                    : 'bg-white/80 dark:bg-white/10 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-white/20 hover:border-purple-400 dark:hover:border-purple-400 hover:scale-105'
                 }`}
-                aria-label={`${t('portfolio.nav.goto')} ${index + 1}`}
+                aria-pressed={activeFilter === key}
               >
-                <span
-                  className={`block h-2 md:h-3 rounded-full transition-all duration-300 ${
-                    index === currentIndex
-                      ? 'w-8 md:w-10 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400'
-                      : 'w-2 md:w-3 bg-gray-300 dark:bg-white/30'
-                  }`}
-                />
+                {t(label)}
+                {key !== 'all' && (
+                  <span className="ml-1.5 text-xs opacity-70">
+                    ({portfolio.filter((p) => p.category === key).length})
+                  </span>
+                )}
               </button>
             ))}
           </div>
+
+          {/* 3D Carousel */}
+          {filteredProjects.length > 0 ? (
+            <div
+              className="flex-1 relative max-h-[450px] md:max-h-[500px]"
+              style={{ perspective: '1500px' }}
+              role="region"
+              aria-label={t('portfolio.carousel.label')}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
+              <div
+                ref={carouselRef}
+                className="absolute inset-0 flex items-center justify-center"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
+                {filteredProjects.map((project, index) => (
+                  <div
+                    key={`${activeFilter}-${index}`}
+                    ref={(el) => (cardsRef.current[index] = el)}
+                    className="carousel-card absolute w-60 sm:w-64 md:w-72 lg:w-80 cursor-pointer group"
+                    style={{ transformStyle: 'preserve-3d' }}
+                    onClick={() => index === currentIndex && openProject(project)}
+                    role="article"
+                    aria-label={project.ariaLabel || t(project.titleKey)}
+                    tabIndex={index === currentIndex ? 0 : -1}
+                    onKeyDown={(e) => {
+                      if (index === currentIndex && (e.key === 'Enter' || e.key === ' ')) {
+                        e.preventDefault();
+                        openProject(project);
+                      }
+                    }}
+                  >
+                    <div className="bg-white dark:bg-gray-800/90 dark:backdrop-blur-lg rounded-2xl overflow-hidden shadow-xl dark:shadow-2xl border border-gray-200 dark:border-white/20 transition-all duration-300 hover:border-purple-400 dark:hover:border-purple-400 hover:shadow-2xl hover:shadow-purple-500/20">
+                      <div className="relative h-36 sm:h-40 md:h-48 overflow-hidden">
+                        <Image
+                          src={project.image}
+                          alt={t(project.titleKey)}
+                          fill
+                          sizes="320px"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          quality={75}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+
+                        {/* Category badge on image */}
+                        <div className={`absolute top-2 left-2 flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${getCategoryColor(project.category)}`}>
+                          {getCategoryIcon(project.category)}
+                          {getCategoryLabel(project.category)}
+                        </div>
+
+                        {index === currentIndex && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span className="bg-white/90 dark:bg-white/20 backdrop-blur-sm text-gray-900 dark:text-white px-4 py-2 rounded-full font-semibold text-sm">
+                              {t('portfolio.card.clickToView')}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="p-4 md:p-5 lg:p-6">
+                        <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                          {t(project.titleKey)}
+                        </h3>
+                        <p className="text-gray-700 dark:text-gray-100 mb-3 text-xs md:text-sm line-clamp-2">
+                          {t(project.descriptionKey)}
+                        </p>
+                        <div className="flex flex-wrap gap-1.5 md:gap-2" role="list" aria-label="Technologies used">
+                          {project.technologies.map((tech, techIndex) => (
+                            <span
+                              key={techIndex}
+                              role="listitem"
+                              className="px-2 md:px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-500/30 dark:to-purple-500/30 text-blue-600 dark:text-blue-200 rounded-full text-xs font-medium"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Navigation Arrows */}
+              {filteredProjects.length > 1 && (
+                <>
+                  <button
+                    onClick={prevSlide}
+                    className="absolute left-2 md:left-4 lg:left-8 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 backdrop-blur-sm text-gray-900 dark:text-white p-2 md:p-3 rounded-full transition-all duration-300 hover:scale-110 z-50 shadow-lg"
+                    aria-label={t('portfolio.nav.previous')}
+                  >
+                    <ChevronLeft size={20} className="md:w-6 md:h-6" />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className="absolute right-2 md:right-4 lg:right-8 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 backdrop-blur-sm text-gray-900 dark:text-white p-2 md:p-3 rounded-full transition-all duration-300 hover:scale-110 z-50 shadow-lg"
+                    aria-label={t('portfolio.nav.next')}
+                  >
+                    <ChevronRight size={20} className="md:w-6 md:h-6" />
+                  </button>
+                </>
+              )}
+
+              {/* Project counter */}
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs font-semibold text-gray-500 dark:text-gray-400 bg-white/70 dark:bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full z-50">
+                {currentIndex + 1} / {filteredProjects.length}
+              </div>
+            </div>
+          ) : (
+            <div className="flex-1 flex items-center justify-center">
+              <p className="text-gray-500 dark:text-gray-400 text-lg">Aucun projet dans cette catégorie.</p>
+            </div>
+          )}
+
+          {/* Dot Indicators */}
+          {filteredProjects.length > 0 && (
+            <div className="flex justify-center gap-2 mt-6 md:mt-8 relative z-[60]" role="tablist" aria-label="Portfolio navigation">
+              {filteredProjects.map((_, index) => (
+                <button
+                  key={index}
+                  role="tab"
+                  aria-selected={index === currentIndex}
+                  aria-controls={`project-${index}`}
+                  onClick={() => {
+                    setCurrentIndex(index);
+                    setIsAutoPlay(false);
+                  }}
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center"
+                  aria-label={`${t('portfolio.nav.goto')} ${index + 1}`}
+                >
+                  <span
+                    className={`block h-2 md:h-3 rounded-full transition-all duration-300 ${
+                      index === currentIndex
+                        ? 'w-8 md:w-10 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400'
+                        : 'w-2 md:w-3 bg-gray-300 dark:bg-white/30'
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -391,7 +518,7 @@ export function PortfolioSection() {
             style={{ maxHeight: 'calc(100vh - 2rem)' }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Bouton fermer */}
+            {/* Close button */}
             <button
               onClick={closeProject}
               className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-700 backdrop-blur-sm text-gray-900 dark:text-white p-2 rounded-full transition-all duration-300 hover:scale-110 z-20 shadow-lg"
@@ -400,9 +527,8 @@ export function PortfolioSection() {
               <X size={20} className="sm:w-6 sm:h-6" />
             </button>
 
-            {/* Layout adaptatif */}
             <div className="flex flex-col lg:flex-row h-full">
-              {/* Zone média */}
+              {/* Media zone */}
               <div className="relative w-full lg:w-3/5 h-48 sm:h-64 lg:h-auto bg-gray-900 rounded-t-2xl lg:rounded-l-3xl lg:rounded-tr-none overflow-hidden flex-shrink-0">
                 {gifLoading && (
                   <div className="absolute inset-0 flex items-center justify-center bg-gray-900/50 backdrop-blur-sm z-10">
@@ -415,15 +541,13 @@ export function PortfolioSection() {
                   </div>
                 )}
 
-                {/* Image statique */}
+                {/* Static image */}
                 <Image
                   src={selectedProject.image}
                   alt={t(selectedProject.titleKey)}
                   fill
                   sizes="(max-width: 1024px) 100vw, 60vw"
-                  className={`object-cover transition-opacity duration-500 ${
-                    gifLoaded ? 'opacity-0' : 'opacity-100'
-                  }`}
+                  className={`object-cover transition-opacity duration-500 ${gifLoaded ? 'opacity-0' : 'opacity-100'}`}
                   quality={85}
                   priority
                 />
@@ -440,7 +564,7 @@ export function PortfolioSection() {
                   />
                 )}
 
-                {/* WebM vidéo */}
+                {/* WebM video */}
                 {selectedProject.gifType === 'webm' && (
                   <video
                     src={selectedProject.gif}
@@ -448,22 +572,20 @@ export function PortfolioSection() {
                     loop
                     muted
                     playsInline
-                    className={`w-full h-full object-cover transition-opacity duration-500 ${
-                      gifLoaded ? 'opacity-100' : 'opacity-0 absolute'
-                    }`}
-                    onLoadedData={() => {
-                      setGifLoading(false);
-                      setGifLoaded(true);
-                    }}
-                    onError={() => {
-                      setGifLoading(false);
-                      setGifLoaded(false);
-                    }}
+                    className={`w-full h-full object-cover transition-opacity duration-500 ${gifLoaded ? 'opacity-100' : 'opacity-0 absolute'}`}
+                    onLoadedData={() => { setGifLoading(false); setGifLoaded(true); }}
+                    onError={() => { setGifLoading(false); setGifLoaded(false); }}
                   />
                 )}
+
+                {/* Category badge in modal */}
+                <div className={`absolute top-3 left-3 flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${getCategoryColor(selectedProject.category)}`}>
+                  {getCategoryIcon(selectedProject.category)}
+                  {getCategoryLabel(selectedProject.category)}
+                </div>
               </div>
 
-              {/* Zone contenu */}
+              {/* Content zone */}
               <div className="flex-1 p-4 sm:p-6 lg:p-8 flex flex-col justify-between overflow-y-auto">
                 <div>
                   <h3
@@ -498,7 +620,7 @@ export function PortfolioSection() {
                   </div>
                 </div>
 
-                {/* Bouton CTA */}
+                {/* CTA Button */}
                 {selectedProject.url && (
                   <button
                     onClick={handleViewProject}
