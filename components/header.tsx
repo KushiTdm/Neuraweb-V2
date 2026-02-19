@@ -89,6 +89,34 @@ export function Header() {
               </Link>
 
               <Link
+                href="/blog"
+                className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  isActive('/blog')
+                    ? 'text-brand-600 dark:text-brand-400'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/60 dark:hover:bg-white/5'
+                }`}
+              >
+                Blog
+                {isActive('/blog') && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
+                )}
+              </Link>
+
+              <Link
+                href="/equipe"
+                className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  isActive('/equipe')
+                    ? 'text-brand-600 dark:text-brand-400'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/60 dark:hover:bg-white/5'
+                }`}
+              >
+                Équipe
+                {isActive('/equipe') && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
+                )}
+              </Link>
+
+              <Link
                 href="/contact"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/contact')
@@ -182,6 +210,8 @@ export function Header() {
             {[
               { href: '/', label: t('nav.home') },
               { href: '/services', label: t('nav.services') },
+              { href: '/blog', label: 'Blog' },
+              { href: '/equipe', label: 'Équipe' },
               { href: '/contact', label: t('nav.contact') },
             ].map((item) => (
               <Link

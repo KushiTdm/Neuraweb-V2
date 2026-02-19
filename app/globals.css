@@ -512,3 +512,230 @@
     text-align: center !important;
   }
 }
+
+/* ============================================================
+   ACCESSIBILITÉ WCAG AA
+   ============================================================ */
+
+/* ── Skip Link — Navigation rapide au contenu ─────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 1rem 2rem;
+  background: var(--brand-primary, #6366f1);
+  color: white;
+  font-weight: 600;
+  border-radius: 0 0 0.75rem 0.75rem;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: none;
+}
+
+/* ── Focus Visible — Amélioration de la visibilité du focus ───────────────── */
+:focus-visible {
+  outline: 2px solid var(--brand-primary, #6366f1);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Remove outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Focus styles for buttons */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--brand-primary, #6366f1);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25);
+}
+
+/* Focus for form elements */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--brand-primary, #6366f1);
+  outline-offset: 2px;
+}
+
+/* ── Screen Reader Only — Contenu accessible uniquement aux lecteurs d'écran ─ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus,
+.sr-only:active {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ── Reduced Motion — Respect des préférences utilisateur ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .particle,
+  .shimmer,
+  .animate-float,
+  .animate-fadeIn,
+  .animate-cardFloat,
+  .animate-ping-slow {
+    animation: none !important;
+  }
+}
+
+/* ── High Contrast Mode ───────────────────────────────────────────────────── */
+@media (prefers-contrast: high) {
+  :root {
+    --border: 0 0% 0%;
+    --muted-foreground: 0 0% 20%;
+  }
+
+  .dark {
+    --border: 0 0% 100%;
+    --muted-foreground: 0 0% 80%;
+  }
+
+  .card-base,
+  .card-glass {
+    border-width: 2px;
+  }
+
+  a,
+  button {
+    text-decoration: underline;
+  }
+}
+
+/* ── Color Contrast Fixes — WCAG AA minimum 4.5:1 ──────────────────────────── */
+/* Text colors with sufficient contrast */
+.text-contrast-high {
+  color: #1a1a2e; /* Ratio 16.7:1 on white background */
+}
+
+.text-contrast-medium {
+  color: #374151; /* Ratio 9.1:1 on white background */
+}
+
+.text-contrast-muted {
+  color: #6b7280; /* Ratio 4.6:1 on white background — minimum for AA */
+}
+
+.dark .text-contrast-high {
+  color: #f9fafb; /* Ratio 15.1:1 on dark background */
+}
+
+.dark .text-contrast-medium {
+  color: #e5e7eb; /* Ratio 11.3:1 on dark background */
+}
+
+.dark .text-contrast-muted {
+  color: #9ca3af; /* Ratio 4.6:1 on dark background */
+}
+
+/* ── Interactive Elements — Taille minimum de touch target ────────────────── */
+@media (pointer: coarse) {
+  button,
+  a,
+  [role="button"],
+  input[type="checkbox"],
+  input[type="radio"],
+  select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    min-height: 44px;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
+
+/* ── Visible Focus for Cards and Interactive Elements ─────────────────────── */
+.card-base:focus-within,
+.card-glass:focus-within {
+  outline: 2px solid var(--brand-primary, #6366f1);
+  outline-offset: 2px;
+}
+
+/* ── Link Underline — Visibilité des liens ────────────────────────────────── */
+a:not([class]) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+a:not([class]):hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ── Image Alt Text Fallback ──────────────────────────────────────────────── */
+img[alt=""] {
+  /* Decorative image - no visual indicator needed */
+}
+
+img:not([alt]) {
+  /* Missing alt - add a subtle border in development */
+  border: 2px dashed #f43f5e;
+}
+
+/* ── Accessible Hide/Show ─────────────────────────────────────────────────── */
+[data-hidden="true"] {
+  display: none !important;
+}
+
+/* ── Print Styles ─────────────────────────────────────────────────────────── */
+@media print {
+  .skip-link,
+  nav,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+}

@@ -3,6 +3,9 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { HeroSection } from '@/components/sections/hero-section';
+import { StatsSection } from '@/components/sections/stats-section';
+import { ReviewsBadge } from '@/components/reviews-badge';
+import { AuditCTA } from '@/components/audit-cta';
 
 // Section skeleton — affiché pendant le chargement des sections dynamiques
 function SectionSkeleton() {
@@ -130,9 +133,19 @@ export function HomePageClient() {
           <ServicesSection />
         </div>
 
+        {/* Stats Section — Chiffres clés */}
+        <StatsSection />
+
+        {/* Reviews Badge — Preuve sociale */}
+        <ReviewsBadge />
+
         <AboutSection />
         <PortfolioSection />
         <TestimonialsSection />
+
+        {/* Audit CTA — Offre d'entrée gratuite */}
+        <AuditCTA />
+
         <CTASection />
       </main>
     </>

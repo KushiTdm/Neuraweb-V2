@@ -146,13 +146,67 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
   },
 };
 
-// Mots-clés SEO boostés par catégorie
+// Mots-clés SEO boostés par catégorie - LONGUE TRAÎNE
 const SEO_BOOST_KEYWORDS = {
-  technical: ['Next.js', 'React', 'TypeScript', 'Node.js', 'API REST', 'GraphQL', 'SSR', 'SSG'],
-  business: ['transformation digitale', 'croissance', 'ROI', 'conversion', 'leads', 'ventes'],
-  ai: ['intelligence artificielle', 'machine learning', 'chatbot', 'automatisation', 'GPT', 'IA générative'],
-  design: ['UX/UI', 'responsive', 'accessibilité', 'design moderne', 'interface utilisateur'],
-  local: ['Paris', 'France', 'agence française', 'freelance France', 'agence Île-de-France'],
+  // Technical - longue traîne
+  technical: [
+    'développeur Next.js Paris',
+    'agence React France',
+    'développement Next.js startup',
+    'application web React TypeScript',
+    'développeur full-stack Node.js',
+    'création site web Next.js',
+    'audit performance web React',
+    'migration React vers Next.js',
+  ],
+  // Business - longue traîne
+  business: [
+    'transformation digitale PME Paris',
+    'agence web croissance startup',
+    'ROI site web entreprise',
+    'améliorer conversion site e-commerce',
+    'générer leads site web B2B',
+    'stratégie digitale PME France',
+    'consultant digital Paris',
+  ],
+  // AI - longue traîne
+  ai: [
+    'intégration chatbot IA site web',
+    'automatisation workflow n8n',
+    'agent IA entreprise France',
+    'intégration GPT-4 application',
+    'chatbot support client IA',
+    'automatisation processus IA',
+    'RAG IA entreprise',
+    'assistant IA sur mesure',
+  ],
+  // Design - longue traîne
+  design: [
+    'refonte UX site web',
+    'design interface SaaS moderne',
+    'accessibilité web WCAG France',
+    'audit UX/UI application',
+    'design system React entreprise',
+  ],
+  // Local - ciblage géographique
+  local: [
+    'agence web Paris',
+    'développeur web Île-de-France',
+    'agence digitale France',
+    'freelance React Paris',
+    'agence IA Paris',
+    'studio web startup Paris',
+    'agence automatisation France',
+  ],
+  // Services spécifiques
+  services: [
+    'MVP startup 6 semaines',
+    'développement MVP France',
+    'création application web startup',
+    'pack développement web PME',
+    'tarifs agence web Paris',
+    'devis site web Next.js',
+  ],
 };
 
 // Helper pour obtenir le contexte SEO d'une page

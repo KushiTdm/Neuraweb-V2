@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
 import Chatbot from '@/components/chatbot';
 import { SEO_BOOST_KEYWORDS } from '@/lib/seo-service';
+import { organizationSchema, websiteSchema } from '@/lib/structured-data';
 
 // ── Fonts premium 2026 ─────────────────────────────────────────
 const geist = Geist({
@@ -113,7 +114,23 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${geist.variable} ${geistMono.variable} ${syne.variable}`}
     >
+      <head>
+        {/* Organization Schema - Rich snippets pour Google */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        {/* WebSite Schema - Pour la recherche site links */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+      </head>
       <body className={geist.className}>
+        {/* Skip Link — Accessibilité WCAG AA */}
+        <a href="#main-content" className="skip-link">
+          Aller au contenu principal
+        </a>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
