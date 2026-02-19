@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { useToast } from '@/hooks/use-toast';
@@ -23,6 +24,7 @@ import {
   Calendar,
   ChevronDown,
   X,
+  Package,
 } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -30,6 +32,7 @@ interface FormData {
   name: string;
   email: string;
   subject: string;
+  pack: string;
   budget: string;
   message: string;
 }
@@ -143,19 +146,29 @@ function TrustCard({
   );
 }
 
-// ─── Page principale ──────────────────────────────────────────────────────────
-export default function ContactPage() {
+// ─── Contact Page Content (avec useSearchParams) ───────────────────────────────
+function ContactPageContent() {
   const { t } = useTranslation();
   const { language } = useLanguage();
   const { toast } = useToast();
+  const searchParams = useSearchParams();
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     subject: '',
+    pack: '',
     budget: '',
     message: '',
   });
+
+  // Préselection du pack depuis l'URL
+  useEffect(() => {
+    const packParam = searchParams.get('pack');
+    if (packParam && ['starter', 'business', 'premium', 'ai'].includes(packParam)) {
+      setFormData(prev => ({ ...prev, pack: packParam }));
+    }
+  }, [searchParams]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [heroVisible, setHeroVisible] = useState(false);
   const [cardsVisible, setCardsVisible] = useState(false);
@@ -234,7 +247,7 @@ export default function ContactPage() {
           title: t('contact.form.success.title'),
           description: t('contact.form.success.desc'),
         });
-        setFormData({ name: '', email: '', subject: '', budget: '', message: '' });
+        setFormData({ name: '', email: '', subject: '', pack: '', budget: '', message: '' });
       } else {
         throw new Error(result.error || 'Unknown error');
       }
@@ -507,6 +520,45 @@ export default function ContactPage() {
                     </div>
                   </div>
 
+                  {/* Pack */}
+                  <div className="space-y-2">
+                    <label
+                      htmlFor="pack"
+                      className="block text-sm font-semibold text-gray-300"
+                    >
+                      {language === 'fr' ? 'Pack souhaité' : 'Desired pack'}
+                    </label>
+                    <div className="relative">
+                      <select
+                        id="pack"
+                        name="pack"
+                        value={formData.pack}
+                        onChange={handleChange}
+                        className="input-field appearance-none pr-10 cursor-pointer"
+                      >
+                        <option value="">
+                          {language === 'fr' ? 'Sélectionnez un pack' : 'Select a pack'}
+                        </option>
+                        <option value="starter">
+                          {language === 'fr' ? 'Starter - 1 990€' : 'Starter - €1,990'}
+                        </option>
+                        <option value="business">
+                          {language === 'fr' ? 'Business - 4 900€' : 'Business - €4,900'}
+                        </option>
+                        <option value="premium">
+                          {language === 'fr' ? 'Premium - 6 900€' : 'Premium - €6,900'}
+                        </option>
+                        <option value="ai">
+                          {language === 'fr' ? 'Pack IA - Sur devis' : 'AI Pack - Custom'}
+                        </option>
+                      </select>
+                      <ChevronDown
+                        size={16}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+                      />
+                    </div>
+                  </div>
+
                   {/* Sujet */}
                   <div className="space-y-2">
                     <label
@@ -759,5 +811,18 @@ export default function ContactPage() {
         </div>
       )}
     </>
+  );
+}
+
+// ─── Page principale avec Suspense ────────────────────────────────────────────
+export default function ContactPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#050510] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    }>
+      <ContactPageContent />
+    </Suspense>
   );
 }

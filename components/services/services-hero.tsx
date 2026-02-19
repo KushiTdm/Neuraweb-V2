@@ -145,13 +145,14 @@ export function ServicesHero({ language = 'fr' }: ServicesHeroProps) {
       <div className="relative z-10 text-center px-6 max-w-5xl">
         <h1
           ref={titleRef}
-          className="text-6xl md:text-8xl font-bold text-white mb-6 leading-tight"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 leading-tight"
+          style={{ wordSpacing: '0.25em' }}
         >
-          {splitText(t('servicePage.hero.title'))}
+          {t('servicePage.hero.title')}
         </h1>
         <p
           ref={subtitleRef}
-          className="text-xl md:text-3xl text-white/90 mb-12 font-light"
+          className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-12 font-light max-w-3xl mx-auto"
         >
           {t('servicePage.hero.subtitle')}
         </p>

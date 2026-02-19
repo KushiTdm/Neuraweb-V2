@@ -84,6 +84,33 @@ export default function Chatbot() {
     }
   }, [generateSessionId])
 
+  // Écouter l'événement d'ouverture du chatbot depuis les packs
+  useEffect(() => {
+    const handleOpenChatbot = (event: CustomEvent<{ pack: string }>) => {
+      setIsOpen(true)
+      const packId = event.detail?.pack
+      if (packId) {
+        const packNames: Record<string, Record<string, string>> = {
+          fr: { starter: 'Starter (1 990€)', business: 'Business (4 900€)', premium: 'Premium (6 900€)', ai: 'Pack IA (sur devis)' },
+          en: { starter: 'Starter (€1,990)', business: 'Business (€4,900)', premium: 'Premium (€6,900)', ai: 'AI Pack (custom)' },
+          es: { starter: 'Starter (1 990€)', business: 'Business (4 900€)', premium: 'Premium (6 900€)', ai: 'Pack IA (a presupuesto)' }
+        }
+        const packName = packNames[language]?.[packId] || packId
+        const message = language === 'fr' 
+          ? `Bonjour ! Je suis intéressé(e) par le ${packName}. Pouvez-vous m'en dire plus ?`
+          : language === 'es'
+          ? `¡Hola! Estoy interesado/a en el ${packName}. ¿Puede decirme más?`
+          : `Hello! I'm interested in the ${packName}. Can you tell me more?`
+        
+        setInput(message)
+        setTimeout(() => inputRef.current?.focus(), 100)
+      }
+    }
+
+    window.addEventListener('openChatbot', handleOpenChatbot as EventListener)
+    return () => window.removeEventListener('openChatbot', handleOpenChatbot as EventListener)
+  }, [language])
+
   // Message de bienvenue
   useEffect(() => {
     if (mounted) {
