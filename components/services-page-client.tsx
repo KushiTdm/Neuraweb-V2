@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { CustomCursor } from '@/components/services/custom-cursor';
@@ -10,6 +10,12 @@ import { ServicesPricing } from '@/components/services/services-pricing';
 import { ServicesCTA } from '@/components/services/services-cta';
 
 export function ServicesPageClient() {
+  const pricingRef = useRef<HTMLDivElement>(null);
+
+  const scrollToPricing = () => {
+    pricingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <>
       <Header />
@@ -18,9 +24,9 @@ export function ServicesPageClient() {
         <div className="overflow-x-hidden">
           <ServicesHero />
         </div>
-        <ServicesProcess />
+        <ServicesProcess onScrollToPricing={scrollToPricing} />
         <div className="overflow-x-hidden">
-          <ServicesPricing />
+          <ServicesPricing ref={pricingRef} />
           <ServicesCTA />
         </div>
       </div>

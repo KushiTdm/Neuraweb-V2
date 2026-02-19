@@ -185,7 +185,7 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
         </p>
 
         <Link
-          href="/quote"
+          href="/contact"
           ref={buttonRef}
           onMouseEnter={() => handleButtonHover(true)}
           onMouseLeave={() => handleButtonHover(false)}

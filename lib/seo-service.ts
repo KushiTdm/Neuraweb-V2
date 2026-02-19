@@ -247,8 +247,8 @@ export function generateJsonLd(
       availableLanguage: ['French', 'English', 'Spanish'],
     },
     sameAs: [
-      'https://twitter.com/neuraweb',
-      'https://linkedin.com/company/neuraweb',
+      "https://www.google.com/maps/place/?q=place_id:0xa8265594c8f44721:0xb4ae61789886b8a9",
+      "https://x.com/neurawebtech"
     ],
     ...additionalData,
   };

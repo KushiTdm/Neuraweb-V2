@@ -5,6 +5,7 @@ import * as THREE from 'three';
 
 interface ServicesProcessProps {
   language?: 'fr' | 'en';
+  onScrollToPricing?: () => void;
 }
 
 // ─── Static data outside component to avoid stale closures ────────────────────
@@ -90,7 +91,7 @@ const CARD_SPACING = 20;
 // Total steps
 const TOTAL_STEPS = 5;
 
-export function ServicesProcess({ language = 'fr' }: ServicesProcessProps) {
+export function ServicesProcess({ language = 'fr', onScrollToPricing }: ServicesProcessProps) {
   const steps = STEP_DATA[language] ?? STEP_DATA.fr;
 
   const [mounted, setMounted] = useState(false);
@@ -611,15 +612,38 @@ export function ServicesProcess({ language = 'fr' }: ServicesProcessProps) {
             ))}
           </div>
 
-          {/* Scroll hint */}
-          <div
-            className="flex flex-col items-center gap-1 mt-3 transition-opacity duration-500"
-            style={{ opacity: activeStep >= steps.length - 1 ? 0 : 0.45 }}
-          >
-            <span className="text-xs text-white/35 tracking-widest uppercase">
-              {language === 'fr' ? 'Scrollez pour explorer' : 'Scroll to explore'}
-            </span>
-            <div className="w-px h-6 bg-gradient-to-b from-white/35 to-transparent animate-pulse" />
+          {/* Scroll hint or CTA button */}
+          <div className="flex flex-col items-center gap-3 mt-4">
+            {/* Show scroll hint when not at last step */}
+            <div
+              className="flex flex-col items-center gap-1 transition-opacity duration-500"
+              style={{ opacity: activeStep >= steps.length - 1 ? 0 : 0.45 }}
+            >
+              <span className="text-xs text-white/35 tracking-widest uppercase">
+                {language === 'fr' ? 'Scrollez pour explorer' : 'Scroll to explore'}
+              </span>
+              <div className="w-px h-6 bg-gradient-to-b from-white/35 to-transparent animate-pulse" />
+            </div>
+            
+            {/* Show CTA button when at last step */}
+            {onScrollToPricing && (
+              <button
+                onClick={onScrollToPricing}
+                className="pointer-events-auto px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-sm rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-cyan-500/30"
+                style={{
+                  opacity: activeStep >= steps.length - 1 ? 1 : 0,
+                  transform: activeStep >= steps.length - 1 ? 'translateY(0)' : 'translateY(20px)',
+                  transition: 'opacity 0.5s ease, transform 0.5s ease',
+                }}
+              >
+                <span className="flex items-center gap-2">
+                  {language === 'fr' ? 'Voir nos packs' : 'View our packages'}
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </span>
+              </button>
+            )}
           </div>
         </div>
       </div>
