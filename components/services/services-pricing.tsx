@@ -137,619 +137,436 @@ const PRICING_TRANSLATIONS = {
     packs: {
       starter: {
         title: 'Starter Pack',
-interface Pack { '  language?: 'fr' | 'en' | 'es' t24
-interface Pack { '  language?nce
- { ic
-interface Pack {
-  id: slojinterface Pack { '  language?nce
- { ic
-interface Pac'  { ic
-interface Pack {
-  id: stciinteve  id: strincon:cointerface Pack { '  language?: 'fr' | 'en' | 'es' t}
-
-interface Pack {
-  id: strincon:  ap, text: 'CDN +  icon: pl}
-
-interface Pack { '  languageainte
-interface Pack {
-  id: icon:
-interface rit
-interface Pack {
-  id: strincon:  ap, text: 'CDN +t:   id: strincon:or
-inteaintenance' },
- re
-interface Pack {
-  id: strincon:  ap, text: 'CDN + ic  id: strincon:re
-interface Pack { '  languageainte
-inrendingUpinterface Pack {
-  id: icon:
-int U  id: icon:
-intltinterface  }interface Pap,  id: strincon:nzinteaintenance' },
+        subtitle: 'Launch your digital presence',
+        description: 'Perfect for entrepreneurs and small businesses looking to start their online presence.',
+        features: [
+          { icon: 'Globe', text: '5-page showcase site' },
+          { icon: 'Code', text: 'Modern design' },
+          { icon: 'Search', text: 'SEO optimized' },
+          { icon: 'Mail', text: 'Contact form' },
+          { icon: 'Server', text: '1-year hosting' },
+        ],
+        support: 'Email support',
+        price: '€1,500',
+        delay: '2-3 weeks',
+      },
+      business: {
+        title: 'Business Pack',
+        subtitle: 'Grow your business',
+        description: 'Ideal for growing companies looking to improve their visibility and processes.',
+        features: [
+          { icon: 'Globe', text: '15-page site' },
+          { icon: 'Code', text: 'Custom design' },
+          { icon: 'Users', text: 'Client area' },
+          { icon: 'MessageSquare', text: 'Integrated blog' },
+          { icon: 'TrendingUp', text: 'Advanced analytics' },
+          { icon: 'HeadphonesIcon', text: 'Priority support' },
+        ],
+        support: 'Priority support',
+        price: '€4,900',
+        delay: '4-6 weeks',
+      },
+      premium: {
+        title: 'Premium Pack',
+        subtitle: 'Complete solution',
+        description: 'For ambitious companies requiring a complete and scalable solution.',
+        features: [
+          { icon: 'Globe', text: 'Unlimited site' },
+          { icon: 'ShoppingCart', text: 'Full e-commerce' },
+          { icon: 'Settings', text: 'API integrations' },
+          { icon: 'Shield', text: 'Advanced security' },
+          { icon: 'Zap', text: 'Optimal performance' },
+          { icon: 'HeadphonesIcon', text: '24/7 support' },
+        ],
+        support: 'Dedicated 24/7 support',
+        price: '€9,900',
+        delay: '6-8 weeks',
+      },
+      ai: {
+        title: 'AI Pack',
+        subtitle: 'Artificial Intelligence',
+        description: 'Custom AI solutions to automate and optimize your business.',
+        features: [
+          { icon: 'Bot', text: 'AI Chatbot' },
+          { icon: 'Zap', text: 'Automation' },
+          { icon: 'Database', text: 'Data analysis' },
+          { icon: 'Sparkles', text: 'Machine Learning' },
+          { icon: 'HeadphonesIcon', text: 'Dedicated support' },
+        ],
+        support: 'Dedicated support',
+        price: 'On quote',
+        delay: 'Variable',
+      },
+    },
   },
   es: {
-    starter: interfa},  },
-  es: {
-    es  en,    st '  id: icon:
-inte:  id: icon:oninte:  id:, inteninterface ?ninte, { icointerfabeinte, { icointerface Pack {
-  idic  id: strinciu  idic  id: strincon:upport' }, od
-interxcelenciinterface Pack { '  language?:descrinterface Pack { '  language?nce
- { ic
-interface  [{ i { ic
-interface Pack {
-  id: slmiintes'  id: slojinterpp { ic
-interface Pac'  { ic
-interface Pack icon: Dinterface Pack {
-  ti  id: stciintev i
-interface Pack {
-  id: strincon:  ap, text: 'CDN +  icon: pl}
+    title: 'Nuestros Paquetes',
+    priceLabel: 'A partir de',
+    vat: 'IVA no aplicable',
+    clickDetails: 'Haga clic para ver detalles',
+    deadline: 'Tiempo de entrega',
+    choosePack: 'Elegir este pack',
+    cta: 'Presupuesto personalizado',
+    whatsapp: 'WhatsApp',
+    whatsappDesc: 'Discusión instantánea',
+    chatbot: 'Chatbot IA',
+    chatbotDesc: 'Respuestas inmediatas',
+    highlight: 'A medida',
+    packs: {
+      starter: {
+        title: 'Pack Starter',
+        subtitle: 'Lanza tu presencia digital',
+        description: 'Perfecto para emprendedores y pequeñas empresas que desean iniciar su presencia en línea.',
+        features: [
+          { icon: 'Globe', text: 'Sitio web 5 páginas' },
+          { icon: 'Code', text: 'Diseño moderno' },
+          { icon: 'Search', text: 'SEO optimizado' },
+          { icon: 'Mail', text: 'Formulario de contacto' },
+          { icon: 'Server', text: 'Alojamiento 1 año' },
+        ],
+        support: 'Soporte por email',
+        price: '1.500€',
+        delay: '2-3 semanas',
+      },
+      business: {
+        title: 'Pack Business',
+        subtitle: 'Desarrolla tu negocio',
+        description: 'Ideal para empresas en crecimiento que desean mejorar su visibilidad y procesos.',
+        features: [
+          { icon: 'Globe', text: 'Sitio 15 páginas' },
+          { icon: 'Code', text: 'Diseño personalizado' },
+          { icon: 'Users', text: 'Área de cliente' },
+          { icon: 'MessageSquare', text: 'Blog integrado' },
+          { icon: 'TrendingUp', text: 'Analytics avanzados' },
+          { icon: 'HeadphonesIcon', text: 'Soporte prioritario' },
+        ],
+        support: 'Soporte prioritario',
+        price: '4.900€',
+        delay: '4-6 semanas',
+      },
+      premium: {
+        title: 'Pack Premium',
+        subtitle: 'Solución completa',
+        description: 'Para empresas ambiciosas que necesitan una solución completa y escalable.',
+        features: [
+          { icon: 'Globe', text: 'Sitio ilimitado' },
+          { icon: 'ShoppingCart', text: 'E-commerce completo' },
+          { icon: 'Settings', text: 'Integraciones API' },
+          { icon: 'Shield', text: 'Seguridad avanzada' },
+          { icon: 'Zap', text: 'Rendimiento óptimo' },
+          { icon: 'HeadphonesIcon', text: 'Soporte 24/7' },
+        ],
+        support: 'Soporte dedicado 24/7',
+        price: '9.900€',
+        delay: '6-8 semanas',
+      },
+      ai: {
+        title: 'Pack IA',
+        subtitle: 'Inteligencia Artificial',
+        description: 'Soluciones de IA personalizadas para automatizar y optimizar tu negocio.',
+        features: [
+          { icon: 'Bot', text: 'Chatbot IA' },
+          { icon: 'Zap', text: 'Automatización' },
+          { icon: 'Database', text: 'Análisis de datos' },
+          { icon: 'Sparkles', text: 'Machine Learning' },
+          { icon: 'HeadphonesIcon', text: 'Soporte dedicado' },
+        ],
+        support: 'Soporte dedicado',
+        price: 'Bajo presupuesto',
+        delay: 'Variable',
+      },
+    },
+  },
+};
 
-interface Pack { '  ico  id: strincon:CD
-interface Pack { '  languageainte
-interfacperinterface Pack {
-  id: icon:
-intgu  id: icon:
-ina' interfcon: HeadphonesIcon,  id: strincon: 2inteaintenance' },
- re
-interface Pack {
-  id: strinces re
-interface Pacs,inex  id: strincon:eqinterface Pack { '  languageainte
-inrendingUpinterfa],inrendingUpinterface Pack {
-  idim  id: icon:
-int U  id: ico{ int U  id:ckintltinterface  '  },
-  es: {
-    starter: interfa},  },
-  es: {
-    es  en,    st,   etu    st{   es: {
-    es  en,    st I    es{ inte:  id: icon:oninte:  id:,i? idic  id: strinciu  idic  id: strincon:upport' }, od
-interxcelenciinterface Pack { '  langurainterxcelenciinterface Pack { '  language?:descrinterir { ic
-interface  [{ i { ic
-interface Pack {
-  id: slmiintes'  id: slojinterpp {neinteininterface Pack {
-  ho  id: slmiintes'Sinterface Pac'  { ic
-interface Pack iext: 'Seguridad datos'   ti  id: stciintev i
-interface Pack  }interface Pack {
-  i +  id: strincon:co
-interface Pack { '  ico  id: strincon:CD
-iiciinterface Pack { '  languageainte
-intersPinterfacperinterface Pack {
-  idic  id: icon:
-intgu  id: icoorintgu  id: {ina' interfcon:ed re
-interface Pack {
-  id: strinces re
-interface Pacs,inex  id: scoint   id: strinces eRinterface Pacs,it>inrendingUpinterfa],inrendingUpinterface Pack {
-  idim  id: icon:
-in c  idim  id: icon:
-int U  id: ico{ int U  id:ckt int U  id: ico{ et  es: {
-    starter: interfa},  },
-  es: {
-    e;
-    stt   es: {
-    es  en,    st =    esat    esng | null>(null);
+export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
+  ({ language = 'fr' }, ref) => {
+  const [mounted, setMounted] = useState(false);
+  const [modalPack, setModalPack] = useState<string | null>(null);
   const [contactPack, setContactPack] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const packs: Pack[] = [
-    { id: 'starter', icon: '/asinterface  [{ i { ic
-interface Pack {
-  id: slmiint-500' },
-    { id: 'business', icon: '/assets/eclainterface Pack {
-   '  id: slmiintes t  ho  id: slmiintes'Sinterface Pac'  { ic
-interface Pack i/ainterface Pack iext: 'Seguridad datos'  aninterface Pack  }interface Pack {
-  i +  id: strincon:co
-inwe  i +  id: strincon:co
-interfaceo-interface P,
+    { id: 'starter', icon: '/assets/eclair.webp', gradient: 'from-blue-500 to-cyan-500' },
+    { id: 'business', icon: '/assets/eclair.webp', gradient: 'from-violet-500 to-purple-500', popular: true },
+    { id: 'premium', icon: '/assets/eclair.webp', gradient: 'from-amber-500 to-orange-500' },
+    { id: 'ai', icon: '/assets/robot.webp', gradient: 'from-emerald-500 to-teal-500' },
   ];
 
-  coiiciinterface Pack { '  languageainte
-icointersPinterfacperinterface Pack {
- ,   idic  id: icon:
-intgu  id: icooPaintgu  id: icoor':interface Pack {
-  id: strinces re
-interface Paon  id: strinces seinterface Pacs,ig.  idim  id: icon:
-in c  idim  id: icon:
-int U  id: ico{ int U  id:ckt int U  id: ico{ et  es: {
-    starter: inteaiin c  idim  id: ilint U  id: ico{ int in    starter: interfa},  },
-  es: {
-    e;
-    stervicePage.pricing.whatsapp': 'What    e; '    sce    es  en,   ha  const [contactPack, setContactPack] = useState<ge
-  const packs: Pack[] = [
-    { id: 'starter', icon: '/asinterface  Ré    { id: 'starter', icorvinterface Pack {
-  id: slmiint-500' },
-    { id: 'pr  id: slmiint-5:     { id: 'business'',   '  id: slmiintes t  ho  id: slmiintes'Sinterface Pac'Painterface Pack i/ainterface Pack iext: 'Seguridad datos'  g.sta  i +  id: strincon:co
-inwe  i +  id: strincon:co
-interfaceo-interface P,
-  ];
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  coiiciinteaiinwe  i +  id: strincicinterfaceo-interface P,
- Id  ];
+  useEffect(() => {
+    if (!mounted) return;
 
-  coiiciinterfac's
-  iceicointersPinterfacperinterface Pack {
- , ' ,   idic  id: icon:
-intgu  id: icoo 'intgu  id: icooPainPa  id: strinces re
-interface Paon  id: strinces seianinterface Paon  e.in c  idim  id: icon:
-int U  id: ico{ int U  id:ckt int U  id: icinint U  id: ico{ int op    starter: inteaiin c  idim  id: ilint U  id: ico{ i p  es: {
-    e;
-    stervi.pricing.premium.name': 'Premium', 'servicePage.pricing.premi    e;ce    s 9  const packs: Pack[] = [
-    { id: 'starter', icon: '/asinterface  Ré    { id: 'starter', icorvinterface Pack {
-  id: slne    { id: 'starter', icg.p  id: slmiint-500' },
-    { id: 'pr  id: slmiint-5:     { id: 'business'',   '  id: slrv    { id: 'pr  id: priinwe  i +  id: strincon:co
-interfaceo-interface P,
-  ];
+    const ctx = gsap.context(() => {
+      // Animate cards on scroll
+      cardsRef.current.forEach((card, index) => {
+        if (card) {
+          gsap.from(card, {
+            y: 100,
+            opacity: 0,
+            duration: 0.8,
+            delay: index * 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+              end: 'bottom 60%',
+              toggleActions: 'play none none reverse',
+            },
+          });
+        }
+      });
+    }, sectionRef);
 
-  coiiciinteaiinwe  i +  id: strincicinterfaceo-interface P,
- Id  ];
+    return () => ctx.revert();
+  }, [mounted]);
 
-  coiiciinterfac's
-  iceicointersPinterfacperinterface Pack {
- , ' nginterfaceo-interface P,
- 's  ];
+  useEffect(() => {
+    if (modalPack && modalRef.current) {
+      gsap.from(modalRef.current, {
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    }
+  }, [modalPack]);
 
-  coiiciinteaiin':
-  AT not applicable', 'servicePage.pricing.clickDetails': 'Click f
-  coiail  iceicointersPinpr , ' ,   idic  id: icon:
-intgu  id: icoo .pintgu  id: icoo 'intgu ieinterface Paon  id: strinces seianinterface Paon  e. to int U  id: ico{ int U  id:ckt int U  id: icinint U  id: ico{ int op    s.p    e;
-    stppDesc': 'Instant discussion', 'servicePage.pricing.chatbot': 'AI Chatbot', 'servicePage.pricing.chatbotDesc': 'Immediate ans    { id: 'starter', icon: '/asinterface  Ré    { id: 'starter', icorvinterface Pack {
-  id: slne    { id: 'sic  id: slne    { id: 'starter', icg.p  id: slmiint-500' },
-    { id: 'pr  id: slmiint-5eP    { id: 'pr  id: slmii': 'Launch your presence', 'servicinterfaceo-interface P,
-  ];
+  const t = PRICING_TRANSLATIONS[language] || PRICING_TRANSLATIONS.fr;
 
-  coiiciinteaiinwe  i +  id: strincicinterfaceo-interface P,
- Id  ];
+  const openModal = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setModalPack(id);
+  };
 
-  coiiciinterag  ];
+  const closeModal = () => setModalPack(null);
 
-  coiiciinteaiine'
-  Bus Id  ];
+  const getSub = () => language === 'fr' ? 'fr' : language === 'es' ? 'es' : 'en';
 
-  coiiciinterfac's
-  iceicointersPinterfacperinterse
-  coiage  iceicointersPin.d , ' nginterfaceo-interface P,
- 's  ];
+  const handleChoosePack = (packId: string) => {
+    router.push(`/contact?pack=${packId}&lang=${getSub()}`);
+  };
 
- pr 's  ];
+  const handleContact = (type: 'whatsapp' | 'chatbot') => {
+    if (type === 'whatsapp') {
+      window.open('https://wa.me/33749775654', '_blank');
+    } else {
+      window.dispatchEvent(new CustomEvent('openChatbot'));
+    }
+  };
 
-  coiiciinteaiin':
- ee
-  coiser  AT not applicabbu  coiail  iceicointersPinpr , ' ,   idic  id: icon:
-intgu  id: ichlintgu  id: icoo .pintgu  id: icoo 'intgu ieinterfa.n    stppDesc': 'Instant discussion', 'servicePage.pricing.chatbot': 'AI Chatbot', 'servicePage.pricing.chatbotDesc': 'Immediate ans    { id: 'starter', icon: '/asinterface  Ré   '  id: slne    { id: 'sic  id: slne    { id: 'starter', icg.p  id: slmiint-500' },
-    { id: 'pr  id: slmiint-5eP    { id: 'pr  id: slmii': 'Launch your presence', 'servicinterfaceo-interface P,
-  ];
+  const currentPack = modalPack ? t.packs[modalPack as keyof typeof t.packs] : null;
 
-  coiiciinteaiinwelay': 'Variable', 'servicePage.pricing.ai.highlight': 'Custom-made' },
-      es: {   ];
+  if (!mounted) {
+    return (
+      <section className="relative py-24 px-6 bg-gradient-to-b from-slate-950 to-slate-900">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">
+            {t.title}
+          </h2>
+        </div>
+      </section>
+    );
+  }
 
-  coiiciinteaiinwe  i +  id: strincicinterfaceo-interface P,
- Id  ];
+  return (
+    <section
+      ref={sectionRef}
+      className="relative py-24 px-6 bg-gradient-to-b from-slate-950 to-slate-900"
+    >
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">
+          {t.title}
+        </h2>
 
-  coiiciinterag  ];
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {packs.map((pack, index) => {
+            const packData = t.packs[pack.id as keyof typeof t.packs];
+            const IconComponent = ICON_MAP['Zap'];
 
-  coiiciinteapr
-  ng. Id  ];
+            return (
+              <div
+                key={pack.id}
+                ref={(el) => {
+                  if (el) cardsRef.current[index] = el;
+                }}
+                className={`relative group cursor-pointer rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800 hover:border-slate-600 transition-all duration-500 ${pack.popular ? 'ring-2 ring-violet-500' : ''}`}
+                onClick={(e) => openModal(pack.id, e)}
+              >
+                {pack.popular && (
+                  <div className="absolute top-4 right-4 z-10">
+                    <span className="px-3 py-1 text-xs font-semibold bg-violet-500 text-white rounded-full">
+                      ⭐ Populaire
+                    </span>
+                  </div>
+                )}
 
-  coiiciinterag  ];
+                <div className={`absolute inset-0 bg-gradient-to-br ${pack.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
 
-  coiiciinteaiine'
-  Bus Id  ho
-  coik':
-  coiiciinteaiineePa  Bus Id  ];
+                <div className="relative p-6">
+                  <div className="w-16 h-16 mb-6 relative">
+                    <Image
+                      src={pack.icon}
+                      alt={packData?.title || pack.id}
+                      width={64}
+                      height={64}
+                      className="object-contain drop-shadow-lg"
+                    />
+                  </div>
 
-  cta
-  coiiciindet  iceicointersPePag  coiage  iceicointersPin.d , ' o  's  ];
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {packData?.title}
+                  </h3>
+                  <p className="text-white/60 text-sm mb-4">
+                    {packData?.subtitle}
+                  </p>
 
- pr 's  ];
+                  <div className="flex items-baseline gap-2 mb-6">
+                    <span className="text-3xl font-bold text-white">
+                      {packData?.price}
+                    </span>
+                    {packData?.price !== 'Sur devis' && packData?.price !== 'On quote' && packData?.price !== 'Bajo presupuesto' && (
+                      <span className="text-white/50 text-sm">{t.vat}</span>
+                    )}
+                  </div>
 
-  coiiciinteaiin':
- ee
-  coiser  ATAp
- pr 'erv
-  coiiciric ee
-  coiser  AT :   isintgu  id: ichlintgu  id: icoo .pintgu  id: icoo 'intgu ieinterfa.n    stppDeag    { id: 'pr  id: slmiint-5eP    { id: 'pr  id: slmii': 'Launch your presence', 'servicinterfaceo-interface P,
-  ];
+                  <ul className="space-y-3 mb-6">
+                    {packData?.features?.slice(0, 4).map((feature, i) => {
+                      const FeatureIcon = ICON_MAP[feature.icon] || Code;
+                      return (
+                        <li key={i} className="flex items-center gap-3 text-white/70 text-sm">
+                          <FeatureIcon className="w-4 h-4 text-violet-400 flex-shrink-0" />
+                          <span>{feature.text}</span>
+                        </li>
+                      );
+                    })}
+                    {(packData?.features?.length ?? 0) > 4 && (
+                      <li className="text-violet-400 text-sm">
+                        +{(packData?.features?.length ?? 0) - 4} {language === 'fr' ? 'autres fonctionnalités' : language === 'es' ? 'otras características' : 'more features'}
+                      </li>
+                    )}
+                  </ul>
 
-  coiiciinteaiinwelay': 'Variable', 'servicePage.pricing.ai.highlight': 'Custom-made' },
-      es: {   ];
+                  <div className="flex items-center justify-between text-sm text-white/50 mb-4">
+                    <span>{t.deadline}:</span>
+                    <span className="text-white/80">{packData?.delay}</span>
+                  </div>
 
-  coiiciinteaiinwe  i +  id: strincicinterfaceo-interface P,
- Id  ];
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleChoosePack(pack.id);
+                    }}
+                    className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r ${pack.gradient} text-white hover:shadow-lg hover:scale-[1.02]`}
+                  >
+                    {t.choosePack}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
-  coiiciinterag  ];
+        {/* Contact Options */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <button
+            onClick={() => handleContact('whatsapp')}
+            className="flex items-center gap-4 p-6 bg-green-500/10 border border-green-500/30 rounded-2xl hover:bg-green-500/20 transition-all duration-300 group"
+          >
+            <MessageCircle className="w-10 h-10 text-green-500" />
+            <div className="text-left">
+              <p className="font-semibold text-white">{t.whatsapp}</p>
+              <p className="text-sm text-white/60">{t.whatsappDesc}</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-white/50 group-hover:translate-x-1 transition-transform ml-auto" />
+          </button>
 
-  coiicirter.  ];
+          <button
+            onClick={() => handleContact('chatbot')}
+            className="flex items-center gap-4 p-6 bg-violet-500/10 border border-violet-500/30 rounded-2xl hover:bg-violet-500/20 transition-all duration-300 group"
+          >
+            <Bot className="w-10 h-10 text-violet-500" />
+            <div className="text-left">
+              <p className="font-semibold text-white">{t.chatbot}</p>
+              <p className="text-sm text-white/60">{t.chatbotDesc}</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-white/50 group-hover:translate-x-1 transition-transform ml-auto" />
+          </button>
+        </div>
+      </div>
 
-  coiiciinteaiinwelay': 'Variable', 'servicePage.pricing.ai.highlight': 'Custom-made' },
-      es: {   ]in
-  .na      es: {   ];
+      {/* Modal */}
+      {modalPack && currentPack && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={closeModal}
+        >
+          <div
+            ref={modalRef}
+            className="relative max-w-lg w-full bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 p-2 text-white/50 hover:text-white transition-colors z-10"
+            >
+              <X className="w-6 h-6" />
+            </button>
 
-  coiiciinteaiicing.business.price': '€4.900', 'servicePage.pricing.b
-  coiiciinteai'Im Id  ];
+            <div className={`h-2 bg-gradient-to-r ${packs.find(p => p.id === modalPack)?.gradient}`} />
 
-  coiiciinterag  ];
+            <div className="p-8">
+              <h3 className="text-2xl font-bold text-white mb-2">
+                {currentPack.title}
+              </h3>
+              <p className="text-white/60 mb-6">{currentPack.description}</p>
 
-  coiiciinteapr
-  ng. Id  ];
-: 
-  coiema
-  coiiciinteapr
-e.pr  ng. Id  ];
+              <div className="flex items-baseline gap-2 mb-6">
+                <span className="text-4xl font-bold text-white">
+                  {currentPack.price}
+                </span>
+              </div>
 
-.p
-  coiiciin?? 
-  coiiciinteaiinePag  Bus Id  ho
-  cos.  coik':
-   '  coiic e
-  cta
-  coiiciindet  iceicointrem  cona
- pr 's  ];
+              <ul className="space-y-4 mb-8">
+                {currentPack.features?.map((feature, i) => {
+                  const FeatureIcon = ICON_MAP[feature.icon] || Code;
+                  return (
+                    <li key={i} className="flex items-center gap-3 text-white/80">
+                      <FeatureIcon className="w-5 h-5 text-violet-400 flex-shrink-0" />
+                      <span>{feature.text}</span>
+                    </li>
+                  );
+                })}
+              </ul>
 
-  coiiciinteaiin':
- ee
-  coiser  ATAp
- pr 'erv
-  coiiciric ePa
-  coiicig.p ee
-  coiser  ATAce  nc pr 'erv
-  coct  coiicer  coiser  AT in  ];
+              <div className="flex items-center justify-between text-white/60 mb-6 pb-6 border-b border-slate-700">
+                <span>{t.deadline}:</span>
+                <span className="font-semibold text-white">{currentPack.delay}</span>
+              </div>
 
-  coiiciinteaiinwelay': 'Variable', 'servicePage.pricing.ai.highlight': 'Custom-made' },
-      es: {   ];
+              <div className="flex items-center justify-between text-white/60 mb-6">
+                <span>Support:</span>
+                <span className="font-semibold text-white">{currentPack.support}</span>
+              </div>
 
-  coiiciinteaiinwe  i +  id: strincicinterfaceo-interface P,rsonalizado', 'servicePage.pricing.ai
-  sc'      es: {   ];
-
-  coiiciinteaiinwe  i +  id: strincicinterfaceo-interface P,
- Id  ];
-hl
-  coiiciinteaia'  Id  ];
-
-  coiiciinterag  ];
-
-  coiicirter.  ];
-
-  coiiciineE
-  coi() 
-  coiicirter.  ];ue)
-  coiiciinteaiiffe      es: {   ]in
-  .na      es: {   ];
-
-  coiiciinteaiicing.business.price': '€4.900om  .na      es: {t,
-  coiiciinteaiicing, d  coiiciinteai'Im Id  ];
-
-  coiiciinterag  ];
-
-  coiiciinteapr
-  ng. I%'
-  coiiciinterag  ];
-
- non
-  coiiciinteapr
- });  ng. Id  ];
-:f.: 
-  coiemaEa h(  coiici)e.pr  ng. Id  if
-.p
-  coiiciin?;
-      coiiciintem(  cos.  coik':
-   '  coiic e
-  ==   '  coiic e y  cta
-  coii-1  co 0 pr 's  ];
-
-  coiiciinteaiin':
- on
-  coiicillT ee
-  coiser  ATA:   rd pr 'erv
-  co 8  coiicgg  coiicig.p eeay  coiser  ATAve  coct  coiicer  coiser  A(c
-  coiiciinteaiinwelay': 'Variablo:       es: {   ];
-
-  coiiciinteaiinwe  i +  id: strincicinterfaceo-interface P,rsonaliza r
-  coiiciinteai.re  sc'      es: {   ];
-
-  coiiciinteaiinwe  i +  id: strincicinterfaceo-interface P,
- Id  ];
-hl
- ew
-  coiiciinteaiinwe s.d Id  ];
-hl
-  coiiciinteaia'  Id  ];
-
-  coiiciinterag  ];
-
- d:hl
-  cg, e:
-  coiiciinterag  ];
-
-  e.
-  coiicirter.  ]; se
-  coiiciineE
-  ; }  coi() 
-  lo  coitact  coiiciinteaiiffe Pa  .na      es: {   ];
-
-  coiiciint (
-  coiiciinteaiicingst   coiiciinteaiicing, d  coiiciinteai'Im Id  ];
-
-  coiiciinterag  ng
-  coiiciinterag  ];
-
-  coiiciinteapr
-  ng. Iesa
-  coiiciinteapr
- Pag  ng. I%'
-  co+'  coiici` 
- non
-  coiiciinte{t(  crv });  ng. Id  g.:f.: 
-  coiemaE;   coow.p
-  coiiciin?;
-      coiiciintem(  c=' en      coiicon   '  coiic e
-  ==   '  coiic ect  ==   '  cost  coii-1  co 0 pr 's  ]tr
-  coiiciinteaiin':
- onndo on
-  coiicillT e)   nd  coiser  ATAen  co 8  coomEvent('openChatb  coiiciinteaiinwelay': 'Variablo:       es: {   ];
-
-  coiiciinteaiinwe  (i
-  coiiciinteaiinwe  i +  id: strincicinterfaceo-iclo  coiiciinteai.re  sc'  openModal = (id: string, e: React.MouseEvent) =>
-  coiiciinteaiation(); setModalPack(id) Id  ];
-hl
- ew
-  coiiciinteaiinwe s.d Id  ];
-hl
-  coiicionst hl
- ews   m  alhl
-  coiiciinteaia'  Id  ];
-]? [m
-  coiiciinterag  ];
-
- st getSub = () => langua  cg==  coiic '
-  e.
-  coiicirteras'  cla  coiiciineE
-  ; } Ta  ; }  coi(ti  lo  coitacti
-  coiiciint (
-  coiiciinteaiicingst   coiiciinteaiicies'  coiiciinte' 
-  coiiciinterag  ng
-  coiiciinterag  ];
-
-  coiiciinteapr
-  ng. Ies la  coiiciinterag  ]'S
-  coiiciinteapr
-  ==  ng. Iesa
-  cor  coiiciipo Pag  ng. I%'
-et  co+'  coiium non
-  coiiciige   c '  coiemaE;   coow.p
-  coiiciin?;
-      c?   coiiciin?;
-     '+      coiic;
-  ==   '  coiic ect  ==   '  cost  coii-1  co 0 pr  c  coiiciinteaiin':
- onndo on
-  copx-6 bg-gradient-to-b from onndo on
-  coiicte  coiiciiv
-  coiiciinteaiinwe  (i
-  coiiciinteaiinwe  i +  id: strincicinterfaceo-iclo  coiiciinteai.re  sc'  openModal = er   coiiciinteaiinwe  ie.  coiiciinteaiation(); setModalPack(id) Id  ];
-hl
- ew
-  coiiciinteaiinwe s.d Id  ];
-hl
-  coiicionst hl
- ews   m  alhl
-  coimdhl
- ew
-  coiiciinteaiinwe s.d Id  ];
-hl
-  coie- 00  
- hl
-  coiicionst hl
- ews   m  c as ews   m  alhlxl  coiiciinteall]? [m
-  coiiciinterag      coh2
- st getSub = () =ass  e.
-  coiicirteras'  cla  coiiciineE
- xt  cit  ; } Ta  ; }  coi(ti  lo  coitPa  coiiciint (
-  coiiciinteaiicings <  coiiciinte"t  coiiciinterag  ng
-  coiiciinterag  ];
-
-  coiiciinteapb(  coiiciinterag  ]di
-  coiiciinteapr
- gri  ng. Ies la  id  coi-2 lg:grid-cols-4 gap-5 md:g  ==  ng. Iesa    cor  coiicis.et  co+'  coiium non
-  coiic    coiiciige   c '  li  coiiciin?;
-      c?   coiiciin?;
-et      c?          '+      coiic;
-dx} ref={el => { if (e onndo on
-  copx-6 bg-gradient-to-b from onndo on
-  coiicte  coiiciiv
-'+  copx-6pu  coiicte  coiiciiv
-  coiiciinteaiinweve  coiiciinteaiinwe:   coiiciinteaiinwe  i'4hl
- ew
-  coiiciinteaiinwe s.d Id  ];
-hl
-  coiicionst hl
- ews   m  alhl
-  coimdhl
- ew
-  coiiciinteaiinwe s.d Id  ];
-hl
-  coie- 00  
- hl
-  coiicionst hl
- ews   m'p es  vehl
-  coiicionst hl
- ews   m eY 18 ews   m  alhlY(  coi' }}>
-     ew
-  co      hl
-  coie- 00  
- hl
-  coiiciw- ul hl
-  coiicun  d- ews   m  c as-3  coiiciinterag      coh2
- st getSub = () =ass  e s st getSub = () =ass  e.}   coiicirteras'  cla  cli xt  cit  ; } Ta  ; }  coi(ti      coiiciinteaiicings <  coiiciinte"t  coiiciinterag  3   coiiciinterag  ];
-
-  coiiciinteapb(  coiiciinterag   p
-  coiiciinteapb( -fu  coiiciinteapr
- gri  ng. Ies la  ira gri  ng. Ies t(  coiic    coiiciige   c '  li  coiiciin?;
-      c?   coiiciin?;
-et      c?          '+      coiic;
-dx}rt      c?   coiiciin?;
-et      c?         v et      c?          w-dx} ref={el => { if (e onndo on
- nk  copx-6 bg-gradient-to-b from={  coiicte  coiiciiv
-'+  copx-6pu  coiie''+  copx-6pu  coiix"  cossName="object-contain drop- ew
-  coiiciinteaiinwe s.d Id  ];
-hl
-  coiicionst hl
- ews   m  a<h  clhl
-  coiicionst hl
- ews   m fo t- ews   m  alhle"  coimdhl
- ePag ew
-  cog.  pahl
-  coie- 00  
- hl
-  coiiciNa e= hl
-  coiic/6  te ews   m'p es vi  coiicionst hl
- eac ews   m eY 18ht     ew
-  co      hl
-  coie- 00  
- hl
- iv  co      coie- 00    hl
-  coiicss  me  coiicun  d- eas st getSub = () =ass  e s st getSub = () =ass  e.}   's
-  coiiciinteapb(  coiiciinterag   p
-  coiiciinteapb( -fu  coiiciinteapr
- gri  ng. Ies la  ira gri  ng. Ies t(  coiic    coiiciige   c '  li  coiiciin?;
-      c?   coiiciin?;
-et     ckd  coiiciinteapb( -fu  coiiciinteapbo gri  ng. Ies la  ira gri  ng. Iesam      c?   coiiciin?;
-et      c?          '+      coiic;
-dx}rt      c?   coi'.deet      c?            dx}rt      c?   coiiciin?;
-et    leet      c?         v et  tw nk  copx-6 bg-gradient-to-b from={  coiicte  coiiciiv
-'+  copx-6pu  coiiss'+  copx-6pu  coiie''+  cop-1.5 text-white/70 text-xs">  coiiciinteaiinwe s.d Id  ];
-hl
-  coiicionst hl
- ews   m  a<h  clhl
-  coi.dhl
-  coiicionst hl
- ews   m       ews   m  a<h iv  coiicionst hl
- ehi ews   m fo t-fo ePag ew
-  cog.  pahl
-  coie- 00  
- hl's  cog. ag  coie- 00 li hl
-  coiic}<  ev  coiic/6  te eam eac ews   m eY 18ht     ew
-  co      hl
-      co      hl
-  coie- 00  
-    coie- 00    hl
- iv  co   i<d  coiicss  me  coiicun  d-ul  coiiciinteapb(  coiiciinterag   p
-  coiiciinteapb( -fu  coiiciinteapr
- gri  ng. Ierf  coiiciinteapb( -fu  coiiciinteapil gri  ng. Ies la  ira gri  ng. Ies(1      c?   coiiciin?;
-et     ckd  coiiciinteapb( -fu  coiiciinteapbo gri  ng. twet     ckd  coiiciinamet      c?          '+      coiic;
-dx}rt      c?   coi'.deet      c?            dx}rt      c?   coiicie => openModal(pack.id, e)} classNameet    leet      c?         v et  tw nk  copx-6 bg-gradient-to-b from={te'+  copx-6pu  coiiss'+  copx-6pu  coiie''+  cop-1.5 text-white/70 text-xs">  coiiciinteatohl
-  coiicionst hl
- ews   m  a<h  clhl
-  coi.dhl
-  coiicionst hl
- ews   m       ews   m  a<h iv  coiicit( se ews   m  a<h in  coi.dhl
-  coiicie'  coiici c ews   m      -s ehi ews   m fo t-fo ePag ew
-  cog.  pahl
-  1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP hl's  cog..'  coiic}<  ev  coiic/6  te ea
-   co      hl
-      co      hl
-  coie- 00  
-    coie- 00 .5     ">
-       coie- 00  
-        coie- 0AI iv  co   i<d  cock  coiiciinteapb( -fu  coiiciinteapr
- gri  ng. Ierf  coiiciinteapb( -fu  coime gri  ng. Ierf  coiiciinteapb( -fu cet     ckd  coiiciinteapb( -fu  coiiciinteapbo gri  ng. twet     ckd  coiiciinamet      c?          '+    t"dx}rt      c?   coi'.deet                        {(PACK_DETAILS[language]?.[pack.id]?.features?.length??0) > 4 && <  coiicionst hl
- ews   m  a<h  clhl
-  coi.dhl
-  coiicionst hl
- ews   m       ews   m  a<h iv  coiicit( se ews   m  a<h in  coi.dhl
-  coiicie'  coiici c ews   m      -s ehi ews   m fo t-fo ePag ew
-  cog.  pahl
-  1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP hl's  cog..ol ews   m  a<h r:  coi.dhl
-  coiicion  coiicirm ews   m      nC  coiicie'  coiici c ews   m      -s ehi ews   m fo t-fo ePag ew
-  ac  cog.  pahl
-  1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP hl'v>  1"  cog.     coie- 00  
-      /  coie-      co      hl
-      co      hl
-  coie- 00  
-        </secti      co    on  coie- 00  
-  v className="fi       coie- 00  
-    i        coie- 0Aif gri  ng. Ierf  coiiciinteapb( -fu  coime gri  ng. Ierf  coiiciinteapb c ews   m  a<h  clhl
-  coi.dhl
-  coiicionst hl
- ews   m       ews   m  a<h iv  coiicit( se ews   m  a<h in  coi.dhl
-  coiicie'  coiici c ews   m      -s ehi ews   m fo t-fo ePag ew
-  cog.  pahl
-  1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP hl's  cog..ol ews   m  a<h r:  coi.dhl
-  coiicion  coiicirm ews   m      n20  coi.dhl
-  coiici f  coiicis- ews   m      -c  coiicie'  coiici c ews   m      -s ehi ews   m fo t-fo ePag ew
-  on  cog.  pahl
-  1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP cePag  1"  cog. on  coie- 00  
-  3>  /  coie- e=  coiicion  coiicirm ews   m      nC  coiicie'  coiiciac  ac  cog.  pahl
-  1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP hl'v>  1"  c<div className="p-4 space  1"  cog.  pahnC  coie- 00  
-  dl  /  coie- on      /  coie-      co      hl
-      co      h g      co      hl
-  coie- 00  -5  coie- 00  
-een-        </sio  v className="fi       coie- 00  
-    i2     i        coie- 0Aif gri  ng.ms-  coi.dhl
-  coiicionst hl
- ews   m       ews   m  a<h iv  coiicit( se ews   m  a<h in  coi.dhl
-  coiicie'  coiicief  coiiciro ews   m      e=  coiicie'  coiici c ews   m      -s ehi ews   m fo t-fo ePag ew
-  p   cog.  pahl
-  1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP hl'sa  1"  cog. p>  coie- 00  
-  ig  / lassName=  coiicion  coiicirm ews   m      n20  coi.dhl
-  coiicns  coiici f  coiicis- ews   m      -c  coiicie=>  on  cog.  pahl
-  1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP cePag  1"  cog. on  coie- 00 ple-50 h  1" bg-purple-10  coie- 00  
-  lo  /  coie- di  3>  /  coie- e=  coiicion  coiicirm ews   m 0   1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP hl'v>  1"  c<div className="p-4 space  1"di  coie- 00  
-  e=  /  coie- fl  dl  /  coie- on      /  coie-      co      hl
-      co      h g      co      hl
-}<      co      h g      co      hl
-  coie- 00  er  coie- 00  -5  coie- 00  
-een- /peen-        </sio  v classN    i2     i        coie- 0Aif gri  ng.ms-  coi.dhe-  coiicionst hl
- ews   m       ews   m  a<h iv  co{( ews   m      m(  coiicie'  coiicief  coiiciro ews   m      e=  coiicie'  coiici c -2  p   cog.  pahl
-  1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP hl'sa  1"  cog. p>  coie- 00  
-  ig  / lassNax   1"  cog.  pahst  coie- 00  
-  -s  /  coie- ai  ig  / lassName=  coiicion  coiicirm ews   m cl  coiicns  coiici f  coiicis- ews   m      -c  coiicie=>  on  te  1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP cePag  1"  cog. on  coiete  coie- 00  
-  ce  /  coie- g.  lo  /  coie- di  3>  /  coie- e=  coiicion  coiicirm ews   m 0   1"  cog.  pahl
-ex  coie- 00  
-  /  coie- 00 eP hl'v>  1"  c<div className="p-4 space  1"di  coie- d  /  coie- di  e=  /  coie- fl  dl  /  coie- on      /  coie-      co      hl
-      -b      co      h g      co      hl
-}<      co      h g      co  bg}<      co      h g      co     ul  coie- 00  er  coie- 00  -5  coiedoeen- /peen-        </sio  v classN    i)} ews   m       ews   m  a<h iv  co{( ews   m      m(  coiicie'  coiicief  coiiciro ews   m      e=  '}  1"  cog.  pahl
-  coie- 00  
-  /  coie- 00 eP hl'sa  1"  cog. p>  coie- 00  
-  ig  / lassNax   1"  cog.  pahst  coie- 00  
-  -s  /  coiti  coie- 00  
-  it  /  coie- ><  ig  / lassNax   1"  cog.  pahst  coie- 00  
-3   -s  /  coie- ai  ig  / lassName=nt-bold text  coie- 00  
-  /  coie- 00 eP cePag  1"  cog. on  coiete  coie- 00  
-  ce  /  coie- g.  lo  /  coie- di  3>  /  coie- e=  coiicion  coiicirm ewsas  /  coie- -s  ce  /  coie- g.  lo md:text-base leading-relaxed">{detex  coie- 00  
-  /  coie- 00 eP hl'v>  1"  c<div className="p-4 space  1"di  coie- d  /  coie- dile  /  coie- 00r       -b      co      h g      co      hl
-}<      co      h g      co  bg}<      co      h g      co     ul  coie- 00  er  coie- 00  -5  coiedoeep(}<      co      h g      co  bg}< flex ite  coie- 00  
-  /  coie- 00 eP hl'sa  1"  cog. p>  coie- 00  
-  ig  / lassNax   1"  cog.  pahst  coie- 00  
-  -s  /  coiti  coie- 00  
-  it  /  coie- ><  ig  / lassNax   1"  cog.  pahst  coie- 00  
-3   -s  /  coie- ai  ig  / lassName=nt-bold text  coie- 00  
- h4  /  coie- "t  ig  / lassNax   1"  cog.  pahst  coie- 00  
-s-  -s  /  coiti  coie- 00  
-  it  /  coie- >< h  it  /  coie- ><  ig  / tS3   -s  /  coie- ai  ig  / lassName=nt-bold text  coie- 00  
-or  /  coie- 00 eP cePag  1"  cog. on  coiete  coie- 00  
-  c-c  ce  /  coie- g.  lo  /  coie- di  3>  /  coie- e=  c-2  /  coie- 00 eP hl'v>  1"  c<div className="p-4 space  1"di  coie- d  /  coie- dile  /  coie- 00r       -b      co      h g      co      hl
-}<      co      h ge}<      co      h g      co  bg}<      co      h g      co     ul  coie- 00  er  coie- 00  -5  coiedoeep(}<      co      h g      co  bg}< ie  /  coie- 00 eP hl'sa  1"  cog. p>  coie- 00  
-  ig  / lassNax   1"  cog.  pahst  coie- 00  
-  -s  /  coiti  coie- 00  
-  it  /  coie- ><  ig  / lassNax   1".c  ig  / lassNax   1"  cog.  pahst  coie- 00  
-
-   -s  
+              <button
+                onClick={() => handleChoosePack(modalPack)}
+                className={`w-full py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 bg-gradient-to-r ${packs.find(p => p.id === modalPack)?.gradient} text-white hover:shadow-lg hover:scale-[1.02]`}
+              >
+                {t.choosePack}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
   );
 });
+
+ServicesPricing.displayName = 'ServicesPricing';
