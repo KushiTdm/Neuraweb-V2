@@ -234,7 +234,7 @@ export const fr = {
   'contact.info.email.value': 'contact@neuraweb.tech',
   'contact.info.email.desc': 'Réponse sous 24h',
   'contact.info.whatsapp.label': 'WhatsApp',
-  'contact.info.whatsapp.value': '+33 6 00 00 00 00',
+  'contact.info.whatsapp.value': '+33 7 49 77 56 54',
   'contact.info.whatsapp.desc': 'Disponible 7j/7',
   'contact.info.location.label': 'Localisation',
   'contact.info.location.value': 'France & International',
