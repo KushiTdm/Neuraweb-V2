@@ -9,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Toaster } from '@/components/ui/toaster';
 import { useTranslation } from '@/hooks/use-translation';
 import { useLanguage } from '@/contexts/language-context';
+import { useAnalytics } from '@/hooks/use-analytics';
 import BookingForm from '@/components/BookingForm';
 import {
   Mail,
@@ -152,6 +153,15 @@ function ContactPageContent() {
   const { language } = useLanguage();
   const { toast } = useToast();
   const searchParams = useSearchParams();
+  const { 
+    trackFormStart, 
+    trackFormProgress, 
+    trackFormSubmit, 
+    trackCTA,
+    trackContact 
+  } = useAnalytics();
+  
+  const [formStarted, setFormStarted] = useState(false);
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -243,11 +253,20 @@ function ContactPageContent() {
       const result = await response.json();
 
       if (response.ok && result.success) {
+        // Tracker la soumission réussie
+        trackFormSubmit({
+          form_name: 'contact_form',
+          pack_selected: formData.pack,
+          budget_selected: formData.budget,
+          language: language,
+        });
+        
         toast({
           title: t('contact.form.success.title'),
           description: t('contact.form.success.desc'),
         });
         setFormData({ name: '', email: '', subject: '', pack: '', budget: '', message: '' });
+        setFormStarted(false);
       } else {
         throw new Error(result.error || 'Unknown error');
       }
@@ -265,7 +284,36 @@ function ContactPageContent() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    
+    // Tracker le début de saisie du formulaire (premier champ rempli)
+    if (!formStarted && value.trim()) {
+      setFormStarted(true);
+      trackFormStart({
+        form_name: 'contact_form',
+        language: language,
+      });
+    }
+    
+    // Tracker la progression quand pack ou budget est sélectionné
+    if (name === 'pack' && value) {
+      trackFormProgress({
+        form_name: 'contact_form',
+        form_step: 1,
+        pack_selected: value,
+        language: language,
+      });
+    }
+    
+    if (name === 'budget' && value) {
+      trackFormProgress({
+        form_name: 'contact_form',
+        form_step: 2,
+        budget_selected: value,
+        language: language,
+      });
+    }
   };
 
   // Données des cartes de contact
@@ -747,7 +795,14 @@ function ContactPageContent() {
                       {t('contact.booking.desc')}
                     </p>
                     <button
-                      onClick={() => setShowBooking(true)}
+                      onClick={() => {
+                        trackCTA({
+                          cta_name: 'booking_cta',
+                          cta_location: 'contact_page',
+                          language: language,
+                        });
+                        setShowBooking(true);
+                      }}
                       className="group inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300 border border-white/15 bg-white/8 hover:bg-white/15 hover:border-white/25"
                     >
                       <Calendar size={15} />

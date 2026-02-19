@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/language-context';
+import { useAnalytics } from '@/hooks/use-analytics';
 import type { Language } from '@/lib/mdx';
 
 interface BlogPostMeta {
@@ -30,10 +31,60 @@ interface BlogListClientProps {
 export function BlogListClient({ postsFr, postsEn, featuredFr, featuredEn }: BlogListClientProps) {
   const { language } = useLanguage();
   const [mounted, setMounted] = useState(false);
+  const trackedPosts = useRef<Set<string>>(new Set());
+  const { trackBlogView, trackBlogClick, trackCTA } = useAnalytics();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Tracker les vues des articles avec Intersection Observer
+  useEffect(() => {
+    if (!mounted) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const slug = entry.target.getAttribute('data-blog-slug');
+          const title = entry.target.getAttribute('data-blog-title');
+          if (slug && title && entry.isIntersecting && !trackedPosts.current.has(slug)) {
+            trackedPosts.current.add(slug);
+            trackBlogView({
+              blog_title: title,
+              blog_slug: slug,
+              language: language,
+            });
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    document.querySelectorAll('[data-blog-slug]').forEach((el) => {
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [mounted, language, trackBlogView]);
+
+  // Handler pour tracker les clics sur les articles
+  const handleBlogClick = (slug: string, title: string) => {
+    trackBlogClick({
+      blog_title: title,
+      blog_slug: slug,
+      language: language,
+    });
+  };
+
+  // Handler pour tracker le CTA contact
+  const handleContactCTA = () => {
+    trackCTA({
+      cta_name: 'blog_contact_cta',
+      cta_location: 'blog_page',
+      destination: '/contact',
+      language: language,
+    });
+  };
 
   // Select posts based on current language
   const allPosts = language === 'en' ? postsEn : postsFr;
@@ -120,6 +171,8 @@ export function BlogListClient({ postsFr, postsEn, featuredFr, featuredEn }: Blo
               {featuredPosts.map((post) => (
                 <article
                   key={post.slug}
+                  data-blog-slug={post.slug}
+                  data-blog-title={post.title}
                   className="group relative bg-gray-50 dark:bg-gray-900/50 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-blue-500/50 transition-all duration-300"
                 >
                   {/* Image */}
@@ -196,6 +249,8 @@ export function BlogListClient({ postsFr, postsEn, featuredFr, featuredEn }: Blo
               {allPosts.map((post) => (
                 <article
                   key={post.slug}
+                  data-blog-slug={post.slug}
+                  data-blog-title={post.title}
                   className="group bg-gray-50 dark:bg-gray-900/30 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-blue-500/50 transition-all duration-300"
                 >
                   {/* Image */}
@@ -251,6 +306,7 @@ export function BlogListClient({ postsFr, postsEn, featuredFr, featuredEn }: Blo
           </p>
           <Link
             href="/contact"
+            onClick={handleContactCTA}
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
             {translations.contactUs}

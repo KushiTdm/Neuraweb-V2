@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono, Syne } from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
 import Chatbot from '@/components/chatbot';
@@ -66,7 +67,7 @@ export const metadata: Metadata = {
       'Agence digitale premium spécialisée en développement web sur mesure, intégration IA et automatisation.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.jpeg',
         width: 1200,
         height: 630,
         alt: 'NeuraWeb — Agence Digitale Premium',
@@ -127,6 +128,8 @@ export default function RootLayout({
         />
       </head>
       <body className={geist.className}>
+        {/* Google Analytics 4 - Suivi des performances et comportement utilisateur */}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
         {/* Skip Link — Accessibilité WCAG AA */}
         <a href="#main-content" className="skip-link">
           Aller au contenu principal

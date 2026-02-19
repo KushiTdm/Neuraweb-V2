@@ -9,81 +9,12 @@ import {
   Users,
   Award,
   TrendingUp,
-  Clock,
   Star,
 } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { AboutThreeCanvas } from './about-three-canvas';
 
-// ── Hook : compteur animé ──────────────────────────────────────
-function useCountUp(target: number, duration: number, start: boolean) {
-  const [count, setCount] = useState(0);
-  const rafRef = useRef<number>();
-
-  useEffect(() => {
-    if (!start) return;
-    const startTime = performance.now();
-
-    const tick = (now: number) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Easing : ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * target));
-      if (progress < 1) {
-        rafRef.current = requestAnimationFrame(tick);
-      }
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, [start, target, duration]);
-
-  return count;
-}
-
-// ── Données des statistiques ───────────────────────────────────
-// Les valeurs numériques sont séparées du suffixe pour l'animation
-const STATS_DATA = [
-  {
-    numericValue: 100,
-    suffix: '%',
-    labelKey: 'about.stat.satisfaction' as const,
-    icon: Award,
-    gradient: 'from-blue-500 to-indigo-600',
-    glow: '#3b82f6',
-    duration: 1800,
-  },
-  {
-    numericValue: null, // valeur non numérique
-    display: '24/7',
-    labelKey: 'about.stat.support' as const,
-    icon: Clock,
-    gradient: 'from-purple-500 to-pink-600',
-    glow: '#a855f7',
-    duration: 0,
-  },
-  {
-    numericValue: 120,
-    suffix: '+',
-    labelKey: 'about.stat.projects' as const,
-    icon: TrendingUp,
-    gradient: 'from-emerald-500 to-teal-600',
-    glow: '#10b981',
-    duration: 2000,
-  },
-  {
-    numericValue: 3,
-    suffix: '×',
-    labelKey: 'about.stat.growth' as const,
-    icon: Zap,
-    gradient: 'from-orange-500 to-amber-500',
-    glow: '#f59e0b',
-    duration: 1400,
-  },
-] as const;
+// Les statistiques sont désormais affichées dans StatsSection (composant dédié)
 
 // ── Valeurs de l'agence ────────────────────────────────────────
 const VALUES_DATA = [
@@ -121,70 +52,6 @@ const COMMITMENT_KEYS = [
   'about.commitments.5',
   'about.commitments.6',
 ] as const;
-
-// ── Composant carte statistique avec compteur ──────────────────
-function StatCard({
-  stat,
-  isVisible,
-  delay,
-}: {
-  stat: (typeof STATS_DATA)[number];
-  isVisible: boolean;
-  delay: number;
-}) {
-  const { t } = useTranslation();
-  const IconComponent = stat.icon;
-
-  // Compteur animé uniquement pour les valeurs numériques
-  const count = useCountUp(
-    stat.numericValue ?? 0,
-    stat.duration ?? 0,
-    isVisible && stat.numericValue !== null
-  );
-
-  const displayValue =
-    stat.numericValue !== null
-      ? `${count}${'suffix' in stat ? stat.suffix : ''}`
-      : ('display' in stat ? stat.display : '');
-
-  return (
-    <div
-      className="relative group"
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.9)',
-        transition: `all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}ms`,
-      }}
-    >
-      {/* Glow au hover */}
-      <div
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"
-        style={{ background: `${stat.glow}25` }}
-      />
-
-      <div className="relative p-6 rounded-2xl border border-gray-100 dark:border-gray-700/60 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:border-transparent hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-1">
-        {/* Icône */}
-        <div
-          className={`w-10 h-10 rounded-xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center mb-3 shadow-lg`}
-        >
-          <IconComponent className="w-5 h-5 text-white" strokeWidth={2.5} />
-        </div>
-
-        {/* Valeur animée */}
-        <div
-          className={`text-3xl font-black bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-1 tabular-nums`}
-        >
-          {displayValue}
-        </div>
-
-        {/* Label traduit */}
-        <div className="text-sm font-medium text-gray-600 dark:text-gray-400">
-          {t(stat.labelKey)}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ── Section principale ─────────────────────────────────────────
 export function AboutSection() {
@@ -249,13 +116,6 @@ export function AboutSection() {
           <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
             {t('about.description')}
           </p>
-        </div>
-
-        {/* ── Statistiques avec compteurs animés ─────────────── */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
-          {STATS_DATA.map((stat, i) => (
-            <StatCard key={stat.labelKey} stat={stat} isVisible={isVisible} delay={i * 130} />
-          ))}
         </div>
 
         {/* ── Layout principal : image + contenu ─────────────── */}

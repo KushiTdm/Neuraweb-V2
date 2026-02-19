@@ -115,20 +115,6 @@ export function Header() {
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
                 )}
               </Link>
-
-              <Link
-                href="/contact"
-                className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  isActive('/contact')
-                    ? 'text-brand-600 dark:text-brand-400'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/60 dark:hover:bg-white/5'
-                }`}
-              >
-                {t('nav.contact')}
-                {isActive('/contact') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
-                )}
-              </Link>
             </nav>
 
             {/* ── Actions droite ────────────────────────────── */}
@@ -136,9 +122,9 @@ export function Header() {
               {/* Language selector */}
               <LanguageSelector />
 
-              {/* CTA Réserver */}
+              {/* CTA Contact */}
               <Link
-                href="/booking"
+                href="/contact"
                 className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-300 group"
                 style={{
                   background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
@@ -153,7 +139,7 @@ export function Header() {
                   (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
                 }}
               >
-                {t('nav.booking')}
+                {t('nav.contact')}
                 <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
               </Link>
 
@@ -212,7 +198,6 @@ export function Header() {
               { href: '/services', label: t('nav.services') },
               { href: '/blog', label: t('nav.blog') },
               { href: '/equipe', label: t('nav.team') },
-              { href: '/contact', label: t('nav.contact') },
             ].map((item) => (
               <Link
                 key={item.href}
@@ -232,12 +217,12 @@ export function Header() {
           {/* CTA mobile */}
           <div className="px-5 pt-2">
             <Link
-              href="/booking"
+              href="/contact"
               onClick={() => setIsMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-xl text-sm font-semibold text-white"
               style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}
             >
-              {t('nav.booking')}
+              {t('nav.contact')}
               <ArrowRight size={14} />
             </Link>
           </div>

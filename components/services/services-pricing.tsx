@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState, forwardRef } from 'react';
+import { useEffect, useRef, useState, forwardRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { gsap } from '@/lib/gsap-setup';
 import { useLanguage } from '@/contexts/language-context';
+import { useAnalytics } from '@/hooks/use-analytics';
 import { X, ChevronRight, Sparkles, Zap, Shield, HeadphonesIcon, Globe, Rocket, Code, Database, Bot, Settings, TrendingUp, Users, MessageSquare, ShoppingCart, Mail, Search, Server, Clock, MessageCircle } from 'lucide-react';
 
 interface ServicesPricingProps {
@@ -287,7 +288,19 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const modalRef = useRef<HTMLDivElement>(null);
+  const modalOpenTime = useRef<number>(0);
+  const packViewTimes = useRef<Record<string, number>>({});
+  const trackedPacks = useRef<Set<string>>(new Set());
   const router = useRouter();
+  
+  // Hook analytics pour le tracking
+  const { 
+    trackPackView, 
+    trackPackClick, 
+    trackPackChoose, 
+    trackPackModalClose,
+    trackContact 
+  } = useAnalytics();
 
   const packs: Pack[] = [
     { id: 'starter', icon: '/assets/eclair.webp', gradient: 'from-blue-500 to-cyan-500' },
@@ -340,20 +353,102 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
 
   const t = PRICING_TRANSLATIONS[language] || PRICING_TRANSLATIONS.fr;
 
+  // Tracker les vues de packs avec Intersection Observer
+  useEffect(() => {
+    if (!mounted) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const packId = entry.target.getAttribute('data-pack-id');
+          if (packId && entry.isIntersecting && !trackedPacks.current.has(packId)) {
+            trackedPacks.current.add(packId);
+            packViewTimes.current[packId] = Date.now();
+            
+            const packData = t.packs[packId as keyof typeof t.packs];
+            if (packData) {
+              trackPackView({
+                pack_id: packId,
+                pack_name: packData.title,
+                pack_price: packData.price,
+                language: language,
+              });
+            }
+          }
+        });
+      },
+      { threshold: 0.5 } // Déclenche quand 50% du pack est visible
+    );
+
+    // Observer chaque carte de pack
+    cardsRef.current.forEach((card) => {
+      if (card) {
+        observer.observe(card);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, [mounted, language, t.packs, trackPackView]);
+
   const openModal = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     setModalPack(id);
+    modalOpenTime.current = Date.now();
+    
+    // Tracker le clic sur le pack
+    const packData = t.packs[id as keyof typeof t.packs];
+    if (packData) {
+      trackPackClick({
+        pack_id: id,
+        pack_name: packData.title,
+        pack_price: packData.price,
+        language: language,
+      });
+    }
   };
 
-  const closeModal = () => setModalPack(null);
+  const closeModal = () => {
+    // Tracker la fermeture de la modal avec le temps passé
+    if (modalPack && modalOpenTime.current) {
+      const timeSpent = Math.round((Date.now() - modalOpenTime.current) / 1000);
+      const packData = t.packs[modalPack as keyof typeof t.packs];
+      if (packData) {
+        trackPackModalClose({
+          pack_id: modalPack,
+          pack_name: packData.title,
+          pack_price: packData.price,
+          language: language,
+          time_spent_seconds: timeSpent,
+        });
+      }
+    }
+    setModalPack(null);
+  };
 
   const getSub = () => language === 'fr' ? 'fr' : language === 'es' ? 'es' : 'en';
 
   const handleChoosePack = (packId: string) => {
+    // Tracker la conversion (choix du pack)
+    const packData = t.packs[packId as keyof typeof t.packs];
+    if (packData) {
+      trackPackChoose({
+        pack_id: packId,
+        pack_name: packData.title,
+        pack_price: packData.price,
+        language: language,
+      });
+    }
     router.push(`/contact?pack=${packId}&lang=${getSub()}`);
   };
 
   const handleContact = (type: 'whatsapp' | 'chatbot') => {
+    // Tracker le contact
+    trackContact({
+      contact_type: type,
+      language: language,
+      pack_id: modalPack || undefined,
+    });
+    
     if (type === 'whatsapp') {
       window.open('https://wa.me/33749775654', '_blank');
     } else {
@@ -393,6 +488,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
             return (
               <div
                 key={pack.id}
+                data-pack-id={pack.id}
                 ref={(el) => {
                   if (el) cardsRef.current[index] = el;
                 }}

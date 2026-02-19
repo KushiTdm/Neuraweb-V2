@@ -1,13 +1,51 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
+import { useLanguage } from '@/contexts/language-context';
+
+// ── Translations ───────────────────────────────────────────────────────────
+const translations = {
+  fr: {
+    title: 'Des résultats qui parlent',
+    subtitle: 'Depuis notre création, nous avons aidé des dizaines d\'entreprises à accélérer leur croissance grâce à l\'IA et l\'automatisation.',
+    projects: 'Produits livrés',
+    satisfaction: 'Clients satisfaits',
+    roi: 'ROI moyen clients',
+    delay: 'Délai MVP moyen',
+    trustGoogle: '4.9/5 sur Google',
+    trustDelivered: '100% Projets livrés',
+    trustResponse: 'Réponse sous 24h',
+  },
+  en: {
+    title: 'Results that speak for themselves',
+    subtitle: 'Since our creation, we have helped dozens of companies accelerate their growth thanks to AI and automation.',
+    projects: 'Products delivered',
+    satisfaction: 'Satisfied clients',
+    roi: 'Average client ROI',
+    delay: 'Average MVP timeline',
+    trustGoogle: '4.9/5 on Google',
+    trustDelivered: '100% Projects delivered',
+    trustResponse: 'Response within 24h',
+  },
+  es: {
+    title: 'Resultados que hablan por sí mismos',
+    subtitle: 'Desde nuestra creación, hemos ayudado a docenas de empresas a acelerar su crecimiento gracias a la IA y la automatización.',
+    projects: 'Productos entregados',
+    satisfaction: 'Clientes satisfechos',
+    roi: 'ROI promedio clientes',
+    delay: 'Plazo MVP promedio',
+    trustGoogle: '4.9/5 en Google',
+    trustDelivered: '100% Proyectos entregados',
+    trustResponse: 'Respuesta en 24h',
+  },
+};
 
 // ── Stat Data ───────────────────────────────────────────────────────────────
-const stats = [
-  { value: 47, suffix: '+', label: 'Projets livrés', icon: '🚀' },
-  { value: 98, suffix: '%', label: 'Clients satisfaits', icon: '⭐' },
-  { value: 3.2, suffix: 'x', label: 'ROI moyen clients', icon: '📈' },
-  { value: 72, suffix: 'h', label: 'Délai MVP moyen', icon: '⚡' },
+const getStats = (t: typeof translations.fr) => [
+  { value: 150, suffix: '+', label: t.projects, icon: '🚀' },
+  { value: 98, suffix: '%', label: t.satisfaction, icon: '⭐' },
+  { value: 3.2, suffix: 'x', label: t.roi, icon: '📈' },
+  { value: 72, suffix: 'h', label: t.delay, icon: '⚡' },
 ];
 
 // ── Animated Counter Hook ───────────────────────────────────────────────────
@@ -65,7 +103,7 @@ function useCountUp(end: number, duration: number = 2000, startOnView: boolean =
 }
 
 // ── Individual Stat Component ───────────────────────────────────────────────
-function StatItem({ stat, index }: { stat: typeof stats[0]; index: number }) {
+function StatItem({ stat, index }: { stat: ReturnType<typeof getStats>[0]; index: number }) {
   const { count, ref } = useCountUp(stat.value, 2000 + index * 200);
   const isDecimal = stat.value % 1 !== 0;
 
@@ -119,6 +157,10 @@ function StatItem({ stat, index }: { stat: typeof stats[0]; index: number }) {
 
 // ── Stats Section Component ─────────────────────────────────────────────────
 export function StatsSection() {
+  const { language } = useLanguage();
+  const t = translations[language as keyof typeof translations] || translations.fr;
+  const stats = getStats(t);
+
   return (
     <section 
       className="py-16 sm:py-20 px-4 relative overflow-hidden"
@@ -137,10 +179,10 @@ export function StatsSection() {
         {/* Section header */}
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            Des résultats qui parlent
+            {t.title}
           </h2>
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Depuis notre création, nous avons aidé des dizaines d'entreprises à accélérer leur croissance grâce à l'IA et l'automatisation.
+            {t.subtitle}
           </p>
         </div>
 
@@ -163,19 +205,19 @@ export function StatsSection() {
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
             </svg>
-            <span>4.9/5 sur Google</span>
+            <span>{t.trustGoogle}</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
-            <span>100% Projets livrés</span>
+            <span>{t.trustDelivered}</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>Réponse sous 24h</span>
+            <span>{t.trustResponse}</span>
           </div>
         </div>
       </div>
