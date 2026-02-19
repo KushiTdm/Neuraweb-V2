@@ -27,6 +27,8 @@ export const es: Record<TranslationKey, string> = {
   // Navigation
   'nav.home': 'Inicio',
   'nav.services': 'Servicios',
+  'nav.blog': 'Blog',
+  'nav.team': 'Equipo',
   'nav.booking': 'Reservar',
   'nav.contact': 'Contacto',
   'nav.quote': 'Presupuesto',

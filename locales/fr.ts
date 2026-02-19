@@ -25,6 +25,8 @@ export const fr = {
   // Navigation
   'nav.home': 'Accueil',
   'nav.services': 'Services',
+  'nav.blog': 'Blog',
+  'nav.team': 'Équipe',
   'nav.booking': 'Réserver',
   'nav.contact': 'Contact',
   'nav.quote': 'Devis',

@@ -96,7 +96,7 @@ export function Header() {
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/60 dark:hover:bg-white/5'
                 }`}
               >
-                Blog
+                {t('nav.blog')}
                 {isActive('/blog') && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
                 )}
@@ -110,7 +110,7 @@ export function Header() {
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/60 dark:hover:bg-white/5'
                 }`}
               >
-                Équipe
+                {t('nav.team')}
                 {isActive('/equipe') && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
                 )}
@@ -210,8 +210,8 @@ export function Header() {
             {[
               { href: '/', label: t('nav.home') },
               { href: '/services', label: t('nav.services') },
-              { href: '/blog', label: 'Blog' },
-              { href: '/equipe', label: 'Équipe' },
+              { href: '/blog', label: t('nav.blog') },
+              { href: '/equipe', label: t('nav.team') },
               { href: '/contact', label: t('nav.contact') },
             ].map((item) => (
               <Link
