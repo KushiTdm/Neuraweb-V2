@@ -288,4 +288,21 @@ export const es: Record<TranslationKey, string> = {
   'language.fr': 'Français',
   'language.en': 'English',
   'language.es': 'Español',
+
+  // SEO Dynamic
+  'seo.home.title': 'NeuraWeb — Agencia Web, IA & Automatización',
+  'seo.home.description': 'Agencia digital premium especializada en desarrollo web personalizado, integración IA y automatización. Transforma tu visión en soluciones digitales innovadoras.',
+  'seo.services.title': 'Servicios - Soluciones Web a Medida | NeuraWeb',
+  'seo.services.description': 'Descubre nuestros servicios de desarrollo web, integración IA y automatización. Paquetes adaptados a tus necesidades. Presupuesto gratis.',
+  'seo.contact.title': 'Contacto - Hablemos de tu proyecto | NeuraWeb',
+  'seo.contact.description': 'Contacta con nuestro equipo para discutir tu proyecto. Respuesta en 24h, presupuesto gratis.',
+  'seo.portfolio.title': 'Portafolio - Nuestros Proyectos | NeuraWeb',
+  'seo.portfolio.description': 'Descubre nuestros proyectos web, aplicaciones y soluciones IA. Portafolio de clientes.',
+  'seo.blog.title': 'Blog - Noticias y Consejos | NeuraWeb',
+  'seo.blog.description': 'Artículos y consejos sobre desarrollo web, IA y automatización.',
+  'seo.boost.technical': 'Next.js, React, TypeScript, Node.js',
+  'seo.boost.business': 'transformación digital, crecimiento, ROI',
+  'seo.boost.ai': 'inteligencia artificial, machine learning, automatización',
+  'seo.boost.local': 'París, Francia, agencia francesa',
+  'seo.boost.cta': 'Presupuesto gratis, Respuesta 24h',
 };

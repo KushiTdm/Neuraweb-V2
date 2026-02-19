@@ -4,6 +4,7 @@ import { Geist, Geist_Mono, Syne } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
 import Chatbot from '@/components/chatbot';
+import { SEO_BOOST_KEYWORDS } from '@/lib/seo-service';
 
 // ── Fonts premium 2026 ─────────────────────────────────────────
 const geist = Geist({
@@ -27,6 +28,7 @@ const syne = Syne({
   weight: ['400', '500', '600', '700', '800'],
 });
 
+// ── SEO Metadata optimisé avec le service SEO Boost ────────────
 export const metadata: Metadata = {
   metadataBase: new URL('https://neuraweb.tech'),
   title: {
@@ -36,6 +38,7 @@ export const metadata: Metadata = {
   description:
     'Agence digitale premium spécialisée en développement web sur mesure, intégration IA et automatisation. Transformez votre vision en solutions digitales innovantes.',
   keywords: [
+    // Keywords de base
     'agence web',
     'développement web',
     'intégration IA',
@@ -44,6 +47,11 @@ export const metadata: Metadata = {
     'React',
     'marketing digital',
     'agence digitale',
+    // Keywords boostés depuis le service SEO
+    ...SEO_BOOST_KEYWORDS.technical.slice(0, 3),
+    ...SEO_BOOST_KEYWORDS.business.slice(0, 2),
+    ...SEO_BOOST_KEYWORDS.ai.slice(0, 2),
+    ...SEO_BOOST_KEYWORDS.local,
   ],
   authors: [{ name: 'NeuraWeb' }],
   creator: 'NeuraWeb',

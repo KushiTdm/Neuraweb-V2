@@ -1,10 +1,13 @@
 import { Metadata } from 'next';
 import { ServicesPageClient } from '@/components/services-page-client';
+import { generatePageMetadata, generateJsonLd } from '@/lib/seo-service';
 
-export const metadata: Metadata = {
-  title: 'Services - Solutions Web Sur Mesure | NeuraWeb',
-  description: 'Découvrez nos services de développement web, intégration IA et automatisation. Packs starter, business, premium et IA adaptés à vos besoins. Devis gratuit.',
-  keywords: [
+// Génération des métadonnées SEO optimisées via le service SEO
+export const metadata: Metadata = generatePageMetadata({
+  pageType: 'services',
+  language: 'fr',
+  path: '/services',
+  customKeywords: [
     'services web',
     'développement web',
     'intégration IA',
@@ -14,37 +17,18 @@ export const metadata: Metadata = {
     'pack premium',
     'tarifs développement',
     'agence web',
+    'devis gratuit',
   ],
-  openGraph: {
-    title: 'Services Web Professionnels - NeuraWeb',
-    description: 'Solutions complètes de développement web avec des packs adaptés à chaque besoin',
-    url: 'https://neuraweb.tech/services',
-    siteName: 'NeuraWeb',
-    images: [
-      {
-        url: '/og-services.png',
-        width: 1200,
-        height: 630,
-        alt: 'NeuraWeb Services',
-      },
-    ],
-    locale: 'fr_FR',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Services Web Professionnels - NeuraWeb',
-    description: 'Solutions complètes de développement web',
-    images: ['/og-services.png'],
-  },
-  alternates: {
-    canonical: 'https://neuraweb.tech/services',
-  },
-};
+}, {
+  ogImage: '/og-services.png',
+});
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
+// JSON-LD structuré généré dynamiquement
+const jsonLd = generateJsonLd('Service', {
+  pageType: 'services',
+  language: 'fr',
+  path: '/services',
+}, {
   name: 'Services de Développement Web',
   provider: {
     '@type': 'Organization',
@@ -82,7 +66,7 @@ const jsonLd = {
       },
     ],
   },
-};
+});
 
 export default function ServicesPage() {
   return (

@@ -286,6 +286,23 @@ export const fr = {
   'language.fr': 'Français',
   'language.en': 'English',
   'language.es': 'Español',
+
+  // SEO Dynamic
+  'seo.home.title': 'NeuraWeb — Agence Web, IA & Automatisation',
+  'seo.home.description': 'Agence digitale premium spécialisée en développement web sur mesure, intégration IA et automatisation. Transformez votre vision en solutions digitales innovantes.',
+  'seo.services.title': 'Services - Solutions Web Sur Mesure | NeuraWeb',
+  'seo.services.description': 'Découvrez nos services de développement web, intégration IA et automatisation. Packs adaptés à vos besoins. Devis gratuit.',
+  'seo.contact.title': 'Contact - Parlons de votre projet | NeuraWeb',
+  'seo.contact.description': 'Contactez notre équipe pour discuter de votre projet. Réponse sous 24h, devis gratuit.',
+  'seo.portfolio.title': 'Portfolio - Nos Réalisations | NeuraWeb',
+  'seo.portfolio.description': 'Découvrez nos projets web, applications et solutions IA. Portfolio de réalisations pour nos clients.',
+  'seo.blog.title': 'Blog - Actualités & Conseils | NeuraWeb',
+  'seo.blog.description': 'Articles et conseils sur le développement web, l\'IA et l\'automatisation.',
+  'seo.boost.technical': 'Next.js, React, TypeScript, Node.js',
+  'seo.boost.business': 'transformation digitale, croissance, ROI',
+  'seo.boost.ai': 'intelligence artificielle, machine learning, automatisation',
+  'seo.boost.local': 'Paris, France, agence française',
+  'seo.boost.cta': 'Devis gratuit, Réponse 24h',
 } as const;
 
 export type TranslationKey = keyof typeof fr;

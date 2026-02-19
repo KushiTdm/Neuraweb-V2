@@ -288,4 +288,21 @@ export const en: Record<TranslationKey, string> = {
   'language.fr': 'Français',
   'language.en': 'English',
   'language.es': 'Español',
+
+  // SEO Dynamic
+  'seo.home.title': 'NeuraWeb — Web Agency, AI & Automation',
+  'seo.home.description': 'Premium digital agency specialized in custom web development, AI integration and automation. Transform your vision into innovative digital solutions.',
+  'seo.services.title': 'Services - Custom Web Solutions | NeuraWeb',
+  'seo.services.description': 'Discover our web development, AI integration and automation services. Packages tailored to your needs. Free quote.',
+  'seo.contact.title': 'Contact - Let\'s talk about your project | NeuraWeb',
+  'seo.contact.description': 'Contact our team to discuss your project. Response within 24h, free quote.',
+  'seo.portfolio.title': 'Portfolio - Our Work | NeuraWeb',
+  'seo.portfolio.description': 'Discover our web projects, applications and AI solutions. Client portfolio showcase.',
+  'seo.blog.title': 'Blog - News & Tips | NeuraWeb',
+  'seo.blog.description': 'Articles and tips on web development, AI and automation.',
+  'seo.boost.technical': 'Next.js, React, TypeScript, Node.js',
+  'seo.boost.business': 'digital transformation, growth, ROI',
+  'seo.boost.ai': 'artificial intelligence, machine learning, automation',
+  'seo.boost.local': 'Paris, France, French agency',
+  'seo.boost.cta': 'Free quote, 24h response',
 };
