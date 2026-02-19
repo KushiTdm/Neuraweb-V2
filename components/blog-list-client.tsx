@@ -240,44 +240,8 @@ export function BlogListClient({ postsFr, postsEn, featuredFr, featuredEn }: Blo
         </div>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="py-16 px-4">
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-8 text-center text-white relative overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white blur-3xl transform translate-x-1/2 -translate-y-1/2" />
-              <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-white blur-3xl transform -translate-x-1/2 translate-y-1/2" />
-            </div>
-
-            <div className="relative z-10">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-                {translations.stayInformed}
-              </h2>
-              <p className="text-white/80 mb-6 max-w-md mx-auto">
-                {translations.newsletterDesc}
-              </p>
-              <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder={translations.emailPlaceholder}
-                  className="flex-1 px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-sm"
-                  aria-label="Email address"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-3 rounded-xl bg-white text-blue-600 font-semibold hover:bg-blue-50 transition-colors shadow-lg"
-                >
-                  {translations.subscribe}
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA to Contact */}
-      <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/30">
+      <section className="py-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             {translations.haveProject}
