@@ -8,9 +8,11 @@ import { ServicesHero } from '@/components/services/services-hero';
 import { ServicesProcess } from '@/components/services/services-process';
 import { ServicesPricing } from '@/components/services/services-pricing';
 import { ServicesCTA } from '@/components/services/services-cta';
+import { useLanguage } from '@/contexts/language-context';
 
 export function ServicesPageClient() {
   const pricingRef = useRef<HTMLDivElement>(null);
+  const { language } = useLanguage();
 
   const scrollToPricing = () => {
     pricingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -24,9 +26,9 @@ export function ServicesPageClient() {
         <div className="overflow-x-hidden">
           <ServicesHero />
         </div>
-        <ServicesProcess onScrollToPricing={scrollToPricing} />
+        <ServicesProcess language={language} onScrollToPricing={scrollToPricing} />
         <div className="overflow-x-hidden">
-          <ServicesPricing ref={pricingRef} />
+          <ServicesPricing ref={pricingRef} language={language} />
           <ServicesCTA />
         </div>
       </div>

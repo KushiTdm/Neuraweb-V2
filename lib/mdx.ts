@@ -183,7 +183,7 @@ export function getPostBySlugWithFallback(slug: string, preferredLanguage: Langu
 
 // ── Get all posts slugs across all languages ─────────────────────────────────
 export function getAllPostSlugsAllLanguages(): { slug: string; language: Language }[] {
-  const languages: Language[] = ['fr', 'en'];
+  const languages: Language[] = ['fr', 'en', 'es'];
   const allSlugs: { slug: string; language: Language }[] = [];
   
   for (const lang of languages) {

@@ -47,11 +47,13 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 
 // ── Page Component ──────────────────────────────────────────────────────────
 export default function BlogPage() {
-  // Get posts for both languages
+  // Get posts for all languages
   const postsFr = getAllPosts('fr');
   const postsEn = getAllPosts('en');
+  const postsEs = getAllPosts('es');
   const featuredFr = getFeaturedPosts('fr');
   const featuredEn = getFeaturedPosts('en');
+  const featuredEs = getFeaturedPosts('es');
 
   return (
     <>
@@ -67,8 +69,10 @@ export default function BlogPage() {
         <BlogListClient 
           postsFr={postsFr}
           postsEn={postsEn}
+          postsEs={postsEs}
           featuredFr={featuredFr}
           featuredEn={featuredEn}
+          featuredEs={featuredEs}
         />
       </main>
 

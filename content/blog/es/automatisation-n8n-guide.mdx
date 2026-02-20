@@ -1,0 +1,83 @@
+---
+title: "Guía completa n8n - automatiza tus workflows sin código"
+excerpt: "Descubre cómo automatizar tus procesos de negocio con n8n, la alternativa open-source a Zapier"
+date: "2025-09-08"
+category: "Automatización"
+author: "NeuraWeb"
+image: "/assets/blog/automatisation-n8n-guide.webp"
+tags:
+  - "n8n"
+  - "Automatización"
+  - "Workflow"
+  - "Zapier"
+  - "No-Code"
+featured: true
+---
+
+n8n es una herramienta de automatización de workflows open-source que permite conectar tus aplicaciones y servicios sin escribir código. Alternativa a Zapier y Make, ofrece más flexibilidad y un costo controlado.
+
+## ¿Por qué elegir n8n?
+
+### Ventajas vs Zapier
+
+| Criterio | n8n | Zapier |
+|---------|-----|--------|
+| Precio | Gratis (self-hosted) | Desde 29$/mes |
+| Integraciones | 400+ | 6000+ |
+| Flexibilidad | Máxima | Limitada |
+| Datos | En tu servidor | En Zapier |
+| Complejidad | Curva media | Fácil |
+
+### Los casos de uso perfectos para n8n
+
+1. **Sincronización CRM** → Añadir automáticamente los leads en tu CRM
+2. **Notificaciones Slack** → Ser alertado en tiempo real de eventos importantes
+3. **Reporting automatizado** → Generar y enviar informes por email
+4. **Tratamiento de formularios** → Dirigir y procesar los envíos automáticamente
+
+## Primeros pasos con n8n
+
+### Instalación
+
+La forma más sencilla de empezar es usar Docker:
+
+```bash
+# Via Docker (recomendado)
+docker run -it --rm -p 5678:5678 -v ~/.n8n:/home/node/.n8n n8nio/n8n
+
+# O via npm
+npm install n8n -g
+n8n start
+```
+
+### Crear tu primer workflow
+
+1. Añadir un **Trigger** (ej: Webhook, Schedule, Manual)
+2. Conectar **Nodes** (servicios a integrar)
+3. Configurar los **mappings** entre los nodes
+4. Activar el workflow
+
+## Ejemplo concreto: Lead → CRM + Email + Slack
+
+```
+Webhook (recepción lead)
+    ↓
+    ├── HubSpot (crear contacto)
+    ├── Gmail (enviar email de bienvenida)
+    └── Slack (notificación equipo)
+```
+
+Este workflow simple te hace ganar **2h por semana** en el tratamiento manual de leads.
+
+## Buenas prácticas
+
+- ✅ **Prueba antes de activar**: Usa el modo test de n8n
+- ✅ **Gestiona los errores**: Añade ramas de fallback
+- ✅ **Documenta**: Nota el objetivo de cada workflow
+- ✅ **Supervisa**: Configura alertas en caso de fallo
+
+## Conclusión
+
+n8n es una herramienta potente para automatizar tus procesos sin explotar tu presupuesto. La curva de aprendizaje es razonable y las posibilidades son casi ilimitadas.
+
+> 🔧 **¿Necesitas ayuda?** NeuraWeb puede ayudarte a configurar tus primeros workflows n8n en pocos días.

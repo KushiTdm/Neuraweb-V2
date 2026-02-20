@@ -305,6 +305,29 @@ export const fr = {
   'seo.boost.ai': 'intelligence artificielle, machine learning, automatisation',
   'seo.boost.local': 'Paris, France, agence française',
   'seo.boost.cta': 'Devis gratuit, Réponse 24h',
+
+  // Équipe Page
+  'equipe.hero.title': "L'équipe derrière",
+  'equipe.hero.subtitle': "Des développeurs passionnés qui construisent le futur avec l'IA. On code, l'IA amplifie, vous scalez.",
+  'equipe.available': 'Disponible',
+  'equipe.stack': 'Stack technique',
+  'equipe.certifications': 'Certifications',
+  'equipe.members.nacer.role': 'Fondateur & Lead Developer',
+  'equipe.members.nacer.bio': "Full-stack developer avec 11 ans d'expérience. Spécialiste React/Next.js et intégration LLM. Passionné par l'automatisation et l'IA pour aider les startups à scaler.",
+  'equipe.members.sandra.role': 'Communication & Marketing',
+  'equipe.members.sandra.bio': "Experte en communication digitale et stratégie marketing. Elle transforme les idées en campagnes impactantes et développe la présence de marque de nos clients.",
+  'equipe.members.arthur.role': 'Développeur IA & Automatisation',
+  'equipe.members.arthur.bio': "Ingénieur spécialisé en intelligence artificielle et automatisation. Il conçoit des solutions IA innovantes et des workflows automatisés sur mesure.",
+  'equipe.values.title': 'Nos valeurs',
+  'equipe.values.speed.title': 'Rapidité',
+  'equipe.values.speed.desc': "Des MVPs en 4-6 semaines. On ne traîne pas, on livre.",
+  'equipe.values.quality.title': 'Qualité',
+  'equipe.values.quality.desc': 'Code propre, tests automatisés, documentation complète.',
+  'equipe.values.proximity.title': 'Proximité',
+  'equipe.values.proximity.desc': 'On travaille avec vous, pas pour vous. Communication directe.',
+  'equipe.cta.title': 'Prêt à construire ensemble ?',
+  'equipe.cta.desc': "Discutons de votre projet et voyons comment l'IA peut accélérer votre croissance.",
+  'equipe.cta.button': 'Démarrer un projet',
 } as const;
 
 export type TranslationKey = keyof typeof fr;

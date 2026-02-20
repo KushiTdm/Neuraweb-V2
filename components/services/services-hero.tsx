@@ -3,34 +3,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from '@/lib/gsap-setup';
 import { ChevronDown } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
-interface ServicesHeroProps {
-  language?: 'fr' | 'en';
-}
-
-export function ServicesHero({ language = 'fr' }: ServicesHeroProps) {
+export function ServicesHero() {
   const [mounted, setMounted] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-
-  const t = (key: string): string => {
-    const translations: Record<string, Record<string, string>> = {
-      fr: {
-        'servicePage.hero.title': 'Services Professionnels',
-        'servicePage.hero.subtitle':
-          'Des solutions sur mesure pour transformer votre vision en réalité digitale',
-      },
-      en: {
-        'servicePage.hero.title': 'Professional Services',
-        'servicePage.hero.subtitle':
-          'Tailored solutions to transform your vision into digital reality',
-      },
-    };
-    return translations[language][key] || key;
-  };
+  const { t } = useTranslation();
 
   useEffect(() => {
     setMounted(true);

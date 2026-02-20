@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 interface ServicesProcessProps {
-  language?: 'fr' | 'en';
+  language?: 'fr' | 'en' | 'es';
   onScrollToPricing?: () => void;
 }
 
@@ -79,6 +79,43 @@ const STEP_DATA = {
     {
       title: 'Delivery & Support',
       description: 'Launch and continuous support for your success',
+      icon: '🚀',
+      color: 0xeab308,
+      colorHex: '#eab308',
+    },
+  ],
+  es: [
+    {
+      title: 'Auditoría y Análisis',
+      description: 'Análisis profundo de tus necesidades y mercado para definir una estrategia ganadora',
+      icon: '🔍',
+      color: 0x3b82f6,
+      colorHex: '#3b82f6',
+    },
+    {
+      title: 'Diseño y UX',
+      description: 'Creación de interfaces modernas e intuitivas optimizadas para la experiencia del usuario',
+      icon: '🎨',
+      color: 0xa855f7,
+      colorHex: '#a855f7',
+    },
+    {
+      title: 'Desarrollo',
+      description: 'Desarrollo con las tecnologías más eficientes y mejores prácticas',
+      icon: '⚡',
+      color: 0xf97316,
+      colorHex: '#f97316',
+    },
+    {
+      title: 'Pruebas y Optimización',
+      description: 'Pruebas rigurosas y optimizaciones para garantizar rendimiento y calidad',
+      icon: '✅',
+      color: 0x10b981,
+      colorHex: '#10b981',
+    },
+    {
+      title: 'Entrega y Soporte',
+      description: 'Lanzamiento y acompañamiento continuo para tu éxito',
       icon: '🚀',
       color: 0xeab308,
       colorHex: '#eab308',
@@ -501,7 +538,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
       <section className="relative bg-slate-950 py-32 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl md:text-7xl font-bold text-white">
-            {language === 'fr' ? 'Notre Processus' : 'Our Process'}
+            {language === 'fr' ? 'Notre Processus' : language === 'es' ? 'Nuestro Proceso' : 'Our Process'}
           </h2>
         </div>
       </section>
@@ -534,16 +571,18 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
           <div className="inline-flex items-center gap-3 px-5 py-2 mb-4 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">
             <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
             <span className="text-xs font-semibold tracking-widest uppercase text-white/70">
-              {language === 'fr' ? 'Méthode éprouvée' : 'Proven method'}
+              {language === 'fr' ? 'Méthode éprouvée' : language === 'es' ? 'Método probado' : 'Proven method'}
             </span>
           </div>
           <h2 className="text-5xl md:text-7xl font-bold text-white tracking-tight">
-            {language === 'fr' ? 'Notre Processus' : 'Our Process'}
+            {language === 'fr' ? 'Notre Processus' : language === 'es' ? 'Nuestro Proceso' : 'Our Process'}
           </h2>
           <p className="mt-2 text-base md:text-lg text-white/40">
             {language === 'fr'
               ? 'Une méthode éprouvée pour votre succès'
-              : 'A proven method for your success'}
+              : language === 'es'
+                ? 'Un método probado para tu éxito'
+                : 'A proven method for your success'}
           </p>
         </div>
 
@@ -596,7 +635,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
                       border: `1px solid ${step.colorHex}55`,
                     }}
                   >
-                    {language === 'fr' ? `Étape ${i + 1} / ${steps.length}` : `Step ${i + 1} / ${steps.length}`}
+                    {language === 'fr' ? `Étape ${i + 1} / ${steps.length}` : language === 'es' ? `Paso ${i + 1} / ${steps.length}` : `Step ${i + 1} / ${steps.length}`}
                   </span>
                 </div>
                 <h3
@@ -620,7 +659,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
               style={{ opacity: activeStep >= steps.length - 1 ? 0 : 0.45 }}
             >
               <span className="text-xs text-white/35 tracking-widest uppercase">
-                {language === 'fr' ? 'Scrollez pour explorer' : 'Scroll to explore'}
+                {language === 'fr' ? 'Scrollez pour explorer' : language === 'es' ? 'Desliza para explorar' : 'Scroll to explore'}
               </span>
               <div className="w-px h-6 bg-gradient-to-b from-white/35 to-transparent animate-pulse" />
             </div>
@@ -637,7 +676,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
                 }}
               >
                 <span className="flex items-center gap-2">
-                  {language === 'fr' ? 'Voir nos packs' : 'View our packages'}
+                  {language === 'fr' ? 'Voir nos packs' : language === 'es' ? 'Ver nuestros paquetes' : 'View our packages'}
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>

@@ -24,11 +24,13 @@ interface BlogPostMeta {
 interface BlogListClientProps {
   postsFr: BlogPostMeta[];
   postsEn: BlogPostMeta[];
+  postsEs: BlogPostMeta[];
   featuredFr: BlogPostMeta[];
   featuredEn: BlogPostMeta[];
+  featuredEs: BlogPostMeta[];
 }
 
-export function BlogListClient({ postsFr, postsEn, featuredFr, featuredEn }: BlogListClientProps) {
+export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featuredEn, featuredEs }: BlogListClientProps) {
   const { language } = useLanguage();
   const [mounted, setMounted] = useState(false);
   const trackedPosts = useRef<Set<string>>(new Set());
@@ -87,8 +89,8 @@ export function BlogListClient({ postsFr, postsEn, featuredFr, featuredEn }: Blo
   };
 
   // Select posts based on current language
-  const allPosts = language === 'en' ? postsEn : postsFr;
-  const featuredPosts = language === 'en' ? featuredEn : featuredFr;
+  const allPosts = language === 'en' ? postsEn : language === 'es' ? postsEs : postsFr;
+  const featuredPosts = language === 'en' ? featuredEn : language === 'es' ? featuredEs : featuredFr;
 
   // Translations
   const t = {
@@ -122,9 +124,24 @@ export function BlogListClient({ postsFr, postsEn, featuredFr, featuredEn }: Blo
       contactUs: 'Contact Us',
       noArticles: 'No articles yet.',
     },
+    es: {
+      title: 'Blog',
+      subtitle: 'Artículos, tutoriales y consejos sobre desarrollo web, IA y automatización.',
+      featured: 'Artículos destacados',
+      allArticles: 'Todos los artículos',
+      read: 'Leer',
+      stayInformed: 'Mantente informado',
+      newsletterDesc: 'Recibe nuestros últimos artículos y consejos directamente en tu bandeja de entrada. ¡Sin spam, lo prometemos!',
+      subscribe: 'Suscribirse',
+      emailPlaceholder: 'tu@email.com',
+      haveProject: '¿Tienes un proyecto en mente?',
+      contactDesc: 'Hablemos de tu proyecto y veamos cómo NeuraWeb puede ayudarte a hacerlo realidad.',
+      contactUs: 'Contáctanos',
+      noArticles: 'No hay artículos todavía.',
+    },
   };
 
-  const translations = t[language as 'fr' | 'en'] || t.fr;
+  const translations = t[language as 'fr' | 'en' | 'es'] || t.fr;
 
   // Don't render until mounted to avoid hydration mismatch
   if (!mounted) {
@@ -204,7 +221,7 @@ export function BlogListClient({ postsFr, postsEn, featuredFr, featuredEn }: Blo
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                         <time>
-                          {new Date(post.date).toLocaleDateString(language === 'en' ? 'en-US' : 'fr-FR', {
+                          {new Date(post.date).toLocaleDateString(language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : 'fr-FR', {
                             day: 'numeric',
                             month: 'short',
                             year: 'numeric',
@@ -280,7 +297,7 @@ export function BlogListClient({ postsFr, postsEn, featuredFr, featuredEn }: Blo
                     </p>
                     <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                       <time>
-                        {new Date(post.date).toLocaleDateString(language === 'en' ? 'en-US' : 'fr-FR', {
+                        {new Date(post.date).toLocaleDateString(language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : 'fr-FR', {
                           day: 'numeric',
                           month: 'short',
                         })}

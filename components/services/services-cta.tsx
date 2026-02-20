@@ -6,7 +6,7 @@ import { gsap } from '@/lib/gsap-setup';
 import { MessageCircle, ArrowRight } from 'lucide-react';
 
 interface ServicesCTAProps {
-  language?: 'fr' | 'en';
+  language?: 'fr' | 'en' | 'es';
 }
 
 export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
@@ -45,8 +45,21 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
         'servicePage.cta.feature2': 'Free quote',
         'servicePage.cta.feature3': 'No commitment',
       },
+      es: {
+        'servicePage.cta.title.word1': '¿Listo',
+        'servicePage.cta.title.word2': 'para',
+        'servicePage.cta.title.word3': 'lanzar',
+        'servicePage.cta.title.word4': 'tu',
+        'servicePage.cta.title.word5': 'proyecto',
+        'servicePage.cta.title.word6': 'con nosotros?',
+        'servicePage.cta.subtitle': 'Hablemos de tus objetivos y transformemos tu visión en realidad',
+        'servicePage.cta.button': 'Solicitar presupuesto',
+        'servicePage.cta.feature1': 'Respuesta en 24h',
+        'servicePage.cta.feature2': 'Presupuesto gratis',
+        'servicePage.cta.feature3': 'Sin compromiso',
+      },
     };
-    return translations[language][key] || key;
+    return translations[language]?.[key] || key;
   };
 
   useEffect(() => {
