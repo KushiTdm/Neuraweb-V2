@@ -202,47 +202,31 @@ export function TestimonialsSection() {
           </div>
         </div>
 
-        {/* Navigation */}
-        <div className="flex items-center justify-center gap-4 mt-6 sm:mt-8">
+        {/* Navigation - Flèches uniquement */}
+        <div className="flex items-center justify-center gap-8 mt-8 sm:mt-10">
           {/* Bouton précédent */}
           <button
             onClick={prev}
             disabled={animating}
-            className="group w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all duration-200 flex items-center justify-center disabled:opacity-40 shadow-sm hover:shadow-md"
+            className="group w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center justify-center disabled:opacity-40 shadow-lg hover:shadow-xl hover:scale-105"
             aria-label={t('portfolio.nav.previous')}
           >
-            <ChevronLeft className="w-4 h-4 text-gray-600 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors group-hover:-translate-x-0.5 transition-transform" />
+            <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:-translate-x-0.5 transition-transform" />
           </button>
 
-          {/* Dots */}
-          <div className="flex items-center gap-2" role="tablist">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                role="tab"
-                aria-selected={i === current}
-                onClick={() => goTo(i, i > current ? 'next' : 'prev')}
-                className="relative h-2 rounded-full transition-all duration-400 overflow-hidden"
-                style={{ width: i === current ? '2rem' : '0.5rem' }}
-                aria-label={`Témoignage ${i + 1}`}
-              >
-                <span className={`absolute inset-0 rounded-full transition-colors duration-300 ${
-                  i === current
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-600'
-                    : 'bg-gray-300 dark:bg-gray-600 hover:bg-purple-400'
-                }`} />
-              </button>
-            ))}
+          {/* Indicateur de position */}
+          <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
+            {current + 1} / {testimonials.length}
           </div>
 
           {/* Bouton suivant */}
           <button
             onClick={next}
             disabled={animating}
-            className="group w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all duration-200 flex items-center justify-center disabled:opacity-40 shadow-sm hover:shadow-md"
+            className="group w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center justify-center disabled:opacity-40 shadow-lg hover:shadow-xl hover:scale-105"
             aria-label={t('portfolio.nav.next')}
           >
-            <ChevronRight className="w-4 h-4 text-gray-600 dark:text-gray-300 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors group-hover:translate-x-0.5 transition-transform" />
+            <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:translate-x-0.5 transition-transform" />
           </button>
         </div>
       </div>
