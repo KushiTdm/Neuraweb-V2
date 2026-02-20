@@ -105,17 +105,17 @@ export function TestimonialsSection() {
   }
 
   return (
-    <section className="section-snap bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden relative">
+    <section className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden relative min-h-screen sm:min-h-0 py-12 sm:py-16 md:py-20">
 
       {/* Décoration fond */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-[0.06]"
+        <div className="absolute -top-32 -left-32 w-64 sm:w-96 h-64 sm:h-96 rounded-full opacity-[0.06]"
           style={{ background: 'radial-gradient(circle, #6366f1, transparent 70%)' }} />
-        <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full opacity-[0.06]"
+        <div className="absolute -bottom-32 -right-32 w-64 sm:w-96 h-64 sm:h-96 rounded-full opacity-[0.06]"
           style={{ background: 'radial-gradient(circle, #a855f7, transparent 70%)' }} />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col justify-center h-full">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
 
         {/* Header */}
         <div className="text-center mb-6 sm:mb-10">
@@ -169,31 +169,33 @@ export function TestimonialsSection() {
             </blockquote>
 
             {/* Auteur */}
-            <div className="flex items-center gap-4">
-              <div className="relative flex-shrink-0">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full ring-2 ring-purple-200 dark:ring-purple-700 ring-offset-2 ring-offset-white dark:ring-offset-gray-800 bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm sm:text-base">
-                    {testimonial.initials}
-                  </span>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex items-center gap-4">
+                <div className="relative flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full ring-2 ring-purple-200 dark:ring-purple-700 ring-offset-2 ring-offset-white dark:ring-offset-gray-800 bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
+                    <span className="text-white font-bold text-sm sm:text-base">
+                      {testimonial.initials}
+                    </span>
+                  </div>
+                  {/* Badge vérifié */}
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800">
+                    <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
                 </div>
-                {/* Badge vérifié */}
-                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800">
-                  <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-              </div>
-              <div>
-                <div className="font-bold text-gray-900 dark:text-white text-sm sm:text-base">
-                  {t(testimonial.nameKey)}
-                </div>
-                <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                  {t(testimonial.companyKey)}
+                <div>
+                  <div className="font-bold text-gray-900 dark:text-white text-sm sm:text-base">
+                    {t(testimonial.nameKey)}
+                  </div>
+                  <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                    {t(testimonial.companyKey)}
+                  </div>
                 </div>
               </div>
 
-              {/* Compteur discret */}
-              <div className="ml-auto text-xs font-mono text-gray-300 dark:text-gray-600 select-none">
+              {/* Compteur discret - centré sur mobile */}
+              <div className="sm:ml-auto text-center sm:text-right text-xs font-mono text-gray-300 dark:text-gray-600 select-none">
                 {String(current + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
               </div>
             </div>
