@@ -28,84 +28,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
 
   return [
-    // Pages principales
+    // Page d'accueil
     {
       url: BASE_URL,
       lastModified: today,
       changeFrequency: 'weekly',
       priority: 1,
-      alternates: {
-        languages: {
-          fr: `${BASE_URL}/fr`,
-          en: `${BASE_URL}/en`,
-          es: `${BASE_URL}/es`,
-        },
-      },
     },
+    // Page Services
     {
       url: `${BASE_URL}/services`,
       lastModified: lastWeek,
       changeFrequency: 'monthly',
       priority: 0.9,
-      alternates: {
-        languages: {
-          fr: `${BASE_URL}/fr/services`,
-          en: `${BASE_URL}/en/services`,
-          es: `${BASE_URL}/es/services`,
-        },
-      },
     },
-    {
-      url: `${BASE_URL}/portfolio`,
-      lastModified: lastWeek,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-      alternates: {
-        languages: {
-          fr: `${BASE_URL}/fr/portfolio`,
-          en: `${BASE_URL}/en/portfolio`,
-          es: `${BASE_URL}/es/portfolio`,
-        },
-      },
-    },
+    // Page Équipe
     {
       url: `${BASE_URL}/equipe`,
       lastModified: lastMonth,
       changeFrequency: 'monthly',
       priority: 0.7,
-      alternates: {
-        languages: {
-          fr: `${BASE_URL}/fr/equipe`,
-          en: `${BASE_URL}/en/equipe`,
-          es: `${BASE_URL}/es/equipe`,
-        },
-      },
     },
+    // Page Blog
     {
       url: `${BASE_URL}/blog`,
       lastModified: today,
       changeFrequency: 'daily',
       priority: 0.8,
-      alternates: {
-        languages: {
-          fr: `${BASE_URL}/fr/blog`,
-          en: `${BASE_URL}/en/blog`,
-          es: `${BASE_URL}/es/blog`,
-        },
-      },
     },
+    // Page Contact
     {
       url: `${BASE_URL}/contact`,
       lastModified: lastMonth,
       changeFrequency: 'monthly',
       priority: 0.6,
-      alternates: {
-        languages: {
-          fr: `${BASE_URL}/fr/contact`,
-          en: `${BASE_URL}/en/contact`,
-          es: `${BASE_URL}/es/contact`,
-        },
-      },
     },
     // Articles de blog (générés dynamiquement depuis content/blog/)
     ...blogPosts,
