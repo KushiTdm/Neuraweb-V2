@@ -7,6 +7,7 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import { useTheme } from '@/components/theme-provider';
 import { useTranslation } from '@/hooks/use-translation';
 import { LanguageSelector } from '@/components/language-selector';
+import { LocalizedLink } from '@/components/localized-link';
 import Image from 'next/image';
 
 export function Header() {
@@ -16,7 +17,11 @@ export function Header() {
   const { t } = useTranslation();
   const pathname = usePathname();
 
-  const isActive = (path: string) => pathname === path;
+  // Vérifie si le chemin correspond (en ignorant le préfixe de langue)
+  const isActive = (path: string) => {
+    const pathWithoutLang = pathname.replace(/^\/(fr|en|es)/, '') || '/';
+    return pathWithoutLang === path;
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -47,7 +52,7 @@ export function Header() {
           <div className="flex items-center justify-between h-18 py-3">
 
             {/* ── Logo ──────────────────────────────────────── */}
-            <Link href="/" className="flex items-center group">
+            <LocalizedLink href="/" className="flex items-center group">
               <Image
                 src={isDark ? '/assets/neurawebW.webp' : '/assets/neurawebB.webp'}
                 alt="NeuraWeb"
@@ -56,11 +61,11 @@ export function Header() {
                 priority
                 className="h-11 w-auto object-contain transition-opacity duration-200 group-hover:opacity-80"
               />
-            </Link>
+            </LocalizedLink>
 
             {/* ── Navigation desktop ────────────────────────── */}
             <nav className="hidden md:flex items-center gap-1">
-              <Link
+              <LocalizedLink
                 href="/"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/')
@@ -72,9 +77,9 @@ export function Header() {
                 {isActive('/') && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
                 )}
-              </Link>
+              </LocalizedLink>
 
-              <Link
+              <LocalizedLink
                 href="/services"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/services')
@@ -86,9 +91,9 @@ export function Header() {
                 {isActive('/services') && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
                 )}
-              </Link>
+              </LocalizedLink>
 
-              <Link
+              <LocalizedLink
                 href="/blog"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/blog')
@@ -100,9 +105,9 @@ export function Header() {
                 {isActive('/blog') && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
                 )}
-              </Link>
+              </LocalizedLink>
 
-              <Link
+              <LocalizedLink
                 href="/equipe"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/equipe')
@@ -114,7 +119,7 @@ export function Header() {
                 {isActive('/equipe') && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
                 )}
-              </Link>
+              </LocalizedLink>
             </nav>
 
             {/* ── Actions droite ────────────────────────────── */}
@@ -123,7 +128,7 @@ export function Header() {
               <LanguageSelector />
 
               {/* CTA Contact */}
-              <Link
+              <LocalizedLink
                 href="/contact"
                 className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-300 group"
                 style={{
@@ -141,7 +146,7 @@ export function Header() {
               >
                 {t('nav.contact')}
                 <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-              </Link>
+              </LocalizedLink>
 
               {/* Burger mobile */}
               <button
@@ -199,7 +204,7 @@ export function Header() {
               { href: '/blog', label: t('nav.blog') },
               { href: '/equipe', label: t('nav.team') },
             ].map((item) => (
-              <Link
+              <LocalizedLink
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
@@ -210,13 +215,13 @@ export function Header() {
                 }`}
               >
                 {item.label}
-              </Link>
+              </LocalizedLink>
             ))}
           </nav>
 
           {/* CTA mobile */}
           <div className="px-5 pt-2">
-            <Link
+            <LocalizedLink
               href="/contact"
               onClick={() => setIsMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-xl text-sm font-semibold text-white"
@@ -224,7 +229,7 @@ export function Header() {
             >
               {t('nav.contact')}
               <ArrowRight size={14} />
-            </Link>
+            </LocalizedLink>
           </div>
 
           {/* Séparateur + infos */}

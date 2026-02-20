@@ -438,8 +438,8 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
         language: language,
       });
     }
-    // Rediriger vers la page contact avec booking ouvert et le pack sélectionné
-    router.push(`/contact?booking=true&pack=${packId}`);
+    // Rediriger vers la page booking avec le pack sélectionné
+    router.push(`/${language}/booking?pack=${packId}`);
   };
 
   const handleContact = (type: 'whatsapp' | 'chatbot') => {

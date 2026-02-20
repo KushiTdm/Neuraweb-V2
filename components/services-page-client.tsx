@@ -29,7 +29,7 @@ export function ServicesPageClient() {
         <ServicesProcess language={language} onScrollToPricing={scrollToPricing} />
         <div className="overflow-x-hidden">
           <ServicesPricing ref={pricingRef} language={language} />
-          <ServicesCTA />
+          <ServicesCTA language={language} />
         </div>
       </div>
       <Footer />

@@ -3,12 +3,15 @@
 import { useLanguage } from '@/contexts/language-context';
 import { Globe, Check } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import type { Language } from '@/contexts/language-context';
 
 export function LanguageSelector() {
   const { language, setLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const languages: { code: Language; name: string; flag: string }[] = [
     { code: 'fr', name: 'Français', flag: '🇫🇷' },
@@ -27,6 +30,21 @@ export function LanguageSelector() {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const handleLanguageChange = (newLang: Language) => {
+    setLanguage(newLang);
+    setIsOpen(false);
+    
+    // Update URL to reflect the new language
+    // The pathname comes as /fr/blog/article-slug or /en/blog/article-slug
+    // We need to replace the language prefix
+    const pathSegments = pathname.split('/');
+    if (pathSegments[1] === 'fr' || pathSegments[1] === 'en' || pathSegments[1] === 'es') {
+      pathSegments[1] = newLang;
+      const newPath = pathSegments.join('/');
+      router.push(newPath);
+    }
+  };
 
   const currentLanguage = languages.find((lang) => lang.code === language);
 
@@ -51,10 +69,7 @@ export function LanguageSelector() {
           {languages.map((lang) => (
             <button
               key={lang.code}
-              onClick={() => {
-                setLanguage(lang.code);
-                setIsOpen(false);
-              }}
+              onClick={() => handleLanguageChange(lang.code)}
               className={`w-full px-4 py-3 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
                 language === lang.code
                   ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'

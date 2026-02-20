@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/language-context';
 import { useAnalytics } from '@/hooks/use-analytics';
+import { LocalizedLink } from '@/components/localized-link';
 import type { Language } from '@/lib/mdx';
 
 interface BlogPostMeta {
@@ -211,9 +212,9 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
                   {/* Content */}
                   <div className="p-6">
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
-                      <Link href={`/blog/${post.slug}`}>
+                      <LocalizedLink href={`/blog/${post.slug}`}>
                         {post.title}
-                      </Link>
+                      </LocalizedLink>
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
                       {post.excerpt}

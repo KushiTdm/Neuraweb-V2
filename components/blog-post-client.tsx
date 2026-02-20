@@ -1,29 +1,23 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/contexts/language-context';
-import type { Language, BlogPost, BlogPostMeta } from '@/lib/mdx';
+import { LocalizedLink } from '@/components/localized-link';
+import type { BlogPost, BlogPostMeta } from '@/lib/mdx';
 
 interface BlogPostClientProps {
-  postFr: BlogPost | null;
-  postEn: BlogPost | null;
-  relatedFr: BlogPostMeta[];
-  relatedEn: BlogPostMeta[];
+  post: BlogPost;
+  relatedPosts: BlogPostMeta[];
 }
 
-export function BlogPostClient({ postFr, postEn, relatedFr, relatedEn }: BlogPostClientProps) {
+export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
   const { language } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  // Select post based on current language, with fallback
-  const post = (language === 'en' && postEn) ? postEn : postFr;
-  const relatedPosts = (language === 'en' && postEn) ? relatedEn : relatedFr;
 
   // Translations
   const t = {
@@ -47,9 +41,19 @@ export function BlogPostClient({ postFr, postEn, relatedFr, relatedEn }: BlogPos
       helpDesc: 'NeuraWeb supports you in web development, AI integration and automation.',
       contactUs: 'Contact Us',
     },
+    es: {
+      home: 'Inicio',
+      blog: 'Blog',
+      readTime: 'min de lectura',
+      tags: 'Etiquetas',
+      relatedArticles: 'Artículos relacionados',
+      needHelp: '¿Necesitas ayuda con tu proyecto?',
+      helpDesc: 'NeuraWeb te acompaña en desarrollo web, integración IA y automatización.',
+      contactUs: 'Contáctanos',
+    },
   };
 
-  const translations = t[language as 'fr' | 'en'] || t.fr;
+  const translations = t[language as 'fr' | 'en' | 'es'] || t.fr;
 
   // Don't render until mounted to avoid hydration mismatch
   if (!mounted || !post) {
@@ -111,15 +115,15 @@ export function BlogPostClient({ postFr, postEn, relatedFr, relatedEn }: BlogPos
         <div className="max-w-4xl mx-auto">
           <ol className="flex items-center gap-2 text-sm">
             <li>
-              <Link href="/" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
+              <LocalizedLink href="/" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
                 {translations.home}
-              </Link>
+              </LocalizedLink>
             </li>
             <li className="text-gray-400 dark:text-gray-500">/</li>
             <li>
-              <Link href="/blog" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
+              <LocalizedLink href="/blog" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
                 {translations.blog}
-              </Link>
+              </LocalizedLink>
             </li>
             <li className="text-gray-400 dark:text-gray-500">/</li>
             <li className="text-gray-900 dark:text-white font-medium truncate max-w-[200px]">
@@ -155,7 +159,7 @@ export function BlogPostClient({ postFr, postEn, relatedFr, relatedEn }: BlogPos
             <div>
               <p className="font-semibold text-gray-900 dark:text-white">{post.author}</p>
               <time className="text-sm text-gray-500 dark:text-gray-400" dateTime={post.date}>
-                {new Date(post.date).toLocaleDateString(language === 'en' ? 'en-US' : 'fr-FR', {
+                {new Date(post.date).toLocaleDateString(language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : 'fr-FR', {
                   day: 'numeric',
                   month: 'long',
                   year: 'numeric',
@@ -214,7 +218,7 @@ export function BlogPostClient({ postFr, postEn, relatedFr, relatedEn }: BlogPos
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {relatedPosts.map((relatedPost) => (
-                <Link
+                <LocalizedLink
                   key={relatedPost.slug}
                   href={`/blog/${relatedPost.slug}`}
                   className="group bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 hover:border-blue-500/50 transition-all duration-300"
@@ -228,7 +232,7 @@ export function BlogPostClient({ postFr, postEn, relatedFr, relatedEn }: BlogPos
                   <p className="text-gray-500 dark:text-gray-400 text-sm mt-2 line-clamp-2">
                     {relatedPost.excerpt}
                   </p>
-                </Link>
+                </LocalizedLink>
               ))}
             </div>
           </div>
@@ -244,7 +248,7 @@ export function BlogPostClient({ postFr, postEn, relatedFr, relatedEn }: BlogPos
           <p className="text-gray-600 dark:text-gray-300 mb-6">
             {translations.helpDesc}
           </p>
-          <Link
+          <LocalizedLink
             href="/contact"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
@@ -252,7 +256,7 @@ export function BlogPostClient({ postFr, postEn, relatedFr, relatedEn }: BlogPos
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </Link>
+          </LocalizedLink>
         </div>
       </section>
     </>

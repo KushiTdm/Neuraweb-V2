@@ -15,17 +15,25 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 interface LanguageProviderProps {
   children: React.ReactNode;
+  initialLanguage?: Language;
 }
 
-export function LanguageProvider({ children }: LanguageProviderProps) {
-  const [language, setLanguageState] = useState<Language>('fr');
+export function LanguageProvider({ children, initialLanguage }: LanguageProviderProps) {
+  const [language, setLanguageState] = useState<Language>(initialLanguage || 'fr');
   const [mounted, setMounted] = useState(false);
 
   // Détection automatique de la langue au premier chargement
   useEffect(() => {
     setMounted(true);
 
-    // 1. Vérifier si l'utilisateur a déjà choisi une langue (localStorage)
+    // Si une langue initiale est fournie (depuis l'URL), l'utiliser
+    if (initialLanguage) {
+      setLanguageState(initialLanguage);
+      localStorage.setItem('preferred-language', initialLanguage);
+      return;
+    }
+
+    // Sinon, vérifier le localStorage
     const savedLanguage = localStorage.getItem('preferred-language') as Language | null;
     
     if (savedLanguage && ['fr', 'en', 'es'].includes(savedLanguage)) {
@@ -33,7 +41,7 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
       return;
     }
 
-    // 2. Détecter la langue du navigateur
+    // Détecter la langue du navigateur
     const browserLanguage = navigator.language.toLowerCase();
     
     if (browserLanguage.startsWith('fr')) {
@@ -41,15 +49,23 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
     } else if (browserLanguage.startsWith('es')) {
       setLanguageState('es');
     } else {
-      setLanguageState('en'); // Par défaut anglais
+      setLanguageState('en');
     }
-  }, []);
+  }, [initialLanguage]);
 
-  // Sauvegarder le choix de l'utilisateur
+  // Sauvegarder le choix de l'utilisateur et mettre à jour l'URL
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     if (mounted) {
       localStorage.setItem('preferred-language', lang);
+      
+      // Mettre à jour l'URL pour refléter la nouvelle langue
+      const currentPath = window.location.pathname;
+      const pathWithoutLang = currentPath.replace(/^\/(fr|en|es)/, '');
+      const newPath = `/${lang}${pathWithoutLang}`;
+      
+      // Utiliser history.pushState pour éviter un rechargement complet
+      window.history.pushState({}, '', newPath);
     }
   };
 

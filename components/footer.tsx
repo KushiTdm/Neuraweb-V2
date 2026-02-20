@@ -1,15 +1,13 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, ArrowUpRight, Zap } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
-import { useTheme } from '@/components/theme-provider';
+import { LocalizedLink } from '@/components/localized-link';
 
 export function Footer() {
   const { t } = useTranslation();
-  const { isDark } = useTheme();
 
   const services = [
     t('services.web.title'),
@@ -19,8 +17,8 @@ export function Footer() {
 
   const links = [
     { href: '/contact', label: t('nav.contact') },
-    { href: '/booking', label: t('nav.booking') },
     { href: '/services', label: t('nav.services') },
+    { href: '/blog', label: t('nav.blog') },
   ];
 
   return (
@@ -41,7 +39,7 @@ export function Footer() {
 
           {/* Colonne 1 : Marque */}
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-block mb-5">
+            <LocalizedLink href="/" className="inline-block mb-5">
               <Image
                 src="/assets/neurawebW.webp"
                 alt="NeuraWeb"
@@ -50,7 +48,7 @@ export function Footer() {
                 loading="lazy"
                 className="h-9 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
               />
-            </Link>
+            </LocalizedLink>
             <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-6">
               {t('footer.company.description')}
             </p>
@@ -75,13 +73,13 @@ export function Footer() {
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service}>
-                  <Link
+                  <LocalizedLink
                     href="/services"
                     className="text-sm text-gray-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-brand-500/50 group-hover:bg-brand-400 transition-colors" />
                     {service}
-                  </Link>
+                  </LocalizedLink>
                 </li>
               ))}
             </ul>
@@ -95,7 +93,7 @@ export function Footer() {
             <ul className="space-y-3">
               {links.map((link) => (
                 <li key={link.href}>
-                  <Link
+                  <LocalizedLink
                     href={link.href}
                     className="text-sm text-gray-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
                   >
@@ -104,7 +102,7 @@ export function Footer() {
                       className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200 text-brand-400"
                     />
                     {link.label}
-                  </Link>
+                  </LocalizedLink>
                 </li>
               ))}
             </ul>

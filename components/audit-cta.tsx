@@ -3,6 +3,7 @@
 import React from 'react';
 import { Gift, CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
+import { LocalizedLink } from '@/components/localized-link';
 
 // ── Audit CTA Component ─────────────────────────────────────────────────────
 // Offre d'entrée "Audit IA Gratuit" pour convertir les visiteurs
@@ -78,15 +79,15 @@ export function AuditCTA() {
 
           {/* CTA Button */}
           <div className="text-center">
-            <a
-              href="/contact?booking=true&service=audit-ia"
+            <LocalizedLink
+              href="/booking?service=audit-ia"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-lg shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transform hover:scale-105 transition-all duration-300"
               aria-label={t('audit.cta')}
             >
               <Sparkles className="w-5 h-5" aria-hidden="true" />
               <span>{t('audit.cta')}</span>
               <ArrowRight className="w-5 h-5" aria-hidden="true" />
-            </a>
+            </LocalizedLink>
             <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
               {t('audit.note')}
             </p>
@@ -121,6 +122,8 @@ export function AuditCTA() {
 
 // ── Compact Audit Banner ────────────────────────────────────────────────────
 export function AuditBanner() {
+  const { t } = useTranslation();
+  
   return (
     <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -129,17 +132,17 @@ export function AuditBanner() {
             <Gift className="w-6 h-6" aria-hidden="true" />
           </div>
           <div>
-            <h3 className="font-bold text-lg">Audit IA Gratuit</h3>
-            <p className="text-white/80 text-sm">Valeur 490€ — 45 minutes</p>
+            <h3 className="font-bold text-lg">{t('audit.title')}</h3>
+            <p className="text-white/80 text-sm">{t('audit.value')}</p>
           </div>
         </div>
-        <a
-          href="/contact?booking=true&service=audit-ia"
+        <LocalizedLink
+          href="/booking?service=audit-ia"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-blue-600 font-semibold hover:bg-blue-50 transition-colors"
         >
-          Réserver
+          {t('audit.cta')}
           <ArrowRight className="w-4 h-4" aria-hidden="true" />
-        </a>
+        </LocalizedLink>
       </div>
     </div>
   );

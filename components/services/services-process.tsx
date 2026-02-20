@@ -188,6 +188,9 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
   // ─── Three.js setup ───────────────────────────────────────────
   useEffect(() => {
     if (!mounted || !canvasRef.current) return;
+    
+    // Get translations for current language
+    const currentSteps = STEP_DATA[language] ?? STEP_DATA.fr;
 
     const container = canvasRef.current;
     const W = container.clientWidth || window.innerWidth;
@@ -269,7 +272,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
     // ── 3D Cards ───────────────────────────────────────────────
     const cardGroups: THREE.Group[] = [];
 
-    STEP_DATA.fr.forEach((step, index) => {
+    currentSteps.forEach((step, index) => {
       const group = new THREE.Group();
       // Cards placed along -Z axis, starting at -10 then every CARD_SPACING units
       group.position.z = -(index * CARD_SPACING + 10);
@@ -530,7 +533,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
         container.removeChild(renderer.domElement);
       }
     };
-  }, [mounted]); // only runs once after mount
+  }, [mounted, language]); // Re-run when language changes
 
   // ─── SSR placeholder ──────────────────────────────────────────
   if (!mounted) {
