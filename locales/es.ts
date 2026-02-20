@@ -317,6 +317,23 @@ export const es: Record<TranslationKey, string> = {
   'seo.boost.local': 'París, Francia, agencia francesa',
   'seo.boost.cta': 'Presupuesto gratis, Respuesta 24h',
 
+  // Audit CTA Section
+  'audit.badge': 'Oferta de lanzamiento',
+  'audit.title': 'Auditoría IA Gratis',
+  'audit.value': 'Valor 490€',
+  'audit.subtitle': 'En 45 minutos, analizamos tu stack actual e identificamos las',
+  'audit.subtitle.highlight': '3 oportunidades de automatización IA',
+  'audit.subtitle.end': 'más impactantes para tu negocio.',
+  'audit.benefit.1': 'Análisis de tu flujo de trabajo actual',
+  'audit.benefit.2': 'Identificación de tareas automatizables',
+  'audit.benefit.3': 'Estimación de ROI',
+  'audit.benefit.4': 'Hoja de ruta de implementación prioritaria',
+  'audit.cta': 'Reservar mi auditoría gratis',
+  'audit.note': 'Sin compromiso. 100% accionable.',
+  'audit.trust.1': 'Sin compromiso',
+  'audit.trust.2': '45 minutos',
+  'audit.trust.3': 'Videollamada o presencial',
+
   // Équipe Page
   'equipe.hero.title': 'El equipo detrás de',
   'equipe.hero.subtitle': 'Desarrolladores apasionados construyendo el futuro con IA. Nosotros codificamos, la IA amplifica, tú escalas.',

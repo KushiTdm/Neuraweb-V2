@@ -1,0 +1,28 @@
+# Render Blueprint for Neuraweb V2
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: neuraweb-v2
+    runtime: node
+    region: frankfurt # Choisissez la région la plus proche de vos utilisateurs
+    plan: free # Options: free, starter, standard, pro
+    branch: main
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      - key: NODE_ENV
+        value: production
+      - key: ZAI_API_KEY
+        sync: false # À configurer manuellement dans le dashboard Render
+      - key: NEXT_PUBLIC_GOOGLE_SCRIPT_URL
+        sync: false
+      - key: NEXT_PUBLIC_SPREADSHEET_ID
+        sync: false
+      - key: NEXT_PUBLIC_GA_MEASUREMENT_ID
+        sync: false
+      - key: NEXT_PUBLIC_CRISP_ID
+        sync: false

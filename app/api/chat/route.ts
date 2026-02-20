@@ -59,10 +59,10 @@ ENTREPRISE:
 - Site: https://neuraweb.tech
 
 NOS OFFRES:
-• Starter (1490€): Site vitrine responsive, SEO, formulaire contact, hébergement 1 an
-• Business (3490€): Boutique e-commerce, paiement Stripe, espace admin, analytics
-• Premium (6900€): Solution sur mesure haut de gamme, API, support 24/7, maintenance
-• Pack IA (4500€): Chatbot IA, automatisation, machine learning, analyse de données
+• Starter (1500€): Site vitrine responsive, SEO, formulaire contact, hébergement 1 an
+• Business (4900€): Solution complète pour entreprises en croissance, espace admin, blog, analytics
+• Premium (9000€): Solution premium pour projets ambitieux, e-commerce, API, support 24/7, maintenance
+• Pack IA (sur devis): Chatbot IA, automatisation, machine learning, analyse de données
 
 SERVICES:
 1. Développement Web (React, Next.js, Node.js, TypeScript)
@@ -92,10 +92,10 @@ COMPANY:
 - Website: https://neuraweb.tech
 
 OUR PACKAGES:
-• Starter (€1490): Responsive showcase site, SEO, contact form, 1 year hosting
-• Business (€3490): Full e-commerce, Stripe payments, admin panel, analytics
-• Premium (€6900): Custom high-end solution, API integrations, 24/7 support, maintenance
-• AI Pack (€4500): AI chatbot, automation, machine learning, data analysis
+• Starter (€1500): Responsive showcase site, SEO, contact form, 1 year hosting
+• Business (€4900): Complete solution for growing businesses, admin panel, blog, analytics
+• Premium (€9000): Premium solution for ambitious projects, e-commerce, API, 24/7 support, maintenance
+• AI Pack (custom): AI chatbot, automation, machine learning, data analysis
 
 SERVICES:
 1. Web Development (React, Next.js, Node.js, TypeScript)
@@ -125,10 +125,10 @@ EMPRESA:
 - Sitio: https://neuraweb.tech
 
 NUESTROS PAQUETES:
-• Starter (1490€): Sitio vitrina responsive, SEO, formulario contacto, hosting 1 año
-• Business (3490€): Tienda e-commerce completa, pagos Stripe, panel admin, analytics
-• Premium (6900€): Solución a medida premium, APIs, soporte 24/7, mantenimiento
-• Pack IA (4500€): Chatbot IA, automatización, machine learning, análisis de datos
+• Starter (1500€): Sitio vitrina responsive, SEO, formulario contacto, hosting 1 año
+• Business (4900€): Solución completa para empresas en crecimiento, panel admin, blog, analytics
+• Premium (9000€): Solución premium para proyectos ambiciosos, e-commerce, API, soporte 24/7, mantenimiento
+• Pack IA (a presupuesto): Chatbot IA, automatización, machine learning, análisis de datos
 
 SERVICIOS:
 1. Desarrollo Web (React, Next.js, Node.js, TypeScript)

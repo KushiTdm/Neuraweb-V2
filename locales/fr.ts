@@ -315,6 +315,23 @@ export const fr = {
   'seo.boost.local': 'Paris, France, agence française',
   'seo.boost.cta': 'Devis gratuit, Réponse 24h',
 
+  // Audit CTA Section
+  'audit.badge': 'Offre de lancement',
+  'audit.title': 'Audit IA Gratuit',
+  'audit.value': 'Valeur 490€',
+  'audit.subtitle': "En 45 minutes, on analyse votre stack actuelle et on identifie les",
+  'audit.subtitle.highlight': "3 opportunités d'automatisation IA",
+  'audit.subtitle.end': 'les plus impactantes pour votre business.',
+  'audit.benefit.1': 'Analyse de votre workflow actuel',
+  'audit.benefit.2': 'Identification des tâches automatisables',
+  'audit.benefit.3': 'Estimation ROI chiffrée',
+  'audit.benefit.4': "Roadmap d'implémentation prioritaire",
+  'audit.cta': 'Réserver mon audit gratuit',
+  'audit.note': 'Aucune obligation. 100% actionnable.',
+  'audit.trust.1': 'Sans engagement',
+  'audit.trust.2': '45 minutes',
+  'audit.trust.3': 'Visio ou présentiel',
+
   // Équipe Page
   'equipe.hero.title': "L'équipe derrière",
   'equipe.hero.subtitle': "Des développeurs passionnés qui construisent le futur avec l'IA. On code, l'IA amplifie, vous scalez.",

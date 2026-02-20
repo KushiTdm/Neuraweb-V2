@@ -1,31 +1,12 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 
 // ── Reviews Badge Component ─────────────────────────────────────────────────
-// À utiliser après inscription sur Clutch.co et Google Business
+// Affiche uniquement le score Google (les profils Clutch/Malt seront ajoutés ultérieurement)
 export function ReviewsBadge() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 py-4">
-      {/* Clutch Widget — récupérer le code embed depuis votre profil */}
-      <Link 
-        href="https://clutch.co/profile/neuraweb" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
-        aria-label="Voir nos avis sur Clutch"
-      >
-        {/* Clutch Logo placeholder */}
-        <div className="w-8 h-8 rounded bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center">
-          <span className="text-white font-bold text-xs">C</span>
-        </div>
-        <div className="text-left">
-          <div className="text-xs text-gray-500 dark:text-gray-400">Noté sur</div>
-          <div className="text-sm font-semibold text-gray-900 dark:text-white">Clutch</div>
-        </div>
-      </Link>
-      
       {/* Score Google */}
       <div 
         className="flex items-center gap-3 px-4 py-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm"
@@ -51,23 +32,6 @@ export function ReviewsBadge() {
           <div className="text-sm font-medium text-gray-600 dark:text-gray-300">(47 avis)</div>
         </div>
       </div>
-
-      {/* Malt Badge */}
-      <Link
-        href="https://www.malt.fr/profile/neuraweb"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
-        aria-label="Voir notre profil sur Malt"
-      >
-        <div className="w-8 h-8 rounded bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center">
-          <span className="text-white font-bold text-xs">M</span>
-        </div>
-        <div className="text-left">
-          <div className="text-xs text-gray-500 dark:text-gray-400">Disponible sur</div>
-          <div className="text-sm font-semibold text-gray-900 dark:text-white">Malt</div>
-        </div>
-      </Link>
     </div>
   );
 }
