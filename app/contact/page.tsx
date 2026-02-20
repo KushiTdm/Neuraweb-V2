@@ -162,6 +162,8 @@ function ContactPageContent() {
   } = useAnalytics();
   
   const [formStarted, setFormStarted] = useState(false);
+  const [preselectedService, setPreselectedService] = useState<string>('');
+  const [preselectedPack, setPreselectedPack] = useState<string>('');
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -177,8 +179,29 @@ function ContactPageContent() {
     const packParam = searchParams.get('pack');
     if (packParam && ['starter', 'business', 'premium', 'ai'].includes(packParam)) {
       setFormData(prev => ({ ...prev, pack: packParam }));
+      setPreselectedPack(packParam);
     }
-  }, [searchParams]);
+    
+    // Ouvrir automatiquement la modale booking si ?booking=true
+    const bookingParam = searchParams.get('booking');
+    if (bookingParam === 'true') {
+      setShowBooking(true);
+      
+      // Récupérer le service préselectionné
+      const serviceParam = searchParams.get('service');
+      if (serviceParam) {
+        // Mapper les paramètres URL vers les labels de service
+        const serviceMap: Record<string, Record<string, string>> = {
+          'audit-ia': { fr: 'Audit IA', en: 'AI Audit', es: 'Auditoría IA' },
+          'devis': { fr: 'Devis', en: 'Quote', es: 'Presupuesto' },
+        };
+        const mappedService = serviceMap[serviceParam]?.[language];
+        if (mappedService) {
+          setPreselectedService(mappedService);
+        }
+      }
+    }
+  }, [searchParams, language]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [heroVisible, setHeroVisible] = useState(false);
   const [cardsVisible, setCardsVisible] = useState(false);
@@ -856,6 +879,8 @@ function ContactPageContent() {
 
             <BookingForm
               language={language as 'fr' | 'en' | 'es'}
+              preselectedService={preselectedService}
+              preselectedPack={preselectedPack}
               onClose={() => setShowBooking(false)}
               onSuccess={(msg) => {
                 setShowBooking(false);

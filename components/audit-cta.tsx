@@ -74,9 +74,7 @@ export function AuditCTA() {
           {/* CTA Button */}
           <div className="text-center">
             <a
-              href="https://cal.com/neuraweb/audit-ia"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/contact?booking=true&service=audit-ia"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-lg shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 transform hover:scale-105 transition-all duration-300"
               aria-label="Réserver mon audit IA gratuit — 45 minutes"
             >

@@ -14,6 +14,8 @@ interface BookingFormProps {
   language: 'fr' | 'en' | 'es'
   onClose: () => void
   onSuccess: (message: string) => void
+  preselectedService?: string
+  preselectedPack?: string
 }
 
 const translations = {
@@ -32,6 +34,7 @@ const translations = {
     whatsapp: 'WhatsApp (pour l\'appel)',
     company: 'Entreprise',
     service: 'Service intéressé',
+    pack: 'Pack sélectionné',
     message: 'Message (optionnel)',
     submit: 'Confirmer le rendez-vous',
     submitting: 'Réservation en cours...',
@@ -39,7 +42,13 @@ const translations = {
     success: 'Rendez-vous confirmé !',
     successMessage: 'Vous recevrez un email de confirmation. À bientôt !',
     error: 'Erreur lors de la réservation',
-    services: ['Site vitrine', 'E-commerce', 'Application web', 'Intégration IA', 'Automatisation', 'Autre']
+    services: ['Audit IA', 'Devis', 'Site vitrine', 'E-commerce', 'Application web', 'Intégration IA', 'Automatisation', 'Autre'],
+    packs: {
+      starter: 'Pack Starter - 1 500€',
+      business: 'Pack Business - 4 900€',
+      premium: 'Pack Premium - 9 900€',
+      ai: 'Pack IA - Sur devis'
+    }
   },
   en: {
     title: 'Book an appointment',
@@ -56,6 +65,7 @@ const translations = {
     whatsapp: 'WhatsApp (for the call)',
     company: 'Company',
     service: 'Service interested',
+    pack: 'Selected pack',
     message: 'Message (optional)',
     submit: 'Confirm appointment',
     submitting: 'Booking...',
@@ -63,7 +73,13 @@ const translations = {
     success: 'Appointment confirmed!',
     successMessage: 'You will receive a confirmation email. See you soon!',
     error: 'Booking error',
-    services: ['Showcase website', 'E-commerce', 'Web application', 'AI integration', 'Automation', 'Other']
+    services: ['AI Audit', 'Quote', 'Showcase website', 'E-commerce', 'Web application', 'AI integration', 'Automation', 'Other'],
+    packs: {
+      starter: 'Starter Pack - €1,500',
+      business: 'Business Pack - €4,900',
+      premium: 'Premium Pack - €9,900',
+      ai: 'AI Pack - On quote'
+    }
   },
   es: {
     title: 'Reservar una cita',
@@ -80,6 +96,7 @@ const translations = {
     whatsapp: 'WhatsApp (para la llamada)',
     company: 'Empresa',
     service: 'Servicio de interés',
+    pack: 'Pack seleccionado',
     message: 'Mensaje (opcional)',
     submit: 'Confirmar cita',
     submitting: 'Reservando...',
@@ -87,11 +104,17 @@ const translations = {
     success: '¡Cita confirmada!',
     successMessage: 'Recibirás un email de confirmación. ¡Hasta pronto!',
     error: 'Error al reservar',
-    services: ['Sitio web', 'E-commerce', 'Aplicación web', 'Integración IA', 'Automatización', 'Otro']
+    services: ['Auditoría IA', 'Presupuesto', 'Sitio web', 'E-commerce', 'Aplicación web', 'Integración IA', 'Automatización', 'Otro'],
+    packs: {
+      starter: 'Pack Starter - 1.500€',
+      business: 'Pack Business - 4.900€',
+      premium: 'Pack Premium - 9.900€',
+      ai: 'Pack IA - Bajo presupuesto'
+    }
   }
 }
 
-export default function BookingForm({ language, onClose, onSuccess }: BookingFormProps) {
+export default function BookingForm({ language, onClose, onSuccess, preselectedService, preselectedPack }: BookingFormProps) {
   const t = translations[language]
   
   const [step, setStep] = useState(1)
@@ -110,9 +133,13 @@ export default function BookingForm({ language, onClose, onSuccess }: BookingFor
     phone: '',
     whatsapp: '',
     company: '',
-    service: '',
+    service: preselectedService || '',
+    pack: preselectedPack || '',
     message: ''
   })
+  
+  // Obtenir le label du pack sélectionné
+  const packLabel = preselectedPack && t.packs ? t.packs[preselectedPack as keyof typeof t.packs] : null
 
   // Charger les créneaux disponibles
   useEffect(() => {

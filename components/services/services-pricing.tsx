@@ -438,7 +438,8 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
         language: language,
       });
     }
-    router.push(`/contact?pack=${packId}&lang=${getSub()}`);
+    // Rediriger vers la page contact avec booking ouvert et le pack sélectionné
+    router.push(`/contact?booking=true&pack=${packId}`);
   };
 
   const handleContact = (type: 'whatsapp' | 'chatbot') => {
@@ -569,32 +570,6 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
           })}
         </div>
 
-        {/* Contact Options */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-          <button
-            onClick={() => handleContact('whatsapp')}
-            className="flex items-center gap-4 p-6 bg-green-500/10 border border-green-500/30 rounded-2xl hover:bg-green-500/20 transition-all duration-300 group"
-          >
-            <MessageCircle className="w-10 h-10 text-green-500" />
-            <div className="text-left">
-              <p className="font-semibold text-white">{t.whatsapp}</p>
-              <p className="text-sm text-white/60">{t.whatsappDesc}</p>
-            </div>
-            <ChevronRight className="w-5 h-5 text-white/50 group-hover:translate-x-1 transition-transform ml-auto" />
-          </button>
-
-          <button
-            onClick={() => handleContact('chatbot')}
-            className="flex items-center gap-4 p-6 bg-violet-500/10 border border-violet-500/30 rounded-2xl hover:bg-violet-500/20 transition-all duration-300 group"
-          >
-            <Bot className="w-10 h-10 text-violet-500" />
-            <div className="text-left">
-              <p className="font-semibold text-white">{t.chatbot}</p>
-              <p className="text-sm text-white/60">{t.chatbotDesc}</p>
-            </div>
-            <ChevronRight className="w-5 h-5 text-white/50 group-hover:translate-x-1 transition-transform ml-auto" />
-          </button>
-        </div>
       </div>
 
       {/* Modal */}

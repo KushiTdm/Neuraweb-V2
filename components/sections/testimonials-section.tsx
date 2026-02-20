@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import Image from 'next/image';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import type { TranslationKey } from '@/locales';
@@ -11,7 +10,7 @@ interface Testimonial {
   companyKey: TranslationKey;
   textKey: TranslationKey;
   rating: number;
-  avatar: string;
+  initials: string;
   roleKey?: TranslationKey;
 }
 
@@ -24,25 +23,46 @@ export function TestimonialsSection() {
 
   const testimonials: Testimonial[] = [
     {
-      nameKey: 'testimonials.marie.name',
-      companyKey: 'testimonials.marie.company',
-      textKey: 'testimonials.marie.text',
+      nameKey: 'testimonials.lucas.name',
+      companyKey: 'testimonials.lucas.company',
+      textKey: 'testimonials.lucas.text',
       rating: 5,
-      avatar: '/assets/dupont.webp',
+      initials: 'LB',
     },
     {
-      nameKey: 'testimonials.jean.name',
-      companyKey: 'testimonials.jean.company',
-      textKey: 'testimonials.jean.text',
+      nameKey: 'testimonials.amelie.name',
+      companyKey: 'testimonials.amelie.company',
+      textKey: 'testimonials.amelie.text',
       rating: 5,
-      avatar: '/assets/Martin.webp',
+      initials: 'AC',
     },
     {
-      nameKey: 'testimonials.sophie.name',
-      companyKey: 'testimonials.sophie.company',
-      textKey: 'testimonials.sophie.text',
+      nameKey: 'testimonials.thomas.name',
+      companyKey: 'testimonials.thomas.company',
+      textKey: 'testimonials.thomas.text',
       rating: 5,
-      avatar: '/assets/chen.webp',
+      initials: 'TM',
+    },
+    {
+      nameKey: 'testimonials.emma.name',
+      companyKey: 'testimonials.emma.company',
+      textKey: 'testimonials.emma.text',
+      rating: 5,
+      initials: 'ED',
+    },
+    {
+      nameKey: 'testimonials.hugo.name',
+      companyKey: 'testimonials.hugo.company',
+      textKey: 'testimonials.hugo.text',
+      rating: 5,
+      initials: 'HL',
+    },
+    {
+      nameKey: 'testimonials.lea.name',
+      companyKey: 'testimonials.lea.company',
+      textKey: 'testimonials.lea.text',
+      rating: 5,
+      initials: 'LM',
     },
   ];
 
@@ -151,16 +171,10 @@ export function TestimonialsSection() {
             {/* Auteur */}
             <div className="flex items-center gap-4">
               <div className="relative flex-shrink-0">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden ring-2 ring-purple-200 dark:ring-purple-700 ring-offset-2 ring-offset-white dark:ring-offset-gray-800">
-                  <Image
-                    src={testimonial.avatar}
-                    alt={t(testimonial.nameKey)}
-                    width={56}
-                    height={56}
-                    className="object-cover w-full h-full"
-                    quality={75}
-                    loading="lazy"
-                  />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full ring-2 ring-purple-200 dark:ring-purple-700 ring-offset-2 ring-offset-white dark:ring-offset-gray-800 bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
+                  <span className="text-white font-bold text-sm sm:text-base">
+                    {testimonial.initials}
+                  </span>
                 </div>
                 {/* Badge vérifié */}
                 <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800">

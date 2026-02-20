@@ -141,10 +141,11 @@ export function HomePageClient() {
 
         <AboutSection />
         <PortfolioSection />
-        <TestimonialsSection />
 
-        {/* Audit CTA — Offre d'entrée gratuite */}
+         {/* Audit CTA — Offre d'entrée gratuite */}
         <AuditCTA />
+        
+        <TestimonialsSection />
 
         <CTASection />
       </main>

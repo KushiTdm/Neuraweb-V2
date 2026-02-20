@@ -94,7 +94,7 @@ export function CTASection() {
         <div className="animate-on-scroll fade-up delay-300 flex flex-col xs:flex-row sm:flex-row gap-3 sm:gap-4 justify-center mb-10 sm:mb-16 px-4 sm:px-0">
           {/* Bouton principal */}
           <Link
-            href="/booking"
+            href="/contact?booking=true"
             className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold text-white transition-all duration-300"
             style={{
               background: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
@@ -116,7 +116,7 @@ export function CTASection() {
 
           {/* Bouton secondaire */}
           <Link
-            href="/contact"
+            href="/contact?booking=true&service=devis"
             className="group inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold text-white transition-all duration-300 border border-white/15 bg-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/25"
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
