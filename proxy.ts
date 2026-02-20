@@ -8,7 +8,7 @@ export const DEFAULT_LANGUAGE = 'fr';
 // Pages statiques qui nécessitent une langue
 const STATIC_PAGES = ['services', 'blog', 'equipe', 'contact'];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Ignorer les fichiers statiques et API

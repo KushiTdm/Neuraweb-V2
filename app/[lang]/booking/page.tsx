@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { BookingPageClient } from '@/components/booking-page-client';
-import { SUPPORTED_LANGUAGES } from '@/middleware';
+import { SUPPORTED_LANGUAGES } from '@/proxy';
 
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { ServicesPageClient } from '@/components/services-page-client';
 import { generatePageMetadata, generateJsonLd } from '@/lib/seo-service';
-import { SUPPORTED_LANGUAGES } from '@/middleware';
+import { SUPPORTED_LANGUAGES } from '@/proxy';
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {

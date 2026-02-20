@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { EquipePageClient } from '@/components/equipe-page-client';
-import { SUPPORTED_LANGUAGES } from '@/middleware';
+import { SUPPORTED_LANGUAGES } from '@/proxy';
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {

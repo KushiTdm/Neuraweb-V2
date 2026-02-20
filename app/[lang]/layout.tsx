@@ -6,7 +6,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
 import Chatbot from '@/components/chatbot';
 import { organizationSchema, websiteSchema } from '@/lib/structured-data';
-import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from '@/middleware';
+import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from '@/proxy';
 import { notFound } from 'next/navigation';
 
 // ── Fonts premium 2026 ─────────────────────────────────────────

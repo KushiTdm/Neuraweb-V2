@@ -3,7 +3,7 @@ import { HomePageClient } from '@/components/home-page-client';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { professionalServiceSchema, faqSchema } from '@/lib/structured-data';
-import { SUPPORTED_LANGUAGES } from '@/middleware';
+import { SUPPORTED_LANGUAGES } from '@/proxy';
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {

@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllPostSlugsAllLanguages, getPostBySlug } from '@/lib/mdx';
-import { SUPPORTED_LANGUAGES } from '@/middleware';
+import { SUPPORTED_LANGUAGES } from '@/proxy';
 
 const BASE_URL = 'https://neuraweb.tech';
 
@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const urls: MetadataRoute.Sitemap = [];
 
   // Page d'accueil pour chaque langue
-  SUPPORTED_LANGUAGES.forEach((lang) => {
+  SUPPORTED_LANGUAGES.forEach((lang: string) => {
     urls.push({
       url: `${BASE_URL}/${lang}`,
       lastModified: today,
@@ -40,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Pages statiques pour chaque langue
   Object.entries(STATIC_PAGES).forEach(([page, config]) => {
-    SUPPORTED_LANGUAGES.forEach((lang) => {
+    SUPPORTED_LANGUAGES.forEach((lang: string) => {
       urls.push({
         url: `${BASE_URL}/${lang}/${page}`,
         lastModified: page === 'blog' ? today : lastWeek,

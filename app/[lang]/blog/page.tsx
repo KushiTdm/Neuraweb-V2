@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { BlogListClient } from '@/components/blog-list-client';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { SUPPORTED_LANGUAGES } from '@/middleware';
+import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { getAllPosts, getFeaturedPosts } from '@/lib/mdx';
 
 // Génération des paramètres statiques

@@ -3,7 +3,7 @@ import { BlogPostClient } from '@/components/blog-post-client';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { getAllPostSlugs, getPostBySlug, getAllPosts, type Language } from '@/lib/mdx';
-import { SUPPORTED_LANGUAGES } from '@/middleware';
+import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { notFound } from 'next/navigation';
 
 // Génération des paramètres statiques
