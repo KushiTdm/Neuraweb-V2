@@ -8,12 +8,11 @@ import Chatbot from '@/components/chatbot';
 import {
   organizationSchema,
   websiteSchema,
-  localBusinessSchema, // ← AJOUTÉ : connecte le site à Google Business Profile
+  localBusinessSchema,
 } from '@/lib/structured-data';
-import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from '@/proxy';
+import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { notFound } from 'next/navigation';
 
-// ── Fonts ───────────────────────────────────────────────────────
 const geist = Geist({
   subsets: ['latin'],
   display: 'swap',
@@ -35,89 +34,35 @@ const syne = Syne({
   weight: ['400', '500', '600', '700', '800'],
 });
 
-// ── Génération des paramètres statiques ─────────────────────────
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
-// ── Métadonnées dynamiques par langue ───────────────────────────
+// ── Metadata du layout : MINIMAL
+// Le layout ne doit gérer que le template de titre et les meta globales.
+// Tout le reste (title, description, og, keywords) est géré par chaque page.tsx via l'IA.
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-
-  const titles: Record<string, string> = {
-    fr: 'NeuraWeb — Agence Web, IA & Automatisation',
-    en: 'NeuraWeb — Web Agency, AI & Automation',
-    es: 'NeuraWeb — Agencia Web, IA & Automatización',
-  };
-
-  const descriptions: Record<string, string> = {
-    fr: 'Agence digitale premium spécialisée en développement web sur mesure, intégration IA et automatisation. Transformez votre vision en solutions digitales innovantes.',
-    en: 'Premium digital agency specializing in custom web development, AI integration and automation. Transform your vision into innovative digital solutions.',
-    es: 'Agencia digital premium especializada en desarrollo web personalizado, integración de IA y automatización. Transforme su visión en soluciones digitales innovadoras.',
-  };
-
-  const locales: Record<string, string> = {
-    fr: 'fr_FR',
-    en: 'en_US',
-    es: 'es_ES',
-  };
-
   const baseUrl = 'https://neuraweb.tech';
-  const currentLang = lang;
 
   return {
     metadataBase: new URL(baseUrl),
+    // Le template s'applique UNIQUEMENT si la page fournit un titre sans "NeuraWeb"
+    // Les titres générés par l'IA incluent déjà "NeuraWeb", donc %s sera le titre complet
     title: {
-      default: titles[currentLang] || titles[DEFAULT_LANGUAGE],
-      template: `%s | NeuraWeb`,
+      default: 'NeuraWeb — Agence Web, IA & Automatisation',
+      template: '%s', // ← PAS de "| NeuraWeb" ajouté : l'IA gère le titre complet
     },
-    description: descriptions[currentLang] || descriptions[DEFAULT_LANGUAGE],
     authors: [{ name: 'NeuraWeb' }],
     creator: 'NeuraWeb',
-    // CORRIGÉ : favicon dédié, pas l'og-image
     icons: {
       icon: '/favicon.ico',
       shortcut: '/favicon-16x16.png',
       apple: '/apple-touch-icon.png',
-    },
-    // CORRIGÉ : hreflang déclarés UNE SEULE FOIS ici (supprimés du <head> manuel)
-    alternates: {
-      canonical: `${baseUrl}/${currentLang}`,
-      languages: {
-        'fr-FR': `${baseUrl}/fr`,
-        'en-US': `${baseUrl}/en`,
-        'es-ES': `${baseUrl}/es`,
-        'x-default': `${baseUrl}/fr`,
-      },
-    },
-    openGraph: {
-      type: 'website',
-      locale: locales[currentLang] || locales[DEFAULT_LANGUAGE],
-      url: `${baseUrl}/${currentLang}`,
-      siteName: 'NeuraWeb',
-      title: titles[currentLang] || titles[DEFAULT_LANGUAGE],
-      description: descriptions[currentLang] || descriptions[DEFAULT_LANGUAGE],
-      // CORRIGÉ : une seule référence cohérente pour l'og-image
-      images: [
-        {
-          url: `${baseUrl}/og-image.png`,
-          width: 1200,
-          height: 630,
-          alt: 'NeuraWeb — Agence Digitale Premium',
-          type: 'image/png',
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: titles[currentLang] || titles[DEFAULT_LANGUAGE],
-      description: descriptions[currentLang] || descriptions[DEFAULT_LANGUAGE],
-      images: [`${baseUrl}/og-image.png`],
-      creator: '@neurawebtech',
     },
     robots: {
       index: true,
@@ -130,6 +75,8 @@ export async function generateMetadata({
         'max-snippet': -1,
       },
     },
+    // description, openGraph, twitter, alternates, keywords :
+    // gérés par chaque page.tsx individuellement via generateAISEO()
   };
 }
 
@@ -163,7 +110,7 @@ export default async function LangLayout({
       className={`${geist.variable} ${geistMono.variable} ${syne.variable}`}
     >
       <head>
-        {/* Organization Schema — représente l'entreprise */}
+        {/* Organization Schema — représente l'entreprise globalement */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -173,16 +120,11 @@ export default async function LangLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        {/*
-          LocalBusiness Schema — CRITIQUE pour Google Business Profile
-          C'est ce schema qui relie votre site à votre fiche GBP.
-          Sans lui, Google ne peut pas associer les deux.
-        */}
+        {/* LocalBusiness Schema — relie le site à Google Business Profile */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
-        {/* SUPPRIMÉ : les hreflang manuels (déjà gérés par generateMetadata > alternates) */}
       </head>
       <body className={geist.className}>
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
