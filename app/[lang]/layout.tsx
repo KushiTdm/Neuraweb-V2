@@ -92,10 +92,11 @@ export async function generateMetadata({
       description: descriptions[currentLang] || descriptions[DEFAULT_LANGUAGE],
       images: [
         {
-          url: '/og-image.jpeg',
+          url: `${baseUrl}/og-image.jpeg`,
           width: 1200,
           height: 630,
           alt: 'NeuraWeb — Agence Digitale Premium',
+          type: 'image/jpeg',
         },
       ],
     },
@@ -103,7 +104,8 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: titles[currentLang] || titles[DEFAULT_LANGUAGE],
       description: descriptions[currentLang] || descriptions[DEFAULT_LANGUAGE],
-      images: ['/og-image.png'],
+      images: [`${baseUrl}/og-image.jpeg`],
+      creator: '@neuraweb',
     },
     robots: {
       index: true,
