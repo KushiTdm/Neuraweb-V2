@@ -1,6 +1,7 @@
 // app/api/booking/route.ts
 
 import { NextRequest, NextResponse } from 'next/server';
+import { sendBookingConfirmationEmail, sendBookingNotificationEmail } from '@/lib/email-service';
 
 const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!;
 
@@ -99,7 +100,8 @@ export async function POST(request: NextRequest) {
     // S'assurer que l'heure envoyée à Google est bien "HH:MM"
     const normalizedTime = parseSheetTime(String(time));
 
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
+    // Sauvegarder dans Google Sheets
+    const googlePromise = fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -116,17 +118,53 @@ export async function POST(request: NextRequest) {
       redirect: 'follow',
     });
 
-    if (!response.ok) {
-      throw new Error(`Google Script error: ${response.status}`);
+    // Préparer les données pour les emails
+    const bookingData = {
+      name,
+      email,
+      phone: phone ?? undefined,
+      service: service ?? undefined,
+      date,
+      time: normalizedTime,
+      message: message ?? undefined,
+      language: language ?? 'fr',
+    };
+
+    // Envoyer les emails via Resend (confirmation client + notification équipe)
+    const emailNotificationPromise = sendBookingNotificationEmail(bookingData);
+    const emailConfirmationPromise = sendBookingConfirmationEmail(bookingData);
+
+    // Exécuter tout en parallèle
+    const [googleResponse, emailNotificationResult, emailConfirmationResult] = await Promise.all([
+      googlePromise,
+      emailNotificationPromise,
+      emailConfirmationPromise,
+    ]);
+
+    // Vérifier la réponse Google
+    if (!googleResponse.ok) {
+      console.warn(`Google Script warning: ${googleResponse.status}`);
+    } else {
+      const googleResult = await googleResponse.json();
+      if (googleResult.error) {
+        console.warn('Google Script warning:', googleResult.error);
+      }
     }
 
-    const result = await response.json();
-
-    if (result.error) {
-      return NextResponse.json({ error: result.error }, { status: 400 });
+    // Log les résultats des emails (non bloquant)
+    if (!emailNotificationResult.success) {
+      console.warn('Email notification warning:', emailNotificationResult.error);
     }
 
-    return NextResponse.json(result);
+    if (!emailConfirmationResult.success) {
+      console.warn('Email confirmation warning:', emailConfirmationResult.error);
+    }
+
+    // Retourner succès même si les emails échouent (la réservation est sauvegardée)
+    return NextResponse.json({ 
+      success: true,
+      emailSent: emailNotificationResult.success && emailConfirmationResult.success 
+    });
 
   } catch (error: any) {
     console.error('Booking error:', error);
