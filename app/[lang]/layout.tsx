@@ -5,11 +5,15 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
 import Chatbot from '@/components/chatbot';
-import { organizationSchema, websiteSchema } from '@/lib/structured-data';
+import {
+  organizationSchema,
+  websiteSchema,
+  localBusinessSchema, // ← AJOUTÉ : connecte le site à Google Business Profile
+} from '@/lib/structured-data';
 import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from '@/proxy';
 import { notFound } from 'next/navigation';
 
-// ── Fonts premium 2026 ─────────────────────────────────────────
+// ── Fonts ───────────────────────────────────────────────────────
 const geist = Geist({
   subsets: ['latin'],
   display: 'swap',
@@ -43,7 +47,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  
+
   const titles: Record<string, string> = {
     fr: 'NeuraWeb — Agence Web, IA & Automatisation',
     en: 'NeuraWeb — Web Agency, AI & Automation',
@@ -74,11 +78,13 @@ export async function generateMetadata({
     description: descriptions[currentLang] || descriptions[DEFAULT_LANGUAGE],
     authors: [{ name: 'NeuraWeb' }],
     creator: 'NeuraWeb',
+    // CORRIGÉ : favicon dédié, pas l'og-image
     icons: {
-      icon: '/assets/og-image.png',
-      shortcut: '/assets/og-image.png',
-      apple: '/assets/og-image.png',
+      icon: '/favicon.ico',
+      shortcut: '/favicon-16x16.png',
+      apple: '/apple-touch-icon.png',
     },
+    // CORRIGÉ : hreflang déclarés UNE SEULE FOIS ici (supprimés du <head> manuel)
     alternates: {
       canonical: `${baseUrl}/${currentLang}`,
       languages: {
@@ -95,13 +101,14 @@ export async function generateMetadata({
       siteName: 'NeuraWeb',
       title: titles[currentLang] || titles[DEFAULT_LANGUAGE],
       description: descriptions[currentLang] || descriptions[DEFAULT_LANGUAGE],
+      // CORRIGÉ : une seule référence cohérente pour l'og-image
       images: [
         {
-          url: `${baseUrl}/og-image.jpeg`,
+          url: `${baseUrl}/og-image.png`,
           width: 1200,
           height: 630,
           alt: 'NeuraWeb — Agence Digitale Premium',
-          type: 'image/jpeg',
+          type: 'image/png',
         },
       ],
     },
@@ -109,8 +116,8 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: titles[currentLang] || titles[DEFAULT_LANGUAGE],
       description: descriptions[currentLang] || descriptions[DEFAULT_LANGUAGE],
-      images: [`${baseUrl}/og-image.jpeg`],
-      creator: '@neuraweb',
+      images: [`${baseUrl}/og-image.png`],
+      creator: '@neurawebtech',
     },
     robots: {
       index: true,
@@ -145,7 +152,6 @@ export default async function LangLayout({
 }) {
   const { lang } = await params;
 
-  // Vérifier que la langue est supportée
   if (!SUPPORTED_LANGUAGES.includes(lang as any)) {
     notFound();
   }
@@ -157,26 +163,29 @@ export default async function LangLayout({
       className={`${geist.variable} ${geistMono.variable} ${syne.variable}`}
     >
       <head>
-        {/* Organization Schema - Rich snippets pour Google */}
+        {/* Organization Schema — représente l'entreprise */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-        {/* WebSite Schema - Pour la recherche site links */}
+        {/* WebSite Schema — pour les Sitelinks Google */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        {/* Hreflang links - Crucial pour le SEO multilingue */}
-        <link rel="alternate" hrefLang="fr" href={`https://neuraweb.tech/fr`} />
-        <link rel="alternate" hrefLang="en" href={`https://neuraweb.tech/en`} />
-        <link rel="alternate" hrefLang="es" href={`https://neuraweb.tech/es`} />
-        <link rel="alternate" hrefLang="x-default" href={`https://neuraweb.tech/fr`} />
+        {/*
+          LocalBusiness Schema — CRITIQUE pour Google Business Profile
+          C'est ce schema qui relie votre site à votre fiche GBP.
+          Sans lui, Google ne peut pas associer les deux.
+        */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+        {/* SUPPRIMÉ : les hreflang manuels (déjà gérés par generateMetadata > alternates) */}
       </head>
       <body className={geist.className}>
-        {/* Google Analytics 4 - Suivi des performances et comportement utilisateur */}
         <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''} />
-        {/* Skip Link — Accessibilité WCAG AA */}
         <a href="#main-content" className="skip-link">
           Aller au contenu principal
         </a>
