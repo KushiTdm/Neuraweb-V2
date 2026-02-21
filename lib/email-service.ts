@@ -40,19 +40,20 @@ const COLORS = {
   accent: '#22d3ee',       // Cyan
   rose: '#f43f5e',         // Rose
   dark: '#050510',         // Dark background
+  darkCard: '#0f0f1a',     // Dark card
   light: '#f8fafc',        // Light background
-  text: '#1e293b',         // Text dark
-  textLight: '#64748b',    // Text muted
+  text: '#e5e7eb',         // Text light (pour fond sombre)
+  textMuted: '#9ca3af',    // Text muted
   white: '#ffffff',
+  border: 'rgba(255, 255, 255, 0.05)',
 };
 
 // Gradient principal NeuraWeb
 const GRADIENT_BRAND = `linear-gradient(135deg, ${COLORS.primary} 0%, ${COLORS.secondary} 50%, #a78bfa 100%)`;
-const GRADIENT_HERO = `linear-gradient(135deg, #4f46e5 0%, #7c3aed 40%, #ec4899 100%)`;
-const GRADIENT_CTA = `linear-gradient(135deg, #4338ca 0%, #6d28d9 50%, #be185d 100%)`;
+const GRADIENT_LINE = `linear-gradient(90deg, transparent, ${COLORS.primary}, ${COLORS.secondary}, ${COLORS.accent}, transparent)`;
 
 /**
- * Template de base pour tous les emails
+ * Template de base pour tous les emails avec fond noir
  */
 function getBaseStyles(): string {
   return `
@@ -64,34 +65,36 @@ function getBaseStyles(): string {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       line-height: 1.6;
       color: ${COLORS.text};
-      background-color: #f1f5f9;
+      background-color: ${COLORS.dark};
     }
     
     /* Container */
     .email-wrapper {
       width: 100%;
       padding: 40px 20px;
-      background-color: #f1f5f9;
+      background-color: ${COLORS.dark};
     }
     
     .email-container {
       max-width: 600px;
       margin: 0 auto;
-      background-color: ${COLORS.white};
+      background-color: ${COLORS.darkCard};
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border: 1px solid ${COLORS.border};
+      box-shadow: 0 0 40px rgba(99, 102, 241, 0.1);
     }
     
     /* Header */
     .email-header {
       background: ${GRADIENT_BRAND};
-      padding: 40px 30px;
+      padding: 50px 30px;
       text-align: center;
+      position: relative;
     }
     
     .email-logo {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 800;
       color: ${COLORS.white};
       margin: 0;
@@ -102,30 +105,32 @@ function getBaseStyles(): string {
       font-size: 14px;
       color: rgba(255, 255, 255, 0.9);
       margin: 8px 0 0 0;
+      letter-spacing: 0.05em;
     }
     
     .email-title {
       font-size: 24px;
       font-weight: 700;
       color: ${COLORS.white};
-      margin: 20px 0 0 0;
+      margin: 24px 0 0 0;
     }
     
     /* Content */
     .email-content {
       padding: 40px 30px;
+      background-color: ${COLORS.darkCard};
     }
     
     .email-greeting {
       font-size: 18px;
       font-weight: 600;
-      color: ${COLORS.text};
+      color: ${COLORS.white};
       margin: 0 0 20px 0;
     }
     
     .email-text {
       font-size: 15px;
-      color: ${COLORS.textLight};
+      color: ${COLORS.textMuted};
       margin: 0 0 24px 0;
       line-height: 1.7;
     }
@@ -134,22 +139,22 @@ function getBaseStyles(): string {
     .highlight-box {
       background: ${GRADIENT_BRAND};
       border-radius: 12px;
-      padding: 24px;
+      padding: 28px;
       text-align: center;
-      margin: 24px 0;
+      margin: 28px 0;
     }
     
     .highlight-box .highlight-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
       color: rgba(255, 255, 255, 0.8);
       margin: 0 0 8px 0;
     }
     
     .highlight-box .highlight-value {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
       color: ${COLORS.white};
       margin: 0;
@@ -157,7 +162,8 @@ function getBaseStyles(): string {
     
     .highlight-row {
       display: inline-block;
-      margin: 0 16px;
+      margin: 0 20px;
+      vertical-align: top;
     }
     
     /* Fields */
@@ -166,18 +172,18 @@ function getBaseStyles(): string {
     }
     
     .field-item {
-      background-color: ${COLORS.light};
+      background-color: rgba(255, 255, 255, 0.03);
       border-radius: 10px;
       padding: 16px 20px;
       margin-bottom: 12px;
-      border-left: 4px solid ${COLORS.primary};
+      border-left: 3px solid ${COLORS.primary};
     }
     
     .field-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       color: ${COLORS.primary};
       margin: 0 0 6px 0;
     }
@@ -200,18 +206,18 @@ function getBaseStyles(): string {
     
     /* Message Box */
     .message-box {
-      background-color: ${COLORS.light};
+      background-color: rgba(255, 255, 255, 0.03);
       border-radius: 10px;
       padding: 20px;
       margin: 16px 0;
-      border: 1px solid #e2e8f0;
+      border: 1px solid ${COLORS.border};
     }
     
     .message-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       color: ${COLORS.primary};
       margin: 0 0 10px 0;
     }
@@ -226,55 +232,219 @@ function getBaseStyles(): string {
     /* Divider */
     .divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3), transparent);
+      background: ${GRADIENT_LINE};
       margin: 32px 0;
     }
     
-    /* Footer */
+    /* Footer - Style site web */
     .email-footer {
-      background-color: ${COLORS.light};
-      padding: 30px;
+      background-color: ${COLORS.dark};
+      padding: 40px 30px;
       text-align: center;
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid ${COLORS.border};
+      position: relative;
     }
     
-    .footer-brand {
-      font-size: 16px;
-      font-weight: 700;
-      color: ${COLORS.primary};
-      margin: 0 0 8px 0;
+    .footer-glow {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 1px;
+      background: ${GRADIENT_LINE};
     }
     
-    .footer-text {
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 800;
+      background: ${GRADIENT_BRAND};
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0 0 16px 0;
+    }
+    
+    .footer-description {
+      font-size: 14px;
+      color: ${COLORS.textMuted};
+      margin: 0 0 24px 0;
+      max-width: 280px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    
+    .footer-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: ${COLORS.textMuted};
+      font-size: 14px;
+      text-decoration: none;
+      margin-bottom: 32px;
+    }
+    
+    .footer-email-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid ${COLORS.border};
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .footer-services {
+      margin-bottom: 32px;
+    }
+    
+    .footer-services-title {
       font-size: 13px;
-      color: ${COLORS.textLight};
+      font-weight: 600;
+      color: ${COLORS.white};
+      margin: 0 0 16px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .footer-services-list {
+      list-style: none;
+      padding: 0;
       margin: 0;
     }
     
+    .footer-services-list li {
+      display: inline-block;
+      margin: 0 8px;
+    }
+    
+    .footer-service-link {
+      font-size: 13px;
+      color: ${COLORS.textMuted};
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-service-link:hover {
+      color: ${COLORS.white};
+    }
+    
     .footer-links {
-      margin-top: 16px;
+      margin-bottom: 32px;
     }
     
     .footer-link {
       display: inline-block;
       color: ${COLORS.primary};
       text-decoration: none;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       margin: 0 12px;
+      transition: color 0.2s;
+    }
+    
+    .footer-link:hover {
+      color: ${COLORS.white};
+    }
+    
+    .footer-copyright {
+      font-size: 12px;
+      color: #4b5563;
+      margin: 0 0 8px 0;
+    }
+    
+    .footer-crafted {
+      font-size: 12px;
+      color: #4b5563;
+      margin: 0;
+    }
+    
+    .footer-heart {
+      color: ${COLORS.primary};
     }
     
     /* Badge */
     .badge {
       display: inline-block;
-      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
       color: ${COLORS.primary};
       font-size: 12px;
       font-weight: 600;
-      padding: 6px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
-      border: 1px solid rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.3);
     }
+  `;
+}
+
+/**
+ * Footer HTML complet style site web
+ */
+function getFooterHTML(language: string = 'fr'): string {
+  const description = language === 'en' 
+    ? 'Premium agency specializing in custom web development, AI integration and automation.'
+    : language === 'es'
+    ? 'Agencia premium especializada en desarrollo web personalizado, integración de IA y automatización.'
+    : 'Agence premium spécialisée en développement web sur mesure, intégration IA et automatisation.';
+  
+  const servicesTitle = language === 'en' ? 'Services' : language === 'es' ? 'Servicios' : 'Services';
+  const services = language === 'en' 
+    ? ['Web Development', 'Automation', 'AI Integration']
+    : language === 'es'
+    ? ['Desarrollo Web', 'Automatización', 'Integración IA']
+    : ['Développement Web', 'Automatisation', 'Intégration IA'];
+  
+  const copyright = language === 'en'
+    ? '© 2026 NeuraWeb. All rights reserved.'
+    : language === 'es'
+    ? '© 2026 NeuraWeb. Todos los derechos reservados.'
+    : '© 2026 NeuraWeb. Tous droits réservés.';
+
+  return `
+    <div class="email-footer">
+      <div class="footer-glow"></div>
+      
+      <!-- Logo -->
+      <p class="footer-logo">NeuraWeb</p>
+      
+      <!-- Description -->
+      <p class="footer-description">${description}</p>
+      
+      <!-- Email -->
+      <a href="mailto:contact@neuraweb.tech" class="footer-email">
+        <span class="footer-email-icon">✉</span>
+        contact@neuraweb.tech
+      </a>
+      
+      <!-- Divider -->
+      <div class="divider"></div>
+      
+      <!-- Services -->
+      <div class="footer-services">
+        <p class="footer-services-title">⚡ ${servicesTitle}</p>
+        <ul class="footer-services-list">
+          ${services.map(s => `<li><span class="footer-service-link">• ${s}</span></li>`).join('')}
+        </ul>
+      </div>
+      
+      <!-- Links -->
+      <div class="footer-links">
+        <a href="https://neuraweb.tech" class="footer-link">neuraweb.tech</a>
+        <a href="https://neuraweb.tech/contact" class="footer-link">${language === 'en' ? 'Contact' : language === 'es' ? 'Contacto' : 'Contact'}</a>
+        <a href="https://neuraweb.tech/services" class="footer-link">${language === 'en' ? 'Services' : language === 'es' ? 'Servicios' : 'Services'}</a>
+      </div>
+      
+      <!-- Divider -->
+      <div class="divider"></div>
+      
+      <!-- Copyright -->
+      <p class="footer-copyright">${copyright}</p>
+      <p class="footer-crafted">Crafted with <span class="footer-heart">♥</span> by NeuraWeb</p>
+    </div>
   `;
 }
 
@@ -316,7 +486,7 @@ export async function sendContactEmail(data: ContactEmailData) {
       <!-- Header -->
       <div class="email-header">
         <h1 class="email-logo">NeuraWeb</h1>
-        <p class="email-tagline">Web · IA · Automatisation</p>
+        <p class="email-tagline">WEB · IA · AUTOMATISATION</p>
         <h2 class="email-title">${titleText}</h2>
       </div>
       
@@ -355,13 +525,7 @@ export async function sendContactEmail(data: ContactEmailData) {
       </div>
       
       <!-- Footer -->
-      <div class="email-footer">
-        <p class="footer-brand">NeuraWeb</p>
-        <p class="footer-text">${language === 'en' ? 'Transform your ideas into digital reality' : language === 'es' ? 'Transformamos tus ideas en realidad digital' : 'Transformons vos idées en réalité digitale'}</p>
-        <div class="footer-links">
-          <a href="https://neuraweb.tech" class="footer-link">neuraweb.tech</a>
-        </div>
-      </div>
+      ${getFooterHTML(language)}
     </div>
   </div>
 </body>
@@ -411,6 +575,30 @@ export async function sendBookingConfirmationEmail(data: BookingEmailData) {
     ? 'Reserva Confirmada' 
     : 'Réservation Confirmée';
 
+  const greeting = language === 'en' 
+    ? `Hello ${name},` 
+    : language === 'es' 
+    ? `Hola ${name},` 
+    : `Bonjour ${name},`;
+
+  const introText = language === 'en' 
+    ? 'Thank you for your booking. We\'re excited to discuss your project with you!' 
+    : language === 'es' 
+    ? '¡Gracias por su reserva! Estamos emocionados de discutir su proyecto con usted.' 
+    : 'Merci pour votre réservation. Nous sommes impatients de discuter de votre projet avec vous !';
+
+  const closingText = language === 'en' 
+    ? 'We will contact you shortly to confirm the details. If you have any questions, feel free to reach out.' 
+    : language === 'es' 
+    ? 'Le contactaremos pronto para confirmar los detalles. Si tiene alguna pregunta, no dude en contactarnos.' 
+    : 'Nous vous contacterons prochainement pour confirmer les détails. Si vous avez des questions, n\'hésitez pas à nous contacter.';
+
+  const signOff = language === 'en' 
+    ? 'See you soon,' 
+    : language === 'es' 
+    ? 'Hasta pronto,' 
+    : 'À bientôt,';
+
   const htmlContent = `
 <!DOCTYPE html>
 <html>
@@ -426,21 +614,15 @@ export async function sendBookingConfirmationEmail(data: BookingEmailData) {
       <!-- Header -->
       <div class="email-header">
         <h1 class="email-logo">NeuraWeb</h1>
-        <p class="email-tagline">Web · IA · Automatisation</p>
+        <p class="email-tagline">WEB · IA · AUTOMATISATION</p>
         <h2 class="email-title">${titleText}</h2>
       </div>
       
       <!-- Content -->
       <div class="email-content">
-        <p class="email-greeting">${language === 'en' ? `Hello ${name},` : language === 'es' ? `Hola ${name},` : `Bonjour ${name},`}</p>
+        <p class="email-greeting">${greeting}</p>
         
-        <p class="email-text">
-          ${language === 'en' 
-            ? 'Thank you for your booking. We\'re excited to discuss your project with you!' 
-            : language === 'es' 
-            ? 'Gracias por su reserva. ¡Estamos emocionados de discutir su proyecto con usted!' 
-            : 'Merci pour votre réservation. Nous sommes impatients de discuter de votre projet avec vous !'}
-        </p>
+        <p class="email-text">${introText}</p>
         
         <!-- Highlight Box with Date & Time -->
         <div class="highlight-box">
@@ -479,28 +661,16 @@ export async function sendBookingConfirmationEmail(data: BookingEmailData) {
         </div>
         ` : ''}
         
-        <p class="email-text">
-          ${language === 'en' 
-            ? 'We will contact you shortly to confirm the details. If you have any questions, feel free to reach out.' 
-            : language === 'es' 
-            ? 'Le contactaremos pronto para confirmar los detalles. Si tiene alguna pregunta, no dude en contactarnos.' 
-            : 'Nous vous contacterons prochainement pour confirmer les détails. Si vous avez des questions, n\'hésitez pas à nous contacter.'}
-        </p>
+        <p class="email-text">${closingText}</p>
         
         <p class="email-text" style="margin-bottom: 0;">
-          ${language === 'en' ? 'See you soon,' : language === 'es' ? 'Hasta pronto,' : 'À bientôt,'}<br>
-          <strong style="color: ${COLORS.primary};">L'équipe NeuraWeb</strong>
+          ${signOff}<br>
+          <strong style="background: ${GRADIENT_BRAND}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">L'équipe NeuraWeb</strong>
         </p>
       </div>
       
       <!-- Footer -->
-      <div class="email-footer">
-        <p class="footer-brand">NeuraWeb</p>
-        <p class="footer-text">${language === 'en' ? 'Transform your ideas into digital reality' : language === 'es' ? 'Transformamos tus ideas en realidad digital' : 'Transformons vos idées en réalité digitale'}</p>
-        <div class="footer-links">
-          <a href="https://neuraweb.tech" class="footer-link">neuraweb.tech</a>
-        </div>
-      </div>
+      ${getFooterHTML(language)}
     </div>
   </div>
 </body>
@@ -564,7 +734,7 @@ export async function sendBookingNotificationEmail(data: BookingEmailData) {
       <!-- Header -->
       <div class="email-header">
         <h1 class="email-logo">NeuraWeb</h1>
-        <p class="email-tagline">Web · IA · Automatisation</p>
+        <p class="email-tagline">WEB · IA · AUTOMATISATION</p>
         <h2 class="email-title">${titleText}</h2>
       </div>
       
@@ -617,10 +787,7 @@ export async function sendBookingNotificationEmail(data: BookingEmailData) {
       </div>
       
       <!-- Footer -->
-      <div class="email-footer">
-        <p class="footer-brand">NeuraWeb</p>
-        <p class="footer-text">Notification interne</p>
-      </div>
+      ${getFooterHTML(language)}
     </div>
   </div>
 </body>
