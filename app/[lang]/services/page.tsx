@@ -1,38 +1,34 @@
 import { Metadata } from 'next';
 import { ServicesPageClient } from '@/components/services-page-client';
-import { generatePageMetadata, generateJsonLd } from '@/lib/seo-service';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
+import { generateAISEO } from '@/lib/seo-ai-server';
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
-// Métadonnées dynamiques par langue
+// Métadonnées dynamiques par langue - IA server-side
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-
-  const titles: Record<string, string> = {
-    fr: 'Services - Solutions Web Sur Mesure | NeuraWeb',
-    en: 'Services - Custom Web Solutions | NeuraWeb',
-    es: 'Servicios - Soluciones Web Personalizadas | NeuraWeb',
-  };
-
-  const descriptions: Record<string, string> = {
-    fr: 'Découvrez nos services de développement web, intégration IA et automatisation. Packs adaptés à vos besoins. Devis gratuit.',
-    en: 'Discover our web development services, AI integration and automation. Packs tailored to your needs. Free quote.',
-    es: 'Descubra nuestros servicios de desarrollo web, integración de IA y automatización. Paquetes adaptados a sus necesidades. Presupuesto gratis.',
-  };
-
+  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
   const baseUrl = 'https://neuraweb.tech';
 
+  // L'IA génère les meta tags optimisés — résultat injecté dans le <head> statique
+  const seo = await generateAISEO({
+    pageType: 'services',
+    language,
+    path: `/${lang}/services`,
+  });
+
   return {
-    title: titles[lang] || titles.fr,
-    description: descriptions[lang] || descriptions.fr,
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
     alternates: {
       canonical: `${baseUrl}/${lang}/services`,
       languages: {
@@ -43,20 +39,27 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: titles[lang] || titles.fr,
-      description: descriptions[lang] || descriptions.fr,
+      title: seo.ogTitle,
+      description: seo.ogDescription,
       url: `${baseUrl}/${lang}/services`,
       siteName: 'NeuraWeb',
       images: [
         {
-          url: '/og-services.png',
+          url: `${baseUrl}/og-image.png`,
           width: 1200,
           height: 630,
-          alt: 'NeuraWeb Services',
+          alt: seo.ogTitle,
         },
       ],
-      locale: lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : 'en_US',
+      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : 'en_US',
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.ogTitle,
+      description: seo.ogDescription,
+      images: [`${baseUrl}/og-image.png`],
+      creator: '@neurawebtech',
     },
   };
 }

@@ -1,37 +1,36 @@
 import { Metadata } from 'next';
 import { EquipePageClient } from '@/components/equipe-page-client';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
+import { generateAISEO } from '@/lib/seo-ai-server';
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
-// Métadonnées dynamiques par langue
+// Métadonnées dynamiques par langue - IA server-side
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-
-  const titles: Record<string, string> = {
-    fr: 'Équipe - Notre équipe expérimentée | NeuraWeb',
-    en: 'Team - Our experienced team | NeuraWeb',
-    es: 'Equipo - Nuestro equipo experimentado | NeuraWeb',
-  };
-
-  const descriptions: Record<string, string> = {
-    fr: "Découvrez l'équipe NeuraWeb, des développeurs passionnés qui construisent le futur avec l'IA. On code, l'IA amplifie, vous scalez.",
-    en: "Meet the NeuraWeb team, passionate developers building the future with AI. We code, AI amplifies, you scale.",
-    es: "Conozca al equipo de NeuraWeb, desarrolladores apasionados que construyen el futuro con IA. Nosotros programamos, la IA amplifica, usted escala.",
-  };
-
+  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
   const baseUrl = 'https://neuraweb.tech';
 
+  // L'IA génère les meta tags optimisés
+  const seo = await generateAISEO({
+    pageType: 'custom',
+    language,
+    path: `/${lang}/equipe`,
+    customContext: 'Présentation de l\'équipe NeuraWeb : développeurs passionnés, experts en IA et automatisation. On code, l\'IA amplifie, vous scalez.',
+    customKeywords: ['équipe', 'team', 'développeurs', 'experts IA', 'agence web Paris', 'NeuraWeb'],
+  });
+
   return {
-    title: titles[lang] || titles.fr,
-    description: descriptions[lang] || descriptions.fr,
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
     alternates: {
       canonical: `${baseUrl}/${lang}/equipe`,
       languages: {
@@ -42,20 +41,27 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: titles[lang] || titles.fr,
-      description: descriptions[lang] || descriptions.fr,
+      title: seo.ogTitle,
+      description: seo.ogDescription,
       url: `${baseUrl}/${lang}/equipe`,
       siteName: 'NeuraWeb',
       images: [
         {
-          url: '/og-image.jpeg',
+          url: `${baseUrl}/og-image.png`,
           width: 1200,
           height: 630,
-          alt: 'NeuraWeb Équipe',
+          alt: seo.ogTitle,
         },
       ],
-      locale: lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : 'en_US',
+      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : 'en_US',
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.ogTitle,
+      description: seo.ogDescription,
+      images: [`${baseUrl}/og-image.png`],
+      creator: '@neurawebtech',
     },
   };
 }

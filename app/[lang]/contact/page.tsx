@@ -1,37 +1,34 @@
 import { Metadata } from 'next';
 import ContactPageClient from '@/components/contact-page-client';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
+import { generateAISEO } from '@/lib/seo-ai-server';
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
-// Métadonnées dynamiques par langue
+// Métadonnées dynamiques par langue - IA server-side
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-
-  const titles: Record<string, string> = {
-    fr: 'Contact - Parlons de votre projet | NeuraWeb',
-    en: 'Contact - Let\'s talk about your project | NeuraWeb',
-    es: 'Contacto - Hablemos de su proyecto | NeuraWeb',
-  };
-
-  const descriptions: Record<string, string> = {
-    fr: 'Contactez notre équipe pour discuter de votre projet. Réponse sous 24h, devis gratuit.',
-    en: 'Contact our team to discuss your project. Response within 24h, free quote.',
-    es: 'Contacte a nuestro equipo para discutir su proyecto. Respuesta en 24h, presupuesto gratis.',
-  };
-
+  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
   const baseUrl = 'https://neuraweb.tech';
 
+  // L'IA génère les meta tags optimisés — résultat injecté dans le <head> statique
+  const seo = await generateAISEO({
+    pageType: 'contact',
+    language,
+    path: `/${lang}/contact`,
+  });
+
   return {
-    title: titles[lang] || titles.fr,
-    description: descriptions[lang] || descriptions.fr,
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
     alternates: {
       canonical: `${baseUrl}/${lang}/contact`,
       languages: {
@@ -42,20 +39,27 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: titles[lang] || titles.fr,
-      description: descriptions[lang] || descriptions.fr,
+      title: seo.ogTitle,
+      description: seo.ogDescription,
       url: `${baseUrl}/${lang}/contact`,
       siteName: 'NeuraWeb',
       images: [
         {
-          url: '/og-image.jpeg',
+          url: `${baseUrl}/og-image.png`,
           width: 1200,
           height: 630,
-          alt: 'Contact NeuraWeb',
+          alt: seo.ogTitle,
         },
       ],
-      locale: lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : 'en_US',
+      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : 'en_US',
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.ogTitle,
+      description: seo.ogDescription,
+      images: [`${baseUrl}/og-image.png`],
+      creator: '@neurawebtech',
     },
   };
 }

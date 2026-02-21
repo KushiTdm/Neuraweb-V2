@@ -5,6 +5,7 @@ import { Footer } from '@/components/footer';
 import { getAllPostSlugs, getPostBySlug, getAllPosts, type Language } from '@/lib/mdx';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { notFound } from 'next/navigation';
+import { generateBlogPostAISEO } from '@/lib/seo-ai-server';
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {
@@ -20,7 +21,7 @@ export async function generateStaticParams() {
   return params;
 }
 
-// Métadonnées dynamiques par langue
+// Métadonnées dynamiques par langue - IA server-side enrichie du contenu de l'article
 export async function generateMetadata({
   params,
 }: {
@@ -37,9 +38,19 @@ export async function generateMetadata({
 
   const baseUrl = 'https://neuraweb.tech';
 
-  return {
+  // L'IA génère les meta tags optimisés basés sur le contenu réel de l'article
+  const seo = await generateBlogPostAISEO({
+    lang,
     title: post.title,
-    description: post.excerpt || post.title,
+    excerpt: post.excerpt || post.title,
+    tags: post.tags || [],
+    slug,
+  });
+
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
     authors: post.author ? [{ name: post.author }] : undefined,
     alternates: {
       canonical: `${baseUrl}/${lang}/blog/${slug}`,
@@ -51,8 +62,8 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: post.title,
-      description: post.excerpt || post.title,
+      title: seo.ogTitle,
+      description: seo.ogDescription,
       url: `${baseUrl}/${lang}/blog/${slug}`,
       siteName: 'NeuraWeb',
       type: 'article',
@@ -64,17 +75,25 @@ export async function generateMetadata({
               url: post.image,
               width: 1200,
               height: 630,
-              alt: post.title,
+              alt: seo.ogTitle,
             },
           ]
-        : undefined,
+        : [
+            {
+              url: `${baseUrl}/og-image.png`,
+              width: 1200,
+              height: 630,
+              alt: seo.ogTitle,
+            },
+          ],
       locale: lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
-      description: post.excerpt || post.title,
-      images: post.image ? [post.image] : undefined,
+      title: seo.ogTitle,
+      description: seo.ogDescription,
+      images: post.image ? [post.image] : [`${baseUrl}/og-image.png`],
+      creator: '@neurawebtech',
     },
   };
 }

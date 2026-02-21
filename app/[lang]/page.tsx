@@ -2,51 +2,35 @@ import type { Metadata } from 'next';
 import { HomePageClient } from '@/components/home-page-client';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { professionalServiceSchema, faqSchema } from '@/lib/structured-data';
+import { professionalServiceSchema, faqSchema, localBusinessSchema } from '@/lib/structured-data';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
+import { generateAISEO } from '@/lib/seo-ai-server'; // ← IA server-side
 
-// Génération des paramètres statiques
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
-// Métadonnées dynamiques par langue
+// ── generateMetadata : l'IA tourne ici, côté serveur, résultat dans le HTML ──
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-
-  const titles: Record<string, string> = {
-    fr: 'NeuraWeb — Agence Web & IA pour Startups | Développement Next.js',
-    en: 'NeuraWeb — Web & AI Agency for Startups | Next.js Development',
-    es: 'NeuraWeb — Agencia Web & IA para Startups | Desarrollo Next.js',
-  };
-
-  const descriptions: Record<string, string> = {
-    fr: 'Studio de développement full-stack spécialisé IA et automatisation n8n. Nous construisons vos MVPs, intégrons des agents IA, et automatisons vos workflows. Devis gratuit.',
-    en: 'Full-stack development studio specialized in AI and n8n automation. We build your MVPs, integrate AI agents, and automate your workflows. Free quote.',
-    es: 'Estudio de desarrollo full-stack especializado en IA y automatización n8n. Construimos sus MVPs, integramos agentes de IA y automatizamos sus workflows. Presupuesto gratis.',
-  };
-
+  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
   const baseUrl = 'https://neuraweb.tech';
 
+  // L'IA génère les meta tags optimisés — résultat injecté dans le <head> statique
+  const seo = await generateAISEO({
+    pageType: 'home',
+    language,
+    path: `/${lang}`,
+  });
+
   return {
-    title: titles[lang] || titles.fr,
-    description: descriptions[lang] || descriptions.fr,
-    keywords: [
-      'agence web IA',
-      'développement next.js',
-      'intégration IA startup',
-      'automatisation n8n',
-      'développeur react france',
-      'agence web Paris',
-      'développement web France',
-      'MVP startup',
-      'chatbot IA',
-      'automatisation workflow',
-    ],
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
     alternates: {
       canonical: `${baseUrl}/${lang}`,
       languages: {
@@ -57,26 +41,27 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: titles[lang] || titles.fr,
-      description: descriptions[lang] || descriptions.fr,
+      title: seo.ogTitle,
+      description: seo.ogDescription,
       url: `${baseUrl}/${lang}`,
       siteName: 'NeuraWeb',
       images: [
         {
-          url: '/og-image.png',
+          url: `${baseUrl}/og-image.png`,
           width: 1200,
           height: 630,
-          alt: 'NeuraWeb — Agence Web & IA pour Startups',
+          alt: seo.ogTitle,
         },
       ],
-      locale: lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : 'en_US',
+      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : 'en_US',
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: titles[lang] || titles.fr,
-      description: descriptions[lang] || descriptions.fr,
-      images: ['/og-image.png'],
+      title: seo.ogTitle,
+      description: seo.ogDescription,
+      images: [`${baseUrl}/og-image.png`],
+      creator: '@neurawebtech',
     },
   };
 }
@@ -90,15 +75,18 @@ export default async function HomePage({
 
   return (
     <>
-      {/* Professional Service Schema - Rich snippets pour l'agence */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
       />
-      {/* FAQ Schema - Pour les questions fréquentes */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      {/* LocalBusiness aussi sur la home pour renforcer le signal GBP */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       <Header />
       <main id="main-content">
