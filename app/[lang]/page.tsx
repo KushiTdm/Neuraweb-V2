@@ -2,15 +2,15 @@ import type { Metadata } from 'next';
 import { HomePageClient } from '@/components/home-page-client';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { professionalServiceSchema, faqSchema, localBusinessSchema } from '@/lib/structured-data';
+import { professionalServiceSchema, faqSchema } from '@/lib/structured-data';
+// ↑ localBusinessSchema RETIRÉ ici — déjà injecté dans layout.tsx sur toutes les pages
 import { SUPPORTED_LANGUAGES } from '@/proxy';
-import { generateAISEO } from '@/lib/seo-ai-server'; // ← IA server-side
+import { generateAISEO } from '@/lib/seo-ai-server';
 
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
-// ── generateMetadata : l'IA tourne ici, côté serveur, résultat dans le HTML ──
 export async function generateMetadata({
   params,
 }: {
@@ -20,7 +20,6 @@ export async function generateMetadata({
   const language = (lang as 'fr' | 'en' | 'es') || 'fr';
   const baseUrl = 'https://neuraweb.tech';
 
-  // L'IA génère les meta tags optimisés — résultat injecté dans le <head> statique
   const seo = await generateAISEO({
     pageType: 'home',
     language,
@@ -75,19 +74,17 @@ export default async function HomePage({
 
   return (
     <>
+      {/* ProfessionalService — spécifique à la home, pas en double avec layout */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
       />
+      {/* FAQ Schema — rich snippets questions/réponses */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      {/* LocalBusiness aussi sur la home pour renforcer le signal GBP */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
+      {/* LocalBusiness : NE PAS remettre ici — déjà dans layout.tsx */}
       <Header />
       <main id="main-content">
         <HomePageClient />
