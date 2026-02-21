@@ -74,6 +74,11 @@ export async function generateMetadata({
     description: descriptions[currentLang] || descriptions[DEFAULT_LANGUAGE],
     authors: [{ name: 'NeuraWeb' }],
     creator: 'NeuraWeb',
+    icons: {
+      icon: '/assets/og-image.png',
+      shortcut: '/assets/og-image.png',
+      apple: '/assets/og-image.png',
+    },
     alternates: {
       canonical: `${baseUrl}/${currentLang}`,
       languages: {
