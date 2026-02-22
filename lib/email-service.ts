@@ -696,6 +696,429 @@ export async function sendBookingConfirmationEmail(data: BookingEmailData) {
   }
 }
 
+// ─────────────────────────────────────────────────────────────
+// INTERFACES FORMULAIRES HÔTEL
+// ─────────────────────────────────────────────────────────────
+
+interface HotelTokenEmailData {
+  token: string;
+  hotelName: string;
+  email: string;
+  contactName?: string;
+  formUrl: string;
+  language?: string;
+}
+
+interface HotelFormSubmissionData {
+  submissionId: string;
+  hotelName: string;
+  email: string;
+  phone?: string;
+  typeEtablissement?: string;
+  pays?: string;
+  nbChambresTotal?: string;
+  budget?: string;
+  delai?: string;
+  totalOneTime?: number;
+  totalMonthly?: number;
+  pdfUrl?: string;
+  language?: string;
+}
+
+/**
+ * Envoie un email avec le lien du formulaire hôtelier
+ */
+export async function sendHotelTokenEmail(data: HotelTokenEmailData) {
+  if (!resend) {
+    console.warn('Resend API key not configured, skipping email');
+    return { success: false, error: 'Resend API key not configured' };
+  }
+
+  const { token, hotelName, email, contactName, formUrl, language = 'fr' } = data;
+
+  const subject = language === 'en' 
+    ? `✨ Your personalized form — ${hotelName}`
+    : language === 'es'
+    ? `✨ Tu formulario personalizado — ${hotelName}`
+    : `✨ Votre formulaire personnalisé — ${hotelName}`;
+
+  const titleText = language === 'en' 
+    ? 'Your Form is Ready' 
+    : language === 'es' 
+    ? 'Tu Formulario está Listo' 
+    : 'Votre Formulaire est Prêt';
+
+  const greeting = language === 'en' 
+    ? `Hello${contactName ? ` ${contactName}` : ''},` 
+    : language === 'es' 
+    ? `Hola${contactName ? ` ${contactName}` : ''},` 
+    : `Bonjour${contactName ? ` ${contactName}` : ''},`;
+
+  const introText = language === 'en' 
+    ? `We have prepared a personalized form for <strong>${hotelName}</strong>. Please fill it out so we can create your website.` 
+    : language === 'es' 
+    ? `Hemos preparado un formulario personalizado para <strong>${hotelName}</strong>. Por favor, complétalo para que podamos crear tu sitio web.`
+    : `Nous avons préparé un formulaire personnalisé pour <strong>${hotelName}</strong>. Merci de le remplir pour que nous puissions créer votre site web.`;
+
+  const ctaText = language === 'en' ? 'Fill out the form' : language === 'es' ? 'Completar el formulario' : 'Remplir le formulaire';
+  const validityText = language === 'en' ? 'This link is valid for 30 days.' : language === 'es' ? 'Este enlace es válido por 30 días.' : 'Ce lien est valable 30 jours.';
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${subject}</title>
+  <style>${getBaseStyles()}</style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <div class="email-container">
+      <!-- Header -->
+      <div class="email-header">
+        <h1 class="email-logo">NeuraWeb</h1>
+        <p class="email-tagline">WEB · IA · AUTOMATISATION</p>
+        <h2 class="email-title">${titleText}</h2>
+      </div>
+      
+      <!-- Content -->
+      <div class="email-content">
+        <p class="email-greeting">${greeting}</p>
+        
+        <p class="email-text">${introText}</p>
+        
+        <!-- CTA Button -->
+        <div class="highlight-box">
+          <a href="${formUrl}" style="display: inline-block; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 16px; font-weight: 600; text-decoration: none; padding: 16px 40px; border-radius: 8px;">
+            ✏️ ${ctaText}
+          </a>
+        </div>
+        
+        <p class="email-text" style="text-align: center; color: ${COLORS.primary};">
+          🔒 ${validityText}
+        </p>
+      </div>
+      
+      <!-- Footer -->
+      ${getFooterHTML(language)}
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+  try {
+    const result = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: subject,
+      html: htmlContent,
+    });
+
+    if (result.error) {
+      return { success: false, error: result.error.message };
+    }
+
+    return { success: true, id: result.data?.id };
+  } catch (error: any) {
+    console.error('Error sending hotel token email via Resend:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Envoie un email de confirmation au client après soumission du formulaire hôtel
+ * Même style que les confirmations de RDV
+ */
+export async function sendHotelFormConfirmationEmail(data: HotelFormSubmissionData) {
+  if (!resend) {
+    console.warn('Resend API key not configured, skipping email');
+    return { success: false, error: 'Resend API key not configured' };
+  }
+
+  const { submissionId, hotelName, email, totalOneTime, totalMonthly, language = 'fr' } = data;
+
+  const subject = language === 'en' 
+    ? `✅ Formulaire bien reçu — ${hotelName}`
+    : language === 'es'
+    ? `✅ Formulario recibido — ${hotelName}`
+    : `✅ Formulaire bien reçu — ${hotelName}`;
+
+  const titleText = language === 'en' 
+    ? 'Form Received' 
+    : language === 'es' 
+    ? 'Formulario Recibido' 
+    : 'Formulaire Reçu';
+
+  const greeting = language === 'en' ? `Hello,` : language === 'es' ? `Hola,` : `Bonjour,`;
+
+  const introText = language === 'en' 
+    ? `We have received your hotel project form for <strong>${hotelName}</strong>. Our team will analyze your request and contact you within 48 hours.`
+    : language === 'es' 
+    ? `Hemos recibido tu formulario de proyecto hotelero para <strong>${hotelName}</strong>. Nuestro equipo analizará tu solicitud y te contactará en 48 horas.`
+    : `Nous avons bien reçu votre formulaire de projet hôtelier pour <strong>${hotelName}</strong>. Notre équipe analysera votre demande et vous contactera sous 48h.`;
+
+  const pricingTitle = language === 'en' ? 'Estimated Price' : language === 'es' ? 'Precio Estimado' : 'Prix Estimé';
+  const oneTimeLabel = language === 'en' ? 'One-time' : language === 'es' ? 'Único' : 'Unique';
+  const monthlyLabel = language === 'en' ? 'Monthly' : language === 'es' ? 'Mensual' : 'Mensuel';
+
+  const nextStepsTitle = language === 'en' ? 'What happens next?' : language === 'es' ? '¿Qué sigue?' : 'La suite ?';
+  const steps = language === 'en' 
+    ? ['Our team will analyze your project carefully.', 'We will contact you within 48 hours.', 'We will prepare a personalized proposal.']
+    : language === 'es'
+    ? ['Nuestro equipo analizará tu proyecto cuidadosamente.', 'Te contactaremos en 48 horas.', 'Prepararemos una propuesta personalizada.']
+    : ['Notre équipe analysera votre projet avec attention.', 'Nous vous contacterons sous 48h.', 'Nous préparerons une proposition personnalisée.'];
+
+  const closingText = language === 'en' 
+    ? 'If you have any questions, feel free to contact us.'
+    : language === 'es' 
+    ? 'Si tienes alguna pregunta, no dudes en contactarnos.'
+    : 'Si vous avez des questions, n\'hésitez pas à nous contacter.';
+
+  const signOff = language === 'en' 
+    ? 'See you soon,' 
+    : language === 'es' 
+    ? 'Hasta pronto,' 
+    : 'À bientôt,';
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${subject}</title>
+  <style>${getBaseStyles()}</style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <div class="email-container">
+      <!-- Header -->
+      <div class="email-header">
+        <h1 class="email-logo">NeuraWeb</h1>
+        <p class="email-tagline">WEB · IA · AUTOMATISATION</p>
+        <h2 class="email-title">${titleText}</h2>
+      </div>
+      
+      <!-- Content -->
+      <div class="email-content">
+        <p class="email-greeting">${greeting}</p>
+        
+        <p class="email-text">${introText}</p>
+        
+        ${totalOneTime || totalMonthly ? `
+        <!-- Highlight Box with Pricing like RDV confirmation -->
+        <div class="highlight-box">
+          <p class="highlight-label">💰 ${pricingTitle}</p>
+          ${totalOneTime ? `
+          <div class="highlight-row">
+            <p class="highlight-label">${oneTimeLabel}</p>
+            <p class="highlight-value">$${totalOneTime.toLocaleString()}</p>
+          </div>
+          ` : ''}
+          ${totalMonthly ? `
+          <div class="highlight-row">
+            <p class="highlight-label">${monthlyLabel}</p>
+            <p class="highlight-value">$${totalMonthly}/mois</p>
+          </div>
+          ` : ''}
+        </div>
+        ` : ''}
+        
+        <div class="divider"></div>
+        
+        <p class="message-label">🚀 ${nextStepsTitle}</p>
+        ${steps.map((step, i) => `
+        <div class="field-item" style="border-left-color: ${COLORS.primary};">
+          <p class="field-value"><span style="color: ${COLORS.primary}; font-weight: 600;">${i + 1}.</span> ${step}</p>
+        </div>
+        `).join('')}
+        
+        <div class="divider"></div>
+        
+        <div class="field-group">
+          <div class="field-item">
+            <p class="field-label">${language === 'en' ? 'Reference' : language === 'es' ? 'Referencia' : 'Référence'}</p>
+            <p class="field-value"><code style="background: rgba(99, 102, 241, 0.2); padding: 4px 8px; border-radius: 4px; font-size: 12px; color: ${COLORS.primary};">${submissionId}</code></p>
+          </div>
+        </div>
+        
+        <p class="email-text">${closingText}</p>
+        
+        <p class="email-text" style="margin-bottom: 0;">
+          ${signOff}<br>
+          <strong style="background: ${GRADIENT_BRAND}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">L'équipe NeuraWeb</strong>
+        </p>
+      </div>
+      
+      <!-- Footer -->
+      ${getFooterHTML(language)}
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+  try {
+    const result = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: subject,
+      html: htmlContent,
+    });
+
+    if (result.error) {
+      return { success: false, error: result.error.message };
+    }
+
+    return { success: true, id: result.data?.id };
+  } catch (error: any) {
+    console.error('Error sending hotel form confirmation email via Resend:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Envoie une notification admin pour un nouveau formulaire hôtel
+ */
+export async function sendHotelFormAdminNotification(data: HotelFormSubmissionData) {
+  if (!resend) {
+    console.warn('Resend API key not configured, skipping email');
+    return { success: false, error: 'Resend API key not configured' };
+  }
+
+  const { submissionId, hotelName, email, phone, typeEtablissement, pays, nbChambresTotal, budget, delai, totalOneTime, totalMonthly, pdfUrl, language = 'fr' } = data;
+
+  const subject = `🏨 Nouveau formulaire hôtel - ${hotelName} (${submissionId})`;
+  const titleText = 'Nouveau Formulaire Hôtel';
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${subject}</title>
+  <style>${getBaseStyles()}</style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <div class="email-container">
+      <!-- Header -->
+      <div class="email-header">
+        <h1 class="email-logo">NeuraWeb</h1>
+        <p class="email-tagline">WEB · IA · AUTOMATISATION</p>
+        <h2 class="email-title">${titleText}</h2>
+      </div>
+      
+      <!-- Content -->
+      <div class="email-content">
+        <!-- Highlight Box -->
+        <div class="highlight-box">
+          <p class="highlight-value">${hotelName}</p>
+          <p class="highlight-label">${submissionId}</p>
+        </div>
+        
+        <div class="field-group">
+          <div class="field-item">
+            <p class="field-label">Email</p>
+            <p class="field-value"><a href="mailto:${email}">${email}</a></p>
+          </div>
+          
+          ${phone ? `
+          <div class="field-item">
+            <p class="field-label">Téléphone</p>
+            <p class="field-value">${phone}</p>
+          </div>
+          ` : ''}
+          
+          ${typeEtablissement ? `
+          <div class="field-item">
+            <p class="field-label">Type</p>
+            <p class="field-value">${typeEtablissement}</p>
+          </div>
+          ` : ''}
+          
+          ${pays ? `
+          <div class="field-item">
+            <p class="field-label">Pays</p>
+            <p class="field-value">${pays}</p>
+          </div>
+          ` : ''}
+          
+          ${nbChambresTotal ? `
+          <div class="field-item">
+            <p class="field-label">Chambres</p>
+            <p class="field-value">${nbChambresTotal}</p>
+          </div>
+          ` : ''}
+          
+          ${budget ? `
+          <div class="field-item">
+            <p class="field-label">Budget</p>
+            <p class="field-value">${budget}</p>
+          </div>
+          ` : ''}
+          
+          ${delai ? `
+          <div class="field-item">
+            <p class="field-label">Délai</p>
+            <p class="field-value">${delai}</p>
+          </div>
+          ` : ''}
+        </div>
+        
+        ${totalOneTime || totalMonthly ? `
+        <div class="message-box" style="border-left: 3px solid #22c55e;">
+          <p class="message-label" style="color: #22c55e;">💰 Prix</p>
+          ${totalOneTime ? `<p class="field-value"><strong>Unique:</strong> <span style="color: #22c55e;">$${totalOneTime.toLocaleString()}</span></p>` : ''}
+          ${totalMonthly ? `<p class="field-value"><strong>Mensuel:</strong> <span style="color: #22c55e;">$${totalMonthly}/mois</span></p>` : ''}
+        </div>
+        ` : ''}
+        
+        <div class="divider"></div>
+        
+        <div style="text-align: center;">
+          <a href="mailto:${email}?subject=Re: Votre projet - ${hotelName}" style="display: inline-block; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; font-size: 14px; font-weight: 600; text-decoration: none; padding: 12px 24px; border-radius: 8px; margin: 4px;">
+            📧 Répondre
+          </a>
+          ${pdfUrl ? `
+          <a href="${pdfUrl}" style="display: inline-block; background: rgba(99, 102, 241, 0.1); color: ${COLORS.primary}; border: 2px solid ${COLORS.primary}; font-size: 14px; font-weight: 600; text-decoration: none; padding: 10px 24px; border-radius: 8px; margin: 4px;">
+            📄 Voir PDF
+          </a>
+          ` : ''}
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      ${getFooterHTML(language)}
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+  try {
+    const result = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: TO_EMAIL,
+      subject: subject,
+      html: htmlContent,
+      replyTo: email,
+    });
+
+    if (result.error) {
+      return { success: false, error: result.error.message };
+    }
+
+    return { success: true, id: result.data?.id };
+  } catch (error: any) {
+    console.error('Error sending hotel form admin notification via Resend:', error);
+    return { success: false, error: error.message };
+  }
+}
+
 /**
  * Envoie une notification de nouvelle réservation à l'équipe
  */
