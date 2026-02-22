@@ -5,6 +5,7 @@
 'use client';
 
 import { createContext, useContext, useState, ReactNode, useCallback } from 'react';
+import { getTranslation, type TranslationKey } from '@/locales';
 
 // ── Types ──────────────────────────────────────────────────
 export type Lang = 'fr' | 'en' | 'es';
@@ -90,6 +91,7 @@ interface HotelFormCtx {
   setToken: (t: string | null) => void;
   submitForm: () => Promise<{ success: boolean; error?: string }>;
   isSubmitting: boolean;
+  t: (key: TranslationKey) => string;
 }
 
 const Ctx = createContext<HotelFormCtx | null>(null);
@@ -175,11 +177,13 @@ export function HotelFormProvider({ children, lang }: { children: ReactNode; lan
     }
   }, [token, formData, totalOneTime, totalMonthly, options, lang, setSubmitted]);
 
+  const t = useCallback((key: TranslationKey) => getTranslation(lang, key), [lang]);
+
   return (
     <Ctx.Provider value={{ 
       step, setStep, formData, update, toggleArray, options, setOption, 
       totalOneTime, totalMonthly, submitted, setSubmitted, lang,
-      token, setToken, submitForm, isSubmitting
+      token, setToken, submitForm, isSubmitting, t
     }}>
       {children}
     </Ctx.Provider>

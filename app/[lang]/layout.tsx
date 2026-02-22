@@ -60,9 +60,9 @@ export async function generateMetadata({
     authors: [{ name: 'NeuraWeb' }],
     creator: 'NeuraWeb',
     icons: {
-      icon: '/favicon.ico',
-      shortcut: '/favicon-16x16.png',
-      apple: '/apple-touch-icon.png',
+      icon: '/assets/neurawebB.png',
+      shortcut: '/assets/neurawebB.png',
+      apple: '/assets/neurawebB.png',
     },
     robots: {
       index: true,

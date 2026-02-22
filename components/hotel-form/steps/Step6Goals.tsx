@@ -11,84 +11,101 @@ import { FieldWrapper, inputCls, selectCls } from '../ui/FieldWrapper';
 import { NavRow } from '../ui/NavRow';
 import { PriceSummary } from '../PriceSummary';
 
-const CIBLE_ITEMS = [
-  { value: 'couples', label: 'Couples' },
-  { value: 'familles', label: 'Familles' },
-  { value: 'business', label: "Voyageurs d'affaires" },
-  { value: 'backpackers', label: 'Backpackers' },
-  { value: 'luxe', label: 'Clientèle luxe' },
-  { value: 'groupes', label: 'Groupes / Séminaires' },
-  { value: 'internationaux', label: 'International' },
-];
-
-const OBJECTIFS_ITEMS = [
-  { value: 'resa_directes', label: 'Réservations directes' },
-  { value: 'notoriete', label: 'Notoriété / image' },
-  { value: 'seo', label: 'Visibilité Google' },
-  { value: 'ota_moins', label: 'Réduire dépendance OTA' },
-  { value: 'international', label: 'Attirer l\'international' },
-];
-
 export function Step6Goals() {
-  const { formData, update, toggleArray, setStep, setOption, submitForm } = useHotelForm();
+  const { formData, update, toggleArray, setStep, setOption, submitForm, t } = useHotelForm();
+
+  const CIBLE_ITEMS = [
+    { value: 'couples', label: t('hotelForm.step6.cible.couples') },
+    { value: 'familles', label: t('hotelForm.step6.cible.familles') },
+    { value: 'business', label: t('hotelForm.step6.cible.business') },
+    { value: 'backpackers', label: t('hotelForm.step6.cible.backpackers') },
+    { value: 'luxe', label: t('hotelForm.step6.cible.luxe') },
+    { value: 'groupes', label: t('hotelForm.step6.cible.groupes') },
+    { value: 'internationaux', label: t('hotelForm.step6.cible.internationaux') },
+  ];
+
+  const OBJECTIFS_ITEMS = [
+    { value: 'resa_directes', label: t('hotelForm.step6.objectifs.resa') },
+    { value: 'notoriete', label: t('hotelForm.step6.objectifs.notoriete') },
+    { value: 'seo', label: t('hotelForm.step6.objectifs.seo') },
+    { value: 'ota_moins', label: t('hotelForm.step6.objectifs.ota') },
+    { value: 'international', label: t('hotelForm.step6.objectifs.international') },
+  ];
+
+  const budgetOptions = [
+    t('hotelForm.step6.budget.moins1k'),
+    t('hotelForm.step6.budget.1k25k'),
+    t('hotelForm.step6.budget.25k5k'),
+    t('hotelForm.step6.budget.5k10k'),
+    t('hotelForm.step6.budget.plus10k'),
+    t('hotelForm.step6.budget.definir'),
+  ];
+
+  const delaiOptions = [
+    t('hotelForm.step6.delai.urgent'),
+    t('hotelForm.step6.delai.1a2'),
+    t('hotelForm.step6.delai.2a3'),
+    t('hotelForm.step6.delai.3a6'),
+    t('hotelForm.step6.delai.noConstraint'),
+  ];
 
   const handleChatbot = (val: string) => {
     update('chatbot', val);
-    setOption('chatbot', val === 'oui' ? { price: PRICES.CHATBOT, label: 'Chatbot IA' } : null);
+    setOption('chatbot', val === 'oui' ? { price: PRICES.CHATBOT, label: t('hotelForm.step6.chatbot.labelOption') } : null);
   };
 
   const handleMaintenance = (val: string) => {
     update('maintenance', val);
-    setOption('maintenance', val === 'oui' ? { price: PRICES.MAINTENANCE, label: 'Maintenance mensuelle', monthly: true } : null);
+    setOption('maintenance', val === 'oui' ? { price: PRICES.MAINTENANCE, label: t('hotelForm.step6.maintenance.labelOption'), monthly: true } : null);
   };
 
   return (
-    <SectionCard icon="🚀" title="Objectifs & Vision web" desc="Ce que vous attendez de votre nouveau site">
-      <FieldWrapper label="Public cible" required>
+    <SectionCard icon="🚀" title={t('hotelForm.step6.title')} desc={t('hotelForm.step6.desc')}>
+      <FieldWrapper label={t('hotelForm.step6.cible.label')} required>
         <CheckGroup items={CIBLE_ITEMS} selected={formData.cible} onChange={v => toggleArray('cible', v)} />
       </FieldWrapper>
 
-      <FieldWrapper label="Objectifs principaux" required>
+      <FieldWrapper label={t('hotelForm.step6.objectifs.label')} required>
         <CheckGroup items={OBJECTIFS_ITEMS} selected={formData.objectifs} onChange={v => toggleArray('objectifs', v)} />
       </FieldWrapper>
 
-      <FieldWrapper label="Chatbot IA" badge={`Option +$${PRICES.CHATBOT.toLocaleString()}`} hint="Assistant virtuel entraîné sur les données de votre hôtel : FAQ, disponibilités, services.">
+      <FieldWrapper label={t('hotelForm.step6.chatbot.label')} badge={`Option +$${PRICES.CHATBOT.toLocaleString()}`} hint={t('hotelForm.step6.chatbot.hint')}>
         <RadioGroup selected={formData.chatbot} onSelect={handleChatbot} items={[
-          { value: 'oui', label: '✦ Oui', badge: `+$${PRICES.CHATBOT.toLocaleString()}` },
-          { value: 'non', label: 'Non merci' },
+          { value: 'oui', label: t('hotelForm.step6.chatbot.oui'), badge: `+$${PRICES.CHATBOT.toLocaleString()}` },
+          { value: 'non', label: t('hotelForm.step6.chatbot.non') },
         ]} />
       </FieldWrapper>
 
-      <FieldWrapper label="Maintenance mensuelle" badge={`Option +$${PRICES.MAINTENANCE}/mois`} hint="Mises à jour, sécurité, sauvegardes, support prioritaire.">
+      <FieldWrapper label={t('hotelForm.step6.maintenance.label')} badge={`Option +$${PRICES.MAINTENANCE}/mois`} hint={t('hotelForm.step6.maintenance.hint')}>
         <RadioGroup selected={formData.maintenance} onSelect={handleMaintenance} items={[
-          { value: 'oui', label: '✦ Oui', badge: `+$${PRICES.MAINTENANCE}/mois` },
-          { value: 'non', label: 'Non merci' },
+          { value: 'oui', label: t('hotelForm.step6.maintenance.oui'), badge: `+$${PRICES.MAINTENANCE}/mois` },
+          { value: 'non', label: t('hotelForm.step6.maintenance.non') },
         ]} />
       </FieldWrapper>
 
       <Divider />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <FieldWrapper label="Budget indicatif">
+        <FieldWrapper label={t('hotelForm.step6.budget.label')}>
           <select className={selectCls} value={formData.budget} onChange={e => update('budget', e.target.value)}>
-            <option value="">Sélectionner...</option>
-            {['Moins de $1,000','$1,000 – $2,500','$2,500 – $5,000','$5,000 – $10,000','Plus de $10,000','À définir ensemble'].map(b => <option key={b}>{b}</option>)}
+            <option value="">{t('hotelForm.step6.budget.placeholder')}</option>
+            {budgetOptions.map(b => <option key={b}>{b}</option>)}
           </select>
         </FieldWrapper>
-        <FieldWrapper label="Délai souhaité">
+        <FieldWrapper label={t('hotelForm.step6.delai.label')}>
           <select className={selectCls} value={formData.delai} onChange={e => update('delai', e.target.value)}>
-            <option value="">Sélectionner...</option>
-            {["Urgent (moins d'1 mois)",'1 à 2 mois','2 à 3 mois','3 à 6 mois','Pas de contrainte'].map(d => <option key={d}>{d}</option>)}
+            <option value="">{t('hotelForm.step6.delai.placeholder')}</option>
+            {delaiOptions.map(d => <option key={d}>{d}</option>)}
           </select>
         </FieldWrapper>
       </div>
 
-      <FieldWrapper label="Sites de référence appréciés">
-        <textarea className={`${inputCls} resize-y min-h-[70px]`} placeholder="URLs de sites hôteliers dont vous aimez le design…" value={formData.references} onChange={e => update('references', e.target.value)} />
+      <FieldWrapper label={t('hotelForm.step6.references.label')}>
+        <textarea className={`${inputCls} resize-y min-h-[70px]`} placeholder={t('hotelForm.step6.references.placeholder')} value={formData.references} onChange={e => update('references', e.target.value)} />
       </FieldWrapper>
 
-      <FieldWrapper label="Informations complémentaires">
-        <textarea className={`${inputCls} resize-y min-h-[90px]`} placeholder="Tout ce qui nous aiderait à mieux comprendre votre projet…" value={formData.complement} onChange={e => update('complement', e.target.value)} />
+      <FieldWrapper label={t('hotelForm.step6.complement.label')}>
+        <textarea className={`${inputCls} resize-y min-h-[90px]`} placeholder={t('hotelForm.step6.complement.placeholder')} value={formData.complement} onChange={e => update('complement', e.target.value)} />
       </FieldWrapper>
 
       <Divider />

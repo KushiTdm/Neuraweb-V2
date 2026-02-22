@@ -9,28 +9,28 @@ import { RadioGroup } from '../ui/RadioGroup';
 import { FieldWrapper, inputCls } from '../ui/FieldWrapper';
 import { NavRow } from '../ui/NavRow';
 
-const LANG_ITEMS = [
-  { value: 'fr', label: '🇫🇷 Français', included: true },
-  { value: 'en', label: '🇬🇧 Anglais' },
-  { value: 'es', label: '🇪🇸 Espagnol' },
-  { value: 'de', label: '🇩🇪 Allemand' },
-  { value: 'it', label: '🇮🇹 Italien' },
-  { value: 'pt', label: '🇵🇹 Portugais' },
-  { value: 'ar', label: '🇸🇦 Arabe' },
-  { value: 'zh', label: '🇨🇳 Mandarin' },
-];
-
-const RESEAUX_ITEMS = [
-  { value: 'instagram', label: 'Instagram' },
-  { value: 'facebook', label: 'Facebook' },
-  { value: 'tiktok', label: 'TikTok' },
-  { value: 'youtube', label: 'YouTube' },
-  { value: 'linkedin', label: 'LinkedIn' },
-  { value: 'aucun', label: 'Aucun' },
-];
-
 export function Step5Content() {
-  const { formData, update, setStep, setOption } = useHotelForm();
+  const { formData, update, setStep, setOption, t } = useHotelForm();
+
+  const LANG_ITEMS = [
+    { value: 'fr', label: t('hotelForm.step5.langues.fr'), included: true },
+    { value: 'en', label: t('hotelForm.step5.langues.en') },
+    { value: 'es', label: t('hotelForm.step5.langues.es') },
+    { value: 'de', label: t('hotelForm.step5.langues.de') },
+    { value: 'it', label: t('hotelForm.step5.langues.it') },
+    { value: 'pt', label: t('hotelForm.step5.langues.pt') },
+    { value: 'ar', label: t('hotelForm.step5.langues.ar') },
+    { value: 'zh', label: t('hotelForm.step5.langues.zh') },
+  ];
+
+  const RESEAUX_ITEMS = [
+    { value: 'instagram', label: t('hotelForm.step5.reseaux.instagram') },
+    { value: 'facebook', label: t('hotelForm.step5.reseaux.facebook') },
+    { value: 'tiktok', label: t('hotelForm.step5.reseaux.tiktok') },
+    { value: 'youtube', label: t('hotelForm.step5.reseaux.youtube') },
+    { value: 'linkedin', label: t('hotelForm.step5.reseaux.linkedin') },
+    { value: 'aucun', label: t('hotelForm.step5.reseaux.aucun') },
+  ];
 
   const toggleLang = (val: string) => {
     if (val === 'fr') return;
@@ -39,17 +39,17 @@ export function Step5Content() {
       : [...formData.langues, val];
     update('langues', langs);
     const extra = langs.filter(l => l !== 'fr').length;
-    setOption('langues', extra > 0 ? { price: extra * PRICES.LANGUE, label: `Langues suppl. (×${extra})` } : null);
+    setOption('langues', extra > 0 ? { price: extra * PRICES.LANGUE, label: t('hotelForm.langues.supLabel').replace('{count}', String(extra)) } : null);
   };
 
   const handleBlog = (val: string) => {
     update('blog', val);
-    setOption('blog', val === 'oui' ? { price: PRICES.BLOG, label: 'Blog / Actualités' } : null);
+    setOption('blog', val === 'oui' ? { price: PRICES.BLOG, label: t('hotelForm.step5.blog.labelOption') } : null);
   };
 
   const handleSeo = (val: string) => {
     update('seo', val);
-    setOption('seo', val === 'oui' ? { price: PRICES.SEO, label: 'SEO avancé' } : null);
+    setOption('seo', val === 'oui' ? { price: PRICES.SEO, label: t('hotelForm.step5.seo.labelOption') } : null);
   };
 
   const toggleReseau = (val: string) => {
@@ -60,17 +60,17 @@ export function Step5Content() {
   const extraLangs = formData.langues.filter(l => l !== 'fr').length;
 
   return (
-    <SectionCard icon="🎨" title="Contenu & Médias" desc="Ce que vous avez déjà et ce qu'il faudra créer">
-      <FieldWrapper label="Photos professionnelles disponibles ?">
+    <SectionCard icon="🎨" title={t('hotelForm.step5.title')} desc={t('hotelForm.step5.desc')}>
+      <FieldWrapper label={t('hotelForm.step5.photos.label')}>
         <RadioGroup selected={formData.photos} onSelect={v => update('photos', v)} items={[
-          { value: 'oui_pro', label: 'Oui, pro' },
-          { value: 'oui_perso', label: 'Oui, perso' },
-          { value: 'non', label: 'Non, à prévoir' },
-          { value: 'partiel', label: 'Quelques-unes' },
+          { value: 'oui_pro', label: t('hotelForm.step5.photos.ouiPro') },
+          { value: 'oui_perso', label: t('hotelForm.step5.photos.ouiPerso') },
+          { value: 'non', label: t('hotelForm.step5.photos.non') },
+          { value: 'partiel', label: t('hotelForm.step5.photos.partiel') },
         ]} />
       </FieldWrapper>
 
-      <FieldWrapper label="Langues du site" badge={`+$${PRICES.LANGUE}/langue supplémentaire`} hint="Le français est inclus. Chaque langue additionnelle est facturée $50.">
+      <FieldWrapper label={t('hotelForm.step5.langues.label')} badge={`+$${PRICES.LANGUE}/langue supplémentaire`} hint={t('hotelForm.step5.langues.hint')}>
         <div className="flex flex-wrap gap-2 py-1">
           {LANG_ITEMS.map(item => {
             const isIncluded = item.value === 'fr';
@@ -86,7 +86,7 @@ export function Step5Content() {
                 </span>
                 {item.label}
                 {isIncluded
-                  ? <span className="text-[0.68rem] text-green-400 ml-1">✓ inclus</span>
+                  ? <span className="text-[0.68rem] text-green-400 ml-1">{t('hotelForm.step5.langues.inclus')}</span>
                   : <span className="text-[0.68rem] text-indigo-400 font-bold ml-1">+$50</span>
                 }
               </button>
@@ -94,34 +94,34 @@ export function Step5Content() {
           })}
         </div>
         {extraLangs > 0 && (
-          <p className="text-xs text-violet-400 mt-1">{extraLangs} langue(s) supplémentaire(s) → +${extraLangs * PRICES.LANGUE}</p>
+          <p className="text-xs text-violet-400 mt-1">{extraLangs} {t('hotelForm.step5.langues.supplementaire')} → +${extraLangs * PRICES.LANGUE}</p>
         )}
       </FieldWrapper>
 
-      <FieldWrapper label="Blog / Section actualités" badge={`Option +$${PRICES.BLOG}`}>
+      <FieldWrapper label={t('hotelForm.step5.blog.label')} badge={`Option +$${PRICES.BLOG}`}>
         <RadioGroup selected={formData.blog} onSelect={handleBlog} items={[
-          { value: 'oui', label: `✦ Oui`, badge: `+$${PRICES.BLOG}` },
-          { value: 'non', label: 'Non' },
-          { value: 'plus_tard', label: 'Plus tard' },
+          { value: 'oui', label: t('hotelForm.step5.blog.oui'), badge: `+$${PRICES.BLOG}` },
+          { value: 'non', label: t('hotelForm.step5.blog.non') },
+          { value: 'plus_tard', label: t('hotelForm.step5.blog.plusTard') },
         ]} />
       </FieldWrapper>
 
-      <FieldWrapper label="SEO avancé" badge={`Option +$${PRICES.SEO}`} hint="Audit complet, optimisation on-page, schema markup hôtelier, rapport de positionnement.">
+      <FieldWrapper label={t('hotelForm.step5.seo.label')} badge={`Option +$${PRICES.SEO}`} hint={t('hotelForm.step5.seo.hint')}>
         <RadioGroup selected={formData.seo} onSelect={handleSeo} items={[
-          { value: 'oui', label: '✦ Oui', badge: `+$${PRICES.SEO}` },
-          { value: 'non', label: 'SEO de base (inclus)' },
+          { value: 'oui', label: t('hotelForm.step5.seo.oui'), badge: `+$${PRICES.SEO}` },
+          { value: 'non', label: t('hotelForm.step5.seo.non') },
         ]} />
       </FieldWrapper>
 
-      <FieldWrapper label="Avis clients à afficher ?">
+      <FieldWrapper label={t('hotelForm.step5.avis.label')}>
         <RadioGroup selected={formData.avisClients} onSelect={v => update('avisClients', v)} items={[
-          { value: 'oui', label: 'Oui' },
-          { value: 'non', label: 'Non' },
-          { value: 'temoignages', label: 'Oui + témoignages libres' },
+          { value: 'oui', label: t('hotelForm.step5.avis.oui') },
+          { value: 'non', label: t('hotelForm.step5.avis.non') },
+          { value: 'temoignages', label: t('hotelForm.step5.avis.temoignages') },
         ]} />
       </FieldWrapper>
 
-      <FieldWrapper label="Réseaux sociaux actifs">
+      <FieldWrapper label={t('hotelForm.step5.reseaux.label')}>
         <div className="flex flex-wrap gap-2 py-1">
           {RESEAUX_ITEMS.map(item => {
             const checked = formData.reseaux.includes(item.value);
@@ -139,15 +139,15 @@ export function Step5Content() {
         </div>
       </FieldWrapper>
 
-      <FieldWrapper label="Charte graphique existante ?">
+      <FieldWrapper label={t('hotelForm.step5.charte.label')}>
         <RadioGroup selected={formData.charte} onSelect={v => update('charte', v)} items={[
-          { value: 'oui', label: 'Oui, complète' },
-          { value: 'logo', label: 'Logo uniquement' },
-          { value: 'non', label: 'Non, à créer' },
+          { value: 'oui', label: t('hotelForm.step5.charte.oui') },
+          { value: 'logo', label: t('hotelForm.step5.charte.logo') },
+          { value: 'non', label: t('hotelForm.step5.charte.non') },
         ]} />
       </FieldWrapper>
 
-      <NavRow stepNum={5} onPrev={() => setStep(3)} onNext={() => setStep(5)} nextLabel="Suivant → Objectifs" />
+      <NavRow stepNum={5} onPrev={() => setStep(3)} onNext={() => setStep(5)} nextLabel={t('hotelForm.step5.nextLabel')} />
     </SectionCard>
   );
 }

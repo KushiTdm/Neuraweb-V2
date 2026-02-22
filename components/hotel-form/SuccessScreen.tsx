@@ -3,7 +3,11 @@
 // ============================================================
 'use client';
 
+import { useHotelForm } from './HotelFormProvider';
+
 export function SuccessScreen() {
+  const { t } = useHotelForm();
+  
   return (
     <div className="rounded-[20px] border border-white/8 p-12 text-center backdrop-blur-md"
       style={{ background: 'rgba(255,255,255,0.025)' }}>
@@ -12,17 +16,18 @@ export function SuccessScreen() {
         ✦
       </div>
       <h2 className="font-extrabold text-2xl mb-3" style={{ fontFamily: 'Syne, sans-serif' }}>
-        Dossier{' '}
+        {t('hotelForm.success.title')}{' '}
         <span style={{ background: 'linear-gradient(135deg,#818cf8,#c084fc,#67e8f9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-          reçu !
+          {t('hotelForm.success.titleHighlight')}
         </span>
       </h2>
       <p className="text-slate-400 max-w-md mx-auto text-sm leading-relaxed">
-        Merci pour votre confiance. L'équipe NeuraWeb analysera votre projet et vous contactera sous{' '}
-        <strong className="text-violet-400">48h ouvrées</strong> pour organiser un appel de cadrage.
+        {t('hotelForm.success.message')}{' '}
+        <strong className="text-violet-400">{t('hotelForm.success.delay')}</strong>{' '}
+        {t('hotelForm.success.messageEnd')}
       </p>
       <div className="mt-6 text-xs text-slate-500">
-        Une question ? →{' '}
+        {t('hotelForm.success.question')}{' '}
         <a href="mailto:contact@neuraweb.tech" className="text-violet-400 hover:text-violet-300 transition-colors no-underline">
           contact@neuraweb.tech
         </a>

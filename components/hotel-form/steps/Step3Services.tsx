@@ -1,5 +1,5 @@
 
-// FICHIER 11 : components/hotel-form/steps/Step3Services.tsx
+// FICHILE 11 : components/hotel-form/steps/Step3Services.tsx
 // ============================================================
 'use client';
 
@@ -9,44 +9,45 @@ import { CheckGroup } from '../ui/CheckGroup';
 import { FieldWrapper, inputCls } from '../ui/FieldWrapper';
 import { NavRow } from '../ui/NavRow';
 
-const SERVICES_INCLUS = [
-  { value: 'petitdej', label: 'Petit-déjeuner' },
-  { value: 'demipension', label: 'Demi-pension' },
-  { value: 'pensionComplete', label: 'Pension complète' },
-  { value: 'reception24h', label: 'Réception 24h/24' },
-  { value: 'navette', label: 'Navette aéroport/gare' },
-  { value: 'parking', label: 'Parking gratuit' },
-  { value: 'menage', label: 'Ménage quotidien' },
-  { value: 'conciergerie', label: 'Conciergerie' },
-];
-
-const SERVICES_SUP = [
-  { value: 'piscine', label: 'Piscine' },
-  { value: 'spa', label: 'Spa / Wellness' },
-  { value: 'sport', label: 'Salle de sport' },
-  { value: 'restaurant', label: 'Restaurant' },
-  { value: 'bar', label: 'Bar / Lounge' },
-  { value: 'seminaire', label: 'Salle de séminaire' },
-  { value: 'rooftop', label: 'Rooftop' },
-  { value: 'velo', label: 'Location vélos' },
-  { value: 'blanchisserie', label: 'Blanchisserie' },
-  { value: 'ev', label: 'Borne recharge EV' },
-];
-
 export function Step3Services() {
-  const { formData, update, toggleArray, setStep } = useHotelForm();
+  const { formData, update, toggleArray, setStep, t } = useHotelForm();
+
+  const SERVICES_INCLUS = [
+    { value: 'petitdej', label: t('hotelForm.step3.inclus.petitdej') },
+    { value: 'demipension', label: t('hotelForm.step3.inclus.demipension') },
+    { value: 'pensionComplete', label: t('hotelForm.step3.inclus.pensionComplete') },
+    { value: 'reception24h', label: t('hotelForm.step3.inclus.reception24h') },
+    { value: 'navette', label: t('hotelForm.step3.inclus.navette') },
+    { value: 'parking', label: t('hotelForm.step3.inclus.parking') },
+    { value: 'menage', label: t('hotelForm.step3.inclus.menage') },
+    { value: 'conciergerie', label: t('hotelForm.step3.inclus.conciergerie') },
+  ];
+
+  const SERVICES_SUP = [
+    { value: 'piscine', label: t('hotelForm.step3.sup.piscine') },
+    { value: 'spa', label: t('hotelForm.step3.sup.spa') },
+    { value: 'sport', label: t('hotelForm.step3.sup.sport') },
+    { value: 'restaurant', label: t('hotelForm.step3.sup.restaurant') },
+    { value: 'bar', label: t('hotelForm.step3.sup.bar') },
+    { value: 'seminaire', label: t('hotelForm.step3.sup.seminaire') },
+    { value: 'rooftop', label: t('hotelForm.step3.sup.rooftop') },
+    { value: 'velo', label: t('hotelForm.step3.sup.velo') },
+    { value: 'blanchisserie', label: t('hotelForm.step3.sup.blanchisserie') },
+    { value: 'ev', label: t('hotelForm.step3.sup.ev') },
+  ];
+
   return (
-    <SectionCard icon="🛎" title="Services & Équipements" desc="Les prestations qui font votre différence">
-      <FieldWrapper label="Services inclus dans le séjour">
+    <SectionCard icon="🛎" title={t('hotelForm.step3.title')} desc={t('hotelForm.step3.desc')}>
+      <FieldWrapper label={t('hotelForm.step3.inclus.label')}>
         <CheckGroup items={SERVICES_INCLUS} selected={formData.servicesInclus} onChange={v => toggleArray('servicesInclus', v)} />
       </FieldWrapper>
-      <FieldWrapper label="Équipements & services supplémentaires">
+      <FieldWrapper label={t('hotelForm.step3.sup.label')}>
         <CheckGroup items={SERVICES_SUP} selected={formData.servicesSup} onChange={v => toggleArray('servicesSup', v)} />
       </FieldWrapper>
-      <FieldWrapper label="Autres services à mentionner">
-        <textarea className={`${inputCls} resize-y min-h-[80px]`} placeholder="Précisez tout autre service spécifique…" value={formData.autresServices} onChange={e => update('autresServices', e.target.value)} />
+      <FieldWrapper label={t('hotelForm.step3.autres.label')}>
+        <textarea className={`${inputCls} resize-y min-h-[80px]`} placeholder={t('hotelForm.step3.autres.placeholder')} value={formData.autresServices} onChange={e => update('autresServices', e.target.value)} />
       </FieldWrapper>
-      <NavRow stepNum={3} onPrev={() => setStep(1)} onNext={() => setStep(3)} nextLabel="Suivant → Réservation" />
+      <NavRow stepNum={3} onPrev={() => setStep(1)} onNext={() => setStep(3)} nextLabel={t('hotelForm.step3.nextLabel')} />
     </SectionCard>
   );
 }

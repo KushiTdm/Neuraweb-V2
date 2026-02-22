@@ -5,10 +5,18 @@
 
 import { useHotelForm } from './HotelFormProvider';
 
-const STEPS = ['🏨 Général', '🛏 Chambres', '🛎 Services', '💳 Réservation', '🎨 Contenu', '🚀 Objectifs'];
-
 export function ProgressBar() {
-  const { step } = useHotelForm();
+  const { step, t } = useHotelForm();
+  
+  const STEPS = [
+    `🏨 ${t('hotelForm.progress.general')}`,
+    `🛏 ${t('hotelForm.progress.rooms')}`,
+    `🛎 ${t('hotelForm.progress.services')}`,
+    `💳 ${t('hotelForm.progress.booking')}`,
+    `🎨 ${t('hotelForm.progress.content')}`,
+    `🚀 ${t('hotelForm.progress.goals')}`,
+  ];
+  
   return (
     <div className="flex items-center bg-white/4 border border-white/8 rounded-full p-1 max-w-2xl mx-auto mb-10">
       {STEPS.map((s, i) => (

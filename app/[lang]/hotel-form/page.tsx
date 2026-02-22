@@ -8,6 +8,7 @@ import { Footer } from '@/components/footer';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import type { Language } from '@/lib/mdx';
 import { HotelFormWrapper } from './HotelFormWrapper';
+import { getTranslation, type TranslationKey } from '@/locales';
 
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map(lang => ({ lang }));
@@ -68,6 +69,7 @@ export default async function HotelFormPage({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
+  const t = (key: TranslationKey) => getTranslation(lang as Language, key);
 
   return (
     <>
@@ -86,18 +88,18 @@ export default async function HotelFormPage({
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[0.72rem] font-semibold uppercase tracking-widest text-violet-400 mb-5"
               style={{ background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.3)' }}>
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 inline-block" />
-              NeuraWeb — Formulaire Client
+              {t('hotelForm.page.badge')}
             </div>
             <h1 className="font-extrabold tracking-tight leading-tight mb-3"
               style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(2rem,5vw,3rem)' }}>
-              Votre projet{' '}
+              {t('hotelForm.page.titleStart')}{' '}
               <span style={{ background: 'linear-gradient(135deg,#818cf8,#c084fc,#67e8f9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                hôtelier
+                {t('hotelForm.page.titleHighlight')}
               </span>
-              <br />en détail
+              <br />{t('hotelForm.page.titleEnd')}
             </h1>
             <p className="text-slate-400 text-sm max-w-md mx-auto">
-              Remplissez ce formulaire pour nous permettre de développer votre site web sur mesure. Comptez environ 10 minutes.
+              {t('hotelForm.page.subtitle')}
             </p>
           </div>
 

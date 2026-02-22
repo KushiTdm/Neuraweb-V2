@@ -1,6 +1,6 @@
 // ============================================================
 // NEURAWEB.TECH - Google Apps Script Backend
-// Version complète avec templates email design
+// Version complète — Fix PDF async + Fix DocumentApp styles
 // ============================================================
 
 const CONFIG = {
@@ -21,7 +21,7 @@ const CONFIG = {
     HOTEL_TOKENS: 'Tokens Hôtel',
     HOTEL_FORMS: 'Formulaires Hôtel'
   },
-  DRIVE_FOLDER_ID: '1IeJudeYibxfi3JQtypjiXuUAvNL64p9v' // ID du dossier Google Drive pour les PDFs
+  DRIVE_FOLDER_ID: '1IeJudeYibxfi3JQtypjiXuUAvNL64p9v'
 };
 
 // ============================================================
@@ -166,7 +166,6 @@ function saveContact(data) {
     company || '', service || '', message || '', source || 'contact-form'
   ]);
 
-  // Email de confirmation au client (même style que les réservations)
   try {
     sendContactEmails({
       name: name, email: email, phone: phone,
@@ -193,7 +192,6 @@ function sendContactEmails(params) {
   var isEnglish = language === 'en';
   var isSpanish = language === 'es';
 
-  // ── Email de confirmation au CLIENT ──────────────────────
   try {
     var clientSubject = isEnglish
       ? '[NeurAWeb] We received your message — We\'ll get back to you within 24h'
@@ -211,7 +209,6 @@ function sendContactEmails(params) {
     Logger.log('Erreur email client contact: ' + err.message);
   }
 
-  // ── Email de notification à l'ADMIN ──────────────────────
   try {
     sendEmail({
       to: CONFIG.ADMIN_EMAIL,
@@ -227,11 +224,6 @@ function sendContactEmails(params) {
     Logger.log('Erreur email admin contact: ' + err.message);
   }
 }
-
-// ============================================================
-// TEMPLATE EMAIL CLIENT — Confirmation de réception du message
-// (même style sombre que getClientEmailTemplate)
-// ============================================================
 
 function getContactClientTemplate(params) {
   var name = params.name, service = params.service;
@@ -304,20 +296,14 @@ function getContactClientTemplate(params) {
     + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:40px 20px;">'
     + '<tr><td align="center">'
     + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
-
-    // HEADER sombre
     + '<tr><td style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);border-radius:16px 16px 0 0;padding:40px 40px 32px;text-align:center;">'
     + '<img src="https://neuraweb.tech/assets/neurawebW.png" alt="NeurAWeb" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />'
     + '<div style="width:50px;height:3px;background:linear-gradient(135deg,#667eea,#764ba2);margin:0 auto 20px;border-radius:2px;"></div>'
     + '<h1 style="color:#fff;font-size:20px;font-weight:700;margin:0;">&#10003; ' + t.title + '</h1>'
     + '</td></tr>'
-
-    // CORPS
     + '<tr><td style="background:#111;padding:40px;">'
     + '<p style="color:#e0e0e0;font-size:16px;line-height:1.6;margin:0 0 8px;">' + t.greeting + '</p>'
     + '<p style="color:#a0a0a0;font-size:15px;line-height:1.6;margin:0 0 32px;">' + t.subtitle + '</p>'
-
-    // Carte détails
     + '<table width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid #2a2a4a;border-radius:12px;margin-bottom:32px;">'
     + '<tr><td style="padding:24px;">'
     + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 20px;">&#128203; ' + t.detailsTitle + '</p>'
@@ -325,30 +311,18 @@ function getContactClientTemplate(params) {
     + (service ? '<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a4a;color:#808080;font-size:13px;">' + t.labelService + '</td><td style="padding:10px 0;border-bottom:1px solid #2a2a4a;text-align:right;color:#fff;font-size:14px;font-weight:600;">' + service + '</td></tr>' : '')
     + (message ? '<tr><td colspan="2" style="padding:12px 0;"><p style="color:#808080;font-size:12px;margin:0 0 6px;">' + t.labelMessage + '</p><p style="color:#c0c0c0;font-size:14px;line-height:1.6;margin:0;white-space:pre-wrap;">' + message + '</p></td></tr>' : '')
     + '</table></td></tr></table>'
-
-    // Étapes
     + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 16px;">&#128640; ' + t.nextSteps + '</p>'
     + '<table width="100%" cellpadding="0" cellspacing="0">' + stepsHtml + '</table>'
     + '</td></tr>'
-
-    // CTA
     + '<tr><td style="background:#111;padding:0 40px 32px;text-align:center;">'
     + '<a href="https://neuraweb.tech" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:15px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:8px;">&#127758; ' + t.cta + '</a>'
     + '</td></tr>'
-
-    // FOOTER
     + '<tr><td style="background:#0d0d0d;border-top:1px solid #1a1a1a;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">'
     + '<p style="color:#505050;font-size:13px;margin:0 0 8px;">' + t.footer + ' <a href="mailto:' + CONFIG.EMAIL_ALIAS + '" style="color:#667eea;text-decoration:none;">' + CONFIG.EMAIL_ALIAS + '</a></p>'
     + '<p style="color:#303030;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; <a href="https://neuraweb.tech" style="color:#404040;text-decoration:none;">neuraweb.tech</a></p>'
     + '</td></tr>'
-
     + '</table></td></tr></table></body></html>';
 }
-
-// ============================================================
-// TEMPLATE EMAIL ADMIN — Nouveau message de contact
-// (même style que getAdminEmailTemplate pour les réservations)
-// ============================================================
 
 function getContactAdminTemplate(params) {
   var name = params.name, email = params.email, phone = params.phone;
@@ -378,51 +352,37 @@ function getContactAdminTemplate(params) {
     + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0f5;padding:40px 20px;">'
     + '<tr><td align="center">'
     + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
-
-    // HEADER fond blanc + logo noir
     + '<tr><td style="background:#fff;border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;border-bottom:3px solid #667eea;">'
     + '<img src="https://neuraweb.tech/assets/neurawebB.png" alt="NeurAWeb" width="160" style="display:block;margin:0 auto 12px;height:auto;" />'
     + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0;">&#128235; Nouveau Message de Contact</p>'
     + '</td></tr>'
-
-    // BANDEAU violet
     + '<tr><td style="background:linear-gradient(135deg,#667eea,#764ba2);padding:16px 40px;text-align:center;">'
     + '<p style="color:#fff;font-size:16px;font-weight:600;margin:0;">Message de <strong>' + name + '</strong></p>'
     + '</td></tr>'
-
-    // DÉTAILS
     + '<tr><td style="background:#fff;padding:32px 40px;">'
     + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 20px;">&#128100; Informations Client</p>'
     + '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e0e0f0;border-radius:8px;overflow:hidden;">'
     + rowsHtml
     + '</table>'
-
     + (message
         ? '<div style="margin-top:24px;background:#f8f8ff;border-left:4px solid #667eea;border-radius:4px;padding:16px;">'
           + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin:0 0 8px;">&#128172; Message du client</p>'
           + '<p style="color:#333;font-size:14px;line-height:1.6;margin:0;white-space:pre-wrap;">' + message + '</p>'
           + '</div>'
         : '')
-
-    // Boutons d'action
     + '<div style="margin-top:28px;text-align:center;">'
     + '<a href="mailto:' + email + '?subject=Re:%20Votre%20message%20-%20NeurAWeb" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 24px;border-radius:8px;margin:4px;">&#128231; Répondre au client</a>'
     + '<a href="https://docs.google.com/spreadsheets/d/' + CONFIG.SPREADSHEET_ID + '" style="display:inline-block;background:#f0f0ff;color:#667eea;border:2px solid #667eea;font-size:14px;font-weight:600;text-decoration:none;padding:10px 24px;border-radius:8px;margin:4px;">&#128202; Voir Google Sheet</a>'
     + '</div>'
     + '</td></tr>'
-
-    // FOOTER
     + '<tr><td style="background:#f0f0f5;border-radius:0 0 16px 16px;padding:20px 40px;text-align:center;border-top:1px solid #e0e0f0;">'
     + '<p style="color:#999;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; Notification automatique interne</p>'
     + '</td></tr>'
-
     + '</table></td></tr></table></body></html>';
 }
 
 // ============================================================
 // FONCTION D'ENVOI D'EMAIL (GmailApp)
-// Utilisée pour les contacts et réservations classiques
-// Les emails hôtel sont envoyés via Resend par l'API Next.js
 // ============================================================
 
 function sendEmail(params) {
@@ -443,8 +403,7 @@ function sendEmail(params) {
 }
 
 // ============================================================
-// NOTES: Les emails hôtel sont envoyés via Resend
-// par l'API Next.js (/api/hotel-form)
+// RÉSERVATIONS
 // ============================================================
 
 function sendBookingEmails(params) {
@@ -456,7 +415,6 @@ function sendBookingEmails(params) {
   const isSpanish = language === 'es';
   const dateFormatted = formatDateFR(new Date(date + 'T12:00:00'));
 
-  // Email client
   try {
     const subject = isEnglish
       ? '[NeurAWeb] Appointment confirmed - ' + dateFormatted + ' at ' + time
@@ -477,7 +435,6 @@ function sendBookingEmails(params) {
     Logger.log('Erreur email client: ' + err.message);
   }
 
-  // Email admin
   try {
     sendEmail({
       to: CONFIG.ADMIN_EMAIL,
@@ -492,10 +449,6 @@ function sendBookingEmails(params) {
     Logger.log('Erreur email admin: ' + err.message);
   }
 }
-
-// ============================================================
-// TEMPLATE EMAIL CLIENT — fond sombre + logo blanc
-// ============================================================
 
 function getClientEmailTemplate(params) {
   const bookingId = params.bookingId, name = params.name, service = params.service;
@@ -575,20 +528,14 @@ function getClientEmailTemplate(params) {
     + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:40px 20px;">'
     + '<tr><td align="center">'
     + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
-
-    // HEADER
     + '<tr><td style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);border-radius:16px 16px 0 0;padding:40px 40px 32px;text-align:center;">'
     + '<img src="https://neuraweb.tech/assets/neurawebW.png" alt="NeurAWeb" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />'
     + '<div style="width:50px;height:3px;background:linear-gradient(135deg,#667eea,#764ba2);margin:0 auto 20px;border-radius:2px;"></div>'
     + '<h1 style="color:#fff;font-size:20px;font-weight:700;margin:0;">&#10003; ' + t.title + '</h1>'
     + '</td></tr>'
-
-    // CORPS
     + '<tr><td style="background:#111;padding:40px;">'
     + '<p style="color:#e0e0e0;font-size:16px;line-height:1.6;margin:0 0 8px;">' + t.greeting + '</p>'
     + '<p style="color:#a0a0a0;font-size:15px;line-height:1.6;margin:0 0 32px;">' + t.subtitle + '</p>'
-
-    // Carte détails
     + '<table width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid #2a2a4a;border-radius:12px;margin-bottom:32px;">'
     + '<tr><td style="padding:24px;">'
     + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 20px;">&#128203; ' + t.detailsTitle + '</p>'
@@ -598,35 +545,23 @@ function getClientEmailTemplate(params) {
     + '<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a4a;color:#808080;font-size:13px;">&#128336; ' + t.labelTime + '</td><td style="padding:10px 0;border-bottom:1px solid #2a2a4a;text-align:right;color:#fff;font-size:14px;font-weight:600;">' + time + '</td></tr>'
     + '<tr><td style="padding:10px 0;color:#808080;font-size:13px;">&#128278; ' + t.labelRef + '</td><td style="padding:10px 0;text-align:right;color:#667eea;font-size:14px;font-weight:700;font-family:monospace;">' + bookingId + '</td></tr>'
     + '</table></td></tr></table>'
-
-    // Étapes
     + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 16px;">&#128640; ' + t.nextSteps + '</p>'
     + '<table width="100%" cellpadding="0" cellspacing="0">' + stepsHtml + '</table>'
     + '</td></tr>'
-
-    // CTA
     + '<tr><td style="background:#111;padding:0 40px 32px;text-align:center;">'
     + '<a href="https://neuraweb.tech" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:15px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:8px;">&#127758; ' + t.cta + '</a>'
     + '</td></tr>'
-
-    // FOOTER
     + '<tr><td style="background:#0d0d0d;border-top:1px solid #1a1a1a;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">'
     + '<p style="color:#505050;font-size:13px;margin:0 0 8px;">' + t.footer + ' <a href="mailto:' + CONFIG.EMAIL_ALIAS + '" style="color:#667eea;text-decoration:none;">' + CONFIG.EMAIL_ALIAS + '</a></p>'
     + '<p style="color:#303030;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; <a href="https://neuraweb.tech" style="color:#404040;text-decoration:none;">neuraweb.tech</a></p>'
     + '</td></tr>'
-
     + '</table></td></tr></table></body></html>';
 }
-
-// ============================================================
-// TEMPLATE EMAIL ADMIN — fond blanc + logo noir
-// ============================================================
 
 function getAdminEmailTemplate(params) {
   const bookingId = params.bookingId, name = params.name, email = params.email;
   const phone = params.phone, service = params.service, date = params.date;
   const time = params.time, message = params.message;
-
   const year = new Date().getFullYear();
 
   const rows = [
@@ -652,44 +587,32 @@ function getAdminEmailTemplate(params) {
     + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0f5;padding:40px 20px;">'
     + '<tr><td align="center">'
     + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
-
-    // HEADER fond blanc + logo noir
     + '<tr><td style="background:#fff;border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;border-bottom:3px solid #667eea;">'
     + '<img src="https://neuraweb.tech/assets/neurawebB.png" alt="NeurAWeb" width="160" style="display:block;margin:0 auto 12px;height:auto;" />'
     + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0;">&#128197; Nouvelle Réservation</p>'
     + '</td></tr>'
-
-    // BANDEAU violet
     + '<tr><td style="background:linear-gradient(135deg,#667eea,#764ba2);padding:16px 40px;text-align:center;">'
     + '<p style="color:#fff;font-size:16px;font-weight:600;margin:0;">Nouveau RDV &mdash; <strong>' + bookingId + '</strong></p>'
     + '</td></tr>'
-
-    // DÉTAILS
     + '<tr><td style="background:#fff;padding:32px 40px;">'
     + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 20px;">&#128100; Informations Client</p>'
     + '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e0e0f0;border-radius:8px;overflow:hidden;">'
     + rowsHtml
     + '</table>'
-
     + (message
         ? '<div style="margin-top:24px;background:#f8f8ff;border-left:4px solid #667eea;border-radius:4px;padding:16px;">'
           + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin:0 0 8px;">&#128172; Message du client</p>'
           + '<p style="color:#333;font-size:14px;line-height:1.6;margin:0;">' + message + '</p>'
           + '</div>'
         : '')
-
-    // Boutons d'action
     + '<div style="margin-top:28px;text-align:center;">'
     + '<a href="mailto:' + email + '?subject=Re:%20Rendez-vous%20' + bookingId + '" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 24px;border-radius:8px;margin:4px;">&#128231; Répondre au client</a>'
     + '<a href="https://docs.google.com/spreadsheets/d/' + CONFIG.SPREADSHEET_ID + '" style="display:inline-block;background:#f0f0ff;color:#667eea;border:2px solid #667eea;font-size:14px;font-weight:600;text-decoration:none;padding:10px 24px;border-radius:8px;margin:4px;">&#128202; Voir Google Sheet</a>'
     + '</div>'
     + '</td></tr>'
-
-    // FOOTER
     + '<tr><td style="background:#f0f0f5;border-radius:0 0 16px 16px;padding:20px 40px;text-align:center;border-top:1px solid #e0e0f0;">'
     + '<p style="color:#999;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; Notification automatique interne</p>'
     + '</td></tr>'
-
     + '</table></td></tr></table></body></html>';
 }
 
@@ -742,6 +665,40 @@ function formatDateFR(date) {
   return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
 }
 
+function extractTime(value) {
+  if (!value) return '00:00';
+
+  if (value instanceof Date) {
+    var h = String(value.getHours()).padStart(2, '0');
+    var m = String(value.getMinutes()).padStart(2, '0');
+    return h + ':' + m;
+  }
+
+  if (typeof value === 'string' && value.includes('T')) {
+    var timePart = value.split('T')[1];
+    var parts = timePart.split(':');
+    var hours = parseInt(parts[0], 10);
+    var minutes = parseInt(parts[1], 10);
+    var offset = isDST() ? 2 : 1;
+    hours = (hours + offset) % 24;
+    return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
+  }
+
+  if (typeof value === 'string') {
+    return value.substring(0, 5);
+  }
+
+  return '00:00';
+}
+
+function isDST() {
+  var now = new Date();
+  var jan = new Date(now.getFullYear(), 0, 1);
+  var jul = new Date(now.getFullYear(), 6, 1);
+  var stdOffset = Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+  return now.getTimezoneOffset() < stdOffset;
+}
+
 // ============================================================
 // DÉCLENCHEURS AUTOMATIQUES
 // ============================================================
@@ -778,67 +735,7 @@ function cleanOldSlots() {
 }
 
 // ============================================================
-// FONCTION UTILITAIRE — Extraire HH:MM depuis n'importe quel
-// format retourné par Google Sheets pour une cellule "heure"
-// ============================================================
-
-/**
- * Google Sheets stocke les heures comme fraction de jour depuis le 30/12/1899.
- * Lorsque Apps Script lit la cellule, il retourne un objet Date dont :
- *   - getHours() est CORRECT (heure locale du script = Europe/Paris)
- *   - getUTCHours() est FAUX (décalage historique UTC+0:09:21 → +14 minutes)
- *
- * Cette fonction gère tous les cas possibles.
- */
-function extractTime(value) {
-  if (!value) return '00:00';
-
-  // Cas 1 : objet Date (le plus fréquent après lecture de Sheets)
-  if (value instanceof Date) {
-    // getHours() respecte la timezone du script (CONFIG.TIMEZONE = Europe/Paris)
-    var h = String(value.getHours()).padStart(2, '0');
-    var m = String(value.getMinutes()).padStart(2, '0');
-    return h + ':' + m;
-  }
-
-  // Cas 2 : string ISO "1899-12-30T08:50:39.000Z"
-  // NE PAS faire new Date(str).getUTCHours() → bug +14min
-  // Extraire directement depuis la string
-  if (typeof value === 'string' && value.includes('T')) {
-    // Format : "...THH:MM:SS..." — on prend HH:MM après le T
-    var timePart = value.split('T')[1]; // "08:50:39.000Z"
-    // Ajouter 1h pour corriger UTC → Paris (heure d'hiver)
-    // OU mieux : utiliser les heures stockées dans la cellule texte d'origine
-    // → en pratique ce cas ne devrait pas arriver si generateUpcomingSlots
-    //   écrit correctement les heures en texte
-    var parts = timePart.split(':');
-    var hours = parseInt(parts[0], 10);
-    var minutes = parseInt(parts[1], 10);
-    // Correction offset Paris (UTC+1 hiver, UTC+2 été)
-    var offset = isDST() ? 2 : 1;
-    hours = (hours + offset) % 24;
-    return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
-  }
-
-  // Cas 3 : string "HH:MM" ou "HH:MM:SS" — déjà propre
-  if (typeof value === 'string') {
-    return value.substring(0, 5);
-  }
-
-  return '00:00';
-}
-
-/** Détecte si on est en heure d'été (DST) en France */
-function isDST() {
-  var now = new Date();
-  var jan = new Date(now.getFullYear(), 0, 1);
-  var jul = new Date(now.getFullYear(), 6, 1);
-  var stdOffset = Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
-  return now.getTimezoneOffset() < stdOffset;
-}
-
-// ============================================================
-// GESTION DES CRÉNEAUX — version corrigée
+// GESTION DES CRÉNEAUX
 // ============================================================
 
 function getAvailableSlots(targetDate) {
@@ -860,7 +757,7 @@ function getAvailableSlots(targetDate) {
     if (targetDate && dateStr !== targetDate) return;
 
     if (status === 'disponible') {
-      var timeStr = extractTime(time); // ← FIX CENTRAL
+      var timeStr = extractTime(time);
       slots.push({
         date: dateStr,
         time: timeStr,
@@ -891,7 +788,7 @@ function saveBooking(data) {
     var slotsData = slotsSheet.getRange(2, 1, slotsSheet.getLastRow() - 1, 4).getValues();
     for (var i = 0; i < slotsData.length; i++) {
       var slotDate = formatDateISO(new Date(slotsData[i][0]));
-      var slotTime = extractTime(slotsData[i][1]); // ← FIX : normaliser avant comparaison
+      var slotTime = extractTime(slotsData[i][1]);
 
       Logger.log('Comparing: slotDate=' + slotDate + ' vs date=' + date + ' | slotTime=' + slotTime + ' vs time=' + time);
 
@@ -932,10 +829,6 @@ function saveBooking(data) {
   };
 }
 
-// ============================================================
-// GÉNÉRATION DES CRÉNEAUX — forcer le stockage en texte pur
-// ============================================================
-
 function generateUpcomingSlots() {
   var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
   var sheet = ss.getSheetByName(CONFIG.SHEETS.SLOTS);
@@ -970,8 +863,6 @@ function generateUpcomingSlots() {
 
       var exists = useSet ? existing.has(key) : existing.hasOwnProperty(key);
       if (!exists) {
-        // Stocker la date ET l'heure comme STRING PURE
-        // setNumberFormat('@') dira à Sheets de ne pas interpréter
         newRows.push([dateStr, timeStr, 'disponible', '']);
       }
     }
@@ -980,7 +871,6 @@ function generateUpcomingSlots() {
   if (newRows.length > 0) {
     var startRow = sheet.getLastRow() + 1;
     var range = sheet.getRange(startRow, 1, newRows.length, 4);
-    // Forcer le format texte sur la colonne heure AVANT d'écrire
     sheet.getRange(startRow, 2, newRows.length, 1).setNumberFormat('@STRING@');
     range.setValues(newRows);
   }
@@ -990,57 +880,31 @@ function generateUpcomingSlots() {
 // GESTION DES TOKENS HÔTEL
 // ============================================================
 
-/**
- * Vérifie la validité d'un token hôtel
- */
 function verifyHotelToken(token) {
-  if (!token) {
-    return { error: 'Token requis' };
-  }
+  if (!token) return { error: 'Token requis' };
 
   initializeHotelSheets();
 
   var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
   var sheet = ss.getSheetByName(CONFIG.SHEETS.HOTEL_TOKENS);
 
-  if (!sheet || sheet.getLastRow() < 2) {
-    return { error: 'Token non trouvé' };
-  }
+  if (!sheet || sheet.getLastRow() < 2) return { error: 'Token non trouvé' };
 
   var data = sheet.getRange(2, 1, sheet.getLastRow() - 1, 7).getValues();
 
   for (var i = 0; i < data.length; i++) {
-    var rowToken = data[i][0];
-    var hotelName = data[i][1];
-    var email = data[i][2];
-    var status = data[i][5];
-
-    if (rowToken === token) {
-      if (status === 'utilisé') {
-        return { error: 'Ce lien a déjà été utilisé' };
-      }
-      return {
-        valid: true,
-        hotelName: hotelName,
-        email: email
-      };
+    if (data[i][0] === token) {
+      if (data[i][5] === 'utilisé') return { error: 'Ce lien a déjà été utilisé' };
+      return { valid: true, hotelName: data[i][1], email: data[i][2] };
     }
   }
 
   return { error: 'Token non trouvé' };
 }
 
-/**
- * Crée un nouveau token pour un hôtel
- */
 function createHotelToken(data) {
-  var token = data.token;
-  var hotelName = data.hotelName;
-  var email = data.email;
-  var contactName = data.contactName;
-  var language = data.language;
-  var formUrl = data.formUrl;
-  var createdAt = data.createdAt;
+  var token = data.token, hotelName = data.hotelName, email = data.email;
+  var contactName = data.contactName, language = data.language, formUrl = data.formUrl;
 
   if (!token || !hotelName || !email) {
     return { success: false, error: 'Token, nom de l\'hôtel et email sont requis' };
@@ -1050,123 +914,25 @@ function createHotelToken(data) {
 
   var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
   var sheet = ss.getSheetByName(CONFIG.SHEETS.HOTEL_TOKENS);
-  var timestamp = new Date();
 
-  // Ajouter le token dans la feuille
   sheet.appendRow([
-    token,
-    hotelName,
-    email,
-    contactName || '',
-    timestamp,
-    'actif',
-    formUrl || '',
-    language || 'fr'
+    token, hotelName, email, contactName || '',
+    new Date(), 'actif', formUrl || '', language || 'fr'
   ]);
 
-  // NOTE: L'email est envoyé via Resend par l'API Next.js (/api/hotel-form)
-  // Plus besoin de GmailApp ici
-
-  return {
-    success: true,
-    token: token,
-    message: 'Token créé avec succès'
-  };
+  return { success: true, token: token, message: 'Token créé avec succès' };
 }
 
-/**
- * Envoie l'email avec le lien du formulaire à l'hôtel
- */
-function sendHotelTokenEmail(params) {
-  var token = params.token;
-  var hotelName = params.hotelName;
-  var email = params.email;
-  var contactName = params.contactName;
-  var formUrl = params.formUrl;
-  var language = params.language || 'fr';
+// ============================================================
+// SOUMISSION FORMULAIRE HÔTEL
+// FIX: PDF créé via trigger asynchrone (évite timeout Vercel)
+// ============================================================
 
-  var isEnglish = language === 'en';
-  var isSpanish = language === 'es';
-  var year = new Date().getFullYear();
-
-  var t = isEnglish ? {
-    subject: '[' + CONFIG.COMPANY_NAME + '] Your personalized form — ' + hotelName,
-    title: 'Your Form is Ready',
-    greeting: 'Hello' + (contactName ? ' ' + contactName : '') + ',',
-    subtitle: 'We have prepared a personalized form for <strong>' + hotelName + '</strong>. Please fill it out so we can create your website.',
-    cta: 'Fill out the form',
-    validity: 'This link is valid for 30 days.',
-    footer: 'Questions? Contact us at'
-  } : isSpanish ? {
-    subject: '[' + CONFIG.COMPANY_NAME + '] Tu formulario personalizado — ' + hotelName,
-    title: 'Tu Formulario está Listo',
-    greeting: 'Hola' + (contactName ? ' ' + contactName : '') + ',',
-    subtitle: 'Hemos preparado un formulario personalizado para <strong>' + hotelName + '</strong>. Por favor, complétalo para que podamos crear tu sitio web.',
-    cta: 'Completar el formulario',
-    validity: 'Este enlace es válido por 30 días.',
-    footer: '¿Preguntas? Contáctanos en'
-  } : {
-    subject: '[' + CONFIG.COMPANY_NAME + '] Votre formulaire personnalisé — ' + hotelName,
-    title: 'Votre Formulaire est Prêt',
-    greeting: 'Bonjour' + (contactName ? ' ' + contactName : '') + ',',
-    subtitle: 'Nous avons préparé un formulaire personnalisé pour <strong>' + hotelName + '</strong>. Merci de le remplir pour que nous puissions créer votre site web.',
-    cta: 'Remplir le formulaire',
-    validity: 'Ce lien est valable 30 jours.',
-    footer: 'Des questions ? Contactez-nous à'
-  };
-
-  var html = '<!DOCTYPE html><html lang="' + (isEnglish ? 'en' : isSpanish ? 'es' : 'fr') + '">'
-    + '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>' + t.title + '</title></head>'
-    + '<body style="margin:0;padding:0;background-color:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Arial,sans-serif;">'
-    + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:40px 20px;">'
-    + '<tr><td align="center">'
-    + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
-
-    // HEADER
-    + '<tr><td style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);border-radius:16px 16px 0 0;padding:40px 40px 32px;text-align:center;">'
-    + '<img src="https://neuraweb.tech/assets/neurawebW.png" alt="NeurAWeb" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />'
-    + '<div style="width:50px;height:3px;background:linear-gradient(135deg,#667eea,#764ba2);margin:0 auto 20px;border-radius:2px;"></div>'
-    + '<h1 style="color:#fff;font-size:20px;font-weight:700;margin:0;">&#128203; ' + t.title + '</h1>'
-    + '</td></tr>'
-
-    // CORPS
-    + '<tr><td style="background:#111;padding:40px;">'
-    + '<p style="color:#e0e0e0;font-size:16px;line-height:1.6;margin:0 0 8px;">' + t.greeting + '</p>'
-    + '<p style="color:#a0a0a0;font-size:15px;line-height:1.6;margin:0 0 32px;">' + t.subtitle + '</p>'
-
-    // CTA
-    + '<div style="text-align:center;margin-bottom:32px;">'
-    + '<a href="' + formUrl + '" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;font-weight:600;text-decoration:none;padding:16px 40px;border-radius:8px;">&#9997; ' + t.cta + '</a>'
-    + '</div>'
-
-    + '<p style="color:#667eea;font-size:13px;text-align:center;margin:0;">&#128274; ' + t.validity + '</p>'
-    + '</td></tr>'
-
-    // FOOTER
-    + '<tr><td style="background:#0d0d0d;border-top:1px solid #1a1a1a;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">'
-    + '<p style="color:#505050;font-size:13px;margin:0 0 8px;">' + t.footer + ' <a href="mailto:' + CONFIG.EMAIL_ALIAS + '" style="color:#667eea;text-decoration:none;">' + CONFIG.EMAIL_ALIAS + '</a></p>'
-    + '<p style="color:#303030;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; <a href="https://neuraweb.tech" style="color:#404040;text-decoration:none;">neuraweb.tech</a></p>'
-    + '</td></tr>'
-
-    + '</table></td></tr></table></body></html>';
-
-  sendEmail({
-    to: email,
-    subject: t.subject,
-    html: html,
-    replyTo: CONFIG.EMAIL_ALIAS
-  });
-}
-
-/**
- * Soumet le formulaire hôtel complet
- */
 function submitHotelForm(data) {
   var token = data.token;
   var formData = data.formData;
   var pricing = data.pricing;
   var language = data.language || 'fr';
-  var submittedAt = data.submittedAt;
 
   if (!formData || !formData.nom || !formData.email) {
     return { success: false, error: 'Données du formulaire incomplètes' };
@@ -1178,11 +944,10 @@ function submitHotelForm(data) {
   var tokensSheet = ss.getSheetByName(CONFIG.SHEETS.HOTEL_TOKENS);
   var formsSheet = ss.getSheetByName(CONFIG.SHEETS.HOTEL_FORMS);
 
-  // Générer un ID de soumission
   var submissionId = 'HOTEL-' + Utilities.getUuid().substring(0, 8).toUpperCase();
   var timestamp = new Date();
 
-  // Marquer le token comme utilisé si fourni
+  // Marquer le token comme utilisé
   if (token && tokensSheet && tokensSheet.getLastRow() > 1) {
     var tokensData = tokensSheet.getRange(2, 1, tokensSheet.getLastRow() - 1, 7).getValues();
     for (var i = 0; i < tokensData.length; i++) {
@@ -1193,448 +958,335 @@ function submitHotelForm(data) {
     }
   }
 
-  // Formater les données pour le spreadsheet
-  var formDataJson = JSON.stringify(formData);
-  var pricingJson = JSON.stringify(pricing);
-
-  // Ajouter la soumission dans la feuille
+  // Sauvegarder dans le spreadsheet (colonne 15 = pdfUrl vide pour l'instant)
   formsSheet.appendRow([
-    timestamp,
-    submissionId,
-    token || '',
-    formData.nom,
-    formData.email,
-    formData.tel || '',
-    formData.typeEtablissement || '',
-    formData.pays || '',
+    timestamp, submissionId, token || '',
+    formData.nom, formData.email, formData.tel || '',
+    formData.typeEtablissement || '', formData.pays || '',
     formData.nbChambresTotal || '',
-    pricing.totalOneTime || 0,
-    pricing.totalMonthly || 0,
-    formDataJson,
-    pricingJson,
-    language
+    pricing ? (pricing.totalOneTime || 0) : 0,
+    pricing ? (pricing.totalMonthly || 0) : 0,
+    JSON.stringify(formData),
+    JSON.stringify(pricing || {}),
+    language,
+    ''  // colonne 15 : pdfUrl — sera remplie par processPendingPDF()
   ]);
 
-  // Créer le PDF et sauvegarder dans Google Drive
-  var pdfUrl = '';
-  try {
-    pdfUrl = createHotelFormPDF({
-      submissionId: submissionId,
-      formData: formData,
-      pricing: pricing,
-      language: language,
-      timestamp: timestamp
-    });
-  } catch (err) {
-    Logger.log('Erreur création PDF: ' + err.message);
-  }
+  // Stocker pour le trigger asynchrone
+  var props = PropertiesService.getScriptProperties();
+  props.setProperty('PENDING_PDF_' + submissionId, JSON.stringify({
+    submissionId: submissionId,
+    formData: formData,
+    pricing: pricing || {},
+    language: language,
+    ts: timestamp.toISOString()
+  }));
 
-  // NOTE: Les emails sont envoyés via Resend par l'API Next.js (/api/hotel-form)
-  // Plus besoin de GmailApp ici
+  // Trigger one-shot dans 20 secondes
+  ScriptApp.newTrigger('processPendingPDF')
+    .timeBased()
+    .after(20 * 1000)
+    .create();
+
+  Logger.log('submitHotelForm OK: ' + submissionId + ' — trigger PDF planifié');
 
   return {
     success: true,
     submissionId: submissionId,
     message: 'Formulaire soumis avec succès',
-    pdfUrl: pdfUrl
+    pdfUrl: ''
   };
 }
 
-/**
- * Initialise les feuilles pour les tokens et formulaires hôtel
- */
+// ============================================================
+// TRIGGER ASYNCHRONE — Création du PDF
+// ============================================================
+
+function processPendingPDF() {
+  Logger.log('=== processPendingPDF démarré ===');
+
+  // Supprimer tous les triggers processPendingPDF
+  ScriptApp.getProjectTriggers().forEach(function(trigger) {
+    if (trigger.getHandlerFunction() === 'processPendingPDF') {
+      ScriptApp.deleteTrigger(trigger);
+    }
+  });
+
+  var props = PropertiesService.getScriptProperties();
+  var allProps = props.getProperties();
+
+  Object.keys(allProps).forEach(function(key) {
+    if (key.indexOf('PENDING_PDF_') !== 0) return;
+
+    var submissionId = key.replace('PENDING_PDF_', '');
+    Logger.log('Traitement PDF: ' + submissionId);
+
+    try {
+      var pending = JSON.parse(allProps[key]);
+
+      var pdfUrl = createHotelFormPDF({
+        submissionId: pending.submissionId,
+        formData: pending.formData,
+        pricing: pending.pricing,
+        language: pending.language,
+        timestamp: new Date(pending.ts)
+      });
+
+      Logger.log('PDF créé: ' + pdfUrl);
+
+      if (pdfUrl) {
+        updatePdfUrlInSheet(submissionId, pdfUrl);
+      }
+
+      props.deleteProperty(key);
+      Logger.log('Terminé: ' + submissionId);
+
+    } catch (err) {
+      Logger.log('ERREUR pour ' + submissionId + ': ' + err.message);
+      props.deleteProperty(key);
+    }
+  });
+
+  Logger.log('=== processPendingPDF terminé ===');
+}
+
+function updatePdfUrlInSheet(submissionId, pdfUrl) {
+  var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
+  var sheet = ss.getSheetByName(CONFIG.SHEETS.HOTEL_FORMS);
+  if (!sheet || sheet.getLastRow() < 2) return;
+
+  var ids = sheet.getRange(2, 2, sheet.getLastRow() - 1, 1).getValues();
+  for (var i = 0; i < ids.length; i++) {
+    if (ids[i][0] === submissionId) {
+      sheet.getRange(i + 2, 15).setValue(pdfUrl);
+      Logger.log('PDF URL mis à jour: ' + submissionId);
+      return;
+    }
+  }
+}
+
+// ============================================================
+// INITIALISATION FEUILLES HÔTEL
+// ============================================================
+
 function initializeHotelSheets() {
   var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
 
-  // Feuille des tokens
   var tokensSheet = ss.getSheetByName(CONFIG.SHEETS.HOTEL_TOKENS);
   if (!tokensSheet) {
     tokensSheet = ss.insertSheet(CONFIG.SHEETS.HOTEL_TOKENS);
     var tokensHeaders = ['Token', 'Nom Hôtel', 'Email', 'Contact', 'Date Création', 'Statut', 'URL Formulaire', 'Langue'];
     tokensSheet.getRange(1, 1, 1, tokensHeaders.length).setValues([tokensHeaders]);
     tokensSheet.getRange(1, 1, 1, tokensHeaders.length)
-      .setFontWeight('bold')
-      .setBackground('#667eea')
-      .setFontColor('#ffffff');
+      .setFontWeight('bold').setBackground('#667eea').setFontColor('#ffffff');
     tokensSheet.setFrozenRows(1);
   }
 
-  // Feuille des formulaires
   var formsSheet = ss.getSheetByName(CONFIG.SHEETS.HOTEL_FORMS);
   if (!formsSheet) {
     formsSheet = ss.insertSheet(CONFIG.SHEETS.HOTEL_FORMS);
-    var formsHeaders = ['Date', 'ID Soumission', 'Token', 'Nom Hôtel', 'Email', 'Téléphone', 'Type', 'Pays', 'Nb Chambres', 'Prix Unique', 'Prix Mensuel', 'Données (JSON)', 'Pricing (JSON)', 'Langue'];
+    var formsHeaders = [
+      'Date', 'ID Soumission', 'Token', 'Nom Hôtel', 'Email',
+      'Téléphone', 'Type', 'Pays', 'Nb Chambres',
+      'Prix Unique', 'Prix Mensuel', 'Données (JSON)', 'Pricing (JSON)',
+      'Langue', 'PDF URL'
+    ];
     formsSheet.getRange(1, 1, 1, formsHeaders.length).setValues([formsHeaders]);
     formsSheet.getRange(1, 1, 1, formsHeaders.length)
-      .setFontWeight('bold')
-      .setBackground('#667eea')
-      .setFontColor('#ffffff');
+      .setFontWeight('bold').setBackground('#667eea').setFontColor('#ffffff');
     formsSheet.setFrozenRows(1);
+  } else {
+    // Ajouter PDF URL si colonne manquante
+    var lastCol = formsSheet.getLastColumn();
+    var headers = formsSheet.getRange(1, 1, 1, lastCol).getValues()[0];
+    if (headers[lastCol - 1] !== 'PDF URL') {
+      formsSheet.getRange(1, lastCol + 1).setValue('PDF URL')
+        .setFontWeight('bold').setBackground('#667eea').setFontColor('#ffffff');
+    }
   }
 }
 
-/**
- * Teste l'accès au dossier Google Drive
- */
+// ============================================================
+// DRIVE & PDF
+// ============================================================
+
 function testDriveAccess() {
   try {
     var folder = DriveApp.getFolderById(CONFIG.DRIVE_FOLDER_ID);
-    var folderName = folder.getName();
-    var files = folder.getFiles();
-    var fileCount = 0;
-    while (files.hasNext()) {
-      files.next();
-      fileCount++;
-    }
-    return { 
-      success: true, 
-      folderName: folderName,
-      fileCount: fileCount,
-      message: 'Accès au Drive OK'
-    };
+    var doc = DocumentApp.create('TEST_PDF_ACCESS');
+    var docId = doc.getId();
+    doc.getBody().appendParagraph('Test');
+    doc.saveAndClose();
+    var docFile = DriveApp.getFileById(docId);
+    var pdf = docFile.getAs(MimeType.PDF);
+    var file = folder.createFile(pdf);
+    file.setName('TEST_DELETE_ME.pdf');
+    docFile.setTrashed(true);
+    file.setTrashed(true);
+    return { success: true, folderName: folder.getName(), message: 'Accès Drive + Documents OK' };
   } catch (err) {
-    return { 
-      success: false, 
-      error: err.message,
-      folderId: CONFIG.DRIVE_FOLDER_ID,
-      message: 'Erreur d\'accès au Drive - vérifiez les permissions'
-    };
+    return { success: false, error: err.message, folderId: CONFIG.DRIVE_FOLDER_ID };
   }
 }
 
 /**
- * Crée un PDF du formulaire et le sauvegarde dans Google Drive
+ * Crée un PDF du formulaire hôtel et le sauvegarde dans Google Drive
+ * FIX: Utilise setBold(true) au lieu de DocumentApp.FontWeight.BOLD
+ *      et DriveApp.getFileById() après saveAndClose()
  */
 function createHotelFormPDF(params) {
   var submissionId = params.submissionId;
   var formData = params.formData;
   var pricing = params.pricing;
-  var language = params.language;
   var timestamp = params.timestamp;
 
-  Logger.log('=== Début création PDF ===');
-  Logger.log('submissionId: ' + submissionId);
-  Logger.log('hotelName: ' + formData.nom);
-  Logger.log('DRIVE_FOLDER_ID: ' + CONFIG.DRIVE_FOLDER_ID);
+  Logger.log('=== Début création PDF: ' + submissionId + ' ===');
 
-  // Vérifier l'accès au dossier d'abord
   try {
-    var testFolder = DriveApp.getFolderById(CONFIG.DRIVE_FOLDER_ID);
-    Logger.log('Dossier Drive accessible: ' + testFolder.getName());
+    DriveApp.getFolderById(CONFIG.DRIVE_FOLDER_ID);
+    Logger.log('Dossier Drive accessible');
   } catch (folderErr) {
-    Logger.log('ERREUR: Impossible d\'accéder au dossier Drive: ' + folderErr.message);
+    Logger.log('ERREUR dossier Drive: ' + folderErr.message);
     return '';
   }
 
-  // Créer un document Google Doc temporaire
-  var doc = DocumentApp.create('Formulaire Hôtel - ' + formData.nom + ' - ' + submissionId);
+  // Créer le document
+  var doc = DocumentApp.create('Formulaire_' + submissionId);
+  var docId = doc.getId();
   var body = doc.getBody();
 
-  // Styles
-  var titleStyle = {};
-  titleStyle[DocumentApp.Attribute.FONT_SIZE] = 18;
-  titleStyle[DocumentApp.Attribute.FONT_WEIGHT] = DocumentApp.FontWeight.BOLD;
-  titleStyle[DocumentApp.Attribute.COLOR] = '#667eea';
-
-  var headingStyle = {};
-  headingStyle[DocumentApp.Attribute.FONT_SIZE] = 14;
-  headingStyle[DocumentApp.Attribute.FONT_WEIGHT] = DocumentApp.FontWeight.BOLD;
-  headingStyle[DocumentApp.Attribute.COLOR] = '#333333';
-  headingStyle[DocumentApp.Attribute.MARGIN_TOP] = 16;
-
-  // Titre
-  body.appendParagraph('FORMULAIRE PROJET HÔTELIER').setAttributes(titleStyle);
-  body.appendParagraph('NeuraWeb - ' + submissionId).setFontSize(10);
+  // Titre principal
+  body.appendParagraph('FORMULAIRE PROJET HÔTELIER')
+    .setFontSize(18).setBold(true).setForegroundColor('#667eea');
+  body.appendParagraph('NeurAWeb — ' + submissionId + ' — ' + (timestamp ? timestamp.toLocaleDateString('fr-FR') : new Date().toLocaleDateString('fr-FR')))
+    .setFontSize(10).setBold(false);
   body.appendParagraph('');
 
-  // Informations générales
-  body.appendParagraph('1. INFORMATIONS GÉNÉRALES').setAttributes(headingStyle);
-  addFieldToDoc(body, 'Nom de l\'établissement', formData.nom);
-  addFieldToDoc(body, 'Type', formData.typeEtablissement);
-  addFieldToDoc(body, 'Adresse', formData.adresse);
-  addFieldToDoc(body, 'Pays', formData.pays);
-  addFieldToDoc(body, 'Email', formData.email);
-  addFieldToDoc(body, 'Téléphone', formData.tel);
-  addFieldToDoc(body, 'Responsable', formData.responsable);
-  addFieldToDoc(body, 'Étoiles', formData.etoiles);
-  addFieldToDoc(body, 'Site existant', formData.siteExistant);
-  addFieldToDoc(body, 'URL actuelle', formData.urlActuel);
+  // Helper pour les titres de section
+  function section(title) {
+    body.appendParagraph(title).setFontSize(13).setBold(true).setForegroundColor('#333333');
+  }
 
-  // Hébergement
-  body.appendParagraph('2. HÉBERGEMENT').setAttributes(headingStyle);
-  addFieldToDoc(body, 'Nombre de chambres', formData.nbChambresTotal);
-  addFieldToDoc(body, 'Capacité totale', formData.capaciteTotale);
-  addFieldToDoc(body, 'Étages', formData.etages);
-  addFieldToDoc(body, 'Types de chambres', formData.rooms ? JSON.stringify(formData.rooms) : '');
-  addFieldToDoc(body, 'Équipements chambres', formData.equipChambres ? formData.equipChambres.join(', ') : '');
-  addFieldToDoc(body, 'Animaux acceptés', formData.animaux);
-  addFieldToDoc(body, 'Accès PMR', formData.pmr);
+  // Helper pour les champs
+  function field(label, value) {
+    if (!value && value !== 0) return;
+    var p = body.appendParagraph('');
+    p.appendText(label + ': ').setBold(true).setFontSize(11);
+    p.appendText(String(value)).setBold(false).setFontSize(11);
+  }
 
-  // Services
-  body.appendParagraph('3. SERVICES').setAttributes(headingStyle);
-  addFieldToDoc(body, 'Services inclus', formData.servicesInclus ? formData.servicesInclus.join(', ') : '');
-  addFieldToDoc(body, 'Services supplémentaires', formData.servicesSup ? formData.servicesSup.join(', ') : '');
-  addFieldToDoc(body, 'Autres services', formData.autresServices);
+  section('1. INFORMATIONS GÉNÉRALES');
+  field('Nom de l\'établissement', formData.nom);
+  field('Type', formData.typeEtablissement);
+  field('Adresse', formData.adresse);
+  field('Pays', formData.pays);
+  field('Email', formData.email);
+  field('Téléphone', formData.tel);
+  field('Responsable', formData.responsable);
+  field('Étoiles', formData.etoiles);
+  field('Site existant', formData.siteExistant);
+  field('URL actuelle', formData.urlActuel);
+  body.appendParagraph('');
 
-  // Réservation
-  body.appendParagraph('4. RÉSERVATION').setAttributes(headingStyle);
-  addFieldToDoc(body, 'Moteur de réservation', formData.moteurResa);
-  addFieldToDoc(body, 'Outil de réservation', formData.outilResa);
-  addFieldToDoc(body, 'OTA', formData.ota ? formData.ota.join(', ') : '');
-  addFieldToDoc(body, 'Saisonnalité', formData.saisonnalite);
-  addFieldToDoc(body, 'Politique d\'annulation', formData.annulation);
-  addFieldToDoc(body, 'Moyens de paiement', formData.paiement ? formData.paiement.join(', ') : '');
+  section('2. HÉBERGEMENT');
+  field('Nombre de chambres', formData.nbChambresTotal);
+  field('Capacité totale', formData.capaciteTotale);
+  field('Étages', formData.etages);
+  field('Types de chambres', formData.rooms ? JSON.stringify(formData.rooms) : '');
+  field('Équipements chambres', formData.equipChambres ? formData.equipChambres.join(', ') : '');
+  field('Animaux acceptés', formData.animaux);
+  field('Accès PMR', formData.pmr);
+  body.appendParagraph('');
 
-  // Contenu
-  body.appendParagraph('5. CONTENU & MARKETING').setAttributes(headingStyle);
-  addFieldToDoc(body, 'Photos disponibles', formData.photos);
-  addFieldToDoc(body, 'Langues', formData.langues ? formData.langues.join(', ') : '');
-  addFieldToDoc(body, 'Blog', formData.blog);
-  addFieldToDoc(body, 'SEO souhaité', formData.seo);
-  addFieldToDoc(body, 'Avis clients', formData.avisClients);
-  addFieldToDoc(body, 'Réseaux sociaux', formData.reseaux ? formData.reseaux.join(', ') : '');
-  addFieldToDoc(body, 'Charte graphique', formData.charte);
+  section('3. SERVICES');
+  field('Services inclus', formData.servicesInclus ? formData.servicesInclus.join(', ') : '');
+  field('Services supplémentaires', formData.servicesSup ? formData.servicesSup.join(', ') : '');
+  field('Autres services', formData.autresServices);
+  body.appendParagraph('');
 
-  // Objectifs
-  body.appendParagraph('6. OBJECTIFS').setAttributes(headingStyle);
-  addFieldToDoc(body, 'Public cible', formData.cible ? formData.cible.join(', ') : '');
-  addFieldToDoc(body, 'Objectifs', formData.objectifs ? formData.objectifs.join(', ') : '');
-  addFieldToDoc(body, 'Chatbot IA', formData.chatbot);
-  addFieldToDoc(body, 'Maintenance', formData.maintenance);
-  addFieldToDoc(body, 'Budget', formData.budget);
-  addFieldToDoc(body, 'Délai', formData.delai);
-  addFieldToDoc(body, 'Références', formData.references);
-  addFieldToDoc(body, 'Complément', formData.complement);
+  section('4. RÉSERVATION');
+  field('Moteur de réservation', formData.moteurResa);
+  field('Outil de réservation', formData.outilResa);
+  field('OTA', formData.ota ? formData.ota.join(', ') : '');
+  field('Saisonnalité', formData.saisonnalite);
+  field('Politique d\'annulation', formData.annulation);
+  field('Moyens de paiement', formData.paiement ? formData.paiement.join(', ') : '');
+  body.appendParagraph('');
 
-  // Pricing
-  body.appendParagraph('RÉCAPITULATIF TARIFAIRE').setAttributes(headingStyle);
-  addFieldToDoc(body, 'Prix unique (USD)', pricing.totalOneTime ? '$' + pricing.totalOneTime : '');
-  addFieldToDoc(body, 'Prix mensuel (USD)', pricing.totalMonthly ? '$' + pricing.totalMonthly + '/mois' : '');
+  section('5. CONTENU & MARKETING');
+  field('Photos disponibles', formData.photos);
+  field('Langues', formData.langues ? formData.langues.join(', ') : '');
+  field('Blog', formData.blog);
+  field('SEO souhaité', formData.seo);
+  field('Avis clients', formData.avisClients);
+  field('Réseaux sociaux', formData.reseaux ? formData.reseaux.join(', ') : '');
+  field('Charte graphique', formData.charte);
+  body.appendParagraph('');
 
-  // Sauvegarder et fermer
+  section('6. OBJECTIFS');
+  field('Public cible', formData.cible ? formData.cible.join(', ') : '');
+  field('Objectifs', formData.objectifs ? formData.objectifs.join(', ') : '');
+  field('Chatbot IA', formData.chatbot);
+  field('Maintenance', formData.maintenance);
+  field('Budget', formData.budget);
+  field('Délai', formData.delai);
+  field('Références', formData.references);
+  field('Complément', formData.complement);
+  body.appendParagraph('');
+
+  section('RÉCAPITULATIF TARIFAIRE');
+  field('Prix unique (USD)', pricing && pricing.totalOneTime ? '$' + pricing.totalOneTime : '');
+  field('Prix mensuel (USD)', pricing && pricing.totalMonthly ? '$' + pricing.totalMonthly + '/mois' : '');
+
+  // Sauvegarder
   doc.saveAndClose();
 
-  // Exporter en PDF
-  var pdfBlob = doc.getAs(MimeType.PDF);
+  // FIX: récupérer via DriveApp après saveAndClose (l'objet doc est invalide après)
+  Utilities.sleep(1000); // Laisser le temps à Drive de finaliser l'écriture
+  var docFile = DriveApp.getFileById(docId);
+  var pdfBlob = docFile.getAs(MimeType.PDF);
 
-  // Sauvegarder dans Google Drive
+  // Sauvegarder le PDF dans le dossier cible
   var folder = DriveApp.getFolderById(CONFIG.DRIVE_FOLDER_ID);
+  var fileName = 'Formulaire_' + submissionId + '_' + formData.nom.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf';
   var pdfFile = folder.createFile(pdfBlob);
-  pdfFile.setName('Formulaire_' + submissionId + '_' + formData.nom.replace(/[^a-zA-Z0-9]/g, '_') + '.pdf');
+  pdfFile.setName(fileName);
 
   // Supprimer le Doc temporaire
-  DriveApp.getFileById(doc.getId()).setTrashed(true);
+  docFile.setTrashed(true);
 
+  Logger.log('PDF sauvegardé: ' + fileName + ' → ' + pdfFile.getUrl());
   return pdfFile.getUrl();
 }
 
-/**
- * Ajoute un champ au document
- */
-function addFieldToDoc(body, label, value) {
-  if (!value) return;
-  var p = body.appendParagraph('');
-  p.appendText(label + ': ').setBold(true);
-  p.appendText(String(value));
+// ============================================================
+// TEST MANUEL — à exécuter dans l'éditeur GAS pour vérifier
+// ============================================================
+
+function testTriggerManual() {
+  var props = PropertiesService.getScriptProperties();
+  props.setProperty('PENDING_PDF_MANUAL001', JSON.stringify({
+    submissionId: 'MANUAL001',
+    formData: {
+      nom: 'Hotel Otavalo Test',
+      email: 'nacer354@hotmail.com',
+      pays: 'Équateur',
+      typeEtablissement: 'Hostal',
+      nbChambresTotal: '20'
+    },
+    pricing: { totalOneTime: 3500, totalMonthly: 100 },
+    language: 'fr',
+    ts: new Date().toISOString()
+  }));
+
+  Logger.log('Propriété stockée. Appel processPendingPDF...');
+  processPendingPDF();
 }
 
-/**
- * Envoie les emails de confirmation (client + admin)
- */
+// ============================================================
+// sendHotelFormEmails — les emails sont gérés par Resend/Next.js
+// ============================================================
+
 function sendHotelFormEmails(params) {
-  var submissionId = params.submissionId;
-  var formData = params.formData;
-  var pricing = params.pricing;
-  var language = params.language;
-  var pdfUrl = params.pdfUrl;
-
-  var isEnglish = language === 'en';
-  var isSpanish = language === 'es';
-  var year = new Date().getFullYear();
-
-  // Email au client
-  try {
-    var clientT = isEnglish ? {
-      subject: '[' + CONFIG.COMPANY_NAME + '] Form received — ' + formData.nom,
-      title: 'Form Received',
-      greeting: 'Hello,',
-      subtitle: 'We have received your hotel project form for <strong>' + formData.nom + '</strong>. Our team will analyze your request and contact you within 48 hours.',
-      pricingTitle: 'Estimated Price',
-      oneTime: 'One-time',
-      monthly: 'Monthly',
-      nextSteps: 'What happens next?',
-      steps: [
-        'Our team will analyze your project carefully.',
-        'We will contact you within 48 hours.',
-        'We will prepare a personalized proposal.'
-      ],
-      footer: 'Questions? Contact us at'
-    } : isSpanish ? {
-      subject: '[' + CONFIG.COMPANY_NAME + '] Formulario recibido — ' + formData.nom,
-      title: 'Formulario Recibido',
-      greeting: 'Hola,',
-      subtitle: 'Hemos recibido tu formulario de proyecto hotelero para <strong>' + formData.nom + '</strong>. Nuestro equipo analizará tu solicitud y te contactará en 48 horas.',
-      pricingTitle: 'Precio Estimado',
-      oneTime: 'Único',
-      monthly: 'Mensual',
-      nextSteps: '¿Qué sigue?',
-      steps: [
-        'Nuestro equipo analizará tu proyecto cuidadosamente.',
-        'Te contactaremos en 48 horas.',
-        'Prepararemos una propuesta personalizada.'
-      ],
-      footer: '¿Preguntas? Contáctanos en'
-    } : {
-      subject: '[' + CONFIG.COMPANY_NAME + '] Formulaire reçu — ' + formData.nom,
-      title: 'Formulaire Reçu',
-      greeting: 'Bonjour,',
-      subtitle: 'Nous avons bien reçu votre formulaire de projet hôtelier pour <strong>' + formData.nom + '</strong>. Notre équipe analysera votre demande et vous contactera sous 48h.',
-      pricingTitle: 'Prix Estimé',
-      oneTime: 'Unique',
-      monthly: 'Mensuel',
-      nextSteps: 'La suite ?',
-      steps: [
-        'Notre équipe analysera votre projet avec attention.',
-        'Nous vous contacterons sous 48h.',
-        'Nous préparerons une proposition personnalisée.'
-      ],
-      footer: 'Des questions ? Contactez-nous à'
-    };
-
-    var stepsHtml = clientT.steps.map(function(step, i) {
-      return '<tr><td style="padding:8px 0;vertical-align:top;">'
-        + '<table cellpadding="0" cellspacing="0"><tr>'
-        + '<td style="padding-right:12px;vertical-align:middle;">'
-        + '<div style="width:24px;height:24px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:50%;text-align:center;line-height:24px;color:#fff;font-size:12px;font-weight:bold;display:inline-block;">' + (i + 1) + '</div>'
-        + '</td><td><p style="color:#c0c0c0;font-size:14px;margin:3px 0;line-height:1.5;">' + step + '</p></td>'
-        + '</tr></table></td></tr>';
-    }).join('');
-
-    var pricingHtml = '';
-    if (pricing.totalOneTime || pricing.totalMonthly) {
-      pricingHtml = '<table width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid #2a2a4a;border-radius:12px;margin-bottom:32px;">'
-        + '<tr><td style="padding:24px;">'
-        + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 20px;">&#128176; ' + clientT.pricingTitle + '</p>'
-        + '<table width="100%" cellpadding="0" cellspacing="0">';
-      if (pricing.totalOneTime) {
-        pricingHtml += '<tr><td style="padding:10px 0;border-bottom:1px solid #2a2a4a;color:#808080;font-size:13px;">' + clientT.oneTime + '</td><td style="padding:10px 0;border-bottom:1px solid #2a2a4a;text-align:right;color:#fff;font-size:14px;font-weight:600;">$' + pricing.totalOneTime.toLocaleString() + '</td></tr>';
-      }
-      if (pricing.totalMonthly) {
-        pricingHtml += '<tr><td style="padding:10px 0;color:#808080;font-size:13px;">' + clientT.monthly + '</td><td style="padding:10px 0;text-align:right;color:#fff;font-size:14px;font-weight:600;">$' + pricing.totalMonthly + '/mois</td></tr>';
-      }
-      pricingHtml += '</table></td></tr></table>';
-    }
-
-    var clientHtml = '<!DOCTYPE html><html lang="' + (isEnglish ? 'en' : isSpanish ? 'es' : 'fr') + '">'
-      + '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>' + clientT.title + '</title></head>'
-      + '<body style="margin:0;padding:0;background-color:#0a0a0a;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Arial,sans-serif;">'
-      + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:40px 20px;">'
-      + '<tr><td align="center">'
-      + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
-
-      + '<tr><td style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);border-radius:16px 16px 0 0;padding:40px 40px 32px;text-align:center;">'
-      + '<img src="https://neuraweb.tech/assets/neurawebW.png" alt="NeurAWeb" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />'
-      + '<div style="width:50px;height:3px;background:linear-gradient(135deg,#667eea,#764ba2);margin:0 auto 20px;border-radius:2px;"></div>'
-      + '<h1 style="color:#fff;font-size:20px;font-weight:700;margin:0;">&#10003; ' + clientT.title + '</h1>'
-      + '</td></tr>'
-
-      + '<tr><td style="background:#111;padding:40px;">'
-      + '<p style="color:#e0e0e0;font-size:16px;line-height:1.6;margin:0 0 8px;">' + clientT.greeting + '</p>'
-      + '<p style="color:#a0a0a0;font-size:15px;line-height:1.6;margin:0 0 32px;">' + clientT.subtitle + '</p>'
-
-      + pricingHtml
-
-      + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 16px;">&#128640; ' + clientT.nextSteps + '</p>'
-      + '<table width="100%" cellpadding="0" cellspacing="0">' + stepsHtml + '</table>'
-      + '</td></tr>'
-
-      + '<tr><td style="background:#111;padding:0 40px 32px;text-align:center;">'
-      + '<a href="https://neuraweb.tech" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:15px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:8px;">&#127758; Visiter notre site</a>'
-      + '</td></tr>'
-
-      + '<tr><td style="background:#0d0d0d;border-top:1px solid #1a1a1a;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">'
-      + '<p style="color:#505050;font-size:13px;margin:0 0 8px;">' + clientT.footer + ' <a href="mailto:' + CONFIG.EMAIL_ALIAS + '" style="color:#667eea;text-decoration:none;">' + CONFIG.EMAIL_ALIAS + '</a></p>'
-      + '<p style="color:#303030;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; <a href="https://neuraweb.tech" style="color:#404040;text-decoration:none;">neuraweb.tech</a></p>'
-      + '</td></tr>'
-
-      + '</table></td></tr></table></body></html>';
-
-    sendEmail({
-      to: formData.email,
-      subject: clientT.subject,
-      html: clientHtml,
-      replyTo: CONFIG.EMAIL_ALIAS
-    });
-  } catch (err) {
-    Logger.log('Erreur email client: ' + err.message);
-  }
-
-  // Email à l'admin
-  try {
-    var adminRows = [
-      ['ID', '<strong style="color:#667eea;font-family:monospace;">' + submissionId + '</strong>'],
-      ['Hôtel', '<strong>' + formData.nom + '</strong>'],
-      ['Email', '<a href="mailto:' + formData.email + '" style="color:#667eea;text-decoration:none;">' + formData.email + '</a>'],
-      ['Téléphone', formData.tel || '<span style="color:#aaa;">Non renseigné</span>'],
-      ['Type', formData.typeEtablissement || '-'],
-      ['Pays', formData.pays || '-'],
-      ['Chambres', formData.nbChambresTotal || '-'],
-      ['Budget', formData.budget || '-'],
-      ['Délai', formData.delai || '-'],
-      ['Prix unique', pricing.totalOneTime ? '<strong style="color:#22c55e;">$' + pricing.totalOneTime.toLocaleString() + '</strong>' : '-'],
-      ['Prix mensuel', pricing.totalMonthly ? '<strong style="color:#22c55e;">$' + pricing.totalMonthly + '/mois</strong>' : '-']
-    ];
-
-    var adminRowsHtml = adminRows.map(function(row, i) {
-      return '<tr style="background:' + (i % 2 === 0 ? '#fff' : '#f8f8ff') + ';">'
-        + '<td style="padding:12px 16px;border-bottom:1px solid #e8e8f0;color:#888;font-size:13px;width:35%;">' + row[0] + '</td>'
-        + '<td style="padding:12px 16px;border-bottom:1px solid #e8e8f0;color:#1a1a1a;font-size:14px;">' + row[1] + '</td>'
-        + '</tr>';
-    }).join('');
-
-    var adminHtml = '<!DOCTYPE html><html lang="fr">'
-      + '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Nouveau formulaire hôtel - ' + formData.nom + '</title></head>'
-      + '<body style="margin:0;padding:0;background:#f0f0f5;font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,Arial,sans-serif;">'
-      + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0f5;padding:40px 20px;">'
-      + '<tr><td align="center">'
-      + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
-
-      + '<tr><td style="background:#fff;border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;border-bottom:3px solid #667eea;">'
-      + '<img src="https://neuraweb.tech/assets/neurawebB.png" alt="NeurAWeb" width="160" style="display:block;margin:0 auto 12px;height:auto;" />'
-      + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0;">&#127968; Nouveau Formulaire Hôtel</p>'
-      + '</td></tr>'
-
-      + '<tr><td style="background:linear-gradient(135deg,#667eea,#764ba2);padding:16px 40px;text-align:center;">'
-      + '<p style="color:#fff;font-size:16px;font-weight:600;margin:0;">' + formData.nom + ' &mdash; <strong>' + submissionId + '</strong></p>'
-      + '</td></tr>'
-
-      + '<tr><td style="background:#fff;padding:32px 40px;">'
-      + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0 0 20px;">&#128100; Informations</p>'
-      + '<table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e0e0f0;border-radius:8px;overflow:hidden;">'
-      + adminRowsHtml
-      + '</table>'
-
-      // Boutons d'action
-      + '<div style="margin-top:28px;text-align:center;">'
-      + '<a href="mailto:' + formData.email + '?subject=Re:%20Votre%20projet%20-%20' + formData.nom + '" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 24px;border-radius:8px;margin:4px;">&#128231; Répondre</a>'
-      + (pdfUrl ? '<a href="' + pdfUrl + '" style="display:inline-block;background:#f0f0ff;color:#667eea;border:2px solid #667eea;font-size:14px;font-weight:600;text-decoration:none;padding:10px 24px;border-radius:8px;margin:4px;">&#128196; Voir PDF</a>' : '')
-      + '<a href="https://docs.google.com/spreadsheets/d/' + CONFIG.SPREADSHEET_ID + '" style="display:inline-block;background:#f0f0ff;color:#667eea;border:2px solid #667eea;font-size:14px;font-weight:600;text-decoration:none;padding:10px 24px;border-radius:8px;margin:4px;">&#128202; Sheet</a>'
-      + '</div>'
-      + '</td></tr>'
-
-      + '<tr><td style="background:#f0f0f5;border-radius:0 0 16px 16px;padding:20px 40px;text-align:center;border-top:1px solid #e0e0f0;">'
-      + '<p style="color:#999;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; Notification automatique</p>'
-      + '</td></tr>'
-
-      + '</table></td></tr></table></body></html>';
-
-    sendEmail({
-      to: CONFIG.ADMIN_EMAIL,
-      subject: '[NeurAWeb] Nouveau formulaire hôtel - ' + formData.nom + ' (' + submissionId + ')',
-      html: adminHtml,
-      replyTo: formData.email
-    });
-  } catch (err) {
-    Logger.log('Erreur email admin: ' + err.message);
-  }
+  Logger.log('sendHotelFormEmails appelé (no-op — emails gérés par Resend)');
 }

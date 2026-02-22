@@ -11,21 +11,21 @@ import { FieldWrapper, inputCls, selectCls } from '../ui/FieldWrapper';
 import { NavRow } from '../ui/NavRow';
 import type { RoomType } from '../HotelFormProvider';
 
-const EQUIP_CHAMBRES = [
-  { value: 'wifi', label: 'Wi-Fi gratuit' },
-  { value: 'clim', label: 'Climatisation' },
-  { value: 'tv', label: 'TV écran plat' },
-  { value: 'sdb', label: 'Salle de bain privée' },
-  { value: 'balcon', label: 'Balcon / Terrasse' },
-  { value: 'coffre', label: 'Coffre-fort' },
-  { value: 'minibar', label: 'Minibar' },
-  { value: 'kitchenette', label: 'Kitchenette' },
-  { value: 'bureau', label: 'Bureau de travail' },
-  { value: 'vue', label: 'Vue mer / montagne' },
-];
-
 export function Step2Rooms() {
-  const { formData, update, toggleArray, setStep } = useHotelForm();
+  const { formData, update, toggleArray, setStep, t } = useHotelForm();
+
+  const EQUIP_CHAMBRES = [
+    { value: 'wifi', label: t('hotelForm.step2.equip.wifi') },
+    { value: 'clim', label: t('hotelForm.step2.equip.clim') },
+    { value: 'tv', label: t('hotelForm.step2.equip.tv') },
+    { value: 'sdb', label: t('hotelForm.step2.equip.sdb') },
+    { value: 'balcon', label: t('hotelForm.step2.equip.balcon') },
+    { value: 'coffre', label: t('hotelForm.step2.equip.coffre') },
+    { value: 'minibar', label: t('hotelForm.step2.equip.minibar') },
+    { value: 'kitchenette', label: t('hotelForm.step2.equip.kitchenette') },
+    { value: 'bureau', label: t('hotelForm.step2.equip.bureau') },
+    { value: 'vue', label: t('hotelForm.step2.equip.vue') },
+  ];
 
   const addRoom = () => {
     const newRoom: RoomType = { id: Date.now(), type: '', qty: '', capacity: '', price: '' };
@@ -42,30 +42,30 @@ export function Step2Rooms() {
   };
 
   return (
-    <SectionCard icon="🛏" title="Hébergement & Chambres" desc="Détaillez vos types de chambres et leur capacité">
+    <SectionCard icon="🛏" title={t('hotelForm.step2.title')} desc={t('hotelForm.step2.desc')}>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <FieldWrapper label="Chambres au total" required>
+        <FieldWrapper label={t('hotelForm.step2.nbChambres.label')} required>
           <input type="number" className={inputCls} placeholder="45" min="1" value={formData.nbChambresTotal} onChange={e => update('nbChambresTotal', e.target.value)} />
         </FieldWrapper>
-        <FieldWrapper label="Capacité totale (pers.)">
+        <FieldWrapper label={t('hotelForm.step2.capacite.label')}>
           <input type="number" className={inputCls} placeholder="90" min="1" value={formData.capaciteTotale} onChange={e => update('capaciteTotale', e.target.value)} />
         </FieldWrapper>
-        <FieldWrapper label="Étages / Niveaux">
+        <FieldWrapper label={t('hotelForm.step2.etages.label')}>
           <input type="number" className={inputCls} placeholder="4" min="1" value={formData.etages} onChange={e => update('etages', e.target.value)} />
         </FieldWrapper>
       </div>
 
       <Divider />
 
-      <FieldWrapper label="Types de chambres" required hint="Ajoutez chaque type avec son nombre, sa capacité et son tarif indicatif.">
+      <FieldWrapper label={t('hotelForm.step2.rooms.label')} required hint={t('hotelForm.step2.rooms.hint')}>
         <div className="flex flex-col gap-2 mt-1">
           {/* Header */}
           <div className="hidden sm:grid grid-cols-[1fr_70px_70px_80px_32px] gap-2 px-3 text-[0.7rem] text-slate-500">
-            <span>Type de chambre</span><span>Quantité</span><span>Cap. max</span><span>Prix/nuit ($)</span><span />
+            <span>{t('hotelForm.step2.rooms.type')}</span><span>{t('hotelForm.step2.rooms.qty')}</span><span>{t('hotelForm.step2.rooms.capacity')}</span><span>{t('hotelForm.step2.rooms.price')}</span><span />
           </div>
           {formData.rooms.map(room => (
             <div key={room.id} className="grid grid-cols-2 sm:grid-cols-[1fr_70px_70px_80px_32px] gap-2 p-3 rounded-xl border border-white/8 bg-white/4 hover:border-indigo-500/25 transition-all">
-              <input className={inputCls} placeholder="Double standard" value={room.type} onChange={e => updateRoom(room.id, 'type', e.target.value)} />
+              <input className={inputCls} placeholder={t('hotelForm.step2.rooms.typePlaceholder')} value={room.type} onChange={e => updateRoom(room.id, 'type', e.target.value)} />
               <input type="number" className={inputCls} placeholder="10" min="1" value={room.qty} onChange={e => updateRoom(room.id, 'qty', e.target.value)} />
               <input type="number" className={inputCls} placeholder="2" min="1" value={room.capacity} onChange={e => updateRoom(room.id, 'capacity', e.target.value)} />
               <input type="number" className={inputCls} placeholder="120" min="0" value={room.price} onChange={e => updateRoom(room.id, 'price', e.target.value)} />
@@ -77,36 +77,36 @@ export function Step2Rooms() {
           ))}
           <button type="button" onClick={addRoom}
             className="flex items-center gap-2 px-4 py-2 w-fit border border-dashed border-indigo-500/30 rounded-xl text-violet-400 text-xs font-medium hover:bg-indigo-500/8 hover:border-indigo-500/50 transition-all">
-            + Ajouter un type de chambre
+            {t('hotelForm.step2.rooms.add')}
           </button>
         </div>
       </FieldWrapper>
 
       <Divider />
 
-      <FieldWrapper label="Équipements inclus dans les chambres">
+      <FieldWrapper label={t('hotelForm.step2.equip.label')}>
         <CheckGroup items={EQUIP_CHAMBRES} selected={formData.equipChambres} onChange={v => toggleArray('equipChambres', v)} />
       </FieldWrapper>
 
-      <FieldWrapper label="Animaux de compagnie acceptés ?">
+      <FieldWrapper label={t('hotelForm.step2.animaux.label')}>
         <RadioGroup selected={formData.animaux} onSelect={v => update('animaux', v)} items={[
-          { value: 'non', label: 'Non' },
-          { value: 'oui', label: 'Oui, tous' },
-          { value: 'petits', label: 'Petits animaux' },
-          { value: 'chiens', label: 'Chiens uniquement' },
-          { value: 'supplement', label: 'Oui, avec supplément' },
+          { value: 'non', label: t('hotelForm.step2.animaux.non') },
+          { value: 'oui', label: t('hotelForm.step2.animaux.oui') },
+          { value: 'petits', label: t('hotelForm.step2.animaux.petits') },
+          { value: 'chiens', label: t('hotelForm.step2.animaux.chiens') },
+          { value: 'supplement', label: t('hotelForm.step2.animaux.supplement') },
         ]} />
       </FieldWrapper>
 
-      <FieldWrapper label="Accessibilité PMR">
+      <FieldWrapper label={t('hotelForm.step2.pmr.label')}>
         <RadioGroup selected={formData.pmr} onSelect={v => update('pmr', v)} items={[
-          { value: 'non', label: 'Non' },
-          { value: 'partiel', label: 'Partiellement' },
-          { value: 'oui', label: 'Entièrement accessible' },
+          { value: 'non', label: t('hotelForm.step2.pmr.non') },
+          { value: 'partiel', label: t('hotelForm.step2.pmr.partiel') },
+          { value: 'oui', label: t('hotelForm.step2.pmr.oui') },
         ]} />
       </FieldWrapper>
 
-      <NavRow stepNum={2} onPrev={() => setStep(0)} onNext={() => setStep(2)} nextLabel="Suivant → Services" />
+      <NavRow stepNum={2} onPrev={() => setStep(0)} onNext={() => setStep(2)} nextLabel={t('hotelForm.step2.nextLabel')} />
     </SectionCard>
   );
 }
