@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Node {
   x: number;
@@ -20,51 +20,66 @@ interface Pulse {
   hue: number;
 }
 
+// Performance constants - réduits pour alléger le thread principal
+const NODE_COUNT = 60; // Réduit de 120 à 60
+const STAR_COUNT = 80; // Réduit de 200 à 80
+const PULSE_COUNT = 25; // Réduit de 60 à 25
+const MAX_DIST = 0.18;
+
 export function HeroThreeBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameIdRef = useRef<number>();
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { 
+      alpha: false, // Optimisation: pas de transparence nécessaire
+      desynchronized: true // Utilise le GPU quand disponible
+    });
     if (!ctx) return;
 
-    // ─── Resize ──────────────────────────────────────────────────
+    // ─── Resize avec debounce ─────────────────────────────────────
+    let resizeTimeout: NodeJS.Timeout;
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        // Réduire la résolution sur mobile pour améliorer les performances
+        const dpr = window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio, 2);
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        canvas.style.width = `${window.innerWidth}px`;
+        canvas.style.height = `${window.innerHeight}px`;
+        ctx.scale(dpr, dpr);
+      }, 100);
     };
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resize, { passive: true });
 
-    const W = () => canvas.width;
-    const H = () => canvas.height;
+    const W = () => window.innerWidth;
+    const H = () => window.innerHeight;
 
     // ─── Clusters ────────────────────────────────────────────────
     const clusterHues = [220, 260, 200, 240, 280, 210];
-    const getClusterCenter = (cluster: number) => {
-      const centers = [
-        { x: 0.2, y: 0.3 },
-        { x: 0.8, y: 0.6 },
-        { x: 0.5, y: 0.8 },
-        { x: 0.15, y: 0.65 },
-        { x: 0.75, y: 0.25 },
-        { x: 0.45, y: 0.15 },
-      ];
-      return centers[cluster];
-    };
+    const clusterCenters = [
+      { x: 0.2, y: 0.3 },
+      { x: 0.8, y: 0.6 },
+      { x: 0.5, y: 0.8 },
+      { x: 0.15, y: 0.65 },
+      { x: 0.75, y: 0.25 },
+      { x: 0.45, y: 0.15 },
+    ];
+    const getClusterCenter = (cluster: number) => clusterCenters[cluster] || clusterCenters[0];
 
-    // ─── Nodes ───────────────────────────────────────────────────
-    const NODE_COUNT = 120;
-    const nodes: Node[] = [];
-
+    // ─── Nodes - pré-alloués pour éviter les allocations ───────────
+    const nodes: Node[] = new Array(NODE_COUNT);
     for (let i = 0; i < NODE_COUNT; i++) {
       const cluster = i % 6;
       const center = getClusterCenter(cluster);
       const spread = 0.12;
-      nodes.push({
+      nodes[i] = {
         x: center.x + (Math.random() - 0.5) * spread,
         y: center.y + (Math.random() - 0.5) * spread,
         vx: (Math.random() - 0.5) * 0.0002,
@@ -73,12 +88,11 @@ export function HeroThreeBackground() {
         size: 2 + Math.random() * 3,
         cluster,
         hue: clusterHues[cluster],
-      });
+      };
     }
 
-    // ─── Connections ─────────────────────────────────────────────
+    // ─── Connections - pré-calculées ──────────────────────────────
     const connections: { a: number; b: number }[] = [];
-    const MAX_DIST = 0.18;
     for (let i = 0; i < NODE_COUNT; i++) {
       for (let j = i + 1; j < NODE_COUNT; j++) {
         const dx = nodes[i].x - nodes[j].x;
@@ -94,43 +108,78 @@ export function HeroThreeBackground() {
     }
 
     // ─── Pulses ───────────────────────────────────────────────────
-    const PULSE_COUNT = 60;
-    const pulses: Pulse[] = Array.from({ length: PULSE_COUNT }, () => ({
-      connIdx: Math.floor(Math.random() * connections.length),
-      t: Math.random(),
-      speed: 0.003 + Math.random() * 0.006,
-      hue: 200 + Math.random() * 80,
-    }));
+    const pulses: Pulse[] = new Array(PULSE_COUNT);
+    for (let i = 0; i < PULSE_COUNT; i++) {
+      pulses[i] = {
+        connIdx: Math.floor(Math.random() * connections.length),
+        t: Math.random(),
+        speed: 0.003 + Math.random() * 0.006,
+        hue: 200 + Math.random() * 80,
+      };
+    }
 
-    // ─── Stars ───────────────────────────────────────────────────
-    const STAR_COUNT = 200;
-    const stars = Array.from({ length: STAR_COUNT }, () => ({
-      x: Math.random(),
-      y: Math.random(),
-      r: 0.3 + Math.random() * 0.8,
-      alpha: 0.2 + Math.random() * 0.5,
-      phase: Math.random() * Math.PI * 2,
-    }));
+    // ─── Stars - pré-calculés ─────────────────────────────────────
+    const stars = new Array(STAR_COUNT);
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars[i] = {
+        x: Math.random(),
+        y: Math.random(),
+        r: 0.3 + Math.random() * 0.8,
+        alpha: 0.2 + Math.random() * 0.5,
+        phase: Math.random() * Math.PI * 2,
+      };
+    }
 
-    // ─── Mouse ───────────────────────────────────────────────────
+    // ─── Mouse avec throttle ──────────────────────────────────────
     let mouseX = 0.5;
     let mouseY = 0.5;
+    let mouseMoved = false;
+    
     const onMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX / window.innerWidth;
-      mouseY = e.clientY / window.innerHeight;
+      if (!mouseMoved) {
+        mouseMoved = true;
+        requestAnimationFrame(() => {
+          mouseX = e.clientX / window.innerWidth;
+          mouseY = e.clientY / window.innerHeight;
+          mouseMoved = false;
+        });
+      }
     };
-    window.addEventListener('mousemove', onMouseMove);
+    
+    // Ne pas écouter la souris sur mobile
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
+    if (!isTouchDevice) {
+      window.addEventListener('mousemove', onMouseMove, { passive: true });
+    }
 
-    // ─── Animation ───────────────────────────────────────────────
+    // ─── Visibility Observer - pause quand non visible ────────────
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(canvas);
+
+    // ─── Animation avec frame skipping ────────────────────────────
     let time = 0;
     let lastTs = 0;
+    let frameCount = 0;
 
     const animate = (ts: number) => {
       frameIdRef.current = requestAnimationFrame(animate);
 
-      const delta = lastTs ? Math.min((ts - lastTs) / 1000, 0.05) : 0.016;
+      // Skip frame si pas visible ou si on est sur mobile avec batterie faible
+      if (!isVisible) return;
+
+      // Sur mobile, réduire à 30fps
+      const targetDelta = window.innerWidth < 768 ? 0.033 : 0.016;
+      const delta = lastTs ? Math.min((ts - lastTs) / 1000, 0.05) : targetDelta;
+      
+      // Frame skipping pour maintenir les performances
+      if (delta < targetDelta * 0.8) return;
+      
       lastTs = ts;
       time += delta;
+      frameCount++;
 
       const w = W();
       const h = H();
@@ -139,22 +188,32 @@ export function HeroThreeBackground() {
       ctx.fillStyle = '#050510';
       ctx.fillRect(0, 0, w, h);
 
-      // ── Stars ──
-      for (const s of stars) {
-        const alpha = s.alpha * (0.5 + 0.5 * Math.sin(time * 0.8 + s.phase));
-        ctx.beginPath();
-        ctx.arc(s.x * w, s.y * h, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(150, 170, 220, ${alpha})`;
-        ctx.fill();
+      // ── Stars - rendu optimisé ──
+      // Ne mettre à jour les stars que toutes les 2 frames
+      if (frameCount % 2 === 0) {
+        for (let i = 0; i < stars.length; i++) {
+          const s = stars[i];
+          const alpha = s.alpha * (0.5 + 0.5 * Math.sin(time * 0.8 + s.phase));
+          ctx.beginPath();
+          ctx.arc(s.x * w, s.y * h, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(150,170,220,${alpha.toFixed(2)})`;
+          ctx.fill();
+        }
       }
 
-      // Update nodes
-      for (const n of nodes) {
+      // Update nodes - optimisé
+      const time04 = time * 0.4;
+      const time035 = time * 0.35;
+      const sinTime = Math.sin(time04);
+      const cosTime = Math.cos(time035);
+      
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
         const center = getClusterCenter(n.cluster);
-        n.x += n.vx + Math.sin(time * 0.4 + n.phase) * 0.00008;
-        n.y += n.vy + Math.cos(time * 0.35 + n.phase * 1.3) * 0.00008;
+        
+        n.x += n.vx + Math.sin(time04 + n.phase) * 0.00008;
+        n.y += n.vy + Math.cos(time035 + n.phase * 1.3) * 0.00008;
 
-        // Attraction vers le centre du cluster
         const dx = n.x - center.x;
         const dy = n.y - center.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -165,13 +224,14 @@ export function HeroThreeBackground() {
         n.vx *= 0.999;
         n.vy *= 0.999;
 
-        // Légère attraction vers la souris
         n.vx += (mouseX - n.x) * 0.000005;
         n.vy += (mouseY - n.y) * 0.000005;
       }
 
-      // ── Connections ──
-      for (const conn of connections) {
+      // ── Connections - rendu groupé ──
+      ctx.lineWidth = 0.5;
+      for (let i = 0; i < connections.length; i++) {
+        const conn = connections[i];
         const na = nodes[conn.a];
         const nb = nodes[conn.b];
         const dx = na.x - nb.x;
@@ -179,45 +239,46 @@ export function HeroThreeBackground() {
         const dist = Math.sqrt(dx * dx + dy * dy);
         const alpha = Math.max(0, (MAX_DIST - dist) / MAX_DIST) * 0.3;
 
-        const hue = (na.hue + nb.hue) / 2;
         ctx.beginPath();
         ctx.moveTo(na.x * w, na.y * h);
         ctx.lineTo(nb.x * w, nb.y * h);
-        ctx.strokeStyle = `hsla(${hue}, 70%, 50%, ${alpha})`;
-        ctx.lineWidth = 0.5;
+        ctx.strokeStyle = `hsla(${(na.hue + nb.hue) >> 1},70%,50%,${alpha.toFixed(2)})`;
         ctx.stroke();
       }
 
-      // ── Nodes (neurones) ──
-      for (const n of nodes) {
-        const pulse = Math.sin(time * 2.5 + n.phase) * 0.5 + 0.5;
+      // ── Nodes (neurones) - rendu optimisé ──
+      const time25 = time * 2.5;
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        const pulse = Math.sin(time25 + n.phase) * 0.5 + 0.5;
         const lightness = 50 + pulse * 20;
         const alpha = 0.6 + pulse * 0.4;
         const r = n.size * (1 + pulse * 0.5);
+        const nx = n.x * w;
+        const ny = n.y * h;
+        const r4 = r * 4;
 
-        // Glow
-        const grad = ctx.createRadialGradient(
-          n.x * w, n.y * h, 0,
-          n.x * w, n.y * h, r * 4
-        );
-        grad.addColorStop(0, `hsla(${n.hue + pulse * 20}, 85%, ${lightness}%, ${alpha})`);
-        grad.addColorStop(0.4, `hsla(${n.hue}, 70%, 50%, ${alpha * 0.4})`);
-        grad.addColorStop(1, `hsla(${n.hue}, 70%, 50%, 0)`);
+        // Glow - simplifié
+        const grad = ctx.createRadialGradient(nx, ny, 0, nx, ny, r4);
+        grad.addColorStop(0, `hsla(${n.hue + pulse * 20},85%,${lightness}%,${alpha.toFixed(2)})`);
+        grad.addColorStop(0.4, `hsla(${n.hue},70%,50%,${(alpha * 0.4).toFixed(2)})`);
+        grad.addColorStop(1, 'hsla(0,0%,0%,0)');
 
         ctx.beginPath();
-        ctx.arc(n.x * w, n.y * h, r * 4, 0, Math.PI * 2);
+        ctx.arc(nx, ny, r4, 0, Math.PI * 2);
         ctx.fillStyle = grad;
         ctx.fill();
 
         // Core
         ctx.beginPath();
-        ctx.arc(n.x * w, n.y * h, r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${n.hue + pulse * 20}, 90%, ${lightness + 10}%, ${alpha})`;
+        ctx.arc(nx, ny, r, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${n.hue + pulse * 20},90%,${lightness + 10}%,${alpha.toFixed(2)})`;
         ctx.fill();
       }
 
-      // ── Pulses synaptiques ──
-      for (const p of pulses) {
+      // ── Pulses synaptiques - rendu optimisé ──
+      for (let i = 0; i < pulses.length; i++) {
+        const p = pulses[i];
         p.t += p.speed;
         if (p.t > 1) {
           p.t = 0;
@@ -234,31 +295,40 @@ export function HeroThreeBackground() {
         const py = (na.y + (nb.y - na.y) * p.t) * h;
         const taper = Math.sin(p.t * Math.PI);
         const pr = 2 + taper * 3;
+        const pr3 = pr * 3;
 
-        const grad = ctx.createRadialGradient(px, py, 0, px, py, pr * 3);
-        grad.addColorStop(0, `hsla(${p.hue}, 100%, 80%, 0.95)`);
-        grad.addColorStop(0.5, `hsla(${p.hue}, 100%, 60%, 0.4)`);
-        grad.addColorStop(1, `hsla(${p.hue}, 100%, 60%, 0)`);
+        const grad = ctx.createRadialGradient(px, py, 0, px, py, pr3);
+        grad.addColorStop(0, `hsla(${p.hue},100%,80%,0.95)`);
+        grad.addColorStop(0.5, `hsla(${p.hue},100%,60%,0.4)`);
+        grad.addColorStop(1, 'hsla(0,0%,0%,0)');
 
         ctx.beginPath();
-        ctx.arc(px, py, pr * 3, 0, Math.PI * 2);
+        ctx.arc(px, py, pr3, 0, Math.PI * 2);
         ctx.fillStyle = grad;
         ctx.fill();
       }
     };
 
-    animate(0);
+    // Démarrer l'animation avec requestIdleCallback si disponible
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(() => animate(0));
+    } else {
+      animate(0);
+    }
 
     return () => {
+      clearTimeout(resizeTimeout);
       window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', onMouseMove);
+      if (!isTouchDevice) window.removeEventListener('mousemove', onMouseMove);
+      visibilityObserver.disconnect();
       if (frameIdRef.current) cancelAnimationFrame(frameIdRef.current);
     };
-  }, []);
+  }, [isVisible]);
 
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       style={{
         position: 'absolute',
         top: 0,

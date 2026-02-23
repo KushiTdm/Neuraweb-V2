@@ -3,6 +3,71 @@ const nextConfig = {
   turbopack: {
     root: __dirname,
   },
+  // Optimisations de build pour réduire la taille du JS
+  compiler: {
+    // Supprime les console.log en production
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
+  },
+  // Optimisations expérimentales
+  experimental: {
+    // Active les optimisations de bundle
+    optimizePackageImports: [
+      'lucide-react',
+      '@radix-ui/react-accordion',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-popover',
+      '@radix-ui/react-select',
+      '@radix-ui/react-tabs',
+      '@radix-ui/react-tooltip',
+      'recharts',
+      'date-fns',
+    ],
+  },
+  // Configuration webpack pour optimisations supplémentaires
+  webpack: (config, { isServer }) => {
+    // Optimisations pour le bundle client
+    if (!isServer) {
+      config.optimization = {
+        ...config.optimization,
+        // Évite les bundles trop gros
+        splitChunks: {
+          chunks: 'all',
+          cacheGroups: {
+            // Sépare les vendors
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendors',
+              chunks: 'all',
+              priority: 20,
+            },
+            // Sépare les composants UI (radix)
+            radix: {
+              test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
+              name: 'radix-ui',
+              chunks: 'all',
+              priority: 30,
+            },
+            // Sépare les icônes
+            lucide: {
+              test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
+              name: 'lucide',
+              chunks: 'all',
+              priority: 30,
+            },
+            // Sépare three.js
+            three: {
+              test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
+              name: 'three',
+              chunks: 'all',
+              priority: 30,
+            },
+          },
+        },
+      };
+    }
+    return config;
+  },
   images: {
     unoptimized: false,
     // Formats modernes en priorité (avif puis webp)

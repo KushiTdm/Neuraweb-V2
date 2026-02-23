@@ -4,7 +4,12 @@ import { Geist, Geist_Mono, Syne } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
-import Chatbot from '@/components/chatbot';
+import dynamic from 'next/dynamic';
+
+// Chatbot chargé dynamiquement pour réduire le JS initial
+const Chatbot = dynamic(() => import('@/components/chatbot'), {
+  loading: () => null,
+});
 import {
   organizationSchema,
   websiteSchema,

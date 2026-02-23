@@ -15,6 +15,10 @@ const SERVICE_PALETTES = [
   { primary: 0xec4899, secondary: 0xf472b6, accent: 0xbe185d }, // Rose – AI
 ];
 
+// Performance constants - réduits pour alléger le GPU
+const PARTICLE_COUNT = 400; // Réduit de 1200 à 400
+const ORBIT_COUNT = 4; // Réduit de 6 à 4
+
 export function ServicesThreeCanvas({ activeIndex }: ServicesThreeCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
@@ -22,6 +26,7 @@ export function ServicesThreeCanvas({ activeIndex }: ServicesThreeCanvasProps) {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const frameIdRef = useRef<number>();
   const clockRef = useRef(new THREE.Clock());
+  const isVisibleRef = useRef(true);
 
   // Refs pour les objets animés
   const particlesRef = useRef<THREE.Points | null>(null);
@@ -81,7 +86,6 @@ export function ServicesThreeCanvas({ activeIndex }: ServicesThreeCanvasProps) {
     gridRef.current = gridHelper as unknown as THREE.LineSegments;
 
     // ── 2. Nuage de particules ─────────────────────────────────
-    const PARTICLE_COUNT = 1200;
     const pGeo = new THREE.BufferGeometry();
     const pPos = new Float32Array(PARTICLE_COUNT * 3);
     const pColors = new Float32Array(PARTICLE_COUNT * 3);
@@ -182,10 +186,9 @@ export function ServicesThreeCanvas({ activeIndex }: ServicesThreeCanvasProps) {
     // ── 5. Sphères en orbite ───────────────────────────────────
     const orbitGroup = new THREE.Group();
     const orbitMeshes: THREE.Mesh[] = [];
-    const orbitCount = 6;
 
-    for (let i = 0; i < orbitCount; i++) {
-      const angle = (i / orbitCount) * Math.PI * 2;
+    for (let i = 0; i < ORBIT_COUNT; i++) {
+      const angle = (i / ORBIT_COUNT) * Math.PI * 2;
       const orbitRadius = 6.5;
       const size = 0.18 + Math.random() * 0.22;
 
@@ -224,13 +227,31 @@ export function ServicesThreeCanvas({ activeIndex }: ServicesThreeCanvasProps) {
     light2.position.set(-5, -5, 8);
     scene.add(light2);
 
-    // ── Mouse ──────────────────────────────────────────────────
+    // ── Mouse avec throttle ───────────────────────────────────────
+    let mouseThrottled = false;
     const onMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      mouseRef.current.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      if (mouseThrottled) return;
+      mouseThrottled = true;
+      requestAnimationFrame(() => {
+        const rect = container.getBoundingClientRect();
+        mouseRef.current.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        mouseRef.current.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+        mouseThrottled = false;
+      });
     };
-    window.addEventListener('mousemove', onMouseMove);
+    
+    // Ne pas écouter la souris sur mobile
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
+    if (!isTouchDevice) {
+      window.addEventListener('mousemove', onMouseMove, { passive: true });
+    }
+
+    // ── Visibility Observer - pause quand non visible ──────────────
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => { isVisibleRef.current = entry.isIntersecting; },
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(container);
 
     // ── Resize ─────────────────────────────────────────────────
     const onResize = () => {
@@ -243,9 +264,13 @@ export function ServicesThreeCanvas({ activeIndex }: ServicesThreeCanvasProps) {
     };
     window.addEventListener('resize', onResize);
 
-    // ── Boucle d'animation ─────────────────────────────────────
+    // ── Boucle d'animation avec optimisation ───────────────────────
     const animate = () => {
       frameIdRef.current = requestAnimationFrame(animate);
+      
+      // Skip frame si non visible
+      if (!isVisibleRef.current) return;
+      
       const t = clockRef.current.getElapsedTime();
 
       // Rotation particules
@@ -297,8 +322,11 @@ export function ServicesThreeCanvas({ activeIndex }: ServicesThreeCanvasProps) {
 
     // ── Cleanup ────────────────────────────────────────────────
     return () => {
-      window.removeEventListener('mousemove', onMouseMove);
+      if (!isTouchDevice) {
+        window.removeEventListener('mousemove', onMouseMove);
+      }
       window.removeEventListener('resize', onResize);
+      visibilityObserver.disconnect();
       if (frameIdRef.current) cancelAnimationFrame(frameIdRef.current);
       if (rendererRef.current) {
         rendererRef.current.dispose();

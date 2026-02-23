@@ -1,11 +1,17 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import Image from 'next/image';
 import { Code, Bot, Brain, LucideIcon, ChevronRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import type { TranslationKey } from '@/locales';
-import { ServicesThreeCanvas } from './services-three-canvas';
+import dynamic from 'next/dynamic';
+
+// Chargement différé du canvas Three.js
+const ServicesThreeCanvas = dynamic(
+  () => import('./services-three-canvas').then((mod) => mod.ServicesThreeCanvas),
+  { ssr: false }
+);
 
 interface Service {
   icon: LucideIcon;
