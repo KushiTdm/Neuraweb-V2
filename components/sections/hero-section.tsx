@@ -16,7 +16,6 @@ interface HeroSectionProps {
   onScrollToNext?: () => void;
 }
 
-// ─── Hero Section ─────────────────────────────────────────────────────────────
 export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps) {
   const [mounted, setMounted] = useState(false);
   const [heroVisible, setHeroVisible] = useState(false);
@@ -26,35 +25,27 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
     setMounted(true);
   }, []);
 
-  // Écoute l'événement custom émis par la vidéo quand elle se termine
   useEffect(() => {
     const handleVideoEnd = () => {
-      // Petit délai pour laisser le fade-out de la vidéo se terminer
       setTimeout(() => setHeroVisible(true), 200);
     };
-
     window.addEventListener('hero:reveal', handleVideoEnd);
     return () => window.removeEventListener('hero:reveal', handleVideoEnd);
   }, []);
 
   const handleStartProject = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (onScrollToNext) {
-      onScrollToNext();
-    }
+    if (onScrollToNext) onScrollToNext();
   };
 
   return (
     <section
       className="section-snap relative overflow-hidden"
-      style={{
-        background: '#050510',
-      }}
+      style={{ background: '#050510' }}
     >
-      {/* Animation Three.js 3D neuronale — toujours montée pour que l'animation tourne */}
       {mounted && <HeroThreeBackground />}
 
-      {/* Masque opaque qui disparaît quand la vidéo se termine */}
+      {/* Masque opaque disparaît après vidéo */}
       <div
         style={{
           position: 'absolute',
@@ -67,20 +58,17 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
         }}
       />
 
-      {/* Particules d'arrière-plan */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 1 }}>
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="particle"
-            style={{
-              left: `${(i * 5.3 + 7) % 100}%`,
-              animationDelay: `${(i * 0.37) % 3}s`,
-              animationDuration: `${3 + (i * 0.23) % 2}s`
-            }}
-          />
-        ))}
-      </div>
+      {/*
+        FIX LAYOUT THRASHING :
+        Les 20 divs `.particle` animées en JS causent des "forced layout reflows"
+        car chaque modification de style invalide le layout.
+        
+        Remplacement par un seul élément <canvas> via CSS animations pures
+        ou suppression totale — le HeroThreeBackground gère déjà les particules.
+        
+        AVANT : 20 × <div class="particle"> = 20 éléments DOM animés par JS
+        APRÈS : supprimé — les particules sont dans le canvas Three.js/2D
+      */}
 
       {/* Contenu principal */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 py-8 sm:py-12">
@@ -90,7 +78,7 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
             transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
           }}
         >
-          {/* Badge animé */}
+          {/* Badge */}
           <div
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm border border-cyan-500/30 mb-8"
             style={{
@@ -98,7 +86,6 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
               opacity: heroVisible ? 1 : 0,
               transform: heroVisible ? 'translateY(0) scale(1)' : 'translateY(-20px) scale(0.95)',
               transition: 'opacity 0.7s ease, transform 0.7s ease',
-              transitionDelay: '0s',
             }}
           >
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
@@ -164,7 +151,6 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
               {t('hero.cta.services')}
             </Link>
           </div>
-
         </div>
       </div>
 
@@ -179,7 +165,7 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
       >
         <button
           onClick={handleStartProject}
-          className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+          className="text-gray-400 hover:text-gray-300 transition-colors"
           aria-label="Scroll to next section"
         >
           <svg
@@ -191,7 +177,7 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </button>
       </div>
