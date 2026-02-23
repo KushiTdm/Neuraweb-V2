@@ -58,18 +58,22 @@ export function Footer() {
               className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors duration-200 group"
             >
               <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-brand-500/40 transition-colors">
-                <Mail size={14} className="text-gray-400 group-hover:text-brand-400 transition-colors" />
+                <Mail size={14} className="text-gray-400 group-hover:text-brand-400 transition-colors" aria-hidden="true" />
               </div>
               contact@neuraweb.tech
             </a>
           </div>
 
-          {/* Colonne 2 : Services */}
+          {/* Colonne 2 : Services
+            FIX hiérarchie titres :
+            h4 → h3 (pas de h3 parent dans cette section, on était en h4 direct après h2 de page)
+            L'audit signalait "Services" <h4> sans <h3> intermédiaire.
+          */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-5 flex items-center gap-2">
-              <Zap size={14} className="text-brand-400" />
+            <h3 className="text-white text-sm font-semibold mb-5 flex items-center gap-2">
+              <Zap size={14} className="text-brand-400" aria-hidden="true" />
               {t('nav.services')}
-            </h4>
+            </h3>
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service}>
@@ -77,7 +81,7 @@ export function Footer() {
                     href="/services"
                     className="text-sm text-gray-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
                   >
-                    <span className="w-1 h-1 rounded-full bg-brand-500/50 group-hover:bg-brand-400 transition-colors" />
+                    <span className="w-1 h-1 rounded-full bg-brand-500/50 group-hover:bg-brand-400 transition-colors" aria-hidden="true" />
                     {service}
                   </LocalizedLink>
                 </li>
@@ -85,11 +89,11 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Colonne 3 : Liens rapides */}
+          {/* Colonne 3 : Liens rapides — h4 → h3 également */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-5">
+            <h3 className="text-white text-sm font-semibold mb-5">
               {t('footer.links.title')}
-            </h4>
+            </h3>
             <ul className="space-y-3">
               {links.map((link) => (
                 <li key={link.href}>
@@ -100,6 +104,7 @@ export function Footer() {
                     <ArrowUpRight
                       size={12}
                       className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-200 text-brand-400"
+                      aria-hidden="true"
                     />
                     {link.label}
                   </LocalizedLink>
@@ -113,13 +118,20 @@ export function Footer() {
         <div className="gradient-line mb-6" />
 
         {/* ── Copyright ─────────────────────────────────── */}
+        {/*
+          FIX contraste :
+          text-gray-600 sur fond #050510 → ratio ~2.3:1 (insuffisant, WCAG AA exige 4.5:1)
+          → text-gray-400 → ratio ~5.8:1 ✓
+          
+          "Crafted with ♥ by NeuraWeb" : même correction
+        */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-gray-400">
             {t('footer.copyright')}
           </p>
-          <div className="flex items-center gap-1.5 text-xs text-gray-600">
+          <div className="flex items-center gap-1.5 text-xs text-gray-400">
             <span>Crafted with</span>
-            <span className="text-brand-500">♥</span>
+            <span className="text-brand-400" aria-hidden="true">♥</span>
             <span>by NeuraWeb</span>
           </div>
         </div>
