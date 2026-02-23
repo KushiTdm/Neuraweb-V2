@@ -27,9 +27,8 @@ interface ChatResponse {
   showBookingDates?: boolean
 }
 
-// Icône Robot IA personnalisée
 const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <rect x="4" y="8" width="16" height="12" rx="2"/>
     <path d="M2 12h2"/><path d="M20 12h2"/><path d="M8 4h8"/>
     <circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/>
@@ -47,7 +46,6 @@ export default function Chatbot() {
   const [sessionId, setSessionId] = useState<string>('')
   const [mounted, setMounted] = useState(false)
   
-  // Booking state
   const [availableSlots, setAvailableSlots] = useState<Slot[]>([])
   const [selectedDate, setSelectedDate] = useState('')
   const [selectedTime, setSelectedTime] = useState('')
@@ -63,12 +61,10 @@ export default function Chatbot() {
   
   const { t, language } = useTranslation()
 
-  // Génère un ID de session
   const generateSessionId = useCallback(() => {
     return `session_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`
   }, [])
 
-  // Initialisation
   useEffect(() => {
     setMounted(true)
     try {
@@ -84,7 +80,6 @@ export default function Chatbot() {
     }
   }, [generateSessionId])
 
-  // Écouter l'événement d'ouverture du chatbot depuis les packs
   useEffect(() => {
     const handleOpenChatbot = (event: CustomEvent<{ pack: string }>) => {
       setIsOpen(true)
@@ -111,7 +106,6 @@ export default function Chatbot() {
     return () => window.removeEventListener('openChatbot', handleOpenChatbot as EventListener)
   }, [language])
 
-  // Message de bienvenue
   useEffect(() => {
     if (mounted) {
       const greeting = t('chatbot.greeting')
@@ -122,7 +116,6 @@ export default function Chatbot() {
     }
   }, [mounted, language, t])
 
-  // Scroll automatique
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [])
@@ -135,28 +128,20 @@ export default function Chatbot() {
     if (isOpen && inputRef.current) inputRef.current.focus()
   }, [isOpen])
 
-  // Charger les créneaux disponibles
   const loadAvailableSlots = async (): Promise<Slot[]> => {
     try {
-      console.log('📡 Appel /api/booking...')
-    const response = await fetch('/api/booking?action=getAvailableSlots')
-    console.log('📡 Status:', response.status)
-    const data = await response.json()
-    console.log('📡 Data:', JSON.stringify(data))
+      const response = await fetch('/api/booking?action=getAvailableSlots')
+      const data = await response.json()
       if (data.slots && data.slots.length > 0) {
-        console.log(`✅ ${data.slots.length} créneaux chargés`)
         setAvailableSlots(data.slots)
         return data.slots
       }
-      console.log('⚠️ Aucun créneau reçu, génération locale...')
       return generateFallbackSlots()
     } catch (err) {
-      console.error('❌ Erreur chargement créneaux:', err)
       return generateFallbackSlots()
     }
   }
 
-  // Générer des créneaux de secours si l'API échoue
   const generateFallbackSlots = (): Slot[] => {
     const slots: Slot[] = []
     const today = new Date()
@@ -165,26 +150,17 @@ export default function Chatbot() {
     for (let day = 1; day <= 14; day++) {
       const date = new Date(today)
       date.setDate(today.getDate() + day)
-
       if (date.getDay() === 0 || date.getDay() === 6) continue
-
       const dateStr = date.toISOString().split('T')[0]
-
       timeSlots.forEach(time => {
-        slots.push({
-          date: dateStr,
-          time,
-          available: true
-        })
+        slots.push({ date: dateStr, time, available: true })
       })
     }
     
-    console.log(`📋 ${slots.length} créneaux de secours générés`)
     setAvailableSlots(slots)
     return slots
   }
 
-  // Démarrer le processus de réservation
   const startBooking = async () => {
     const slots = await loadAvailableSlots()
     if (slots.length === 0) {
@@ -212,7 +188,6 @@ export default function Chatbot() {
     }])
   }
 
-  // Formater une date
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr)
     return date.toLocaleDateString(
@@ -221,7 +196,6 @@ export default function Chatbot() {
     )
   }
 
-  // Sélectionner une date
   const selectDate = (date: string, slots?: Slot[]) => {
     setSelectedDate(date)
     setBookingStep('times')
@@ -243,7 +217,6 @@ export default function Chatbot() {
     ])
   }
 
-  // Sélectionner une heure
   const selectTime = (time: string) => {
     setSelectedTime(time)
     setBookingStep('form')
@@ -262,7 +235,6 @@ export default function Chatbot() {
     ])
   }
 
-  // Soumettre la réservation
   const submitBooking = async () => {
     if (!bookingForm.name || !bookingForm.email) return
     
@@ -274,12 +246,7 @@ export default function Chatbot() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'bookSlot',
-          data: {
-            ...bookingForm,
-            date: selectedDate,
-            time: selectedTime,
-            language
-          }
+          data: { ...bookingForm, date: selectedDate, time: selectedTime, language }
         })
       })
       
@@ -297,7 +264,6 @@ export default function Chatbot() {
               : `✅ **Appointment confirmed!**\n\n📅 ${formatDate(selectedDate)} at ${selectedTime}\n\n📧 You will receive a confirmation email.\n📞 We will call you at the agreed time.\n\nSee you soon!`
           }
         ])
-        // Reset
         setBookingForm({ name: '', email: '', phone: '', whatsapp: '', company: '', service: '', message: '' })
         setSelectedDate('')
         setSelectedTime('')
@@ -311,9 +277,7 @@ export default function Chatbot() {
     }
   }
 
-  // Envoyer un message
-
-const sendMessage = async () => {
+  const sendMessage = async () => {
     if (!input.trim() || isLoading || remainingMessages <= 0) return
 
     const userMessage = input.trim()
@@ -328,20 +292,14 @@ const sendMessage = async () => {
     setMessages(prev => [...prev, { role: 'user', content: userMessage }])
 
     try {
-      // ✅ FIX: Nettoyer l'historique avant envoi (supprimer les champs UI)
       const cleanHistory = messages
         .filter(m => m.role === 'user' || m.role === 'assistant')
-        .map(m => ({ role: m.role, content: m.content })) // ← on garde UNIQUEMENT role + content
+        .map(m => ({ role: m.role, content: m.content }))
 
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: userMessage,
-          sessionId,
-          history: cleanHistory, // ← historique propre sans showBooking/slots
-          language
-        })
+        body: JSON.stringify({ message: userMessage, sessionId, history: cleanHistory, language })
       })
 
       const data: ChatResponse = await response.json()
@@ -380,30 +338,45 @@ const sendMessage = async () => {
 
   if (!mounted) return null
 
+  // Labels accessibles selon la langue
+  const toggleLabel = isOpen
+    ? (language === 'fr' ? 'Fermer le chat' : language === 'es' ? 'Cerrar el chat' : 'Close chat')
+    : (language === 'fr' ? 'Ouvrir le chat avec NeuraWeb' : language === 'es' ? 'Abrir el chat con NeuraWeb' : 'Open chat with NeuraWeb')
+
+  const sendLabel = language === 'fr' ? 'Envoyer le message' : language === 'es' ? 'Enviar mensaje' : 'Send message'
+
   return (
     <>
-      {/* Bouton flottant */}
+      {/* FIX: Bouton flottant — ajout aria-label explicite */}
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={toggleLabel}
+        aria-expanded={isOpen}
+        aria-haspopup="dialog"
         className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${
           isOpen 
             ? 'bg-gray-700 hover:bg-gray-600' 
             : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 hover:scale-110'
         }`}
       >
-        {isOpen ? <X className="w-6 h-6 text-white" /> : <RobotIcon className="w-6 h-6 text-white" />}
-        {!isOpen && <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse" />}
+        {isOpen ? <X className="w-6 h-6 text-white" aria-hidden="true" /> : <RobotIcon className="w-6 h-6 text-white" />}
+        {!isOpen && <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse" aria-hidden="true" />}
       </button>
 
       {/* Fenêtre de chat */}
-      <div className={`fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-48px)] transition-all duration-300 ${
-        isOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
-      }`}>
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={language === 'fr' ? 'Chat NeuraWeb' : language === 'es' ? 'Chat NeuraWeb' : 'NeuraWeb Chat'}
+        className={`fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-48px)] transition-all duration-300 ${
+          isOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
+      >
         <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl overflow-hidden">
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-3">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" aria-hidden="true">
                 <RobotIcon className="w-5 h-5 text-white" />
               </div>
               <div className="flex-1">
@@ -414,13 +387,21 @@ const sendMessage = async () => {
           </div>
 
           {/* Messages */}
-          <div className="h-80 overflow-y-auto p-4 space-y-4 bg-gray-950">
+          <div
+            className="h-80 overflow-y-auto p-4 space-y-4 bg-gray-950"
+            role="log"
+            aria-live="polite"
+            aria-label={language === 'fr' ? 'Messages du chat' : language === 'es' ? 'Mensajes del chat' : 'Chat messages'}
+          >
             {messages.map((msg, index) => (
               <div key={index}>
                 <div className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    msg.role === 'user' ? 'bg-blue-600' : 'bg-gradient-to-r from-purple-600 to-pink-600'
-                  }`}>
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                      msg.role === 'user' ? 'bg-blue-600' : 'bg-gradient-to-r from-purple-600 to-pink-600'
+                    }`}
+                    aria-hidden="true"
+                  >
                     {msg.role === 'user' ? <User className="w-4 h-4 text-white" /> : <RobotIcon className="w-4 h-4 text-white" />}
                   </div>
                   <div className={`max-w-[85%] px-4 py-2 rounded-2xl ${
@@ -432,14 +413,15 @@ const sendMessage = async () => {
 
                 {/* Dates cliquables */}
                 {msg.showBooking === 'dates' && msg.slots && (
-                  <div className="mt-3 ml-11 grid grid-cols-3 gap-2">
+                  <div className="mt-3 ml-11 grid grid-cols-3 gap-2" role="group" aria-label={language === 'fr' ? 'Choisir une date' : 'Choose a date'}>
                     {Array.from(new Set(msg.slots.filter(s => s.available).map(s => s.date))).sort().slice(0, 9).map(date => (
                       <button
                         key={date}
                         onClick={() => selectDate(date, msg.slots)}
+                        aria-label={formatDate(date)}
                         className="p-2 bg-gray-800 hover:bg-purple-600 border border-gray-700 hover:border-purple-500 rounded-lg text-center text-white text-sm transition-all"
                       >
-                        <div className="text-xs text-gray-400 group-hover:text-white">{new Date(date).toLocaleDateString(
+                        <div className="text-xs text-gray-400">{new Date(date).toLocaleDateString(
                           language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : 'en-US', { weekday: 'short' }
                         )}</div>
                         <div className="font-bold text-lg">{new Date(date).getDate()}</div>
@@ -453,11 +435,12 @@ const sendMessage = async () => {
 
                 {/* Heures cliquables */}
                 {msg.showBooking === 'times' && msg.selectedDate && msg.slots && (
-                  <div className="mt-3 ml-11 grid grid-cols-4 gap-2">
+                  <div className="mt-3 ml-11 grid grid-cols-4 gap-2" role="group" aria-label={language === 'fr' ? 'Choisir un horaire' : 'Choose a time'}>
                     {msg.slots.filter(s => s.date === msg.selectedDate && s.available).map(s => s.time).map(time => (
                       <button
                         key={time}
                         onClick={() => selectTime(time)}
+                        aria-label={`${language === 'fr' ? 'Réserver à' : 'Book at'} ${time}`}
                         className="p-2 bg-gray-800 hover:bg-purple-600 border border-gray-700 hover:border-purple-500 rounded-lg text-white text-sm font-medium transition-all"
                       >
                         {time}
@@ -474,6 +457,7 @@ const sendMessage = async () => {
                       placeholder={language === 'fr' ? 'Nom *' : language === 'es' ? 'Nombre *' : 'Name *'}
                       value={bookingForm.name}
                       onChange={e => setBookingForm({...bookingForm, name: e.target.value})}
+                      aria-label={language === 'fr' ? 'Votre nom' : language === 'es' ? 'Su nombre' : 'Your name'}
                       className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500"
                     />
                     <input
@@ -481,6 +465,7 @@ const sendMessage = async () => {
                       placeholder="Email *"
                       value={bookingForm.email}
                       onChange={e => setBookingForm({...bookingForm, email: e.target.value})}
+                      aria-label={language === 'fr' ? 'Votre email' : language === 'es' ? 'Su email' : 'Your email'}
                       className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500"
                     />
                     <div className="grid grid-cols-2 gap-2">
@@ -489,6 +474,7 @@ const sendMessage = async () => {
                         placeholder={language === 'fr' ? 'Téléphone' : language === 'es' ? 'Teléfono' : 'Phone'}
                         value={bookingForm.phone}
                         onChange={e => setBookingForm({...bookingForm, phone: e.target.value})}
+                        aria-label={language === 'fr' ? 'Téléphone' : language === 'es' ? 'Teléfono' : 'Phone number'}
                         className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500"
                       />
                       <input
@@ -496,6 +482,7 @@ const sendMessage = async () => {
                         placeholder="WhatsApp"
                         value={bookingForm.whatsapp}
                         onChange={e => setBookingForm({...bookingForm, whatsapp: e.target.value})}
+                        aria-label="WhatsApp"
                         className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500"
                       />
                     </div>
@@ -504,21 +491,24 @@ const sendMessage = async () => {
                       value={bookingForm.message}
                       onChange={e => setBookingForm({...bookingForm, message: e.target.value})}
                       rows={2}
+                      aria-label={language === 'fr' ? 'Message optionnel' : language === 'es' ? 'Mensaje opcional' : 'Optional message'}
                       className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500 resize-none"
                     />
+                    {/* FIX: Bouton confirm booking — ajout aria-label explicite */}
                     <button
                       onClick={submitBooking}
                       disabled={!bookingForm.name || !bookingForm.email || isSubmittingBooking}
+                      aria-label={language === 'fr' ? 'Confirmer le rendez-vous' : language === 'es' ? 'Confirmar cita' : 'Confirm booking appointment'}
                       className="w-full py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {isSubmittingBooking ? (
                         <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
                           {language === 'fr' ? 'Réservation...' : language === 'es' ? 'Reservando...' : 'Booking...'}
                         </>
                       ) : (
                         <>
-                          <CheckCircle className="w-4 h-4" />
+                          <CheckCircle className="w-4 h-4" aria-hidden="true" />
                           {language === 'fr' ? 'Confirmer le RDV' : language === 'es' ? 'Confirmar cita' : 'Confirm booking'}
                         </>
                       )}
@@ -529,11 +519,11 @@ const sendMessage = async () => {
             ))}
 
             {isLoading && (
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0">
+              <div className="flex gap-3" role="status" aria-label={language === 'fr' ? 'En cours de réponse…' : 'Typing…'}>
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0" aria-hidden="true">
                   <RobotIcon className="w-4 h-4 text-white" />
                 </div>
-                <div className="bg-gray-800 border border-gray-700 px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1">
+                <div className="bg-gray-800 border border-gray-700 px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1" aria-hidden="true">
                   <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:0ms]" />
                   <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:150ms]" />
                   <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:300ms]" />
@@ -542,8 +532,8 @@ const sendMessage = async () => {
             )}
 
             {error && (
-              <div className="flex items-center gap-2 text-red-400 text-sm bg-red-400/10 px-3 py-2 rounded-lg">
-                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+              <div className="flex items-center gap-2 text-red-400 text-sm bg-red-400/10 px-3 py-2 rounded-lg" role="alert">
+                <AlertCircle className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
                 <span>{error}</span>
               </div>
             )}
@@ -570,14 +560,17 @@ const sendMessage = async () => {
                   onKeyPress={handleKeyPress}
                   placeholder={t('chatbot.placeholder')}
                   disabled={isLoading}
+                  aria-label={t('chatbot.placeholder')}
                   className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 disabled:opacity-50 text-sm"
                 />
+                {/* FIX: Bouton Send — ajout aria-label explicite */}
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
+                  aria-label={sendLabel}
                   className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-4 h-4" aria-hidden="true" />
                 </button>
               </div>
             )}
@@ -593,7 +586,13 @@ const sendMessage = async () => {
       </div>
 
       {/* Overlay mobile */}
-      {isOpen && <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setIsOpen(false)} />}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setIsOpen(false)}
+          aria-hidden="true"
+        />
+      )}
     </>
   )
 }

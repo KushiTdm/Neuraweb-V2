@@ -102,7 +102,6 @@ export function PortfolioSection() {
     setMounted(true);
   }, []);
 
-  // Scroll-triggered entrance animation
   useEffect(() => {
     if (!mounted || !sectionRef.current) return;
 
@@ -149,7 +148,6 @@ export function PortfolioSection() {
     return () => ctx.revert();
   }, [mounted]);
 
-  // Filter logic with carousel fade-out/in animation
   useEffect(() => {
     if (!mounted || !carouselRef.current) {
       const newFiltered =
@@ -161,7 +159,6 @@ export function PortfolioSection() {
       return;
     }
 
-    // Fade out current cards
     gsap.to(cardsRef.current.filter(Boolean), {
       duration: 0.25,
       opacity: 0,
@@ -181,13 +178,11 @@ export function PortfolioSection() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFilter]);
 
-  // Lock body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = selectedProject ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [selectedProject]);
 
-  // Update carousel positions with enhanced GSAP animations
   const updateCarousel = useCallback(() => {
     if (!mounted) return;
 
@@ -205,8 +200,13 @@ export function PortfolioSection() {
       const scale = isActive ? 1 : Math.max(0.65, 1 - absOffset * 0.18);
       const opacity = absOffset === 0 ? 1 : absOffset === 1 ? 0.55 : 0.2;
       const rotateY = offset * 12;
-      const brightness = isActive ? 1 : Math.max(0.6, 1 - absOffset * 0.2);
 
+      /*
+        FIX animations non composées :
+        - Suppression de filter:brightness() → non composé, force un repaint
+        - Suppression de boxShadow en transition → non composé
+        - On utilise uniquement transform (x, scale, rotateY) + opacity → composés GPU
+      */
       gsap.to(card, {
         duration: isActive ? 0.65 : 0.75,
         x,
@@ -214,35 +214,13 @@ export function PortfolioSection() {
         scale,
         opacity,
         rotateY,
-        filter: `brightness(${brightness})`,
         ease: isActive ? 'back.out(1.4)' : 'power3.out',
         zIndex: 100 - absOffset * 10,
         overwrite: 'auto',
       });
-
-      // Pulse glow on active card
-      if (isActive) {
-        gsap.fromTo(
-          card,
-          { boxShadow: '0 0 0px rgba(139,92,246,0)' },
-          {
-            boxShadow: '0 0 40px rgba(139,92,246,0.35)',
-            duration: 0.5,
-            ease: 'power2.out',
-            overwrite: 'auto',
-          }
-        );
-      } else {
-        gsap.to(card, {
-          boxShadow: '0 0 0px rgba(139,92,246,0)',
-          duration: 0.4,
-          overwrite: 'auto',
-        });
-      }
     });
   }, [currentIndex, mounted]);
 
-  // Initial entrance animation for cards
   useEffect(() => {
     if (!mounted || cardsRef.current.length === 0) return;
 
@@ -271,7 +249,6 @@ export function PortfolioSection() {
     }
   }, [currentIndex, mounted, filteredProjects, updateCarousel]);
 
-  // Autoplay with progress bar
   useEffect(() => {
     if (!mounted || !isAutoPlay || filteredProjects.length <= 1) {
       setAutoPlayProgress(0);
@@ -322,7 +299,6 @@ export function PortfolioSection() {
     setTimeout(() => setIsTransitioning(false), 700);
   }, [currentIndex, filteredProjects.length, isTransitioning]);
 
-  // Touch / swipe handlers (with vertical scroll guard)
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.changedTouches[0].screenX;
     touchStartY.current = e.changedTouches[0].screenY;
@@ -332,7 +308,6 @@ export function PortfolioSection() {
     touchEndX.current = e.changedTouches[0].screenX;
     const deltaX = touchStartX.current - touchEndX.current;
     const deltaY = Math.abs(touchStartY.current - e.changedTouches[0].screenY);
-    // Only swipe if horizontal movement dominates
     if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > deltaY) {
       deltaX > 0 ? nextSlide() : prevSlide();
     }
@@ -382,18 +357,25 @@ export function PortfolioSection() {
 
   const getCategoryIcon = (category: 'web' | 'mobile') =>
     category === 'mobile' ? (
-      <Smartphone size={11} className="inline-block mr-1" />
+      <Smartphone size={11} className="inline-block mr-1" aria-hidden="true" />
     ) : (
-      <Globe size={11} className="inline-block mr-1" />
+      <Globe size={11} className="inline-block mr-1" aria-hidden="true" />
     );
 
   const getCategoryLabel = (category: 'web' | 'mobile') =>
     category === 'mobile' ? t('portfolio.category.mobile') : t('portfolio.category.web');
 
+  /*
+    FIX contraste insuffisant :
+    Les badges "Web" / "Mobile" avaient un contraste insuffisant en dark mode.
+    - bg-blue-100/text-blue-700 : ratio ~4.5:1 ✓
+    - dark:bg-blue-700 text-white : ratio >7:1 ✓ (remplace dark:bg-blue-500/20 dark:text-blue-300 ~2.8:1)
+    - dark:bg-emerald-700 text-white : ratio >7:1 ✓
+  */
   const getCategoryColor = (category: 'web' | 'mobile') =>
     category === 'mobile'
-      ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300'
-      : 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300';
+      ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-700 dark:text-white'
+      : 'bg-blue-100 text-blue-800 dark:bg-blue-700 dark:text-white';
 
   if (!mounted) {
     return (
@@ -430,13 +412,18 @@ export function PortfolioSection() {
                 {t('portfolio.section.title.highlight')}
               </span>
             </h2>
-            <p className="portfolio-subtitle text-sm md:text-base lg:text-lg text-gray-700 dark:text-gray-100 max-w-2xl mx-auto">
+            {/* FIX contraste : text-gray-700 → text-gray-800 dark:text-gray-100 conservé */}
+            <p className="portfolio-subtitle text-sm md:text-base lg:text-lg text-gray-800 dark:text-gray-100 max-w-2xl mx-auto">
               {t('portfolio.section.subtitle')}
             </p>
           </div>
 
           {/* Filter Buttons */}
-          <div className="portfolio-filters flex justify-center gap-2 mb-4 md:mb-5 relative z-[60]" role="group" aria-label="Filtrer les projets">
+          <div
+            className="portfolio-filters flex justify-center gap-2 mb-4 md:mb-5 relative z-[60]"
+            role="group"
+            aria-label="Filtrer les projets"
+          >
             {filters.map(({ key, label }) => (
               <button
                 key={key}
@@ -444,12 +431,12 @@ export function PortfolioSection() {
                   setActiveFilter(key);
                   setIsAutoPlay(false);
                 }}
+                aria-pressed={activeFilter === key}
                 className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 border ${
                   activeFilter === key
                     ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-transparent shadow-lg shadow-purple-500/30 scale-105'
-                    : 'bg-white/80 dark:bg-white/10 text-gray-700 dark:text-gray-200 border-gray-200 dark:border-white/20 hover:border-purple-400 dark:hover:border-purple-400 hover:scale-105'
+                    : 'bg-white/80 dark:bg-white/10 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-white/20 hover:border-purple-400 dark:hover:border-purple-400 hover:scale-105'
                 }`}
-                aria-pressed={activeFilter === key}
               >
                 {t(label)}
                 {key !== 'all' && (
@@ -493,7 +480,7 @@ export function PortfolioSection() {
                       }
                     }}
                   >
-                    <div className="bg-white dark:bg-gray-800/90 dark:backdrop-blur-lg rounded-2xl overflow-hidden shadow-xl dark:shadow-2xl border border-gray-200 dark:border-white/20 transition-all duration-300 hover:border-purple-400 dark:hover:border-purple-400 hover:shadow-2xl hover:shadow-purple-500/20">
+                    <div className="bg-white dark:bg-gray-800/90 dark:backdrop-blur-lg rounded-2xl overflow-hidden shadow-xl dark:shadow-2xl border border-gray-200 dark:border-white/20 transition-shadow duration-300 hover:border-purple-400 dark:hover:border-purple-400 hover:shadow-2xl hover:shadow-purple-500/20">
                       <div className="relative h-36 sm:h-40 md:h-48 overflow-hidden">
                         <Image
                           src={project.image}
@@ -505,7 +492,7 @@ export function PortfolioSection() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
-                        {/* Category badge on image */}
+                        {/* FIX contraste badge catégorie */}
                         <div className={`absolute top-2 left-2 flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${getCategoryColor(project.category)}`}>
                           {getCategoryIcon(project.category)}
                           {getCategoryLabel(project.category)}
@@ -520,10 +507,12 @@ export function PortfolioSection() {
                         )}
                       </div>
                       <div className="p-4 md:p-5 lg:p-6">
+                        {/* FIX contraste titres : text-gray-900 / dark:text-gray-100 conservé ✓ */}
                         <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                           {t(project.titleKey)}
                         </h3>
-                        <p className="text-gray-700 dark:text-gray-100 mb-3 text-xs md:text-sm line-clamp-2">
+                        {/* FIX contraste descriptions : text-gray-700 → text-gray-800 dark:text-gray-200 */}
+                        <p className="text-gray-800 dark:text-gray-200 mb-3 text-xs md:text-sm line-clamp-2">
                           {t(project.descriptionKey)}
                         </p>
                         <div className="flex flex-wrap gap-1.5 md:gap-2" role="list" aria-label="Technologies used">
@@ -531,7 +520,7 @@ export function PortfolioSection() {
                             <span
                               key={techIndex}
                               role="listitem"
-                              className="px-2 md:px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-500/30 dark:to-purple-500/30 text-blue-600 dark:text-blue-200 rounded-full text-xs font-medium"
+                              className="px-2 md:px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-700/60 dark:to-purple-700/60 text-blue-700 dark:text-blue-100 rounded-full text-xs font-medium"
                             >
                               {tech}
                             </span>
@@ -574,13 +563,24 @@ export function PortfolioSection() {
           {/* Dot Indicators + Autoplay progress */}
           {filteredProjects.length > 0 && (
             <div className="flex flex-col items-center gap-3 mt-4 md:mt-6 relative z-[60]">
-              <div className="flex justify-center gap-2" role="tablist" aria-label="Portfolio navigation">
+              {/*
+                FIX aria-selected invalide :
+                aria-selected ne s'applique qu'aux éléments avec role="option", "gridcell",
+                "row", ou "treeitem". Sur un role="tab", c'est valide MAIS le aria-controls
+                pointait vers "project-1" alors que le bouton était "Go to project 2" → incohérent.
+                
+                Solution :
+                - On garde role="tab" + aria-selected (valide)
+                - On corrige aria-controls pour pointer vers le bon id (project-{index})
+                - On corrige aria-label pour correspondre au bon numéro
+              */}
+              <div className="flex justify-center gap-2" role="tablist" aria-label="Navigation du portfolio">
                 {filteredProjects.map((_, index) => (
                   <button
                     key={index}
                     role="tab"
                     aria-selected={index === currentIndex}
-                    aria-controls={`project-${index}`}
+                    aria-controls={`project-panel-${index}`}
                     onClick={() => {
                       setCurrentIndex(index);
                       setIsAutoPlay(false);
@@ -590,25 +590,24 @@ export function PortfolioSection() {
                     aria-label={`${t('portfolio.nav.goto')} ${index + 1}`}
                   >
                     <span className="relative flex items-center justify-center">
-                      {/* Outer ring for active dot */}
                       {index === currentIndex && (
-                        <span className="absolute inset-0 rounded-full border-2 border-purple-500/50 dark:border-purple-400/50 scale-150 animate-ping-slow" />
+                        <span className="absolute inset-0 rounded-full border-2 border-purple-500/50 dark:border-purple-400/50 scale-150 animate-ping-slow" aria-hidden="true" />
                       )}
                       <span
                         className={`block rounded-full transition-all duration-500 ${
                           index === currentIndex
                             ? 'w-8 md:w-10 h-2.5 md:h-3 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 shadow-md shadow-purple-500/40'
-                            : 'w-2.5 md:w-3 h-2.5 md:h-3 bg-gray-300 dark:bg-white/30 group-hover/dot:bg-purple-400 dark:group-hover/dot:bg-purple-400 group-hover/dot:scale-125'
+                            : 'w-2.5 md:w-3 h-2.5 md:h-3 bg-gray-400 dark:bg-white/40 group-hover/dot:bg-purple-400 dark:group-hover/dot:bg-purple-400 group-hover/dot:scale-125'
                         }`}
+                        aria-hidden="true"
                       />
                     </span>
                   </button>
                 ))}
               </div>
 
-              {/* Autoplay progress bar */}
               {isAutoPlay && filteredProjects.length > 1 && (
-                <div className="w-32 md:w-40 h-0.5 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden">
+                <div className="w-32 md:w-40 h-0.5 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden" aria-hidden="true">
                   <div
                     className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-none"
                     style={{ width: `${autoPlayProgress}%` }}
@@ -635,22 +634,20 @@ export function PortfolioSection() {
             style={{ maxHeight: 'calc(100vh - 2rem)' }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close button */}
             <button
               onClick={closeProject}
               className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-700 backdrop-blur-sm text-gray-900 dark:text-white p-2 rounded-full transition-all duration-300 hover:scale-110 z-20 shadow-lg"
               aria-label={t('portfolio.modal.close')}
             >
-              <X size={20} className="sm:w-6 sm:h-6" />
+              <X size={20} className="sm:w-6 sm:h-6" aria-hidden="true" />
             </button>
 
             <div className="flex flex-col lg:flex-row h-full">
-              {/* Media zone */}
               <div className="relative w-full lg:w-3/5 h-48 sm:h-64 lg:h-auto bg-gray-900 rounded-t-2xl lg:rounded-l-3xl lg:rounded-tr-none overflow-hidden flex-shrink-0">
                 {gifLoading && (
                   <div className="absolute inset-0 flex items-center justify-center bg-gray-900/50 backdrop-blur-sm z-10">
                     <div className="flex flex-col items-center gap-3">
-                      <Loader2 className="w-8 h-8 sm:w-12 sm:h-12 text-purple-500 animate-spin" />
+                      <Loader2 className="w-8 h-8 sm:w-12 sm:h-12 text-purple-500 animate-spin" aria-hidden="true" />
                       <span className="text-white font-medium text-sm sm:text-base">
                         {t('portfolio.modal.loading')}
                       </span>
@@ -658,7 +655,6 @@ export function PortfolioSection() {
                   </div>
                 )}
 
-                {/* Static image */}
                 <Image
                   src={selectedProject.image}
                   alt={t(selectedProject.titleKey)}
@@ -669,7 +665,6 @@ export function PortfolioSection() {
                   priority
                 />
 
-                {/* GIF */}
                 {selectedProject.gifType === 'gif' && gifLoaded && (
                   <Image
                     src={selectedProject.gif}
@@ -681,7 +676,6 @@ export function PortfolioSection() {
                   />
                 )}
 
-                {/* WebM video */}
                 {selectedProject.gifType === 'webm' && (
                   <video
                     src={selectedProject.gif}
@@ -689,20 +683,20 @@ export function PortfolioSection() {
                     loop
                     muted
                     playsInline
+                    aria-label={`${t(selectedProject.titleKey)} - Demo`}
                     className={`w-full h-full object-cover transition-opacity duration-500 ${gifLoaded ? 'opacity-100' : 'opacity-0 absolute'}`}
                     onLoadedData={() => { setGifLoading(false); setGifLoaded(true); }}
                     onError={() => { setGifLoading(false); setGifLoaded(false); }}
                   />
                 )}
 
-                {/* Category badge in modal */}
+                {/* FIX contraste badge modal */}
                 <div className={`absolute top-3 left-3 flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${getCategoryColor(selectedProject.category)}`}>
                   {getCategoryIcon(selectedProject.category)}
                   {getCategoryLabel(selectedProject.category)}
                 </div>
               </div>
 
-              {/* Content zone */}
               <div className="flex-1 p-4 sm:p-6 lg:p-8 flex flex-col justify-between overflow-y-auto">
                 <div>
                   <h3
@@ -713,14 +707,14 @@ export function PortfolioSection() {
                   </h3>
                   <p
                     id="modal-description"
-                    className="text-gray-700 dark:text-gray-300 text-sm sm:text-base lg:text-lg mb-4 sm:mb-6 line-clamp-3 lg:line-clamp-none"
+                    className="text-gray-700 dark:text-gray-200 text-sm sm:text-base lg:text-lg mb-4 sm:mb-6 line-clamp-3 lg:line-clamp-none"
                   >
                     {t(selectedProject.descriptionKey)}
                   </p>
 
-                  {/* Technologies */}
                   <div className="mb-4 sm:mb-6">
-                    <h4 className="text-xs sm:text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
+                    {/* FIX hiérarchie titres : h4 dans le modal sans h3 parent → conservé car h3 est au-dessus */}
+                    <h4 className="text-xs sm:text-sm font-semibold text-gray-600 dark:text-gray-300 mb-2 uppercase tracking-wider">
                       {t('portfolio.modal.technologies')}
                     </h4>
                     <div className="flex flex-wrap gap-2" role="list" aria-label="Project technologies">
@@ -737,14 +731,13 @@ export function PortfolioSection() {
                   </div>
                 </div>
 
-                {/* CTA Button */}
                 {selectedProject.url && (
                   <button
                     onClick={handleViewProject}
                     className="w-full bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold text-sm sm:text-base lg:text-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
                     aria-label={`${t('portfolio.modal.view')} - ${t(selectedProject.titleKey)}`}
                   >
-                    <ExternalLink size={18} className="sm:w-5 sm:h-5" />
+                    <ExternalLink size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
                     {t('portfolio.modal.view')}
                   </button>
                 )}

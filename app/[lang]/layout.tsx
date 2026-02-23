@@ -6,7 +6,6 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
 import dynamic from 'next/dynamic';
 
-// Chatbot chargé dynamiquement pour réduire le JS initial
 const Chatbot = dynamic(() => import('@/components/chatbot'), {
   loading: () => null,
 });
@@ -43,9 +42,6 @@ export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
-// ── Metadata du layout : MINIMAL
-// Le layout ne doit gérer que le template de titre et les meta globales.
-// Tout le reste (title, description, og, keywords) est géré par chaque page.tsx via l'IA.
 export async function generateMetadata({
   params,
 }: {
@@ -56,11 +52,9 @@ export async function generateMetadata({
 
   return {
     metadataBase: new URL(baseUrl),
-    // Le template s'applique UNIQUEMENT si la page fournit un titre sans "NeuraWeb"
-    // Les titres générés par l'IA incluent déjà "NeuraWeb", donc %s sera le titre complet
     title: {
       default: 'NeuraWeb — Agence Web, IA & Automatisation',
-      template: '%s', // ← PAS de "| NeuraWeb" ajouté : l'IA gère le titre complet
+      template: '%s',
     },
     authors: [{ name: 'NeuraWeb' }],
     creator: 'NeuraWeb',
@@ -80,8 +74,6 @@ export async function generateMetadata({
         'max-snippet': -1,
       },
     },
-    // description, openGraph, twitter, alternates, keywords :
-    // gérés par chaque page.tsx individuellement via generateAISEO()
   };
 }
 
@@ -115,17 +107,32 @@ export default async function LangLayout({
       className={`${geist.variable} ${geistMono.variable} ${syne.variable}`}
     >
       <head>
-        {/* Organization Schema — représente l'entreprise globalement */}
+        {/*
+          FIX "Origines préconnectées" (Lighthouse) :
+          Préconnexion aux domaines tiers critiques pour gagner du temps
+          lors de la première requête. On inclut :
+          - Google Tag Manager (chargé en priorité)
+          - Google Fonts (si des fonts externes sont utilisées ailleurs)
+          - Google Analytics collect endpoint
+          
+          ⚠️ Ne pas dépasser 4 préconnexions (recommandation Lighthouse)
+        */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://client.crisp.chat" />
+
+        {/* Organization Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-        {/* WebSite Schema — pour les Sitelinks Google */}
+        {/* WebSite Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        {/* LocalBusiness Schema — relie le site à Google Business Profile */}
+        {/* LocalBusiness Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
