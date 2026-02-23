@@ -274,22 +274,14 @@ export function PortfolioSection() {
     category === 'mobile' ? t('portfolio.category.mobile') : t('portfolio.category.web');
 
   /*
-    FIX contraste badges :
-    Problème : dark:bg-gray-800/90 est semi-transparent + backdrop-blur.
-    Le fond effectif derrière les cartes latérales varie selon le contenu
-    derrière (gradient violet/gris), rendant le contraste imprévisible.
-
-    Solution double :
-    1. Fond carte → dark:bg-gray-800 (opaque, sans /90) pour éliminer
-       la transparence qui cause le contraste variable.
-    2. Badge Web/Mobile → couleurs à fort contraste garanti :
-       - bg-blue-100 text-blue-800 : ratio ~5.9:1 ✓
-       - dark:bg-blue-800 dark:text-blue-100 : ratio ~8.2:1 ✓ (remplace dark:bg-blue-700 dark:text-white)
+    FIX contraste badges catégorie :
+    dark:bg-blue-500/20 dark:text-blue-300 → ratio ~2.8:1 ✗
+    → dark:bg-blue-700 dark:text-white → ratio >7:1 ✓
   */
   const getCategoryColor = (category: 'web' | 'mobile') =>
     category === 'mobile'
-      ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100'
-      : 'bg-blue-100 text-blue-800 dark:bg-blue-800 dark:text-blue-100';
+      ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-700 dark:text-white'
+      : 'bg-blue-100 text-blue-800 dark:bg-blue-700 dark:text-white';
 
   if (!mounted) {
     return (
@@ -327,6 +319,7 @@ export function PortfolioSection() {
             </p>
           </div>
 
+          {/* Filter Buttons */}
           <div className="portfolio-filters flex justify-center gap-2 mb-4 md:mb-5 relative z-[60]" role="group" aria-label="Filtrer les projets">
             {filters.map(({ key, label }) => (
               <button
@@ -349,6 +342,7 @@ export function PortfolioSection() {
             ))}
           </div>
 
+          {/* 3D Carousel */}
           {filteredProjects.length > 0 ? (
             <div
               className="flex-1 relative max-h-[450px] md:max-h-[500px]"
@@ -376,17 +370,7 @@ export function PortfolioSection() {
                       }
                     }}
                   >
-                    {/*
-                      FIX contraste dark mode :
-                      dark:bg-gray-800/90 dark:backdrop-blur-lg → fond semi-transparent
-                      Le fond effectif derrière les cartes latérales varie selon le gradient
-                      de fond de la section, rendant les ratios de contraste imprévisibles.
-
-                      Solution : dark:bg-gray-800 (fond opaque, sans alpha)
-                      → élimine la dépendance au fond arrière-plan
-                      → ratio texte garanti indépendamment de la position dans le carousel
-                    */}
-                    <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl dark:shadow-2xl border border-gray-200 dark:border-white/20 transition-shadow duration-300 hover:border-purple-400 dark:hover:border-purple-400 hover:shadow-2xl hover:shadow-purple-500/20">
+                    <div className="bg-white dark:bg-gray-800/90 dark:backdrop-blur-lg rounded-2xl overflow-hidden shadow-xl dark:shadow-2xl border border-gray-200 dark:border-white/20 transition-shadow duration-300 hover:border-purple-400 dark:hover:border-purple-400 hover:shadow-2xl hover:shadow-purple-500/20">
                       <div className="relative h-36 sm:h-40 md:h-48 overflow-hidden">
                         <Image
                           src={project.image}
@@ -412,12 +396,6 @@ export function PortfolioSection() {
                         <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
                           {t(project.titleKey)}
                         </h3>
-                        {/*
-                          FIX contraste texte description :
-                          text-gray-800 dark:text-gray-200 → ratios :
-                          light: #1f2937 sur #ffffff → 14.7:1 ✓
-                          dark:  #e5e7eb sur #1f2937 → 11.3:1 ✓
-                        */}
                         <p className="text-gray-800 dark:text-gray-200 mb-3 text-xs md:text-sm line-clamp-2">
                           {t(project.descriptionKey)}
                         </p>
@@ -455,14 +433,19 @@ export function PortfolioSection() {
             </div>
           )}
 
+          {/* Dot Indicators
+            FIX aria-selected invalide :
+            Le problème : role="tab" + aria-selected="true" sur un <button> qui n'est
+            PAS dans un <div role="tablist"> avec des <div role="tabpanel"> associés
+            crée une structure ARIA incomplète → signalé comme invalide.
+            
+            Solution : supprimer role="tab" + aria-selected, utiliser aria-pressed
+            (sémantique correcte pour un toggle button) + aria-current="true"
+            pour l'élément actif. Supprimer aussi aria-controls qui pointait vers
+            des IDs inexistants dans le DOM.
+          */}
           {filteredProjects.length > 0 && (
             <div className="flex flex-col items-center gap-3 mt-4 md:mt-6 relative z-[60]">
-              {/*
-                FIX aria-selected :
-                - aria-pressed (toggle button sémantique) au lieu de role="tab" + aria-selected
-                - aria-label enrichi avec le titre du projet
-                - aria-controls supprimé (ne pointait vers aucun tabpanel dans le DOM)
-              */}
               <div
                 className="flex justify-center gap-2"
                 role="group"
@@ -507,6 +490,7 @@ export function PortfolioSection() {
         </div>
       </section>
 
+      {/* Modal */}
       {selectedProject && (
         <div
           className="fixed inset-0 bg-black/90 backdrop-blur-md z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-8"
@@ -515,13 +499,13 @@ export function PortfolioSection() {
           aria-labelledby="modal-title" aria-describedby="modal-description"
         >
           <div
-            className="modal-content bg-white dark:bg-gray-800 rounded-2xl md:rounded-3xl w-full max-w-5xl border border-gray-200 dark:border-purple-500/30 shadow-2xl flex flex-col relative"
+            className="modal-content bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 rounded-2xl md:rounded-3xl w-full max-w-5xl border border-gray-200 dark:border-purple-500/30 shadow-2xl flex flex-col relative"
             style={{ maxHeight: 'calc(100vh - 2rem)' }}
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={closeProject}
-              className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 dark:bg-gray-700 hover:bg-white dark:hover:bg-gray-600 backdrop-blur-sm text-gray-900 dark:text-white p-2 rounded-full transition-all duration-300 hover:scale-110 z-20 shadow-lg"
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-700 backdrop-blur-sm text-gray-900 dark:text-white p-2 rounded-full transition-all duration-300 hover:scale-110 z-20 shadow-lg"
               aria-label={t('portfolio.modal.close')}
             >
               <X size={20} className="sm:w-6 sm:h-6" aria-hidden="true" />

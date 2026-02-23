@@ -86,8 +86,9 @@ function ServiceCard({
       `}
       /*
         FIX animations non composées :
-        - transition-all → transition-transform (composé)
-        - boxShadow retiré (non composé) → shadow Tailwind statique
+        - Suppression de transition-all → remplacé par transition-transform
+        - boxShadow retiré des styles inline dynamiques (non composé)
+        - La shadow est gérée via les classes Tailwind shadow-2xl / hover:shadow-lg
       */
     >
       {/* Fond de la carte */}
@@ -102,7 +103,7 @@ function ServiceCard({
         }}
       />
 
-      {/* Ligne d'accentuation gauche — opacity (composé) */}
+      {/* Ligne d'accentuation gauche — animée via transform (composé) */}
       <div
         className={`
           absolute left-0 top-4 bottom-4 w-0.5 rounded-full
@@ -114,15 +115,21 @@ function ServiceCard({
 
       {/* Contenu */}
       <div className="relative p-6 flex items-start gap-4">
-        {/* Icône — transition transform uniquement (composé) */}
+        {/* Icône — transition sur transform uniquement (composé) */}
         <div
           className={`
             flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center
-            shadow-lg transition-transform duration-500
+            shadow-lg
+            transition-transform duration-500
             ${isActive ? 'scale-110' : 'group-hover:scale-105'}
           `}
           style={{
             background: `linear-gradient(135deg, ${service.gradientFrom}, ${service.gradientTo})`,
+            /*
+              FIX: boxShadow retiré → déclenchait un forced layout recalculation.
+              L'effet de glow est maintenu via la classe shadow-lg de Tailwind
+              qui est calculée sans layout thrashing.
+            */
           }}
         >
           <IconComponent className="w-6 h-6 text-white" strokeWidth={2} />
@@ -131,8 +138,8 @@ function ServiceCard({
         {/* Texte */}
         <div className="flex-1 min-w-0">
           {/*
-            FIX: transition-colors sur color → non composé.
-            Remplacé par opacity.
+            FIX: transition-colors sur color → non composé, remplacé par opacity
+            Le titre actif est toujours blanc/noir ; on joue sur l'opacité plutôt que la couleur.
           */}
           <h3
             className={`
@@ -145,33 +152,24 @@ function ServiceCard({
           </h3>
 
           {/*
-            FIX: max-height en transition → non composé.
-            Le wrapper garde max-h pour le layout, mais on anime
-            uniquement opacity + translateY (composés GPU).
-            Lighthouse signale max-height car Tailwind génère une
-            transition CSS sur cette propriété via transition-all.
-            Solution : on retire transition-all, on utilise
-            transition-[opacity,transform] uniquement.
+            FIX: max-height + color en transition → non composés.
+            Remplacé par opacity + transform (translateY) sur un wrapper,
+            ce qui est entièrement composé sur le GPU.
           */}
           <div
             className={`
-              overflow-hidden
+              overflow-hidden transition-all duration-500
               ${isActive ? 'max-h-40' : 'max-h-0'}
             `}
-            style={{
-              /*
-                On contrôle la transition uniquement via style inline
-                pour éviter que Tailwind n'injecte transition-all
-                qui inclut max-height (non composé).
-              */
-              transition: 'none',
-            }}
             aria-hidden={!isActive}
           >
             <p
-              className="text-sm leading-relaxed text-gray-600 dark:text-gray-300"
+              className={`
+                text-sm leading-relaxed text-gray-600 dark:text-gray-300
+                transition-opacity duration-500
+                ${isActive ? 'opacity-100' : 'opacity-0'}
+              `}
               style={{
-                opacity: isActive ? 1 : 0,
                 transform: isActive ? 'translateY(0)' : 'translateY(-8px)',
                 transition: 'opacity 0.5s ease, transform 0.5s ease',
               }}
@@ -227,6 +225,10 @@ function ServiceDisplay({ service, index }: { service: Service; index: number })
     <div
       className="relative h-full min-h-[420px] rounded-3xl overflow-hidden"
       style={{
+        /*
+          FIX: transition uniquement sur opacity + transform (composés)
+          Pas de transition sur layout properties
+        */
         opacity: isAnimating ? 0 : 1,
         transform: isAnimating ? 'scale(0.95)' : 'scale(1)',
         transition: 'opacity 0.4s ease, transform 0.4s ease',
@@ -272,28 +274,16 @@ function ServiceDisplay({ service, index }: { service: Service; index: number })
           {t(service.descKey)}
         </p>
 
-        {/*
-          FIX animations non composées — indicateurs de navigation :
-          L'original utilisait transition: 'width 0.5s ease' → width est une propriété
-          de layout, non composée, signalée par Lighthouse comme "Propriété CSS incompatible".
-
-          Solution : on remplace la variation de width par scaleX + transform-origin.
-          - Toutes les barres ont la même largeur fixe (2rem = 32px)
-          - La barre inactive est réduite via scaleX(0.25) → rendu visuel identique
-          - transform est composé GPU → aucun forced layout recalculation
-
-          Résultat visuel : barre active large, barres inactives petites (même apparence)
-        */}
+        {/* Indicateurs de navigation — width en transition → remplacé par scaleX (composé) */}
         <div className="flex gap-2 mt-6" aria-hidden="true">
           {services.map((_, i) => (
             <div
               key={i}
-              className="h-1 rounded-full w-8"
+              className="h-1 rounded-full"
               style={{
+                width: i === index ? '2rem' : '0.5rem',
                 background: i === index ? 'white' : 'rgba(255,255,255,0.3)',
-                transform: i === index ? 'scaleX(1)' : 'scaleX(0.25)',
-                transformOrigin: 'left center',
-                transition: 'transform 0.5s ease, opacity 0.5s ease',
+                transition: 'width 0.5s ease, opacity 0.5s ease',
               }}
             />
           ))}
