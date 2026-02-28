@@ -1,20 +1,24 @@
 // ============================================================
 // STRUCTURED DATA FOR SEO - Schema.org JSON-LD
-// CORRIGÉ : NAP cohérent, LocalBusiness actif, SearchAction retiré
+// ✅ CORRIGÉ :
+//   - URL og-image → /assets/og-image.png
+//   - URL Google Business Profile ajoutée dans sameAs
+//   - NAP cohérent avec la fiche GBP
 // ============================================================
 
 const BASE_URL = 'https://neuraweb.tech';
 
-const REAL_PHONE = '+33749775654'; // ← identique à la fiche Google Business
+const REAL_PHONE = '+33749775654'; // identique à la fiche Google Business
 const REAL_ADDRESS_LOCALITY = 'Paris';
 const REAL_ADDRESS_REGION = 'Île-de-France';
 const REAL_ADDRESS_COUNTRY = 'FR';
-// Pour les coordonnées GPS exactes : https://www.google.com/maps → clic droit sur votre adresse
 const GEO_LAT = '48.8566';
 const GEO_LNG = '2.3522';
 
+// ✅ CORRIGÉ : chemin de l'image OG
+const OG_IMAGE = `${BASE_URL}/assets/og-image.png`;
+
 // ── Organization Schema ─────────────────────────────────────────────────────
-// Utilisé dans layout.tsx — représente l'entreprise globalement
 export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
@@ -42,12 +46,15 @@ export const organizationSchema = {
     email: 'contact@neuraweb.tech',
     availableLanguage: ['French', 'English', 'Spanish'],
   },
+  // ✅ CORRIGÉ : URL Google Business ajoutée
+  // ⚠️ Remplace l'URL ci-dessous par l'URL complète de ta fiche Google Maps
+  // (visible dans le navigateur quand tu es sur ta fiche GBP)
+  // Format : https://www.google.com/maps/place/NeuraWeb/@48.xxxx,2.xxxx,...
   sameAs: [
     'https://www.linkedin.com/company/neuraweb',
     'https://github.com/neuraweb',
     'https://x.com/neurawebtech',
-    // ⚠️ Ajoutez l'URL exacte de votre fiche Google Business ici :
-    // 'https://www.google.com/maps/place/NeuraWeb/...'
+    'https://www.google.com/maps/place/Neuraweb/@-2.7495501,-157.928,3z/data=!3m1!4b1!4m6!3m5!1s0xa8265594c8f44721:0xb4ae61789886b8a9!8m2!3d-2.7495501!4d-157.928!16s%2Fg%2F11mycxx42_',
   ],
   foundingDate: '2024',
   numberOfEmployees: {
@@ -58,8 +65,7 @@ export const organizationSchema = {
 };
 
 // ── LocalBusiness Schema ────────────────────────────────────────────────────
-// CRITIQUE : C'est ce schema qui connecte votre site à Google Business Profile
-// Il DOIT être injecté dans le layout.tsx (voir instructions ci-dessous)
+// CRITIQUE : connecte ton site à Google Business Profile
 export const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': ['LocalBusiness', 'ProfessionalService'],
@@ -70,14 +76,15 @@ export const localBusinessSchema = {
   url: BASE_URL,
   telephone: REAL_PHONE,
   email: 'contact@neuraweb.tech',
-  image: `${BASE_URL}/og-image.png`,
+  // ✅ CORRIGÉ : chemin de l'image OG
+  image: OG_IMAGE,
   logo: `${BASE_URL}/assets/neurawebW.webp`,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '', // ← Ajoutez votre adresse si vous en avez une
+    streetAddress: '',
     addressLocality: REAL_ADDRESS_LOCALITY,
     addressRegion: REAL_ADDRESS_REGION,
-    postalCode: '',    // ← Ajoutez votre code postal
+    postalCode: '',
     addressCountry: REAL_ADDRESS_COUNTRY,
   },
   geo: {
@@ -101,11 +108,11 @@ export const localBusinessSchema = {
     bestRating: '5',
     worstRating: '1',
   },
+  // ✅ CORRIGÉ : même URL GBP que dans organizationSchema
   sameAs: [
     'https://www.linkedin.com/company/neuraweb',
     'https://x.com/neurawebtech',
-    // ⚠️ L'URL de votre fiche Google Business est INDISPENSABLE ici
-    // Récupérez-la depuis votre tableau de bord GBP
+    'https://www.google.com/maps/place/Neuraweb/@-2.7495501,-157.928,3z/data=!3m1!4b1!4m6!3m5!1s0xa8265594c8f44721:0xb4ae61789886b8a9!8m2!3d-2.7495501!4d-157.928!16s%2Fg%2F11mycxx42_',
   ],
   parentOrganization: {
     '@id': `${BASE_URL}/#organization`,
@@ -113,7 +120,6 @@ export const localBusinessSchema = {
 };
 
 // ── WebSite Schema ──────────────────────────────────────────────────────────
-// CORRIGÉ : SearchAction retirée car /recherche n'existe pas
 export const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -137,9 +143,10 @@ export const professionalServiceSchema = {
   description:
     'Développement web full-stack React/Next.js, intégration IA (ChatGPT, Claude), automatisation n8n et Make pour startups et PME.',
   url: BASE_URL,
-  telephone: REAL_PHONE, // +33749775654 — identique fiche GBP
+  telephone: REAL_PHONE,
   email: 'contact@neuraweb.tech',
-  image: `${BASE_URL}/og-image.png`,
+  // ✅ CORRIGÉ : chemin de l'image OG
+  image: OG_IMAGE,
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5',
@@ -243,7 +250,7 @@ export const faqSchema = {
       name: 'Quels sont les délais pour un projet web ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Un MVP peut être livré en 4 à 6 semaines. Un site vitrine prend généralement 2 à 4 semaines. Les projets complexes sont évalués au cas par cas lors d\'un appel découverte gratuit.',
+        text: "Un MVP peut être livré en 4 à 6 semaines. Un site vitrine prend généralement 2 à 4 semaines. Les projets complexes sont évalués au cas par cas lors d'un appel découverte gratuit.",
       },
     },
     {
@@ -325,11 +332,11 @@ export function generateArticleSchema(article: {
       '@type': 'WebPage',
       '@id': article.url.startsWith('http') ? article.url : `${BASE_URL}${article.url}`,
     },
-    image: article.image ? `${BASE_URL}${article.image}` : `${BASE_URL}/og-image.png`,
+    image: article.image ? `${BASE_URL}${article.image}` : OG_IMAGE,
   };
 }
 
-// ── Combine all schemas for the main pages ──────────────────────────────────
+// ── Combine all schemas ──────────────────────────────────────────────────────
 export function getAllSchemas(): Record<string, unknown>[] {
   return [organizationSchema, websiteSchema, localBusinessSchema];
 }

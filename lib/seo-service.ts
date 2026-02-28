@@ -1,6 +1,8 @@
 // ============================================================
 // SERVICE SEO AUTOMATISÉ VIA IA
-// Génère dynamiquement les métadonnées optimisées pour chaque page
+// ✅ CORRIGÉ :
+//   - hreflang format : 'fr' au lieu de 'fr-FR' (standard Google)
+//   - og-image path : /assets/og-image.png
 // ============================================================
 
 import { Metadata } from 'next';
@@ -39,12 +41,14 @@ export interface GeneratedSEO {
 const seoCache = new Map<string, { data: GeneratedSEO; timestamp: number }>();
 const CACHE_DURATION = 60 * 60 * 1000; // 1 heure
 
-// Type pour le contexte de page SEO
-interface PageSEOConfig {
+// ✅ CORRIGÉ : chemin de l'image OG
+const OG_IMAGE_PATH = '/assets/og-image.png';
+
+type PageSEOConfig = {
   title: string;
   description: string;
   keywords: string[];
-}
+};
 
 // Contextes SEO multilingues
 const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = {
@@ -71,7 +75,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     blog: {
       title: 'Blog - Actualités & Conseils | NeuraWeb',
-      description: 'Articles et conseils sur le développement web, l\'IA et l\'automatisation. Restez informé des dernières tendances.',
+      description: "Articles et conseils sur le développement web, l'IA et l'automatisation. Restez informé des dernières tendances.",
       keywords: ['blog', 'articles', 'conseils web', 'tutoriels'],
     },
     custom: {
@@ -92,7 +96,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       keywords: ['web services', 'web development', 'AI integration', 'automation', 'web pricing'],
     },
     contact: {
-      title: 'Contact - Let\'s talk about your project | NeuraWeb',
+      title: "Contact - Let's talk about your project | NeuraWeb",
       description: 'Contact our team to discuss your project. Response within 24h, free quote.',
       keywords: ['contact', 'free quote', 'web project'],
     },
@@ -148,7 +152,6 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
 
 // Mots-clés SEO boostés par catégorie - LONGUE TRAÎNE
 const SEO_BOOST_KEYWORDS = {
-  // Technical - longue traîne
   technical: [
     'développeur Next.js Paris',
     'agence React France',
@@ -159,7 +162,6 @@ const SEO_BOOST_KEYWORDS = {
     'audit performance web React',
     'migration React vers Next.js',
   ],
-  // Business - longue traîne
   business: [
     'transformation digitale PME Paris',
     'agence web croissance startup',
@@ -169,7 +171,6 @@ const SEO_BOOST_KEYWORDS = {
     'stratégie digitale PME France',
     'consultant digital Paris',
   ],
-  // AI - longue traîne
   ai: [
     'intégration chatbot IA site web',
     'automatisation workflow n8n',
@@ -180,7 +181,6 @@ const SEO_BOOST_KEYWORDS = {
     'RAG IA entreprise',
     'assistant IA sur mesure',
   ],
-  // Design - longue traîne
   design: [
     'refonte UX site web',
     'design interface SaaS moderne',
@@ -188,7 +188,6 @@ const SEO_BOOST_KEYWORDS = {
     'audit UX/UI application',
     'design system React entreprise',
   ],
-  // Local - ciblage géographique
   local: [
     'agence web Paris',
     'développeur web Île-de-France',
@@ -198,7 +197,6 @@ const SEO_BOOST_KEYWORDS = {
     'studio web startup Paris',
     'agence automatisation France',
   ],
-  // Services spécifiques
   services: [
     'MVP startup 6 semaines',
     'développement MVP France',
@@ -223,7 +221,7 @@ export function generateJsonLd(
 ): Record<string, unknown> {
   const baseUrl = 'https://neuraweb.tech';
   const pageContext = getPageSEOContext(context);
-  
+
   const baseSchema = {
     '@context': 'https://schema.org',
     '@type': type,
@@ -247,8 +245,8 @@ export function generateJsonLd(
       availableLanguage: ['French', 'English', 'Spanish'],
     },
     sameAs: [
-      "https://www.google.com/maps/place/?q=place_id:0xa8265594c8f44721:0xb4ae61789886b8a9",
-      "https://x.com/neurawebtech"
+      'https://www.google.com/maps/place/?q=place_id:0xa8265594c8f44721:0xb4ae61789886b8a9',
+      'https://x.com/neurawebtech',
     ],
     ...additionalData,
   };
@@ -342,19 +340,19 @@ export function generatePageMetadata(
 ): Metadata {
   const pageContext = getPageSEOContext(context);
 
-  // Fusionner avec les données personnalisées
   const title = customData?.title || pageContext.title;
   const description = customData?.description || pageContext.description;
   const keywords = [...(pageContext.keywords || []), ...(context.customKeywords || [])];
-
-  // Générer les mots-clés boostés
   const boostedKeywords = generateBoostedKeywords(context);
 
   const baseUrl = 'https://neuraweb.tech';
   const pageUrl = `${baseUrl}${context.path}`;
-
-  // Convertir le Set en tableau avec Array.from
   const uniqueKeywords = Array.from(new Set([...keywords, ...boostedKeywords]));
+
+  // ✅ CORRIGÉ : chemin de l'image OG
+  const ogImageUrl = customData?.ogImage
+    ? `${baseUrl}${customData.ogImage}`
+    : `${baseUrl}${OG_IMAGE_PATH}`;
 
   return {
     title,
@@ -371,7 +369,7 @@ export function generatePageMetadata(
       description: customData?.ogDescription || description,
       images: [
         {
-          url: customData?.ogImage || '/og-image.png',
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: `${title} - NeuraWeb`,
@@ -382,14 +380,17 @@ export function generatePageMetadata(
       card: 'summary_large_image',
       title: customData?.ogTitle || title,
       description: customData?.ogDescription || description,
-      images: [customData?.ogImage || '/og-image.png'],
+      images: [ogImageUrl],
     },
     alternates: {
       canonical: pageUrl,
       languages: {
-        'fr-FR': `${baseUrl}/fr${context.path}`,
-        'en-US': `${baseUrl}/en${context.path}`,
-        'es-ES': `${baseUrl}/es${context.path}`,
+        // ✅ CORRIGÉ : format hreflang sans région ('fr' pas 'fr-FR')
+        // Google recommande le format BCP 47 court pour les hreflang
+        fr: `${baseUrl}/fr`,
+        en: `${baseUrl}/en`,
+        es: `${baseUrl}/es`,
+        'x-default': `${baseUrl}/fr`,
       },
     },
     robots: {
@@ -410,10 +411,8 @@ export function generatePageMetadata(
 function generateBoostedKeywords(context: PageSEOContext): string[] {
   const keywords: string[] = [];
 
-  // Ajouter les mots-clés techniques
   keywords.push(...SEO_BOOST_KEYWORDS.technical.slice(0, 3));
 
-  // Ajouter selon le type de page
   if (context.pageType === 'services') {
     keywords.push(...SEO_BOOST_KEYWORDS.business);
     keywords.push(...SEO_BOOST_KEYWORDS.ai);
@@ -423,7 +422,6 @@ function generateBoostedKeywords(context: PageSEOContext): string[] {
     keywords.push(...SEO_BOOST_KEYWORDS.local);
   }
 
-  // Ajouter les mots-clés personnalisés
   if (context.customKeywords) {
     keywords.push(...context.customKeywords);
   }
@@ -434,30 +432,22 @@ function generateBoostedKeywords(context: PageSEOContext): string[] {
 // Optimise un titre pour le SEO
 export function optimizeTitle(title: string, maxLength: number = 60): string {
   if (title.length <= maxLength) return title;
-
-  // Tronquer intelligemment au dernier espace
   const truncated = title.substring(0, maxLength);
   const lastSpace = truncated.lastIndexOf(' ');
-  
   if (lastSpace > maxLength * 0.7) {
     return truncated.substring(0, lastSpace) + '...';
   }
-  
   return truncated.substring(0, maxLength - 3) + '...';
 }
 
 // Optimise une description pour le SEO
 export function optimizeDescription(description: string, maxLength: number = 160): string {
   if (description.length <= maxLength) return description;
-
-  // Tronquer intelligemment
   const truncated = description.substring(0, maxLength);
   const lastSpace = truncated.lastIndexOf(' ');
-  
   if (lastSpace > maxLength * 0.7) {
     return truncated.substring(0, lastSpace) + '...';
   }
-  
   return truncated.substring(0, maxLength - 3) + '...';
 }
 
@@ -479,7 +469,6 @@ export function generateMetaTags(
     { name: 'generator', content: 'Next.js with NeuraWeb SEO Boost' },
   ];
 
-  // Tags Open Graph
   tags.push(
     { name: 'og:title', content: customData?.ogTitle || customData?.title || pageContext.title },
     { name: 'og:description', content: customData?.ogDescription || customData?.description || pageContext.description },
@@ -488,7 +477,6 @@ export function generateMetaTags(
     { name: 'og:locale', content: context.language === 'fr' ? 'fr_FR' : context.language === 'en' ? 'en_US' : 'es_ES' },
   );
 
-  // Tags Twitter
   tags.push(
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: customData?.ogTitle || customData?.title || pageContext.title },
@@ -510,7 +498,6 @@ export async function getSEOData(
     return cached.data;
   }
 
-  // Si un générateur IA est fourni, l'utiliser
   if (aiGenerator) {
     try {
       const generated = await aiGenerator(context);
@@ -521,7 +508,6 @@ export async function getSEOData(
     }
   }
 
-  // Fallback vers les données par défaut
   const pageContext = getPageSEOContext(context);
 
   const defaultSEO: GeneratedSEO = {
@@ -530,6 +516,8 @@ export async function getSEOData(
     keywords: pageContext.keywords || [],
     ogTitle: pageContext.title,
     ogDescription: pageContext.description,
+    // ✅ CORRIGÉ : chemin de l'image OG
+    ogImage: OG_IMAGE_PATH,
     jsonLd: generateJsonLd('WebPage', context),
     suggestedTags: generateBoostedKeywords(context),
   };
