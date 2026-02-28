@@ -3,14 +3,8 @@ import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono, Syne } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
-import dynamic from 'next/dynamic';
 import Script from 'next/script';
-
-// FIX: Tous les composants non-critiques en dynamic import
-const Chatbot = dynamic(() => import('@/components/chatbot'), {
-  loading: () => null,
-  ssr: false,
-});
+import ChatbotWrapper from '@/components/chatbot-wrapper';
 
 import {
   organizationSchema,
@@ -264,7 +258,7 @@ export default async function LangLayout({
         >
           <LanguageProvider initialLanguage={lang as any}>
             {children}
-            <Chatbot />
+            <ChatbotWrapper />
           </LanguageProvider>
         </ThemeProvider>
       </body>
