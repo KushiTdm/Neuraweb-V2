@@ -1,16 +1,19 @@
-import type { Metadata } from 'next';
-import { HomePageClient } from '@/components/home-page-client';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
-import { professionalServiceSchema, faqSchema } from '@/lib/structured-data';
-// ↑ localBusinessSchema RETIRÉ ici — déjà injecté dans layout.tsx sur toutes les pages
+import { Metadata } from 'next';
+import { ServicesPageClient } from '@/components/services-page-client';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
 
+// Génération des paramètres statiques
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
+// ✅ AJOUTÉ : force le caching statique 24h — évite les appels IA à chaque crawl Google
+// C'est la cause probable du statut "Détectée, non indexée" : Google tombait sur des
+// temps de réponse lents dus à l'appel API externe dans generateMetadata.
+export const revalidate = 86400;
+
+// Métadonnées dynamiques par langue - IA server-side
 export async function generateMetadata({
   params,
 }: {
@@ -20,10 +23,14 @@ export async function generateMetadata({
   const language = (lang as 'fr' | 'en' | 'es') || 'fr';
   const baseUrl = 'https://neuraweb.tech';
 
+  // ✅ CORRIGÉ : chemin de l'image OG (était /og-image.png)
+  const ogImage = `${baseUrl}/assets/og-image.png`;
+
+  // L'IA génère les meta tags optimisés — résultat injecté dans le <head> statique
   const seo = await generateAISEO({
-    pageType: 'home',
+    pageType: 'services',
     language,
-    path: `/${lang}`,
+    path: `/${lang}/services`,
   });
 
   return {
@@ -31,22 +38,23 @@ export async function generateMetadata({
     description: seo.description,
     keywords: seo.keywords,
     alternates: {
-      canonical: `${baseUrl}/${lang}`,
+      canonical: `${baseUrl}/${lang}/services`,
+      // ✅ CORRIGÉ : format hreflang court ('fr' pas 'fr-FR') — cohérent avec layout.tsx
       languages: {
-        'fr-FR': `${baseUrl}/fr`,
-        'en-US': `${baseUrl}/en`,
-        'es-ES': `${baseUrl}/es`,
-        'x-default': `${baseUrl}/fr`,
+        fr: `${baseUrl}/fr/services`,
+        en: `${baseUrl}/en/services`,
+        es: `${baseUrl}/es/services`,
+        'x-default': `${baseUrl}/fr/services`,
       },
     },
     openGraph: {
       title: seo.ogTitle,
       description: seo.ogDescription,
-      url: `${baseUrl}/${lang}`,
+      url: `${baseUrl}/${lang}/services`,
       siteName: 'NeuraWeb',
       images: [
         {
-          url: `${baseUrl}/og-image.png`,
+          url: ogImage,
           width: 1200,
           height: 630,
           alt: seo.ogTitle,
@@ -59,13 +67,56 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: seo.ogTitle,
       description: seo.ogDescription,
-      images: [`${baseUrl}/og-image.png`],
+      images: [ogImage],
       creator: '@neurawebtech',
     },
   };
 }
 
-export default async function HomePage({
+// JSON-LD structuré
+const generateServiceJsonLd = (lang: string) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Services de Développement Web',
+  provider: {
+    '@type': 'Organization',
+    name: 'NeuraWeb',
+    url: 'https://neuraweb.tech',
+  },
+  areaServed: 'Worldwide',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Packs de développement web',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Pack Starter',
+          description: 'Solution idéale pour démarrer votre présence en ligne',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Pack Business',
+          description: 'Solution complète pour entreprises en croissance',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Pack Premium',
+          description: 'Solution premium pour projets ambitieux',
+        },
+      },
+    ],
+  },
+});
+
+export default async function ServicesPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
@@ -74,22 +125,13 @@ export default async function HomePage({
 
   return (
     <>
-      {/* ProfessionalService — spécifique à la home, pas en double avec layout */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateServiceJsonLd(lang)) }}
       />
-      {/* FAQ Schema — rich snippets questions/réponses */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      {/* LocalBusiness : NE PAS remettre ici — déjà dans layout.tsx */}
-      <Header />
       <main id="main-content">
-        <HomePageClient />
+        <ServicesPageClient />
       </main>
-      <Footer />
     </>
   );
 }

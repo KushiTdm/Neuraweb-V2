@@ -203,7 +203,7 @@ function buildFallbackSEO(context: PageSEOContext): GeneratedSEO {
 // ── Export principal : à appeler dans generateMetadata() ─────────────────────
 /**
  * Génère des métadonnées SEO optimisées via IA (avec fallback statique).
- * 
+ *
  * USAGE dans une page Next.js :
  * ```ts
  * export async function generateMetadata({ params }) {
@@ -218,7 +218,9 @@ function buildFallbackSEO(context: PageSEOContext): GeneratedSEO {
  * ```
  */
 export async function generateAISEO(context: PageSEOContext): Promise<GeneratedSEO> {
-  const cacheKey = `${context.pageType}-${context.language}`;
+  // ✅ CORRIGÉ : cache key inclut le path pour éviter les collisions entre pages de même type
+  // (ex: deux pages 'blog' de langues différentes ne partagent plus le même cache)
+  const cacheKey = `${context.pageType}-${context.language}-${context.path}`;
   const cached = serverCache.get(cacheKey);
 
   if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {

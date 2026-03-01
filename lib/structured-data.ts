@@ -2,8 +2,10 @@
 // STRUCTURED DATA FOR SEO - Schema.org JSON-LD
 // ✅ CORRIGÉ :
 //   - URL og-image → /assets/og-image.png
-//   - URL Google Business Profile ajoutée dans sameAs
-//   - NAP cohérent avec la fiche GBP
+//   - Champs adresse vides supprimés (streetAddress, postalCode)
+//     → des champs vides invalident le LocalBusiness schema pour Google
+//   - URL Google Maps dans sameAs : remplace par l'URL réelle de ta fiche GBP
+//     (la précédente contenait des coordonnées GPS erronées : océan Pacifique)
 // ============================================================
 
 const BASE_URL = 'https://neuraweb.tech';
@@ -15,7 +17,6 @@ const REAL_ADDRESS_COUNTRY = 'FR';
 const GEO_LAT = '48.8566';
 const GEO_LNG = '2.3522';
 
-// ✅ CORRIGÉ : chemin de l'image OG
 const OG_IMAGE = `${BASE_URL}/assets/og-image.png`;
 
 // ── Organization Schema ─────────────────────────────────────────────────────
@@ -38,6 +39,7 @@ export const organizationSchema = {
     addressCountry: REAL_ADDRESS_COUNTRY,
     addressLocality: REAL_ADDRESS_LOCALITY,
     addressRegion: REAL_ADDRESS_REGION,
+    // ✅ CORRIGÉ : streetAddress et postalCode supprimés — champs vides invalident le schema
   },
   contactPoint: {
     '@type': 'ContactPoint',
@@ -46,15 +48,15 @@ export const organizationSchema = {
     email: 'contact@neuraweb.tech',
     availableLanguage: ['French', 'English', 'Spanish'],
   },
-  // ✅ CORRIGÉ : URL Google Business ajoutée
-  // ⚠️ Remplace l'URL ci-dessous par l'URL complète de ta fiche Google Maps
-  // (visible dans le navigateur quand tu es sur ta fiche GBP)
-  // Format : https://www.google.com/maps/place/NeuraWeb/@48.xxxx,2.xxxx,...
+  // ⚠️ TODO : remplace l'URL Google Maps ci-dessous par l'URL réelle de ta fiche GBP.
+  // Pour la trouver : ouvre ta fiche sur Google Maps dans ton navigateur,
+  // copie l'URL complète depuis la barre d'adresse.
+  // L'URL précédente avait des coordonnées erronées (océan Pacifique).
   sameAs: [
     'https://www.linkedin.com/company/neuraweb',
     'https://github.com/neuraweb',
     'https://x.com/neurawebtech',
-    'https://www.google.com/maps/place/Neuraweb/@-2.7495501,-157.928,3z/data=!3m1!4b1!4m6!3m5!1s0xa8265594c8f44721:0xb4ae61789886b8a9!8m2!3d-2.7495501!4d-157.928!16s%2Fg%2F11mycxx42_',
+    // 'https://www.google.com/maps/place/...' ← remplace par ton URL GBP réelle
   ],
   foundingDate: '2024',
   numberOfEmployees: {
@@ -76,16 +78,15 @@ export const localBusinessSchema = {
   url: BASE_URL,
   telephone: REAL_PHONE,
   email: 'contact@neuraweb.tech',
-  // ✅ CORRIGÉ : chemin de l'image OG
   image: OG_IMAGE,
   logo: `${BASE_URL}/assets/neurawebW.webp`,
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '',
     addressLocality: REAL_ADDRESS_LOCALITY,
     addressRegion: REAL_ADDRESS_REGION,
-    postalCode: '',
     addressCountry: REAL_ADDRESS_COUNTRY,
+    // ✅ CORRIGÉ : streetAddress et postalCode supprimés — mieux vaut ne pas les mettre
+    // que de les laisser vides (Google peut pénaliser les champs vides dans LocalBusiness)
   },
   geo: {
     '@type': 'GeoCoordinates',
@@ -108,11 +109,11 @@ export const localBusinessSchema = {
     bestRating: '5',
     worstRating: '1',
   },
-  // ✅ CORRIGÉ : même URL GBP que dans organizationSchema
+  // ⚠️ TODO : même remarque que pour organizationSchema — remplace par ton URL GBP réelle
   sameAs: [
     'https://www.linkedin.com/company/neuraweb',
     'https://x.com/neurawebtech',
-    'https://www.google.com/maps/place/Neuraweb/@-2.7495501,-157.928,3z/data=!3m1!4b1!4m6!3m5!1s0xa8265594c8f44721:0xb4ae61789886b8a9!8m2!3d-2.7495501!4d-157.928!16s%2Fg%2F11mycxx42_',
+    // 'https://www.google.com/maps/place/...' ← remplace par ton URL GBP réelle
   ],
   parentOrganization: {
     '@id': `${BASE_URL}/#organization`,
@@ -145,7 +146,6 @@ export const professionalServiceSchema = {
   url: BASE_URL,
   telephone: REAL_PHONE,
   email: 'contact@neuraweb.tech',
-  // ✅ CORRIGÉ : chemin de l'image OG
   image: OG_IMAGE,
   aggregateRating: {
     '@type': 'AggregateRating',
