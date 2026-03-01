@@ -24,6 +24,8 @@ function SectionSkeleton() {
   );
 }
 
+// VideoOverlay : ssr:false car elle lit sessionStorage + joue une vidéo.
+// Ne bloque PAS le rendu du reste de la page.
 const VideoOverlay = dynamic(
   () => import('@/components/sections/video-scroll-section').then((mod) => {
     const C = mod.VideoScrollSection as React.ComponentType;
@@ -54,12 +56,22 @@ const CTASection = dynamic(
 );
 
 export function HomePageClient() {
+  // ─── CORRECTION CLÉ ──────────────────────────────────────────────────────
+  // L'ancien code avait un guard `if (!mounted) return <spinner>` qui cachait
+  // TOUTE la homepage à Googlebot. Google recevait un spinner au lieu du contenu.
+  //
+  // Solution :
+  // • On supprime ce guard — le composant rend directement son contenu.
+  // • `mounted` reste utile pour les effets purement client (mousemove, GSAP, etc.)
+  //   mais ne conditionne plus le rendu du HTML.
+  // • HeroSection gère son propre SSR fallback avec du contenu réel visible.
+  // • VideoOverlay est ssr:false → elle ne bloque pas le rendu SSR.
+  // ─────────────────────────────────────────────────────────────────────────
   const [mounted, setMounted] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const servicesRef = useRef<HTMLDivElement>(null);
   const isTouchDevice = useRef(false);
 
-  // Mousemove parallax — désactivé sur touch/mobile pour économiser les ressources
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (isTouchDevice.current) return;
     setMousePosition({
@@ -70,7 +82,6 @@ export function HomePageClient() {
 
   useEffect(() => {
     setMounted(true);
-    // Détecter si l'appareil est tactile
     isTouchDevice.current = window.matchMedia('(hover: none)').matches;
 
     if (!isTouchDevice.current) {
@@ -90,7 +101,6 @@ export function HomePageClient() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-in');
-            // Désobserver après animation pour économiser les ressources
             observer.unobserve(entry.target);
           }
         });
@@ -107,23 +117,12 @@ export function HomePageClient() {
     servicesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
-  if (!mounted) {
-    return (
-      <div
-        className="min-h-screen flex items-center justify-center"
-        style={{ background: '#050510' }}
-        aria-label="Chargement de NeuraWeb"
-      >
-        <div className="text-4xl font-bold text-white animate-pulse" aria-hidden="true">
-          NeuraWeb
-        </div>
-      </div>
-    );
-  }
-
+  // ─── Rendu direct — pas de guard !mounted ────────────────────────────────
+  // HeroSection reçoit mousePosition (sera { x:0, y:0 } côté serveur, ce qui
+  // est parfaitement valide — aucun effet de parallax avant hydratation).
   return (
     <>
-      {/* Video intro fixed overlay — fades out, reveals the page underneath */}
+      {/* Video intro : ssr:false, ne bloque pas le HTML initial */}
       <VideoOverlay />
 
       <main id="main-content" className="homepage-container">
@@ -142,9 +141,9 @@ export function HomePageClient() {
         <AboutSection />
         <PortfolioSection />
 
-         {/* Audit CTA — Offre d'entrée gratuite */}
+        {/* Audit CTA — Offre d'entrée gratuite */}
         <AuditCTA />
-        
+
         <TestimonialsSection />
 
         <CTASection />

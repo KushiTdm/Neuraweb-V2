@@ -5,6 +5,24 @@ import { gsap } from '@/lib/gsap-setup';
 import { ChevronDown } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 
+// ─── Contenu statique par langue ─────────────────────────────────────────────
+// Dupliqué ici pour le SSR : permet à Google de voir le vrai contenu H1
+// sans attendre l'hydratation JS. Doit rester synchronisé avec locales/*.ts
+const SSR_CONTENT: Record<string, { title: string; subtitle: string }> = {
+  fr: {
+    title: 'Services Professionnels',
+    subtitle: 'Des solutions sur mesure pour transformer votre vision en réalité digitale',
+  },
+  en: {
+    title: 'Professional Services',
+    subtitle: 'Custom solutions to transform your vision into digital reality',
+  },
+  es: {
+    title: 'Servicios Profesionales',
+    subtitle: 'Soluciones a medida para transformar tu visión en realidad digital',
+  },
+};
+
 export function ServicesHero() {
   const [mounted, setMounted] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
@@ -12,7 +30,9 @@ export function ServicesHero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+
+  const ssrContent = SSR_CONTENT[language] ?? SSR_CONTENT.fr;
 
   useEffect(() => {
     setMounted(true);
@@ -22,7 +42,6 @@ export function ServicesHero() {
     if (!mounted) return;
 
     const ctx = gsap.context(() => {
-      // Animations d'entrée
       gsap.from(titleRef.current, {
         y: 100,
         opacity: 0,
@@ -84,22 +103,36 @@ export function ServicesHero() {
     return () => ctx.revert();
   }, [mounted]);
 
-  const splitText = (text: string) => {
-    return text.split('').map((char, i) => (
-      <span key={i} className="letter inline-block">
-        {char === ' ' ? '\u00A0' : char}
-      </span>
-    ));
-  };
-
+  // ─── Fallback SSR ────────────────────────────────────────────────────────
+  // ✅ CORRIGÉ : le fallback contient le vrai contenu textuel (H1 + sous-titre)
+  // Google crawle ce HTML statique — il voit maintenant le titre et la description
+  // de la page au lieu d'un simple placeholder vide.
+  // Les animations GSAP s'activent après hydratation sans impact SEO.
   if (!mounted) {
     return (
       <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600">
-        <div className="text-6xl text-white font-bold">Services</div>
+        <div className="relative z-10 text-center px-6 max-w-5xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 leading-tight">
+            {ssrContent.title}
+          </h1>
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-12 font-light max-w-3xl mx-auto">
+            {ssrContent.subtitle}
+          </p>
+          <div className="flex justify-center">
+            <div className="animate-bounce">
+              <ChevronDown
+                className="w-12 h-12 text-white"
+                strokeWidth={1.5}
+                aria-label="Scroll down"
+              />
+            </div>
+          </div>
+        </div>
       </section>
     );
   }
 
+  // ─── Version hydratée (avec animations GSAP) ─────────────────────────────
   return (
     <section
       ref={heroRef}
