@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useTranslation } from '@/hooks/use-translation';
+import { LocalizedLink } from '@/components/localized-link';
 
 const HeroThreeBackground = dynamic(
   () => import('@/components/hero-three-background').then((mod) => ({ default: mod.HeroThreeBackground })),
@@ -16,6 +16,9 @@ interface HeroSectionProps {
   onScrollToNext?: () => void;
 }
 
+// ─── Contenu statique SSR par langue ─────────────────────────────────────────
+// Identique aux clés dans locales/*.ts — visible immédiatement par Googlebot
+// sans attendre l'hydratation JS ni l'événement hero:reveal de la vidéo.
 const SSR_HERO: Record<string, { main: string; highlight: string; end: string; subtitle: string; ctaStart: string; ctaServices: string }> = {
   fr: {
     main: 'Transformez vos idées en',
@@ -117,12 +120,18 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
               <span>{ssr.ctaStart}</span>
               <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
             </button>
-            <Link
-              href="/services"
+            {/*
+              SSR fallback : LocalizedLink dépend de useLanguage() (hook client),
+              on ne peut pas l'utiliser ici. On construit le href localisé
+              directement depuis `language` qui vient de useTranslation().
+              Côté serveur, language sera la valeur par défaut ('fr').
+            */}
+            <a
+              href={`/${language}/services`}
               className="border-2 border-purple-400 text-purple-300 font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-full inline-flex items-center justify-center text-sm sm:text-base"
             >
               {ssr.ctaServices}
-            </Link>
+            </a>
           </div>
         </div>
       </section>
@@ -250,12 +259,12 @@ export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps)
               <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
             </button>
 
-            <Link
+            <LocalizedLink
               href="/services"
               className="border-2 border-purple-400 text-purple-300 font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-300 inline-flex items-center justify-center text-sm sm:text-base"
             >
               {t('hero.cta.services')}
-            </Link>
+            </LocalizedLink>
           </div>
         </div>
       </div>
