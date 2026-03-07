@@ -1,0 +1,22 @@
+{
+  "agency": "Neuraweb",
+  "frontend": {
+    "frameworks": ["React", "Next.js 14+", "Vue.js", "Svelte"],
+    "styling": ["Tailwind CSS", "GSAP", "Framer Motion", "Shadcn/UI"],
+    "languages": ["TypeScript", "JavaScript ES6+"]
+  },
+  "backend": {
+    "runtime": ["Node.js", "Python (FastAPI/Flask)"],
+    "databases": ["PostgreSQL", "MongoDB", "Supabase", "Firebase", "Redis"],
+    "api": ["REST", "GraphQL", "Webhooks"]
+  },
+  "automation_ai": {
+    "platforms": ["Make (formerly Integromat)", "n8n", "Zapier"],
+    "ai_models": ["OpenAI (GPT-4o)", "Anthropic (Claude 3.5 Sonnet)", "Mistral AI"],
+    "frameworks": ["LangChain", "OpenAI Assistant API", "Pinecone (Vector DB)"]
+  },
+  "devops_tools": {
+    "hosting": ["Vercel", "Netlify", "Render", "AWS"],
+    "tools": ["Docker", "Git/GitHub", "CI/CD Pipelines"]
+  }
+}
