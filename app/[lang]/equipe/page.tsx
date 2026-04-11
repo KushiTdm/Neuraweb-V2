@@ -3,6 +3,9 @@ import { EquipePageClient } from '@/components/equipe-page-client';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
 
+// Juste après les imports, avant generateStaticParams()
+export const revalidate = 86400; // Cache SEO 24h — évite les appels IA à chaque crawl
+
 // Génération des paramètres statiques
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
