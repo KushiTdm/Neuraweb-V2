@@ -1,11 +1,9 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// Langues supportées
 export const SUPPORTED_LANGUAGES = ['fr', 'en', 'es'] as const;
 export const DEFAULT_LANGUAGE = 'fr';
 
-// Pages statiques qui nécessitent une langue
 const STATIC_PAGES = ['services', 'blog', 'equipe', 'contact'];
 
 export function proxy(request: NextRequest) {
@@ -23,37 +21,28 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Vérifier si l'URL contient déjà un préfixe de langue
   const pathnameParts = pathname.split('/').filter(Boolean);
   const firstSegment = pathnameParts[0];
 
-  // Si l'URL a déjà un préfixe de langue valide, continuer
   if (SUPPORTED_LANGUAGES.includes(firstSegment as any)) {
     return NextResponse.next();
   }
 
-  // Cas spécial: racine du site
   if (pathname === '/') {
-    // Détecter la langue préférée depuis l'en-tête Accept-Language
     const acceptLanguage = request.headers.get('accept-language') || '';
     const preferredLanguage = detectLanguage(acceptLanguage);
-
-    // Rediriger vers la langue détectée
     const url = request.nextUrl.clone();
     url.pathname = `/${preferredLanguage}`;
-    return NextResponse.redirect(url);
+    // ✅ CORRIGÉ : 308 permanent (était temporaire) → transfert du PageRank vers /fr
+    return NextResponse.redirect(url, 308);
   }
 
-  // Pour les autres URLs sans préfixe de langue, rediriger vers la version française
-  // (pour maintenir le SEO existant)
   const url = request.nextUrl.clone();
   url.pathname = `/${DEFAULT_LANGUAGE}${pathname}`;
-  return NextResponse.redirect(url, 301);
+  // 308 permanent pour toutes les redirections sans préfixe de langue
+  return NextResponse.redirect(url, 308);
 }
 
-/**
- * Détecte la langue préférée depuis l'en-tête Accept-Language
- */
 function detectLanguage(acceptLanguage: string): string {
   const languages = acceptLanguage
     .split(',')
@@ -75,7 +64,6 @@ function detectLanguage(acceptLanguage: string): string {
 
 export const config = {
   matcher: [
-    // Appliquer à toutes les routes sauf les fichiers statiques
     '/((?!_next|api|assets|favicon.ico|robots.txt|sitemap.xml|.*\\..*).*)',
   ],
 };

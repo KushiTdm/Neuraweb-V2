@@ -4,22 +4,26 @@ import { SUPPORTED_LANGUAGES } from '@/proxy';
 
 const BASE_URL = 'https://neuraweb.tech';
 
+// ✅ Date de migration Vercel — utilisée comme lastModified minimum pour tous les contenus
+// Cela signale à Google que tout a été re-déployé depuis cette date
+const MIGRATION_DATE = new Date('2026-02-28');
+
 const STATIC_PAGES: Record<string, {
   priority: number;
   changeFrequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
 }> = {
   services: { priority: 0.9, changeFrequency: 'monthly' },
   equipe:   { priority: 0.7, changeFrequency: 'monthly' },
-  contact:  { priority: 0.8, changeFrequency: 'monthly' },  // ← hausse : page de conversion
+  contact:  { priority: 0.8, changeFrequency: 'monthly' },
   blog:     { priority: 0.8, changeFrequency: 'weekly' },
-  booking:  { priority: 0.9, changeFrequency: 'monthly' },  // ← hausse : page de conversion
+  booking:  { priority: 0.9, changeFrequency: 'monthly' },
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const today = new Date();
   const urls: MetadataRoute.Sitemap = [];
 
-  // Page d'accueil — priorité maximale
+  // Page d'accueil
   SUPPORTED_LANGUAGES.forEach((lang: string) => {
     urls.push({
       url: `${BASE_URL}/${lang}`,
@@ -57,7 +61,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   });
 
-  // Articles de blog — fréquence weekly pour inciter Google à recrawler
+  // Articles de blog
   const allBlogSlugs = getAllPostSlugsAllLanguages();
   const slugLanguageMap = new Map<string, string[]>();
 
@@ -70,6 +74,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const post = getPostBySlug(slug, languages[0] as 'fr' | 'en' | 'es');
     if (!post) return;
 
+    const postDate = new Date(post.date);
+    // ✅ On prend la date la plus récente entre la date originale et la migration
+    // Cela signale à Google que ces pages ont au minimum été re-déployées en fév. 2026
+    const lastModified = postDate > MIGRATION_DATE ? postDate : MIGRATION_DATE;
+
     const languageAlternates: Record<string, string> = {
       'x-default': `${BASE_URL}/fr/blog/${slug}`,
     };
@@ -80,9 +89,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     languages.forEach((lang) => {
       urls.push({
         url: `${BASE_URL}/${lang}/blog/${slug}`,
-        lastModified: new Date(post.date),
-        changeFrequency: 'weekly', // ← CORRIGÉ : était 'monthly'
-        priority: 0.75,            // ← légère hausse pour le blog
+        lastModified,
+        changeFrequency: 'weekly',
+        priority: 0.75,
         alternates: { languages: languageAlternates },
       });
     });
