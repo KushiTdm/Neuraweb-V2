@@ -111,9 +111,8 @@ export const localBusinessSchema = {
   },
   // ⚠️ TODO : même remarque que pour organizationSchema — remplace par ton URL GBP réelle
   sameAs: [
-    'https://www.linkedin.com/company/neuraweb',
     'https://x.com/neurawebtech',
-    // 'https://www.google.com/maps/place/...' ← remplace par ton URL GBP réelle
+    'https://maps.app.goo.gl/DUkC3mSovCR8cpRz5',
   ],
   parentOrganization: {
     '@id': `${BASE_URL}/#organization`,
