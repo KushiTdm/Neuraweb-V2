@@ -32,15 +32,15 @@ export async function generateMetadata({
   });
 
   return {
-    title: seo.title,
+    title: { absolute: seo.title },
     description: seo.description,
     keywords: seo.keywords,
     alternates: {
       canonical: `${baseUrl}/${lang}/blog`,
       languages: {
-        'fr-FR': `${baseUrl}/fr/blog`,
-        'en-US': `${baseUrl}/en/blog`,
-        'es-ES': `${baseUrl}/es/blog`,
+        fr: `${baseUrl}/fr/blog`,
+        en: `${baseUrl}/en/blog`,
+        es: `${baseUrl}/es/blog`,
         'x-default': `${baseUrl}/fr/blog`,
       },
     },
@@ -51,7 +51,7 @@ export async function generateMetadata({
       siteName: 'NeuraWeb',
       images: [
         {
-          url: `${baseUrl}/og-image.png`,
+          url: `${baseUrl}/assets/og-image.png`,
           width: 1200,
           height: 630,
           alt: seo.ogTitle,
@@ -64,7 +64,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: seo.ogTitle,
       description: seo.ogDescription,
-      images: [`${baseUrl}/og-image.png`],
+      images: [`${baseUrl}/assets/og-image.png`],
       creator: '@neurawebtech',
     },
   };

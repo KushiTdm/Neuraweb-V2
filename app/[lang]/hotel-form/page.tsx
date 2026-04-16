@@ -43,14 +43,15 @@ export async function generateMetadata({
   const m = meta[lang as keyof typeof meta] ?? meta.fr;
 
   return {
-    title: m.title,
+    title: { absolute: m.title },
     description: m.description,
+    robots: { index: false, follow: false },
     alternates: {
       canonical: `${baseUrl}/${lang}/hotel-form`,
       languages: {
-        'fr-FR': `${baseUrl}/fr/hotel-form`,
-        'en-US': `${baseUrl}/en/hotel-form`,
-        'es-ES': `${baseUrl}/es/hotel-form`,
+        fr: `${baseUrl}/fr/hotel-form`,
+        en: `${baseUrl}/en/hotel-form`,
+        es: `${baseUrl}/es/hotel-form`,
         'x-default': `${baseUrl}/fr/hotel-form`,
       },
     },
@@ -59,7 +60,7 @@ export async function generateMetadata({
       description: m.description,
       url: `${baseUrl}/${lang}/hotel-form`,
       siteName: 'NeuraWeb',
-      images: [{ url: `${baseUrl}/og-image.png`, width: 1200, height: 630, alt: m.title }],
+      images: [{ url: `${baseUrl}/assets/og-image.png`, width: 1200, height: 630, alt: m.title }],
       locale: lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : 'en_US',
       type: 'website',
     },

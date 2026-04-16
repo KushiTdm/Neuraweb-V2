@@ -48,16 +48,16 @@ export async function generateMetadata({
   });
 
   return {
-    title: seo.title,
+    title: { absolute: seo.title },
     description: seo.description,
     keywords: seo.keywords,
     authors: post.author ? [{ name: post.author }] : undefined,
     alternates: {
       canonical: `${baseUrl}/${lang}/blog/${slug}`,
       languages: {
-        'fr-FR': `${baseUrl}/fr/blog/${slug}`,
-        'en-US': `${baseUrl}/en/blog/${slug}`,
-        'es-ES': `${baseUrl}/es/blog/${slug}`,
+        fr: `${baseUrl}/fr/blog/${slug}`,
+        en: `${baseUrl}/en/blog/${slug}`,
+        es: `${baseUrl}/es/blog/${slug}`,
         'x-default': `${baseUrl}/fr/blog/${slug}`,
       },
     },
@@ -80,7 +80,7 @@ export async function generateMetadata({
           ]
         : [
             {
-              url: `${baseUrl}/og-image.png`,
+              url: `${baseUrl}/assets/og-image.png`,
               width: 1200,
               height: 630,
               alt: seo.ogTitle,
@@ -92,7 +92,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: seo.ogTitle,
       description: seo.ogDescription,
-      images: post.image ? [post.image] : [`${baseUrl}/og-image.png`],
+      images: post.image ? [post.image] : [`${baseUrl}/assets/og-image.png`],
       creator: '@neurawebtech',
     },
   };
