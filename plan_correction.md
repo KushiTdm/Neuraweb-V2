@@ -160,7 +160,7 @@ src={post.image || '/assets/og-image.png'}  // ✅
 | 4 | Schema BlogPosting manquant | HAUTE | ✅ CORRIGÉ |
 | 5 | Image fallback path incorrect | HAUTE | ✅ CORRIGÉ |
 | 6 | reviewCount inconsistant | MOYENNE | ✅ CORRIGÉ (11 → 16) |
-| 7 | Middleware langue non actif | MOYENNE | ✅ CORRIGÉ |
+| 7 | Middleware langue non actif | MOYENNE | ✅ DÉJÀ ACTIF (proxy.ts = middleware Vercel) |
 | 8 | Slugs EN/ES non localisés | MOYENNE | ✅ CORRIGÉ (redirections) |
 | 9 | FAQPage schema commercial | BASSE | ⬜ GARDER (bénéfice LLM) |
 | 10 | Pages services thin content | BASSE | ⬜ TODO |
