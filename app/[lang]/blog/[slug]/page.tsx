@@ -6,6 +6,7 @@ import { getAllPostSlugs, getPostBySlug, getAllPosts, type Language } from '@/li
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { notFound } from 'next/navigation';
 import { generateBlogPostAISEO } from '@/lib/seo-ai-server';
+import { generateArticleSchema } from '@/lib/structured-data';
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {
@@ -118,13 +119,29 @@ export default async function BlogPostPage({
     .filter((p) => p.slug !== slug && p.category === post.category)
     .slice(0, 2);
 
+  const baseUrl = 'https://neuraweb.tech';
+  const articleSchema = generateArticleSchema({
+    title: post.title,
+    description: post.excerpt || post.title,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: post.author,
+    url: `${baseUrl}/${lang}/blog/${slug}`,
+    image: post.image || undefined,
+  });
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <Header />
       <main id="main-content">
-        <BlogPostClient 
+        <BlogPostClient
           post={post}
           relatedPosts={relatedPosts}
+          lang={lang}
         />
       </main>
       <Footer />

@@ -26,12 +26,16 @@ const nextConfig = {
   // Vercel gère http→https automatiquement, mais on déclare www ici en fallback
   async redirects() {
     return [
+      // www → non-www
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'www.neuraweb.tech' }],
         destination: 'https://neuraweb.tech/:path*',
-        permanent: true, // 308
+        permanent: true,
       },
+      // Slugs localisés EN/ES → slug canonique FR (évite les 404 sur URLs logiques)
+      { source: '/en/team',   destination: '/en/equipe',  permanent: true },
+      { source: '/es/equipo', destination: '/es/equipe',  permanent: true },
     ];
   },
 

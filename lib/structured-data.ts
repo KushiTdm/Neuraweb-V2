@@ -105,7 +105,7 @@ export const localBusinessSchema = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5',
-    reviewCount: '11',
+    reviewCount: '16',
     bestRating: '5',
     worstRating: '1',
   },
@@ -149,7 +149,7 @@ export const professionalServiceSchema = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '5',
-    reviewCount: '11',
+    reviewCount: '16',
     bestRating: '5',
     worstRating: '1',
   },

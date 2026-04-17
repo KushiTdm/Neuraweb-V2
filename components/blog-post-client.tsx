@@ -1,23 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { useLanguage } from '@/contexts/language-context';
 import { LocalizedLink } from '@/components/localized-link';
 import type { BlogPost, BlogPostMeta } from '@/lib/mdx';
 
 interface BlogPostClientProps {
   post: BlogPost;
   relatedPosts: BlogPostMeta[];
+  lang: string;
 }
 
-export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
-  const { language } = useLanguage();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps) {
+  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
 
   // Translations
   const t = {
@@ -53,23 +47,9 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
     },
   };
 
-  const translations = t[language as 'fr' | 'en' | 'es'] || t.fr;
+  const translations = t[language] || t.fr;
 
-  // Don't render until mounted to avoid hydration mismatch
-  if (!mounted || !post) {
-    return (
-      <div className="min-h-screen bg-white dark:bg-[#050510] pt-24">
-        <div className="animate-pulse">
-          <div className="h-[40vh] bg-gray-200 dark:bg-gray-800"></div>
-          <div className="max-w-4xl mx-auto py-12 px-4">
-            <div className="h-8 bg-gray-200 dark:bg-gray-800 rounded w-32 mb-6"></div>
-            <div className="h-12 bg-gray-200 dark:bg-gray-800 rounded w-3/4 mb-4"></div>
-            <div className="h-6 bg-gray-200 dark:bg-gray-800 rounded w-1/2"></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  if (!post) return null;
 
   // Parse markdown content (simplified version)
   const parseMarkdown = (content: string): string => {
@@ -102,7 +82,7 @@ export function BlogPostClient({ post, relatedPosts }: BlogPostClientProps) {
       <div className="relative h-[40vh] min-h-[300px] w-full">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white dark:to-[#050510] z-10" />
         <Image
-          src={post.image || '/og-image.png'}
+          src={post.image || '/assets/og-image.png'}
           alt={post.title}
           fill
           className="object-cover opacity-60 dark:opacity-40"

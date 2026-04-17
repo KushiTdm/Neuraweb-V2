@@ -97,7 +97,7 @@ ENTREPRISE :
 - Localisation : Paris, France (clients internationaux)
 - Prix : À partir de 1 500€
 - Délais : 2-8 semaines selon le projet
-- Points forts : 11 avis 5 étoiles, réponse sous 24h, devis gratuit
+- Points forts : 16 avis 5 étoiles, réponse sous 24h, devis gratuit
 ${context.customContext ? `- Contexte additionnel : ${context.customContext}` : ''}
 
 MOTS-CLÉS PRIORITAIRES À UTILISER :
@@ -129,11 +129,14 @@ async function callAI(context: PageSEOContext): Promise<GeneratedSEO | null> {
         temperature: 0.2, // Très bas : on veut du SEO précis, pas créatif
         stream: false,
       }),
-      // Timeout 5 secondes — si l'IA est lente, on utilise le fallback
-      signal: AbortSignal.timeout(5000),
+      // Timeout 12 secondes — Zhipu API en Chine peut être lente depuis l'Europe
+      signal: AbortSignal.timeout(12000),
     });
 
-    if (!response.ok) return null;
+    if (!response.ok) {
+      console.warn(`[SEO-AI] API error ${response.status} for ${context.path}`);
+      return null;
+    }
 
     const completion = await response.json();
     const raw = completion?.choices?.[0]?.message?.content?.trim();
@@ -170,8 +173,7 @@ async function callAI(context: PageSEOContext): Promise<GeneratedSEO | null> {
       suggestedTags: [],
     };
   } catch (err) {
-    // Timeout ou erreur réseau : silencieux, on fallback
-    console.warn('[SEO-AI] Fallback to static SEO:', (err as Error).message);
+    console.warn(`[SEO-AI] Fallback to static SEO for ${context.path}:`, (err as Error).message);
     return null;
   }
 }
@@ -180,6 +182,22 @@ async function callAI(context: PageSEOContext): Promise<GeneratedSEO | null> {
 function buildFallbackSEO(context: PageSEOContext): GeneratedSEO {
   const langCtx = SEO_CONTEXTS_BY_LANG[context.language];
   const pageCtx = langCtx[context.pageType];
+
+  // Pour les articles de blog : extraire le vrai titre depuis customContext
+  // Format : 'Article de blog intitulé "Titre". Résumé : ...'
+  let title = pageCtx.title;
+  let description = pageCtx.description;
+
+  if (context.pageType === 'blog' && context.customContext) {
+    const titleMatch = context.customContext.match(/intitulé "([^"]+)"/);
+    const summaryMatch = context.customContext.match(/Résumé : (.+)$/s);
+    if (titleMatch?.[1]) {
+      title = `${titleMatch[1]} | NeuraWeb`;
+    }
+    if (summaryMatch?.[1]) {
+      description = summaryMatch[1].substring(0, 160);
+    }
+  }
 
   // Mots-clés enrichis avec boost keywords pertinents
   const boostedKeywords = [
@@ -190,11 +208,11 @@ function buildFallbackSEO(context: PageSEOContext): GeneratedSEO {
   ];
 
   return {
-    title: pageCtx.title,
-    description: pageCtx.description,
+    title,
+    description,
     keywords: Array.from(new Set(boostedKeywords)),
-    ogTitle: pageCtx.title,
-    ogDescription: pageCtx.description,
+    ogTitle: title,
+    ogDescription: description,
     jsonLd: generateJsonLd('WebPage', context),
     suggestedTags: [],
   };
