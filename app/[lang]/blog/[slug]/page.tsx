@@ -6,7 +6,7 @@ import { getAllPostSlugs, getPostBySlug, getAllPosts, type Language } from '@/li
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { notFound } from 'next/navigation';
 import { generateBlogPostAISEO } from '@/lib/seo-ai-server';
-import { generateArticleSchema } from '@/lib/structured-data';
+import { generateArticleSchema, generateFaqSchema } from '@/lib/structured-data';
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {
@@ -130,12 +130,22 @@ export default async function BlogPostPage({
     image: post.image || undefined,
   });
 
+  const faqSchema = post.faq && post.faq.length > 0
+    ? generateFaqSchema(post.faq)
+    : null;
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
       <Header />
       <main id="main-content">
         <BlogPostClient

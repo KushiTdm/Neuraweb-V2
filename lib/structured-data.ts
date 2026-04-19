@@ -104,10 +104,10 @@ export const localBusinessSchema = {
   priceRange: '€€',
   aggregateRating: {
     '@type': 'AggregateRating',
-    ratingValue: '5',
-    reviewCount: '16',
-    bestRating: '5',
-    worstRating: '1',
+    ratingValue: 5,
+    reviewCount: 16,
+    bestRating: 5,
+    worstRating: 1,
   },
   // ⚠️ TODO : même remarque que pour organizationSchema — remplace par ton URL GBP réelle
   sameAs: [
@@ -279,6 +279,24 @@ export const faqSchema = {
     },
   ],
 };
+
+// ── FAQ Schema Generator ────────────────────────────────────────────────────
+export function generateFaqSchema(
+  items: Array<{ question: string; answer: string }>
+): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+}
 
 // ── Breadcrumb Schema Generator ─────────────────────────────────────────────
 export function generateBreadcrumbSchema(

@@ -11,6 +11,11 @@ import matter from 'gray-matter';
 // ── Types ───────────────────────────────────────────────────────────────────
 export type Language = 'fr' | 'en' | 'es';
 
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -22,6 +27,7 @@ export interface BlogPost {
   image: string;
   tags: string[];
   featured?: boolean;
+  faq?: FaqItem[];
   content: string;
   language: Language;
 }
@@ -95,6 +101,7 @@ export function getPostBySlug(slug: string, language: Language = 'fr'): BlogPost
       image: data.image || '/og-image.png',
       tags: data.tags || [],
       featured: data.featured || false,
+      faq: data.faq || undefined,
       content,
       language,
     };
