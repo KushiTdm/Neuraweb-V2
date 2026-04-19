@@ -146,13 +146,6 @@ export const professionalServiceSchema = {
   telephone: REAL_PHONE,
   email: 'contact@neuraweb.tech',
   image: OG_IMAGE,
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5',
-    reviewCount: '16',
-    bestRating: '5',
-    worstRating: '1',
-  },
   address: {
     '@type': 'PostalAddress',
     addressLocality: REAL_ADDRESS_LOCALITY,
