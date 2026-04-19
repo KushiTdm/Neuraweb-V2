@@ -37,3 +37,7 @@ next-env.d.ts
 
 # Z.AI Config
 .z-ai-config
+
+# Google Indexing API — service account key & logs
+scripts/service-account.json
+scripts/indexing-errors-*.json

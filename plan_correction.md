@@ -150,6 +150,86 @@ src={post.image || '/assets/og-image.png'}  // ✅
 
 ---
 
+---
+
+## Plan de demande d'indexation GSC — Vague par vague
+
+> Limite GSC : ~10 URL Inspection requests/jour. Renouveler chaque jour ouvré.
+> Prérequis : push Vercel déployé + sitemap.xml resoumis dans GSC (Sitemaps section).
+> Pages exclues intentionnellement : `/hotel-form` (noindex), `/admin/hotel-tokens` (admin), APIs.
+> Total : 42 pages indexables sur 5 jours.
+
+---
+
+### Jour 1 (2026-04-17) — Pages principales FR + accueil EN/ES
+
+| URL |
+|-----|
+| `https://neuraweb.tech/fr` |
+| `https://neuraweb.tech/fr/services` |
+| `https://neuraweb.tech/fr/blog` |
+| `https://neuraweb.tech/fr/contact` |
+| `https://neuraweb.tech/fr/equipe` |
+| `https://neuraweb.tech/fr/booking` |
+| `https://neuraweb.tech/en` |
+| `https://neuraweb.tech/en/services` |
+| `https://neuraweb.tech/es` |
+| `https://neuraweb.tech/es/services` |
+
+### Jour 2 (2026-04-18) — Pages principales EN + ES restantes
+
+| URL |
+|-----|
+| `https://neuraweb.tech/en/blog` |
+| `https://neuraweb.tech/en/contact` |
+| `https://neuraweb.tech/en/equipe` |
+| `https://neuraweb.tech/en/booking` |
+| `https://neuraweb.tech/es/blog` |
+| `https://neuraweb.tech/es/contact` |
+| `https://neuraweb.tech/es/equipe` |
+| `https://neuraweb.tech/es/booking` |
+
+### Jour 3 (2026-04-19) — Articles blog FR (8 articles) + 2 EN
+
+| URL |
+|-----|
+| `https://neuraweb.tech/fr/blog/automatisation-n8n-guide` |
+| `https://neuraweb.tech/fr/blog/automatisation-processus-roi` |
+| `https://neuraweb.tech/fr/blog/checklist-site-hotelier-performant` |
+| `https://neuraweb.tech/fr/blog/integrer-ia-site-web-2025` |
+| `https://neuraweb.tech/fr/blog/marketing-digital-ia-automations` |
+| `https://neuraweb.tech/fr/blog/nextjs-vs-wordpress-2025` |
+| `https://neuraweb.tech/fr/blog/reservations-directes-hotel-sans-commission-ota` |
+| `https://neuraweb.tech/fr/blog/site-web-hotel-design-reservations` |
+| `https://neuraweb.tech/en/blog/automatisation-n8n-guide` |
+| `https://neuraweb.tech/en/blog/automatisation-processus-roi` |
+
+### Jour 4 (2026-04-20) — Articles blog EN restants (6)
+
+| URL |
+|-----|
+| `https://neuraweb.tech/en/blog/checklist-site-hotelier-performant` |
+| `https://neuraweb.tech/en/blog/integrer-ia-site-web-2025` |
+| `https://neuraweb.tech/en/blog/marketing-digital-ia-automations` |
+| `https://neuraweb.tech/en/blog/nextjs-vs-wordpress-2025` |
+| `https://neuraweb.tech/en/blog/reservations-directes-hotel-sans-commission-ota` |
+| `https://neuraweb.tech/en/blog/site-web-hotel-design-reservations` |
+
+### Jour 5 (2026-04-22) — Articles blog ES (8)
+
+| URL |
+|-----|
+| `https://neuraweb.tech/es/blog/automatisation-n8n-guide` |
+| `https://neuraweb.tech/es/blog/automatisation-processus-roi` |
+| `https://neuraweb.tech/es/blog/checklist-site-hotelier-performant` |
+| `https://neuraweb.tech/es/blog/integrer-ia-site-web-2025` |
+| `https://neuraweb.tech/es/blog/marketing-digital-ia-automations` |
+| `https://neuraweb.tech/es/blog/nextjs-vs-wordpress-2025` |
+| `https://neuraweb.tech/es/blog/reservations-directes-hotel-sans-commission-ota` |
+| `https://neuraweb.tech/es/blog/site-web-hotel-design-reservations` |
+
+---
+
 ## Résumé des corrections
 
 | # | Bug | Priorité | Statut |
