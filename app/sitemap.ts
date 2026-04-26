@@ -12,11 +12,12 @@ const STATIC_PAGES: Record<string, {
   priority: number;
   changeFrequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
 }> = {
-  services: { priority: 0.9, changeFrequency: 'monthly' },
-  equipe:   { priority: 0.7, changeFrequency: 'monthly' },
-  contact:  { priority: 0.8, changeFrequency: 'monthly' },
-  blog:     { priority: 0.8, changeFrequency: 'weekly' },
-  booking:  { priority: 0.9, changeFrequency: 'monthly' },
+  services:                   { priority: 0.9, changeFrequency: 'monthly' },
+  'mobile-app-development':   { priority: 0.9, changeFrequency: 'monthly' },
+  equipe:                     { priority: 0.7, changeFrequency: 'monthly' },
+  contact:                    { priority: 0.8, changeFrequency: 'monthly' },
+  blog:                       { priority: 0.8, changeFrequency: 'weekly' },
+  booking:                    { priority: 0.9, changeFrequency: 'monthly' },
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

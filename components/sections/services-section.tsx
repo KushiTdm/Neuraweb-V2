@@ -2,10 +2,11 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { Code, Bot, Brain, LucideIcon, ChevronRight } from 'lucide-react';
+import { Code, Bot, Brain, Smartphone, LucideIcon, ChevronRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import type { TranslationKey } from '@/locales';
 import dynamic from 'next/dynamic';
+import { LocalizedLink } from '@/components/localized-link';
 
 const ServicesThreeCanvas = dynamic(
   () => import('./services-three-canvas').then((mod) => mod.ServicesThreeCanvas),
@@ -21,6 +22,7 @@ interface Service {
   gradientTo: string;
   screenshot: string;
   accentColor: string;
+  link?: string;
 }
 
 const services: Service[] = [
@@ -33,6 +35,17 @@ const services: Service[] = [
     gradientTo: '#1d4ed8',
     accentColor: 'blue',
     screenshot: '/assets/services/web_dev.webp',
+  },
+  {
+    icon: Smartphone,
+    titleKey: 'services.mobile.title',
+    descKey: 'services.mobile.desc',
+    color: 'from-cyan-500 to-cyan-600',
+    gradientFrom: '#06b6d4',
+    gradientTo: '#0e7490',
+    accentColor: 'cyan',
+    screenshot: '/assets/services/web_dev.webp',
+    link: '/mobile-app-development',
   },
   {
     icon: Bot,
@@ -273,6 +286,16 @@ function ServiceDisplay({ service, index }: { service: Service; index: number })
         <p className="text-white/80 text-base leading-relaxed max-w-md drop-shadow">
           {t(service.descKey)}
         </p>
+
+        {service.link && (
+          <LocalizedLink
+            href={service.link}
+            className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 text-white text-sm font-semibold hover:bg-white hover:text-gray-900 transition-colors w-fit"
+          >
+            {t(service.titleKey)}
+            <ChevronRight className="w-4 h-4" />
+          </LocalizedLink>
+        )}
 
         {/* Indicateurs de navigation — width en transition → remplacé par scaleX (composé) */}
         <div className="flex gap-2 mt-6" aria-hidden="true">

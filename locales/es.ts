@@ -41,10 +41,10 @@ export const es: Record<TranslationKey, string> = {
   'header.toggle.menu': 'Menú',
 
   // Hero Section
-  'hero.main.title': 'Transforma tus ideas en',
-  'hero.title.highlight': 'soluciones digitales',
-  'hero.title.end': 'innovadoras',
-  'hero.subtitle': 'Desarrollo web personalizado, integración de IA y automatización para impulsar tu negocio hacia el futuro',
+  'hero.main.title': 'Desarrollo Web y',
+  'hero.title.highlight': 'Aplicaciones Móviles',
+  'hero.title.end': 'a medida',
+  'hero.subtitle': 'Desarrollo web personalizado, apps móviles, integración IA y automatización n8n para startups y pymes. Basados en Francia, clientes en toda Europa.',
   'hero.cta.start': 'Iniciar un proyecto',
   'hero.cta.services': 'Nuestros servicios',
   'hero.scroll.discover': 'Descubrir',
@@ -57,6 +57,8 @@ export const es: Record<TranslationKey, string> = {
   'services.section.subtitle': 'Soluciones personalizadas para transformar tu presencia digital y automatizar tus procesos empresariales',
   'services.web.title': 'Desarrollo Web',
   'services.web.desc': 'Sitios web y aplicaciones modernas, eficientes y escalables construidas con las últimas tecnologías.',
+  'services.mobile.title': 'Apps Móviles',
+  'services.mobile.desc': 'Apps iOS y Android a medida: React Native, Flutter, Swift, Kotlin. MVP en 6 semanas.',
   'services.automation.title': 'Automatización',
   'services.automation.desc': 'Optimiza tus procesos empresariales con soluciones de automatización inteligentes que te ahorran tiempo.',
   'services.ai.title': 'Integración IA',
@@ -160,8 +162,8 @@ export const es: Record<TranslationKey, string> = {
   'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. Todos los derechos reservados.`,
 
   // Services Page
-  'servicePage.hero.title': 'Servicios Profesionales',
-  'servicePage.hero.subtitle': 'Soluciones personalizadas para transformar tu visión en realidad digital',
+  'servicePage.hero.title': 'Desarrollo Web, Apps Móviles e IA',
+  'servicePage.hero.subtitle': 'Soluciones a medida: sitios web, aplicaciones móviles iOS/Android, integración IA y automatización. Presupuesto gratuito en 24h.',
   'servicePage.process.title': 'Nuestro Proceso',
   'servicePage.process.badge': 'Método probado',
   'servicePage.process.audit.title': '1. Auditoría y Análisis',

@@ -9,10 +9,11 @@ import { LocalizedLink } from '@/components/localized-link';
 export function Footer() {
   const { t } = useTranslation();
 
-  const services = [
-    t('services.web.title'),
-    t('services.automation.title'),
-    t('services.ai.title'),
+  const services: { label: string; href: string }[] = [
+    { label: t('services.web.title'), href: '/services' },
+    { label: t('services.mobile.title'), href: '/mobile-app-development' },
+    { label: t('services.automation.title'), href: '/services' },
+    { label: t('services.ai.title'), href: '/services' },
   ];
 
   const links = [
@@ -72,13 +73,13 @@ export function Footer() {
             </h4>
             <ul className="space-y-3">
               {services.map((service) => (
-                <li key={service}>
+                <li key={service.label}>
                   <LocalizedLink
-                    href="/services"
+                    href={service.href}
                     className="text-sm text-gray-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-brand-500/50 group-hover:bg-brand-400 transition-colors" />
-                    {service}
+                    {service.label}
                   </LocalizedLink>
                 </li>
               ))}

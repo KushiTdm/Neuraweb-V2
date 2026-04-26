@@ -12,7 +12,7 @@ import {
   generateJsonLd,
 } from './seo-service';
 
-const AI_MODEL = 'glm-4-flash';
+const AI_MODEL = 'glm-4.5-flash';
 const MAX_TOKENS = 600;
 // Cache en mémoire serveur (survivra entre requêtes en production)
 const serverCache = new Map<string, { data: GeneratedSEO; timestamp: number }>();
@@ -66,12 +66,14 @@ function buildRichContext(context: PageSEOContext): string {
   const relevantBoosts: string[] = [];
   if (context.pageType === 'home') {
     relevantBoosts.push(...SEO_BOOST_KEYWORDS.local.slice(0, 4));
-    relevantBoosts.push(...SEO_BOOST_KEYWORDS.technical.slice(0, 3));
+    relevantBoosts.push(...SEO_BOOST_KEYWORDS.mobile.slice(0, 3));
+    relevantBoosts.push(...SEO_BOOST_KEYWORDS.technical.slice(0, 2));
   }
   if (context.pageType === 'services') {
-    relevantBoosts.push(...SEO_BOOST_KEYWORDS.services.slice(0, 4));
-    relevantBoosts.push(...SEO_BOOST_KEYWORDS.ai.slice(0, 3));
-    relevantBoosts.push(...SEO_BOOST_KEYWORDS.business.slice(0, 3));
+    relevantBoosts.push(...SEO_BOOST_KEYWORDS.services.slice(0, 3));
+    relevantBoosts.push(...SEO_BOOST_KEYWORDS.mobile.slice(0, 3));
+    relevantBoosts.push(...SEO_BOOST_KEYWORDS.ai.slice(0, 2));
+    relevantBoosts.push(...SEO_BOOST_KEYWORDS.business.slice(0, 2));
   }
   if (context.pageType === 'blog') {
     relevantBoosts.push(...SEO_BOOST_KEYWORDS.technical.slice(0, 4));
@@ -111,6 +113,12 @@ Génère des métadonnées MEILLEURES que les actuelles, plus précises et plus 
 async function callAI(context: PageSEOContext): Promise<GeneratedSEO | null> {
   const apiKey = process.env.ZAI_API_KEY;
   if (!apiKey) return null;
+
+  // Skip during `next build` : 40+ appels parallèles saturent le quota Z.AI.
+  // L'ISR (revalidate: 86400) régénérera chaque page séquentiellement au premier
+  // hit après expiration du cache, ce qui activera la couche IA sans rate-limit.
+  // Les fallbacks statiques (SEO_CONTEXTS_BY_LANG) couvrent les premiers 24h.
+  if (process.env.NEXT_PHASE === 'phase-production-build') return null;
 
   try {
     const response = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {

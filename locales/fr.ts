@@ -39,10 +39,10 @@ export const fr = {
   'header.toggle.menu': 'Menu',
 
   // Hero Section
-  'hero.main.title': 'Transformez vos idées en',
-  'hero.title.highlight': 'solutions digitales',
-  'hero.title.end': 'innovantes',
-  'hero.subtitle': 'Développement web sur mesure, intégration IA et automatisation pour propulser votre entreprise vers le futur',
+  'hero.main.title': 'Agence Web, IA &',
+  'hero.title.highlight': 'Applications Mobiles',
+  'hero.title.end': 'sur mesure',
+  'hero.subtitle': 'Développement web, applications mobiles, intégration IA et automatisation n8n pour startups et PME. Paris, Lille et partout en France.',
   'hero.cta.start': 'Démarrer un projet',
   'hero.cta.services': 'Nos services',
   'hero.scroll.discover': 'Découvrir',
@@ -55,6 +55,8 @@ export const fr = {
   'services.section.subtitle': 'Des solutions sur mesure pour transformer votre présence digitale et automatiser vos processus métier',
   'services.web.title': 'Développement Web',
   'services.web.desc': 'Sites web et applications modernes, performants et évolutifs construits avec les dernières technologies.',
+  'services.mobile.title': 'Applications Mobiles',
+  'services.mobile.desc': 'Apps iOS et Android sur mesure : React Native, Flutter, Swift, Kotlin. MVP en 6 semaines.',
   'services.automation.title': 'Automatisation',
   'services.automation.desc': 'Optimisez vos processus métier avec des solutions d\'automatisation intelligentes qui vous font gagner du temps.',
   'services.ai.title': 'Intégration IA',
@@ -158,8 +160,8 @@ export const fr = {
   'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. Tous droits réservés.`,
 
   // Services Page
-  'servicePage.hero.title': 'Services Professionnels',
-  'servicePage.hero.subtitle': 'Des solutions sur mesure pour transformer votre vision en réalité digitale',
+  'servicePage.hero.title': 'Développement Web, Apps Mobiles & IA',
+  'servicePage.hero.subtitle': 'Solutions sur mesure : sites web, applications mobiles iOS/Android, intégration IA et automatisation. Devis gratuit sous 24h.',
   'servicePage.process.title': 'Notre Processus',
   'servicePage.process.badge': 'Méthode éprouvée',
   'servicePage.process.audit.title': '1. Audit & Analyse',

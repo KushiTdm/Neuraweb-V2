@@ -41,10 +41,10 @@ export const en: Record<TranslationKey, string> = {
   'header.toggle.menu': 'Menu',
 
   // Hero Section
-  'hero.main.title': 'Transform your ideas into',
-  'hero.title.highlight': 'digital solutions',
-  'hero.title.end': 'innovative',
-  'hero.subtitle': 'Custom web development, AI integration and automation to propel your business into the future',
+  'hero.main.title': 'Custom Web &',
+  'hero.title.highlight': 'Mobile App Development',
+  'hero.title.end': 'Agency',
+  'hero.subtitle': 'Custom web development, mobile apps, AI integration and n8n automation for startups and SMBs. Based in France, serving clients worldwide.',
   'hero.cta.start': 'Start a project',
   'hero.cta.services': 'Our services',
   'hero.scroll.discover': 'Discover',
@@ -57,6 +57,8 @@ export const en: Record<TranslationKey, string> = {
   'services.section.subtitle': 'Tailored solutions to transform your digital presence and automate your business processes',
   'services.web.title': 'Web Development',
   'services.web.desc': 'Modern, performant and scalable websites and applications built with the latest technologies.',
+  'services.mobile.title': 'Mobile Apps',
+  'services.mobile.desc': 'Custom iOS and Android apps: React Native, Flutter, Swift, Kotlin. MVP in 6 weeks.',
   'services.automation.title': 'Automation',
   'services.automation.desc': 'Optimize your business processes with intelligent automation solutions that save you time.',
   'services.ai.title': 'AI Integration',
@@ -160,8 +162,8 @@ export const en: Record<TranslationKey, string> = {
   'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. All rights reserved.`,
 
   // Services Page
-  'servicePage.hero.title': 'Professional Services',
-  'servicePage.hero.subtitle': 'Tailored solutions to transform your vision into digital reality',
+  'servicePage.hero.title': 'Custom Web, Mobile App & AI Development',
+  'servicePage.hero.subtitle': 'Tailored solutions: websites, iOS/Android mobile apps, AI integration and automation. Free quote within 24h.',
   'servicePage.process.title': 'Our Process',
   'servicePage.process.badge': 'Proven method',
   'servicePage.process.audit.title': '1. Audit & Analysis',

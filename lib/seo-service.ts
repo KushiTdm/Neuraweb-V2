@@ -54,14 +54,14 @@ type PageSEOConfig = {
 const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = {
   fr: {
     home: {
-      title: 'NeuraWeb — Agence Web, IA & Automatisation',
-      description: 'Agence digitale premium spécialisée en développement web sur mesure, intégration IA et automatisation. Transformez votre vision en solutions digitales innovantes.',
-      keywords: ['agence web', 'développement web', 'intégration IA', 'automatisation', 'Next.js', 'React', 'marketing digital'],
+      title: 'NeuraWeb — Agence Web, Apps Mobiles & IA',
+      description: 'Agence digitale spécialisée en développement web sur mesure, applications mobiles iOS/Android, intégration IA et automatisation n8n. Paris, Lille et toute la France.',
+      keywords: ['agence web', 'développement web sur mesure', 'création application mobile', 'développement app iOS Android', 'intégration IA', 'automatisation n8n', 'Next.js', 'React', 'agence web Paris', 'agence web Lille'],
     },
     services: {
-      title: 'Services - Solutions Web Sur Mesure | NeuraWeb',
-      description: 'Découvrez nos services de développement web, intégration IA et automatisation. Packs adaptés à vos besoins.',
-      keywords: ['services web', 'développement web', 'intégration IA', 'automatisation', 'tarifs web'],
+      title: 'Services — Développement Web, Apps Mobiles & IA | NeuraWeb',
+      description: 'Développement web Next.js, applications mobiles iOS/Android, intégration IA et automatisation n8n. Packs Starter, Business, Premium. Devis gratuit sous 24h.',
+      keywords: ['services développement web', 'création application mobile', 'app iOS Android sur mesure', 'intégration IA site web', 'automatisation processus', 'tarifs développement web', 'devis site web'],
     },
     contact: {
       title: 'Contact - Parlons de votre projet | NeuraWeb',
@@ -86,14 +86,14 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
   },
   en: {
     home: {
-      title: 'NeuraWeb — Web Agency, AI & Automation',
-      description: 'Premium digital agency specialized in custom web development, AI integration and automation. Transform your vision into innovative digital solutions.',
-      keywords: ['web agency', 'web development', 'AI integration', 'automation', 'Next.js', 'React', 'digital marketing'],
+      title: 'NeuraWeb — Custom Web & Mobile App Development Agency',
+      description: 'Custom web development, iOS/Android mobile apps, AI integration and n8n automation for startups and SMBs. Based in France, clients worldwide.',
+      keywords: ['custom web development', 'mobile app development', 'web development agency', 'iOS Android app development', 'AI integration', 'n8n automation', 'Next.js', 'React', 'custom web software development', 'web development company'],
     },
     services: {
-      title: 'Services - Custom Web Solutions | NeuraWeb',
-      description: 'Discover our web development, AI integration and automation services. Packages tailored to your needs.',
-      keywords: ['web services', 'web development', 'AI integration', 'automation', 'web pricing'],
+      title: 'Services — Custom Web, Mobile App & AI Development | NeuraWeb',
+      description: 'Next.js web development, iOS/Android mobile apps, AI integration and n8n automation. Starter, Business, Premium packs. Free quote within 24h.',
+      keywords: ['custom app development services', 'mobile app development services', 'custom web software development', 'AI integration services', 'web development pricing', 'software development company'],
     },
     contact: {
       title: "Contact - Let's talk about your project | NeuraWeb",
@@ -118,14 +118,14 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
   },
   es: {
     home: {
-      title: 'NeuraWeb — Agencia Web, IA & Automatización',
-      description: 'Agencia digital premium especializada en desarrollo web personalizado, integración IA y automatización. Transforma tu visión en soluciones digitales innovadoras.',
-      keywords: ['agencia web', 'desarrollo web', 'integración IA', 'automatización', 'Next.js', 'React', 'marketing digital'],
+      title: 'NeuraWeb — Agencia Web, Apps Móviles & IA',
+      description: 'Agencia digital especializada en desarrollo web a medida, aplicaciones móviles iOS/Android, integración IA y automatización n8n. Clientes en España y Francia.',
+      keywords: ['agencia web', 'desarrollo web a medida', 'desarrollo aplicaciones móviles', 'apps iOS Android', 'integración IA', 'automatización n8n', 'Next.js', 'React', 'desarrollo software a medida'],
     },
     services: {
-      title: 'Servicios - Soluciones Web a Medida | NeuraWeb',
-      description: 'Descubre nuestros servicios de desarrollo web, integración IA y automatización. Paquetes adaptados a tus necesidades.',
-      keywords: ['servicios web', 'desarrollo web', 'integración IA', 'automatización', 'precios web'],
+      title: 'Servicios — Desarrollo Web, Apps Móviles e IA | NeuraWeb',
+      description: 'Desarrollo web Next.js, aplicaciones móviles iOS/Android, integración IA y automatización n8n. Paquetes Starter, Business, Premium. Presupuesto gratuito en 24h.',
+      keywords: ['servicios desarrollo web', 'desarrollo apps móviles', 'desarrollo software personalizado', 'integración IA web', 'precios desarrollo web', 'presupuesto app móvil'],
     },
     contact: {
       title: 'Contacto - Hablemos de tu proyecto | NeuraWeb',
@@ -190,12 +190,27 @@ const SEO_BOOST_KEYWORDS = {
   ],
   local: [
     'agence web Paris',
+    'agence web Lille',
+    'agence web Lyon',
     'développeur web Île-de-France',
+    'développeur web Hauts-de-France',
     'agence digitale France',
     'freelance React Paris',
     'agence IA Paris',
     'studio web startup Paris',
     'agence automatisation France',
+    'création applications mobiles Lille',
+    'création applications mobiles Paris',
+  ],
+  mobile: [
+    'développement application mobile sur mesure',
+    'création app iOS Android France',
+    'agence développement React Native',
+    'application mobile startup MVP',
+    'développeur mobile Flutter Paris',
+    'custom mobile app development',
+    'iOS Android app development agency',
+    'cross-platform app development',
   ],
   services: [
     'MVP startup 6 semaines',
@@ -204,6 +219,9 @@ const SEO_BOOST_KEYWORDS = {
     'pack développement web PME',
     'tarifs agence web Paris',
     'devis site web Next.js',
+    'custom web software development',
+    'custom app development services',
+    'custom web development company',
   ],
 };
 
