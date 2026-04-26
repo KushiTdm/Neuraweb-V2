@@ -193,7 +193,7 @@ Le parser ([components/blog-post-client.tsx](../components/blog-post-client.tsx)
 
 | Symptôme dans GSC | Cause | Fix |
 |---|---|---|
-| "FAQ : N éléments non valides" | Soit bloc `<script>` parasite dans le MDX (doublon), soit section `## FAQ` écrite à la main qui ne reproduit pas exactement le texte du frontmatter | Supprimer le `<script>` ET la section `## FAQ` du MDX. Le composant `BlogPostClient` rend la FAQ tout seul depuis le frontmatter, garantissant la correspondance exacte avec le schéma JSON-LD. |
+| "FAQ : N éléments non valides" | Soit bloc `<script>` parasite dans le MDX, soit section `## FAQ` écrite à la main qui ne reproduit pas exactement le frontmatter, soit divergence d'encodage des apostrophes (`'` U+0027 dans le schéma vs `&#x27;` dans le DOM) | Supprimer le `<script>` ET la section `## FAQ` du MDX. Les apostrophes droites du frontmatter sont automatiquement normalisées en typographiques (`'` U+2019) par [lib/mdx.ts](../lib/mdx.ts), pour éviter l'encodage HTML par React. |
 | "Type de valeur incorrect" sur schéma | MDX interprète `{` comme JSX | Pas de `<script>` JSON-LD dans le MDX |
 | "L'avis contient plusieurs avis cumulés" | `localBusinessSchema` injecté hors des pages "fiche entreprise" | Déjà corrigé : ce schéma n'est plus injecté que sur home, /contact, /equipe |
 | Article non indexé après 1 semaine | URL absente du sitemap ou de `indexing.js` | Vérifier les 2 fichiers, relancer `npm run indexing` |

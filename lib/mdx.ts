@@ -49,6 +49,17 @@ export interface BlogPostMeta {
 // ── Configuration ───────────────────────────────────────────────────────────
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'blog');
 
+// Normalise les apostrophes droites (U+0027) en apostrophes typographiques (U+2019).
+// Pourquoi : React encode `'` en `&#x27;` lors du rendu DOM, mais le schéma JSON-LD
+// (sérialisé via JSON.stringify) garde `'` brut. Google compare le texte du schéma
+// FAQPage avec le texte visible — et fait du strict matching binaire. La divergence
+// `'` vs `&#x27;` fait que la question est marquée "élément non valide" dans GSC.
+// L'apostrophe typographique `'` (U+2019) n'est pas encodée par React, donc le
+// schéma et le visible restent strictement identiques.
+function normalizeApostrophes(text: string): string {
+  return text.replace(/'/g, '’');
+}
+
 // Language folder mapping
 const LANGUAGE_FOLDERS: Record<Language, string> = {
   fr: CONTENT_DIR,           // French articles at root
@@ -101,7 +112,12 @@ export function getPostBySlug(slug: string, language: Language = 'fr'): BlogPost
       image: data.image || '/og-image.png',
       tags: data.tags || [],
       featured: data.featured || false,
-      faq: data.faq || undefined,
+      faq: Array.isArray(data.faq)
+        ? data.faq.map((item: FaqItem) => ({
+            question: normalizeApostrophes(item.question),
+            answer: normalizeApostrophes(item.answer),
+          }))
+        : undefined,
       content,
       language,
     };
