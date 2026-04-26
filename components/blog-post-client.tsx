@@ -49,6 +49,8 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
 
   const translations = t[language] || t.fr;
 
+  const faqHeading = language === 'en' ? 'FAQ' : language === 'es' ? 'Preguntas frecuentes' : 'FAQ';
+
   if (!post) return null;
 
   // Parse markdown content (simplified version)
@@ -167,6 +169,29 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
               dangerouslySetInnerHTML={{ __html: `<p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">${parsedContent}</p>` }}
             />
           </div>
+
+          {/* FAQ rendue depuis le frontmatter — garantit que le texte visible est
+              strictement identique au schéma JSON-LD FAQPage (sinon Google marque
+              les questions comme "non valides"). Ne JAMAIS écrire `## FAQ` dans le MDX. */}
+          {post.faq && post.faq.length > 0 && (
+            <section className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                {faqHeading}
+              </h2>
+              <div className="space-y-6">
+                {post.faq.map((item, idx) => (
+                  <div key={idx}>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                      {item.question}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                      {item.answer}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Tags */}
           {post.tags.length > 0 && (

@@ -9,7 +9,6 @@ import ChatbotWrapper from '@/components/chatbot-wrapper';
 import {
   organizationSchema,
   websiteSchema,
-  localBusinessSchema,
 } from '@/lib/structured-data';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { notFound } from 'next/navigation';
@@ -219,11 +218,9 @@ export default async function LangLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        {/* LocalBusiness Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-        />
+        {/* LocalBusiness Schema injecté uniquement sur les pages "fiche entreprise"
+            (home, /contact, /equipe) — pas globalement, sinon son aggregateRating
+            pollue les pages article (Google : "Reviews snippet invalide"). */}
       </head>
       <body className={geist.className}>
         {/* Google Analytics — lazyOnload pour ne pas bloquer le rendu */}

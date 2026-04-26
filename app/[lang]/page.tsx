@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import { HomePageClient } from '@/components/home-page-client';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { professionalServiceSchema, faqSchema } from '@/lib/structured-data';
-// ↑ localBusinessSchema RETIRÉ ici — déjà injecté dans layout.tsx sur toutes les pages
+import { professionalServiceSchema, faqSchema, localBusinessSchema } from '@/lib/structured-data';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
 
@@ -91,7 +90,12 @@ export default async function HomePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      {/* LocalBusiness : NE PAS remettre ici — déjà dans layout.tsx */}
+      {/* LocalBusiness — porte l'aggregateRating (étoiles SERP). Restreint aux pages
+          "fiche entreprise" : home, /contact, /equipe. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
       <Header />
       <main id="main-content">
         <HomePageClient />

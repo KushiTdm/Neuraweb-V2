@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import ContactPageClient from '@/components/contact-page-client';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
+import { localBusinessSchema } from '@/lib/structured-data';
 
 // Juste après les imports, avant generateStaticParams()
 export const revalidate = 86400; // Cache SEO 24h — évite les appels IA à chaque crawl
@@ -75,8 +76,16 @@ export default async function ContactPage({
   const { lang } = await params;
 
   return (
-    <main id="main-content">
-      <ContactPageClient />
-    </main>
+    <>
+      {/* LocalBusiness — porte l'aggregateRating (étoiles SERP). Restreint aux pages
+          "fiche entreprise" : home, /contact, /equipe. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      <main id="main-content">
+        <ContactPageClient />
+      </main>
+    </>
   );
 }
