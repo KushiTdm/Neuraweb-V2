@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
 import { EquipePageClient } from '@/components/equipe-page-client';
+import { JsonLd } from '@/components/json-ld';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
-import { localBusinessSchema } from '@/lib/structured-data';
+import { localBusinessSchema, generateBreadcrumbSchema } from '@/lib/structured-data';
 
 // Juste après les imports, avant generateStaticParams()
 export const revalidate = 86400; // Cache SEO 24h — évite les appels IA à chaque crawl
@@ -77,14 +78,18 @@ export default async function EquipePage({
 }) {
   const { lang } = await params;
 
+  // Breadcrumb pour navigation SERP
+  const breadcrumbData = generateBreadcrumbSchema([
+    { name: lang === 'fr' ? 'Accueil' : lang === 'es' ? 'Inicio' : 'Home', url: `/${lang}` },
+    { name: lang === 'fr' ? 'Équipe' : lang === 'es' ? 'Equipo' : 'Team', url: `/${lang}/equipe` },
+  ]);
+
   return (
     <>
       {/* LocalBusiness — porte l'aggregateRating (étoiles SERP). Restreint aux pages
           "fiche entreprise" : home, /contact, /equipe. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
+      <JsonLd id="localbusiness-schema" data={localBusinessSchema} />
+      <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
       <main id="main-content">
         <EquipePageClient />
       </main>

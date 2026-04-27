@@ -72,11 +72,18 @@ export function HomePageClient() {
   const servicesRef = useRef<HTMLDivElement>(null);
   const isTouchDevice = useRef(false);
 
+  // Throttle mousemove avec requestAnimationFrame pour améliorer INP
+  const rafId = useRef<number | null>(null);
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (isTouchDevice.current) return;
-    setMousePosition({
-      x: (e.clientX / window.innerWidth - 0.5) * 20,
-      y: (e.clientY / window.innerHeight - 0.5) * 20,
+    if (rafId.current !== null) return; // Skip si un frame est déjà en attente
+
+    rafId.current = requestAnimationFrame(() => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20,
+      });
+      rafId.current = null;
     });
   }, []);
 
@@ -89,6 +96,9 @@ export function HomePageClient() {
     }
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      if (rafId.current !== null) {
+        cancelAnimationFrame(rafId.current);
+      }
     };
   }, [handleMouseMove]);
 

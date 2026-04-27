@@ -1,7 +1,9 @@
 import { Metadata } from 'next';
 import { ServicesPageClient } from '@/components/services-page-client';
+import { JsonLd } from '@/components/json-ld';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
+import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {
@@ -123,12 +125,16 @@ export default async function ServicesPage({
 }) {
   const { lang } = await params;
 
+  // Breadcrumb pour navigation SERP
+  const breadcrumbData = generateBreadcrumbSchema([
+    { name: lang === 'fr' ? 'Accueil' : lang === 'es' ? 'Inicio' : 'Home', url: `/${lang}` },
+    { name: 'Services', url: `/${lang}/services` },
+  ]);
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateServiceJsonLd(lang)) }}
-      />
+      <JsonLd id="services-schema" data={generateServiceJsonLd(lang)} />
+      <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
       <main id="main-content">
         <ServicesPageClient />
       </main>

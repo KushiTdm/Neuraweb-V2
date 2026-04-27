@@ -2,11 +2,12 @@ import { Metadata } from 'next';
 import { BlogPostClient } from '@/components/blog-post-client';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { JsonLd } from '@/components/json-ld';
 import { getAllPostSlugs, getPostBySlug, getAllPosts, type Language } from '@/lib/mdx';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { notFound } from 'next/navigation';
 import { generateBlogPostAISEO } from '@/lib/seo-ai-server';
-import { generateArticleSchema, generateFaqSchema } from '@/lib/structured-data';
+import { generateArticleSchema, generateFaqSchema, generateBreadcrumbSchema } from '@/lib/structured-data';
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {
@@ -134,18 +135,18 @@ export default async function BlogPostPage({
     ? generateFaqSchema(post.faq)
     : null;
 
+  // Breadcrumb pour navigation SERP
+  const breadcrumbData = generateBreadcrumbSchema([
+    { name: lang === 'fr' ? 'Accueil' : lang === 'es' ? 'Inicio' : 'Home', url: `/${lang}` },
+    { name: 'Blog', url: `/${lang}/blog` },
+    { name: post.title, url: `/${lang}/blog/${slug}` },
+  ]);
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
-      {faqSchema && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
-      )}
+      <JsonLd id={`article-schema-${slug}`} data={articleSchema} />
+      {faqSchema && <JsonLd id={`faq-schema-${slug}`} data={faqSchema} />}
+      <JsonLd id={`breadcrumb-schema-${slug}`} data={breadcrumbData} />
       <Header />
       <main id="main-content">
         <BlogPostClient

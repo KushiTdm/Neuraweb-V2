@@ -10,23 +10,25 @@ import {
   organizationSchema,
   websiteSchema,
 } from '@/lib/structured-data';
+import { JsonLd } from '@/components/json-ld';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { notFound } from 'next/navigation';
 
 // ─── Fonts ────────────────────────────────────────────────────────────────────
+// Optimisation CWV : réduit de 9 à 5 weights pour améliorer LCP et CLS
 const geist = Geist({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-geist',
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '700'], // Réduit : supprimé 600, 800 (peu utilisés)
   preload: true,
 });
 
 const geistMono = Geist_Mono({
   subsets: ['latin'],
-  display: 'swap',
+  display: 'optional', // 'optional' évite FOUT pour les fonts non-critiques (code blocks)
   variable: '--font-geist-mono',
-  weight: ['400', '500'],
+  weight: ['400'], // Réduit : un seul poids suffit pour le code
   preload: false,
 });
 
@@ -34,7 +36,7 @@ const syne = Syne({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-syne',
-  weight: ['700', '800'],
+  weight: ['700'], // Réduit : un seul poids pour les titres
   preload: true,
 });
 
@@ -208,16 +210,11 @@ export default async function LangLayout({
           href="/assets/ampoulePoster.webp"
         />
 
-        {/* Organization Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        {/* WebSite Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
+        {/* Organization + WebSite injectés via JsonLd (Client Component) pour éviter
+            le doublon RSC payload de Next.js qui faisait apparaître chaque schéma
+            deux fois dans le HTML (Google : "Champ en double" + "Élément sans nom"). */}
+        <JsonLd id="organization-schema" data={organizationSchema} />
+        <JsonLd id="website-schema" data={websiteSchema} />
         {/* LocalBusiness Schema injecté uniquement sur les pages "fiche entreprise"
             (home, /contact, /equipe) — pas globalement, sinon son aggregateRating
             pollue les pages article (Google : "Reviews snippet invalide"). */}

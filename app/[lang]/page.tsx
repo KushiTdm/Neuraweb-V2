@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { HomePageClient } from '@/components/home-page-client';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { JsonLd } from '@/components/json-ld';
 import { professionalServiceSchema, faqSchema, localBusinessSchema } from '@/lib/structured-data';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
@@ -80,22 +81,11 @@ export default async function HomePage({
 
   return (
     <>
-      {/* ProfessionalService — spécifique à la home, pas en double avec layout */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
-      />
-      {/* FAQ Schema — rich snippets questions/réponses */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <JsonLd id="professional-service-schema" data={professionalServiceSchema} />
+      <JsonLd id="home-faq-schema" data={faqSchema} />
       {/* LocalBusiness — porte l'aggregateRating (étoiles SERP). Restreint aux pages
           "fiche entreprise" : home, /contact, /equipe. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
+      <JsonLd id="localbusiness-schema" data={localBusinessSchema} />
       <Header />
       <main id="main-content">
         <HomePageClient />

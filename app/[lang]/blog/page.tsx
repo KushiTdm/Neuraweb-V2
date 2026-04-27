@@ -2,9 +2,11 @@ import { Metadata } from 'next';
 import { BlogListClient } from '@/components/blog-list-client';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { JsonLd } from '@/components/json-ld';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { getAllPosts, getFeaturedPosts } from '@/lib/mdx';
 import { generateAISEO } from '@/lib/seo-ai-server';
+import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
 // Juste après les imports, avant generateStaticParams()
 export const revalidate = 86400; // Cache SEO 24h — évite les appels IA à chaque crawl
@@ -85,11 +87,18 @@ export default async function BlogPage({
   const featuredEn = getFeaturedPosts('en');
   const featuredEs = getFeaturedPosts('es');
 
+  // Breadcrumb pour navigation SERP
+  const breadcrumbData = generateBreadcrumbSchema([
+    { name: lang === 'fr' ? 'Accueil' : lang === 'es' ? 'Inicio' : 'Home', url: `/${lang}` },
+    { name: 'Blog', url: `/${lang}/blog` },
+  ]);
+
   return (
     <>
+      <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
       <Header />
       <main id="main-content">
-        <BlogListClient 
+        <BlogListClient
           postsFr={postsFr}
           postsEn={postsEn}
           postsEs={postsEs}

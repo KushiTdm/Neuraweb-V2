@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { MobileAppDevClient } from '@/components/mobile-app-dev-client';
+import { JsonLd } from '@/components/json-ld';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
+import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
 type Lang = 'fr' | 'en' | 'es';
 
@@ -206,15 +208,23 @@ export default async function MobileAppDevPage({
   const language = (lang as Lang) || 'fr';
   const jsonLd = generateMobileAppJsonLd(language);
 
+  // Breadcrumb pour navigation SERP
+  const breadcrumbName: Record<Lang, string> = {
+    fr: 'Développement Mobile',
+    en: 'Mobile Development',
+    es: 'Desarrollo Móvil',
+  };
+  const breadcrumbData = generateBreadcrumbSchema([
+    { name: language === 'fr' ? 'Accueil' : language === 'es' ? 'Inicio' : 'Home', url: `/${language}` },
+    { name: breadcrumbName[language], url: `/${language}/mobile-app-development` },
+  ]);
+
   return (
     <>
       {jsonLd.map((schema, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
+        <JsonLd key={i} id={`mobile-app-schema-${i}`} data={schema} />
       ))}
+      <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
       <MobileAppDevClient lang={language} />
     </>
   );

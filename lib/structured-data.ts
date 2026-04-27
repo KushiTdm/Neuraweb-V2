@@ -48,15 +48,11 @@ export const organizationSchema = {
     email: 'contact@neuraweb.tech',
     availableLanguage: ['French', 'English', 'Spanish'],
   },
-  // ⚠️ TODO : remplace l'URL Google Maps ci-dessous par l'URL réelle de ta fiche GBP.
-  // Pour la trouver : ouvre ta fiche sur Google Maps dans ton navigateur,
-  // copie l'URL complète depuis la barre d'adresse.
-  // L'URL précédente avait des coordonnées erronées (océan Pacifique).
   sameAs: [
     'https://www.linkedin.com/company/neuraweb',
     'https://github.com/neuraweb',
     'https://x.com/neurawebtech',
-    // 'https://www.google.com/maps/place/...' ← remplace par ton URL GBP réelle
+    'https://maps.app.goo.gl/DUkC3mSovCR8cpRz5', // Google Business Profile
   ],
   foundingDate: '2024',
   numberOfEmployees: {
@@ -122,10 +118,10 @@ export const localBusinessSchema = {
     bestRating: 5,
     worstRating: 1,
   },
-  // ⚠️ TODO : même remarque que pour organizationSchema — remplace par ton URL GBP réelle
   sameAs: [
+    'https://www.linkedin.com/company/neuraweb',
     'https://x.com/neurawebtech',
-    'https://maps.app.goo.gl/DUkC3mSovCR8cpRz5',
+    'https://maps.app.goo.gl/DUkC3mSovCR8cpRz5', // Google Business Profile
   ],
   parentOrganization: {
     '@id': `${BASE_URL}/#organization`,

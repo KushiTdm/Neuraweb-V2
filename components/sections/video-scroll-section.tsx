@@ -157,7 +157,8 @@ export function VideoScrollSection() {
       play();
     } else {
       v.addEventListener('loadedmetadata', play, { once: true });
-      const fb = setTimeout(dismiss, 4000);
+      // Réduit de 4s à 2s pour améliorer LCP si la vidéo ne charge pas
+      const fb = setTimeout(dismiss, 2000);
       v.addEventListener('loadedmetadata', () => clearTimeout(fb), { once: true });
     }
 

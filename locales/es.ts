@@ -160,6 +160,9 @@ export const es: Record<TranslationKey, string> = {
   'footer.company.description': 'Soluciones web innovadoras y automatización inteligente para tu empresa.',
   'footer.links.title': 'Enlaces rápidos',
   'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. Todos los derechos reservados.`,
+  'footer.legal.legalNotice': 'Aviso Legal',
+  'footer.legal.privacy': 'Privacidad',
+  'footer.legal.terms': 'Condiciones',
 
   // Services Page
   'servicePage.hero.title': 'Desarrollo Web, Apps Móviles e IA',

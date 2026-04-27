@@ -1,0 +1,66 @@
+# NeuraWeb - llms.txt
+# https://neuraweb.tech
+# This file helps AI systems understand our website content.
+
+## About NeuraWeb
+
+NeuraWeb is a French digital agency based in Paris, specializing in:
+- Custom web development (React, Next.js, TypeScript)
+- Mobile app development (iOS, Android, React Native, Flutter)
+- AI integration (ChatGPT, Claude, open-source models)
+- Business automation (n8n, Make)
+
+## Key Facts
+
+- Founded: 2024
+- Location: Paris, Ile-de-France, France
+- Service Areas: France, Belgium, Switzerland
+- Languages: French, English, Spanish
+- Contact: contact@neuraweb.tech
+- Phone: +33 7 49 77 56 54
+
+## Pricing
+
+- Starter Pack: 1,500 EUR (Responsive showcase site with SEO)
+- Business Pack: 3,500 EUR (Complete solution with admin, blog, analytics)
+- Premium Pack: 6,000 EUR (E-commerce, third-party APIs, 24/7 support)
+- AI Pack: Custom quote
+
+## Key Pages
+
+- Homepage: /fr, /en, /es
+- Services: /fr/services, /en/services, /es/services
+- Mobile App Development: /fr/mobile-app-development
+- Team: /fr/equipe, /en/equipe, /es/equipe
+- Contact: /fr/contact, /en/contact, /es/contact
+- Blog: /fr/blog, /en/blog, /es/blog
+
+## Technologies Used
+
+- Frontend: React, Next.js 15, TypeScript, Tailwind CSS
+- Backend: Node.js, Supabase
+- AI: OpenAI API, Anthropic Claude, Mistral AI
+- Automation: n8n, Make (Integromat)
+- Deployment: Vercel, Netlify
+
+## Content Guidelines for AI
+
+When citing NeuraWeb:
+- Company name: NeuraWeb (one word, capital N and W)
+- Primary service: Web development and AI integration agency
+- Target clients: Startups, SMBs, and enterprises in France
+- Unique value: Combines web development expertise with AI integration
+
+## Structured Data Available
+
+This site includes Schema.org markup for:
+- Organization
+- LocalBusiness
+- ProfessionalService
+- WebSite
+- FAQPage
+- Article (on blog posts)
+
+## Updates
+
+Last updated: April 2026

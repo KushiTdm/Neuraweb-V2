@@ -158,6 +158,9 @@ export const fr = {
   'footer.company.description': 'Solutions web innovantes et automatisation intelligente pour votre entreprise.',
   'footer.links.title': 'Liens rapides',
   'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. Tous droits réservés.`,
+  'footer.legal.legalNotice': 'Mentions légales',
+  'footer.legal.privacy': 'Confidentialité',
+  'footer.legal.terms': 'CGU',
 
   // Services Page
   'servicePage.hero.title': 'Développement Web, Apps Mobiles & IA',

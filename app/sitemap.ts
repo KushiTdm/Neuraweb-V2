@@ -18,6 +18,10 @@ const STATIC_PAGES: Record<string, {
   contact:                    { priority: 0.8, changeFrequency: 'monthly' },
   blog:                       { priority: 0.8, changeFrequency: 'weekly' },
   booking:                    { priority: 0.9, changeFrequency: 'monthly' },
+  // Pages légales
+  'mentions-legales':         { priority: 0.3, changeFrequency: 'yearly' },
+  'confidentialite':          { priority: 0.3, changeFrequency: 'yearly' },
+  'conditions-utilisation':   { priority: 0.3, changeFrequency: 'yearly' },
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

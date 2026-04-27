@@ -22,6 +22,12 @@ export function Footer() {
     { href: '/blog', label: t('nav.blog') },
   ];
 
+  const legalLinks = [
+    { href: '/mentions-legales', label: t('footer.legal.legalNotice') },
+    { href: '/confidentialite', label: t('footer.legal.privacy') },
+    { href: '/conditions-utilisation', label: t('footer.legal.terms') },
+  ];
+
   return (
     <footer className="relative bg-[#050510] border-t border-white/5 overflow-hidden">
       {/* Glow décoratif */}
@@ -113,11 +119,29 @@ export function Footer() {
         {/* ── Ligne de séparation ────────────────────────── */}
         <div className="gradient-line mb-6" />
 
-        {/* ── Copyright ─────────────────────────────────── */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+        {/* ── Legal + Copyright ─────────────────────────── */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-600">
             {t('footer.copyright')}
           </p>
+
+          {/* Legal links */}
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
+            {legalLinks.map((link, index) => (
+              <React.Fragment key={link.href}>
+                <LocalizedLink
+                  href={link.href}
+                  className="text-gray-500 hover:text-gray-300 transition-colors"
+                >
+                  {link.label}
+                </LocalizedLink>
+                {index < legalLinks.length - 1 && (
+                  <span className="text-gray-700">•</span>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+
           <div className="flex items-center gap-1.5 text-xs text-gray-600">
             <span>Crafted with</span>
             <span className="text-brand-500">♥</span>
