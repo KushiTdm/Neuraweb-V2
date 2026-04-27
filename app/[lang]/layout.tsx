@@ -78,7 +78,7 @@ export async function generateMetadata({
   const baseUrl = 'https://neuraweb.tech';
 
   // ✅ CORRIGÉ : image à la bonne URL
-  const ogImage = `${baseUrl}/assets/og-image.png`;
+  const ogImage = `${baseUrl}/assets/logo/neuraweb-agence_tech.png`;
 
   const meta = META_BY_LANG[lang] ?? META_BY_LANG.fr;
   const pageUrl = `${baseUrl}/${lang}`;

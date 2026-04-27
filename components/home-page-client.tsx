@@ -56,17 +56,7 @@ const CTASection = dynamic(
 );
 
 export function HomePageClient() {
-  // ─── CORRECTION CLÉ ──────────────────────────────────────────────────────
-  // L'ancien code avait un guard `if (!mounted) return <spinner>` qui cachait
-  // TOUTE la homepage à Googlebot. Google recevait un spinner au lieu du contenu.
-  //
-  // Solution :
-  // • On supprime ce guard — le composant rend directement son contenu.
-  // • `mounted` reste utile pour les effets purement client (mousemove, GSAP, etc.)
-  //   mais ne conditionne plus le rendu du HTML.
-  // • HeroSection gère son propre SSR fallback avec du contenu réel visible.
-  // • VideoOverlay est ssr:false → elle ne bloque pas le rendu SSR.
-  // ─────────────────────────────────────────────────────────────────────────
+
   const [mounted, setMounted] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const servicesRef = useRef<HTMLDivElement>(null);

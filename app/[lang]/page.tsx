@@ -24,7 +24,7 @@ export async function generateMetadata({
   const baseUrl = 'https://neuraweb.tech';
 
   // ✅ CORRIGÉ : chemin de l'image OG (était /og-image.png)
-  const ogImage = `${baseUrl}/assets/og-image.png`;
+  const ogImage = `${baseUrl}/assets/logo/neuraweb-agence_tech.png`;
 
   const seo = await generateAISEO({
     pageType: 'home',

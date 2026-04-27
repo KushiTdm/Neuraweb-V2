@@ -136,7 +136,7 @@ export function AboutSection() {
               {/* Image principale */}
               <div className="relative rounded-3xl shadow-2xl overflow-hidden aspect-[7/5] border border-white/20">
                 <Image
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&h=500&fit=crop"
+                  src="/assets/equipe.webp"
                   alt={t('about.image.alt')}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 700px"
