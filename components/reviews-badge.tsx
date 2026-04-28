@@ -11,10 +11,10 @@ export function ReviewsBadge() {
       <div 
         className="flex items-center gap-3 px-4 py-2 rounded-lg bg-white dark:bg-gray-800 shadow-sm"
         role="img"
-        aria-label="4.9 étoiles sur Google"
+        aria-label="5 étoiles sur Google"
       >
         <div className="flex items-center gap-1">
-          <span className="font-bold text-lg text-gray-900 dark:text-white">4.9</span>
+          <span className="font-bold text-lg text-gray-900 dark:text-white">5</span>
           <div className="flex text-yellow-400" aria-hidden="true">
             {[1, 2, 3, 4, 5].map((star) => (
               <svg
@@ -29,7 +29,6 @@ export function ReviewsBadge() {
         </div>
         <div className="text-left">
           <div className="text-xs text-gray-500 dark:text-gray-400">Sur Google</div>
-          <div className="text-sm font-medium text-gray-600 dark:text-gray-300">(47 avis)</div>
         </div>
       </div>
     </div>
@@ -52,10 +51,7 @@ export function TrustBadge() {
         ))}
       </div>
       <span className="text-sm font-medium text-gray-900 dark:text-white">
-        4.9/5
-      </span>
-      <span className="text-xs text-gray-500 dark:text-gray-400">
-        (47 avis)
+        5/5
       </span>
     </div>
   );
