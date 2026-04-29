@@ -2214,9 +2214,9 @@ function QuoteModal({
 
   return (
     <Dialog open={open} onOpenChange={(v) => (v ? null : handleClose())}>
-      <DialogContent className="w-[calc(100vw-2rem)] max-w-lg max-h-[90vh] overflow-y-auto bg-white text-slate-900 border border-slate-200">
+      <DialogContent className="w-[calc(100vw-2rem)] max-w-lg max-h-[85vh] flex flex-col p-0 gap-0 bg-white text-slate-900 border border-slate-200 overflow-hidden">
         {submitted ? (
-          <div className="py-6 text-center">
+          <div className="py-6 px-6 text-center">
             <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
               <Check className="w-8 h-8 text-emerald-600" />
             </div>
@@ -2229,7 +2229,7 @@ function QuoteModal({
           </div>
         ) : (
           <>
-            <DialogHeader>
+            <DialogHeader className="flex-shrink-0 px-6 pt-6 pb-3 pr-14 border-b border-slate-100">
               <DialogTitle className="text-2xl font-bold text-slate-900">
                 Demander un devis
               </DialogTitle>
@@ -2238,7 +2238,7 @@ function QuoteModal({
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex-1 overflow-y-auto space-y-4 px-6 py-4">
               <div>
                 <label htmlFor="fullName" className="block text-sm font-medium text-slate-700 mb-1.5">
                   Nom et prénom *
@@ -2362,7 +2362,7 @@ function QuoteModal({
                 <input
                   type="checkbox"
                   {...register('consent')}
-                  className="mt-1 w-4 h-4 rounded border-slate-300 text-teal-600 focus:ring-teal-500"
+                  className="mt-1 appearance-none w-4 h-4 min-w-[1rem] min-h-[1rem] max-w-[1rem] max-h-[1rem] flex-shrink-0 rounded border-2 border-slate-300 bg-white checked:bg-teal-600 checked:border-teal-600 checked:bg-[url('data:image/svg+xml;utf8,<svg viewBox=%220 0 16 16%22 fill=%22white%22 xmlns=%22http://www.w3.org/2000/svg%22><path d=%22M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%22/></svg>')] checked:bg-no-repeat checked:bg-center focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1 cursor-pointer"
                 />
                 <span>
                   J'accepte d'être recontacté(e) par Neuraweb au sujet de ma demande. Mes données
