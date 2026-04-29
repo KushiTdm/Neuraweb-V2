@@ -6,6 +6,7 @@ import { HeroSection } from '@/components/sections/hero-section';
 import { StatsSection } from '@/components/sections/stats-section';
 import { ReviewsBadge } from '@/components/reviews-badge';
 import { AuditCTA } from '@/components/audit-cta';
+import { OfferBannerSection } from '@/components/sections/offer-banner-section';
 
 // Section skeleton — affiché pendant le chargement des sections dynamiques
 function SectionSkeleton() {
@@ -127,6 +128,9 @@ export function HomePageClient() {
 
       <main id="main-content" className="homepage-container">
         <HeroSection mousePosition={mousePosition} onScrollToNext={scrollToServices} />
+
+        {/* Bannière offre du moment — Mai 2026 (santé) */}
+        <OfferBannerSection />
 
         <div ref={servicesRef}>
           <ServicesSection />

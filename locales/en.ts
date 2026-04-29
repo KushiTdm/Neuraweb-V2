@@ -35,6 +35,31 @@ export const en: Record<TranslationKey, string> = {
   'nav.login': 'Login',
   'nav.logout': 'Logout',
 
+  // Navbar — Services dropdown
+  'nav.dropdown.web.label': 'Web Development',
+  'nav.dropdown.web.desc': 'Websites & apps in React / Next.js',
+  'nav.dropdown.mobile.label': 'Mobile Apps',
+  'nav.dropdown.mobile.desc': 'iOS & Android — React Native, Flutter',
+  'nav.dropdown.automation.label': 'Automation',
+  'nav.dropdown.automation.desc': 'n8n & smart workflows',
+  'nav.dropdown.ai.label': 'AI Integration',
+  'nav.dropdown.ai.desc': 'ChatGPT, LLM, AI agents',
+  'nav.dropdown.sante.label': 'Healthcare',
+  'nav.dropdown.sante.desc': 'Websites for health pros — from €990',
+
+  // Limited-time offer banner (May)
+  'offer.banner.badge': 'Exclusive offer — May 2026',
+  'offer.banner.title': 'Health pros, your turnkey website',
+  'offer.banner.highlight': 'from €990',
+  'offer.banner.strike': '€1,500',
+  'offer.banner.from': 'From',
+  'offer.banner.subtitle': 'This month we onboard osteopaths, physiotherapists, independent nurses and midwives: showcase site delivered in 1 week, France-based hosting, Doctolib integration and local SEO — then a monthly plan to keep your site alive.',
+  'offer.banner.bullet1': 'Delivered in 7 days',
+  'offer.banner.bullet2': 'GDPR / HDS compliant',
+  'offer.banner.bullet3': 'Monthly plan from €29',
+  'offer.banner.cta': 'Discover the healthcare offer',
+  'offer.banner.note': 'Limited slots — reserved for files opened in May.',
+
   // Header
   'header.toggle.theme': 'Toggle theme',
   'header.toggle.language': 'Change language',

@@ -33,6 +33,31 @@ export const fr = {
   'nav.login': 'Connexion',
   'nav.logout': 'Déconnexion',
 
+  // Navbar — dropdown Services
+  'nav.dropdown.web.label': 'Développement Web',
+  'nav.dropdown.web.desc': 'Sites & apps React / Next.js',
+  'nav.dropdown.mobile.label': 'Applications Mobiles',
+  'nav.dropdown.mobile.desc': 'iOS & Android — React Native, Flutter',
+  'nav.dropdown.automation.label': 'Automatisation',
+  'nav.dropdown.automation.desc': 'n8n & workflows intelligents',
+  'nav.dropdown.ai.label': 'Intégration IA',
+  'nav.dropdown.ai.desc': 'ChatGPT, LLM, agents IA',
+  'nav.dropdown.sante.label': 'Santé & Paramédical',
+  'nav.dropdown.sante.desc': 'Sites pour pros de santé — dès 990€',
+
+  // Bannière offre du moment (Mai)
+  'offer.banner.badge': 'Offre exclusive — Mai 2026',
+  'offer.banner.title': 'Pros de santé, votre site clé en main',
+  'offer.banner.highlight': 'à partir de 990€',
+  'offer.banner.strike': '1 500€',
+  'offer.banner.from': 'À partir de',
+  'offer.banner.subtitle': "Ce mois-ci, on accompagne ostéopathes, kinés, infirmiers libéraux et sages-femmes : site vitrine livré en 1 semaine, hébergement France, intégration Doctolib et SEO local — puis un forfait mensuel pour faire vivre votre site.",
+  'offer.banner.bullet1': 'Livraison en 7 jours',
+  'offer.banner.bullet2': 'Conforme RGPD / HDS',
+  'offer.banner.bullet3': 'Forfait mensuel à partir de 29€',
+  'offer.banner.cta': "Découvrir l'offre santé",
+  'offer.banner.note': 'Places limitées — réservé aux dossiers ouverts en mai.',
+
   // Header
   'header.toggle.theme': 'Changer de thème',
   'header.toggle.language': 'Changer de langue',

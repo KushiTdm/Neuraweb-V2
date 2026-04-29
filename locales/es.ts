@@ -35,6 +35,31 @@ export const es: Record<TranslationKey, string> = {
   'nav.login': 'Iniciar sesión',
   'nav.logout': 'Cerrar sesión',
 
+  // Navbar — menú Servicios
+  'nav.dropdown.web.label': 'Desarrollo Web',
+  'nav.dropdown.web.desc': 'Sitios y apps en React / Next.js',
+  'nav.dropdown.mobile.label': 'Apps Móviles',
+  'nav.dropdown.mobile.desc': 'iOS y Android — React Native, Flutter',
+  'nav.dropdown.automation.label': 'Automatización',
+  'nav.dropdown.automation.desc': 'n8n y flujos inteligentes',
+  'nav.dropdown.ai.label': 'Integración IA',
+  'nav.dropdown.ai.desc': 'ChatGPT, LLM, agentes IA',
+  'nav.dropdown.sante.label': 'Salud',
+  'nav.dropdown.sante.desc': 'Sitios para profesionales de salud — desde 990€',
+
+  // Banner oferta del mes (Mayo)
+  'offer.banner.badge': 'Oferta exclusiva — Mayo 2026',
+  'offer.banner.title': 'Profesionales de la salud, tu sitio llave en mano',
+  'offer.banner.highlight': 'desde 990€',
+  'offer.banner.strike': '1 500€',
+  'offer.banner.from': 'Desde',
+  'offer.banner.subtitle': 'Este mes acompañamos a osteópatas, fisioterapeutas, enfermeros liberales y matronas: sitio web entregado en 1 semana, alojamiento en Francia, integración con Doctolib y SEO local — luego una cuota mensual para mantener tu sitio vivo.',
+  'offer.banner.bullet1': 'Entregado en 7 días',
+  'offer.banner.bullet2': 'Cumple RGPD / HDS',
+  'offer.banner.bullet3': 'Cuota mensual desde 29€',
+  'offer.banner.cta': 'Descubrir la oferta salud',
+  'offer.banner.note': 'Plazas limitadas — reservadas a expedientes abiertos en mayo.',
+
   // Header
   'header.toggle.theme': 'Cambiar tema',
   'header.toggle.language': 'Cambiar idioma',
