@@ -1851,13 +1851,13 @@ function ProcessTimeline() {
 
 function FaqSection() {
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-12 md:py-16 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12" data-reveal>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+        <div className="text-center mb-8" data-reveal>
+          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
             Questions <span className="text-teal-600">fréquentes</span>
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-base text-slate-600">
             Tout ce que les libéraux nous demandent avant de se lancer.
           </p>
         </div>
@@ -1867,12 +1867,12 @@ function FaqSection() {
             <AccordionItem
               key={idx}
               value={`faq-${idx}`}
-              className="border border-slate-200 rounded-xl mb-3 overflow-hidden bg-white shadow-sm data-[state=open]:shadow-md"
+              className="border border-slate-200 rounded-lg mb-2 overflow-hidden bg-white shadow-sm data-[state=open]:shadow-md"
             >
-              <AccordionTrigger className="px-5 py-4 hover:no-underline text-left font-semibold text-slate-900">
+              <AccordionTrigger className="px-4 py-3 hover:no-underline text-left font-semibold text-slate-900 text-base">
                 {item.q}
               </AccordionTrigger>
-              <AccordionContent className="px-5 pb-5 text-slate-600 leading-relaxed">
+              <AccordionContent className="px-4 pb-4 text-slate-600 leading-relaxed text-sm">
                 {item.a}
               </AccordionContent>
             </AccordionItem>
