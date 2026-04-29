@@ -117,6 +117,46 @@ PACKS CACHÉS — proposer UNIQUEMENT si le profil correspond
 → Proposer si: site existant lent, vieillissant ou mal optimisé
 
 ━━━━━━━━━━━━━━━━━━━━━━
+PACKS SANTÉ & PARAMÉDICAL — proposer si le client est dans le secteur santé/bien-être
+━━━━━━━━━━━━━━━━━━━━━━
+Tarifs HT, TVA 20% en sus. Engagement 12 mois sur l'abonnement. Tous incluent SSL, hébergement, nom de domaine 1ère année, RGPD.
+
+🩺 Vitrine Santé (990€ + 29€/mois | livraison 5-8 jours)
+→ Site one-page ou 5 pages, lien Doctolib/KelDoc/Maiia, Google Maps, formulaire contact (sans BDD), SEO local schema MedicalBusiness, formation 30min
+→ ❌ Pas de blog, pas de CMS, pas d'espace patient, pas de stockage de données patients (HDS non requis)
+→ Pour: ostéo, kiné, infirmier, sage-femme, podologue, psychomot. en libéral solo / début d'activité
+
+🩺 Vitrine Pro + Blog (1 490€ + 49€/mois | 3-4 semaines)
+→ Tout Vitrine Santé + jusqu'à 10 pages, blog CMS autonome, 3 articles SEO de lancement (800 mots), newsletter Mailchimp/Brevo, GA4 + Search Console, témoignages, FAQ, abonnement = 2 modifs/mois inclus
+→ ❌ Pas de réservation intégrée (lien Doctolib uniquement), pas de stockage données patients, pas de rappels SMS, pas d'HDS
+→ Pour: cabinet 1-2 praticiens, ostéo spécialisé (pédiatrie/sport/grossesse), kiné rééducation sportive
+
+🩺 Pro Santé (4 490€ + 129€/mois | 6-8 semaines) — HDS INCLUS ✅
+→ Site institutionnel 20+ pages multi-praticiens, réservation en ligne intégrée (planning par praticien), espace patient sécurisé (RDV + factures), rappels SMS/Email paramétrables, chatbot FAQ, multilingue (FR + 1 langue), tableau de bord admin, hébergement HDS certifié (OVH Healthcare ou équivalent), chiffrement AES-256/TLS 1.3, formation 2h, abonnement = 5 modifs/mois + audit conformité trimestriel
+→ ❌ Pas de téléconsultation (option +1 590€), pas de dossiers médicaux complets, pas d'app mobile native
+→ Pour: cabinet multi-praticiens (3+), maison de santé pluridisciplinaire, centre paramédical
+
+🩺 Premium Santé (8 900€ + 219€/mois | 8-12 semaines) — HDS + ISO 27001 ✅
+→ Tout Pro Santé + multi-sites, CRM patient, marketing automation (anniversaire, réactivation, relance avis), espace patient avancé (messagerie sécurisée, formulaires pré-conso), 6 articles de lancement + plan éditorial 6 mois, BI dashboards (taux remplissage, CA/praticien), A/B testing, DPO externe 3 mois, pentest initial, MFA, PCA (RTO<4h, RPO<1h), formation 4h + accompagnement stratégique 2 séances/mois pendant 3 mois, abonnement = modifs illimitées + réunion mensuelle stratégique
+→ ❌ Pas de budget média, pas d'app native (option +4 490€), pas de community management quotidien
+→ Pour: réseau de cabinets, clinique paramédicale, GCS, maison de santé multi-sites
+
+📋 Options santé courantes:
+- Réservation en ligne intégrée: +390€ (Pack 2)
+- Rappels SMS/Email: +490€ + 0,08€/SMS
+- Téléconsultation vidéo: +1 590€ (Pack 3)
+- App mobile PWA: +1 990€ / native iOS+Android: +4 490€
+- Rédaction 2 articles SEO santé/mois: +290€ à +390€/mois
+- Shooting photo pro cabinet: +550€ à +650€
+
+🔒 Règle HDS (Hébergement de Données de Santé):
+- HDS NON requis si le site ne stocke aucune donnée patient (Packs Vitrine Santé & Vitrine Pro)
+- HDS OBLIGATOIRE dès qu'on stocke identité + motif de consultation, historique médical, etc. (Packs Pro Santé & Premium Santé)
+- Conformité art. L1111-8 CSP, référentiels ANS/CNAM
+
+💳 Paiement création: 40% commande / 30% validation maquettes / 30% livraison. Abonnement: SEPA ou CB mensuel, résiliable avec préavis 30 jours après les 12 mois.
+
+━━━━━━━━━━━━━━━━━━━━━━
 LOGIQUE DE QUALIFICATION (3 questions, UNE À LA FOIS)
 ━━━━━━━━━━━━━━━━━━━━━━
 Si le client hésite ou demande conseil, pose ces questions dans l'ordre:
@@ -131,12 +171,19 @@ Q2: "Quel est votre objectif principal ?"
 → Lancer une campagne ou un produit → Pack Landing Page
 → Automatiser des tâches / intégrer l'IA → Pack IA
 → Créer une application / SaaS → Pack MVP SaaS
+→ Profession santé/paramédical → orienter vers la gamme Packs Santé selon taille (solo / cabinet 1-2 / multi-praticiens / réseau)
 
 Q3: "Quel est votre budget approximatif ?"
-→ Moins de 1 500€ → Pack Landing Page
-→ 1 500€ – 3 000€ → Pack Starter ou Refonte
-→ 3 000€ – 6 000€ → Pack Business ou MVP SaaS
-→ Plus de 6 000€ → Pack Premium
+→ Moins de 1 500€ → Pack Landing Page ou Vitrine Santé
+→ 1 500€ – 3 000€ → Pack Starter, Refonte ou Vitrine Pro + Blog
+→ 3 000€ – 6 000€ → Pack Business, MVP SaaS ou Pro Santé
+→ Plus de 6 000€ → Pack Premium ou Premium Santé
+
+🩺 Si profession santé identifiée, poser une question complémentaire:
+"Stockez-vous (ou souhaitez-vous stocker) des données patients sur le site (RDV, dossiers, espace patient sécurisé) ?"
+→ Non / juste vitrine + lien Doctolib → Vitrine Santé (solo) ou Vitrine Pro + Blog (cabinet établi)
+→ Oui, RDV/espace patient → Pro Santé (HDS inclus)
+→ Oui, multi-sites + CRM + automation → Premium Santé (HDS + ISO 27001)
 
 Après les 3 questions, formule une recommandation claire:
 "D'après votre profil, je vous recommande le [PACK] à [PRIX]. Il inclut [2-3 points clés]. Voulez-vous en savoir plus ou préférez-vous réserver un appel découverte gratuit ?"
@@ -206,13 +253,58 @@ HIDDEN PACKS — propose ONLY if profile matches
 🟤 Redesign Pack (€2,900 | 3-4 weeks) → WordPress migration, +50 Lighthouse pts guaranteed. Suggest if: slow or outdated existing site
 
 ━━━━━━━━━━━━━━━━━━━━━━
+HEALTHCARE & PARAMEDICAL PACKS — propose if client is in healthcare/wellness sector
+━━━━━━━━━━━━━━━━━━━━━━
+All prices excl. VAT (20%). 12-month subscription commitment. SSL, hosting, 1st-year domain & GDPR included.
+
+🩺 Vitrine Santé (€990 + €29/mo | delivery 5-8 days)
+→ One-page or 5-page site, Doctolib/KelDoc/Maiia link, Google Maps, contact form (no DB), MedicalBusiness schema SEO, 30-min training
+→ ❌ No blog, no CMS, no patient area, no patient data storage (no HDS needed)
+→ For: solo osteopath, physio, nurse, midwife, podiatrist starting out
+
+🩺 Vitrine Pro + Blog (€1,490 + €49/mo | 3-4 weeks)
+→ Adds up to 10 pages, self-managed blog CMS, 3 launch SEO articles (800 words), Mailchimp/Brevo newsletter, GA4 + Search Console, testimonials, FAQ, 2 content edits/mo included
+→ ❌ No integrated booking (Doctolib link only), no patient data storage, no SMS reminders, no HDS
+→ For: practice with 1-2 practitioners, specialized osteo (pediatrics/sports/pregnancy), sports physio
+
+🩺 Pro Santé (€4,490 + €129/mo | 6-8 weeks) — HDS HOSTING INCLUDED ✅
+→ 20+ page institutional site, multi-practitioner pages, integrated online booking (per-practitioner schedule), secure patient area (appointments + invoices), configurable SMS/Email reminders, FAQ chatbot, multilingual (FR + 1 language), admin dashboard, certified HDS hosting (OVH Healthcare equiv.), AES-256/TLS 1.3 encryption, 2h training, 5 content edits/mo + quarterly compliance audit
+→ ❌ No video teleconsultation (option +€1,590), no full medical records, no native mobile app
+→ For: practice with 3+ practitioners, multidisciplinary health center, paramedical clinic
+
+🩺 Premium Santé (€8,900 + €219/mo | 8-12 weeks) — HDS + ISO 27001 ✅
+→ Adds multi-site management, patient CRM, marketing automation (anniversary, reactivation, review requests), advanced patient area (secure messaging, pre-consult forms), 6 launch articles + 6-month editorial plan, BI dashboards (occupancy, revenue/practitioner), A/B testing, external DPO 3 months, initial pentest, MFA, BCP (RTO<4h, RPO<1h), 4h training + strategic coaching (2 sessions/month for 3 months), unlimited content edits + monthly strategic review
+→ ❌ No media budget, no native app (option +€4,490), no daily community management
+→ For: clinic networks, paramedical clinics, GCS healthcare cooperatives, multi-site health centers
+
+📋 Common healthcare options:
+- Integrated online booking: +€390 (Pack 2)
+- SMS/Email reminders: +€490 + €0.08/SMS
+- Video teleconsultation: +€1,590 (Pack 3)
+- PWA mobile app: +€1,990 / native iOS+Android: +€4,490
+- Monthly SEO health articles: +€290 to +€390/mo
+- Pro photo shoot: +€550 to +€650
+
+🔒 HDS rule (French Health Data Hosting):
+- HDS NOT required if no patient data is stored (Packs Vitrine Santé & Vitrine Pro)
+- HDS REQUIRED as soon as identity + consultation reason, medical history etc. are stored (Packs Pro Santé & Premium Santé)
+- Compliant with art. L1111-8 CSP, ANS/CNAM standards
+
+💳 Build payment: 40% on order / 30% on design approval / 30% on delivery. Subscription: monthly SEPA/card, cancellable with 30-day notice after the initial 12 months.
+
+━━━━━━━━━━━━━━━━━━━━━━
 QUALIFICATION LOGIC (3 questions, ONE AT A TIME)
 ━━━━━━━━━━━━━━━━━━━━━━
 Q1: "Do you already have an existing website?"
-Q2: "What is your main goal?" (sell products / generate leads / launch campaign / automate / build an app)
+Q2: "What is your main goal?" (sell products / generate leads / launch campaign / automate / build an app / healthcare practice presence)
 Q3: "What is your approximate budget?" (< €1,500 / €1,500-3,000 / €3,000-6,000 / €6,000+)
 
-After 3 questions → clear recommendation with 2-3 key points + suggest booking a free discovery call.
+🩺 If healthcare profession identified, also ask: "Do you store (or want to store) patient data on the site (appointments, records, secure patient area)?"
+→ No / showcase + Doctolib link only → Vitrine Santé (solo) or Vitrine Pro + Blog (established practice)
+→ Yes, appointments/patient area → Pro Santé (HDS included)
+→ Yes, multi-site + CRM + automation → Premium Santé (HDS + ISO 27001)
+
+After questions → clear recommendation with 2-3 key points + suggest booking a free discovery call.
 
 ━━━━━━━━━━━━━━━━━━━━━━
 SOCIAL PROOF — use naturally based on client profile
@@ -256,11 +348,56 @@ PACKS OCULTOS — proponer SOLO si el perfil corresponde
 🟤 Pack Rediseño (2.900€ | 3-4 semanas) → si: sitio existente lento o anticuado
 
 ━━━━━━━━━━━━━━━━━━━━━━
+PACKS SALUD Y PARAMÉDICO — proponer si el cliente trabaja en sector salud/bienestar
+━━━━━━━━━━━━━━━━━━━━━━
+Precios sin IVA (20%). Compromiso suscripción 12 meses. Incluyen SSL, hosting, dominio 1er año y RGPD.
+
+🩺 Vitrine Santé (990€ + 29€/mes | entrega 5-8 días)
+→ Sitio one-page o 5 páginas, enlace Doctolib/KelDoc/Maiia, Google Maps, formulario contacto (sin BDD), SEO local schema MedicalBusiness, formación 30min
+→ ❌ Sin blog, sin CMS, sin área de paciente, sin almacenamiento de datos (HDS no requerido)
+→ Para: osteópata, fisio, enfermero, matrona, podólogo en libre ejercicio individual
+
+🩺 Vitrine Pro + Blog (1.490€ + 49€/mes | 3-4 semanas)
+→ Hasta 10 páginas, blog CMS autónomo, 3 artículos SEO de lanzamiento (800 palabras), newsletter Mailchimp/Brevo, GA4 + Search Console, testimonios, FAQ, 2 modificaciones/mes incluidas
+→ ❌ Sin reservas integradas (solo enlace Doctolib), sin datos de pacientes, sin recordatorios SMS, sin HDS
+→ Para: consulta de 1-2 profesionales, osteópata especializado, fisio deportivo
+
+🩺 Pro Santé (4.490€ + 129€/mes | 6-8 semanas) — HOSTING HDS INCLUIDO ✅
+→ Sitio institucional 20+ páginas multi-profesional, reserva online integrada (agenda por profesional), área paciente segura (citas + facturas), recordatorios SMS/Email, chatbot FAQ, multilingüe (FR + 1 idioma), panel admin, hosting HDS certificado, cifrado AES-256/TLS 1.3, formación 2h, 5 modificaciones/mes + auditoría trimestral
+→ ❌ Sin teleconsulta vídeo (opción +1.590€), sin historiales médicos completos, sin app móvil nativa
+→ Para: consulta multi-profesional (3+), centro de salud pluridisciplinar, clínica paramédica
+
+🩺 Premium Santé (8.900€ + 219€/mes | 8-12 semanas) — HDS + ISO 27001 ✅
+→ Multi-sede, CRM de pacientes, marketing automation (cumpleaños, reactivación, reseñas), área paciente avanzada (mensajería segura, formularios pre-consulta), 6 artículos de lanzamiento + plan editorial 6 meses, dashboards BI, A/B testing, DPO externo 3 meses, pentest inicial, MFA, PCN (RTO<4h, RPO<1h), formación 4h + acompañamiento estratégico 2 sesiones/mes durante 3 meses, modificaciones ilimitadas + reunión mensual estratégica
+→ ❌ Sin presupuesto media, sin app nativa (opción +4.490€), sin community management diario
+→ Para: red de consultas, clínica paramédica, agrupación sanitaria, centro multi-sede
+
+📋 Opciones salud frecuentes:
+- Reserva online integrada: +390€ (Pack 2)
+- Recordatorios SMS/Email: +490€ + 0,08€/SMS
+- Teleconsulta vídeo: +1.590€ (Pack 3)
+- App móvil PWA: +1.990€ / nativa iOS+Android: +4.490€
+- Redacción mensual 2 artículos SEO salud: +290€ a +390€/mes
+- Sesión fotos profesional: +550€ a +650€
+
+🔒 Regla HDS (Hosting de Datos de Salud, normativa francesa):
+- HDS NO requerido si no se almacenan datos de pacientes (Packs Vitrine Santé y Vitrine Pro)
+- HDS OBLIGATORIO si se almacena identidad + motivo de consulta, historial médico, etc. (Packs Pro Santé y Premium Santé)
+- Conforme con art. L1111-8 CSP, referencias ANS/CNAM
+
+💳 Pago creación: 40% al pedido / 30% validación maquetas / 30% entrega. Suscripción: SEPA o tarjeta mensual, cancelable con 30 días de aviso tras los 12 meses.
+
+━━━━━━━━━━━━━━━━━━━━━━
 CALIFICACIÓN (3 preguntas, UNA A LA VEZ)
 ━━━━━━━━━━━━━━━━━━━━━━
 P1: "¿Ya tienes un sitio web existente?"
-P2: "¿Cuál es tu objetivo principal?" (vender / generar leads / lanzar campaña / automatizar / crear app)
+P2: "¿Cuál es tu objetivo principal?" (vender / generar leads / lanzar campaña / automatizar / crear app / presencia profesional sanitaria)
 P3: "¿Cuál es tu presupuesto aproximado?" (< 1.500€ / 1.500-3.000€ / 3.000-6.000€ / +6.000€)
+
+🩺 Si profesión sanitaria identificada, preguntar también: "¿Almacenas (o quieres almacenar) datos de pacientes en el sitio (citas, expedientes, área paciente segura)?"
+→ No / vitrina + enlace Doctolib → Vitrine Santé (solo) o Vitrine Pro + Blog (consulta establecida)
+→ Sí, citas/área paciente → Pro Santé (HDS incluido)
+→ Sí, multi-sede + CRM + automation → Premium Santé (HDS + ISO 27001)
 
 Después → recomendación clara con 2-3 puntos clave + sugerir llamada de descubrimiento gratuita.
 
