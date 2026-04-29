@@ -83,7 +83,7 @@ const PACKS: Pack[] = [
     id: 'vitrine',
     name: 'Vitrine Santé',
     tagline: 'Le site essentiel. Présent en ligne en 1 semaine.',
-    profil: 'Libéral solo, début d’activité',
+    profil: "Libéral solo, début d'activité",
     price: 990,
     monthly: 29,
     delivery: '5 à 8 jours',
@@ -118,7 +118,7 @@ const PACKS: Pack[] = [
       'Pas de réservation intégrée (lien Doctolib uniquement)',
       'Pas de stockage de données patients',
       'Pas de rappels SMS / Email',
-      'Pas d’espace patient',
+      "Pas d'espace patient",
       'Pas de multilingue',
       'Rédaction des textes par le client (option dispo)',
       'Photos pro fournies par le client',
@@ -164,10 +164,10 @@ const PACKS: Pack[] = [
     ringColor: 'ring-teal-500',
     bgAccent: 'bg-teal-50/40',
     bullets: [
-      'Jusqu’à 10 pages + Blog CMS autonome',
+      "Jusqu'à 10 pages + Blog CMS autonome",
       '3 articles SEO de lancement (800 mots)',
       'Newsletter (Mailchimp/Brevo) + reCAPTCHA',
-      '2 modifs/mois incluses dans l’abonnement',
+      "2 modifs/mois incluses dans l'abonnement",
     ],
     included: [
       'Toutes les pages du Pack Vitrine Santé',
@@ -176,7 +176,7 @@ const PACKS: Pack[] = [
       'Blog intégré avec CMS — autonomie complète du client',
       '3 articles SEO de lancement (800 mots chacun)',
       'Catégories, tags, sitemap XML',
-      'Newsletter / capture d’emails RGPD compliant',
+      "Newsletter / capture d'emails RGPD compliant",
       'Intégration réseaux sociaux (flux Instagram/Facebook)',
       'SEO on-page complet + rich snippets',
       'Google Analytics 4 + Search Console connectés',
@@ -218,7 +218,7 @@ const PACKS: Pack[] = [
       notIncluded: [
         'Refonte graphique',
         'Fonctionnalités complexes',
-        'Rédaction d’articles de blog',
+        "Rédaction d'articles de blog",
         'Campagnes publicitaires',
         'Modifications structurelles',
         'SEO off-page (netlinking)',
@@ -256,7 +256,7 @@ const PACKS: Pack[] = [
       'Agrégation Google Reviews + Doctolib',
       'Multilingue (FR + 1 langue au choix)',
       'Tableau de bord administrateur complet',
-      'RGPD renforcé (registre des traitements, droit à l’oubli)',
+      "RGPD renforcé (registre des traitements, droit à l'oubli)",
       'Hébergement HDS certifié (agrément Ministère Santé)',
       'Chiffrement AES-256 / TLS 1.3',
       'Pseudonymisation des logs + traçabilité accès',
@@ -308,7 +308,7 @@ const PACKS: Pack[] = [
   {
     id: 'premium',
     name: 'Premium Santé',
-    tagline: 'L’écosystème digital complet. Automatisation et BI.',
+    tagline: "L'écosystème digital complet. Automatisation et BI.",
     profil: 'Réseau de cabinets, clinique, groupement',
     price: 8900,
     monthly: 219,
@@ -342,7 +342,7 @@ const PACKS: Pack[] = [
       'Hébergement HDS + ISO 27001',
       'Pentest initial à la livraison',
       'MFA admin + espaces patients',
-      'Plan de continuité d’activité (RTO < 4h, RPO < 1h)',
+      "Plan de continuité d'activité (RTO < 4h, RPO < 1h)",
     ],
     notIncluded: [
       'Budget média publicitaire',
@@ -359,7 +359,7 @@ const PACKS: Pack[] = [
       { label: 'Vidéo corporate + 5 témoignages filmés', price: '+2 900 € HT' },
       { label: 'Community management complet', price: '+890 € HT/mois' },
       { label: 'Gestion campagnes Ads', price: '15% du media (min 490 €/mois)' },
-      { label: 'Rédaction illimitée (jusqu’à 8 articles/mois)', price: '+790 € HT/mois' },
+      { label: "Rédaction illimitée (jusqu'à 8 articles/mois)", price: '+790 € HT/mois' },
       { label: 'DPO externe dédié continu', price: '+390 € HT/mois' },
       { label: 'Pentest annuel récurrent', price: '+1 200 € HT/an' },
     ],
@@ -490,7 +490,7 @@ const PROCESSUS = [
     icon: Code2,
     title: 'Création',
     duration: '5 à 15 jours',
-    desc: 'On construit votre site. Vous validez 2-3 captures d’écran intermédiaires. Pas de surprise à la fin.',
+    desc: "On construit votre site. Vous validez 2-3 captures d'écran intermédiaires. Pas de surprise à la fin.",
     bring: 'Vos textes, photos, logo',
   },
   {
@@ -505,25 +505,25 @@ const PROCESSUS = [
 const PROBLEMS = [
   {
     icon: ShieldCheck,
-    title: 'Je ne veux pas faire d’erreur avec les données patients',
-    text: 'Nous connaissons la réglementation HDS. Vous n’avez pas besoin de devenir expert en conformité — on s’occupe de tout, du bon hébergement aux mentions légales santé.',
+    title: "Je ne veux pas faire d'erreur avec les données patients",
+    text: "Nous connaissons la réglementation HDS. Vous n'avez pas besoin de devenir expert en conformité — on s'occupe de tout, du bon hébergement aux mentions légales santé.",
     color: 'text-emerald-600 bg-emerald-50',
   },
   {
     icon: Clock,
-    title: 'Je n’ai pas le temps de gérer un site',
-    text: 'Maintenance, sauvegardes, mises à jour de sécurité : tout est inclus dans l’abonnement mensuel. Vous ne touchez à rien, vous restez concentré sur vos patients.',
+    title: "Je n'ai pas le temps de gérer un site",
+    text: "Maintenance, sauvegardes, mises à jour de sécurité : tout est inclus dans l'abonnement mensuel. Vous ne touchez à rien, vous restez concentré sur vos patients.",
     color: 'text-teal-600 bg-teal-50',
   },
   {
     icon: Globe,
     title: 'Doctolib me suffit, non ?',
-    text: 'Doctolib est un annuaire. Votre site, c’est VOTRE vitrine. Google référence votre nom, pas celui de Doctolib. Un site pro = plus de crédibilité + meilleur référencement local.',
+    text: "Doctolib est un annuaire. Votre site, c'est VOTRE vitrine. Google référence votre nom, pas celui de Doctolib. Un site pro = plus de crédibilité + meilleur référencement local.",
     color: 'text-cyan-600 bg-cyan-50',
   },
   {
     icon: ThumbsUp,
-    title: 'J’ai déjà eu une mauvaise expérience',
+    title: "J'ai déjà eu une mauvaise expérience",
     text: 'Devis transparent, livraison garantie, 3 révisions de maquettes incluses. Pas de surprise, pas de frais cachés, un interlocuteur dédié du début à la fin.',
     color: 'text-violet-600 bg-violet-50',
   },
@@ -609,7 +609,6 @@ export function SantePageClient() {
     setTimeout(() => setHighlightedPack(null), 3500);
   };
 
-  // GSAP : reveal au scroll + parallax mockup hero + float
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -646,7 +645,6 @@ export function SantePageClient() {
         });
       });
 
-      // Parallax léger sur l'image héro
       const mockup = containerRef.current?.querySelector<HTMLElement>('.hero-mockup');
       if (mockup) {
         gsap.to(mockup, {
@@ -656,7 +654,6 @@ export function SantePageClient() {
         });
       }
 
-      // Float infinite (subtil) sur le mockup hero
       const floater = containerRef.current?.querySelector<HTMLElement>('.hero-float');
       if (floater) {
         gsap.to(floater, {
@@ -1282,6 +1279,10 @@ function PacksSection({
   );
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// PACK DETAILS MODAL — responsive, hauteur fixe, scroll interne uniquement
+// ─────────────────────────────────────────────────────────────────────────────
+
 function PackDetailsModal({
   pack,
   onClose,
@@ -1293,38 +1294,40 @@ function PackDetailsModal({
 }) {
   return (
     <Dialog open={!!pack} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="w-[calc(100vw-2rem)] max-w-2xl max-h-[90vh] overflow-y-auto p-0 gap-0 bg-white text-slate-900 border border-slate-200">
+      {/*
+        Hauteur : 100dvh - 3rem (marge haute + basse sur mobile)
+        Max-height plafonnée à 720px pour desktop
+        flex-col pour que header/footer soient fixes et le corps scrollable
+      */}
+      <DialogContent className="w-[calc(100vw-1.5rem)] max-w-2xl h-[calc(100dvh-3rem)] max-h-[720px] flex flex-col p-0 gap-0 bg-white text-slate-900 border border-slate-200 overflow-hidden">
         {pack && (
           <>
-            <DialogHeader
-              className={cn(
-                'sticky top-0 z-10 px-5 sm:px-7 py-5 border-b border-slate-200 bg-gradient-to-br from-white to-cyan-50/60 rounded-t-lg'
-              )}
-            >
-              <div className="flex items-start gap-3 pr-8">
+            {/* ── En-tête compact et fixe ── */}
+            <DialogHeader className="shrink-0 px-4 sm:px-6 pt-4 pb-3 border-b border-slate-200 bg-gradient-to-br from-white to-cyan-50/60">
+              <div className="flex items-start gap-3 pr-6">
                 <div className="flex-1 min-w-0">
                   {pack.badge && (
                     <span
                       className={cn(
-                        'inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold text-white mb-2',
+                        'inline-block px-2 py-0.5 rounded-full text-[10px] font-bold text-white mb-1',
                         pack.badgeColor
                       )}
                     >
                       {pack.badge}
                     </span>
                   )}
-                  <DialogTitle className="font-display text-xl sm:text-2xl font-bold text-slate-900">
+                  <DialogTitle className="font-display text-lg sm:text-xl font-bold text-slate-900 leading-tight">
                     {pack.name}
                   </DialogTitle>
-                  <DialogDescription className="text-sm text-slate-600 mt-1">
-                    {pack.profil} — {pack.tagline}
+                  <DialogDescription className="text-xs text-slate-500 mt-0.5 truncate">
+                    {pack.profil}
                   </DialogDescription>
-                  <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                    <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  <div className="mt-1.5 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+                    <span className="text-xl sm:text-2xl font-extrabold text-slate-900">
                       {pack.price.toLocaleString('fr-FR')} €
                     </span>
-                    <span className="text-sm text-slate-500">HT</span>
-                    <span className="text-sm text-slate-600">
+                    <span className="text-xs text-slate-500">HT</span>
+                    <span className="text-xs text-slate-600">
                       + <strong>{pack.monthly} €</strong> HT / mois
                     </span>
                   </div>
@@ -1332,22 +1335,24 @@ function PackDetailsModal({
               </div>
             </DialogHeader>
 
-            <div className="px-5 sm:px-7 py-5 bg-white">
+            {/* ── Corps scrollable ── */}
+            <div className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-6 py-3">
               <PackDetails pack={pack} />
             </div>
 
-            <div className="sticky bottom-0 z-10 px-5 sm:px-7 py-4 border-t border-slate-200 bg-white rounded-b-lg flex flex-col-reverse sm:flex-row gap-2 sm:justify-end">
+            {/* ── Pied fixe ── */}
+            <div className="shrink-0 px-4 sm:px-6 py-3 border-t border-slate-200 bg-white flex flex-col-reverse sm:flex-row gap-2 sm:justify-end">
               <Button
                 variant="outline"
                 onClick={onClose}
-                className="bg-white border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                className="bg-white border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900 h-9 text-sm"
               >
                 Fermer
               </Button>
               <Button
                 onClick={() => onChoose(pack.id)}
                 className={cn(
-                  'text-white shadow-md',
+                  'text-white shadow-md h-9 text-sm',
                   pack.id === 'vitrine' && 'bg-teal-600 hover:bg-teal-700',
                   pack.id === 'pro-blog' && 'bg-cyan-600 hover:bg-cyan-700',
                   pack.id === 'pro-sante' && 'bg-emerald-600 hover:bg-emerald-700',
@@ -1364,6 +1369,10 @@ function PackDetailsModal({
     </Dialog>
   );
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PACK DETAILS — onglets compacts, listes avec scroll interne
+// ─────────────────────────────────────────────────────────────────────────────
 
 type PackTabId = 'included' | 'notIncluded' | 'options' | 'subscription';
 
@@ -1402,7 +1411,7 @@ const PACK_TABS: {
   {
     id: 'subscription',
     label: 'Abonnement',
-    shortLabel: 'Abonnement',
+    shortLabel: 'Abo.',
     icon: Repeat,
     accent: 'cyan',
     activeClass: 'bg-cyan-600 text-white shadow-sm',
@@ -1423,42 +1432,40 @@ function PackDetails({ pack }: { pack: Pack }) {
   };
 
   return (
-    <div className="text-sm text-left">
-      {/* Bandeau livraison + HDS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5">
-        <div className="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5">
-          <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shrink-0 border border-slate-200">
-            <Truck className="w-4 h-4 text-teal-600" />
+    <div className="text-sm text-left flex flex-col gap-3">
+      {/* Bandeau livraison + HDS — compact */}
+      <div className="grid grid-cols-2 gap-2">
+        <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+          <div className="w-7 h-7 rounded-md bg-white flex items-center justify-center shrink-0 border border-slate-200">
+            <Truck className="w-3.5 h-3.5 text-teal-600" />
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
               Livraison
             </p>
-            <p className="text-sm font-semibold text-slate-900 truncate">{pack.delivery}</p>
+            <p className="text-xs font-semibold text-slate-900 truncate">{pack.delivery}</p>
           </div>
         </div>
         <div
           className={cn(
-            'flex items-center gap-2.5 rounded-xl px-3.5 py-2.5 border',
-            pack.hds
-              ? 'bg-emerald-50 border-emerald-200'
-              : 'bg-slate-50 border-slate-200'
+            'flex items-center gap-2 rounded-lg px-3 py-2 border',
+            pack.hds ? 'bg-emerald-50 border-emerald-200' : 'bg-slate-50 border-slate-200'
           )}
         >
           <div
             className={cn(
-              'w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border',
+              'w-7 h-7 rounded-md flex items-center justify-center shrink-0 border',
               pack.hds ? 'bg-white border-emerald-200' : 'bg-white border-slate-200'
             )}
           >
-            <Lock className={cn('w-4 h-4', pack.hds ? 'text-emerald-600' : 'text-slate-400')} />
+            <Lock className={cn('w-3.5 h-3.5', pack.hds ? 'text-emerald-600' : 'text-slate-400')} />
           </div>
           <div className="min-w-0">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+            <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
               Conformité
             </p>
-            <p className="text-sm font-semibold text-slate-900 truncate">
-              {pack.hds ? 'Hébergement HDS inclus' : 'RGPD santé conforme'}
+            <p className="text-xs font-semibold text-slate-900 truncate">
+              {pack.hds ? 'HDS inclus' : 'RGPD conforme'}
             </p>
           </div>
         </div>
@@ -1468,7 +1475,7 @@ function PackDetails({ pack }: { pack: Pack }) {
       <div
         role="tablist"
         aria-label="Détails du pack"
-        className="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-100 mb-4"
+        className="grid grid-cols-4 gap-1 p-1 rounded-xl bg-slate-100"
       >
         {PACK_TABS.map((t) => {
           const Icon = t.icon;
@@ -1476,8 +1483,7 @@ function PackDetails({ pack }: { pack: Pack }) {
             included: pack.included.length,
             notIncluded: pack.notIncluded.length,
             options: pack.options.length,
-            subscription:
-              pack.abonnement.included.length + pack.abonnement.notIncluded.length,
+            subscription: pack.abonnement.included.length + pack.abonnement.notIncluded.length,
           }[t.id];
           const isActive = activeTab === t.id;
           return (
@@ -1488,17 +1494,17 @@ function PackDetails({ pack }: { pack: Pack }) {
               type="button"
               onClick={() => setActiveTab(t.id)}
               className={cn(
-                'group flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-2 py-2 rounded-lg text-[11px] sm:text-xs font-semibold transition-all',
+                'flex flex-col items-center justify-center gap-0.5 px-1 py-2 rounded-lg text-[10px] sm:text-xs font-semibold transition-all',
                 isActive
                   ? t.activeClass
                   : 'text-slate-600 hover:bg-white hover:text-slate-900'
               )}
             >
               <Icon className="w-3.5 h-3.5 shrink-0" />
-              <span className="truncate">{t.shortLabel}</span>
+              <span className="truncate leading-none">{t.shortLabel}</span>
               <span
                 className={cn(
-                  'ml-0 sm:ml-1 hidden sm:inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-[10px] font-bold px-1',
+                  'inline-flex items-center justify-center min-w-[16px] h-[16px] rounded-full text-[9px] font-bold px-1',
                   isActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'
                 )}
               >
@@ -1509,33 +1515,31 @@ function PackDetails({ pack }: { pack: Pack }) {
         })}
       </div>
 
-      {/* Conteneur slide animé */}
-      <div className="relative overflow-hidden rounded-xl border border-slate-200 bg-white">
+      {/* Conteneur de contenu — hauteur fixe avec scroll interne */}
+      <div className="relative rounded-xl border border-slate-200 bg-white overflow-hidden flex flex-col" style={{ height: '260px' }}>
+        {/* Slide container */}
         <div
-          className="flex transition-transform duration-300 ease-out will-change-transform"
-          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+          className="flex flex-1 transition-transform duration-300 ease-out will-change-transform"
+          style={{ transform: `translateX(-${activeIndex * 100}%)`, minHeight: 0 }}
         >
           {/* Inclus */}
-          <div className="w-full shrink-0 p-4 sm:p-5" aria-hidden={activeTab !== 'included'}>
-            <ul className="space-y-2">
+          <div className="w-full shrink-0 overflow-y-auto p-3 sm:p-4" aria-hidden={activeTab !== 'included'}>
+            <ul className="space-y-1.5">
               {pack.included.map((i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-2.5 rounded-lg p-2 -mx-2 hover:bg-emerald-50/60 transition-colors"
-                >
-                  <span className="mt-0.5 inline-flex w-5 h-5 rounded-full bg-emerald-100 items-center justify-center shrink-0">
-                    <Check className="w-3 h-3 text-emerald-700" />
+                <li key={i} className="flex items-start gap-2 rounded-lg p-1.5 -mx-1.5 hover:bg-emerald-50/60 transition-colors">
+                  <span className="mt-0.5 inline-flex w-4 h-4 rounded-full bg-emerald-100 items-center justify-center shrink-0">
+                    <Check className="w-2.5 h-2.5 text-emerald-700" />
                   </span>
-                  <span className="text-slate-700 leading-snug">{i}</span>
+                  <span className="text-xs text-slate-700 leading-snug">{i}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Non inclus */}
-          <div className="w-full shrink-0 p-4 sm:p-5" aria-hidden={activeTab !== 'notIncluded'}>
-            <p className="text-xs text-slate-500 mb-3">
-              Ces éléments ne sont pas couverts par ce pack — voir l’onglet{' '}
+          <div className="w-full shrink-0 overflow-y-auto p-3 sm:p-4" aria-hidden={activeTab !== 'notIncluded'}>
+            <p className="text-[11px] text-slate-500 mb-2">
+              Non couverts — voir{' '}
               <button
                 type="button"
                 onClick={() => setActiveTab('options')}
@@ -1545,34 +1549,29 @@ function PackDetails({ pack }: { pack: Pack }) {
               </button>{' '}
               pour les ajouts disponibles.
             </p>
-            <ul className="space-y-2">
+            <ul className="space-y-1.5">
               {pack.notIncluded.map((i) => (
-                <li
-                  key={i}
-                  className="flex items-start gap-2.5 rounded-lg p-2 -mx-2"
-                >
-                  <span className="mt-0.5 inline-flex w-5 h-5 rounded-full bg-rose-50 items-center justify-center shrink-0">
-                    <XIcon className="w-3 h-3 text-rose-600" />
+                <li key={i} className="flex items-start gap-2 rounded-lg p-1.5 -mx-1.5">
+                  <span className="mt-0.5 inline-flex w-4 h-4 rounded-full bg-rose-50 items-center justify-center shrink-0">
+                    <XIcon className="w-2.5 h-2.5 text-rose-600" />
                   </span>
-                  <span className="text-slate-600 leading-snug">{i}</span>
+                  <span className="text-xs text-slate-600 leading-snug">{i}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Options */}
-          <div className="w-full shrink-0 p-4 sm:p-5" aria-hidden={activeTab !== 'options'}>
-            <p className="text-xs text-slate-500 mb-3">
-              Ajouts à la carte facturés une fois, en supplément du pack.
-            </p>
-            <ul className="space-y-2">
+          <div className="w-full shrink-0 overflow-y-auto p-3 sm:p-4" aria-hidden={activeTab !== 'options'}>
+            <p className="text-[11px] text-slate-500 mb-2">Ajouts à la carte, en supplément du pack.</p>
+            <ul className="space-y-1.5">
               {pack.options.map((o) => (
                 <li
                   key={o.label}
-                  className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50/60 px-3 py-2.5"
+                  className="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-slate-50/60 px-2.5 py-2"
                 >
-                  <span className="text-slate-700 leading-snug">{o.label}</span>
-                  <span className="text-xs font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap">
+                  <span className="text-xs text-slate-700 leading-snug">{o.label}</span>
+                  <span className="text-[10px] font-bold text-teal-700 bg-teal-50 px-1.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">
                     {o.price}
                   </span>
                 </li>
@@ -1581,35 +1580,33 @@ function PackDetails({ pack }: { pack: Pack }) {
           </div>
 
           {/* Abonnement */}
-          <div className="w-full shrink-0 p-4 sm:p-5" aria-hidden={activeTab !== 'subscription'}>
-            <div className="flex items-baseline gap-2 mb-3">
-              <span className="text-2xl font-extrabold text-cyan-700">
-                {pack.monthly} €
-              </span>
-              <span className="text-xs text-slate-500">HT / mois — engagement 12 mois</span>
+          <div className="w-full shrink-0 overflow-y-auto p-3 sm:p-4" aria-hidden={activeTab !== 'subscription'}>
+            <div className="flex items-baseline gap-1.5 mb-2">
+              <span className="text-lg font-extrabold text-cyan-700">{pack.monthly} €</span>
+              <span className="text-[11px] text-slate-500">HT / mois — engagement 12 mois</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="rounded-lg border border-emerald-200 bg-emerald-50/60 p-3">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-emerald-700 mb-2 flex items-center gap-1">
-                  <Check className="w-3 h-3" /> Comprend
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="rounded-lg border border-emerald-200 bg-emerald-50/60 p-2.5">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 mb-1.5 flex items-center gap-1">
+                  <Check className="w-2.5 h-2.5" /> Comprend
                 </p>
-                <ul className="space-y-1.5">
+                <ul className="space-y-1">
                   {pack.abonnement.included.map((i) => (
-                    <li key={i} className="flex items-start gap-1.5 text-xs text-slate-700 leading-snug">
-                      <Check className="w-3 h-3 text-emerald-600 shrink-0 mt-0.5" />
+                    <li key={i} className="flex items-start gap-1.5 text-[11px] text-slate-700 leading-snug">
+                      <Check className="w-2.5 h-2.5 text-emerald-600 shrink-0 mt-0.5" />
                       <span>{i}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-600 mb-2 flex items-center gap-1">
-                  <XIcon className="w-3 h-3" /> Hors abonnement
+              <div className="rounded-lg border border-slate-200 bg-slate-50 p-2.5">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-1.5 flex items-center gap-1">
+                  <XIcon className="w-2.5 h-2.5" /> Hors abonnement
                 </p>
-                <ul className="space-y-1.5">
+                <ul className="space-y-1">
                   {pack.abonnement.notIncluded.map((i) => (
-                    <li key={i} className="flex items-start gap-1.5 text-xs text-slate-500 leading-snug">
-                      <XIcon className="w-3 h-3 text-slate-400 shrink-0 mt-0.5" />
+                    <li key={i} className="flex items-start gap-1.5 text-[11px] text-slate-500 leading-snug">
+                      <XIcon className="w-2.5 h-2.5 text-slate-400 shrink-0 mt-0.5" />
                       <span>{i}</span>
                     </li>
                   ))}
@@ -1619,16 +1616,16 @@ function PackDetails({ pack }: { pack: Pack }) {
           </div>
         </div>
 
-        {/* Flèches navigation entre onglets */}
-        <div className="flex items-center justify-between border-t border-slate-200 px-2 py-1.5 bg-slate-50/60">
+        {/* Navigation entre onglets */}
+        <div className="shrink-0 flex items-center justify-between border-t border-slate-200 px-2 py-1 bg-slate-50/60">
           <button
             type="button"
             onClick={goPrev}
             disabled={activeIndex === 0}
-            className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium text-slate-600 hover:text-teal-700 hover:bg-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-slate-600 transition-colors"
+            className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium text-slate-600 hover:text-teal-700 hover:bg-white disabled:opacity-30 transition-colors"
             aria-label="Onglet précédent"
           >
-            <ChevronLeft className="w-3.5 h-3.5" />
+            <ChevronLeft className="w-3 h-3" />
             {activeIndex > 0 ? PACK_TABS[activeIndex - 1].shortLabel : 'Précédent'}
           </button>
           <div className="flex items-center gap-1">
@@ -1638,7 +1635,7 @@ function PackDetails({ pack }: { pack: Pack }) {
                 aria-hidden
                 className={cn(
                   'h-1 rounded-full transition-all',
-                  i === activeIndex ? 'w-5 bg-teal-600' : 'w-1.5 bg-slate-300'
+                  i === activeIndex ? 'w-4 bg-teal-600' : 'w-1 bg-slate-300'
                 )}
               />
             ))}
@@ -1647,28 +1644,28 @@ function PackDetails({ pack }: { pack: Pack }) {
             type="button"
             onClick={goNext}
             disabled={activeIndex === PACK_TABS.length - 1}
-            className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium text-slate-600 hover:text-teal-700 hover:bg-white disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-slate-600 transition-colors"
+            className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium text-slate-600 hover:text-teal-700 hover:bg-white disabled:opacity-30 transition-colors"
             aria-label="Onglet suivant"
           >
             {activeIndex < PACK_TABS.length - 1 ? PACK_TABS[activeIndex + 1].shortLabel : 'Suivant'}
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="w-3 h-3" />
           </button>
         </div>
       </div>
 
-      {/* Réassurance bas de modal — boost conversion */}
-      <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
-        <div className="flex items-center gap-2 rounded-lg bg-teal-50 border border-teal-100 px-3 py-2 text-xs text-teal-800">
-          <ShieldCheck className="w-4 h-4 shrink-0" />
-          <span>Devis gratuit sous 24h</span>
+      {/* Badges réassurance — compacts */}
+      <div className="grid grid-cols-3 gap-1.5">
+        <div className="flex items-center gap-1.5 rounded-lg bg-teal-50 border border-teal-100 px-2.5 py-1.5 text-[11px] text-teal-800">
+          <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+          <span>Devis sous 24h</span>
         </div>
-        <div className="flex items-center gap-2 rounded-lg bg-cyan-50 border border-cyan-100 px-3 py-2 text-xs text-cyan-800">
-          <Globe className="w-4 h-4 shrink-0" />
-          <span>Hébergement France</span>
+        <div className="flex items-center gap-1.5 rounded-lg bg-cyan-50 border border-cyan-100 px-2.5 py-1.5 text-[11px] text-cyan-800">
+          <Globe className="w-3.5 h-3.5 shrink-0" />
+          <span>Hébergement FR</span>
         </div>
-        <div className="flex items-center gap-2 rounded-lg bg-emerald-50 border border-emerald-100 px-3 py-2 text-xs text-emerald-800">
-          <HeartPulse className="w-4 h-4 shrink-0" />
-          <span>Spécialiste santé</span>
+        <div className="flex items-center gap-1.5 rounded-lg bg-emerald-50 border border-emerald-100 px-2.5 py-1.5 text-[11px] text-emerald-800">
+          <HeartPulse className="w-3.5 h-3.5 shrink-0" />
+          <span>Spéc. santé</span>
         </div>
       </div>
     </div>
@@ -1676,7 +1673,7 @@ function PackDetails({ pack }: { pack: Pack }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// SECTION 6 — SITE EXEMPLE (Arthur P.)
+// SECTION 6 — SITE EXEMPLE
 // ═══════════════════════════════════════════════════════════════════════════
 
 function ExampleSiteSection() {
@@ -1689,7 +1686,7 @@ function ExampleSiteSection() {
               Cas concret
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-              Le site d’<span className="text-teal-600">Arthur P.</span>, ostéopathe à Paris
+              Le site d'<span className="text-teal-600">Arthur P.</span>, ostéopathe à Paris
             </h2>
             <p className="text-lg text-slate-600 mb-6 leading-relaxed">
               Un site vitrine élégant, livré en <strong>8 jours</strong>, optimisé pour le
@@ -1698,7 +1695,7 @@ function ExampleSiteSection() {
             </p>
             <ul className="space-y-3 mb-8">
               {[
-                'Design sur-mesure adapté à l’univers santé',
+                "Design sur-mesure adapté à l'univers santé",
                 'Hébergement France + RGPD',
                 'Connexion Google Business Profile',
                 'Référencement local Paris (Pack Vitrine)',
@@ -1895,7 +1892,7 @@ function GuaranteesSection() {
     {
       icon: RefreshCcw,
       title: 'Satisfait ou refait',
-      text: '3 révisions de maquettes incluses sans frais. On affine jusqu’à ce que ça vous plaise.',
+      text: "3 révisions de maquettes incluses sans frais. On affine jusqu'à ce que ça vous plaise.",
       color: 'text-cyan-600 bg-cyan-50',
     },
     {
@@ -2014,7 +2011,6 @@ function QuoteModal({
     },
   });
 
-  // Reset / prefill quand on ouvre la modal
   useEffect(() => {
     if (open) {
       setSubmitted(false);
@@ -2044,9 +2040,8 @@ function QuoteModal({
       setTimeout(() => handleClose(), 4000);
     } catch (err) {
       setServerError(
-        'Impossible d’envoyer le devis. Contactez-nous au 07 49 77 56 54.'
+        "Impossible d'envoyer le devis. Contactez-nous au 07 49 77 56 54."
       );
-      // Log silencieux côté navigateur
       if (process.env.NODE_ENV !== 'production') console.error(err);
     }
   };
@@ -2079,10 +2074,7 @@ function QuoteModal({
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
               <div>
-                <label
-                  htmlFor="fullName"
-                  className="block text-sm font-medium text-slate-700 mb-1.5"
-                >
+                <label htmlFor="fullName" className="block text-sm font-medium text-slate-700 mb-1.5">
                   Nom et prénom *
                 </label>
                 <input
@@ -2099,10 +2091,7 @@ function QuoteModal({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label
-                    htmlFor="metier"
-                    className="block text-sm font-medium text-slate-700 mb-1.5"
-                  >
+                  <label htmlFor="metier" className="block text-sm font-medium text-slate-700 mb-1.5">
                     Métier *
                   </label>
                   <select
@@ -2111,9 +2100,7 @@ function QuoteModal({
                     className="w-full rounded-lg border border-slate-300 bg-white text-slate-900 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                     defaultValue=""
                   >
-                    <option value="" disabled>
-                      Sélectionner
-                    </option>
+                    <option value="" disabled>Sélectionner</option>
                     <option value="osteopathe">Ostéopathe</option>
                     <option value="kine">Kinésithérapeute</option>
                     <option value="infirmier">Infirmier(e)</option>
@@ -2125,10 +2112,7 @@ function QuoteModal({
                   )}
                 </div>
                 <div>
-                  <label
-                    htmlFor="ville"
-                    className="block text-sm font-medium text-slate-700 mb-1.5"
-                  >
+                  <label htmlFor="ville" className="block text-sm font-medium text-slate-700 mb-1.5">
                     Ville *
                   </label>
                   <input
@@ -2146,10 +2130,7 @@ function QuoteModal({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-slate-700 mb-1.5"
-                  >
+                  <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-1.5">
                     Téléphone *
                   </label>
                   <input
@@ -2165,10 +2146,7 @@ function QuoteModal({
                   )}
                 </div>
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-slate-700 mb-1.5"
-                  >
+                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1.5">
                     Email *
                   </label>
                   <input
@@ -2185,11 +2163,8 @@ function QuoteModal({
               </div>
 
               <div>
-                <label
-                  htmlFor="pack"
-                  className="block text-sm font-medium text-slate-700 mb-1.5"
-                >
-                  Pack qui m’intéresse
+                <label htmlFor="pack" className="block text-sm font-medium text-slate-700 mb-1.5">
+                  Pack qui m'intéresse
                 </label>
                 <select
                   id="pack"
@@ -2205,10 +2180,7 @@ function QuoteModal({
               </div>
 
               <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-slate-700 mb-1.5"
-                >
+                <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-1.5">
                   Message (optionnel)
                 </label>
                 <textarea
@@ -2227,7 +2199,7 @@ function QuoteModal({
                   className="mt-1 w-4 h-4 rounded border-slate-300 text-teal-600 focus:ring-teal-500"
                 />
                 <span>
-                  J’accepte d’être recontacté(e) par Neuraweb au sujet de ma demande. Mes données
+                  J'accepte d'être recontacté(e) par Neuraweb au sujet de ma demande. Mes données
                   ne seront pas partagées.
                 </span>
               </label>
