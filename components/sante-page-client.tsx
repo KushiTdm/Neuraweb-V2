@@ -480,25 +480,37 @@ const COMPLIANCE_BADGES = [
 
 const PROCESSUS = [
   {
-    icon: MessageCircle,
+    id: '01',
     title: 'Cadrage',
     duration: '30 min',
     desc: 'Vous nous parlez de votre cabinet. On vous conseille le bon pack et on définit le périmètre.',
     bring: 'Vos besoins, votre vision',
+    image: '/assets/osteo/etape01.png',
+    bg: 'bg-teal-50',
+    text: 'text-teal-600',
+    line: 'bg-teal-200',
   },
   {
-    icon: Code2,
+    id: '02',
     title: 'Création',
     duration: '5 à 15 jours',
     desc: "On construit votre site. Vous validez 2-3 captures d'écran intermédiaires. Pas de surprise à la fin.",
     bring: 'Vos textes, photos, logo',
+    image: '/assets/osteo/etape02.png',
+    bg: 'bg-cyan-50',
+    text: 'text-cyan-600',
+    line: 'bg-cyan-200',
   },
   {
-    icon: Rocket,
+    id: '03',
     title: 'Mise en ligne',
     duration: '1 jour',
     desc: 'Formation incluse pour votre équipe. Votre site est vivant. On reste disponible pour le suivi.',
     bring: '30 min de votre temps',
+    image: '/assets/osteo/etape03.png',
+    bg: 'bg-emerald-50',
+    text: 'text-emerald-600',
+    line: 'bg-emerald-200',
   },
 ];
 
@@ -1752,54 +1764,137 @@ function ExampleSiteSection() {
 // ═══════════════════════════════════════════════════════════════════════════
 
 function TestimonialsCarousel() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (window.innerWidth >= 768) return;
+
+    const track = trackRef.current;
+    const container = containerRef.current;
+    if (!track || !container) return;
+
+    const cards = track.children;
+    if (cards.length === 0) return;
+
+    const cardWidth = (cards[0] as HTMLElement).offsetWidth + 16;
+    const totalWidth = cardWidth * TESTIMONIALS.length;
+
+    const clones = Array.from(cards).map((card) => card.cloneNode(true));
+    clones.forEach((clone) => track.appendChild(clone));
+
+    gsap.set(track, { width: totalWidth * 2 });
+
+    const tl = gsap.to(track, {
+      x: -totalWidth,
+      duration: 30,
+      ease: 'none',
+      repeat: -1,
+      modifiers: {
+        x: gsap.utils.unitize((x) => parseFloat(x) % totalWidth),
+      },
+    });
+
+    const pause = () => tl.pause();
+    const resume = () => tl.play();
+
+    container.addEventListener('touchstart', pause, { passive: true });
+    container.addEventListener('touchend', resume);
+    container.addEventListener('mouseenter', pause);
+    container.addEventListener('mouseleave', resume);
+
+    return () => {
+      tl.kill();
+      container.removeEventListener('touchstart', pause);
+      container.removeEventListener('touchend', resume);
+      container.removeEventListener('mouseenter', pause);
+      container.removeEventListener('mouseleave', resume);
+      clones.forEach((clone) => clone.parentNode?.removeChild(clone));
+    };
+  }, []);
+
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-10 md:py-28 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14" data-reveal>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+        <div className="text-center mb-8 md:mb-14" data-reveal>
+          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
             Ils nous font <span className="text-teal-600">confiance</span>
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-base md:text-lg text-slate-600">
             Des praticiens libéraux qui ont gagné du temps grâce à leur site.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        {/* Desktop: Grid */}
+        <div className="hidden md:grid md:grid-cols-3 gap-6">
           {TESTIMONIALS.map((t) => (
-            <article
-              key={t.name}
-              data-reveal
-              className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-lg transition-shadow flex flex-col"
-            >
-              <div className="flex gap-1 mb-4">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <blockquote className="text-slate-700 leading-relaxed flex-1 mb-6 italic">
-                &laquo; {t.quote} &raquo;
-              </blockquote>
-              <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
-                <div
-                  className={cn(
-                    'w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm',
-                    t.color
-                  )}
-                >
-                  {t.initials}
-                </div>
-                <div>
-                  <p className="font-semibold text-slate-900">{t.name}</p>
-                  <p className="text-sm text-slate-500">
-                    {t.role} — {t.city}
-                  </p>
-                </div>
-              </div>
-            </article>
+            <TestimonialCard key={t.name} t={t} />
           ))}
+        </div>
+
+        {/* Mobile: GSAP Infinite Carousel */}
+        <div
+          ref={containerRef}
+          className="md:hidden overflow-hidden -mx-4 px-4"
+        >
+          <div ref={trackRef} className="flex gap-4 will-change-transform">
+            {TESTIMONIALS.map((t, i) => (
+              <TestimonialCard key={`${t.name}-${i}`} t={t} isMobile />
+            ))}
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function TestimonialCard({
+  t,
+  isMobile = false,
+}: {
+  t: (typeof TESTIMONIALS)[0];
+  isMobile?: boolean;
+}) {
+  return (
+    <article
+      data-reveal
+      className={cn(
+        'bg-white rounded-2xl border border-slate-200 shadow-sm',
+        'hover:shadow-lg transition-shadow flex flex-col',
+        isMobile
+          ? 'min-w-[85vw] max-w-[85vw] p-5 shrink-0'
+          : 'p-6 w-full'
+      )}
+    >
+      <div className="flex gap-1 mb-3 md:mb-4">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+        ))}
+      </div>
+      <blockquote className="text-sm md:text-base text-slate-700 leading-relaxed flex-1 mb-4 md:mb-6 italic">
+        &laquo; {t.quote} &raquo;
+      </blockquote>
+      <div className="flex items-center gap-3 pt-3 md:pt-4 border-t border-slate-100">
+        <div
+          className={cn(
+            'rounded-full flex items-center justify-center font-bold',
+            'w-10 h-10 text-xs md:w-12 md:h-12 md:text-sm',
+            t.color
+          )}
+        >
+          {t.initials}
+        </div>
+        <div className="min-w-0">
+          <p className="font-semibold text-slate-900 text-sm md:text-base truncate">
+            {t.name}
+          </p>
+          <p className="text-xs md:text-sm text-slate-500 truncate">
+            {t.role} — {t.city}
+          </p>
+        </div>
+      </div>
+    </article>
   );
 }
 
@@ -1809,36 +1904,107 @@ function TestimonialsCarousel() {
 
 function ProcessTimeline() {
   return (
-    <section className="py-20 md:py-28 bg-slate-50">
+    <section className="py-24 md:py-32 bg-slate-50 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14" data-reveal>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+        {/* Header */}
+        <div className="text-center mb-20 md:mb-28">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-5">
             Comment ça <span className="text-teal-600">se passe</span> ?
           </h2>
-          <p className="text-lg text-slate-600">3 étapes claires, du cadrage à la mise en ligne.</p>
+          <p className="text-lg text-slate-500 max-w-xl mx-auto">
+            3 étapes claires, du cadrage à la mise en ligne.
+          </p>
         </div>
 
-        <div className="relative grid md:grid-cols-3 gap-8">
-          <div
-            className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-teal-200 via-cyan-200 to-emerald-200"
-            aria-hidden
-          />
-          {PROCESSUS.map(({ icon: Icon, title, duration, desc, bring }, idx) => (
-            <div key={title} data-reveal className="relative bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-              <div className="absolute -top-5 left-6 w-10 h-10 rounded-full bg-teal-600 text-white flex items-center justify-center font-bold shadow-lg">
-                {idx + 1}
-              </div>
-              <div className="w-14 h-14 rounded-2xl bg-teal-50 flex items-center justify-center mb-4 mt-2">
-                <Icon className="w-7 h-7 text-teal-600" />
-              </div>
-              <h3 className="font-display text-xl font-bold text-slate-900 mb-1">{title}</h3>
-              <p className="text-sm font-semibold text-teal-600 mb-3">{duration}</p>
-              <p className="text-slate-600 leading-relaxed mb-4">{desc}</p>
-              <p className="text-xs text-slate-500">
-                <strong className="text-slate-700">À fournir :</strong> {bring}
-              </p>
-            </div>
-          ))}
+        {/* Timeline */}
+        <div className="relative">
+          {/* Ligne verticale */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-gradient-to-b from-teal-200 via-cyan-200 to-emerald-200" />
+          <div className="md:hidden absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-teal-200 via-cyan-200 to-emerald-200" />
+
+          <div className="space-y-20 md:space-y-32">
+            {PROCESSUS.map((step, idx) => {
+              const isLeft = idx % 2 === 0;
+
+              return (
+                <div
+                  key={step.title}
+                  className={`relative flex flex-col md:flex-row md:items-center gap-6 md:gap-0 ${
+                    isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
+                  }`}
+                >
+                  {/* ─── NUMÉRO ─── */}
+                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 z-10">
+                    <div className={`w-20 h-20 rounded-full ${step.bg} border-4 border-white shadow-sm flex items-center justify-center`}>
+                      <span className={`font-display text-3xl font-bold ${step.text} tracking-tighter`}>
+                        {step.id}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="md:hidden absolute left-8 -translate-x-1/2 z-10">
+                    <div className={`w-14 h-14 rounded-full ${step.bg} border-4 border-white shadow-sm flex items-center justify-center`}>
+                      <span className={`font-display text-xl font-bold ${step.text} tracking-tighter`}>
+                        {step.id}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* ─── TEXTE ─── */}
+                  <div className={`md:w-1/2 ${isLeft ? 'md:pr-20' : 'md:pl-20'} pl-20 md:pl-0`}>
+                    <div className={`
+                      group relative p-6 md:p-8 rounded-2xl 
+                      bg-white border border-slate-200/80 
+                      transition-all duration-300 
+                      hover:-translate-y-1 hover:shadow-md hover:border-slate-300
+                      ${isLeft ? 'md:text-right' : 'md:text-left'}
+                    `}>
+                      <div className={`
+                        absolute top-0 h-1 rounded-full ${step.line} 
+                        opacity-0 group-hover:opacity-100 transition-opacity duration-300
+                        ${isLeft ? 'right-6 left-6 md:left-auto md:w-20' : 'left-6 right-6 md:right-auto md:w-20'}
+                      `} />
+
+                      <div className={`flex flex-col ${isLeft ? 'md:items-end' : 'md:items-start'}`}>
+                        <span className={`text-sm font-bold ${step.text} uppercase tracking-widest mb-2`}>
+                          {step.duration}
+                        </span>
+                        <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 mb-3">
+                          {step.title}
+                        </h3>
+                        <p className="text-slate-600 leading-relaxed mb-4 max-w-md">
+                          {step.desc}
+                        </p>
+                        <p className="text-sm text-slate-400">
+                          <span className="font-semibold text-slate-600">À fournir :</span> {step.bring}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* ─── IMAGE ─── */}
+                  <div className={`md:w-1/2 ${isLeft ? 'md:pl-20' : 'md:pr-20'} pl-20 md:pl-0`}>
+                    <div className="
+                      group relative overflow-hidden rounded-2xl 
+                      bg-white border border-slate-200/80 
+                      transition-all duration-300 
+                      hover:-translate-y-1 hover:shadow-md hover:border-slate-300
+                    ">
+                      <div className="aspect-[4/3] overflow-hidden">
+                        <img
+                          src={step.image}
+                          alt={step.title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className={`absolute inset-0 ${step.bg} opacity-0 group-hover:opacity-40 transition-opacity duration-500`} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
