@@ -66,6 +66,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   });
 
+  // Page Santé — FR uniquement (canal de conversion vertical, pas traduit)
+  urls.push({
+    url: `${BASE_URL}/fr/sante`,
+    lastModified: today,
+    changeFrequency: 'monthly',
+    priority: 0.95,
+    alternates: {
+      languages: {
+        fr: `${BASE_URL}/fr/sante`,
+        'x-default': `${BASE_URL}/fr/sante`,
+      },
+    },
+  });
+
   // Articles de blog
   const allBlogSlugs = getAllPostSlugsAllLanguages();
   const slugLanguageMap = new Map<string, string[]>();

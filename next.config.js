@@ -36,6 +36,10 @@ const nextConfig = {
       // Slugs localisés EN/ES → slug canonique FR (évite les 404 sur URLs logiques)
       { source: '/en/team',   destination: '/en/equipe',  permanent: true },
       { source: '/es/equipo', destination: '/es/equipe',  permanent: true },
+
+      // Page Santé — FR uniquement, on redirige les autres langues
+      { source: '/en/sante', destination: '/fr/sante', permanent: true },
+      { source: '/es/sante', destination: '/fr/sante', permanent: true },
     ];
   },
 
