@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import { useLanguage } from '@/contexts/language-context';
+import  {NumberTicker}  from "../../components/ui/number-ticker";
 
 // ── Translations ───────────────────────────────────────────────────────────
 const translations = {
@@ -48,68 +49,10 @@ const getStats = (t: typeof translations.fr) => [
   { value: 72, suffix: 'h', label: t.delay, icon: '⚡' },
 ];
 
-// ── Animated Counter Hook ───────────────────────────────────────────────────
-function useCountUp(end: number, duration: number = 2000, startOnView: boolean = true) {
-  const [count, setCount] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!startOnView) {
-      setHasStarted(true);
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !hasStarted) {
-          setHasStarted(true);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasStarted, startOnView]);
-
-  useEffect(() => {
-    if (!hasStarted) return;
-
-    const startTime = Date.now();
-    const isDecimal = end % 1 !== 0;
-
-    const animate = () => {
-      const currentTime = Date.now();
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      
-      // Easing function (ease-out cubic)
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      const currentCount = easeOut * end;
-      
-      setCount(isDecimal ? parseFloat(currentCount.toFixed(1)) : Math.floor(currentCount));
-      
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-    
-    animate();
-  }, [hasStarted, end, duration]);
-
-  return { count, ref };
-}
-
 // ── Individual Stat Component ───────────────────────────────────────────────
 function StatItem({ stat, index }: { stat: ReturnType<typeof getStats>[0]; index: number }) {
-  const { count, ref } = useCountUp(stat.value, 2000 + index * 200);
-  const isDecimal = stat.value % 1 !== 0;
-
   return (
     <div 
-      ref={ref}
       className="text-center group"
       style={{
         opacity: 0,
@@ -135,14 +78,17 @@ function StatItem({ stat, index }: { stat: ReturnType<typeof getStats>[0]; index
           {stat.icon}
         </span>
         
-        {/* Counter */}
-        <div className="relative">
-          <span 
+        {/* Counter with NumberTicker */}
+        <div 
+          className="relative flex items-center justify-center gap-1"
+          aria-label={`${stat.value}${stat.suffix} ${stat.label}`}
+        >
+          <NumberTicker
+            value={stat.value}
             className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent"
-            aria-label={`${count}${stat.suffix} ${stat.label}`}
-          >
-            {isDecimal ? count.toFixed(1) : count}
-            <span className="text-2xl sm:text-3xl">{stat.suffix}</span>
+          />
+          <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            {stat.suffix}
           </span>
         </div>
         

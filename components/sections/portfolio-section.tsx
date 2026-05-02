@@ -397,7 +397,7 @@ export function PortfolioSection() {
         ref={sectionRef}
         id="portfolio"
         aria-labelledby="portfolio-heading"
-        className="section-snap bg-gradient-to-br from-gray-50 via-purple-50 to-gray-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-900 overflow-hidden relative min-h-screen py-20"
+        className="section-snap bg-gradient-to-br from-gray-50 via-purple-50 to-gray-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-900 overflow-hidden relative min-h-screen py-20 isolate"
       >
         <div className="max-w-7xl mx-auto h-full min-h-screen flex flex-col justify-center px-4 py-8 md:py-12">
 
