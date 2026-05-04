@@ -27,11 +27,9 @@ Le site https://neuraweb.tech est édité par :
 **NeuraWeb**
 Micro-entreprise
 SIRET : 991 296 047 00020
-Adresse : Paris, Île-de-France, France
 
 **Contact :**
 - Email : contact@neuraweb.tech
-- Téléphone : +33 7 49 77 56 54
 
 **Directeur de la publication :** NeuraWeb
         `,
