@@ -6,33 +6,33 @@ Description : Solution de vente en ligne haute performance avec tunnel d'achat o
 
 Technologies : React, Node.js, Stripe.
 
-Lien : neuraweb-ecommerce.netlify.app
+Lien : https://neuraweb-ecommerce.netlify.app
 
-Points clés : Intégration de paiement sécurisé, gestion de catalogue fluide.
+Points clés : Intégration de paiement sécurisé, gestion de catalogue fluide, performances optimisées.
 
 2. Application Fitness & Bien-être
 Description : Application mobile intuitive pour le suivi des performances et la santé.
 
 Technologies : React Native, Firebase.
 
-Lien : fitnessandhappiness.netlify.app
+Lien : https://fitnessandhappiness.netlify.app
 
-Points clés : Synchronisation en temps réel, architecture serverless.
+Points clés : Synchronisation en temps réel, architecture serverless, UX responsive.
 
 3. Lum Paris (Beauté & Luxe)
 Description : Site vitrine haute couture avec animations avancées pour une marque de cosmétiques.
 
-Technologies : React, TypeScript, GSAP.
+Technologies : React, TypeScript, GSAP, Tailwind CSS.
 
-Lien : lum-paris.netlify.app
+Lien : https://lum-paris.netlify.app
 
-Points clés : Expérience utilisateur immersive, fluidité des transitions.
+Points clés : Expérience utilisateur immersive, fluidité des transitions, animations 3D, design premium.
 
 4. Système de Réservation OstéoCanin
 Description : Application métier dédiée à la prise de rendez-vous pour spécialistes canins.
 
-Technologies : React, Supabase, Node.
+Technologies : React, Supabase (PostgreSQL), Node.js.
 
-Lien : osteocanin.onrender.com
+Lien : https://osteocanin.onrender.com
 
-Points clés : Gestion de base de données complexe, système de calendrier.
+Points clés : Gestion de base de données complexe, système de calendrier intelligent, flux de réservation sécurisé.
