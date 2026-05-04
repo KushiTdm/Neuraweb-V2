@@ -31,7 +31,7 @@ En 2026, déployer un agent IA fonctionnel dans une PME coûte moins de 3 000 �
 
 Le premier frein à l'automatisation IA dans les PME, ce n'est pas la technologie. C'est l'opacité tarifaire.
 
-D'un côté, on trouve des annonces à 500 € qui concernent des scripts basiques de transfert de données — pas des agents IA. De l'autre, des projets à 50 000 € qui incluent des mois de conseil, de conduite du changement et d'intégration SI d'une grande entreprise.
+D'un côté, des annonces à 500 € qui concernent des scripts basiques de transfert de données — pas des agents IA. De l'autre, des projets à 50 000 € qui incluent des mois de conseil, de conduite du changement et d'intégration SI grande entreprise.
 
 Entre les deux : la réalité d'une PME française en 2026.
 
@@ -49,13 +49,11 @@ Entre les deux : la réalité d'une PME française en 2026.
 
 **Stack typique :** n8n + Zapier/Make + webhook natif.
 
-| Poste | Fourchette |
-|---|---|
-| Coût one-shot | 800 à 1 500 € |
-| Coût mensuel récurrent | 30 à 80 € |
-| Délai de mise en production | 1 à 2 semaines |
-| ROI terrain | 2 à 4h récupérées/semaine |
-| Retour sur investissement | 3 à 6 mois |
+- **Coût one-shot :** 800 à 1 500 €
+- **Coût mensuel récurrent :** 30 à 80 €
+- **Délai de mise en production :** 1 à 2 semaines
+- **ROI terrain :** 2 à 4h récupérées/semaine
+- **Retour sur investissement :** 3 à 6 mois
 
 C'est le point d'entrée idéal pour une PME qui n'a jamais automatisé. Faible risque, résultats visibles rapidement, et ça permet de cartographier les processus avant de passer à des agents plus complexes.
 
@@ -65,13 +63,11 @@ C'est le point d'entrée idéal pour une PME qui n'a jamais automatisé. Faible 
 
 **Stack typique :** n8n + Claude API (claude-sonnet ou claude-haiku selon le volume) + Airtable + webhook CRM.
 
-| Poste | Fourchette |
-|---|---|
-| Coût one-shot | 1 500 à 3 000 € |
-| Coût mensuel récurrent | 80 à 180 € |
-| Délai de mise en production | 3 à 4 semaines |
-| ROI terrain | -37 % sur les délais de qualification, +68 % de leads traités |
-| Retour sur investissement | 2 à 4 mois |
+- **Coût one-shot :** 1 500 à 3 000 €
+- **Coût mensuel récurrent :** 80 à 180 €
+- **Délai de mise en production :** 3 à 4 semaines
+- **ROI terrain :** -37 % sur les délais de qualification, +68 % de leads traités
+- **Retour sur investissement :** 2 à 4 mois
 
 Sur un projet déployé pour un cabinet de conseil B2B en 2025 : l'agent qualifiait 120 leads/mois sans intervention humaine, avec un taux de faux positifs inférieur à 8 %. Coût mensuel : 140 €. Gain commercial estimé : 4 rendez-vous qualifiés supplémentaires par mois.
 
@@ -81,13 +77,11 @@ Sur un projet déployé pour un cabinet de conseil B2B en 2025 : l'agent qualifi
 
 **Stack typique :** n8n + Claude API + Perplexity API (pour la veille) + Notion ou Airtable.
 
-| Poste | Fourchette |
-|---|---|
-| Coût one-shot | 2 000 à 4 500 € |
-| Coût mensuel récurrent | 150 à 350 € |
-| Délai de mise en production | 4 à 6 semaines |
-| ROI terrain | 15 à 20h récupérées/mois sur la production de contenu |
-| Retour sur investissement | 3 à 6 mois |
+- **Coût one-shot :** 2 000 à 4 500 €
+- **Coût mensuel récurrent :** 150 à 350 €
+- **Délai de mise en production :** 4 à 6 semaines
+- **ROI terrain :** 15 à 20h récupérées/mois sur la production de contenu
+- **Retour sur investissement :** 3 à 6 mois
 
 Le coût récurrent est plus élevé ici parce que les volumes de tokens consommés par les appels LLM sont plus importants. Avec Claude Haiku pour les tâches de reformatage et Claude Sonnet pour la génération longue, on optimise la facture API sans sacrifier la qualité.
 
@@ -97,13 +91,11 @@ Le coût récurrent est plus élevé ici parce que les volumes de tokens consomm
 
 **Stack typique :** n8n + LangGraph ou architecture custom + vector database (pgvector sur Supabase) + Claude API + dashboard Next.js + monitoring Grafana.
 
-| Poste | Fourchette |
-|---|---|
-| Coût one-shot | 5 000 à 12 000 € |
-| Coût mensuel récurrent | 300 à 600 € |
-| Délai de mise en production | 2 à 3 mois |
-| ROI terrain | 159 % sur 24 mois (médiane observée) |
-| Retour sur investissement | 6 à 12 mois |
+- **Coût one-shot :** 5 000 à 12 000 €
+- **Coût mensuel récurrent :** 300 à 600 €
+- **Délai de mise en production :** 2 à 3 mois
+- **ROI terrain :** 159 % sur 24 mois (médiane observée)
+- **Retour sur investissement :** 6 à 12 mois
 
 Ce niveau d'investissement est pertinent à partir du moment où plusieurs processus critiques sont concernés et où les équipes dépassent 10 à 15 personnes avec des volumes d'interactions importants (200+ leads/mois, 500+ tickets/mois).
 
@@ -113,23 +105,19 @@ Ce niveau d'investissement est pertinent à partir du moment où plusieurs proce
 
 ### One-shot initial
 
-| Poste | Fourchette |
-|---|---|
-| Audit processus et cartographie | 200 à 500 € |
-| Développement et intégration | 500 à 8 000 € |
-| Formation et documentation | 0 à 500 € |
+Trois postes composent systématiquement le budget de départ : l'audit processus et cartographie (200 à 500 €), le développement et l'intégration (500 à 8 000 € selon la complexité), et la formation avec documentation (0 à 500 €).
 
 L'audit est souvent la partie la plus sous-estimée. Deux heures passées à documenter précisément un processus avant de le coder évitent trois semaines de corrections après livraison.
 
 ### Récurrent mensuel
 
-| Outil | Fourchette |
-|---|---|
-| n8n (cloud ou VPS self-hosted) | 20 à 50 €/mois |
-| API IA (Claude, GPT-4o, Mistral) | 30 à 150 €/mois |
-| Base de données (Airtable, Supabase) | 20 à 45 €/mois |
-| Hébergement et infrastructure | 10 à 30 €/mois |
-| **Total PME standard** | **80 à 275 €/mois** |
+Voici la décomposition de la stack type pour une PME standard :
+
+- **n8n** (cloud ou VPS self-hosted) : 20 à 50 €/mois
+- **API IA** (Claude, GPT-4o, Mistral) : 30 à 150 €/mois
+- **Base de données** (Airtable, Supabase) : 20 à 45 €/mois
+- **Hébergement et infrastructure** : 10 à 30 €/mois
+- **Total PME standard : 80 à 275 €/mois**
 
 Le poste API IA varie fortement selon les volumes. Un agent de qualification qui traite 100 leads/mois avec Claude Haiku consomme environ 30 € d'API. Le même volume avec Claude Sonnet pour des réponses plus élaborées monte à 80 à 100 €.
 
