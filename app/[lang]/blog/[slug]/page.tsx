@@ -9,6 +9,8 @@ import { notFound } from 'next/navigation';
 import { generateBlogPostAISEO } from '@/lib/seo-ai-server';
 import { generateArticleSchema, generateFaqSchema, generateBreadcrumbSchema } from '@/lib/structured-data';
 
+export const revalidate = 86400;
+
 // Génération des paramètres statiques
 export async function generateStaticParams() {
   const params: { lang: string; slug: string }[] = [];
@@ -114,11 +116,11 @@ export default async function BlogPostPage({
     notFound();
   }
 
-  // Récupérer les articles liés (même catégorie, excluant l'article actuel)
+  // Récupérer les articles liés — même catégorie en priorité, fallback cross-catégorie
   const allPosts = getAllPosts(lang as Language);
-  const relatedPosts = allPosts
-    .filter((p) => p.slug !== slug && p.category === post.category)
-    .slice(0, 2);
+  const sameCategory = allPosts.filter((p) => p.slug !== slug && p.category === post.category);
+  const otherPosts = allPosts.filter((p) => p.slug !== slug && p.category !== post.category);
+  const relatedPosts = [...sameCategory, ...otherPosts].slice(0, 3);
 
   const baseUrl = 'https://neuraweb.tech';
   const articleSchema = generateArticleSchema({
