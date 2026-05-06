@@ -8,7 +8,7 @@ const BASE_URL = 'https://neuraweb.tech';
 const PAGE_PATH = '/fr/sante';
 
 // Page FR uniquement — généreration statique 24h
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   return [{ lang: 'fr' }];

@@ -12,7 +12,7 @@ import {
   generateJsonLd,
 } from './seo-service';
 
-const AI_MODEL = 'glm-4.5-flash';
+const AI_MODEL = 'glm-3-turbo';
 const MAX_TOKENS = 600;
 // Cache en mémoire serveur (survivra entre requêtes en production)
 const serverCache = new Map<string, { data: GeneratedSEO; timestamp: number }>();
@@ -96,7 +96,7 @@ ENTREPRISE :
 - Nom : NeuraWeb
 - Services : Développement web Next.js/React, Intégration IA (ChatGPT/Claude), Automatisation n8n
 - Cible : Startups, PME, entrepreneurs français
-- Localisation : Paris, France (clients internationaux)
+- Localisation : Lille, France (clients internationaux)
 - Prix : À partir de 1 500€
 - Délais : 2-8 semaines selon le projet
 - Points forts : 16 avis 5 étoiles, réponse sous 24h, devis gratuit
@@ -114,14 +114,16 @@ async function callAI(context: PageSEOContext): Promise<GeneratedSEO | null> {
   const apiKey = process.env.ZAI_API_KEY;
   if (!apiKey) return null;
 
-  // Skip during `next build` : 40+ appels parallèles saturent le quota Z.AI.
-  // L'ISR (revalidate: 86400) régénérera chaque page séquentiellement au premier
-  // hit après expiration du cache, ce qui activera la couche IA sans rate-limit.
-  // Les fallbacks statiques (SEO_CONTEXTS_BY_LANG) couvrent les premiers 24h.
+  // Skip en dev : Next.js dev ignore revalidate → chaque refresh déclenche un appel bloquant.
+  // En prod/ISR, l'appel tourne en arrière-plan et n'est jamais visible.
+  if (process.env.NODE_ENV === 'development') return null;
+
+  // Skip pendant le build : 40+ appels parallèles saturent le quota Z.AI.
   if (process.env.NEXT_PHASE === 'phase-production-build') return null;
 
   try {
-    const response = await fetch('https://open.bigmodel.cn/api/paas/v4/chat/completions', {
+    // ✅ Endpoint api.z.ai (international) — moins de latence depuis l'Europe que open.bigmodel.cn (Chine)
+    const response = await fetch('https://api.z.ai/api/paas/v4/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -134,11 +136,11 @@ async function callAI(context: PageSEOContext): Promise<GeneratedSEO | null> {
           { role: 'user', content: buildRichContext(context) },
         ],
         max_tokens: MAX_TOKENS,
-        temperature: 0.2, // Très bas : on veut du SEO précis, pas créatif
+        temperature: 0.2,
         stream: false,
       }),
-      // Timeout 12 secondes — Zhipu API en Chine peut être lente depuis l'Europe
-      signal: AbortSignal.timeout(12000),
+      // 25s timeout — avec ISR, ce call tourne en arrière-plan, jamais bloquant pour l'utilisateur
+      signal: AbortSignal.timeout(25000),
     });
 
     if (!response.ok) {
@@ -188,8 +190,10 @@ async function callAI(context: PageSEOContext): Promise<GeneratedSEO | null> {
 
 // ── Fallback statique enrichi ─────────────────────────────────────────────────
 function buildFallbackSEO(context: PageSEOContext): GeneratedSEO {
-  const langCtx = SEO_CONTEXTS_BY_LANG[context.language];
-  const pageCtx = langCtx[context.pageType];
+  // Defensive : si lang ou pageType inconnus (ex: requête /sw.js routée comme [lang]=sw.js),
+  // on retombe sur fr/home pour ne pas crasher la chaîne generateMetadata.
+  const langCtx = SEO_CONTEXTS_BY_LANG[context.language] ?? SEO_CONTEXTS_BY_LANG.fr;
+  const pageCtx = langCtx[context.pageType] ?? langCtx.home;
 
   // Pour les articles de blog : extraire le vrai titre depuis customContext
   // Format : 'Article de blog intitulé "Titre". Résumé : ...'

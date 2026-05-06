@@ -7,7 +7,7 @@ import { LocalizedLink } from '@/components/localized-link';
 import { ArrowLeft } from 'lucide-react';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));

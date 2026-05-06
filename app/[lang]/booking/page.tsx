@@ -4,7 +4,7 @@ import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
 
 // Juste après les imports, avant generateStaticParams()
-export const revalidate = 86400; // Cache SEO 24h — évite les appels IA à chaque crawl
+export const revalidate = 3600; // Cache SEO 24h — évite les appels IA à chaque crawl
 
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));

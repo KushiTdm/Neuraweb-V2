@@ -10,7 +10,7 @@ export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
 }
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 const META: Record<Lang, { title: string; description: string; keywords: string[]; ogTitle: string; ogDescription: string }> = {
   fr: {

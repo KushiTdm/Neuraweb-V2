@@ -9,7 +9,7 @@ import { generateAISEO } from '@/lib/seo-ai-server';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
 // Juste après les imports, avant generateStaticParams()
-export const revalidate = 86400; // Cache SEO 24h — évite les appels IA à chaque crawl
+export const revalidate = 3600; // Cache SEO 24h — évite les appels IA à chaque crawl
 
 // Génération des paramètres statiques
 export async function generateStaticParams() {

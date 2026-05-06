@@ -8,7 +8,7 @@ import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
 
 // ✅ AJOUTÉ : force le caching statique 24h — évite les appels IA à chaque crawl Google
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));

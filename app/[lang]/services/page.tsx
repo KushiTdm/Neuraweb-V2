@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 // ✅ AJOUTÉ : force le caching statique 24h — évite les appels IA à chaque crawl Google
 // C'est la cause probable du statut "Détectée, non indexée" : Google tombait sur des
 // temps de réponse lents dus à l'appel API externe dans generateMetadata.
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 // Métadonnées dynamiques par langue - IA server-side
 export async function generateMetadata({
