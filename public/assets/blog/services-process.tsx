@@ -297,8 +297,8 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
         </div>
 
         {/* Center: step cards that appear one by one */}
-        {/* FIX 1: pt réduit + pb augmenté pour remonter le centre de la card vers le titre */}
-        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none px-4 md:px-6 pt-32 pb-52 sm:pt-36 sm:pb-56 md:pt-44 md:pb-52">
+        {/* Vertical padding reserves space for the top title and bottom progress dots so the card never overlaps them */}
+        <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none px-4 md:px-6 pt-32 pb-28 sm:pt-36 sm:pb-32 md:pt-44 md:pb-44">
           <div className="relative w-full max-w-2xl">
             {steps.map((step, i) => {
               const isActive = i === activeStep;
@@ -323,8 +323,8 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
                     className={`relative rounded-2xl border overflow-hidden shadow-2xl ${step.accentClass} ${step.glowClass}`}
                     style={{ boxShadow: isActive ? `0 0 60px 10px ${step.colorHex}18` : undefined }}
                   >
-                    {/* FIX 2: backdrop-blur conditionnel à isActive pour éviter les silhouettes ghost */}
-                    <div className={`absolute inset-0 bg-slate-950/95 ${isActive ? 'backdrop-blur-md' : ''}`} />
+                    {/* Solid opaque background — prevents the section bg / other cards from bleeding through */}
+                    <div className="absolute inset-0 bg-slate-950/95 backdrop-blur-md" />
                     <div className={`absolute inset-0 bg-gradient-to-br ${step.accentClass}`} />
 
                     {/* Content above background */}
@@ -362,9 +362,9 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
           </div>
         </div>
 
-        {/* Bottom overlay: progress + hint — FIX 3: pt réduit pour moins couvrir la card */}
+        {/* Bottom overlay: progress + hint — strong gradient occludes anything that bleeds underneath */}
         <div
-          className="absolute bottom-0 left-0 right-0 z-20 pb-6 md:pb-10 pt-6 md:pt-8"
+          className="absolute bottom-0 left-0 right-0 z-20 pb-6 md:pb-10 pt-6 md:pt-10"
           style={{ background: 'linear-gradient(to top, rgb(2,6,23) 0%, rgba(2,6,23,0.95) 40%, rgba(2,6,23,0.7) 70%, transparent 100%)' }}
         >
           {/* Progress dots */}

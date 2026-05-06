@@ -460,12 +460,49 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
   const currentPack = modalPack ? t.packs[modalPack as keyof typeof t.packs] : null;
 
   if (!mounted) {
+    // SSR: render full content so Google can index pricing
     return (
       <section className="relative py-24 px-6 bg-gradient-to-b from-slate-950 to-slate-900">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">
             {t.title}
           </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {packs.map((pack) => {
+              const packData = t.packs[pack.id as keyof typeof t.packs];
+              return (
+                <div
+                  key={pack.id}
+                  className={`relative rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800 ${pack.popular ? 'ring-2 ring-violet-500' : ''}`}
+                >
+                  {pack.popular && (
+                    <div className="absolute top-4 right-4">
+                      <span className="px-3 py-1 text-xs font-semibold bg-violet-500 text-white rounded-full">⭐ Populaire</span>
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-white mb-2">{packData?.title}</h3>
+                    <p className="text-white/60 text-sm mb-4">{packData?.subtitle}</p>
+                    <div className="flex items-baseline gap-2 mb-6">
+                      <span className="text-3xl font-bold text-white">{packData?.price}</span>
+                    </div>
+                    <ul className="space-y-3 mb-6">
+                      {packData?.features?.map((feature, i) => (
+                        <li key={i} className="flex items-center gap-3 text-white/70 text-sm">
+                          <span className="w-4 h-4 text-violet-400 flex-shrink-0">•</span>
+                          <span>{feature.text}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="text-sm text-white/50 mb-4">
+                      <span>{t.deadline}: </span>
+                      <span className="text-white/80">{packData?.delay}</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
     );
