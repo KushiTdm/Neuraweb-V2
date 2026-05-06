@@ -72,10 +72,11 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
     const ctx = gsap.context(() => {
       const splitTitle = titleRef.current?.querySelectorAll('.word');
       if (splitTitle) {
-        gsap.from(splitTitle, {
-          y: 100,
-          opacity: 0,
-          rotateX: -90,
+        gsap.set(splitTitle, { opacity: 0, y: 100, rotateX: -90 });
+        gsap.to(splitTitle, {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
           stagger: 0.1,
           duration: 1,
           ease: 'back.out(1.7)',
@@ -88,18 +89,21 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
         });
       }
 
-      gsap.from(buttonRef.current, {
-        scale: 0,
-        opacity: 0,
-        duration: 1,
-        ease: 'elastic.out(1, 0.5)',
-        scrollTrigger: {
-          trigger: buttonRef.current,
-          start: 'top 85%',
-          end: 'bottom 60%',
-          toggleActions: 'play none none reverse',
-        },
-      });
+      if (buttonRef.current) {
+        gsap.set(buttonRef.current, { scale: 0, opacity: 0 });
+        gsap.to(buttonRef.current, {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          ease: 'elastic.out(1, 0.5)',
+          scrollTrigger: {
+            trigger: buttonRef.current,
+            start: 'top 85%',
+            end: 'bottom 60%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+      }
 
       if (particlesRef.current) {
         const particles = particlesRef.current.children;

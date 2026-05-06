@@ -317,23 +317,24 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
     if (!mounted) return;
 
     const ctx = gsap.context(() => {
-      // Animate cards on scroll
+      // Masquage initial via gsap.set (JS uniquement, après montage) — le HTML serveur
+      // reste visible pour Google qui ne scroller pas. L'animation est identique côté UX.
       cardsRef.current.forEach((card, index) => {
-        if (card) {
-          gsap.from(card, {
-            y: 100,
-            opacity: 0,
-            duration: 0.8,
-            delay: index * 0.15,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-              end: 'bottom 60%',
-              toggleActions: 'play none none reverse',
-            },
-          });
-        }
+        if (!card) return;
+        gsap.set(card, { opacity: 0, y: 80 });
+        gsap.to(card, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: index * 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+            end: 'bottom 60%',
+            toggleActions: 'play none none reverse',
+          },
+        });
       });
     }, sectionRef);
 
