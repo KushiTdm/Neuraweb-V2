@@ -330,15 +330,25 @@ export function generateBreadcrumbSchema(
 }
 
 // ── Article Schema Generator ────────────────────────────────────────────────
+
+// Converts "YYYY-MM-DD" → "YYYY-MM-DDT08:00:00+02:00" (CEST Apr–Sep) or "+01:00" (CET Oct–Mar)
+function toIso8601DateTime(dateStr: string): string {
+  const month = parseInt(dateStr.substring(5, 7), 10);
+  const tz = month >= 4 && month <= 9 ? '+02:00' : '+01:00';
+  return `${dateStr}T08:00:00${tz}`;
+}
+
 export function generateArticleSchema(article: {
   title: string;
   description: string;
   datePublished: string;
   dateModified?: string;
   author?: string;
+  authorUrl?: string;
   url: string;
   image?: string;
 }): Record<string, unknown> {
+  const authorUrl = article.authorUrl || `${BASE_URL}/fr/equipe`;
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -347,9 +357,10 @@ export function generateArticleSchema(article: {
     author: {
       '@type': article.author ? 'Person' : 'Organization',
       name: article.author || 'NeuraWeb',
+      url: authorUrl,
     },
-    datePublished: article.datePublished,
-    dateModified: article.dateModified || article.datePublished,
+    datePublished: toIso8601DateTime(article.datePublished),
+    dateModified: toIso8601DateTime(article.dateModified || article.datePublished),
     publisher: {
       '@id': `${BASE_URL}/#organization`,
     },
