@@ -1,8 +1,24 @@
 'use client';
 
+/**
+ * blog-post-client.tsx — VERSION ANALYTICS ENRICHIE
+ *
+ * Modifications par rapport à l'original :
+ *  1. Import de `useBlogPostAnalytics` → tracking automatique (temps, scroll,
+ *     heure de lecture, retour lecteur, lecture complète…)
+ *  2. Tags cliquables avec `trackTagClick`
+ *  3. Articles liés avec `trackRelatedArticleClick`
+ *  4. CTA contact et services avec `trackCTAClick`
+ *  5. Bouton "Copier le lien" avec `trackShareClick`
+ *
+ * Chercher "// ← ANALYTICS" pour retrouver tous les ajouts.
+ */
+
+import { useState } from 'react';
 import Image from 'next/image';
 import { LocalizedLink } from '@/components/localized-link';
 import type { BlogPost, BlogPostMeta } from '@/lib/mdx';
+import { useBlogPostAnalytics } from '@/hooks/use-blog-analytics'; // ← ANALYTICS
 
 interface BlogPostClientProps {
   post: BlogPost;
@@ -13,7 +29,31 @@ interface BlogPostClientProps {
 export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps) {
   const language = (lang as 'fr' | 'en' | 'es') || 'fr';
 
-  // Translations
+  // ── ANALYTICS : initialisation ─────────────────────────────────────────── ← ANALYTICS
+  const { trackTagClick, trackRelatedArticleClick, trackCTAClick, trackShareClick } =
+    useBlogPostAnalytics({
+      slug: post.slug,
+      title: post.title,
+      category: post.category,
+      tags: post.tags,
+      author: post.author,
+      language,
+      estimatedReadTimeMin: parseInt(post.readTime) || 5,
+    });
+
+  // ── État local pour le bouton de copie ─────────────────────────────────── ← ANALYTICS
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyLink = () => {
+    if (typeof window === 'undefined') return;
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true);
+      trackShareClick('copy'); // ← ANALYTICS
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
+  // ── Translations ────────────────────────────────────────────────────────
   const t = {
     fr: {
       home: 'Accueil',
@@ -28,6 +68,9 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       webAi: 'Web & Intelligence Artificielle',
       mobileApp: 'Applications mobiles',
       freeQuote: 'Devis gratuit',
+      copyLink: 'Copier le lien',
+      copied: 'Lien copié !',
+      shareArticle: 'Partager',
     },
     en: {
       home: 'Home',
@@ -42,6 +85,9 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       webAi: 'Web & Artificial Intelligence',
       mobileApp: 'Mobile applications',
       freeQuote: 'Free quote',
+      copyLink: 'Copy link',
+      copied: 'Link copied!',
+      shareArticle: 'Share',
     },
     es: {
       home: 'Inicio',
@@ -56,16 +102,18 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       webAi: 'Web e Inteligencia Artificial',
       mobileApp: 'Aplicaciones móviles',
       freeQuote: 'Presupuesto gratuito',
+      copyLink: 'Copiar enlace',
+      copied: '¡Enlace copiado!',
+      shareArticle: 'Compartir',
     },
   };
 
-  const translations = t[language] || t.fr;
-
+  const tr = t[language] || t.fr;
   const faqHeading = language === 'en' ? 'FAQ' : language === 'es' ? 'Preguntas frecuentes' : 'FAQ';
 
   if (!post) return null;
 
-  // Parse markdown content (simplified version)
+  // ── Markdown parser (identique à l'original) ────────────────────────────
   const parseMarkdown = (content: string): string => {
     return content
       .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3">$1</h3>')
@@ -76,8 +124,6 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-gray-900 dark:bg-gray-950 rounded-xl p-4 overflow-x-auto my-6"><code class="text-sm text-gray-100 font-mono whitespace-pre">$2</code></pre>')
       .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-blue-50 dark:bg-blue-900/20 rounded-r-lg text-gray-700 dark:text-gray-300">$1</blockquote>')
       .replace(/^- (.*$)/gim, '<li class="text-gray-600 dark:text-gray-300 ml-4 mb-2">$1</li>')
-      .replace(/^- \[x\] (.*$)/gim, '<li class="flex items-center gap-2 text-gray-600 dark:text-gray-300 ml-4 mb-2"><span class="text-green-500">✅</span> $1</li>')
-      .replace(/^- \[ \] (.*$)/gim, '<li class="flex items-center gap-2 text-gray-600 dark:text-gray-300 ml-4 mb-2"><span class="text-gray-400">⬜</span> $1</li>')
       .replace(/\|(.+)\|/g, (match) => {
         const cells = match.split('|').filter(c => c.trim());
         if (cells.some(c => c.trim().match(/^[-:]+$/))) return '';
@@ -110,13 +156,13 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
           <ol className="flex items-center gap-2 text-sm">
             <li>
               <LocalizedLink href="/" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
-                {translations.home}
+                {tr.home}
               </LocalizedLink>
             </li>
             <li className="text-gray-400 dark:text-gray-500">/</li>
             <li>
               <LocalizedLink href="/blog" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
-                {translations.blog}
+                {tr.blog}
               </LocalizedLink>
             </li>
             <li className="text-gray-400 dark:text-gray-500">/</li>
@@ -130,21 +176,47 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       {/* Article Header */}
       <header className="py-12 sm:py-16 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
-              {post.category}
-            </span>
-            <span className="text-gray-500 dark:text-gray-400">
-              {post.readTime} {translations.readTime}
-            </span>
+          <div className="flex items-center justify-between gap-3 mb-6 flex-wrap">
+            <div className="flex items-center gap-3">
+              <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+                {post.category}
+              </span>
+              <span className="text-gray-500 dark:text-gray-400">
+                {post.readTime} {tr.readTime}
+              </span>
+            </div>
+
+            {/* ── Bouton Copier le lien ──────────────────────────────── ← ANALYTICS */}
+            <button
+              onClick={handleCopyLink}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all"
+              aria-label={tr.copyLink}
+            >
+              {copied ? (
+                <>
+                  <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-green-600 dark:text-green-400">{tr.copied}</span>
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  {tr.copyLink}
+                </>
+              )}
+            </button>
           </div>
+
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
             {post.title}
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
             {post.excerpt}
           </p>
-          
+
           {/* Author & Date */}
           <div className="flex items-center gap-4 pt-6 border-t border-gray-100 dark:border-gray-800">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
@@ -153,11 +225,10 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
             <div>
               <p className="font-semibold text-gray-900 dark:text-white">{post.author}</p>
               <time className="text-sm text-gray-500 dark:text-gray-400" dateTime={post.date}>
-                {new Date(post.date).toLocaleDateString(language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : 'fr-FR', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                })}
+                {new Date(post.date).toLocaleDateString(
+                  language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : 'fr-FR',
+                  { day: 'numeric', month: 'long', year: 'numeric' }
+                )}
               </time>
             </div>
           </div>
@@ -167,24 +238,22 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       {/* Article Content */}
       <article className="pb-16 px-4">
         <div className="max-w-4xl mx-auto">
-          <div 
-            className="prose prose-lg dark:prose-invert max-w-none
-              prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
-              prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
-              prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
-              prose-strong:font-semibold prose-strong:text-gray-900 dark:prose-strong:text-white
-              prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-            "
+          <div className="prose prose-lg dark:prose-invert max-w-none
+            prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
+            prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
+            prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+            prose-strong:font-semibold prose-strong:text-gray-900 dark:prose-strong:text-white
+            prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+            prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3"
           >
-            <div 
-              dangerouslySetInnerHTML={{ __html: `<p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">${parsedContent}</p>` }}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: `<p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">${parsedContent}</p>`,
+              }}
             />
           </div>
 
-          {/* FAQ rendue depuis le frontmatter — garantit que le texte visible est
-              strictement identique au schéma JSON-LD FAQPage (sinon Google marque
-              les questions comme "non valides"). Ne JAMAIS écrire `## FAQ` dans le MDX. */}
+          {/* FAQ */}
           {post.faq && post.faq.length > 0 && (
             <section className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
@@ -205,20 +274,21 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
             </section>
           )}
 
-          {/* Tags */}
+          {/* ── Tags avec tracking ────────────────────────────────────── ← ANALYTICS */}
           {post.tags.length > 0 && (
             <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
               <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
-                {translations.tags}
+                {tr.tags}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
-                  <span
+                  <button
                     key={tag}
-                    className="px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                    onClick={() => trackTagClick(tag)} // ← ANALYTICS
+                    className="px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-pointer"
                   >
                     {tag}
-                  </span>
+                  </button>
                 ))}
               </div>
             </div>
@@ -226,18 +296,19 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
         </div>
       </article>
 
-      {/* Related Posts */}
+      {/* ── Articles liés avec tracking ───────────────────────────────── ← ANALYTICS */}
       {relatedPosts.length > 0 && (
         <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/30">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-              {translations.relatedArticles}
+              {tr.relatedArticles}
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
               {relatedPosts.map((relatedPost) => (
                 <LocalizedLink
                   key={relatedPost.slug}
                   href={`/blog/${relatedPost.slug}`}
+                  onClick={() => trackRelatedArticleClick(relatedPost.slug, relatedPost.title)} // ← ANALYTICS
                   className="group bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 hover:border-blue-500/50 transition-all duration-300"
                 >
                   <span className="text-xs font-medium text-blue-600 dark:text-blue-400 uppercase tracking-wider">
@@ -256,42 +327,45 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
         </section>
       )}
 
-      {/* CTA */}
+      {/* ── CTA avec tracking ─────────────────────────────────────────── ← ANALYTICS */}
       <section className="py-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            {translations.needHelp}
+            {tr.needHelp}
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
-            {translations.helpDesc}
+            {tr.helpDesc}
           </p>
           <LocalizedLink
             href="/contact"
+            onClick={() => trackCTAClick(tr.contactUs, '/contact')} // ← ANALYTICS
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
-            {translations.contactUs}
+            {tr.contactUs}
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </LocalizedLink>
 
-          {/* Maillage interne vers les pages de services */}
+          {/* Maillage interne */}
           <div className="mt-10 pt-8 border-t border-gray-100 dark:border-gray-800">
             <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4">
-              {translations.ourServices}
+              {tr.ourServices}
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <LocalizedLink
                 href="/services"
+                onClick={() => trackCTAClick(tr.webAi, '/services')} // ← ANALYTICS
                 className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
-                {translations.webAi}
+                {tr.webAi}
               </LocalizedLink>
               <LocalizedLink
                 href="/mobile-app-development"
+                onClick={() => trackCTAClick(tr.mobileApp, '/mobile-app-development')} // ← ANALYTICS
                 className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
               >
-                {translations.mobileApp}
+                {tr.mobileApp}
               </LocalizedLink>
             </div>
           </div>
