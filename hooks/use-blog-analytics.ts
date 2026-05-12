@@ -2,26 +2,11 @@
 
 /**
  * use-blog-analytics.ts
- * ─────────────────────────────────────────────────────────────
  * Hook de tracking enrichi pour les articles de blog NeuraWeb.
- *
- * Usage :
- * ```tsx
- * const { trackTagClick, trackRelatedArticleClick, trackCTAClick, trackShareClick } =
- *   useBlogPostAnalytics({
- *     slug: post.slug,
- *     title: post.title,
- *     category: post.category,
- *     tags: post.tags,
- *     author: post.author,
- *     language: lang,
- *     estimatedReadTimeMin: parseInt(post.readTime),
- *   });
- * ```
+ * Utilise window.gtag directement (compatible avec le setup GA manuel de layout.tsx).
  */
 
 import { useEffect, useRef, useCallback } from 'react';
-import { sendGAEvent } from '@next/third-parties/google';
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -50,8 +35,12 @@ const RETURN_READER_KEY = (slug: string) => `nw_read_${slug}`;
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-function gaReady(): boolean {
-  return typeof window !== 'undefined' && 'gtag' in window;
+/** Appel direct à window.gtag — compatible avec le script GA manuel */
+function sendEvent(eventName: string, params: Record<string, unknown>): void {
+  if (typeof window === 'undefined') return;
+  const w = window as Window & { gtag?: (...args: unknown[]) => void };
+  if (typeof w.gtag !== 'function') return;
+  w.gtag('event', eventName, params);
 }
 
 function getReadingTimeSlot(): string {
@@ -84,16 +73,11 @@ function getScrollDepthInArticle(articleEl: HTMLElement | null): number {
   return Math.min(100, Math.max(0, Math.round((scrolledIntoArticle / articleHeight) * 100)));
 }
 
-/**
- * Retourne le max d'un Set<number> sans le spread (compatible TS strict / ES5 target).
- * Math.max(...set) provoque TS2802 quand downlevelIteration n'est pas activé.
- */
+/** Max d'un Set<number> sans spread (compatible TS strict) */
 function maxFromSet(set: Set<number>, fallback = 0): number {
   if (set.size === 0) return fallback;
   let max = fallback;
-  set.forEach((v) => {
-    if (v > max) max = v;
-  });
+  set.forEach((v) => { if (v > max) max = v; });
   return max;
 }
 
@@ -118,7 +102,6 @@ export function useBlogPostAnalytics(config: BlogAnalyticsConfig): BlogAnalytics
   const qualifiedReadTracked = useRef(false);
   const articleRef = useRef<HTMLElement | null>(null);
 
-  // Paramètres communs envoyés avec chaque event
   const commonParams = {
     blog_slug: slug,
     blog_title: title,
@@ -134,8 +117,6 @@ export function useBlogPostAnalytics(config: BlogAnalyticsConfig): BlogAnalytics
   // ── article_view ──────────────────────────────────────────────────────────
 
   useEffect(() => {
-    if (!gaReady()) return;
-
     let isReturnReader = false;
     try {
       isReturnReader = !!localStorage.getItem(RETURN_READER_KEY(slug));
@@ -143,10 +124,10 @@ export function useBlogPostAnalytics(config: BlogAnalyticsConfig): BlogAnalytics
       // localStorage bloqué (mode privé strict)
     }
 
-    sendGAEvent('event', 'article_view', {
+    sendEvent('article_view', {
       ...commonParams,
       is_return_reader: isReturnReader,
-      referrer: typeof document !== 'undefined' ? document.referrer : '',
+      referrer: document.referrer,
     });
 
     try {
@@ -182,9 +163,7 @@ export function useBlogPostAnalytics(config: BlogAnalyticsConfig): BlogAnalytics
         if (depth >= milestone && !reachedMilestones.current.has(milestone)) {
           reachedMilestones.current.add(milestone);
 
-          if (!gaReady()) return;
-
-          sendGAEvent('event', 'article_scroll_depth', {
+          sendEvent('article_scroll_depth', {
             ...commonParams,
             scroll_depth_pct: milestone,
             time_to_milestone_s: Math.round((Date.now() - startTime.current) / 1000),
@@ -192,7 +171,7 @@ export function useBlogPostAnalytics(config: BlogAnalyticsConfig): BlogAnalytics
 
           if (milestone === 90 && !completionTracked.current) {
             completionTracked.current = true;
-            sendGAEvent('event', 'article_read_complete', {
+            sendEvent('article_read_complete', {
               ...commonParams,
               completion_time_s: Math.round((Date.now() - startTime.current) / 1000),
               estimated_read_min: estimatedReadTimeMin,
@@ -210,24 +189,21 @@ export function useBlogPostAnalytics(config: BlogAnalyticsConfig): BlogAnalytics
 
   useEffect(() => {
     const sendTimeEvent = () => {
-      if (!gaReady()) return;
-
       const finalActiveMs =
         activeTime.current + (document.hidden ? 0 : Date.now() - lastActiveStart.current);
       const activeSeconds = Math.round(finalActiveMs / 1000);
       const totalSeconds = Math.round((Date.now() - startTime.current) / 1000);
-      const isQualifiedRead = activeSeconds >= QUALIFIED_READ_THRESHOLD_S;
 
-      sendGAEvent('event', 'article_time_spent', {
+      sendEvent('article_time_spent', {
         ...commonParams,
         active_time_s: activeSeconds,
         total_time_s: totalSeconds,
-        is_qualified_read: isQualifiedRead,
+        is_qualified_read: activeSeconds >= QUALIFIED_READ_THRESHOLD_S,
         max_scroll_depth_pct: maxFromSet(reachedMilestones.current),
       });
 
       if (totalSeconds < 10) {
-        sendGAEvent('event', 'article_bounce_unqualified', {
+        sendEvent('article_bounce_unqualified', {
           ...commonParams,
           time_s: totalSeconds,
         });
@@ -248,9 +224,9 @@ export function useBlogPostAnalytics(config: BlogAnalyticsConfig): BlogAnalytics
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!gaReady() || qualifiedReadTracked.current) return;
+      if (qualifiedReadTracked.current) return;
       qualifiedReadTracked.current = true;
-      sendGAEvent('event', 'article_engaged_read', {
+      sendEvent('article_engaged_read', {
         ...commonParams,
         threshold_s: QUALIFIED_READ_THRESHOLD_S,
       });
@@ -263,8 +239,7 @@ export function useBlogPostAnalytics(config: BlogAnalyticsConfig): BlogAnalytics
 
   const trackTagClick = useCallback(
     (tag: string) => {
-      if (!gaReady()) return;
-      sendGAEvent('event', 'article_tag_click', {
+      sendEvent('article_tag_click', {
         ...commonParams,
         tag_name: tag,
         time_on_page_s: Math.round((Date.now() - startTime.current) / 1000),
@@ -275,8 +250,7 @@ export function useBlogPostAnalytics(config: BlogAnalyticsConfig): BlogAnalytics
 
   const trackRelatedArticleClick = useCallback(
     (relatedSlug: string, relatedTitle: string) => {
-      if (!gaReady()) return;
-      sendGAEvent('event', 'article_related_click', {
+      sendEvent('article_related_click', {
         ...commonParams,
         related_slug: relatedSlug,
         related_title: relatedTitle,
@@ -289,8 +263,7 @@ export function useBlogPostAnalytics(config: BlogAnalyticsConfig): BlogAnalytics
 
   const trackCTAClick = useCallback(
     (ctaLabel: string, destination: string) => {
-      if (!gaReady()) return;
-      sendGAEvent('event', 'article_cta_click', {
+      sendEvent('article_cta_click', {
         ...commonParams,
         cta_label: ctaLabel,
         cta_destination: destination,
@@ -303,8 +276,7 @@ export function useBlogPostAnalytics(config: BlogAnalyticsConfig): BlogAnalytics
 
   const trackShareClick = useCallback(
     (method: 'copy' | 'native' | 'twitter' | 'linkedin') => {
-      if (!gaReady()) return;
-      sendGAEvent('event', 'article_share', {
+      sendEvent('article_share', {
         ...commonParams,
         share_method: method,
         time_on_page_s: Math.round((Date.now() - startTime.current) / 1000),
