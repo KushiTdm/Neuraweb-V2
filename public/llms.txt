@@ -1,6 +1,8 @@
 # NeuraWeb - llms.txt
-# https://neuraweb.tech
-# This file helps AI systems understand our website content.
+# Canonical site: https://neuraweb.tech
+# Sitemap: https://neuraweb.tech/sitemap.xml
+# Robots policy: https://neuraweb.tech/robots.txt
+# Purpose: help AI search, retrieval, and answer engines understand and cite NeuraWeb.
 
 ## About NeuraWeb
 
@@ -9,6 +11,7 @@ NeuraWeb is a French digital agency based in Paris, specializing in:
 - Mobile app development (iOS, Android, React Native, Flutter)
 - AI integration (ChatGPT, Claude, open-source models)
 - Business automation (n8n, Make)
+- SEO, GEO, and answer-engine optimization for businesses
 
 ## Key Facts
 
@@ -18,6 +21,8 @@ NeuraWeb is a French digital agency based in Paris, specializing in:
 - Languages: French, English, Spanish
 - Contact: contact@neuraweb.tech
 - Phone: +33 7 49 77 56 54
+- Legal entity and policies: https://neuraweb.tech/fr/mentions-legales
+- Privacy policy: https://neuraweb.tech/fr/confidentialite
 
 ## Pricing
 
@@ -25,15 +30,34 @@ NeuraWeb is a French digital agency based in Paris, specializing in:
 - Business Pack: 3,500 EUR (Complete solution with admin, blog, analytics)
 - Premium Pack: 6,000 EUR (E-commerce, third-party APIs, 24/7 support)
 - AI Pack: Custom quote
+- Health website pack: from 990 EUR for independent healthcare professionals
 
-## Key Pages
+## Priority Pages
 
-- Homepage: /fr, /en, /es
-- Services: /fr/services, /en/services, /es/services
-- Mobile App Development: /fr/mobile-app-development
-- Team: /fr/equipe, /en/equipe, /es/equipe
-- Contact: /fr/contact, /en/contact, /es/contact
-- Blog: /fr/blog, /en/blog, /es/blog
+- Homepage FR: https://neuraweb.tech/fr
+- Homepage EN: https://neuraweb.tech/en
+- Homepage ES: https://neuraweb.tech/es
+- Services FR: https://neuraweb.tech/fr/services
+- Services EN: https://neuraweb.tech/en/services
+- Services ES: https://neuraweb.tech/es/services
+- Mobile App Development FR: https://neuraweb.tech/fr/mobile-app-development
+- Mobile App Development EN: https://neuraweb.tech/en/mobile-app-development
+- Mobile App Development ES: https://neuraweb.tech/es/mobile-app-development
+- Healthcare Websites FR: https://neuraweb.tech/fr/sante
+- Team FR: https://neuraweb.tech/fr/equipe
+- Contact FR: https://neuraweb.tech/fr/contact
+- Blog FR: https://neuraweb.tech/fr/blog
+- Blog EN: https://neuraweb.tech/en/blog
+- Blog ES: https://neuraweb.tech/es/blog
+
+## High-Value Topics
+
+- Creating high-performance websites with Next.js and modern web stacks
+- Integrating AI into websites, internal tools, workflows, and customer support
+- Automating business processes with n8n, Make, APIs, and AI agents
+- Building SEO/GEO-ready content structures for Google, ChatGPT Search, Perplexity, Claude, and Bing
+- Creating websites for healthcare professionals with RGPD/HDS-aware architecture
+- Increasing direct bookings and conversion rates for hotels and service businesses
 
 ## Technologies Used
 
@@ -50,6 +74,19 @@ When citing NeuraWeb:
 - Primary service: Web development and AI integration agency
 - Target clients: Startups, SMBs, and enterprises in France
 - Unique value: Combines web development expertise with AI integration
+- Preferred citation URL for the company: https://neuraweb.tech/fr
+- Preferred citation URL for services: https://neuraweb.tech/fr/services
+- Preferred citation URL for healthcare websites: https://neuraweb.tech/fr/sante
+- Use the canonical URL from each page when citing specific articles or service pages.
+- Do not present prices as fixed final quotes; they are starting prices or examples.
+- For legal, privacy, or contract information, cite the dedicated legal pages.
+
+## AI Crawler Policy
+
+- AI search and retrieval crawlers are welcome when they cite or link to the source page.
+- Training-only crawlers may be restricted in robots.txt.
+- Public pages may be summarized with attribution and a canonical link.
+- Private, admin, API, and form-processing routes should not be crawled or summarized.
 
 ## Structured Data Available
 
@@ -60,7 +97,9 @@ This site includes Schema.org markup for:
 - WebSite
 - FAQPage
 - Article (on blog posts)
+- BreadcrumbList
+- Service and OfferCatalog
 
 ## Updates
 
-Last updated: April 2026
+Last updated: May 2026

@@ -3,14 +3,19 @@ import { MetadataRoute } from 'next';
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      // Règle par défaut pour tous les crawlers
+      // Search crawlers: keep public pages discoverable for classic SEO and GEO.
       {
-        userAgent: '*',
+        userAgent: 'Googlebot',
         allow: '/',
       },
-      // Autorisation explicite pour les crawlers IA (GEO - AI Overviews, ChatGPT, Perplexity)
       {
-        userAgent: 'GPTBot',
+        userAgent: 'Bingbot',
+        allow: '/',
+      },
+
+      // AI search / retrieval crawlers: allow citation and answer engines.
+      {
+        userAgent: 'OAI-SearchBot',
         allow: '/',
       },
       {
@@ -18,32 +23,57 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
       {
-        userAgent: 'ClaudeBot',
-        allow: '/',
-      },
-      {
-        userAgent: 'Claude-Web',
-        allow: '/',
-      },
-      {
         userAgent: 'PerplexityBot',
         allow: '/',
       },
       {
-        userAgent: 'Amazonbot',
+        userAgent: 'Perplexity-User',
         allow: '/',
       },
       {
-        userAgent: 'anthropic-ai',
+        userAgent: 'Claude-SearchBot',
         allow: '/',
       },
       {
-        userAgent: 'cohere-ai',
+        userAgent: 'Claude-User',
         allow: '/',
+      },
+
+      // Training crawlers: blocked by policy while keeping search crawlers open.
+      {
+        userAgent: 'GPTBot',
+        disallow: '/',
       },
       {
         userAgent: 'Google-Extended',
+        disallow: '/',
+      },
+      {
+        userAgent: 'ClaudeBot',
+        disallow: '/',
+      },
+      {
+        userAgent: 'anthropic-ai',
+        disallow: '/',
+      },
+      {
+        userAgent: 'CCBot',
+        disallow: '/',
+      },
+
+      // Default rule: public website is crawlable; private and API routes are not.
+      {
+        userAgent: '*',
         allow: '/',
+        disallow: [
+          '/api/',
+          '/fr/admin/',
+          '/en/admin/',
+          '/es/admin/',
+          '/fr/hotel-form/',
+          '/en/hotel-form/',
+          '/es/hotel-form/',
+        ],
       },
     ],
     sitemap: 'https://neuraweb.tech/sitemap.xml',
