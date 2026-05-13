@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run sitemap:check",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
+    "sitemap:check": "node scripts/validate-sitemap.js",
     "indexing": "node scripts/indexing.js"
   },
   "dependencies": {
