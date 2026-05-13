@@ -140,7 +140,9 @@ export function getAllPosts(language: Language = 'fr'): BlogPostMeta[] {
 
 // ── Get featured posts for a specific language ───────────────────────────────
 export function getFeaturedPosts(language: Language = 'fr'): BlogPostMeta[] {
-  return getAllPosts(language).filter((post) => post.featured);
+  return getAllPosts(language)
+    .slice(0, 3)
+    .map((post) => ({ ...post, featured: true }));
 }
 
 // ── Get posts by category for a specific language ────────────────────────────
