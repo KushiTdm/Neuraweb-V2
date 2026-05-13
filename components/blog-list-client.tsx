@@ -100,7 +100,9 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
     [allPosts]
   );
   const latestPost = sortedByRecent[0] ?? null;
-  const remainingPosts = sortedByRecent.slice(1);
+  const heroPosts = featuredPosts.length > 1 ? featuredPosts : latestPost ? [latestPost] : [];
+  const heroPostSlugs = new Set(heroPosts.map((post) => post.slug));
+  const remainingPosts = sortedByRecent.filter((post) => !heroPostSlugs.has(post.slug));
 
   // All unique categories
   const categories = useMemo(() => {
