@@ -100,11 +100,13 @@ function getBlogFiles(language) {
 }
 
 function validateStaticRoutes(pageRoutes, sitemapStaticPages) {
+  const FR_ONLY_ROUTES = ['sante', 'automatisation', 'integration-ia'];
+
   const publicLanguageRoutes = pageRoutes
     .filter((route) => route.startsWith('/[lang]/'))
     .filter((route) => !excludedRoutes.includes(route))
     .map((route) => route.replace('/[lang]/', ''))
-    .filter((route) => route !== 'sante')
+    .filter((route) => !FR_ONLY_ROUTES.includes(route))
     .sort();
 
   const missingInSitemap = publicLanguageRoutes.filter((route) => !sitemapStaticPages.includes(route));
@@ -120,6 +122,12 @@ function validateStaticRoutes(pageRoutes, sitemapStaticPages) {
 
   if (!pageRoutes.includes('/[lang]/sante')) {
     fail('Expected FR-only /[lang]/sante route was not found.');
+  }
+  if (!pageRoutes.includes('/[lang]/automatisation')) {
+    fail('Expected FR-only /[lang]/automatisation route was not found.');
+  }
+  if (!pageRoutes.includes('/[lang]/integration-ia')) {
+    fail('Expected FR-only /[lang]/integration-ia route was not found.');
   }
 }
 
@@ -156,7 +164,7 @@ function validateBlogPosts() {
 function buildExpectedUrlCount(blogPostCount) {
   const homeUrls = LANGUAGES.length;
   const staticUrls = expectedStaticPages.length * LANGUAGES.length;
-  const frenchOnlyUrls = 1;
+  const frenchOnlyUrls = 3; // sante, automatisation, integration-ia
   return homeUrls + staticUrls + frenchOnlyUrls + blogPostCount;
 }
 
