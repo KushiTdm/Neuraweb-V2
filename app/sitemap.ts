@@ -11,17 +11,19 @@ const MIGRATION_DATE = new Date('2026-02-28');
 const STATIC_PAGES: Record<string, {
   priority: number;
   changeFrequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+  lastModified?: Date;
 }> = {
-  services:                   { priority: 0.9, changeFrequency: 'monthly' },
-  'mobile-app-development':   { priority: 0.9, changeFrequency: 'monthly' },
-  equipe:                     { priority: 0.7, changeFrequency: 'monthly' },
-  contact:                    { priority: 0.8, changeFrequency: 'monthly' },
-  blog:                       { priority: 0.8, changeFrequency: 'weekly' },
-  booking:                    { priority: 0.9, changeFrequency: 'monthly' },
-  // Pages légales
-  'mentions-legales':         { priority: 0.3, changeFrequency: 'yearly' },
-  'confidentialite':          { priority: 0.3, changeFrequency: 'yearly' },
-  'conditions-utilisation':   { priority: 0.3, changeFrequency: 'yearly' },
+  // Pages de service — mises à jour au lancement, stable ensuite
+  services:                   { priority: 0.9, changeFrequency: 'monthly',  lastModified: new Date('2026-04-01') },
+  'mobile-app-development':   { priority: 0.9, changeFrequency: 'monthly',  lastModified: new Date('2026-04-01') },
+  equipe:                     { priority: 0.7, changeFrequency: 'monthly',  lastModified: new Date('2026-03-15') },
+  contact:                    { priority: 0.8, changeFrequency: 'monthly',  lastModified: new Date('2026-03-01') },
+  blog:                       { priority: 0.8, changeFrequency: 'weekly' },  // today — mis à jour à chaque article
+  booking:                    { priority: 0.9, changeFrequency: 'monthly',  lastModified: new Date('2026-03-01') },
+  // Pages légales — très stables, date fixe
+  'mentions-legales':         { priority: 0.3, changeFrequency: 'yearly',   lastModified: MIGRATION_DATE },
+  'confidentialite':          { priority: 0.3, changeFrequency: 'yearly',   lastModified: MIGRATION_DATE },
+  'conditions-utilisation':   { priority: 0.3, changeFrequency: 'yearly',   lastModified: MIGRATION_DATE },
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -51,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     SUPPORTED_LANGUAGES.forEach((lang: string) => {
       urls.push({
         url: `${BASE_URL}/${lang}/${page}`,
-        lastModified: today,
+        lastModified: config.lastModified ?? today,
         changeFrequency: config.changeFrequency,
         priority: config.priority,
         alternates: {
@@ -69,7 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Page Santé — FR uniquement (canal de conversion vertical, pas traduit)
   urls.push({
     url: `${BASE_URL}/fr/sante`,
-    lastModified: today,
+    lastModified: new Date('2026-04-15'),
     changeFrequency: 'monthly',
     priority: 0.95,
     alternates: {
@@ -83,7 +85,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Page Automatisation — FR uniquement
   urls.push({
     url: `${BASE_URL}/fr/automatisation`,
-    lastModified: today,
+    lastModified: new Date('2026-04-15'),
     changeFrequency: 'monthly',
     priority: 0.95,
     alternates: {
@@ -97,7 +99,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Page Intégration IA — FR uniquement
   urls.push({
     url: `${BASE_URL}/fr/integration-ia`,
-    lastModified: today,
+    lastModified: new Date('2026-04-15'),
     changeFrequency: 'monthly',
     priority: 0.95,
     alternates: {

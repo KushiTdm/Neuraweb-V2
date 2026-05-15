@@ -160,6 +160,15 @@ export async function generateMetadata({
         'max-snippet': -1,
       },
     },
+
+    // ─── Géo-référencement (Bing local search) ─────────────────────────────
+    other: {
+      'geo.region': 'FR-IDF',
+      'geo.placename': 'Paris, Île-de-France',
+      'geo.position': '48.8566;2.3522',
+      'ICBM': '48.8566, 2.3522',
+      'msvalidate.01': '903d41e843804b97832bf4616b07f8a7',
+    },
   };
 }
 
