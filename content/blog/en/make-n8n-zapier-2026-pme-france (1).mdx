@@ -1,0 +1,177 @@
+---
+title: "Make vs n8n vs Zapier in 2026: SMB Comparison Guide"
+excerpt: "Make, n8n, and Zapier compared on verified real pricing, AI agents, and GDPR compliance. Our verdict after real deployments for SMBs in 2026."
+date: "2026-05-19"
+category: "Automation"
+author: "NeuraWeb"
+image: "/assets/blog/make-n8n-zapier-2026-pme-france.webp"
+tags:
+  - "Automation"
+  - "n8n"
+  - "Make"
+  - "No-code"
+  - "GDPR"
+featured: false
+faq:
+  - question: "Which no-code tool should an SMB choose between Make, n8n, and Zapier?"
+    answer: "Make is our default recommendation for most SMBs: $12/month for 10,000 credits, AWS EU servers, and native AI connectors that cover most use cases. n8n is essential if you're deploying autonomous AI agents or handling sensitive data — the self-hosted Community Edition is free. Zapier is great for getting started fast, but the Team plan at $69/month gets expensive at scale."
+  - question: "Is n8n really free?"
+    answer: "The n8n Community Edition is open-source and free to self-host — you only pay for server infrastructure (€20 to €40 per month on a VPS). The official n8n cloud starts at €20/month (Starter, 2,500 executions/month) or €50/month (Pro, 10,000 executions/month)."
+  - question: "What's the real difference between Make credits and n8n executions?"
+    answer: "In Make, each module action counts as 1 credit — a 5-step scenario uses 5 credits per run. In n8n, one execution counts as 1 regardless of how many steps are in the workflow. For complex workflows, n8n is often significantly cheaper at equivalent volume."
+  - question: "Is migrating from Zapier to Make risky?"
+    answer: "No. Make offers a guided import for Zapier scenarios. Expect about 1 hour per complex workflow for review and adjustment. Both platforms can run simultaneously during migration — no risk of disrupting your active automations."
+  - question: "Can you connect Claude or ChatGPT with all three tools?"
+    answer: "Yes, all three support it. Zapier through pre-built connectors in standard Zaps. Make through native Claude and OpenAI connectors and its AI Agents in beta. n8n through native nodes with memory management and reasoning loops — the most powerful of the three for autonomous agents."
+---
+
+In 2026, automating business processes is no longer optional for SMBs — it's a measurable competitive advantage. The question is no longer "should we automate?" but "with which tool?".
+
+Three no-code platforms dominate the market: Zapier, Make (formerly Integromat), and n8n. Each has its advocates, its use cases, and its blind spots. And their pricing pages only tell part of the story — the billing models are so different that a line-by-line comparison is misleading.
+
+After deploying workflows for SMBs across industries — from lead qualification to AI agent orchestration — here's our comparison based on official pricing verified in May 2026.
+
+## Understanding the Billing Models Before Comparing
+
+This is the point most comparison articles miss: Zapier, Make, and n8n don't bill the same thing.
+
+**Zapier bills tasks** — every successful action in a Zap uses 1 task. A 5-action Zap that triggers 500 times per month = 2,500 tasks consumed.
+
+**Make bills credits** — every module execution in a scenario uses 1 credit. A 5-module scenario run 500 times per month = 2,500 credits consumed. Similar logic to Zapier, but different pricing and included volumes.
+
+**n8n bills executions** — one complete workflow run counts as 1 execution, regardless of how many steps it contains. That same 5-step workflow run 500 times per month = 500 executions consumed. This is a major structural advantage for complex workflows.
+
+## The 4 Criteria That Actually Matter for an SMB
+
+**Real cost at 6 months** — Not the entry price, but what you'll actually pay when your usage scales. The billing structure changes everything.
+
+**Ease of onboarding** — How many hours before a non-technical team member can launch their first autonomous workflow?
+
+**AI agent compatibility** — Reasoning loops, persistent memory, multi-agent orchestration: which tool actually supports this in production?
+
+**GDPR / data compliance** — Server location, Data Processing Agreements, data sovereignty. A blocking point in many industries.
+
+## Zapier — The Easiest to Use, the Most Expensive at Scale
+
+Zapier is the most accessible platform on the market. 7,000+ integrations, a drag-and-drop interface masterable in an hour, exhaustive documentation, responsive support.
+
+### Official Pricing (May 2026, annual billing)
+
+- **Free**: 100 tasks/month, 2-step Zaps only
+- **Professional**: starting at **$19.99/month** — unlimited multi-step Zaps, task volume is configurable via a slider (750, 1,500, 2,000, 5,000... up to 2M+) with pricing that increases progressively at each tier
+- **Team**: starting at **$69/month** — 25 users, shared app connections, SAML SSO
+- **Enterprise**: custom pricing
+
+The Agents plan (autonomous AI agents) is **separate**: $33.33/month for 1,500 activities, or free with 400 activities/month.
+
+### The Pricing Trap to Know
+
+The $19.99/month entry price is misleading — that's the minimum tier, covering only 750 tasks/month. At 500 inbound leads with 5 actions each, you consume 2,500 tasks and are forced to move to a higher volume tier. The actual monthly cost for an active SMB consistently exceeds $40–60/month.
+
+### Strengths and Limits
+
+What works: unmatched speed to launch. Connections in 5 minutes, zero training required for simple use cases, the largest integration catalog on the market (7,000+).
+
+The real limits: AI agents in standard Zaps remain basic — no loops, no persistent memory between executions. Data routes through US servers by default, with DPAs available but real legal friction for sensitive or HR data.
+
+### Zapier Verdict
+
+The right choice for getting started quickly on simple linear workflows. Becomes expensive and limiting as volume grows or AI needs go beyond a simple ChatGPT connection.
+
+## Make — The Sweet Spot for Most SMBs
+
+Make offers the best balance of power, accessibility, and price for SMBs in 2026.
+
+### Official Pricing (May 2026, annual billing)
+
+Make bills in **credits**: each module action in a scenario consumes 1 credit.
+
+- **Free**: 1,000 credits/month, max 2 active scenarios, 15-minute minimum interval between runs
+- **Core**: **$12/month** — 10,000 credits/month, unlimited scenarios, minute-level scheduling, Make API access
+- **Pro**: **$21/month** — 10,000 credits/month + priority execution, custom variables, full-text log search
+- **Teams**: **$38/month** — 10,000 credits/month + team management, roles, shareable templates
+- **Enterprise**: custom pricing — custom functions, enterprise apps, 24/7 support
+
+Additional credits beyond the included 10,000 can be purchased at tiered rates: 20k, 40k, 80k credits/month with volume discounts.
+
+### Watch the Credit Math
+
+10,000 credits/month means 10,000 module actions executed. An 8-step scenario triggered 500 times per month consumes 4,000 credits — that's 40% of your quota from a single active workflow. For an SMB with 5 to 10 active scenarios at moderate volume, Core at $12/month is typically sufficient. At higher volumes, Make stays competitive: 20,000 credits/month runs around $16/month.
+
+### Strengths and Limits
+
+What works: native error handling, conditional filters, parallel scenarios, and **Make AI Agents** in beta with native Claude, OpenAI, and Mistral connectors. Servers are on AWS EU — GDPR compliance is straightforward to document.
+
+The real limits: Make's terminology (modules, bundles, routes, credits) confuses beginners. Allow 3 to 4 hours of onboarding for a non-technical team member. Make isn't natively designed for AI agents with persistent memory and complex reasoning loops — the AI Agents beta is less powerful than n8n on that front.
+
+### A Real Migration Case
+
+A French e-commerce SMB was paying a Zapier Professional plan exceeding $50/month at its task volume. Migration to Make Core ($12/month): 4 hours of work, no loss of functionality. Annual savings: over $450.
+
+### Make Verdict
+
+Our default recommendation for SMBs. The Core plan at $12/month covers 80% of an active SMB's automation needs. The Pro plan at $21/month adds the team features and advanced logs needed for serious production use.
+
+## n8n — The Platform for AI Agents and Data Sovereignty
+
+n8n is the most technical of the three — and the only one natively designed for autonomous AI agents: loops, persistent memory, conditional decisions, multi-agent orchestration.
+
+### Official Pricing (May 2026)
+
+**Community Edition (self-hosted)**:
+- Open-source, 100% free to use
+- Actual cost: VPS infrastructure only — €20 to €40/month on OVH, Scaleway, or Hetzner
+- Data hosted wherever you decide — full sovereignty
+
+**n8n Cloud plans (annual billing)**:
+- **Starter**: **€20/month** — 2,500 executions/month, 1 shared project, 5 concurrent executions
+- **Pro**: **€50/month** — 10,000 executions/month, 3 shared projects, 20 concurrent executions, global variables, workflow history, execution log search
+- **Business**: **€667/month** — 40,000 executions/month, self-hosted only, SSO/SAML/LDAP, separate environments (dev/staging/prod), Git-based version control
+- **Enterprise**: custom pricing
+
+Note: the Business plan is only available self-hosted. For teams without DevOps resources, the Pro cloud plan at €50/month is the right production entry point.
+
+For startups under 20 employees: n8n offers a Startup plan at -50% off Business — worth checking on their dedicated page.
+
+### The Structural Advantage of Execution-Based Billing
+
+This is the most underestimated point in the comparison. On n8n, a 15-step workflow run 500 times per month = 500 executions consumed. The same workflow on Make would consume 7,500 credits. On Zapier, 7,500 tasks.
+
+For simple workflows, the difference is marginal. For AI agents with dozens of reasoning steps, n8n becomes significantly more economical at comparable volume.
+
+### Strengths and Limits
+
+What works: native nodes for Claude API, OpenAI, Mistral, and LangChain handle session memory and reasoning loops in production. On self-hosted Community Edition, data never leaves your infrastructure — often the only viable option for GDPR-sensitive industries.
+
+The real limits: the learning curve is real — 6 to 8 hours for a non-technical team. The Community Edition has no dedicated support (45,000+ member forum, very active, but no SLA). The Business plan at €667/month is significantly more expensive than competitors for teams needing advanced cloud features.
+
+### A Real Deployed Case
+
+Market monitoring stack for a French B2B SMB: n8n Community Edition + Claude API + Search Console, hosted on a Scaleway VPS. Total cost: approximately €120/month (infrastructure + Claude API). Result: 20 minutes of manual work per week for a complete daily brief on market signals.
+
+The same stack on Make Pro ($21/month) would have handled the orchestration logic but not the persistent decision-making loop. On Zapier, this type of agent workflow isn't natively possible.
+
+> Neuraweb helps SMBs select and deploy these automation stacks. [Request a free audit](https://neuraweb.tech/en/contact) — in 30 minutes we identify your priority workflows and the right tool for your context and budget.
+
+## Comparison Table — Verified Pricing and Key Criteria (May 2026)
+
+| | Zapier | Make | n8n |
+|---|---|---|---|
+| **Entry plan** | $19.99/month (Pro) | $12/month (Core) | €20/month cloud — €0 self-hosted |
+| **Billing unit** | Tasks (per action) | Credits (per module action) | Executions (per complete run) |
+| **Base volume** | From 750 tasks/month | 10,000 credits/month | 2,500 exec. Starter / 10,000 Pro |
+| **Team plan** | $69/month (Team) | $38/month (Teams) | €50/month Pro (cloud) |
+| **Native AI agents** | Partial (separate module) | Yes (beta) | Yes (native, production-ready) |
+| **EU servers** | DPA available, US by default | AWS EU/North America | Frankfurt cloud / anywhere self |
+| **Main advantage** | Fastest to launch | Price/power balance | AI agents + data sovereignty |
+| **Main limit** | Cost at high volume | Credit model to master | Learning curve |
+
+## Which Tool Fits Your Situation
+
+**Starting out** without technical skills and want to automate 2 to 3 simple processes fast → **Zapier Professional**. Accept the premium price as a learning investment, reassess in 3 months.
+
+**Building 5 to 15 workflows** with a budget to control, sometimes with an AI layer → **Make Core or Pro** ($12 to $21/month). Our default recommendation. Migrating from Zapier? Budget 4 hours of work for savings that pay back in under a quarter.
+
+**Deploying autonomous AI agents**, handling sensitive data (strict GDPR), or planning complex 10+ step workflows at high volume → **n8n**. Community Edition if you have the technical resource to self-host, cloud Pro at €50/month otherwise.
+
+**Under-20-employee startup** looking at n8n Business → check their Startup plan at -50% — often the best value on the market for growing technical teams.

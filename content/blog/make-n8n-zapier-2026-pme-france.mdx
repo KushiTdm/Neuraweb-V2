@@ -1,0 +1,175 @@
+---
+title: "Make vs n8n vs Zapier en 2026 : comparatif pour PME françaises"
+excerpt: "Make, n8n et Zapier comparés sur tarifs réels vérifiés, agents IA et conformité RGPD. Notre verdict après déploiements concrets pour des PME françaises en 2026."
+date: "2026-05-19"
+category: "Automatisation"
+author: "NeuraWeb"
+image: "/assets/blog/make-n8n-zapier-2026-pme-france.webp"
+tags:
+  - "Automatisation"
+  - "n8n"
+  - "Make"
+  - "No-code"
+  - "RGPD"
+featured: false
+faq:
+  - question: "Quel outil no-code choisir entre Make, n8n et Zapier pour une PME française ?"
+    answer: "Make est notre recommandation par défaut pour la majorité des PME : 12 $/mois pour 10 000 crédits, serveurs AWS Europe, et connecteurs IA natifs suffisants pour la plupart des besoins. n8n est indispensable si vous déployez des agents IA autonomes ou gérez des données sensibles — la Community Edition self-hosted est gratuite. Zapier convient à un démarrage rapide, mais son plan Team à 69 $/mois devient vite contraignant à volume."
+  - question: "n8n est-il vraiment gratuit ?"
+    answer: "La Community Edition de n8n est open-source et gratuite à héberger soi-même — vous payez uniquement l'infrastructure serveur (20 à 40 € par mois sur un VPS OVH ou Scaleway). Le cloud officiel n8n existe à partir de 20 €/mois (plan Starter, 2 500 exécutions/mois) ou 50 €/mois (plan Pro, 10 000 exécutions/mois)."
+  - question: "Quelle est la vraie différence entre les crédits Make et les exécutions n8n ?"
+    answer: "Chez Make, chaque action de module compte comme 1 crédit — un scénario de 5 étapes consomme 5 crédits par exécution. Chez n8n, une exécution compte pour 1 peu importe le nombre d'étapes du workflow. Pour des workflows complexes, n8n est donc souvent plus économique à volume équivalent."
+  - question: "La migration de Zapier vers Make est-elle risquée ?"
+    answer: "Non. Make propose un import guidé des scénarios Zapier. Comptez environ 1 heure par workflow complexe pour vérification et ajustement. Les deux plateformes peuvent tourner en parallèle pendant la migration, sans risque de coupure sur vos automatisations actives."
+  - question: "Peut-on connecter Claude ou ChatGPT avec ces trois outils ?"
+    answer: "Oui, les trois le permettent. Zapier via des connecteurs pré-construits dans ses Zaps standards. Make via ses connecteurs natifs Claude et OpenAI et ses AI Agents en beta. n8n via des nœuds natifs avec gestion de mémoire et boucles de raisonnement — le plus puissant des trois pour les agents autonomes."
+---
+
+En 2026, automatiser ses processus n'est plus une option pour les PME françaises — c'est un avantage compétitif mesurable. La question n'est plus "faut-il automatiser ?" mais "avec quel outil ?".
+
+Trois plateformes no-code dominent le marché : Zapier, Make (ex-Integromat) et n8n. Chacune a ses partisans, ses cas d'usage et ses angles morts. Et leurs pages tarifaires ne racontent qu'une partie de l'histoire — les modèles de facturation sont si différents qu'une comparaison ligne à ligne est trompeuse.
+
+Après avoir déployé des workflows pour des PME françaises — de la qualification de leads à l'orchestration d'agents IA — voici notre comparatif basé sur les tarifs officiels vérifiés en mai 2026.
+
+## Comprendre les modèles de facturation avant de comparer
+
+C'est le point que la plupart des comparatifs ratent : Zapier, Make et n8n ne facturent pas la même chose.
+
+**Zapier facture des tâches** — chaque action réussie dans un Zap consomme 1 tâche. Un Zap de 5 actions qui se déclenche 500 fois par mois = 2 500 tâches consommées.
+
+**Make facture des crédits** — chaque module exécuté dans un scénario consomme 1 crédit. Un scénario de 5 modules exécuté 500 fois par mois = 2 500 crédits consommés. La logique est similaire à Zapier, mais les prix et les volumes inclus diffèrent.
+
+**n8n facture des exécutions** — un run complet de workflow compte pour 1 exécution, peu importe le nombre d'étapes. Ce même workflow de 5 étapes exécuté 500 fois par mois = 500 exécutions. C'est un avantage structurel majeur pour les workflows complexes.
+
+## Les 4 critères déterminants pour une PME française
+
+**Coût réel à 6 mois** — Pas le tarif d'entrée, mais ce que vous paierez réellement quand votre usage monte. La structure de facturation change tout.
+
+**Facilité de prise en main** — Combien d'heures pour qu'un collaborateur non-technique lance son premier workflow autonome ?
+
+**Compatibilité agents IA** — Boucles de raisonnement, mémoire persistante, orchestration multi-agents : quel outil le supporte vraiment en production ?
+
+**Conformité RGPD** — Localisation des serveurs, Data Processing Agreements, souveraineté des données. Un point bloquant dans beaucoup de secteurs français.
+
+## Zapier — référence de la facilité, premium sur le prix
+
+Zapier est la plateforme la plus accessible du marché. 7 000+ intégrations, interface drag-and-drop maîtrisable en une heure, documentation exhaustive, support réactif.
+
+### Tarifs officiels (mai 2026, facturation annuelle)
+
+- **Free** : 100 tâches/mois, Zaps 2 étapes uniquement
+- **Professional** : à partir de **19,99 $/mois** — multi-step Zaps illimités, le nombre de tâches est configurable via un curseur (750, 1 500, 2 000, 5 000... jusqu'à 2M+) avec un tarif qui monte progressivement à chaque palier
+- **Team** : à partir de **69 $/mois** — 25 utilisateurs, connexions partagées, SAML SSO
+- **Enterprise** : sur devis
+
+Le plan Agents (IA conversationnelle autonome) est **séparé** : 33,33 $/mois pour 1 500 activités, ou gratuit avec 400 activités.
+
+### Le piège tarifaire à connaître
+
+Le prix d'appel à 19,99 $/mois est trompeur. Ce montant correspond au palier minimum — 750 tâches/mois. À 500 leads entrants avec 5 actions chacun, vous consommez 2 500 tâches et vous êtes forcé de monter à un palier supérieur. Le vrai coût à volume moyen pour une PME active dépasse systématiquement 40 à 60 $/mois.
+
+### Forces et limites
+
+Ce qui fonctionne : la vitesse de démarrage est imbattable. Connexions en 5 minutes, zéro formation requise pour des cas simples, catalogue d'intégrations le plus large du marché (7 000+).
+
+Les limites réelles : les agents IA restent basiques dans les Zaps classiques — pas de boucles, pas de mémoire persistante entre exécutions. Les données transitent par des serveurs américains par défaut, avec des DPA disponibles mais une friction juridique réelle pour les données sensibles.
+
+### Verdict Zapier
+
+Le bon choix pour démarrer vite sur des workflows linéaires simples. Devient coûteux et limitant dès que le volume monte ou que le besoin d'IA dépasse la connexion simple à ChatGPT.
+
+## Make — le sweet spot pour la majorité des PME
+
+Make propose le meilleur équilibre puissance/accessibilité/prix pour une PME française en 2026.
+
+### Tarifs officiels (mai 2026, facturation annuelle)
+
+- **Free** : 1 000 crédits/mois, 2 scénarios actifs max, intervalle minimum 15 minutes entre exécutions
+- **Core** : **12 $/mois** — 10 000 crédits/mois de base, scénarios illimités, exécution jusqu'à la minute, accès API Make
+- **Pro** : **21 $/mois** — 10 000 crédits/mois de base + exécution prioritaire, variables custom, recherche full-text dans les logs
+- **Teams** : **38 $/mois** — 10 000 crédits/mois de base + gestion d'équipes, rôles, templates partageables
+- **Enterprise** : sur devis — fonctions custom, apps enterprise, support 24/7
+
+Les crédits supplémentaires (au-delà des 10 000 inclus) s'achètent par paliers : 20k, 40k, 80k crédits/mois avec tarif dégressif.
+
+### Attention au calcul des crédits
+
+10 000 crédits/mois, c'est 10 000 actions de module exécutées. Un scénario de 8 étapes déclenché 500 fois par mois consomme 4 000 crédits — vous êtes à 40 % du quota avec un seul workflow actif. Pour une PME avec 5 à 10 scénarios actifs à volume modéré, le Core à 12 $/mois est généralement suffisant. Pour des volumes plus élevés, Make reste compétitif : 20 000 crédits/mois reviennent à environ 16 $/mois.
+
+### Forces et limites
+
+Ce qui fonctionne : la gestion native des erreurs, les filtres conditionnels, les scénarios en parallèle, et les **Make AI Agents** en beta avec connecteurs natifs Claude, OpenAI et Mistral. Les serveurs sont sur AWS EU — la conformité RGPD est documentable simplement.
+
+Les limites : la terminologie (modules, bundles, routes, crédits) déroute les débutants. Comptez 3 à 4 heures de prise en main pour un collaborateur non-technique. Make n'est pas conçu nativement pour des agents IA avec mémoire persistante et boucles de raisonnement complexes — les AI Agents sont en beta et restent moins puissants que n8n sur ce point.
+
+### Un cas concret de migration
+
+Une PME e-commerce française payait un plan Zapier Professional dépassant 50 $/mois avec son volume de tâches. Migration vers Make Core (12 $/mois) : 4 heures de travail, aucune perte de fonctionnalité. Économie annuelle : plus de 450 $.
+
+### Verdict Make
+
+Notre recommandation par défaut pour les PME françaises. Le plan Core à 12 $/mois couvre 80 % des besoins d'automatisation d'une PME active. Le plan Pro à 21 $/mois ajoute les fonctionnalités d'équipe et les logs avancés nécessaires pour une utilisation sérieuse en production.
+
+## n8n — la plateforme des agents IA et de la souveraineté des données
+
+n8n est la plus technique des trois — et la seule conçue nativement pour les agents IA autonomes : boucles, mémoire persistante, décision conditionnelle, orchestration multi-agents.
+
+### Tarifs officiels (mai 2026)
+
+**Community Edition (self-hosted)** :
+- Open-source, 100 % gratuit à utiliser
+- Coût réel : infrastructure VPS uniquement — entre 20 et 40 €/mois sur OVH, Scaleway ou Hetzner
+- Données hébergées où vous décidez, France inclus — souveraineté totale
+
+**Plans cloud n8n (facturation annuelle)** :
+- **Starter** : **20 €/mois** — 2 500 exécutions/mois, 1 projet partagé, 5 exécutions simultanées
+- **Pro** : **50 €/mois** — 10 000 exécutions/mois, 3 projets partagés, 20 exécutions simultanées, variables globales, historique des workflows, recherche dans les logs
+- **Business** : **667 €/mois** — 40 000 exécutions/mois, self-hosted uniquement, SSO/SAML/LDAP, environnements séparés (dev/staging/prod), version control via Git
+- **Enterprise** : sur devis
+
+Note : le plan Business est uniquement disponible en self-hosted. Pour les équipes sans ressource DevOps, le Pro cloud à 50 €/mois est le bon point d'entrée en production.
+
+Pour les startups de moins de 20 salariés : n8n propose un plan Startup à -50 % sur le Business — à vérifier sur leur page dédiée.
+
+### L'avantage structurel du modèle d'exécutions
+
+C'est le point le plus sous-estimé de la comparaison. Sur n8n, un workflow de 15 étapes exécuté 500 fois par mois = 500 exécutions consommées. Le même workflow sur Make consommerait 7 500 crédits. Sur Zapier, 7 500 tâches.
+
+Pour des workflows simples, la différence est marginale. Pour des agents IA avec des dizaines d'étapes de raisonnement, n8n devient nettement plus économique à volume comparable.
+
+### Forces et limites
+
+Ce qui fonctionne : les nœuds natifs pour Claude API, OpenAI, Mistral et LangChain gèrent la mémoire de session et les boucles de raisonnement en production. En Community Edition self-hosted, les données ne quittent jamais votre infrastructure — c'est souvent la seule option envisageable pour les secteurs RGPD-sensibles.
+
+Les limites : la courbe d'apprentissage est réelle — 6 à 8 heures pour une équipe non-technique. La Community Edition ne bénéficie pas de support dédié (forum de 45 000+ membres, très actif, mais pas de SLA). Le plan Business à 667 €/mois est significativement plus cher que les offres concurrentes pour les équipes qui ont besoin de fonctionnalités avancées en cloud.
+
+### Un cas concret déployé
+
+Stack de veille marché pour une PME B2B française : n8n Community Edition + Claude API + Search Console, hébergé sur un VPS Scaleway. Coût total : environ 120 €/mois (infra + API Claude). Résultat : 20 minutes de travail manuel par semaine pour un brief quotidien complet sur les signaux sectoriels.
+
+La même stack sur Make Pro (21 $/mois) aurait géré la logique d'orchestration, mais sans la boucle décisionnelle persistante. Sur Zapier, ce type de workflow agent n'est pas faisable nativement.
+
+> Neuraweb accompagne les PME françaises sur le choix et le déploiement de ces stacks. [Demandez un audit gratuit](https://neuraweb.tech/contact) — en 30 minutes, on identifie vos workflows prioritaires et l'outil adapté à votre contexte.
+
+## Tableau comparatif — tarifs et critères clés (mai 2026)
+
+| | Zapier | Make | n8n |
+|---|---|---|---|
+| **Plan entrée** | 19,99 $/mois (Pro) | 12 $/mois (Core) | 20 €/mois cloud — 0 € self-hosted |
+| **Unité facturée** | Tâches (par action) | Crédits (par action de module) | Exécutions (par run complet) |
+| **Volume de base** | Dès 750 tâches/mois | 10 000 crédits/mois | 2 500 exec. Starter / 10 000 Pro |
+| **Plan équipe** | 69 $/mois (Team) | 38 $/mois (Teams) | 50 €/mois Pro (cloud) |
+| **Agents IA natifs** | Partiel (module séparé) | Oui (beta) | Oui (natif, production) |
+| **Serveurs EU** | DPA dispo, US par défaut | AWS EU/North America | Frankfurt cloud / partout self |
+| **Avantage principal** | Démarrage en 1h | Prix/puissance équilibré | Agents IA + souveraineté data |
+| **Limite principale** | Coût à volume élevé | Modèle crédits à maîtriser | Courbe d'apprentissage |
+
+## Quel outil selon votre profil
+
+**Vous démarrez** sans compétence technique et voulez automatiser 2 à 3 processus simples rapidement → **Zapier Professional**. Acceptez le prix premium comme investissement de démarrage, réévaluez dans 3 mois.
+
+**Vous avez 5 à 15 workflows à construire** avec un budget maîtrisé et parfois une couche IA → **Make Core ou Pro** (12 à 21 $/mois). Notre recommandation par défaut. Vous migrez depuis Zapier ? Comptez 4 heures de travail pour une économie qui s'amortit en moins d'un trimestre.
+
+**Vous voulez des agents IA autonomes**, gérez des données sensibles (RGPD strict) ou prévoyez des workflows de 10 étapes et plus à volume élevé → **n8n**. Community Edition si vous avez la ressource technique pour héberger, plan Pro cloud à 50 €/mois sinon.
+
+**Vous êtes une startup de moins de 20 salariés** qui veut n8n Business → vérifiez le plan Startup à -50 % sur leur site, c'est souvent le meilleur rapport qualité/prix du marché pour les équipes techniques en croissance.
