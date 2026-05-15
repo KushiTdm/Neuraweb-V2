@@ -139,7 +139,7 @@ export function Header() {
                     </LocalizedLink>
 
                     <LocalizedLink
-                      href="/services#automatisation"
+                      href="/automatisation"
                       className="flex items-start gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
                         text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
                         hover:bg-gray-50 dark:hover:bg-white/5"
@@ -152,7 +152,7 @@ export function Header() {
                     </LocalizedLink>
 
                     <LocalizedLink
-                      href="/services#ia"
+                      href="/integration-ia"
                       className="flex items-start gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
                         text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
                         hover:bg-gray-50 dark:hover:bg-white/5"
@@ -330,7 +330,7 @@ export function Header() {
                   {t('nav.dropdown.mobile.label')}
                 </LocalizedLink>
                 <LocalizedLink
-                  href="/services#automatisation"
+                  href="/automatisation"
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center gap-2 py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
@@ -338,7 +338,7 @@ export function Header() {
                   {t('nav.dropdown.automation.label')}
                 </LocalizedLink>
                 <LocalizedLink
-                  href="/services#ia"
+                  href="/integration-ia"
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center gap-2 py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >

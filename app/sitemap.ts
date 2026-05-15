@@ -80,6 +80,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   });
 
+  // Page Automatisation — FR uniquement
+  urls.push({
+    url: `${BASE_URL}/fr/automatisation`,
+    lastModified: today,
+    changeFrequency: 'monthly',
+    priority: 0.95,
+    alternates: {
+      languages: {
+        fr: `${BASE_URL}/fr/automatisation`,
+        'x-default': `${BASE_URL}/fr/automatisation`,
+      },
+    },
+  });
+
+  // Page Intégration IA — FR uniquement
+  urls.push({
+    url: `${BASE_URL}/fr/integration-ia`,
+    lastModified: today,
+    changeFrequency: 'monthly',
+    priority: 0.95,
+    alternates: {
+      languages: {
+        fr: `${BASE_URL}/fr/integration-ia`,
+        'x-default': `${BASE_URL}/fr/integration-ia`,
+      },
+    },
+  });
+
   // Articles de blog
   const allBlogSlugs = getAllPostSlugsAllLanguages();
   const slugLanguageMap = new Map<string, string[]>();
