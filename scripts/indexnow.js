@@ -18,7 +18,7 @@
 
 const https = require('https');
 
-const INDEXNOW_KEY = '903d41e843804b97832bf4616b07f8a7';
+const INDEXNOW_KEY = '12d2379a1e5244c9b57051c18690e055';
 const SITE_HOST = 'neuraweb.tech';
 const SITEMAP_URL = `https://${SITE_HOST}/sitemap.xml`;
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
