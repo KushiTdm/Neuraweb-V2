@@ -24,6 +24,7 @@ export interface PageSEOContext {
   customKeywords?: string[];
   customContext?: string;
   path: string;
+  seoTitle?: string;
 }
 
 export interface GeneratedSEO {

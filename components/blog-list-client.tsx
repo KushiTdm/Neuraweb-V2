@@ -221,8 +221,13 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
     return (
       <section className="py-16 sm:py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            {tr.title}{' '}
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+              NeuraWeb
+            </span>
+          </h1>
           <div className="animate-pulse">
-            <div className="h-12 bg-gray-200 dark:bg-gray-800 rounded-lg mb-6 w-48 mx-auto" />
             <div className="h-6 bg-gray-200 dark:bg-gray-800 rounded-lg w-96 mx-auto" />
           </div>
         </div>

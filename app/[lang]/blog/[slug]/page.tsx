@@ -46,6 +46,7 @@ export async function generateMetadata({
   const seo = await generateBlogPostAISEO({
     lang,
     title: post.title,
+    seoTitle: post.seoTitle,
     excerpt: post.excerpt || post.title,
     tags: post.tags || [],
     slug,

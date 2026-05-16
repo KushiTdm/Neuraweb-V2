@@ -203,8 +203,16 @@ function buildFallbackSEO(context: PageSEOContext): GeneratedSEO {
   if (context.pageType === 'blog' && context.customContext) {
     const titleMatch = context.customContext.match(/intitulé "([^"]+)"/);
     const summaryMatch = context.customContext.match(/Résumé : (.+)$/s);
-    if (titleMatch?.[1]) {
-      title = `${titleMatch[1]} | NeuraWeb`;
+    if (context.seoTitle) {
+      title = `${context.seoTitle} | NeuraWeb`;
+    } else if (titleMatch?.[1]) {
+      const suffix = ' | NeuraWeb';
+      const maxRaw = 65 - suffix.length;
+      const raw = titleMatch[1];
+      const trimmed = raw.length > maxRaw
+        ? raw.substring(0, raw.lastIndexOf(' ', maxRaw) || maxRaw)
+        : raw;
+      title = `${trimmed}${suffix}`;
     }
     if (summaryMatch?.[1]) {
       description = summaryMatch[1].substring(0, 160);
@@ -269,15 +277,18 @@ export async function generateAISEO(context: PageSEOContext): Promise<GeneratedS
 export async function generateBlogPostAISEO(params: {
   lang: string;
   title: string;
+  seoTitle?: string;
   excerpt: string;
   tags: string[];
   slug: string;
 }): Promise<GeneratedSEO> {
+  const seoHint = params.seoTitle ? ` Titre SEO court : "${params.seoTitle}".` : '';
   return generateAISEO({
     pageType: 'blog',
     language: (params.lang as 'fr' | 'en' | 'es') || 'fr',
     path: `/${params.lang}/blog/${params.slug}`,
-    customContext: `Article de blog intitulé "${params.title}". Résumé : ${params.excerpt.substring(0, 200)}`,
+    customContext: `Article de blog intitulé "${params.title}".${seoHint} Résumé : ${params.excerpt.substring(0, 200)}`,
     customKeywords: params.tags,
+    seoTitle: params.seoTitle,
   });
 }

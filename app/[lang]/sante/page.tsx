@@ -30,9 +30,9 @@ export async function generateMetadata({
 
   const ogImage = `${BASE_URL}/assets/site_osteo.png`;
   const title =
-    'Création site web ostéopathe, kiné & infirmier libéral | Conforme RGPD/HDS — Neuraweb';
+    'Création site web santé libéral | RGPD/HDS, Doctolib — NeuraWeb';
   const description =
-    'Sites web pour professionnels de santé libéraux. Hébergement France, conforme RGPD/HDS, intégration Doctolib, livraison en 1 semaine. Devis gratuit sous 24h. À partir de 990€.';
+    'Sites web pour professionnels de santé libéraux. Hébergement France, RGPD/HDS, intégration Doctolib, livraison en 1 semaine. Devis gratuit. Dès 990 €.';
 
   return {
     title: { absolute: title },

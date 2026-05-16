@@ -19,6 +19,7 @@ export interface FaqItem {
 export interface BlogPost {
   slug: string;
   title: string;
+  seoTitle?: string;
   excerpt: string;
   date: string;
   readTime: string;
@@ -35,6 +36,7 @@ export interface BlogPost {
 export interface BlogPostMeta {
   slug: string;
   title: string;
+  seoTitle?: string;
   excerpt: string;
   date: string;
   readTime: string;
@@ -104,6 +106,7 @@ export function getPostBySlug(slug: string, language: Language = 'fr'): BlogPost
     return {
       slug,
       title: data.title || 'Untitled',
+      seoTitle: data.seoTitle || undefined,
       excerpt: data.excerpt || '',
       date: data.date || new Date().toISOString(),
       readTime: data.readTime || readTime,

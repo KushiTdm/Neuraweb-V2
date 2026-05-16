@@ -29,7 +29,7 @@ export async function generateMetadata({
 
   const title = 'Automatisation n8n, Make, Zapier & Agents IA pour PME | NeuraWeb';
   const description =
-    "Automatisez vos processus métier avec n8n, Make ou Zapier. Workflows sur mesure, agents IA commerciaux, synchronisation CRM. Audit gratuit inclus, ROI mesurable en 30 jours. À partir de 999 € HT.";
+    "Automatisez vos processus avec n8n, Make ou Zapier. Workflows sur mesure, agents IA, sync CRM. Audit gratuit, ROI mesurable en 30 jours. Dès 999 € HT.";
   const ogImage = `${BASE_URL}/assets/og-image.png`;
 
   return {

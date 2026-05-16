@@ -29,7 +29,7 @@ export async function generateMetadata({
 
   const title = 'Intégration IA, Chatbot RAG, Agents Autonomes | NeuraWeb';
   const description =
-    "Intégrez l'IA dans votre site et vos outils : chatbot RAG, agents IA commerciaux, LLM (Claude, Mistral, GPT), génération de contenu IA. Audit gratuit valorisé 490 €. À partir de 1 499 € HT.";
+    "Intégrez l'IA dans votre site : chatbot RAG, agents IA, LLM (Claude, Mistral, GPT), génération de contenu. Audit gratuit 490 €. Dès 1 499 € HT.";
   const ogImage = `${BASE_URL}/assets/og-image.png`;
 
   return {
