@@ -27,10 +27,10 @@ Format exact :
 
 Règles strictes :
 - title : 50-60 caractères, mot-clé principal au début, inclure "NeuraWeb"
-- description : 140-155 caractères, verbe d'action, chiffre si possible, CTA
+- description : 130-150 caractères, verbe d'action, chiffre si possible, CTA
 - keywords : 6-8 mots-clés longue traîne français
 - ogTitle : peut être légèrement différent du title, plus accrocheur
-- ogDescription : 100-125 caractères, orienté conversion`,
+- ogDescription : 100-120 caractères, orienté conversion`,
 
   en: `You are an SEO expert. Generate optimized SEO metadata for a French web agency.
 Reply ONLY in valid JSON, no markdown, no explanation.
@@ -39,10 +39,10 @@ Exact format:
 
 Strict rules:
 - title: 50-60 chars, main keyword first, include "NeuraWeb"
-- description: 140-155 chars, action verb, number if possible, CTA
+- description: 130-150 chars, action verb, number if possible, CTA
 - keywords: 6-8 English long-tail keywords
 - ogTitle: slightly different from title, more engaging
-- ogDescription: 100-125 chars, conversion-focused`,
+- ogDescription: 100-120 chars, conversion-focused`,
 
   es: `Eres un experto SEO. Genera metadatos SEO optimizados para una agencia web francesa.
 Responde ÚNICAMENTE en JSON válido, sin markdown ni explicación.
@@ -51,10 +51,10 @@ Formato exacto:
 
 Reglas estrictas:
 - title: 50-60 caracteres, palabra clave principal primero, incluir "NeuraWeb"
-- description: 140-155 caracteres, verbo de acción, número si posible, CTA
+- description: 130-150 caracteres, verbo de acción, número si posible, CTA
 - keywords: 6-8 palabras clave long-tail en español
 - ogTitle: ligeramente diferente del title, más atractivo
-- ogDescription: 100-125 caracteres, orientado a conversión`,
+- ogDescription: 100-120 caracteres, orientado a conversión`,
 };
 
 // ── Contexte enrichi pour l'IA ───────────────────────────────────────────────
@@ -163,8 +163,8 @@ async function callAI(context: PageSEOContext): Promise<GeneratedSEO | null> {
     const title = typeof parsed.title === 'string' && parsed.title.length >= 20
       ? parsed.title.substring(0, 65)
       : null;
-    const description = typeof parsed.description === 'string' && parsed.description.length >= 80
-      ? parsed.description.substring(0, 165)
+    const description = typeof parsed.description === 'string' && parsed.description.length >= 100
+      ? parsed.description.substring(0, 155)
       : null;
 
     if (!title || !description) return null;

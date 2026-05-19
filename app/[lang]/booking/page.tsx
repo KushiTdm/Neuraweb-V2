@@ -1,7 +1,9 @@
 import { Metadata } from 'next';
 import { BookingPageClient } from '@/components/booking-page-client';
+import { JsonLd } from '@/components/json-ld';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
+import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
 // Juste après les imports, avant generateStaticParams()
 export const revalidate = 3600; // Cache SEO 24h — évite les appels IA à chaque crawl
@@ -78,11 +80,40 @@ export default async function BookingPage({
   const { lang } = await params;
   const { service, pack } = await searchParams;
 
+  const breadcrumbData = generateBreadcrumbSchema([
+    { name: lang === 'fr' ? 'Accueil' : lang === 'es' ? 'Inicio' : 'Home', url: `/${lang}` },
+    { name: lang === 'fr' ? 'Réservation' : lang === 'es' ? 'Reserva' : 'Booking', url: `/${lang}/booking` },
+  ]);
+
+  const bookingServiceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: lang === 'fr' ? 'Consultation gratuite NeuraWeb' : lang === 'es' ? 'Consulta gratuita NeuraWeb' : 'Free consultation NeuraWeb',
+    description: lang === 'fr'
+      ? 'Réservez un rendez-vous gratuit de 30 minutes pour discuter de votre projet web, application mobile ou intégration IA.'
+      : lang === 'es'
+      ? 'Reserve una consulta gratuita de 30 minutos para hablar de su proyecto web, app móvil o integración IA.'
+      : 'Book a free 30-minute consultation to discuss your web project, mobile app or AI integration.',
+    provider: { '@type': 'Organization', name: 'NeuraWeb', url: 'https://neuraweb.tech' },
+    serviceType: lang === 'fr' ? 'Développement web et IA' : lang === 'es' ? 'Desarrollo web e IA' : 'Web development and AI',
+    areaServed: { '@type': 'Country', name: 'France' },
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'EUR',
+      description: lang === 'fr' ? 'Consultation gratuite' : lang === 'es' ? 'Consulta gratuita' : 'Free consultation',
+    },
+  };
+
   return (
-    <BookingPageClient 
-      lang={lang as 'fr' | 'en' | 'es'} 
-      preselectedService={service}
-      preselectedPack={pack}
-    />
+    <>
+      <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
+      <JsonLd id="booking-service-schema" data={bookingServiceSchema} />
+      <BookingPageClient
+        lang={lang as 'fr' | 'en' | 'es'}
+        preselectedService={service}
+        preselectedPack={pack}
+      />
+    </>
   );
 }
