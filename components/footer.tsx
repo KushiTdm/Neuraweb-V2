@@ -121,7 +121,7 @@ export function Footer() {
 
         {/* ── Legal + Copyright ─────────────────────────── */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-gray-400">
             {t('footer.copyright')}
           </p>
 
@@ -131,7 +131,7 @@ export function Footer() {
               <React.Fragment key={link.href}>
                 <LocalizedLink
                   href={link.href}
-                  className="text-gray-500 hover:text-gray-300 transition-colors"
+                  className="text-gray-400 hover:text-white transition-colors"
                 >
                   {link.label}
                 </LocalizedLink>
