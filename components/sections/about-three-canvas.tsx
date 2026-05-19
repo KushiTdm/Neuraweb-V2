@@ -10,13 +10,26 @@ export function AboutThreeCanvas() {
   const clockRef = useRef(new THREE.Clock());
   const mouseRef = useRef({ x: 0, y: 0 });
   const [isMounted, setIsMounted] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    if (window.innerWidth < 768) return;
     setIsMounted(true);
   }, []);
 
+  // Ne lancer Three.js que quand le canvas entre dans le viewport
   useEffect(() => {
     if (!isMounted || !containerRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry?.isIntersecting) setIsVisible(true); },
+      { threshold: 0.1 }
+    );
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [isMounted]);
+
+  useEffect(() => {
+    if (!isVisible || !containerRef.current) return;
 
     const container = containerRef.current;
     const W = container.clientWidth || window.innerWidth;
@@ -268,8 +281,13 @@ export function AboutThreeCanvas() {
     window.addEventListener('resize', onResize);
 
     // ── Animation ──────────────────────────────────────────────
-    const animate = () => {
+    let lastFrameTs = 0;
+    const TARGET_FPS_MS = 1000 / 24; // 24fps max — réduit TBT
+
+    const animate = (ts: number) => {
       frameIdRef.current = requestAnimationFrame(animate);
+      if (ts - lastFrameTs < TARGET_FPS_MS) return;
+      lastFrameTs = ts;
       const t = clockRef.current.getElapsedTime();
 
       // Particules flottantes
@@ -304,7 +322,7 @@ export function AboutThreeCanvas() {
       renderer.render(scene, camera);
     };
 
-    animate();
+    animate(0);
 
     // ── Cleanup ────────────────────────────────────────────────
     return () => {
@@ -329,7 +347,7 @@ export function AboutThreeCanvas() {
       ringMat.dispose();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMounted]);
+  }, [isVisible]);
 
   if (!isMounted) return null;
 

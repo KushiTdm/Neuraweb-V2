@@ -33,8 +33,8 @@ export function proxy(request: NextRequest) {
     const preferredLanguage = detectLanguage(acceptLanguage);
     const url = request.nextUrl.clone();
     url.pathname = `/${preferredLanguage}`;
-    // ✅ CORRIGÉ : 308 permanent (était temporaire) → transfert du PageRank vers /fr
-    return NextResponse.redirect(url, 308);
+    // Rewrite (pas redirect) → URL reste "/" côté navigateur, élimine la chaîne de redirection (+750ms mobile)
+    return NextResponse.rewrite(url);
   }
 
   const url = request.nextUrl.clone();

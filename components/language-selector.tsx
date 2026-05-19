@@ -34,15 +34,14 @@ export function LanguageSelector() {
   const handleLanguageChange = (newLang: Language) => {
     setLanguage(newLang);
     setIsOpen(false);
-    
-    // Update URL to reflect the new language
-    // The pathname comes as /fr/blog/article-slug or /en/blog/article-slug
-    // We need to replace the language prefix
+
     const pathSegments = pathname.split('/');
     if (pathSegments[1] === 'fr' || pathSegments[1] === 'en' || pathSegments[1] === 'es') {
       pathSegments[1] = newLang;
-      const newPath = pathSegments.join('/');
-      router.push(newPath);
+      router.push(pathSegments.join('/'));
+    } else {
+      // Fallback : pathname peut être '/' si le middleware a fait un rewrite (pas redirect)
+      router.push(`/${newLang}`);
     }
   };
 

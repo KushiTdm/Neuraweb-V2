@@ -212,12 +212,7 @@ export default async function LangLayout({
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://client.crisp.chat" />
 
-        {/* Préchargement poster vidéo */}
-        <link
-          rel="preload"
-          as="image"
-          href="/assets/ampoulePoster.webp"
-        />
+        {/* Le preload du poster vidéo est dans app/[lang]/page.tsx (home seulement) */}
 
         {/* Organization + WebSite injectés via JsonLd (Client Component) pour éviter
             le doublon RSC payload de Next.js qui faisait apparaître chaque schéma

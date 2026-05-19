@@ -267,12 +267,19 @@ export function ServicesThreeCanvas({ activeIndex }: ServicesThreeCanvasProps) {
     window.addEventListener('resize', onResize);
 
     // ── Boucle d'animation avec optimisation ───────────────────────
-    const animate = () => {
+    let lastFrameTs = 0;
+    const TARGET_FPS_MS = 1000 / 24; // 24fps max — réduit TBT sur CPU throttlé
+
+    const animate = (ts: number) => {
       frameIdRef.current = requestAnimationFrame(animate);
-      
+
       // Skip frame si non visible
       if (!isVisibleRef.current) return;
-      
+
+      // Limiter le frame rate à 24fps
+      if (ts - lastFrameTs < TARGET_FPS_MS) return;
+      lastFrameTs = ts;
+
       const t = clockRef.current.getElapsedTime();
 
       // Rotation particules
@@ -320,7 +327,7 @@ export function ServicesThreeCanvas({ activeIndex }: ServicesThreeCanvasProps) {
       }
     };
 
-    animate();
+    animate(0);
 
     // ── Cleanup ────────────────────────────────────────────────
     return () => {

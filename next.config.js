@@ -82,7 +82,7 @@ const nextConfig = {
             three: {
               test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
               name: 'three',
-              chunks: 'all',
+              chunks: 'async',
               priority: 30,
             },
           },

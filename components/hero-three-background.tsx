@@ -172,8 +172,8 @@ export function HeroThreeBackground() {
       // Skip frame si pas visible ou si on est sur mobile avec batterie faible
       if (!isVisible) return;
 
-      // Sur mobile, réduire à 30fps
-      const targetDelta = window.innerWidth < 768 ? 0.033 : 0.016;
+      // 24fps sur desktop (réduit TBT), 20fps sur mobile
+      const targetDelta = window.innerWidth < 768 ? 0.05 : 0.042;
       const delta = lastTs ? Math.min((ts - lastTs) / 1000, 0.05) : targetDelta;
       
       // Frame skipping pour maintenir les performances

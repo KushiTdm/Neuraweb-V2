@@ -157,9 +157,11 @@ export function VideoScrollSection() {
       play();
     } else {
       v.addEventListener('loadedmetadata', play, { once: true });
-      // Réduit de 4s à 2s pour améliorer LCP si la vidéo ne charge pas
-      const fb = setTimeout(dismiss, 2000);
+      // 500ms max pour charger les metadata — améliore LCP sur PageSpeed (réseau lent)
+      const fb = setTimeout(dismiss, 500);
       v.addEventListener('loadedmetadata', () => clearTimeout(fb), { once: true });
+      // preload="none" : déclencher le chargement manuellement
+      v.load();
     }
 
     return () => {
@@ -197,7 +199,7 @@ export function VideoScrollSection() {
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
         muted
         playsInline
-        preload="metadata"
+        preload="none"
         poster="/assets/ampoulePoster.webp"
         title="Animation d'une ampoule qui s'allume puis explose, symbolisant l'idée qui émerge - NeuraWeb"
         aria-label="Animation d'introduction : une ampoule s'allume puis explose en illuminant l'espace, représentant le processus créatif et l'émergence d'une idée innovante"
