@@ -468,8 +468,7 @@ export function PortfolioSection() {
                     key={`${activeFilter}-${index}`}
                     ref={(el) => (cardsRef.current[index] = el)}
                     id={`project-panel-${index}`}
-                    role="tabpanel"
-                    aria-labelledby={`project-tab-${index}`}
+                    role="article"
                     className="carousel-card absolute w-60 sm:w-64 md:w-72 lg:w-80 cursor-pointer group"
                     style={{ transformStyle: 'preserve-3d' }}
                     onClick={() => index === currentIndex && openProject(project)}

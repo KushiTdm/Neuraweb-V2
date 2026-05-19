@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "sitemap:check": "node scripts/validate-sitemap.js",
     "indexing": "node scripts/indexing.js",
-    "indexnow": "node scripts/indexnow.js"
+    "indexnow": "node scripts/indexnow.js",
+    "pagespeed": "node scripts/pagespeed.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

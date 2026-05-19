@@ -46,6 +46,8 @@ export function ServicesThreeCanvas({ activeIndex }: ServicesThreeCanvasProps) {
   // ─── Initialisation Three.js ──────────────────────────────────
   useEffect(() => {
     if (!isMounted || !containerRef.current) return;
+    // WebGL trop coûteux sur mobile (CPU ×4 throttlé) — remplacé par gradient CSS
+    if (window.innerWidth < 768) return;
 
     const container = containerRef.current;
     const W = container.clientWidth;
