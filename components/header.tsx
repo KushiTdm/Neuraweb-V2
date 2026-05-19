@@ -279,9 +279,10 @@ export function Header() {
             />
             <button
               onClick={() => setIsMenuOpen(false)}
+              aria-label={t('nav.closeMenu')}
               className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
             >
-              <X size={20} />
+              <X size={20} aria-hidden="true" />
             </button>
           </div>
 

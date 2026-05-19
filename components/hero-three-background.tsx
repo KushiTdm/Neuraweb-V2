@@ -30,8 +30,15 @@ export function HeroThreeBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameIdRef = useRef<number>();
   const [isVisible, setIsVisible] = useState(true);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    const timer = setTimeout(() => setIsReady(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!isReady) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -323,7 +330,7 @@ export function HeroThreeBackground() {
       visibilityObserver.disconnect();
       if (frameIdRef.current) cancelAnimationFrame(frameIdRef.current);
     };
-  }, [isVisible]);
+  }, [isVisible, isReady]);
 
   return (
     <canvas

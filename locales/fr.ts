@@ -32,6 +32,7 @@ export const fr = {
   'nav.quote': 'Devis',
   'nav.login': 'Connexion',
   'nav.logout': 'Déconnexion',
+  'nav.closeMenu': 'Fermer le menu',
 
   // Navbar — dropdown Services
   'nav.dropdown.web.label': 'Développement Web',

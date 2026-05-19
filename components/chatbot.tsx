@@ -456,7 +456,7 @@ export default function Chatbot() {
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               position: 'relative', overflow: 'hidden',
               animation: (btnHovered || isOpen) ? 'none' : 'nw-float 3s ease-in-out infinite',
-              transition: 'box-shadow 0.3s ease, transform 0.2s ease',
+              transition: 'transform 0.2s ease',
               background: isOpen
                 ? 'linear-gradient(135deg, #374151, #4b5563)'
                 : btnHovered

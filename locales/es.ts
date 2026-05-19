@@ -34,6 +34,7 @@ export const es: Record<TranslationKey, string> = {
   'nav.quote': 'Presupuesto',
   'nav.login': 'Iniciar sesión',
   'nav.logout': 'Cerrar sesión',
+  'nav.closeMenu': 'Cerrar el menú',
 
   // Navbar — menú Servicios
   'nav.dropdown.web.label': 'Desarrollo Web',

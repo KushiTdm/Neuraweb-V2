@@ -12,7 +12,7 @@ export function Footer() {
   const services: { label: string; href: string }[] = [
     { label: t('services.web.title'), href: '/services' },
     { label: t('services.mobile.title'), href: '/mobile-app-development' },
-    { label: t('services.automation.title'), href: '/services' },
+    { label: t('services.automation.title'), href: '/automatisation' },
     { label: t('services.ai.title'), href: '/services' },
   ];
 
@@ -56,16 +56,16 @@ export function Footer() {
                 className="h-9 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
               />
             </LocalizedLink>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-xs mb-6">
+            <p className="text-gray-300 text-sm leading-relaxed max-w-xs mb-6">
               {t('footer.company.description')}
             </p>
             {/* Email */}
             <a
               href="mailto:contact@neuraweb.tech"
-              className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors duration-200 group"
+              className="inline-flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors duration-200 group"
             >
               <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-brand-500/40 transition-colors">
-                <Mail size={14} className="text-gray-400 group-hover:text-brand-400 transition-colors" />
+                <Mail size={14} className="text-gray-300 group-hover:text-brand-400 transition-colors" />
               </div>
               contact@neuraweb.tech
             </a>
@@ -73,16 +73,16 @@ export function Footer() {
 
           {/* Colonne 2 : Services */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-5 flex items-center gap-2">
+            <h3 className="text-white text-sm font-semibold mb-5 flex items-center gap-2">
               <Zap size={14} className="text-brand-400" />
               {t('nav.services')}
-            </h4>
+            </h3>
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service.label}>
                   <LocalizedLink
                     href={service.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-sm text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-brand-500/50 group-hover:bg-brand-400 transition-colors" />
                     {service.label}
@@ -94,15 +94,15 @@ export function Footer() {
 
           {/* Colonne 3 : Liens rapides */}
           <div>
-            <h4 className="text-white text-sm font-semibold mb-5">
+            <h3 className="text-white text-sm font-semibold mb-5">
               {t('footer.links.title')}
-            </h4>
+            </h3>
             <ul className="space-y-3">
               {links.map((link) => (
                 <li key={link.href}>
                   <LocalizedLink
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-sm text-gray-300 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
                   >
                     <ArrowUpRight
                       size={12}

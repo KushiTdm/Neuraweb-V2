@@ -34,6 +34,7 @@ export const en: Record<TranslationKey, string> = {
   'nav.quote': 'Quote',
   'nav.login': 'Login',
   'nav.logout': 'Logout',
+  'nav.closeMenu': 'Close menu',
 
   // Navbar — Services dropdown
   'nav.dropdown.web.label': 'Web Development',

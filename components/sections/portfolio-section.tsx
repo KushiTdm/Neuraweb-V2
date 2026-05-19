@@ -467,10 +467,12 @@ export function PortfolioSection() {
                   <div
                     key={`${activeFilter}-${index}`}
                     ref={(el) => (cardsRef.current[index] = el)}
+                    id={`project-panel-${index}`}
+                    role="tabpanel"
+                    aria-labelledby={`project-tab-${index}`}
                     className="carousel-card absolute w-60 sm:w-64 md:w-72 lg:w-80 cursor-pointer group"
                     style={{ transformStyle: 'preserve-3d' }}
                     onClick={() => index === currentIndex && openProject(project)}
-                    role="article"
                     aria-label={project.ariaLabel || t(project.titleKey)}
                     tabIndex={index === currentIndex ? 0 : -1}
                     onKeyDown={(e) => {
@@ -578,6 +580,7 @@ export function PortfolioSection() {
                 {filteredProjects.map((_, index) => (
                   <button
                     key={index}
+                    id={`project-tab-${index}`}
                     role="tab"
                     aria-selected={index === currentIndex}
                     aria-controls={`project-panel-${index}`}
