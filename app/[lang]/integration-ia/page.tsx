@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
+import { permanentRedirect } from 'next/navigation';
 import { JsonLd } from '@/components/json-ld';
 import { IntegrationIAPageClient } from '@/components/integration-ia-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
@@ -155,7 +155,7 @@ export default async function IntegrationIAPage({
 }) {
   const { lang } = await params;
   if (lang !== 'fr') {
-    redirect(PAGE_PATH);
+    permanentRedirect(PAGE_PATH);
   }
 
   const breadcrumbData = generateBreadcrumbSchema([

@@ -4,20 +4,19 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { HeroSection } from '@/components/sections/hero-section';
 import { StatsSection } from '@/components/sections/stats-section';
-import { ReviewsBadge } from '@/components/reviews-badge';
+import { PartnersMarquee } from '@/components/sections/partners-marquee';
 import { AuditCTA } from '@/components/audit-cta';
-import { OfferBannerSection } from '@/components/sections/offer-banner-section';
 
 // Section skeleton — affiché pendant le chargement des sections dynamiques
 function SectionSkeleton() {
   return (
-    <div className="section-snap flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-7xl mx-auto px-4 py-20 space-y-6 animate-pulse">
-        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded-xl w-1/3 mx-auto" />
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-lg w-2/3 mx-auto" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+    <div className="flex items-center justify-center bg-white py-24">
+      <div className="w-full max-w-7xl mx-auto px-6 space-y-6 animate-pulse">
+        <div className="h-8 bg-gray-100 rounded-xl w-1/3" />
+        <div className="h-4 bg-gray-100 rounded-lg w-2/3" />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-48 bg-gray-200 dark:bg-gray-700 rounded-2xl" />
+            <div key={i} className="h-64 bg-gray-100 rounded-2xl" />
           ))}
         </div>
       </div>
@@ -26,7 +25,6 @@ function SectionSkeleton() {
 }
 
 // VideoOverlay : ssr:false car elle lit sessionStorage + joue une vidéo.
-// Ne bloque PAS le rendu du reste de la page.
 const VideoOverlay = dynamic(
   () => import('@/components/sections/video-scroll-section').then((mod) => {
     const C = mod.VideoScrollSection as React.ComponentType;
@@ -57,46 +55,16 @@ const CTASection = dynamic(
 );
 
 export function HomePageClient() {
-
   const [mounted, setMounted] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const servicesRef = useRef<HTMLDivElement>(null);
-  const isTouchDevice = useRef(false);
-
-  // Throttle mousemove avec requestAnimationFrame pour améliorer INP
-  const rafId = useRef<number | null>(null);
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (isTouchDevice.current) return;
-    if (rafId.current !== null) return; // Skip si un frame est déjà en attente
-
-    rafId.current = requestAnimationFrame(() => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      });
-      rafId.current = null;
-    });
-  }, []);
 
   useEffect(() => {
     setMounted(true);
-    isTouchDevice.current = window.matchMedia('(hover: none)').matches;
+  }, []);
 
-    if (!isTouchDevice.current) {
-      window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    }
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (rafId.current !== null) {
-        cancelAnimationFrame(rafId.current);
-      }
-    };
-  }, [handleMouseMove]);
-
-  // IntersectionObserver pour les animations d'entrée au scroll
+  // IntersectionObserver pour les animations fade-up au scroll
   useEffect(() => {
     if (!mounted) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -108,7 +76,6 @@ export function HomePageClient() {
       },
       { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
     );
-
     const elements = document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-up');
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
@@ -118,38 +85,39 @@ export function HomePageClient() {
     servicesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
-  // ─── Rendu direct — pas de guard !mounted ────────────────────────────────
-  // HeroSection reçoit mousePosition (sera { x:0, y:0 } côté serveur, ce qui
-  // est parfaitement valide — aucun effet de parallax avant hydratation).
   return (
     <>
-      {/* Video intro : ssr:false, ne bloque pas le HTML initial */}
+      {/* Vidéo intro premier passage */}
       <VideoOverlay />
 
-      <main id="main-content" className="homepage-container">
-        <HeroSection mousePosition={mousePosition} onScrollToNext={scrollToServices} />
+      <main id="main-content">
+        {/* 1. Hero — slider image, cross-fade, ken-burns */}
+        <HeroSection onScrollToNext={scrollToServices} />
 
-        {/* Bannière offre du moment — Mai 2026 (santé) */}
-        <OfferBannerSection />
+        {/* 2. Partenaires / stack tech — marquee infini */}
+        <PartnersMarquee />
 
+        {/* 3. Services — cartes image + icône flottante, slider */}
         <div ref={servicesRef}>
           <ServicesSection />
         </div>
 
-        {/* Stats Section — Chiffres clés */}
+        {/* 4. Stats — chiffres métalliques chrome, count-up */}
         <StatsSection />
 
-        {/* Reviews Badge — Preuve sociale */}
-        <ReviewsBadge />
-
+        {/* 5. About */}
         <AboutSection />
+
+        {/* 6. Portfolio */}
         <PortfolioSection />
 
-        {/* Audit CTA — Offre d'entrée gratuite */}
-        <AuditCTA />
-
+        {/* 7. Témoignages */}
         <TestimonialsSection />
 
+        {/* 8. Audit CTA */}
+        <AuditCTA />
+
+        {/* 9. CTA final */}
         <CTASection />
       </main>
     </>

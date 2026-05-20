@@ -25,7 +25,7 @@ export async function generateMetadata({
 
   // L'IA génère les meta tags optimisés
   const seo = await generateAISEO({
-    pageType: 'custom',
+    pageType: 'equipe',
     language,
     path: `/${lang}/equipe`,
     customContext: 'Présentation de l\'équipe NeuraWeb : développeurs passionnés, experts en IA et automatisation. On code, l\'IA amplifie, vous scalez.',

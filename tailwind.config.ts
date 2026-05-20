@@ -19,7 +19,7 @@ const config: Config = {
     extend: {
       // ── Fonts premium ──────────────────────────────────────
       fontFamily: {
-        sans: ['var(--font-geist)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-dm-sans)', 'var(--font-geist)', 'system-ui', 'sans-serif'],
         display: ['var(--font-syne)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'monospace'],
       },

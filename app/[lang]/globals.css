@@ -739,3 +739,211 @@ img:not([alt]) {
     color: #666;
   }
 }
+
+/* ============================================================
+   NOUVEAU DESIGN SYSTEM — Style muscataudit
+   ============================================================ */
+
+/* ── Marquee infini (partenaires / logos) ───────────────────── */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Ken-Burns sur images hero ──────────────────────────────── */
+@keyframes ken-burns {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+.ken-burns {
+  animation: ken-burns 8s ease-in-out forwards;
+}
+
+/* ── Texte métallique / chrome pour les stats ───────────────── */
+.metallic-text {
+  background: linear-gradient(
+    135deg,
+    #9ca3af 0%,
+    #f3f4f6 35%,
+    #d1d5db 55%,
+    #6b7280 80%,
+    #9ca3af 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Pill button (fond sombre) ──────────────────────────────── */
+.pill-btn-dark {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+.pill-btn-dark .pill-label {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 9999px 0 0 9999px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.pill-btn-dark .pill-disc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #0B1220;
+  margin-left: -1px;
+  transition: background 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+.pill-btn-dark:hover .pill-label {
+  background: #ffffff;
+  color: #0B1220;
+}
+.pill-btn-dark:hover .pill-disc {
+  background: #0B1220;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ── Pill button (fond clair) ───────────────────────────────── */
+.pill-btn-light {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+.pill-btn-light .pill-label {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #0B1220;
+  color: #0B1220;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.875rem 1.75rem;
+  border-radius: 9999px 0 0 9999px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.pill-btn-light .pill-disc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background: #0B1220;
+  color: #ffffff;
+  margin-left: -1px;
+  transition: background 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+.pill-btn-light:hover .pill-label {
+  background: #0B1220;
+  color: #ffffff;
+}
+.pill-btn-light:hover .pill-disc {
+  background: #ffffff;
+  color: #0B1220;
+  border: 1px solid #0B1220;
+}
+
+/* ── Service card hover ─────────────────────────────────────── */
+.service-card-v2 {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.service-card-v2:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.18);
+}
+
+/* ── Chip / badge de section ────────────────────────────────── */
+.section-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.section-chip-dark {
+  background: #1F2937;
+  color: #E5E7EB;
+}
+.section-chip-light {
+  background: #F3F4F6;
+  color: #374151;
+  border: 1px solid #E5E7EB;
+}
+
+/* ── Read More link ─────────────────────────────────────────── */
+.read-more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  position: relative;
+  color: #111827;
+}
+.read-more-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #111827;
+  transition: width 0.3s ease;
+}
+.read-more-link:hover::after {
+  width: 100%;
+}
+.read-more-link-white {
+  color: #ffffff;
+}
+.read-more-link-white::after {
+  background: #ffffff;
+}
+
+/* ── Topographic pattern (SVG filigrane) ────────────────────── */
+.topo-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath d='M50,200 Q100,100 200,150 Q300,200 350,100' fill='none' stroke='%23E5E7EB' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M0,250 Q80,180 180,220 Q280,260 400,200' fill='none' stroke='%23E5E7EB' stroke-width='1' opacity='0.4'/%3E%3Cpath d='M20,300 Q120,240 220,280 Q320,320 400,260' fill='none' stroke='%23E5E7EB' stroke-width='1' opacity='0.3'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+}
+
+/* ── Separator line ─────────────────────────────────────────── */
+.card-separator {
+  width: 2.5rem;
+  height: 2px;
+  background: #E5E7EB;
+  margin: 0.75rem 0;
+}
+
+/* ── Slide progress bar ─────────────────────────────────────── */
+@keyframes progress-fill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.slide-progress {
+  transform-origin: left;
+  animation: progress-fill linear forwards;
+}

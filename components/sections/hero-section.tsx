@@ -1,294 +1,379 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { ArrowRight } from 'lucide-react';
-import dynamic from 'next/dynamic';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { PillButton } from '@/components/ui/pill-button';
 import { useTranslation } from '@/hooks/use-translation';
-import { LocalizedLink } from '@/components/localized-link';
-
-const HeroThreeBackground = dynamic(
-  () => import('@/components/hero-three-background').then((mod) => ({ default: mod.HeroThreeBackground })),
-  { ssr: false }
-);
 
 interface HeroSectionProps {
-  mousePosition: { x: number; y: number };
+  mousePosition?: { x: number; y: number };
   onScrollToNext?: () => void;
 }
 
-// ─── Contenu statique SSR par langue ─────────────────────────────────────────
-// Identique aux clés dans locales/*.ts — visible immédiatement par Googlebot
-// sans attendre l'hydratation JS ni l'événement hero:reveal de la vidéo.
-const SSR_HERO: Record<string, { main: string; highlight: string; end: string; subtitle: string; ctaStart: string; ctaServices: string }> = {
-  fr: {
-    main: 'Transformez vos idées en',
-    highlight: 'solutions digitales',
-    end: 'innovantes',
-    subtitle: "Développement web sur mesure, intégration IA et automatisation pour propulser votre entreprise vers le futur",
-    ctaStart: 'Démarrer un projet',
-    ctaServices: 'Nos services',
-  },
-  en: {
-    main: 'Transform your ideas into',
-    highlight: 'innovative digital',
-    end: 'solutions',
-    subtitle: 'Custom web development, AI integration and automation to propel your business into the future',
-    ctaStart: 'Start a project',
-    ctaServices: 'Our services',
-  },
-  es: {
-    main: 'Transforma tus ideas en',
-    highlight: 'soluciones digitales',
-    end: 'innovadoras',
-    subtitle: 'Desarrollo web a medida, integración IA y automatización para impulsar tu empresa hacia el futuro',
-    ctaStart: 'Iniciar un proyecto',
-    ctaServices: 'Nuestros servicios',
-  },
-};
+interface Slide {
+  title: Record<string, string>;
+  subtitle: Record<string, string>;
+  image: string;
+}
 
-export function HeroSection({ mousePosition, onScrollToNext }: HeroSectionProps) {
+const SLIDES: Slide[] = [
+  {
+    title: {
+      fr: 'Agence Web, IA & Applications Mobiles',
+      en: 'Web Agency, AI & Mobile Apps',
+      es: 'Agencia Web, IA & Apps Móviles',
+    },
+    subtitle: {
+      fr: 'Développement web sur mesure, intégration IA et automatisation pour propulser votre entreprise.',
+      en: 'Custom web development, AI integration and automation to propel your business forward.',
+      es: 'Desarrollo web a medida, integración IA y automatización para impulsar tu empresa.',
+    },
+    image: '/assets/services/web_dev.webp',
+  },
+  {
+    title: {
+      fr: 'Automatisation Intelligente',
+      en: 'Smart Automation',
+      es: 'Automatización Inteligente',
+    },
+    subtitle: {
+      fr: 'Workflows n8n, intégration API, productivité multipliée — libérez votre équipe des tâches répétitives.',
+      en: 'n8n workflows, API integration, multiplied productivity — free your team from repetitive tasks.',
+      es: 'Flujos n8n, integración API, productividad multiplicada — libera tu equipo de tareas repetitivas.',
+    },
+    image: '/assets/services/automation.webp',
+  },
+  {
+    title: {
+      fr: 'Intégration IA de Pointe',
+      en: 'Cutting-Edge AI Integration',
+      es: 'Integración IA de Vanguardia',
+    },
+    subtitle: {
+      fr: 'ChatGPT, LLM et agents IA intégrés directement dans vos produits et processus métier.',
+      en: 'ChatGPT, LLM and AI agents integrated directly into your products and business processes.',
+      es: 'ChatGPT, LLM y agentes IA integrados directamente en tus productos y procesos de negocio.',
+    },
+    image: '/assets/services/ia_integration.webp',
+  },
+  {
+    title: {
+      fr: 'Solutions Mobiles iOS & Android',
+      en: 'iOS & Android Mobile Solutions',
+      es: 'Soluciones Móviles iOS & Android',
+    },
+    subtitle: {
+      fr: 'React Native, Flutter — MVP livré en 6 semaines, prêt pour le marché.',
+      en: 'React Native, Flutter — MVP delivered in 6 weeks, market-ready.',
+      es: 'React Native, Flutter — MVP entregado en 6 semanas, listo para el mercado.',
+    },
+    image: '/assets/equipe.webp',
+  },
+];
+
+const SLIDE_DURATION = 5500;
+
+export function HeroSection({ onScrollToNext }: HeroSectionProps) {
   const [mounted, setMounted] = useState(false);
-  // ─── CORRECTION CLÉ ────────────────────────────────────────────────────────
-  // heroVisible pilotait opacity:0 → 1 sur TOUT le contenu, y compris le H1.
-  // Google crawle la page sans exécuter la vidéo intro → hero:reveal n'est
-  // jamais dispatché → H1 reste invisible.
-  //
-  // Nouveau comportement :
-  // • Le H1, sous-titre et boutons sont TOUJOURS dans le DOM avec du contenu réel.
-  // • heroVisible ne contrôle plus que les animations d'entrée (transform + opacity)
-  //   qui sont purement cosmétiques — le texte reste accessible aux crawlers.
-  // • Fallback SSR : si !mounted, on rend le H1 statique visible, sans animation.
-  // ────────────────────────────────────────────────────────────────────────────
   const [heroVisible, setHeroVisible] = useState(false);
-  const { t, language } = useTranslation();
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [nextSlide, setNextSlide] = useState<number | null>(null);
+  const [animating, setAnimating] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const { language } = useTranslation();
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const lang = (language as string) in SLIDES[0].title ? (language as string) : 'fr';
 
-  const ssr = SSR_HERO[language] ?? SSR_HERO.fr;
+  const clearTimers = useCallback(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    if (progressRef.current) clearInterval(progressRef.current);
+  }, []);
+
+  const goToSlide = useCallback(
+    (index: number) => {
+      if (animating || index === activeSlide) return;
+      setAnimating(true);
+      setNextSlide(index);
+      setProgress(0);
+
+      setTimeout(() => {
+        setActiveSlide(index);
+        setNextSlide(null);
+        setAnimating(false);
+      }, 700);
+    },
+    [animating, activeSlide]
+  );
+
+  const next = useCallback(() => {
+    goToSlide((activeSlide + 1) % SLIDES.length);
+  }, [activeSlide, goToSlide]);
+
+  const prev = useCallback(() => {
+    goToSlide((activeSlide - 1 + SLIDES.length) % SLIDES.length);
+  }, [activeSlide, goToSlide]);
+
+  const startAutoplay = useCallback(() => {
+    clearTimers();
+    setProgress(0);
+
+    const step = 50;
+    let elapsed = 0;
+    progressRef.current = setInterval(() => {
+      elapsed += step;
+      setProgress(Math.min((elapsed / SLIDE_DURATION) * 100, 100));
+      if (elapsed >= SLIDE_DURATION) {
+        clearTimers();
+        setActiveSlide((prev) => {
+          const nextIdx = (prev + 1) % SLIDES.length;
+          setNextSlide(nextIdx);
+          setAnimating(true);
+          setTimeout(() => {
+            setActiveSlide(nextIdx);
+            setNextSlide(null);
+            setAnimating(false);
+          }, 700);
+          return prev;
+        });
+        elapsed = 0;
+      }
+    }, step);
+  }, [clearTimers]);
 
   useEffect(() => {
     setMounted(true);
+
+    const fallback = setTimeout(() => setHeroVisible(true), 2500);
+    const handleReveal = () => {
+      clearTimeout(fallback);
+      setTimeout(() => setHeroVisible(true), 200);
+    };
+    window.addEventListener('hero:reveal', handleReveal);
+
+    return () => {
+      clearTimeout(fallback);
+      window.removeEventListener('hero:reveal', handleReveal);
+    };
   }, []);
 
   useEffect(() => {
-    const handleVideoEnd = () => {
-      setTimeout(() => setHeroVisible(true), 200);
-    };
-    window.addEventListener('hero:reveal', handleVideoEnd);
-    return () => window.removeEventListener('hero:reveal', handleVideoEnd);
-  }, []);
+    if (heroVisible) startAutoplay();
+    return clearTimers;
+  }, [heroVisible, startAutoplay, clearTimers, activeSlide]);
 
-  const handleStartProject = (e: React.MouseEvent) => {
-    e.preventDefault();
-    onScrollToNext?.();
-  };
+  const currentSlide = SLIDES[activeSlide]!;
 
-  // ─── Fallback SSR (avant hydratation) ─────────────────────────────────────
-  // ✅ Le H1 contient le vrai texte — Googlebot voit le contenu immédiatement.
-  // Pas d'opacity:0, pas de placeholder, pas de spinner.
+  // ── SSR / non-hydraté ───────────────────────────────────────────────────────
   if (!mounted) {
     return (
-      <section
-        className="section-snap relative overflow-hidden"
-        style={{ background: '#050510' }}
-      >
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 py-8 sm:py-12 flex flex-col items-center justify-center min-h-screen">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 mb-8"
-            style={{ background: 'rgba(6, 182, 212, 0.08)' }}>
-            <span className="w-2 h-2 rounded-full bg-cyan-400" />
-            <span className="text-sm font-medium text-cyan-300">NeuraWeb — Web &amp; AI</span>
-          </div>
-
-          {/* H1 — visible immédiatement, aucune dépendance JS */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 px-2 sm:px-0"
-            style={{ textShadow: '0 0 40px rgba(139, 92, 246, 0.4)' }}>
-            {ssr.main}{' '}
-            <span className="gradient-text">{ssr.highlight}</span>{' '}
-            {ssr.end}
-          </h1>
-
-          {/* Sous-titre */}
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 sm:px-0">
-            {ssr.subtitle}
-          </p>
-
-          {/* Boutons */}
-          <div className="flex flex-col xs:flex-row sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
-            <button
-              onClick={handleStartProject}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-full inline-flex items-center justify-center text-sm sm:text-base"
-            >
-              <span>{ssr.ctaStart}</span>
-              <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
-            </button>
-            {/*
-              SSR fallback : LocalizedLink dépend de useLanguage() (hook client),
-              on ne peut pas l'utiliser ici. On construit le href localisé
-              directement depuis `language` qui vient de useTranslation().
-              Côté serveur, language sera la valeur par défaut ('fr').
-            */}
-            <a
-              href={`/${language}/services`}
-              className="border-2 border-purple-400 text-purple-300 font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-full inline-flex items-center justify-center text-sm sm:text-base"
-            >
-              {ssr.ctaServices}
-            </a>
+      <section className="relative w-full min-h-screen overflow-hidden" style={{ background: '#0B1220' }}>
+        <div className="absolute inset-0">
+          <Image
+            src={SLIDES[0].image}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(11,18,32,0.85) 0%, rgba(11,18,32,0.45) 60%, rgba(11,18,32,0.2) 100%)' }} />
+        </div>
+        <div className="relative z-10 flex flex-col justify-center min-h-screen max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="max-w-2xl pt-28 pb-20">
+            <p className="text-sm font-semibold uppercase tracking-widest text-white/60 mb-6">NeuraWeb — Agence digitale</p>
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6">
+              {SLIDES[0].title[lang] ?? SLIDES[0].title.fr}
+            </h1>
+            <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-lg">
+              {SLIDES[0].subtitle[lang] ?? SLIDES[0].subtitle.fr}
+            </p>
+            <PillButton href="/contact" variant="dark">Démarrer un projet</PillButton>
           </div>
         </div>
       </section>
     );
   }
 
-  // ─── Version hydratée ─────────────────────────────────────────────────────
+  // ── Version hydratée ─────────────────────────────────────────────────────────
   return (
     <section
-      className="section-snap relative overflow-hidden"
-      style={{ background: '#050510' }}
+      className="relative w-full min-h-screen overflow-hidden"
+      style={{ background: '#0B1220' }}
+      aria-label="Hero NeuraWeb"
     >
-      {/* Animation Three.js 3D neuronale */}
-      <HeroThreeBackground />
-
-      {/*
-        ─── Masque de transition ─────────────────────────────────────────────
-        IMPORTANT : ce masque couvre le contenu visuellement pendant la vidéo,
-        mais le H1 est quand même dans le DOM (accessible aux crawlers & screen
-        readers via aria). On utilise aria-hidden="true" uniquement sur le masque
-        lui-même, pas sur le contenu.
-      */}
+      {/* ── Overlay masque avant reveal (vidéo intro) ── */}
       <div
         aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: '#050510',
-          zIndex: 50,
-          opacity: heroVisible ? 0 : 1,
-          transition: heroVisible ? 'opacity 0.6s ease' : 'none',
-          pointerEvents: heroVisible ? 'none' : 'auto',
-        }}
+        className="absolute inset-0 z-40 pointer-events-none transition-opacity duration-700"
+        style={{ background: '#0B1220', opacity: heroVisible ? 0 : 1 }}
       />
 
-      {/* Particules d'arrière-plan */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 1 }} aria-hidden="true">
-        {[...Array(20)].map((_, i) => (
+      {/* ── Slides images ─────────────────────────────────────── */}
+      {SLIDES.map((slide, i) => {
+        const isActive = i === activeSlide;
+        const isNext = i === nextSlide;
+        return (
           <div
             key={i}
-            className="particle"
-            style={{
-              left: `${(i * 5.3 + 7) % 100}%`,
-              animationDelay: `${(i * 0.37) % 3}s`,
-              animationDuration: `${3 + (i * 0.23) % 2}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Contenu principal */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 py-8 sm:py-12">
-        <div
-          className="transform transition-transform duration-300"
-          style={{ transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)` }}
-        >
-          {/* Badge */}
-          <div
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm border border-cyan-500/30 mb-8"
-            style={{
-              background: 'rgba(6, 182, 212, 0.08)',
-              // Animation purement cosmétique — pas d'impact sur l'indexation
-              opacity: heroVisible ? 1 : 0,
-              transform: heroVisible ? 'translateY(0) scale(1)' : 'translateY(-20px) scale(0.95)',
-              transition: 'opacity 0.7s ease, transform 0.7s ease',
-            }}
-            aria-hidden="true" // Le badge est décoratif, le contenu réel est dans le H1
+            aria-hidden={!isActive}
+            className="absolute inset-0 transition-opacity duration-700"
+            style={{ opacity: isActive || isNext ? 1 : 0, zIndex: isNext ? 2 : isActive ? 1 : 0 }}
           >
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span className="text-sm font-medium text-cyan-300">NeuraWeb — Web &amp; AI</span>
+            <Image
+              src={slide.image}
+              alt={slide.title[lang] ?? ''}
+              fill
+              sizes="100vw"
+              className={`object-cover ${isActive && !animating ? 'ken-burns' : ''}`}
+              priority={i === 0}
+              aria-hidden="true"
+            />
+            {/* Dégradé overlay */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(to right, rgba(11,18,32,0.88) 0%, rgba(11,18,32,0.55) 55%, rgba(11,18,32,0.2) 100%)',
+              }}
+            />
           </div>
+        );
+      })}
 
-          {/*
-            ─── H1 — LCP element ──────────────────────────────────────────────
-            ✅ TOUJOURS dans le DOM avec du contenu réel.
-            L'animation (opacity + translateY) est purement visuelle.
-            Même à opacity:0, le texte est lisible par Googlebot et les
-            screen readers — Google l'indexe correctement.
-            ───────────────────────────────────────────────────────────────────
-          */}
-          <h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 px-2 sm:px-0"
-            style={{
-              opacity: heroVisible ? 1 : 0,
-              transform: heroVisible ? 'translateY(0)' : 'translateY(40px)',
-              transition: 'opacity 0.9s ease, transform 0.9s ease',
-              transitionDelay: '0.15s',
-              textShadow: '0 0 40px rgba(139, 92, 246, 0.4)',
-            }}
-          >
-            {t('hero.main.title')}{' '}
-            <span className="gradient-text">{t('hero.title.highlight')}</span>{' '}
-            {t('hero.title.end')}
-          </h1>
-
-          {/* Sous-titre */}
+      {/* ── Contenu texte ─────────────────────────────────────── */}
+      <div className="relative z-10 flex flex-col justify-center min-h-screen max-w-7xl mx-auto px-6 lg:px-12">
+        <div
+          className="max-w-2xl pt-28 pb-20"
+          style={{
+            opacity: heroVisible ? 1 : 0,
+            transform: heroVisible ? 'translateY(0)' : 'translateY(30px)',
+            transition: 'opacity 0.9s ease, transform 0.9s ease',
+          }}
+        >
+          {/* Kicker */}
           <p
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto px-4 sm:px-0"
-            style={{
-              opacity: heroVisible ? 1 : 0,
-              transform: heroVisible ? 'translateY(0)' : 'translateY(30px)',
-              transition: 'opacity 0.9s ease, transform 0.9s ease',
-              transitionDelay: '0.35s',
-            }}
+            className="text-sm font-semibold uppercase tracking-widest mb-6"
+            style={{ color: 'rgba(255,255,255,0.55)' }}
           >
-            {t('hero.subtitle')}
+            NeuraWeb — Agence digitale
           </p>
 
-          {/* Boutons CTA */}
-          <div
-            className="flex flex-col xs:flex-row sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0"
+          {/* Title */}
+          <h1
+            key={`title-${activeSlide}`}
+            className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6"
             style={{
-              opacity: heroVisible ? 1 : 0,
-              transform: heroVisible ? 'translateY(0)' : 'translateY(25px)',
-              transition: 'opacity 0.9s ease, transform 0.9s ease',
-              transitionDelay: '0.55s',
+              animation: heroVisible ? 'fadeInUp 0.7s ease forwards' : 'none',
             }}
           >
-            <button
-              onClick={handleStartProject}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:shadow-2xl transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center group text-sm sm:text-base"
-              aria-label={t('hero.cta.start')}
-            >
-              <span>{t('hero.cta.start')}</span>
-              <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            {currentSlide.title[lang] ?? currentSlide.title.fr}
+          </h1>
 
-            <LocalizedLink
-              href="/services"
-              className="border-2 border-purple-400 text-purple-300 font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-full hover:bg-purple-600 hover:text-white hover:border-purple-600 transition-all duration-300 inline-flex items-center justify-center text-sm sm:text-base"
-            >
-              {t('hero.cta.services')}
-            </LocalizedLink>
+          {/* Subtitle */}
+          <p
+            key={`sub-${activeSlide}`}
+            className="text-lg text-white/70 leading-relaxed mb-10 max-w-lg"
+            style={{
+              animation: heroVisible ? 'fadeInUp 0.7s 0.15s ease forwards' : 'none',
+              opacity: 0,
+            }}
+          >
+            {currentSlide.subtitle[lang] ?? currentSlide.subtitle.fr}
+          </p>
+
+          {/* CTA */}
+          <div
+            className="flex flex-wrap items-center gap-4"
+            style={{
+              opacity: heroVisible ? 1 : 0,
+              transition: 'opacity 0.9s 0.5s ease',
+            }}
+          >
+            <PillButton href="/contact" variant="dark">
+              Démarrer un projet
+            </PillButton>
+            <PillButton href="/services" variant="dark">
+              Nos services
+            </PillButton>
           </div>
         </div>
       </div>
 
-      {/* Indicateur de scroll */}
-      <div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
-        style={{
-          opacity: heroVisible ? 1 : 0,
-          transition: 'opacity 0.9s ease',
-          transitionDelay: '1s',
-        }}
-      >
+      {/* ── Contrôles navigation (flèches) ───────────────────── */}
+      {heroVisible && (
+        <div className="absolute bottom-8 right-8 z-20 flex items-center gap-3">
+          <button
+            onClick={() => { clearTimers(); prev(); startAutoplay(); }}
+            className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center text-white/70 hover:text-white hover:border-white/70 transition-all duration-200"
+            aria-label="Slide précédent"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => { clearTimers(); next(); startAutoplay(); }}
+            className="w-11 h-11 rounded-full border border-white/30 flex items-center justify-center text-white/70 hover:text-white hover:border-white/70 transition-all duration-200"
+            aria-label="Slide suivant"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+      )}
+
+      {/* ── Points de navigation ──────────────────────────────── */}
+      {heroVisible && (
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+          {SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => { clearTimers(); goToSlide(i); startAutoplay(); }}
+              className="relative h-1 rounded-full overflow-hidden transition-all duration-300"
+              style={{
+                width: i === activeSlide ? '2.5rem' : '0.5rem',
+                background: i === activeSlide ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.25)',
+              }}
+              aria-label={`Aller au slide ${i + 1}`}
+            >
+              {i === activeSlide && (
+                <span
+                  className="absolute inset-y-0 left-0 bg-white slide-progress"
+                  style={{ animationDuration: `${SLIDE_DURATION}ms`, width: '100%' }}
+                />
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* ── Barre de progression en haut ─────────────────────── */}
+      {heroVisible && (
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-white/10 z-20">
+          <div
+            className="h-full bg-white/60 transition-none"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      )}
+
+      {/* ── Scroll indicator ─────────────────────────────────── */}
+      {heroVisible && onScrollToNext && (
         <button
-          onClick={handleStartProject}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
-          aria-label="Scroll to next section"
+          onClick={onScrollToNext}
+          className="absolute bottom-8 left-8 z-20 flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors duration-200"
+          aria-label="Défiler vers le bas"
         >
-          <svg className="w-6 h-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
+          <span className="text-xs tracking-widest uppercase font-medium">Scroll</span>
+          <span className="w-px h-8 bg-white/30 animate-pulse" />
         </button>
-      </div>
+      )}
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </section>
   );
 }

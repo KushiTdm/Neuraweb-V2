@@ -24,7 +24,7 @@ export async function generateMetadata({
 
   // L'IA génère les meta tags optimisés
   const seo = await generateAISEO({
-    pageType: 'custom',
+    pageType: 'booking',
     language,
     path: `/${lang}/booking`,
     customContext: 'Page de réservation de rendez-vous pour discuter d\'un projet web. Créneaux disponibles, confirmation immédiate.',

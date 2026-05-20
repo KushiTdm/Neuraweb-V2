@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { useTranslation } from '@/hooks/use-translation';
-import { Mail, MessageSquare, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 export default function ContactPageClient() {
   const { t } = useTranslation();
@@ -79,28 +79,6 @@ export default function ContactPageClient() {
                     </div>
                   </a>
                 </div>
-              </div>
-
-              <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 shadow-sm">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-                  {t('contact.info.whatsapp.label')}
-                </h2>
-                <a
-                  href="https://wa.me/33749775654"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                    <MessageSquare className="w-5 h-5 text-green-600 dark:text-green-400" />
-                  </div>
-                  <div>
-                    <p className="font-medium">{t('contact.info.whatsapp.value')}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {t('contact.info.whatsapp.desc')}
-                    </p>
-                  </div>
-                </a>
               </div>
 
               <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 shadow-sm">

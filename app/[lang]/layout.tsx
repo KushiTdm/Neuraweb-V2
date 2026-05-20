@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Geist, Geist_Mono, Syne } from 'next/font/google';
+import { Geist, Geist_Mono, Syne, DM_Sans } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
 import Script from 'next/script';
@@ -38,6 +38,14 @@ const syne = Syne({
   variable: '--font-syne',
   weight: ['700'], // Réduit : un seul poids pour les titres
   preload: true,
+});
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dm-sans',
+  weight: ['400', '500', '700'],
+  preload: false,
 });
 
 export async function generateStaticParams() {
@@ -201,7 +209,7 @@ export default async function LangLayout({
     <html
       lang={lang}
       suppressHydrationWarning
-      className={`${geist.variable} ${geistMono.variable} ${syne.variable}`}
+      className={`${geist.variable} ${geistMono.variable} ${syne.variable} ${dmSans.variable}`}
     >
       <head>
         {/* Préconnexion aux origines tierces critiques */}
@@ -223,7 +231,7 @@ export default async function LangLayout({
             (home, /contact, /equipe) — pas globalement, sinon son aggregateRating
             pollue les pages article (Google : "Reviews snippet invalide"). */}
       </head>
-      <body className={geist.className}>
+      <body className={`${dmSans.className} font-sans`}>
         {/* Google Analytics — lazyOnload pour ne pas bloquer le rendu */}
         {gaId && (
           <>

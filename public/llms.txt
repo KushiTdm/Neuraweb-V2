@@ -1,8 +1,9 @@
 # NeuraWeb - llms.txt
-# Canonical site: https://neuraweb.tech
-# Sitemap: https://neuraweb.tech/sitemap.xml
-# Robots policy: https://neuraweb.tech/robots.txt
-# Purpose: help AI search, retrieval, and answer engines understand and cite NeuraWeb.
+
+Canonical: https://neuraweb.tech
+Sitemap: https://neuraweb.tech/sitemap.xml
+Robots: https://neuraweb.tech/robots.txt
+Purpose: help AI search, retrieval, and answer engines understand and cite NeuraWeb.
 
 ## About NeuraWeb
 

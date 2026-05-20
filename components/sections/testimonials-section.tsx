@@ -1,233 +1,153 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
+import { PillButton } from '@/components/ui/pill-button';
 import type { TranslationKey } from '@/locales';
 
 interface Testimonial {
   nameKey: TranslationKey;
   companyKey: TranslationKey;
   textKey: TranslationKey;
+  roleKey?: TranslationKey;
   rating: number;
   initials: string;
-  roleKey?: TranslationKey;
+  color: string;
+}
+
+const TESTIMONIALS: Testimonial[] = [
+  { nameKey: 'testimonials.maria.name',    companyKey: 'testimonials.maria.company',    textKey: 'testimonials.maria.text',    rating: 5, initials: 'MP', color: '#374151' },
+  { nameKey: 'testimonials.sanji.name',    companyKey: 'testimonials.sanji.company',    textKey: 'testimonials.sanji.text',    rating: 5, initials: 'SS', color: '#1F2937' },
+  { nameKey: 'testimonials.hermes.name',   companyKey: 'testimonials.hermes.company',   textKey: 'testimonials.hermes.text',   rating: 5, initials: 'HT', color: '#4B5563' },
+  { nameKey: 'testimonials.ludwik.name',   companyKey: 'testimonials.ludwik.company',   textKey: 'testimonials.ludwik.text',   rating: 5, initials: 'LB', color: '#374151' },
+  { nameKey: 'testimonials.christian.name',companyKey: 'testimonials.christian.company',textKey: 'testimonials.christian.text',rating: 5, initials: 'CB', color: '#1F2937' },
+  { nameKey: 'testimonials.leila.name',    companyKey: 'testimonials.leila.company',    textKey: 'testimonials.leila.text',    rating: 5, initials: 'LM', color: '#4B5563' },
+];
+
+const SECTION_LABELS: Record<string, { chip: string; title: string; cta: string }> = {
+  fr: { chip: 'Témoignages', title: 'Ce que nos clients disent de NeuraWeb', cta: 'Démarrer un projet' },
+  en: { chip: 'Testimonials', title: 'What our clients say about NeuraWeb',  cta: 'Start a project'   },
+  es: { chip: 'Testimonios',  title: 'Lo que nuestros clientes dicen de NeuraWeb', cta: 'Iniciar un proyecto' },
+};
+
+function TestimonialCard({ testimonial, visible }: { testimonial: Testimonial; visible: boolean }) {
+  const { t } = useTranslation();
+
+  return (
+    <div
+      className="bg-white rounded-2xl border border-gray-200/60 p-7 flex flex-col gap-4 flex-shrink-0 w-[340px] sm:w-[380px] shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1.5"
+    >
+      {/* Quote icon */}
+      <Quote className="w-8 h-8 text-gray-200" strokeWidth={1.5} />
+
+      {/* Stars */}
+      <div className="flex gap-1" aria-label={`${testimonial.rating} étoiles`}>
+        {Array.from({ length: testimonial.rating }).map((_, i) => (
+          <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+        ))}
+      </div>
+
+      {/* Texte */}
+      <p className="text-gray-700 text-sm leading-relaxed flex-1 line-clamp-4">
+        &ldquo;{t(testimonial.textKey)}&rdquo;
+      </p>
+
+      {/* Auteur */}
+      <div className="flex items-center gap-3 pt-2 border-t border-gray-100">
+        <div
+          className="w-11 h-11 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
+          style={{ background: testimonial.color }}
+          aria-hidden="true"
+        >
+          {testimonial.initials}
+        </div>
+        <div>
+          <p className="font-semibold text-gray-900 text-sm">{t(testimonial.nameKey)}</p>
+          <p className="text-gray-400 text-xs">{t(testimonial.companyKey)}</p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export function TestimonialsSection() {
-  const [mounted, setMounted] = useState(false);
-  const [current, setCurrent] = useState(0);
-  const [animating, setAnimating] = useState(false);
-  const [direction, setDirection] = useState<'next' | 'prev'>('next');
-  const { t } = useTranslation();
+  const { language } = useTranslation();
+  const labels = SECTION_LABELS[(language as string)] ?? SECTION_LABELS.fr;
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  const testimonials: Testimonial[] = [
-    {
-      nameKey: 'testimonials.maria.name',
-      companyKey: 'testimonials.maria.company',
-      textKey: 'testimonials.maria.text',
-      rating: 5,
-      initials: 'MP',
-    },
-    {
-      nameKey: 'testimonials.sanji.name',
-      companyKey: 'testimonials.sanji.company',
-      textKey: 'testimonials.sanji.text',
-      rating: 5,
-      initials: 'SS',
-    },
-    {
-      nameKey: 'testimonials.hermes.name',
-      companyKey: 'testimonials.hermes.company',
-      textKey: 'testimonials.hermes.text',
-      rating: 5,
-      initials: 'HT',
-    },
-    {
-      nameKey: 'testimonials.ludwik.name',
-      companyKey: 'testimonials.ludwik.company',
-      textKey: 'testimonials.ludwik.text',
-      rating: 5,
-      initials: 'LB',
-    },
-    {
-      nameKey: 'testimonials.christian.name',
-      companyKey: 'testimonials.christian.company',
-      textKey: 'testimonials.christian.text',
-      rating: 5,
-      initials: 'CB',
-    },
-    {
-      nameKey: 'testimonials.leila.name',
-      companyKey: 'testimonials.leila.company',
-      textKey: 'testimonials.leila.text',
-      rating: 5,
-      initials: 'LM',
-    },
-  ];
+  const scroll = (dir: 'left' | 'right') => {
+    trackRef.current?.scrollBy({ left: dir === 'right' ? 400 : -400, behavior: 'smooth' });
+  };
 
-  const goTo = useCallback((index: number, dir: 'next' | 'prev') => {
-    if (animating) return;
-    setAnimating(true);
-    setDirection(dir);
-    setTimeout(() => {
-      setCurrent(index);
-      setAnimating(false);
-    }, 350);
-  }, [animating]);
-
-  const next = useCallback(() => {
-    goTo((current + 1) % testimonials.length, 'next');
-  }, [current, testimonials.length, goTo]);
-
-  const prev = useCallback(() => {
-    goTo((current - 1 + testimonials.length) % testimonials.length, 'prev');
-  }, [current, testimonials.length, goTo]);
-
+  // Autoplay doux
   useEffect(() => {
-    setMounted(true);
+    const id = setInterval(() => {
+      const el = trackRef.current;
+      if (!el) return;
+      const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 8;
+      el.scrollBy({ left: atEnd ? -(el.scrollWidth) : 400, behavior: 'smooth' });
+    }, 5000);
+    return () => clearInterval(id);
   }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
-    const interval = setInterval(next, 6000);
-    return () => clearInterval(interval);
-  }, [mounted, next]);
-
-  const testimonial = testimonials[current]!;
-
-  if (!mounted) {
-    return (
-      <section className="section-snap bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
-        <div className="animate-pulse text-2xl text-gray-400">Chargement...</div>
-      </section>
-    );
-  }
-
   return (
-    <section className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden relative min-h-screen sm:min-h-0 py-12 sm:py-16 md:py-20">
+    <section className="py-20 lg:py-28 overflow-hidden" style={{ background: '#F7F7F5' }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
-      {/* Décoration fond */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-32 -left-32 w-64 sm:w-96 h-64 sm:h-96 rounded-full opacity-[0.06]"
-          style={{ background: 'radial-gradient(circle, #6366f1, transparent 70%)' }} />
-        <div className="absolute -bottom-32 -right-32 w-64 sm:w-96 h-64 sm:h-96 rounded-full opacity-[0.06]"
-          style={{ background: 'radial-gradient(circle, #a855f7, transparent 70%)' }} />
+        {/* ── Header ── */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">
+          <div>
+            <span className="section-chip section-chip-light mb-4 inline-flex">
+              <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+              {labels.chip}
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight max-w-xl">
+              {labels.title}
+            </h2>
+          </div>
+          <div className="flex-shrink-0">
+            <PillButton href="/contact" variant="light">{labels.cta}</PillButton>
+          </div>
+        </div>
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
-
-        {/* Header */}
-        <div className="text-center mb-6 sm:mb-10">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-2">
-            {t('testimonials.title')}
-          </h2>
-          <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
-            {t('testimonials.subtitle')}
-          </p>
+      {/* ── Slider pleine largeur ── */}
+      <div className="relative">
+        {/* Navigation */}
+        <div className="flex justify-end gap-3 max-w-7xl mx-auto px-6 lg:px-12 mb-6">
+          <button
+            onClick={() => scroll('left')}
+            className="w-11 h-11 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-200"
+            aria-label="Précédent"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => scroll('right')}
+            className="w-11 h-11 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-200"
+            aria-label="Suivant"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
 
-        {/* Card principale */}
-        <div className="relative">
-          {/* Guillemet décoratif */}
-          <div className="absolute -top-4 -left-2 sm:-top-6 sm:-left-4 z-10">
-            <Quote className="w-10 h-10 sm:w-14 sm:h-14 text-purple-200 dark:text-purple-800/60" strokeWidth={1} />
-          </div>
+        {/* Masques dégradés */}
+        <div className="absolute left-0 top-0 bottom-0 w-12 pointer-events-none z-10"
+          style={{ background: 'linear-gradient(to right, #F7F7F5, transparent)' }} />
+        <div className="absolute right-0 top-0 bottom-0 w-12 pointer-events-none z-10"
+          style={{ background: 'linear-gradient(to left, #F7F7F5, transparent)' }} />
 
-          {/* Carte testimonial avec animation slide */}
-          <div
-            className="relative bg-white dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700/50 p-6 sm:p-8 md:p-10 overflow-hidden"
-            style={{
-              opacity: animating ? 0 : 1,
-              transform: animating
-                ? `translateX(${direction === 'next' ? '-40px' : '40px'})`
-                : 'translateX(0)',
-              transition: 'opacity 0.35s ease, transform 0.35s ease',
-            }}
-          >
-            {/* Gradient accent en haut */}
-            <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl"
-              style={{ background: 'linear-gradient(90deg, #6366f1, #a855f7, #ec4899)' }} />
-
-            {/* Étoiles */}
-            <div className="flex items-center gap-1 mb-4 sm:mb-6" role="img" aria-label={`${testimonial.rating} étoiles`}>
-              {[...Array(testimonial.rating)].map((_, i) => (
-                <Star
-                  key={i}
-                  className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 fill-amber-400"
-                  aria-hidden="true"
-                />
-              ))}
-              <span className="ml-2 text-xs font-semibold text-amber-500 bg-amber-50 dark:bg-amber-900/20 px-2 py-0.5 rounded-full">
-                {testimonial.rating}.0
-              </span>
-            </div>
-
-            {/* Texte */}
-            <blockquote className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-200 leading-relaxed mb-6 sm:mb-8 italic">
-              &ldquo;{t(testimonial.textKey)}&rdquo;
-            </blockquote>
-
-            {/* Auteur */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-              <div className="flex items-center gap-4">
-                <div className="relative flex-shrink-0">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full ring-2 ring-purple-200 dark:ring-purple-700 ring-offset-2 ring-offset-white dark:ring-offset-gray-800 bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center">
-                    <span className="text-white font-bold text-sm sm:text-base">
-                      {testimonial.initials}
-                    </span>
-                  </div>
-                  {/* Badge vérifié */}
-                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center border-2 border-white dark:border-gray-800">
-                    <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                </div>
-                <div>
-                  <div className="font-bold text-gray-900 dark:text-white text-sm sm:text-base">
-                    {t(testimonial.nameKey)}
-                  </div>
-                  <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-                    {t(testimonial.companyKey)}
-                  </div>
-                </div>
-              </div>
-
-              {/* Compteur discret - centré sur mobile */}
-              <div className="sm:ml-auto text-center sm:text-right text-xs font-mono text-gray-300 dark:text-gray-600 select-none">
-                {String(current + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Navigation - Flèches uniquement */}
-        <div className="flex items-center justify-center gap-8 mt-8 sm:mt-10">
-          {/* Bouton précédent */}
-          <button
-            onClick={prev}
-            disabled={animating}
-            className="group w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center justify-center disabled:opacity-40 shadow-lg hover:shadow-xl hover:scale-105"
-            aria-label={t('portfolio.nav.previous')}
-          >
-            <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:-translate-x-0.5 transition-transform" />
-          </button>
-
-          {/* Indicateur de position */}
-          <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
-            {current + 1} / {testimonials.length}
-          </div>
-
-          {/* Bouton suivant */}
-          <button
-            onClick={next}
-            disabled={animating}
-            className="group w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center justify-center disabled:opacity-40 shadow-lg hover:shadow-xl hover:scale-105"
-            aria-label={t('portfolio.nav.next')}
-          >
-            <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 text-white group-hover:translate-x-0.5 transition-transform" />
-          </button>
+        <div
+          ref={trackRef}
+          className="flex gap-5 overflow-x-auto px-6 lg:px-12 pb-4"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
+          {TESTIMONIALS.map((t) => (
+            <TestimonialCard key={t.nameKey} testimonial={t} visible />
+          ))}
+          <div className="flex-shrink-0 w-2" aria-hidden="true" />
         </div>
       </div>
     </section>

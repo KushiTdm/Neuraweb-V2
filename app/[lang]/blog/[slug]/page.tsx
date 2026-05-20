@@ -59,12 +59,13 @@ export async function generateMetadata({
     authors: post.author ? [{ name: post.author }] : undefined,
     alternates: {
       canonical: `${baseUrl}/${lang}/blog/${slug}`,
-      languages: {
-        fr: `${baseUrl}/fr/blog/${slug}`,
-        en: `${baseUrl}/en/blog/${slug}`,
-        es: `${baseUrl}/es/blog/${slug}`,
-        'x-default': `${baseUrl}/fr/blog/${slug}`,
-      },
+      languages: (() => {
+        const langs: Record<string, string> = { 'x-default': `${baseUrl}/fr/blog/${slug}` };
+        if (getPostBySlug(slug, 'fr')) langs.fr = `${baseUrl}/fr/blog/${slug}`;
+        if (getPostBySlug(slug, 'en')) langs.en = `${baseUrl}/en/blog/${slug}`;
+        if (getPostBySlug(slug, 'es')) langs.es = `${baseUrl}/es/blog/${slug}`;
+        return langs;
+      })(),
     },
     openGraph: {
       title: seo.ogTitle,

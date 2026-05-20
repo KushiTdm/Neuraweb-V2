@@ -1,184 +1,204 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
+import { LocalizedLink } from '@/components/localized-link';
 import { useLanguage } from '@/contexts/language-context';
-import  {NumberTicker}  from "../../components/ui/number-ticker";
 
-// ── Translations ───────────────────────────────────────────────────────────
-const translations = {
+const T = {
   fr: {
-    title: 'Des résultats qui parlent',
-    subtitle: 'Depuis notre création, nous avons aidé des dizaines d\'entreprises à accélérer leur croissance grâce à l\'IA et l\'automatisation.',
-    projects: 'Produits livrés',
-    satisfaction: 'Clients satisfaits',
-    roi: 'ROI moyen clients',
-    delay: 'Délai MVP moyen',
-    trustGoogle: '5/5 sur Google',
-    trustDelivered: '100% Projets livrés',
-    trustResponse: 'Réponse sous 24h',
+    label1: 'Projets livrés avec succès',
+    desc1: 'Applications web, mobiles et automatisations livrées à temps, dans les délais convenus.',
+    label2: 'Clients satisfaits',
+    desc2: 'Taux de satisfaction mesuré après chaque livraison — notre priorité absolue.',
+    label3: 'ROI moyen client',
+    desc3: 'Retour sur investissement constaté sur nos projets d\'automatisation et IA.',
+    heading1: 'Des chiffres qui',
+    heading2: 'parlent d\'eux-mêmes',
+    sub: 'Depuis notre création, nous avons aidé des dizaines d\'entreprises à accélérer leur croissance grâce à des solutions web, IA et automatisation.',
+    learn: 'À propos de NeuraWeb',
+    imgAlt: 'Équipe NeuraWeb au travail',
   },
   en: {
-    title: 'Results that speak for themselves',
-    subtitle: 'Since our creation, we have helped dozens of companies accelerate their growth thanks to AI and automation.',
-    projects: 'Products delivered',
-    satisfaction: 'Satisfied clients',
-    roi: 'Average client ROI',
-    delay: 'Average MVP timeline',
-    trustGoogle: '5/5 on Google',
-    trustDelivered: '100% Projects delivered',
-    trustResponse: 'Response within 24h',
+    label1: 'Projects delivered',
+    desc1: 'Web, mobile and automation projects delivered on time and within agreed deadlines.',
+    label2: 'Satisfied clients',
+    desc2: 'Satisfaction rate measured after each delivery — our absolute priority.',
+    label3: 'Average client ROI',
+    desc3: 'Return on investment observed on our automation and AI projects.',
+    heading1: 'Numbers that',
+    heading2: 'speak for themselves',
+    sub: 'Since our creation, we have helped dozens of companies accelerate their growth through web, AI and automation solutions.',
+    learn: 'About NeuraWeb',
+    imgAlt: 'NeuraWeb team at work',
   },
   es: {
-    title: 'Resultados que hablan por sí mismos',
-    subtitle: 'Desde nuestra creación, hemos ayudado a docenas de empresas a acelerar su crecimiento gracias a la IA y la automatización.',
-    projects: 'Productos entregados',
-    satisfaction: 'Clientes satisfechos',
-    roi: 'ROI promedio clientes',
-    delay: 'Plazo MVP promedio',
-    trustGoogle: '5/5 en Google',
-    trustDelivered: '100% Proyectos entregados',
-    trustResponse: 'Respuesta en 24h',
+    label1: 'Proyectos entregados',
+    desc1: 'Proyectos web, móviles y de automatización entregados a tiempo.',
+    label2: 'Clientes satisfechos',
+    desc2: 'Tasa de satisfacción medida después de cada entrega — nuestra prioridad absoluta.',
+    label3: 'ROI promedio cliente',
+    desc3: 'Retorno de inversión observado en nuestros proyectos de automatización e IA.',
+    heading1: 'Cifras que',
+    heading2: 'hablan por sí solas',
+    sub: 'Desde nuestra creación, hemos ayudado a docenas de empresas a acelerar su crecimiento.',
+    learn: 'Sobre NeuraWeb',
+    imgAlt: 'Equipo NeuraWeb trabajando',
   },
 };
 
-// ── Stat Data ───────────────────────────────────────────────────────────────
-const getStats = (t: typeof translations.fr) => [
-  { value: 150, suffix: '+', label: t.projects, icon: '🚀' },
-  { value: 98, suffix: '%', label: t.satisfaction, icon: '⭐' },
-  { value: 3.2, suffix: 'x', label: t.roi, icon: '📈' },
-  { value: 72, suffix: 'h', label: t.delay, icon: '⚡' },
+const STATS = [
+  { value: 150, suffix: '+', key: 'label1', descKey: 'desc1' },
+  { value: 98,  suffix: '%', key: 'label2', descKey: 'desc2' },
+  { value: 3.2, suffix: 'x', key: 'label3', descKey: 'desc3' },
 ];
 
-// ── Individual Stat Component ───────────────────────────────────────────────
-function StatItem({ stat, index }: { stat: ReturnType<typeof getStats>[0]; index: number }) {
+function useCountUp(target: number, started: boolean, duration = 1800) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!started) return;
+    const isDecimal = target % 1 !== 0;
+    let start: number | null = null;
+    const step = (ts: number) => {
+      if (start === null) start = ts;
+      const pct = Math.min((ts - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - pct, 3);
+      const current = isDecimal
+        ? Math.round(target * ease * 10) / 10
+        : Math.floor(target * ease);
+      setCount(current);
+      if (pct < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [started, target, duration]);
+
+  return count;
+}
+
+function StatCard({
+  value,
+  suffix,
+  label,
+  desc,
+  started,
+  index,
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+  desc: string;
+  started: boolean;
+  index: number;
+}) {
+  const count = useCountUp(value, started);
+  const isDecimal = value % 1 !== 0;
+  const displayValue = isDecimal ? count.toFixed(1) : count;
+
   return (
-    <div 
-      className="text-center group"
+    <div
+      className="bg-[#F2F2F0] rounded-2xl p-8 transition-all duration-300 hover:shadow-lg"
       style={{
         opacity: 0,
-        animation: 'fadeInUp 0.6s ease forwards',
-        animationDelay: `${index * 0.1}s`,
+        animation: started ? `fadeInUp 0.6s ${index * 0.15}s ease forwards` : 'none',
       }}
     >
-      <div className="relative">
-        {/* Icon background glow */}
-        <div 
-          className="absolute inset-0 blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"
-          style={{
-            background: `radial-gradient(circle, var(--color-primary, #6366f1) 0%, transparent 70%)`,
-          }}
-        />
-        
-        {/* Icon */}
-        <span 
-          className="text-3xl mb-3 block"
-          role="img"
-          aria-hidden="true"
-        >
-          {stat.icon}
-        </span>
-        
-        {/* Counter with NumberTicker */}
-        <div 
-          className="relative flex items-center justify-center gap-1"
-          aria-label={`${stat.value}${stat.suffix} ${stat.label}`}
-        >
-          <NumberTicker
-            value={stat.value}
-            className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent"
-          />
-          <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-            {stat.suffix}
-          </span>
-        </div>
-        
-        {/* Label */}
-        <p className="text-sm sm:text-base text-gray-400 dark:text-gray-500 mt-2 font-medium">
-          {stat.label}
-        </p>
+      {/* Nombre métallique */}
+      <div className="metallic-text font-display font-bold leading-none mb-3"
+        style={{ fontSize: 'clamp(4rem, 8vw, 5.5rem)' }}
+        aria-label={`${value}${suffix} ${label}`}
+      >
+        {displayValue}{suffix}
       </div>
+
+      {/* Label */}
+      <p className="text-gray-900 font-semibold text-base mb-2">{label}</p>
+
+      {/* Description */}
+      <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
     </div>
   );
 }
 
-// ── Stats Section Component ─────────────────────────────────────────────────
 export function StatsSection() {
   const { language } = useLanguage();
-  const t = translations[language as keyof typeof translations] || translations.fr;
-  const stats = getStats(t);
+  const t = T[(language as keyof typeof T)] ?? T.fr;
+  const sectionRef = useRef<HTMLElement>(null);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setStarted(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section 
-      className="py-16 sm:py-20 px-4 relative overflow-hidden"
-      aria-label="Chiffres clés NeuraWeb"
-    >
-      {/* Background gradient */}
-      <div 
-        className="absolute inset-0 opacity-5"
-        style={{
-          background: 'radial-gradient(ellipse at center, rgba(99, 102, 241, 0.3) 0%, transparent 70%)',
-        }}
-        aria-hidden="true"
-      />
+    <section ref={sectionRef} className="py-20 lg:py-28" style={{ background: '#F7F7F5' }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
 
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Section header */}
-        <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            {t.title}
+        {/* ── Header ── */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight max-w-lg">
+            {t.heading1}{' '}
+            <span className="text-gray-400">{t.heading2}</span>
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            {t.subtitle}
-          </p>
+
+          <LocalizedLink
+            href="/equipe"
+            className="inline-flex items-center gap-2 font-semibold text-gray-700 hover:text-gray-900 transition-colors duration-200 group flex-shrink-0"
+          >
+            {t.learn}
+            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-900 text-white group-hover:scale-110 transition-transform duration-200">
+              <ArrowUpRight className="w-4 h-4" />
+            </span>
+          </LocalizedLink>
         </div>
 
-        {/* Stats grid */}
-        <div 
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12"
-          role="list"
-          aria-label="Statistiques NeuraWeb"
-        >
-          {stats.map((stat, index) => (
-            <div key={stat.label} role="listitem">
-              <StatItem stat={stat} index={index} />
-            </div>
+        {/* ── Sous-titre ── */}
+        <p className="text-gray-500 text-base leading-relaxed max-w-xl mb-14">{t.sub}</p>
+
+        {/* ── Cartes stats ── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          {STATS.map((s, i) => (
+            <StatCard
+              key={s.key}
+              value={s.value}
+              suffix={s.suffix}
+              label={t[s.key as keyof typeof t] as string}
+              desc={t[s.descKey as keyof typeof t] as string}
+              started={started}
+              index={i}
+            />
           ))}
         </div>
 
-        {/* Trust badges */}
-        <div className="mt-12 flex flex-wrap justify-center gap-6 items-center opacity-60">
-          <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-            </svg>
-            <span>{t.trustGoogle}</span>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-            <span>{t.trustDelivered}</span>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>{t.trustResponse}</span>
-          </div>
+        {/* ── Photo d'équipe ── */}
+        <div className="relative rounded-3xl overflow-hidden" style={{ height: 'clamp(280px, 40vw, 500px)' }}>
+          <Image
+            src="/assets/equipe.webp"
+            alt={t.imgAlt}
+            fill
+            sizes="(max-width: 768px) 100vw, 80vw"
+            className="object-cover"
+            quality={85}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         </div>
       </div>
 
-      {/* CSS Animation */}
       <style jsx>{`
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(24px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </section>

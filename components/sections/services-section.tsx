@@ -1,315 +1,106 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { Code, Bot, Brain, Smartphone, LucideIcon, ChevronRight } from 'lucide-react';
+import { Code, Bot, Brain, Smartphone, ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
-import type { TranslationKey } from '@/locales';
-import dynamic from 'next/dynamic';
+import { PillButton } from '@/components/ui/pill-button';
 import { LocalizedLink } from '@/components/localized-link';
 
-const ServicesThreeCanvas = dynamic(
-  () => import('./services-three-canvas').then((mod) => mod.ServicesThreeCanvas),
-  { ssr: false }
-);
-
 interface Service {
-  icon: LucideIcon;
-  titleKey: TranslationKey;
-  descKey: TranslationKey;
-  color: string;
-  gradientFrom: string;
-  gradientTo: string;
-  screenshot: string;
-  accentColor: string;
-  link?: string;
+  titleKey: string;
+  descKey: string;
+  image: string;
+  icon: React.ElementType;
+  link: string;
 }
 
-const services: Service[] = [
+const SERVICES: Service[] = [
   {
-    icon: Code,
     titleKey: 'services.web.title',
     descKey: 'services.web.desc',
-    color: 'from-blue-500 to-blue-600',
-    gradientFrom: '#3b82f6',
-    gradientTo: '#1d4ed8',
-    accentColor: 'blue',
-    screenshot: '/assets/services/web_dev.webp',
+    image: '/assets/services/web_dev.webp',
+    icon: Code,
+    link: '/services',
   },
   {
-    icon: Smartphone,
     titleKey: 'services.mobile.title',
     descKey: 'services.mobile.desc',
-    color: 'from-cyan-500 to-cyan-600',
-    gradientFrom: '#06b6d4',
-    gradientTo: '#0e7490',
-    accentColor: 'cyan',
-    screenshot: '/assets/services/web_dev.webp',
+    image: '/assets/services/web_dev.jpeg',
+    icon: Smartphone,
     link: '/mobile-app-development',
   },
   {
-    icon: Bot,
     titleKey: 'services.automation.title',
     descKey: 'services.automation.desc',
-    color: 'from-purple-500 to-purple-600',
-    gradientFrom: '#a855f7',
-    gradientTo: '#7e22ce',
-    accentColor: 'purple',
-    screenshot: '/assets/services/automation.webp',
+    image: '/assets/services/automation.webp',
+    icon: Bot,
+    link: '/automatisation',
   },
   {
-    icon: Brain,
     titleKey: 'services.ai.title',
     descKey: 'services.ai.desc',
-    color: 'from-pink-500 to-pink-600',
-    gradientFrom: '#ec4899',
-    gradientTo: '#be185d',
-    accentColor: 'pink',
-    screenshot: '/assets/services/ia_integration.webp',
+    image: '/assets/services/ia_integration.webp',
+    icon: Brain,
+    link: '/integration-ia',
   },
 ];
 
-function ServiceCard({
-  service,
-  index,
-  isActive,
-  onClick,
-}: {
-  service: Service;
-  index: number;
-  isActive: boolean;
-  onClick: () => void;
-}) {
+const SECTION_LABELS: Record<string, { chip: string; title: string; cta: string; readMore: string }> = {
+  fr: { chip: 'Nos Services', title: 'Des solutions digitales pour maximiser votre potentiel', cta: 'Voir tous nos services', readMore: 'En savoir plus' },
+  en: { chip: 'Our Services', title: 'Digital solutions to maximize your business potential',   cta: 'View all services',      readMore: 'Read more'       },
+  es: { chip: 'Nuestros Servicios', title: 'Soluciones digitales para maximizar tu potencial',  cta: 'Ver todos los servicios', readMore: 'Leer más'       },
+};
+
+function ServiceCard({ service, readMore }: { service: Service; readMore: string }) {
   const { t } = useTranslation();
-  const IconComponent = service.icon;
+  const Icon = service.icon;
 
   return (
-    <button
-      onClick={onClick}
-      aria-pressed={isActive}
-      aria-label={t(service.titleKey)}
-      className={`
-        group relative w-full text-left rounded-2xl border
-        transition-transform duration-500 cursor-pointer
-        ${
-          isActive
-            ? 'border-transparent shadow-2xl scale-[1.02]'
-            : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-lg'
-        }
-      `}
-      /*
-        FIX animations non composées :
-        - Suppression de transition-all → remplacé par transition-transform
-        - boxShadow retiré des styles inline dynamiques (non composé)
-        - La shadow est gérée via les classes Tailwind shadow-2xl / hover:shadow-lg
-      */
-    >
-      {/* Fond de la carte */}
-      <div
-        className={`
-          absolute inset-0 rounded-2xl
-          transition-opacity duration-500
-          ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'}
-        `}
-        style={{
-          background: `linear-gradient(135deg, ${service.gradientFrom}12, ${service.gradientTo}08)`,
-        }}
-      />
-
-      {/* Ligne d'accentuation gauche — animée via transform (composé) */}
-      <div
-        className={`
-          absolute left-0 top-4 bottom-4 w-0.5 rounded-full
-          transition-opacity duration-500
-          ${isActive ? 'opacity-100' : 'opacity-0'}
-        `}
-        style={{ background: `linear-gradient(to bottom, ${service.gradientFrom}, ${service.gradientTo})` }}
-      />
-
-      {/* Contenu */}
-      <div className="relative p-6 flex items-start gap-4">
-        {/* Icône — transition sur transform uniquement (composé) */}
-        <div
-          className={`
-            flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center
-            shadow-lg
-            transition-transform duration-500
-            ${isActive ? 'scale-110' : 'group-hover:scale-105'}
-          `}
-          style={{
-            background: `linear-gradient(135deg, ${service.gradientFrom}, ${service.gradientTo})`,
-            /*
-              FIX: boxShadow retiré → déclenchait un forced layout recalculation.
-              L'effet de glow est maintenu via la classe shadow-lg de Tailwind
-              qui est calculée sans layout thrashing.
-            */
-          }}
-        >
-          <IconComponent className="w-6 h-6 text-white" strokeWidth={2} />
+    <div className="service-card-v2 bg-white rounded-2xl overflow-visible flex-shrink-0 w-[320px] sm:w-[360px]">
+      {/* Image + cercle icône */}
+      <div className="relative">
+        <div className="relative h-52 rounded-t-2xl overflow-hidden">
+          <Image
+            src={service.image}
+            alt={t(service.titleKey as Parameters<typeof t>[0])}
+            fill
+            sizes="360px"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            quality={80}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20" />
         </div>
 
-        {/* Texte */}
-        <div className="flex-1 min-w-0">
-          {/*
-            FIX: transition-colors sur color → non composé, remplacé par opacity
-            Le titre actif est toujours blanc/noir ; on joue sur l'opacité plutôt que la couleur.
-          */}
-          <h3
-            className={`
-              text-lg font-bold mb-1
-              transition-opacity duration-300
-              ${isActive ? 'opacity-100 text-gray-900 dark:text-white' : 'opacity-70 text-gray-700 dark:text-gray-300'}
-            `}
-          >
-            {t(service.titleKey)}
-          </h3>
-
-          {/*
-            FIX: max-height + color en transition → non composés.
-            Remplacé par opacity + transform (translateY) sur un wrapper,
-            ce qui est entièrement composé sur le GPU.
-          */}
-          <div
-            className={`
-              overflow-hidden transition-all duration-500
-              ${isActive ? 'max-h-40' : 'max-h-0'}
-            `}
-            aria-hidden={!isActive}
-          >
-            <p
-              className={`
-                text-sm leading-relaxed text-gray-600 dark:text-gray-300
-                transition-opacity duration-500
-                ${isActive ? 'opacity-100' : 'opacity-0'}
-              `}
-              style={{
-                transform: isActive ? 'translateY(0)' : 'translateY(-8px)',
-                transition: 'opacity 0.5s ease, transform 0.5s ease',
-              }}
-            >
-              {t(service.descKey)}
-            </p>
-          </div>
+        {/* Cercle icône flottant (chevauche image et contenu) */}
+        <div className="absolute left-1/2 -translate-x-1/2 -bottom-6 w-14 h-14 rounded-full flex items-center justify-center shadow-lg z-10"
+          style={{ background: '#0B1220' }}>
+          <Icon className="w-6 h-6 text-white" strokeWidth={1.8} />
         </div>
-
-        {/* Flèche — rotation composée (transform) */}
-        <ChevronRight
-          className={`
-            flex-shrink-0 w-5 h-5 mt-0.5
-            transition-transform duration-300
-            ${isActive ? 'rotate-90 opacity-100' : 'opacity-30 group-hover:opacity-60'}
-          `}
-          style={{ color: service.gradientFrom }}
-        />
       </div>
 
-      {/* Numéro */}
-      <div
-        className={`
-          absolute top-3 right-3 text-xs font-mono font-bold
-          transition-opacity duration-300
-          ${isActive ? 'opacity-60' : 'opacity-20'}
-        `}
-        style={{ color: service.gradientFrom }}
-        aria-hidden="true"
-      >
-        0{index + 1}
-      </div>
-    </button>
-  );
-}
-
-function ServiceDisplay({ service, index }: { service: Service; index: number }) {
-  const { t } = useTranslation();
-  const IconComponent = service.icon;
-  const prevIndexRef = useRef(index);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    if (prevIndexRef.current !== index) {
-      setIsAnimating(true);
-      const timer = setTimeout(() => setIsAnimating(false), 400);
-      prevIndexRef.current = index;
-      return () => clearTimeout(timer);
-    }
-  }, [index]);
-
-  return (
-    <div
-      className="relative h-full min-h-[420px] rounded-3xl overflow-hidden"
-      style={{
-        /*
-          FIX: transition uniquement sur opacity + transform (composés)
-          Pas de transition sur layout properties
-        */
-        opacity: isAnimating ? 0 : 1,
-        transform: isAnimating ? 'scale(0.95)' : 'scale(1)',
-        transition: 'opacity 0.4s ease, transform 0.4s ease',
-      }}
-    >
-      <div className="absolute inset-0">
-        <Image
-          src={service.screenshot}
-          alt={t(service.titleKey)}
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover"
-          quality={80}
-          priority={index === 0}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(135deg, ${service.gradientFrom}e0 0%, ${service.gradientTo}c0 100%)`,
-          }}
-        />
-        <div className="absolute inset-0 bg-black/30" />
-      </div>
-
-      <ServicesThreeCanvas activeIndex={index} />
-
-      <div className="relative z-10 h-full flex flex-col justify-end p-8">
-        <div className="mb-4">
-          <span
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold text-white/90 backdrop-blur-sm border border-white/20"
-            style={{ background: `${service.gradientFrom}60` }}
-          >
-            <IconComponent className="w-3.5 h-3.5" aria-hidden="true" />
-            Service 0{index + 1}
-          </span>
-        </div>
-
-        <h3 className="text-3xl lg:text-4xl font-bold text-white mb-3 drop-shadow-lg">
-          {t(service.titleKey)}
+      {/* Contenu texte */}
+      <div className="px-6 pt-10 pb-7">
+        <h3 className="font-display font-bold text-gray-900 text-lg text-center mb-2">
+          {t(service.titleKey as Parameters<typeof t>[0])}
         </h3>
 
-        <p className="text-white/80 text-base leading-relaxed max-w-md drop-shadow">
-          {t(service.descKey)}
+        {/* Séparateur */}
+        <div className="card-separator mx-auto" />
+
+        <p className="text-gray-500 text-sm leading-relaxed text-center mb-5">
+          {t(service.descKey as Parameters<typeof t>[0])}
         </p>
 
-        {service.link && (
+        {/* Read more */}
+        <div className="flex justify-center">
           <LocalizedLink
             href={service.link}
-            className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full bg-white/15 backdrop-blur-sm border border-white/30 text-white text-sm font-semibold hover:bg-white hover:text-gray-900 transition-colors w-fit"
+            className="read-more-link group"
           >
-            {t(service.titleKey)}
-            <ChevronRight className="w-4 h-4" />
+            <span>{readMore}</span>
+            <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </LocalizedLink>
-        )}
-
-        {/* Indicateurs de navigation — width en transition → remplacé par scaleX (composé) */}
-        <div className="flex gap-2 mt-6" aria-hidden="true">
-          {services.map((_, i) => (
-            <div
-              key={i}
-              className="h-1 rounded-full"
-              style={{
-                width: i === index ? '2rem' : '0.5rem',
-                background: i === index ? 'white' : 'rgba(255,255,255,0.3)',
-                transition: 'width 0.5s ease, opacity 0.5s ease',
-              }}
-            />
-          ))}
         </div>
       </div>
     </div>
@@ -317,70 +108,106 @@ function ServiceDisplay({ service, index }: { service: Service; index: number })
 }
 
 export function ServicesSection() {
-  const { t } = useTranslation();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
+  const { language, t } = useTranslation();
+  const labels = SECTION_LABELS[(language as string)] ?? SECTION_LABELS.fr;
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % services.length);
-    }, 5000);
-    return () => clearInterval(interval);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const updateScrollState = useCallback(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 8);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll('.animate-on-scroll').forEach((el, i) => {
-              setTimeout(() => el.classList.add('animate-in'), i * 120);
-            });
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    const el = trackRef.current;
+    if (!el) return;
+    el.addEventListener('scroll', updateScrollState, { passive: true });
+    updateScrollState();
+    return () => el.removeEventListener('scroll', updateScrollState);
+  }, [updateScrollState]);
 
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+  const scroll = (dir: 'left' | 'right') => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir === 'right' ? 380 : -380, behavior: 'smooth' });
+  };
+
+  // Auto-play scroll
+  useEffect(() => {
+    const id = setInterval(() => {
+      const el = trackRef.current;
+      if (!el) return;
+      const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 8;
+      el.scrollBy({ left: atEnd ? -(el.scrollWidth) : 380, behavior: 'smooth' });
+    }, 4000);
+    return () => clearInterval(id);
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="section-snap bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 overflow-hidden"
-      aria-labelledby="services-heading"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center py-6 sm:py-10 lg:py-12">
-        <div className="text-center mb-5 md:mb-8">
-          <h2
-            id="services-heading"
-            className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 dark:text-white mb-2 md:mb-3 animate-on-scroll fade-up"
-          >
-            {t('services.section.title')}
-          </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-on-scroll fade-up delay-200 px-2">
-            {t('services.section.subtitle')}
-          </p>
+    <section className="py-20 lg:py-28 overflow-hidden" style={{ background: '#0B1220' }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+
+        {/* ── Header ── */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">
+          <div>
+            <span className="section-chip section-chip-dark mb-4 inline-flex">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+              {labels.chip}
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight max-w-xl">
+              {labels.title}
+            </h2>
+          </div>
+          <div className="flex-shrink-0">
+            <PillButton href="/services" variant="dark">{labels.cta}</PillButton>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10 items-stretch">
-          <div className="flex flex-col gap-3 justify-center animate-on-scroll fade-left delay-300">
-            {services.map((service, index) => (
+        {/* ── Slider ── */}
+        <div className="relative group">
+          {/* Piste de cartes */}
+          <div
+            ref={trackRef}
+            className="flex gap-6 overflow-x-auto pb-6 scroll-smooth"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            <style jsx>{`div::-webkit-scrollbar { display: none; }`}</style>
+            {SERVICES.map((service) => (
               <ServiceCard
                 key={service.titleKey}
                 service={service}
-                index={index}
-                isActive={activeIndex === index}
-                onClick={() => setActiveIndex(index)}
+                readMore={labels.readMore}
               />
             ))}
+            {/* Padding ghost à droite */}
+            <div className="flex-shrink-0 w-2" aria-hidden="true" />
           </div>
 
-          <div className="hidden lg:block animate-on-scroll fade-right delay-400">
-            <ServiceDisplay service={services[activeIndex]!} index={activeIndex} />
-          </div>
+          {/* Flèche gauche */}
+          {canScrollLeft && (
+            <button
+              onClick={() => scroll('left')}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-900 hover:scale-110 transition-transform duration-200 z-10"
+              aria-label="Précédent"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+          )}
+
+          {/* Flèche droite */}
+          {canScrollRight && (
+            <button
+              onClick={() => scroll('right')}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-11 h-11 rounded-full bg-white shadow-lg flex items-center justify-center text-gray-900 hover:scale-110 transition-transform duration-200 z-10"
+              aria-label="Suivant"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          )}
         </div>
       </div>
     </section>

@@ -15,7 +15,7 @@ export interface SEOTemplate {
   ogImage?: string;
 }
 
-export type PageType = 'home' | 'services' | 'contact' | 'portfolio' | 'blog' | 'custom';
+export type PageType = 'home' | 'services' | 'contact' | 'portfolio' | 'blog' | 'custom' | 'equipe' | 'booking';
 export type Language = 'fr' | 'en' | 'es';
 
 export interface PageSEOContext {
@@ -84,6 +84,16 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       description: 'NeuraWeb conçoit des solutions web sur mesure, applications mobiles et intégrations IA pour startups et PME. Devis gratuit, réponse garantie sous 24h.',
       keywords: ['neuraweb', 'agence web', 'digital'],
     },
+    equipe: {
+      title: "L'équipe NeuraWeb — Développeurs Web & Experts IA | Paris",
+      description: "Rencontrez l'équipe NeuraWeb : développeurs Next.js, experts IA et automatisation. 16+ projets livrés, 5 étoiles. Basés à Paris.",
+      keywords: ['équipe agence web', 'développeurs Next.js Paris', 'experts IA France', 'agence web Paris équipe'],
+    },
+    booking: {
+      title: 'Prendre rendez-vous — Audit & Devis Gratuit | NeuraWeb',
+      description: 'Réservez un appel gratuit avec NeuraWeb. Audit de votre projet web, app mobile ou IA. Réponse sous 24h, sans engagement.',
+      keywords: ['prendre rendez-vous agence web', 'devis gratuit site web', 'audit gratuit IA', 'contact agence web Paris'],
+    },
   },
   en: {
     home: {
@@ -116,6 +126,16 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       description: 'NeuraWeb builds custom web solutions, mobile apps and AI integrations for startups and SMBs. Based in Lille, France. Free quote with 24-hour response.',
       keywords: ['neuraweb', 'web agency', 'digital'],
     },
+    equipe: {
+      title: 'NeuraWeb Team — Web Developers & AI Experts | Paris',
+      description: 'Meet the NeuraWeb team: Next.js developers, AI and automation experts. 16+ projects delivered, 5-star rated. Based in Paris.',
+      keywords: ['web agency team', 'Next.js developers Paris', 'AI experts France', 'web development team'],
+    },
+    booking: {
+      title: 'Book a Call — Free Audit & Quote | NeuraWeb',
+      description: 'Schedule a free call with NeuraWeb. Get an audit of your web, mobile or AI project. Response within 24h, no commitment.',
+      keywords: ['book web agency call', 'free web project quote', 'free AI audit', 'contact web agency Paris'],
+    },
   },
   es: {
     home: {
@@ -147,6 +167,16 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       title: 'NeuraWeb — Agencia Web, IA y Automatización | Francia',
       description: 'NeuraWeb desarrolla soluciones web a medida, apps móviles e integraciones IA para startups y pymes. Con sede en Lille, Francia. Presupuesto gratis en 24h.',
       keywords: ['neuraweb', 'agencia web', 'digital'],
+    },
+    equipe: {
+      title: 'Equipo NeuraWeb — Desarrolladores Web & Expertos IA | París',
+      description: 'Conoce al equipo NeuraWeb: desarrolladores Next.js, expertos en IA y automatización. +16 proyectos entregados, 5 estrellas. Basados en París.',
+      keywords: ['equipo agencia web', 'desarrolladores Next.js París', 'expertos IA Francia', 'agencia web París equipo'],
+    },
+    booking: {
+      title: 'Reservar una Llamada — Auditoría & Presupuesto Gratis | NeuraWeb',
+      description: 'Programa una llamada gratuita con NeuraWeb. Auditoría de tu proyecto web, app móvil o IA. Respuesta en 24h, sin compromiso.',
+      keywords: ['reservar llamada agencia web', 'presupuesto gratuito web', 'auditoría IA gratis', 'contacto agencia web París'],
     },
   },
 };

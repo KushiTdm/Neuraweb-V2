@@ -51,6 +51,12 @@ const nextConfig = {
       { source: '/:lang/blog/site-web-hotellerie-design-reservations', destination: '/:lang/blog/site-web-hotel-design-reservations', permanent: true },
       // /l-equipe détecté par des crawls — slug réel est /equipe
       { source: '/:lang/l-equipe', destination: '/:lang/equipe', permanent: true },
+
+      // Articles blog FR-only crawlés en EN/ES par Semrush → rediriger vers FR
+      { source: '/en/blog/automatisation-ia-pme-prix-2026', destination: '/fr/blog/automatisation-ia-pme-prix-2026', permanent: true },
+      { source: '/es/blog/automatisation-ia-pme-prix-2026', destination: '/fr/blog/automatisation-ia-pme-prix-2026', permanent: true },
+      { source: '/en/blog/ia-agents-remplacent-equipes-2026', destination: '/fr/blog/ia-agents-remplacent-equipes-2026', permanent: true },
+      { source: '/es/blog/ia-agents-remplacent-equipes-2026', destination: '/fr/blog/ia-agents-remplacent-equipes-2026', permanent: true },
     ];
   },
 
