@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
-import { Geist, Geist_Mono, Syne, DM_Sans } from 'next/font/google';
+import { Inter, Inter_Tight, JetBrains_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
 import Script from 'next/script';
@@ -15,36 +15,27 @@ import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { notFound } from 'next/navigation';
 
 // ─── Fonts ────────────────────────────────────────────────────────────────────
-// Optimisation CWV : réduit de 9 à 5 weights pour améliorer LCP et CLS
-const geist = Geist({
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-geist',
-  weight: ['400', '500', '700'], // Réduit : supprimé 600, 800 (peu utilisés)
-  preload: true,
-});
-
-const geistMono = Geist_Mono({
-  subsets: ['latin'],
-  display: 'optional', // 'optional' évite FOUT pour les fonts non-critiques (code blocks)
-  variable: '--font-geist-mono',
-  weight: ['400'], // Réduit : un seul poids suffit pour le code
-  preload: false,
-});
-
-const syne = Syne({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-syne',
-  weight: ['700'], // Réduit : un seul poids pour les titres
-  preload: true,
-});
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-dm-sans',
+  variable: '--font-inter',
   weight: ['400', '500', '700'],
+  preload: true,
+});
+
+const interTight = Inter_Tight({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter-tight',
+  weight: ['700', '800'],
+  preload: true,
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'optional',
+  variable: '--font-jetbrains-mono',
+  weight: ['400'],
   preload: false,
 });
 
@@ -185,8 +176,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#050510' },
+    { media: '(prefers-color-scheme: light)', color: '#F7FAFD' },
+    { media: '(prefers-color-scheme: dark)', color: '#070F26' },
   ],
 };
 
@@ -209,7 +200,7 @@ export default async function LangLayout({
     <html
       lang={lang}
       suppressHydrationWarning
-      className={`${geist.variable} ${geistMono.variable} ${syne.variable} ${dmSans.variable}`}
+      className={`${inter.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         {/* Préconnexion aux origines tierces critiques */}
@@ -231,7 +222,7 @@ export default async function LangLayout({
             (home, /contact, /equipe) — pas globalement, sinon son aggregateRating
             pollue les pages article (Google : "Reviews snippet invalide"). */}
       </head>
-      <body className={`${dmSans.className} font-sans`}>
+      <body className={`${inter.className} font-sans`}>
         {/* Google Analytics — lazyOnload pour ne pas bloquer le rendu */}
         {gaId && (
           <>

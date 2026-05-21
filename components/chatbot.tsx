@@ -429,13 +429,13 @@ export default function Chatbot() {
             <>
               <span style={{
                 position: 'absolute', inset: -5, borderRadius: '50%',
-                border: '1.5px solid rgba(99,102,241,0.5)',
+                border: '1.5px solid rgba(93,184,240,0.5)',
                 animation: 'nw-pulse-ring 2.5s ease-out infinite',
                 pointerEvents: 'none',
               }} />
               <span style={{
                 position: 'absolute', inset: -5, borderRadius: '50%',
-                border: '1px solid rgba(139,92,246,0.3)',
+                border: '1px solid rgba(93,184,240,0.3)',
                 animation: 'nw-pulse-ring2 2.5s ease-out infinite 0.4s',
                 pointerEvents: 'none',
               }} />
@@ -460,11 +460,11 @@ export default function Chatbot() {
               background: isOpen
                 ? 'linear-gradient(135deg, #374151, #4b5563)'
                 : btnHovered
-                ? 'linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7)'
-                : 'linear-gradient(135deg, #4f46e5, #7c3aed)',
+                ? 'linear-gradient(135deg, #5DB8F0, #22D3EE)'
+                : 'linear-gradient(135deg, #0E1B3D, #1E2A4A)',
               boxShadow: btnHovered
-                ? '0 0 0 3px rgba(139,92,246,0.3), 0 8px 32px rgba(99,102,241,0.6), 0 0 60px rgba(139,92,246,0.3)'
-                : '0 4px 20px rgba(99,102,241,0.45), 0 0 40px rgba(99,102,241,0.2)',
+                ? '0 0 0 3px rgba(93,184,240,0.3), 0 8px 32px rgba(93,184,240,0.6), 0 0 60px rgba(93,184,240,0.3)'
+                : '0 4px 20px rgba(93,184,240,0.45), 0 0 40px rgba(93,184,240,0.2)',
               transform: btnHovered ? 'scale(1.08)' : 'scale(1)',
             }}
           >
@@ -510,7 +510,7 @@ export default function Chatbot() {
           <div style={{
             background: 'rgba(15,12,41,0.92)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(99,102,241,0.4)',
+            border: '1px solid rgba(93,184,240,0.4)',
             borderRadius: 14, padding: '10px 16px',
             display: 'flex', alignItems: 'center', gap: 10,
             boxShadow: '0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)',
@@ -519,10 +519,10 @@ export default function Chatbot() {
             {/* Avatar N */}
             <div style={{
               width: 32, height: 32, borderRadius: '50%',
-              background: 'linear-gradient(135deg, #4f46e5, #a855f7)',
+              background: 'linear-gradient(135deg, #5DB8F0, #22D3EE)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               flexShrink: 0, fontSize: 14, fontWeight: 700, color: '#fff',
-              boxShadow: '0 0 12px rgba(99,102,241,0.5)',
+              boxShadow: '0 0 12px rgba(93,184,240,0.5)',
             }}>N</div>
 
             {/* Texte */}
@@ -568,7 +568,7 @@ export default function Chatbot() {
               width: 0, height: 0,
               borderTop: '7px solid transparent',
               borderBottom: '7px solid transparent',
-              borderLeft: '7px solid rgba(99,102,241,0.4)',
+              borderLeft: '7px solid rgba(93,184,240,0.4)',
             }} />
           </div>
         </div>
@@ -586,7 +586,7 @@ export default function Chatbot() {
         <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl overflow-hidden">
 
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-3">
+          <div className="bg-gradient-to-r from-navy-900 to-navy-800 px-4 py-3">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" aria-hidden="true">
                 <RobotIcon className="w-5 h-5 text-white" />
@@ -610,7 +610,7 @@ export default function Chatbot() {
                 <div className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                      msg.role === 'user' ? 'bg-blue-600' : 'bg-gradient-to-r from-purple-600 to-pink-600'
+                      msg.role === 'user' ? 'bg-sky-400' : 'bg-gradient-to-r from-navy-800 to-navy-700'
                     }`}
                     aria-hidden="true"
                   >
@@ -621,7 +621,7 @@ export default function Chatbot() {
                   </div>
                   <div className={`max-w-[85%] px-4 py-2 rounded-2xl ${
                     msg.role === 'user'
-                      ? 'bg-blue-600 text-white rounded-br-sm'
+                      ? 'bg-sky-400 text-white rounded-br-sm'
                       : 'bg-gray-800 text-gray-100 rounded-bl-sm border border-gray-700'
                   }`}>
                     <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
@@ -636,7 +636,7 @@ export default function Chatbot() {
                         key={date}
                         onClick={() => selectDate(date, msg.slots)}
                         aria-label={formatDate(date)}
-                        className="p-2 bg-gray-800 hover:bg-purple-600 border border-gray-700 hover:border-purple-500 rounded-lg text-center text-white text-sm transition-all"
+                        className="p-2 bg-gray-800 hover:bg-sky-400 border border-gray-700 hover:border-sky-400 rounded-lg text-center text-white text-sm transition-all"
                       >
                         <div className="text-xs text-gray-400">{new Date(date).toLocaleDateString(
                           language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : 'en-US', { weekday: 'short' }
@@ -658,7 +658,7 @@ export default function Chatbot() {
                         key={time}
                         onClick={() => selectTime(time)}
                         aria-label={`${language === 'fr' ? 'Réserver à' : 'Book at'} ${time}`}
-                        className="p-2 bg-gray-800 hover:bg-purple-600 border border-gray-700 hover:border-purple-500 rounded-lg text-white text-sm font-medium transition-all"
+                        className="p-2 bg-gray-800 hover:bg-sky-400 border border-gray-700 hover:border-sky-400 rounded-lg text-white text-sm font-medium transition-all"
                       >
                         {time}
                       </button>
@@ -674,13 +674,13 @@ export default function Chatbot() {
                       value={bookingForm.name}
                       onChange={e => setBookingForm({...bookingForm, name: e.target.value})}
                       aria-label={language === 'fr' ? 'Votre nom' : 'Your name'}
-                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-sky-400"
                     />
                     <input type="email" placeholder="Email *"
                       value={bookingForm.email}
                       onChange={e => setBookingForm({...bookingForm, email: e.target.value})}
                       aria-label={language === 'fr' ? 'Votre email' : 'Your email'}
-                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-sky-400"
                     />
                     <div className="grid grid-cols-2 gap-2">
                       <input type="tel"
@@ -688,13 +688,13 @@ export default function Chatbot() {
                         value={bookingForm.phone}
                         onChange={e => setBookingForm({...bookingForm, phone: e.target.value})}
                         aria-label={language === 'fr' ? 'Téléphone' : 'Phone'}
-                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-sky-400"
                       />
                       <input type="tel" placeholder="WhatsApp"
                         value={bookingForm.whatsapp}
                         onChange={e => setBookingForm({...bookingForm, whatsapp: e.target.value})}
                         aria-label="WhatsApp"
-                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500"
+                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-sky-400"
                       />
                     </div>
                     <textarea
@@ -703,13 +703,13 @@ export default function Chatbot() {
                       onChange={e => setBookingForm({...bookingForm, message: e.target.value})}
                       rows={2}
                       aria-label={language === 'fr' ? 'Message optionnel' : 'Optional message'}
-                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-purple-500 resize-none"
+                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-sky-400 resize-none"
                     />
                     <button
                       onClick={submitBooking}
                       disabled={!bookingForm.name || !bookingForm.email || isSubmittingBooking}
                       aria-label={language === 'fr' ? 'Confirmer le rendez-vous' : 'Confirm booking'}
-                      className="w-full py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full py-2 bg-gradient-to-r from-navy-900 to-navy-800 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {isSubmittingBooking ? (
                         <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />{language === 'fr' ? 'Réservation...' : 'Booking...'}</>
@@ -724,13 +724,13 @@ export default function Chatbot() {
 
             {isLoading && (
               <div className="flex gap-3" role="status" aria-label={language === 'fr' ? 'En cours de réponse…' : 'Typing…'}>
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-navy-800 to-navy-700 flex items-center justify-center flex-shrink-0" aria-hidden="true">
                   <RobotIcon className="w-4 h-4 text-white" />
                 </div>
                 <div className="bg-gray-800 border border-gray-700 px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1" aria-hidden="true">
-                  <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:0ms]" />
-                  <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:150ms]" />
-                  <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:300ms]" />
+                  <span className="w-2 h-2 bg-sky-400 rounded-full animate-bounce [animation-delay:0ms]" />
+                  <span className="w-2 h-2 bg-sky-400 rounded-full animate-bounce [animation-delay:150ms]" />
+                  <span className="w-2 h-2 bg-sky-400 rounded-full animate-bounce [animation-delay:300ms]" />
                 </div>
               </div>
             )}
@@ -765,13 +765,13 @@ export default function Chatbot() {
                   placeholder={t('chatbot.placeholder')}
                   disabled={isLoading}
                   aria-label={t('chatbot.placeholder')}
-                  className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 disabled:opacity-50 text-sm"
+                  className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-sky-400 disabled:opacity-50 text-sm"
                 />
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
                   aria-label={sendLabel}
-                  className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 bg-gradient-to-r from-navy-900 to-navy-800 text-white rounded-xl hover:from-navy-800 hover:to-navy-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Send className="w-4 h-4" aria-hidden="true" />
                 </button>
@@ -782,7 +782,7 @@ export default function Chatbot() {
           {/* Footer */}
           <div className="px-4 py-2 bg-gray-950 border-t border-gray-800 flex items-center justify-center">
             <p className="text-gray-500 text-xs">
-              {t('chatbot.footer')} <span className="text-purple-400">NeuraWeb</span>
+              {t('chatbot.footer')} <span className="text-sky-400">NeuraWeb</span>
             </p>
           </div>
         </div>

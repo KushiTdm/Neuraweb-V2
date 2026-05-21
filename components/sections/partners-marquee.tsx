@@ -131,22 +131,27 @@ export function PartnersMarquee() {
   const label = LABELS[(language as string)] ?? LABELS.fr;
 
   return (
-    <section className="py-12 bg-white border-y border-gray-100 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 mb-8">
-        <p className="text-sm text-gray-400 font-medium">
+    <section className="py-12 border-y overflow-hidden" style={{ background: '#E8F4FD', borderColor: 'rgba(93,184,240,0.15)' }}>
+      {/* Label centré au-dessus */}
+      <div className="text-center mb-8 px-6">
+        <p className="text-base font-medium" style={{ color: '#0E1B3D' }}>
           {label.prefix}{' '}
-          <span className="text-gray-700 font-semibold">{label.text}</span>
+          <strong style={{ color: '#0E1B3D' }}>{label.text}</strong>
         </p>
       </div>
 
       {/* Marquee */}
       <div className="relative overflow-hidden">
         {/* Dégradé masque gauche */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to right, #ffffff, transparent)' }} />
+        <div
+          className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to right, #E8F4FD, transparent)' }}
+        />
         {/* Dégradé masque droite */}
-        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to left, #ffffff, transparent)' }} />
+        <div
+          className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to left, #E8F4FD, transparent)' }}
+        />
 
         <div className="marquee-track">
           {MARQUEE_ITEMS.map((partner, i) => {
@@ -157,10 +162,18 @@ export function PartnersMarquee() {
                 className="flex items-center gap-3 px-10 flex-shrink-0 group"
                 title={partner.name}
               >
-                <div className="grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 flex items-center h-10">
+                <div
+                  className="opacity-60 group-hover:opacity-100 transition-all duration-300 flex items-center h-8"
+                  style={{ filter: 'grayscale(1)', transition: 'filter 0.3s, opacity 0.3s' }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.filter = 'none'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.filter = 'grayscale(1)'; }}
+                >
                   <Icon />
                 </div>
-                <span className="text-sm font-medium text-gray-400 group-hover:text-gray-700 transition-colors duration-300 whitespace-nowrap">
+                <span
+                  className="text-sm font-medium whitespace-nowrap transition-colors duration-300"
+                  style={{ color: 'rgba(14,27,61,0.6)' }}
+                >
                   {partner.name}
                 </span>
               </div>

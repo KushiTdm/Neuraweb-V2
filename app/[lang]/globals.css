@@ -32,17 +32,21 @@
     --ring: 239 84% 67%;
     --radius: 0.75rem;
 
-    /* Tokens de marque */
-    --brand-primary: #6366f1;
-    --brand-secondary: #8b5cf6;
-    --brand-accent: #22d3ee;
-    --brand-rose: #f43f5e;
+    /* Tokens de marque — palette Navy/Sky/Coral 2026 */
+    --brand-primary: #5DB8F0;    /* Sky 400 */
+    --brand-secondary: #22D3EE;  /* Cyan 500 */
+    --brand-accent: #FF7A59;     /* Coral */
+    --brand-rose: #FF7A59;       /* Coral alias */
+    --navy-950: #070F26;
+    --navy-900: #0E1B3D;
+    --navy-800: #1E2A4A;
+    --navy-700: #1E3A6B;
 
     /* Gradients */
-    --gradient-brand: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
-    --gradient-hero: linear-gradient(135deg, #4f46e5 0%, #7c3aed 40%, #ec4899 100%);
-    --gradient-cta: linear-gradient(135deg, #4338ca 0%, #6d28d9 50%, #be185d 100%);
-    --gradient-text: linear-gradient(135deg, #6366f1, #8b5cf6, #22d3ee);
+    --gradient-brand: linear-gradient(90deg, #5DB8F0, #22D3EE);
+    --gradient-hero: linear-gradient(135deg, rgba(7,15,38,0.85) 0%, rgba(7,15,38,0.6) 60%, rgba(7,15,38,0.95) 100%);
+    --gradient-cta: linear-gradient(90deg, #5DB8F0, #22D3EE);
+    --gradient-text: linear-gradient(90deg, #5DB8F0, #22D3EE);
     --gradient-shimmer: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
 
     /* Surfaces */
@@ -55,7 +59,7 @@
     --shadow-md: 0 4px 16px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
     --shadow-lg: 0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
     --shadow-xl: 0 20px 60px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.06);
-    --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.25);
+    --shadow-glow: 0 0 40px rgba(93, 184, 240, 0.25);
 
     /* Chart */
     --chart-1: 239 84% 67%;
@@ -97,7 +101,7 @@
     --shadow-md: 0 4px 16px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3);
     --shadow-lg: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
     --shadow-xl: 0 20px 60px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.4);
-    --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.4);
+    --shadow-glow: 0 0 40px rgba(93, 184, 240, 0.4);
   }
 
   /* ── Reset & base ───────────────────────────────────────── */
@@ -107,7 +111,7 @@
   }
 
   html {
-    font-family: var(--font-geist), 'Inter', system-ui, sans-serif;
+    font-family: var(--font-inter), system-ui, sans-serif;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -123,7 +127,7 @@
 
   /* ── Typographie ────────────────────────────────────────── */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-syne), var(--font-geist), system-ui, sans-serif;
+    font-family: var(--font-inter-tight), var(--font-inter), system-ui, sans-serif;
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.02em;
@@ -140,7 +144,7 @@
 
   /* ── Sélection de texte ─────────────────────────────────── */
   ::selection {
-    background: rgba(99, 102, 241, 0.25);
+    background: rgba(93, 184, 240, 0.25);
     color: inherit;
   }
 }
@@ -155,11 +159,11 @@
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-300;
     background: var(--gradient-brand);
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 4px 15px rgba(93, 184, 240, 0.4);
   }
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+    box-shadow: 0 8px 25px rgba(93, 184, 240, 0.5);
   }
   .btn-primary:active {
     transform: translateY(0);
@@ -170,8 +174,8 @@
     @apply border border-gray-200 dark:border-gray-700/60;
     @apply bg-white/80 dark:bg-gray-800/60 backdrop-blur-sm;
     @apply text-gray-800 dark:text-gray-200;
-    @apply hover:border-brand-400 dark:hover:border-brand-500;
-    @apply hover:shadow-glow-brand;
+    @apply hover:border-sky-400 dark:hover:border-sky-400;
+    @apply hover:shadow-glow-sky;
   }
   .btn-secondary:hover {
     transform: translateY(-1px);
@@ -192,7 +196,7 @@
   }
   .card-base:hover {
     box-shadow: var(--shadow-xl);
-    @apply border-brand-200 dark:border-brand-800/40;
+    @apply border-sky-400/30 dark:border-sky-400/20;
   }
 
   .card-glass {
@@ -204,8 +208,8 @@
   /* ── Badges ─────────────────────────────────────────────── */
   .badge-brand {
     @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold;
-    @apply bg-brand-50 dark:bg-brand-950/50 text-brand-600 dark:text-brand-400;
-    @apply border border-brand-100 dark:border-brand-800/50;
+    @apply bg-frost text-navy-900;
+    @apply border border-sky-400/20;
   }
 
   .badge-outline {
@@ -222,7 +226,7 @@
     @apply border border-gray-200 dark:border-gray-700/60;
     @apply text-gray-900 dark:text-gray-100;
     @apply placeholder:text-gray-400 dark:placeholder:text-gray-500;
-    @apply focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-400;
+    @apply focus:outline-none focus:ring-2 focus:ring-sky-400/40 focus:border-sky-400;
   }
 
   /* ── Texte gradient ─────────────────────────────────────── */
@@ -234,7 +238,7 @@
   }
 
   .gradient-text-hero {
-    background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #67e8f9 100%);
+    background: linear-gradient(90deg, #5DB8F0 0%, #22D3EE 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -243,12 +247,12 @@
   /* ── Ligne décorative gradient ──────────────────────────── */
   .gradient-line {
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.5), rgba(139,92,246,0.5), transparent);
+    background: linear-gradient(90deg, transparent, rgba(93,184,240,0.5), rgba(34,211,238,0.5), transparent);
   }
 
   .gradient-line-bright {
     height: 2px;
-    background: linear-gradient(90deg, transparent, #6366f1, #8b5cf6, #22d3ee, transparent);
+    background: linear-gradient(90deg, transparent, #5DB8F0, #22D3EE, transparent);
   }
 
   /* ── Section layout ─────────────────────────────────────── */
@@ -311,7 +315,7 @@
     position: absolute;
     width: 3px;
     height: 3px;
-    background: rgba(99, 102, 241, 0.6);
+    background: rgba(93, 184, 240, 0.6);
     border-radius: 50%;
     animation: particle-rise 3s ease-in infinite;
   }
@@ -337,7 +341,7 @@
     position: absolute;
     inset: -1px;
     border-radius: inherit;
-    background: var(--gradient-brand);
+    background: linear-gradient(90deg, #5DB8F0, #22D3EE);
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: -1;
@@ -460,11 +464,11 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.3);
+  background: rgba(93, 184, 240, 0.3);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.6);
+  background: rgba(93, 184, 240, 0.6);
 }
 
 /* ============================================================
@@ -525,7 +529,7 @@
   transform: translateX(-50%);
   z-index: 9999;
   padding: 1rem 2rem;
-  background: var(--brand-primary, #6366f1);
+  background: var(--brand-primary, #5DB8F0);
   color: white;
   font-weight: 600;
   border-radius: 0 0 0.75rem 0.75rem;
@@ -540,7 +544,7 @@
 
 /* ── Focus Visible — Amélioration de la visibilité du focus ───────────────── */
 :focus-visible {
-  outline: 2px solid var(--brand-primary, #6366f1);
+  outline: 2px solid var(--brand-primary, #5DB8F0);
   outline-offset: 3px;
   border-radius: 3px;
 }
@@ -554,16 +558,16 @@
 button:focus-visible,
 a:focus-visible,
 [role="button"]:focus-visible {
-  outline: 2px solid var(--brand-primary, #6366f1);
+  outline: 2px solid var(--brand-primary, #5DB8F0);
   outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25);
+  box-shadow: 0 0 0 4px rgba(93, 184, 240, 0.25);
 }
 
 /* Focus for form elements */
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--brand-primary, #6366f1);
+  outline: 2px solid var(--brand-primary, #5DB8F0);
   outline-offset: 2px;
 }
 
@@ -686,7 +690,7 @@ select:focus-visible {
 /* ── Visible Focus for Cards and Interactive Elements ─────────────────────── */
 .card-base:focus-within,
 .card-glass:focus-within {
-  outline: 2px solid var(--brand-primary, #6366f1);
+  outline: 2px solid var(--brand-primary, #5DB8F0);
   outline-offset: 2px;
 }
 

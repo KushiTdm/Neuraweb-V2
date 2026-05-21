@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic';
 import { HeroSection } from '@/components/sections/hero-section';
 import { StatsSection } from '@/components/sections/stats-section';
 import { PartnersMarquee } from '@/components/sections/partners-marquee';
-import { AuditCTA } from '@/components/audit-cta';
 
 // Section skeleton — affiché pendant le chargement des sections dynamiques
 function SectionSkeleton() {
@@ -23,15 +22,6 @@ function SectionSkeleton() {
     </div>
   );
 }
-
-// VideoOverlay : ssr:false car elle lit sessionStorage + joue une vidéo.
-const VideoOverlay = dynamic(
-  () => import('@/components/sections/video-scroll-section').then((mod) => {
-    const C = mod.VideoScrollSection as React.ComponentType;
-    return { default: C };
-  }),
-  { ssr: false }
-);
 
 const ServicesSection = dynamic(
   () => import('@/components/sections/services-section').then((mod) => ({ default: mod.ServicesSection })),
@@ -87,9 +77,6 @@ export function HomePageClient() {
 
   return (
     <>
-      {/* Vidéo intro premier passage */}
-      <VideoOverlay />
-
       <main id="main-content">
         {/* 1. Hero — slider image, cross-fade, ken-burns */}
         <HeroSection onScrollToNext={scrollToServices} />
@@ -114,10 +101,7 @@ export function HomePageClient() {
         {/* 7. Témoignages */}
         <TestimonialsSection />
 
-        {/* 8. Audit CTA */}
-        <AuditCTA />
-
-        {/* 9. CTA final */}
+        {/* 8. CTA final (avec audit intégré) */}
         <CTASection />
       </main>
     </>

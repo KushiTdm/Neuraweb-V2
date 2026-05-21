@@ -56,7 +56,7 @@ export function PortfolioSection() {
         className="text-2xl md:text-7xl font-bold text-gray-900 dark:text-white"
       >
         {t('portfolio.section.title.start')}{' '}
-        <span className="bg-gradient-to-r from-indigo-500 to-violet-500 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-sky-400 to-cyan-500 bg-clip-text text-transparent">
           {t('portfolio.section.title.highlight')}
         </span>
       </h2>
@@ -70,7 +70,7 @@ export function PortfolioSection() {
     <section
       id="portfolio"
       aria-labelledby="portfolio-heading"
-      className="bg-gradient-to-br from-gray-50 via-purple-50 to-gray-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-900"
+      className="bg-gradient-to-br from-surface via-frost to-surface dark:from-navy-950 dark:via-navy-900 dark:to-navy-950"
     >
       <HeroParallax products={products} header={header} />
     </section>

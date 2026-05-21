@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowRight, ChevronDown, Code, Smartphone, Zap, Brain, HeartPulse } from 'lucide-react';
@@ -13,6 +13,8 @@ import Image from 'next/image';
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = useRef(0);
   const { isDark } = useTheme();
   const { t } = useTranslation();
   const pathname = usePathname();
@@ -24,7 +26,16 @@ export function Header() {
   };
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      setIsScrolled(currentY > 20);
+      if (currentY > lastScrollY.current && currentY > 80) {
+        setIsHidden(true);
+      } else if (currentY < lastScrollY.current) {
+        setIsHidden(false);
+      }
+      lastScrollY.current = currentY;
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -42,11 +53,13 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'bg-white/90 dark:bg-[#050510]/90 backdrop-blur-xl border-b border-gray-100/80 dark:border-white/5 shadow-sm'
-            : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b
+          transition-[transform,background-color,border-color,box-shadow] duration-500 ease-in-out
+          ${isHidden && !isMenuOpen ? '-translate-y-full' : 'translate-y-0'}
+          ${isScrolled
+            ? 'bg-white/75 dark:bg-[rgba(7,15,38,0.82)] border-white/25 dark:border-white/[0.07] shadow-[0_1px_20px_rgba(0,0,0,0.06)]'
+            : 'bg-white/10 dark:bg-navy-950/10 border-white/[0.08] dark:border-white/[0.04]'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18 py-3">
@@ -69,13 +82,13 @@ export function Header() {
                 href="/"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/')
-                    ? 'text-brand-600 dark:text-brand-400'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/60 dark:hover:bg-white/5'
+                    ? 'text-sky-400'
+                    : 'text-navy-900 dark:text-gray-300 hover:text-sky-400 dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
                 }`}
               >
                 {t('nav.home')}
                 {isActive('/') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-sky-400" />
                 )}
               </LocalizedLink>
 
@@ -85,8 +98,8 @@ export function Header() {
                   href="/services"
                   className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 inline-flex items-center gap-1 ${
                     isActive('/services')
-                      ? 'text-brand-600 dark:text-brand-400'
-                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/60 dark:hover:bg-white/5'
+                      ? 'text-sky-400'
+                      : 'text-navy-900 dark:text-gray-300 hover:text-sky-400 dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
                   }`}
                   aria-haspopup="menu"
                 >
@@ -96,7 +109,7 @@ export function Header() {
                     className="transition-transform duration-200 group-hover:rotate-180"
                   />
                   {isActive('/services') && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-sky-400" />
                   )}
                 </LocalizedLink>
 
@@ -118,7 +131,7 @@ export function Header() {
                         text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
                         hover:bg-gray-50 dark:hover:bg-white/5"
                     >
-                      <Code size={18} className="mt-0.5 text-brand-500 shrink-0" />
+                      <Code size={18} className="mt-0.5 text-sky-400 shrink-0" />
                       <span>
                         <span className="block font-medium">{t('nav.dropdown.web.label')}</span>
                         <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.web.desc')}</span>
@@ -157,7 +170,7 @@ export function Header() {
                         text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
                         hover:bg-gray-50 dark:hover:bg-white/5"
                     >
-                      <Brain size={18} className="mt-0.5 text-violet-500 shrink-0" />
+                      <Brain size={18} className="mt-0.5 text-sky-400 shrink-0" />
                       <span>
                         <span className="block font-medium">{t('nav.dropdown.ai.label')}</span>
                         <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.ai.desc')}</span>
@@ -186,13 +199,13 @@ export function Header() {
                 href="/blog"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/blog')
-                    ? 'text-brand-600 dark:text-brand-400'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/60 dark:hover:bg-white/5'
+                    ? 'text-sky-400'
+                    : 'text-navy-900 dark:text-gray-300 hover:text-sky-400 dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
                 }`}
               >
                 {t('nav.blog')}
                 {isActive('/blog') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-sky-400" />
                 )}
               </LocalizedLink>
 
@@ -200,13 +213,13 @@ export function Header() {
                 href="/equipe"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/equipe')
-                    ? 'text-brand-600 dark:text-brand-400'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/60 dark:hover:bg-white/5'
+                    ? 'text-sky-400'
+                    : 'text-navy-900 dark:text-gray-300 hover:text-sky-400 dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
                 }`}
               >
                 {t('nav.team')}
                 {isActive('/equipe') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-brand-500" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-sky-400" />
                 )}
               </LocalizedLink>
             </nav>
@@ -219,17 +232,14 @@ export function Header() {
               {/* CTA Contact */}
               <LocalizedLink
                 href="/contact"
-                className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all duration-300 group"
-                style={{
-                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                  boxShadow: '0 4px 15px rgba(99,102,241,0.35)',
-                }}
+                className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-300 group bg-navy-900 hover:bg-navy-800"
+                style={{ boxShadow: '0 4px 15px rgba(14,27,61,0.25)' }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(99,102,241,0.5)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(255,122,89,0.35)';
                   (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 15px rgba(99,102,241,0.35)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 15px rgba(14,27,61,0.25)';
                   (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
                 }}
               >
@@ -264,7 +274,7 @@ export function Header() {
 
         {/* Panel */}
         <div
-          className={`absolute top-0 right-0 h-full w-72 bg-white dark:bg-[#0a0a1a] border-l border-gray-100 dark:border-white/5 shadow-2xl transition-transform duration-400 ${
+          className={`absolute top-0 right-0 h-full w-72 bg-white dark:bg-navy-950 border-l border-gray-100 dark:border-navy-800 shadow-2xl transition-transform duration-400 ${
             isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
@@ -293,7 +303,7 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
               className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                 isActive('/')
-                  ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400'
+                  ? 'bg-frost dark:bg-navy-800 text-sky-400'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5'
               }`}
             >
@@ -307,7 +317,7 @@ export function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                   isActive('/services')
-                    ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400'
+                    ? 'bg-frost dark:bg-navy-800 text-sky-400'
                     : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5'
                 }`}
               >
@@ -319,7 +329,7 @@ export function Header() {
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center gap-2 py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
-                  <Code size={14} className="text-brand-500" />
+                  <Code size={14} className="text-sky-400" />
                   {t('nav.dropdown.web.label')}
                 </LocalizedLink>
                 <LocalizedLink
@@ -343,7 +353,7 @@ export function Header() {
                   onClick={() => setIsMenuOpen(false)}
                   className="flex items-center gap-2 py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
-                  <Brain size={14} className="text-violet-500" />
+                  <Brain size={14} className="text-sky-400" />
                   {t('nav.dropdown.ai.label')}
                 </LocalizedLink>
                 <LocalizedLink
@@ -362,7 +372,7 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
               className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                 isActive('/blog')
-                  ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400'
+                  ? 'bg-frost dark:bg-navy-800 text-sky-400'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5'
               }`}
             >
@@ -374,7 +384,7 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
               className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                 isActive('/equipe')
-                  ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400'
+                  ? 'bg-frost dark:bg-navy-800 text-sky-400'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5'
               }`}
             >
@@ -387,8 +397,7 @@ export function Header() {
             <LocalizedLink
               href="/contact"
               onClick={() => setIsMenuOpen(false)}
-              className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-xl text-sm font-semibold text-white"
-              style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}
+              className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-full text-sm font-semibold text-white bg-navy-900 hover:bg-navy-800 transition-colors duration-200"
             >
               {t('nav.contact')}
               <ArrowRight size={14} />
