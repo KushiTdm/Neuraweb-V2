@@ -168,6 +168,7 @@ const config: Config = {
 
       // ── Animations ─────────────────────────────────────────
       animation: {
+        'scroll':         'scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite',
         'fade-in':        'fadeIn 0.6s ease-out',
         'fade-up':        'fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1)',
         'fade-down':      'fadeDown 0.7s cubic-bezier(0.22, 1, 0.36, 1)',
@@ -230,6 +231,9 @@ const config: Config = {
         borderSpin: {
           '0%':   { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
+        },
+        scroll: {
+          to: { transform: 'translate(calc(-50% - 0.5rem))' },
         },
       },
 
