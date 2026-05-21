@@ -21,7 +21,7 @@ export function ServicesPageClient() {
   return (
     <>
       <Header />
-      <div className="services-page-container min-h-screen bg-slate-950">
+      <div className="services-page-container min-h-screen bg-[#050510]">
         <CustomCursor />
         <div className="overflow-x-hidden">
           <ServicesHero />

@@ -43,9 +43,9 @@ import {
 // ═══════════════════════════════════════════════════════════════════════════
 
 const STATS = [
-  { value: '12h', label: 'économisées / semaine en moyenne', color: 'text-amber-400' },
-  { value: '3×', label: 'plus de leads qualifiés traités', color: 'text-indigo-400' },
-  { value: '94%', label: 'de réduction des tâches manuelles', color: 'text-cyan-400' },
+  { value: '12h', label: 'économisées / semaine en moyenne', color: 'text-[#22d3ee]' },
+  { value: '3×', label: 'plus de leads qualifiés traités', color: 'text-[#5db8f0]' },
+  { value: '94%', label: 'de réduction des tâches manuelles', color: 'text-[#22d3ee]' },
 ];
 
 const PROBLEMS = [
@@ -53,25 +53,25 @@ const PROBLEMS = [
     icon: Clock,
     title: 'Vos équipes passent des heures sur des tâches répétitives',
     text: "Saisie manuelle, copier-coller entre outils, relances email, transferts de données : chaque minute perdue est une minute en moins pour votre cœur de métier.",
-    color: 'text-amber-500 bg-amber-50 dark:bg-amber-900/20',
+    color: 'text-[#22d3ee] bg-[#22d3ee]/10',
   },
   {
     icon: AlertTriangle,
     title: 'Des leads tombent dans les failles entre vos outils',
     text: "Un formulaire rempli le soir, une relance oubliée, un CRM non synchronisé : vous perdez des opportunités sans même le savoir.",
-    color: 'text-rose-500 bg-rose-50 dark:bg-rose-900/20',
+    color: 'text-rose-400 bg-rose-400/10',
   },
   {
     icon: Database,
     title: 'Vos données sont éparpillées entre 5, 10, 15 outils',
     text: "Google Sheets, HubSpot, Notion, Airtable, Slack, Gmail... la circulation de l'information coûte cher en énergie et génère des erreurs.",
-    color: 'text-violet-500 bg-violet-50 dark:bg-violet-900/20',
+    color: 'text-[#5db8f0] bg-[#5db8f0]/10',
   },
   {
     icon: TrendingUp,
     title: "Vous ne savez pas par quoi commencer",
     text: "L'automatisation fait peur. Vous ne savez pas quels workflows ont le meilleur ROI, ni quel outil choisir entre n8n, Make et Zapier.",
-    color: 'text-indigo-500 bg-indigo-50 dark:bg-indigo-900/20',
+    color: 'text-[#5db8f0] bg-[#5db8f0]/10',
   },
 ];
 
@@ -91,8 +91,8 @@ const SERVICES = [
     desc: 'Nous construisons vos automatisations sur mesure : formulaire→CRM, qualification de leads, synchronisation d\'outils, notifications, relances automatiques, reporting.',
     details: ['Connexion formulaire → CRM / Airtable / Notion', 'Relances automatiques par email ou SMS', 'Synchronisation multi-outils (Slack, Gmail, Drive)', 'Alertes et notifications en temps réel'],
     badge: 'À partir de 999 €',
-    badgeColor: 'bg-amber-500',
-    accentColor: 'border-amber-400',
+    badgeColor: 'bg-[#5db8f0]',
+    accentColor: 'border-[#5db8f0]',
   },
   {
     icon: Bot,
@@ -160,7 +160,7 @@ const PACKS: Pack[] = [
     price: 999,
     monthly: 29,
     delivery: '1 à 2 semaines',
-    borderColor: 'border-slate-200 dark:border-slate-700',
+    borderColor: 'border-white/10',
     bullets: [
       'Audit des processus (jusqu\'à 5 workflows identifiés)',
       '1 workflow complexe livré et testé',
@@ -202,9 +202,9 @@ const PACKS: Pack[] = [
     monthly: 79,
     delivery: '3 à 5 semaines',
     badge: 'Le plus populaire',
-    badgeColor: 'bg-indigo-500',
+    badgeColor: 'bg-[#5db8f0]',
     popular: true,
-    borderColor: 'border-indigo-400 dark:border-indigo-500',
+    borderColor: 'border-[#5db8f0]',
     bullets: [
       'Audit complet (processus illimités)',
       '3 à 5 workflows sur mesure',
@@ -305,9 +305,9 @@ const PROCESS_STEPS = [
     duration: '30 à 60 min',
     desc: 'On analyse vos outils, vos processus et vos douleurs. Vous repartez avec une liste des workflows à automatiser en priorité et leur ROI estimé.',
     bring: 'Vos outils, vos processus',
-    bg: 'bg-amber-50 dark:bg-amber-900/20',
-    text: 'text-amber-600 dark:text-amber-400',
-    border: 'border-amber-200 dark:border-amber-700',
+    bg: 'bg-[#22d3ee]/5',
+    text: 'text-[#22d3ee]',
+    border: 'border-[#22d3ee]/20',
   },
   {
     id: '02',
@@ -315,9 +315,9 @@ const PROCESS_STEPS = [
     duration: '3 à 5 jours',
     desc: 'Nous modélisons chaque workflow, choisissons les bons outils et validons l\'architecture avec vous avant de coder la moindre ligne.',
     bring: 'Vos accès outils (lecture seule)',
-    bg: 'bg-indigo-50 dark:bg-indigo-900/20',
-    text: 'text-indigo-600 dark:text-indigo-400',
-    border: 'border-indigo-200 dark:border-indigo-700',
+    bg: 'bg-[#5db8f0]/5',
+    text: 'text-[#5db8f0]',
+    border: 'border-[#5db8f0]/20',
   },
   {
     id: '03',
@@ -325,9 +325,9 @@ const PROCESS_STEPS = [
     duration: '1 à 8 semaines',
     desc: 'Nous développons les workflows, les connectons à vos outils et les testons sur des données réelles. Vous validez chaque étape.',
     bring: 'Vos données de test',
-    bg: 'bg-violet-50 dark:bg-violet-900/20',
-    text: 'text-violet-600 dark:text-violet-400',
-    border: 'border-violet-200 dark:border-violet-700',
+    bg: 'bg-[#5db8f0]/5',
+    text: 'text-[#5db8f0]',
+    border: 'border-[#5db8f0]/20',
   },
   {
     id: '04',
@@ -335,9 +335,9 @@ const PROCESS_STEPS = [
     duration: '1 jour',
     desc: 'Basculement en production avec surveillance renforcée les 7 premiers jours. Formation de votre équipe incluse.',
     bring: '30 min pour la formation',
-    bg: 'bg-cyan-50 dark:bg-cyan-900/20',
-    text: 'text-cyan-600 dark:text-cyan-400',
-    border: 'border-cyan-200 dark:border-cyan-700',
+    bg: 'bg-[#22d3ee]/5',
+    text: 'text-[#22d3ee]',
+    border: 'border-[#22d3ee]/20',
   },
 ];
 
@@ -398,7 +398,7 @@ const TESTIMONIALS = [
     role: 'Directeur commercial',
     company: 'Agence immobilière, Paris',
     initials: 'AD',
-    color: 'bg-amber-100 text-amber-700',
+    color: 'bg-[#22d3ee]/20 text-[#22d3ee]',
   },
   {
     quote: "Le workflow de qualification de leads n8n a transformé notre équipe commerciale. Les commerciaux ne traitent plus que des leads chauds. Le CA a augmenté de 34% en 2 mois.",
@@ -406,7 +406,7 @@ const TESTIMONIALS = [
     role: 'CEO',
     company: 'SaaS B2B, Lyon',
     initials: 'SM',
-    color: 'bg-indigo-100 text-indigo-700',
+    color: 'bg-[#5db8f0]/20 text-[#5db8f0]',
   },
   {
     quote: "J'avais peur que ce soit compliqué. L'audit gratuit a tout clarifié. On est partis sur le pack Business, livré en 4 semaines. La synchro Airtable-Gmail-Slack fonctionne impeccablement.",
@@ -414,7 +414,7 @@ const TESTIMONIALS = [
     role: 'Fondateur',
     company: 'Cabinet de conseil, Bordeaux',
     initials: 'TR',
-    color: 'bg-cyan-100 text-cyan-700',
+    color: 'bg-emerald-400/20 text-emerald-400',
   },
 ];
 
@@ -431,10 +431,10 @@ export function AutomatisationPageClient() {
   return (
     <>
       <Header />
-      <main id="main-content" className="min-h-screen bg-white dark:bg-slate-950">
+      <main id="main-content" className="min-h-screen bg-[#050510]">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <section className="relative pt-32 pb-24 overflow-hidden bg-slate-950">
+        <section className="relative pt-32 pb-24 overflow-hidden bg-[#070f26]">
           {/* Background grid */}
           <div
             className="absolute inset-0 opacity-10"
@@ -444,18 +444,18 @@ export function AutomatisationPageClient() {
             }}
           />
           {/* Glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#5db8f0]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-[#22d3ee]/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#5db8f0]/10 border border-[#5db8f0]/20 text-[#5db8f0] text-sm font-medium mb-6">
               <Zap size={14} />
               <span>Automatisation n8n · Make · Zapier · Agents IA</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Automatisez vos processus,{' '}
-              <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] bg-clip-text text-transparent">
                 libérez votre potentiel
               </span>
             </h1>
@@ -468,8 +468,8 @@ export function AutomatisationPageClient() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <LocalizedLink
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white transition-all duration-300"
-                style={{ background: 'linear-gradient(135deg, #f59e0b, #ef4444)', boxShadow: '0 4px 20px rgba(245,158,11,0.35)' }}
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-[#050510] transition-all duration-300"
+                style={{ background: 'linear-gradient(90deg, #5db8f0, #22d3ee)', boxShadow: '0 4px 20px rgba(93,184,240,0.35)' }}
               >
                 <Zap size={18} />
                 Demander l'audit gratuit
@@ -497,13 +497,13 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
-        <section className="py-20 bg-slate-50 dark:bg-slate-900">
+        <section className="py-20 bg-[#0e1b3d]/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 Ça vous parle ?
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              <p className="text-slate-400 max-w-2xl mx-auto">
                 Les PME françaises perdent en moyenne <strong>12h par semaine</strong> sur des tâches que l'automatisation peut traiter en quelques secondes.
               </p>
             </div>
@@ -511,12 +511,12 @@ export function AutomatisationPageClient() {
               {PROBLEMS.map((p, i) => {
                 const Icon = p.icon;
                 return (
-                  <div key={i} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6 hover:shadow-md transition-shadow">
+                  <div key={i} className="rounded-xl border border-white/10 bg-[#0e1b3d]/40 p-6 hover:shadow-md transition-shadow">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${p.color}`}>
                       <Icon size={22} />
                     </div>
-                    <h3 className="font-semibold text-slate-900 dark:text-white mb-2 text-sm leading-snug">{p.title}</h3>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm">{p.text}</p>
+                    <h3 className="font-semibold text-white mb-2 text-sm leading-snug">{p.title}</h3>
+                    <p className="text-slate-400 text-sm">{p.text}</p>
                   </div>
                 );
               })}
@@ -525,13 +525,13 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
-        <section className="py-20 bg-white dark:bg-slate-950">
+        <section className="py-20 bg-[#050510]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 Ce que nous construisons pour vous
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              <p className="text-slate-400 max-w-2xl mx-auto">
                 De l'audit initial au monitoring mensuel, nous couvrons toute la chaîne d'automatisation.
               </p>
             </div>
@@ -542,23 +542,23 @@ export function AutomatisationPageClient() {
                 return (
                   <div
                     key={i}
-                    className={`rounded-xl border-2 ${service.accentColor} bg-white dark:bg-slate-900 p-6 cursor-pointer hover:shadow-lg transition-all duration-300`}
+                    className={`rounded-xl border-2 ${service.accentColor} bg-[#0e1b3d]/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300`}
                     onClick={() => setExpandedService(isExpanded ? null : i)}
                   >
                     <div className="flex items-start justify-between mb-3">
-                      <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                        <Icon size={20} className="text-slate-700 dark:text-slate-300" />
+                      <div className="w-10 h-10 rounded-lg bg-[#0e1b3d]/40 flex items-center justify-center">
+                        <Icon size={20} className="text-slate-300" />
                       </div>
                       <span className={`${service.badgeColor} text-white text-xs font-semibold px-3 py-1 rounded-full`}>
                         {service.badge}
                       </span>
                     </div>
-                    <h3 className="font-bold text-slate-900 dark:text-white mb-2">{service.title}</h3>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm mb-3">{service.desc}</p>
+                    <h3 className="font-bold text-white mb-2">{service.title}</h3>
+                    <p className="text-slate-400 text-sm mb-3">{service.desc}</p>
                     {isExpanded && (
                       <ul className="mt-3 space-y-2 border-t border-slate-100 dark:border-slate-700 pt-3">
                         {service.details.map((d, j) => (
-                          <li key={j} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
+                          <li key={j} className="flex items-start gap-2 text-sm text-slate-300">
                             <Check size={14} className="text-emerald-500 mt-0.5 shrink-0" />
                             {d}
                           </li>
@@ -576,16 +576,16 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── OUTILS ────────────────────────────────────────────────────── */}
-        <section className="py-14 bg-slate-50 dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
+        <section className="py-14 bg-[#0e1b3d]/30 border-y border-slate-200 dark:border-slate-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-sm text-slate-500 dark:text-slate-400 font-medium mb-8 uppercase tracking-wider">
+            <p className="text-center text-sm text-slate-400 font-medium mb-8 uppercase tracking-wider">
               Nous connectons vos outils
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               {TOOLS.map((tool, i) => (
                 <span
                   key={i}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 font-medium hover:border-indigo-300 dark:hover:border-indigo-500 transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0e1b3d]/40 border border-white/10 text-sm text-slate-300 font-medium hover:border-[#5db8f0]/40 transition-colors"
                 >
                   {tool.name}
                   <span className="text-xs text-slate-400">{tool.category}</span>
@@ -596,13 +596,13 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-20 bg-white dark:bg-slate-950">
+        <section id="pricing" className="py-20 bg-[#050510]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 Nos packs automatisation
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              <p className="text-slate-400 max-w-2xl mx-auto">
                 Des prix transparents, sans surprise. TVA non applicable (art. 293B du CGI).
               </p>
             </div>
@@ -615,8 +615,8 @@ export function AutomatisationPageClient() {
                   onClick={() => setSelectedPack(pack.id)}
                   className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
                     selectedPack === pack.id
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                      ? 'bg-[#5db8f0] text-[#050510]'
+                      : 'bg-[#0e1b3d]/40 text-slate-300'
                   }`}
                 >
                   {pack.name.replace(' Auto', '').replace(' Automation', '')}
@@ -632,8 +632,8 @@ export function AutomatisationPageClient() {
                   onClick={() => setSelectedPack(pack.id)}
                   className={`relative rounded-2xl border-2 p-6 cursor-pointer transition-all duration-300 ${pack.borderColor} ${
                     selectedPack === pack.id
-                      ? 'shadow-xl bg-slate-50 dark:bg-slate-900 scale-[1.02]'
-                      : 'bg-white dark:bg-slate-900 hover:shadow-md'
+                      ? 'shadow-xl bg-[#0e1b3d]/30 scale-[1.02]'
+                      : 'bg-[#0e1b3d]/30 hover:shadow-md'
                   }`}
                 >
                   {pack.badge && (
@@ -641,17 +641,17 @@ export function AutomatisationPageClient() {
                       {pack.badge}
                     </span>
                   )}
-                  <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-1">{pack.name}</h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm mb-4">{pack.tagline}</p>
+                  <h3 className="font-bold text-white text-lg mb-1">{pack.name}</h3>
+                  <p className="text-slate-400 text-sm mb-4">{pack.tagline}</p>
                   <div className="mb-4">
-                    <span className="text-3xl font-bold text-slate-900 dark:text-white">{pack.price.toLocaleString('fr-FR')} €</span>
-                    <span className="text-slate-500 dark:text-slate-400 text-sm ml-1">HT</span>
-                    <div className="text-sm text-slate-500 dark:text-slate-400">+ {pack.monthly} €/mois maintenance</div>
+                    <span className="text-3xl font-bold text-white">{pack.price.toLocaleString('fr-FR')} €</span>
+                    <span className="text-slate-400 text-sm ml-1">HT</span>
+                    <div className="text-sm text-slate-400">+ {pack.monthly} €/mois maintenance</div>
                   </div>
                   <div className="text-xs text-slate-400 mb-4">⏱ Délai : {pack.delivery}</div>
                   <ul className="space-y-2">
                     {pack.bullets.map((b, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
                         <Check size={14} className="text-emerald-500 mt-0.5 shrink-0" />
                         {b}
                       </li>
@@ -662,16 +662,16 @@ export function AutomatisationPageClient() {
             </div>
 
             {/* Détails pack sélectionné */}
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 p-8">
+            <div className="rounded-2xl border border-white/10 bg-[#0e1b3d]/30 p-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{activePack.name}</h3>
-                  <p className="text-slate-500 dark:text-slate-400 text-sm">{activePack.tagline}</p>
+                  <h3 className="text-xl font-bold text-white mb-1">{activePack.name}</h3>
+                  <p className="text-slate-400 text-sm">{activePack.tagline}</p>
                 </div>
                 <LocalizedLink
                   href="/contact"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300"
-                  style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', boxShadow: '0 4px 15px rgba(99,102,241,0.3)' }}
+                  style={{ background: 'linear-gradient(90deg, #5db8f0, #22d3ee)', boxShadow: '0 4px 15px rgba(93,184,240,0.3)' }}
                 >
                   Choisir {activePack.name}
                   <ArrowRight size={14} />
@@ -681,12 +681,12 @@ export function AutomatisationPageClient() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Inclus */}
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                  <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
                     <Check size={16} className="text-emerald-500" /> Inclus
                   </h4>
                   <ul className="space-y-2">
                     {activePack.included.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
                         <Check size={13} className="text-emerald-500 mt-0.5 shrink-0" />
                         {item}
                       </li>
@@ -696,12 +696,12 @@ export function AutomatisationPageClient() {
 
                 {/* Non inclus */}
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                  <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
                     <XIcon size={16} className="text-rose-500" /> Non inclus
                   </h4>
                   <ul className="space-y-2">
                     {activePack.notIncluded.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-500 dark:text-slate-400">
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-400">
                         <XIcon size={13} className="text-rose-400 mt-0.5 shrink-0" />
                         {item}
                       </li>
@@ -711,17 +711,17 @@ export function AutomatisationPageClient() {
 
                 {/* Options + Maintenance */}
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-3">Options disponibles</h4>
+                  <h4 className="font-semibold text-white mb-3">Options disponibles</h4>
                   <ul className="space-y-2 mb-6">
                     {activePack.options.map((opt, i) => (
                       <li key={i} className="flex items-start justify-between gap-2 text-sm">
-                        <span className="text-slate-700 dark:text-slate-300">{opt.label}</span>
-                        <span className="text-indigo-600 dark:text-indigo-400 font-medium shrink-0">{opt.price}</span>
+                        <span className="text-slate-300">{opt.label}</span>
+                        <span className="text-[#22d3ee] font-medium shrink-0">{opt.price}</span>
                       </li>
                     ))}
                   </ul>
-                  <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
-                    <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                  <div className="bg-[#0e1b3d]/40 rounded-xl p-4 border border-white/10">
+                    <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
                       Maintenance {activePack.monthly} €/mois
                     </div>
                     <ul className="space-y-1">
@@ -737,20 +737,20 @@ export function AutomatisationPageClient() {
               </div>
             </div>
 
-            <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6">
+            <p className="text-center text-sm text-slate-400 mt-6">
               Paiement échelonné disponible · 40% à la commande, 30% à la validation, 30% à la livraison
             </p>
           </div>
         </section>
 
         {/* ── PROCESSUS ─────────────────────────────────────────────────── */}
-        <section className="py-20 bg-slate-50 dark:bg-slate-900">
+        <section className="py-20 bg-[#0e1b3d]/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 Notre méthode en 4 étapes
               </h2>
-              <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              <p className="text-slate-400 max-w-2xl mx-auto">
                 Du premier appel à la mise en production : un processus éprouvé, des livrables clairs à chaque étape.
               </p>
             </div>
@@ -758,10 +758,10 @@ export function AutomatisationPageClient() {
               {PROCESS_STEPS.map((step, i) => (
                 <div key={i} className={`rounded-xl border ${step.border} ${step.bg} p-6`}>
                   <div className={`text-3xl font-black ${step.text} mb-3 opacity-40`}>{step.id}</div>
-                  <h3 className="font-bold text-slate-900 dark:text-white mb-1">{step.title}</h3>
+                  <h3 className="font-bold text-white mb-1">{step.title}</h3>
                   <div className={`text-xs font-medium ${step.text} mb-3`}>⏱ {step.duration}</div>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm mb-3">{step.desc}</p>
-                  <div className="text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-600 pt-3">
+                  <p className="text-slate-400 text-sm mb-3">{step.desc}</p>
+                  <div className="text-xs text-slate-400 border-t border-slate-200 dark:border-slate-600 pt-3">
                     <strong>Vous apportez :</strong> {step.bring}
                   </div>
                 </div>
@@ -771,26 +771,26 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
-        <section className="py-20 bg-white dark:bg-slate-950">
+        <section className="py-20 bg-[#050510]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Ce que disent nos clients</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">Ce que disent nos clients</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {TESTIMONIALS.map((t, i) => (
-                <div key={i} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 p-6">
+                <div key={i} className="rounded-xl border border-white/10 bg-[#0e1b3d]/30 p-6">
                   <div className="flex mb-3">
                     {[...Array(5)].map((_, j) => (
-                      <Star key={j} size={14} className="text-amber-400 fill-amber-400" />
+                      <Star key={j} size={14} className="text-[#22d3ee] fill-[#22d3ee]" />
                     ))}
                   </div>
-                  <p className="text-slate-700 dark:text-slate-300 text-sm mb-4 italic">&ldquo;{t.quote}&rdquo;</p>
+                  <p className="text-slate-300 text-sm mb-4 italic">&ldquo;{t.quote}&rdquo;</p>
                   <div className="flex items-center gap-3">
                     <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-xs font-bold`}>
                       {t.initials}
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-slate-900 dark:text-white">{t.name}</div>
+                      <div className="text-sm font-semibold text-white">{t.name}</div>
                       <div className="text-xs text-slate-500">{t.role} · {t.company}</div>
                     </div>
                   </div>
@@ -801,19 +801,19 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
-        <section className="py-20 bg-slate-50 dark:bg-slate-900">
+        <section className="py-20 bg-[#0e1b3d]/30">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Questions fréquentes</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">Questions fréquentes</h2>
             </div>
             <Accordion type="single" collapsible className="space-y-3">
               {FAQ.map((item, i) => (
                 <AccordionItem
                   key={i}
                   value={`faq-${i}`}
-                  className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 overflow-hidden"
+                  className="rounded-xl border border-white/10 bg-[#0e1b3d]/40 overflow-hidden"
                 >
-                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-slate-900 dark:text-white hover:no-underline">
+                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-white hover:no-underline">
                     {item.q}
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -824,29 +824,29 @@ export function AutomatisationPageClient() {
             </Accordion>
 
             {/* Lien vers articles liés */}
-            <div className="mt-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6">
-              <h3 className="font-semibold text-slate-900 dark:text-white mb-4">Pour aller plus loin</h3>
+            <div className="mt-10 rounded-xl border border-white/10 bg-[#0e1b3d]/40 p-6">
+              <h3 className="font-semibold text-white mb-4">Pour aller plus loin</h3>
               <ul className="space-y-3">
                 <li>
-                  <LocalizedLink href="/blog/make-n8n-zapier-2026-pme-france" className="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
+                  <LocalizedLink href="/blog/make-n8n-zapier-2026-pme-france" className="flex items-center gap-2 text-sm text-[#22d3ee] hover:underline">
                     <ArrowRight size={14} />
                     Make vs n8n vs Zapier : comparatif 2026 pour PME françaises
                   </LocalizedLink>
                 </li>
                 <li>
-                  <LocalizedLink href="/blog/automatisation-n8n-guide" className="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
+                  <LocalizedLink href="/blog/automatisation-n8n-guide" className="flex items-center gap-2 text-sm text-[#22d3ee] hover:underline">
                     <ArrowRight size={14} />
                     Guide complet n8n : automatiser sans coder
                   </LocalizedLink>
                 </li>
                 <li>
-                  <LocalizedLink href="/blog/automatisation-ia-pme-prix-2026" className="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
+                  <LocalizedLink href="/blog/automatisation-ia-pme-prix-2026" className="flex items-center gap-2 text-sm text-[#22d3ee] hover:underline">
                     <ArrowRight size={14} />
                     Automatisation IA pour PME : prix réels 2026
                   </LocalizedLink>
                 </li>
                 <li>
-                  <LocalizedLink href="/blog/3-workflows-agents-ia-pme" className="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400 hover:underline">
+                  <LocalizedLink href="/blog/3-workflows-agents-ia-pme" className="flex items-center gap-2 text-sm text-[#22d3ee] hover:underline">
                     <ArrowRight size={14} />
                     3 workflows agents IA pour PME : ROI réel 2026
                   </LocalizedLink>
@@ -859,7 +859,7 @@ export function AutomatisationPageClient() {
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
         <section className="py-24 bg-slate-950">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#5db8f0]/10 border border-[#5db8f0]/20 text-[#5db8f0] text-sm font-medium mb-6">
               <Sparkles size={14} />
               Audit gratuit · Sans engagement
             </div>
@@ -874,7 +874,7 @@ export function AutomatisationPageClient() {
               <LocalizedLink
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white transition-all duration-300"
-                style={{ background: 'linear-gradient(135deg, #f59e0b, #ef4444)', boxShadow: '0 4px 20px rgba(245,158,11,0.35)' }}
+                style={{ background: 'linear-gradient(90deg, #5db8f0, #22d3ee)', boxShadow: '0 4px 20px rgba(93,184,240,0.35)' }}
               >
                 <Zap size={18} />
                 Demander l'audit gratuit
@@ -882,7 +882,7 @@ export function AutomatisationPageClient() {
               </LocalizedLink>
               <LocalizedLink
                 href="/blog/automatisation-n8n-guide"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-slate-300 border border-slate-700 hover:border-slate-500 hover:text-white transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-slate-300 border border-white/20 hover:border-white/40 hover:text-white transition-all duration-300"
               >
                 Lire notre guide n8n
                 <ArrowRight size={16} />

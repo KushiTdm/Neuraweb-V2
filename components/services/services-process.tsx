@@ -225,7 +225,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
   // SEO-friendly SSR fallback — full content rendered server-side
   if (!mounted) {
     return (
-      <section className="relative bg-slate-950 py-24 px-6">
+      <section className="relative bg-[#050510] py-24 px-6">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="text-5xl md:text-7xl font-bold text-white">
             {language === 'fr' ? 'Notre Processus' : language === 'es' ? 'Nuestro Proceso' : 'Our Process'}
@@ -254,14 +254,14 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
   return (
     <section
       ref={sectionRef}
-      className="relative bg-slate-950"
+      className="relative bg-[#050510]"
       style={{ height: `${TOTAL_STEPS * 100 + 100}vh` }}
     >
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
 
         {/* RetroGrid background */}
-        <div className="absolute inset-0 bg-slate-950">
+        <div className="absolute inset-0 bg-[#050510]">
           <RetroGrid
             angle={55}
             cellSize={50}
@@ -324,7 +324,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
                     style={{ boxShadow: isActive ? `0 0 60px 10px ${step.colorHex}18` : undefined }}
                   >
                     {/* FIX 2: backdrop-blur conditionnel à isActive pour éviter les silhouettes ghost */}
-                    <div className={`absolute inset-0 bg-slate-950/95 ${isActive ? 'backdrop-blur-md' : ''}`} />
+                    <div className={`absolute inset-0 bg-[#050510]/95 ${isActive ? 'backdrop-blur-md' : ''}`} />
                     <div className={`absolute inset-0 bg-gradient-to-br ${step.accentClass}`} />
 
                     {/* Content above background */}

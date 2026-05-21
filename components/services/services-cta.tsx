@@ -141,7 +141,7 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
 
   if (!mounted) {
     return (
-      <section className="relative py-32 px-6 bg-gradient-to-b from-slate-900 to-slate-950">
+      <section className="relative py-32 px-6 bg-gradient-to-b from-[#0e1b3d] to-[#050510]">
         <div className="relative max-w-5xl mx-auto text-center z-10">
           <h2 className="text-5xl md:text-7xl font-bold mb-12 text-white">
             {t('servicePage.cta.title.word1')} {t('servicePage.cta.title.word2')}{' '}
@@ -155,7 +155,7 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
   return (
     <section
       ref={sectionRef}
-      className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-slate-900 to-slate-950"
+      className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-[#0e1b3d] to-[#050510]"
     >
       {/* Particules */}
       <div ref={particlesRef} className="absolute inset-0 pointer-events-none">
@@ -175,7 +175,7 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
       <div className="absolute inset-0 bg-gradient-radial from-violet-600/20 via-transparent to-transparent" />
 
       <div className="relative max-w-5xl mx-auto text-center z-10">
-        <MessageCircle className="w-20 h-20 mx-auto mb-8 text-violet-400 animate-pulse" />
+        <MessageCircle className="w-20 h-20 mx-auto mb-8 text-[#5db8f0] animate-pulse" />
 
         <h2 ref={titleRef} className="text-5xl md:text-7xl font-bold mb-12 leading-tight text-white">
           <span className="word inline-block mr-4">{t('servicePage.cta.title.word1')}</span>

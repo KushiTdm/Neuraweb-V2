@@ -242,34 +242,34 @@ export function MobileAppDevClient({ lang }: Props) {
   return (
     <>
       <Header />
-      <main id="main-content" className="min-h-screen bg-white dark:bg-[#050510] pt-24">
+      <main id="main-content" className="min-h-screen bg-[#050510] pt-24">
         <section className="py-16 sm:py-24 px-4 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-purple-600/10 to-cyan-500/10 pointer-events-none" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#5db8f0]/10 via-[#22d3ee]/10 to-[#22d3ee]/5 pointer-events-none" aria-hidden="true" />
           <div className="max-w-5xl mx-auto text-center relative">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 mb-8">
               <Smartphone className="w-4 h-4 text-cyan-400" />
               <span className="text-sm font-medium text-cyan-300">Mobile App Development</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
               {c.hero.h1}{' '}
-              <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] bg-clip-text text-transparent">
                 {c.hero.highlight}
               </span>
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-10">
+            <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10">
               {c.hero.subtitle}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <LocalizedLink
                 href="/booking"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510] font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
               >
                 {c.hero.ctaPrimary}
                 <ArrowRight className="w-5 h-5" />
               </LocalizedLink>
               <a
                 href="#pricing"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-purple-400 text-purple-700 dark:text-purple-300 font-semibold text-lg hover:bg-purple-50 dark:hover:bg-purple-950/30 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-[#22d3ee]/40 text-[#22d3ee] font-semibold text-lg hover:bg-[#22d3ee]/10 transition-colors"
               >
                 {c.hero.ctaSecondary}
               </a>
@@ -280,10 +280,10 @@ export function MobileAppDevClient({ lang }: Props) {
         <section className="py-16 sm:py-20 px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {c.tech.h2}
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-300 max-w-2xl mx-auto">
                 {c.tech.subtitle}
               </p>
             </div>
@@ -293,18 +293,18 @@ export function MobileAppDevClient({ lang }: Props) {
                 return (
                   <article
                     key={card.name}
-                    className="p-6 rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 hover:border-blue-500/50 transition-colors"
+                    className="p-6 rounded-2xl border border-white/10 bg-[#0e1b3d]/30 hover:border-[#5db8f0]/30 transition-colors"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-white" strokeWidth={2} />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center mb-4">
+                      <Icon className="w-6 h-6 text-[#050510]" strokeWidth={2} />
                     </div>
-                    <div className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2">
+                    <div className="text-xs font-semibold text-[#22d3ee] uppercase tracking-wider mb-2">
                       {card.tag}
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                    <h3 className="text-xl font-bold text-white mb-2">
                       {card.name}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    <p className="text-sm text-slate-400 leading-relaxed">
                       {card.desc}
                     </p>
                   </article>
@@ -314,13 +314,13 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 bg-gray-50 dark:bg-gray-900/30">
+        <section className="py-16 sm:py-20 px-4 bg-[#0e1b3d]/30">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {c.types.h2}
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-300 max-w-2xl mx-auto">
                 {c.types.subtitle}
               </p>
             </div>
@@ -330,17 +330,17 @@ export function MobileAppDevClient({ lang }: Props) {
                 return (
                   <article
                     key={card.title}
-                    className="p-8 rounded-2xl bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 hover:border-blue-500/50 transition-colors"
+                    className="p-8 rounded-2xl bg-[#0e1b3d]/40 border border-white/10 hover:border-[#5db8f0]/30 transition-colors"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-                        <Icon className="w-6 h-6 text-white" strokeWidth={2} />
+                      <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center">
+                        <Icon className="w-6 h-6 text-[#050510]" strokeWidth={2} />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                        <h3 className="text-xl font-bold text-white mb-2">
                           {card.title}
                         </h3>
-                        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        <p className="text-slate-400 leading-relaxed">
                           {card.desc}
                         </p>
                       </div>
@@ -355,10 +355,10 @@ export function MobileAppDevClient({ lang }: Props) {
         <section className="py-16 sm:py-20 px-4">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {c.process.h2}
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-300 max-w-2xl mx-auto">
                 {c.process.subtitle}
               </p>
             </div>
@@ -368,15 +368,15 @@ export function MobileAppDevClient({ lang }: Props) {
                 return (
                   <article
                     key={step.title}
-                    className="p-6 rounded-2xl border border-gray-200 dark:border-gray-800"
+                    className="p-6 rounded-2xl border border-white/10 bg-[#0e1b3d]/30"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-white" strokeWidth={2} />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center mb-4">
+                      <Icon className="w-6 h-6 text-[#050510]" strokeWidth={2} />
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    <h3 className="text-lg font-bold text-white mb-2">
                       {step.title}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    <p className="text-sm text-slate-400 leading-relaxed">
                       {step.desc}
                     </p>
                   </article>
@@ -386,13 +386,13 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section id="pricing" className="py-16 sm:py-20 px-4 bg-gray-50 dark:bg-gray-900/30">
+        <section id="pricing" className="py-16 sm:py-20 px-4 bg-[#0e1b3d]/30">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {c.pricing.h2}
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-300 max-w-2xl mx-auto">
                 {c.pricing.subtitle}
               </p>
             </div>
@@ -402,21 +402,21 @@ export function MobileAppDevClient({ lang }: Props) {
                   key={pack.name}
                   className={`p-8 rounded-3xl border-2 ${
                     pack.highlighted
-                      ? 'border-blue-500 bg-gradient-to-br from-blue-600 to-purple-600 text-white'
-                      : 'border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50'
+                      ? 'border-[#5db8f0] bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510]'
+                      : 'border-white/10 bg-[#0e1b3d]/40'
                   }`}
                 >
-                  <h3 className={`text-2xl font-bold mb-2 ${pack.highlighted ? 'text-white' : 'text-gray-900 dark:text-white'}`}>
+                  <h3 className={`text-2xl font-bold mb-2 ${pack.highlighted ? 'text-[#050510]' : 'text-white'}`}>
                     {pack.name}
                   </h3>
-                  <div className={`text-3xl font-black mb-6 ${pack.highlighted ? 'text-white' : 'text-blue-600 dark:text-blue-400'}`}>
+                  <div className={`text-3xl font-black mb-6 ${pack.highlighted ? 'text-[#050510]' : 'text-[#5db8f0]'}`}>
                     {pack.price}
                   </div>
                   <ul className="space-y-3 mb-8">
                     {pack.features.map((f) => (
                       <li key={f} className="flex items-start gap-2">
-                        <CheckCircle2 className={`w-5 h-5 flex-shrink-0 mt-0.5 ${pack.highlighted ? 'text-white' : 'text-green-500'}`} />
-                        <span className={pack.highlighted ? 'text-white/90' : 'text-gray-600 dark:text-gray-300'}>{f}</span>
+                        <CheckCircle2 className={`w-5 h-5 flex-shrink-0 mt-0.5 ${pack.highlighted ? 'text-[#050510]' : 'text-emerald-400'}`} />
+                        <span className={pack.highlighted ? 'text-[#050510]/90' : 'text-slate-300'}>{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -424,8 +424,8 @@ export function MobileAppDevClient({ lang }: Props) {
                     href="/booking"
                     className={`block w-full text-center px-6 py-3 rounded-full font-semibold transition-colors ${
                       pack.highlighted
-                        ? 'bg-white text-blue-600 hover:bg-gray-100'
-                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                        ? 'bg-[#050510] text-[#22d3ee] hover:bg-[#070f26]'
+                        : 'bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510] hover:opacity-90'
                     }`}
                   >
                     {c.cta.button}
@@ -433,32 +433,32 @@ export function MobileAppDevClient({ lang }: Props) {
                 </article>
               ))}
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 text-center">{c.pricing.note}</p>
+            <p className="text-sm text-slate-400 text-center">{c.pricing.note}</p>
           </div>
         </section>
 
         <section className="py-16 sm:py-20 px-4">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-12">
               {c.faq.h2}
             </h2>
             <div className="space-y-4">
               {c.faq.items.map((item, i) => (
-                <article key={item.q} className="border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden">
+                <article key={item.q} className="border border-white/10 rounded-2xl overflow-hidden bg-[#0e1b3d]/30">
                   <button
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors"
+                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-[#0e1b3d]/40 transition-colors"
                     aria-expanded={openFaq === i}
                   >
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
+                    <h3 className="text-base sm:text-lg font-semibold text-white">
                       {item.q}
                     </h3>
                     <ChevronDown
-                      className={`w-5 h-5 flex-shrink-0 text-gray-500 transition-transform ${openFaq === i ? 'rotate-180' : ''}`}
+                      className={`w-5 h-5 flex-shrink-0 text-slate-400 transition-transform ${openFaq === i ? 'rotate-180' : ''}`}
                     />
                   </button>
                   {openFaq === i && (
-                    <div className="px-6 pb-5 text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <div className="px-6 pb-5 text-slate-300 leading-relaxed">
                       {item.a}
                     </div>
                   )}
@@ -468,17 +468,17 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 bg-gradient-to-br from-blue-600 to-purple-600">
+        <section className="py-16 sm:py-20 px-4 bg-[#070f26]">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               {c.cta.h2}
             </h2>
-            <p className="text-lg text-white/90 mb-8">
+            <p className="text-lg text-slate-300 mb-8">
               {c.cta.subtitle}
             </p>
             <LocalizedLink
               href="/booking"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-blue-600 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510] font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
             >
               {c.cta.button}
               <ArrowRight className="w-5 h-5" />

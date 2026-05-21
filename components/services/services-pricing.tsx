@@ -304,7 +304,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
 
   const packs: Pack[] = [
     { id: 'starter', icon: '/assets/eclair.webp', gradient: 'from-blue-500 to-cyan-500' },
-    { id: 'business', icon: '/assets/eclair.webp', gradient: 'from-violet-500 to-purple-500', popular: true },
+    { id: 'business', icon: '/assets/eclair.webp', gradient: 'from-[#5db8f0] to-[#22d3ee]', popular: true },
     { id: 'premium', icon: '/assets/eclair.webp', gradient: 'from-amber-500 to-orange-500' },
     { id: 'ai', icon: '/assets/robot.webp', gradient: 'from-emerald-500 to-teal-500' },
   ];
@@ -463,7 +463,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
   if (!mounted) {
     // SSR: render full content so Google can index pricing
     return (
-      <section className="relative py-24 px-6 bg-gradient-to-b from-slate-950 to-slate-900">
+      <section className="relative py-24 px-6 bg-gradient-to-b from-[#050510] to-[#0e1b3d]">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">
             {t.title}
@@ -474,11 +474,11 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
               return (
                 <div
                   key={pack.id}
-                  className={`relative rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800 ${pack.popular ? 'ring-2 ring-violet-500' : ''}`}
+                  className={`relative rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 ${pack.popular ? 'ring-2 ring-[#5db8f0]' : ''}`}
                 >
                   {pack.popular && (
                     <div className="absolute top-4 right-4">
-                      <span className="px-3 py-1 text-xs font-semibold bg-violet-500 text-white rounded-full">⭐ Populaire</span>
+                      <span className="px-3 py-1 text-xs font-semibold bg-[#5db8f0] text-[#050510] rounded-full">⭐ Populaire</span>
                     </div>
                   )}
                   <div className="p-6">
@@ -490,7 +490,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                     <ul className="space-y-3 mb-6">
                       {packData?.features?.map((feature, i) => (
                         <li key={i} className="flex items-center gap-3 text-white/70 text-sm">
-                          <span className="w-4 h-4 text-violet-400 flex-shrink-0">•</span>
+                          <span className="w-4 h-4 text-[#5db8f0] flex-shrink-0">•</span>
                           <span>{feature.text}</span>
                         </li>
                       ))}
@@ -512,7 +512,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 px-6 bg-gradient-to-b from-slate-950 to-slate-900"
+      className="relative py-24 px-6 bg-gradient-to-b from-[#050510] to-[#0e1b3d]"
     >
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">
@@ -531,12 +531,12 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                 ref={(el) => {
                   if (el) cardsRef.current[index] = el;
                 }}
-                className={`relative group cursor-pointer rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800 hover:border-slate-600 transition-all duration-500 ${pack.popular ? 'ring-2 ring-violet-500' : ''}`}
+                className={`relative group cursor-pointer rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 hover:border-slate-600 transition-all duration-500 ${pack.popular ? 'ring-2 ring-[#5db8f0]' : ''}`}
                 onClick={(e) => openModal(pack.id, e)}
               >
                 {pack.popular && (
                   <div className="absolute top-4 right-4 z-10">
-                    <span className="px-3 py-1 text-xs font-semibold bg-violet-500 text-white rounded-full">
+                    <span className="px-3 py-1 text-xs font-semibold bg-[#5db8f0] text-[#050510] rounded-full">
                       ⭐ Populaire
                     </span>
                   </div>
@@ -576,13 +576,13 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                       const FeatureIcon = ICON_MAP[feature.icon] || Code;
                       return (
                         <li key={i} className="flex items-center gap-3 text-white/70 text-sm">
-                          <FeatureIcon className="w-4 h-4 text-violet-400 flex-shrink-0" />
+                          <FeatureIcon className="w-4 h-4 text-[#5db8f0] flex-shrink-0" />
                           <span>{feature.text}</span>
                         </li>
                       );
                     })}
                     {(packData?.features?.length ?? 0) > 4 && (
-                      <li className="text-violet-400 text-sm">
+                      <li className="text-[#5db8f0] text-sm">
                         +{(packData?.features?.length ?? 0) - 4} {language === 'fr' ? 'autres fonctionnalités' : language === 'es' ? 'otras características' : 'more features'}
                       </li>
                     )}
@@ -618,7 +618,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
         >
           <div
             ref={modalRef}
-            className="relative max-w-lg w-full bg-slate-900 border border-slate-700 rounded-2xl overflow-hidden"
+            className="relative max-w-lg w-full bg-[#0e1b3d] border border-white/10 rounded-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -647,14 +647,14 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                   const FeatureIcon = ICON_MAP[feature.icon] || Code;
                   return (
                     <li key={i} className="flex items-center gap-3 text-white/80">
-                      <FeatureIcon className="w-5 h-5 text-violet-400 flex-shrink-0" />
+                      <FeatureIcon className="w-5 h-5 text-[#5db8f0] flex-shrink-0" />
                       <span>{feature.text}</span>
                     </li>
                   );
                 })}
               </ul>
 
-              <div className="flex items-center justify-between text-white/60 mb-6 pb-6 border-b border-slate-700">
+              <div className="flex items-center justify-between text-white/60 mb-6 pb-6 border-b border-white/10">
                 <span>{t.deadline}:</span>
                 <span className="font-semibold text-white">{currentPack.delay}</span>
               </div>
