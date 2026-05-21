@@ -79,7 +79,7 @@ export function ServicesSection() {
             {/* Photo pleine carte */}
             <div className="absolute inset-0">
               <Image
-                src="/assets/services/web_dev.webp"
+                src="/assets/services/development_web-macbook.webp"
                 alt="MacBook affichant du code TypeScript dans un éditeur sombre"
                 fill sizes="(max-width:1280px) 58vw, 740px"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -110,7 +110,7 @@ export function ServicesSection() {
           {/* Carte 2 — Applications Mobiles — col 8-12 / row 1 */}
           <LocalizedLink href="/mobile-app-development" className="relative col-span-5 rounded-3xl overflow-hidden bg-frost group">
             <Image
-              src="/assets/services/web_dev.jpeg"
+              src="/assets/services/developement_mobile.webp"
               alt="Interface mobile moderne"
               fill sizes="(max-width:1280px) 42vw, 540px"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -167,7 +167,7 @@ export function ServicesSection() {
           {/* Carte 4 — Automatisation — col 11-12 / row 2 (la plus petite) */}
           <LocalizedLink href="/automatisation" className="relative col-span-2 rounded-3xl overflow-hidden group" style={{ background: '#070F26' }}>
             <Image
-              src="/assets/services/automation.webp"
+              src="/assets/services/automation_n8n.webp"
               alt="Workflow d'automatisation n8n"
               fill sizes="20vw"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -201,7 +201,7 @@ export function ServicesSection() {
         <div className="md:hidden flex flex-col gap-4">
           {/* Dev Web grande */}
           <LocalizedLink href="/services" className="relative rounded-3xl overflow-hidden group" style={{ height: '480px' }}>
-            <Image src="/assets/services/web_dev.webp" alt="Développement Web" fill sizes="100vw" className="object-cover" loading="lazy" />
+            <Image src="/assets/services/development_web-macbook.webp" alt="Développement Web" fill sizes="100vw" className="object-cover" loading="lazy" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.95) 0%, rgba(7,15,38,0.4) 60%, transparent 100%)' }} />
             <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)' }} />
             <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -214,7 +214,7 @@ export function ServicesSection() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Mobile */}
             <LocalizedLink href="/mobile-app-development" className="relative rounded-3xl overflow-hidden bg-frost group" style={{ height: '320px' }}>
-              <Image src="/assets/services/web_dev.jpeg" alt="Apps Mobiles" fill sizes="50vw" className="object-cover" style={{ opacity: 0.4 }} loading="lazy" />
+              <Image src="/assets/services/developement_mobile.webp" alt="Apps Mobiles" fill sizes="50vw" className="object-cover" style={{ opacity: 0.4 }} loading="lazy" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(232,244,253,0.2) 0%, rgba(232,244,253,0.92) 65%)' }} />
               <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
                 <Smartphone className="w-5 h-5 text-sky-400 mb-2" />
@@ -235,7 +235,7 @@ export function ServicesSection() {
 
             {/* Automatisation */}
             <LocalizedLink href="/automatisation" className="relative rounded-3xl overflow-hidden group sm:col-span-2" style={{ background: '#070F26', height: '260px' }}>
-              <Image src="/assets/services/automation.webp" alt="Automatisation" fill sizes="100vw" className="object-cover" style={{ opacity: 0.5 }} loading="lazy" />
+              <Image src="/assets/services/automation_n8n.webp" alt="Automatisation" fill sizes="100vw" className="object-cover" style={{ opacity: 0.5 }} loading="lazy" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.95) 0%, transparent 60%)' }} />
               <div className="absolute top-4 right-4">
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold text-white" style={{ background: '#0E1B3D' }}>

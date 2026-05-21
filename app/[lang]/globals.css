@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes cell-ripple {
+  0%   { opacity: 0.4; }
+  50%  { opacity: 0.8; }
+  100% { opacity: 0.4; }
+}
+
+.animate-cell-ripple {
+  animation: cell-ripple var(--duration, 200ms) ease-out 1 var(--delay, 0ms);
+}
+
 /* ============================================================
    DESIGN SYSTEM 2026 — NeuraWeb
    Agence Web · IA · Automatisation

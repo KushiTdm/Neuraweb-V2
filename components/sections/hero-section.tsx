@@ -41,7 +41,7 @@ const SLIDES: Slide[] = [
       en: 'n8n workflows, API integration, multiplied productivity — free your team from repetitive tasks.',
       es: 'Flujos n8n, integración API, productividad multiplicada — libera tu equipo de tareas repetitivas.',
     },
-    image: '/assets/services/automation.webp',
+    image: '/assets/services/automation_n8n.webp',
     showKpi: true,
   },
   {
@@ -52,7 +52,7 @@ const SLIDES: Slide[] = [
       en: 'Custom web development, AI integration and mobile apps to propel your business forward.',
       es: 'Desarrollo web a medida, integración IA y apps móviles para impulsar tu empresa.',
     },
-    image: '/assets/services/web_dev.webp',
+    image: '/assets/services/development_web-macbook.webp',
     showKpi: false,
   },
   {
@@ -74,7 +74,7 @@ const SLIDES: Slide[] = [
       en: 'React Native, Flutter — MVP delivered in 6 weeks, market-ready.',
       es: 'React Native, Flutter — MVP entregado en 6 semanas, listo para el mercado.',
     },
-    image: '/assets/equipe.webp',
+    image: '/assets/services/developement_mobile.webp',
     showKpi: false,
   },
 ];
