@@ -303,10 +303,10 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
   } = useAnalytics();
 
   const packs: Pack[] = [
-    { id: 'starter', icon: '/assets/eclair.webp', gradient: 'from-blue-500 to-cyan-500' },
+    { id: 'starter', icon: '/assets/eclair.webp', gradient: 'from-[#5db8f0] to-[#22d3ee]' },
     { id: 'business', icon: '/assets/eclair.webp', gradient: 'from-[#5db8f0] to-[#22d3ee]', popular: true },
-    { id: 'premium', icon: '/assets/eclair.webp', gradient: 'from-amber-500 to-orange-500' },
-    { id: 'ai', icon: '/assets/robot.webp', gradient: 'from-emerald-500 to-teal-500' },
+    { id: 'premium', icon: '/assets/eclair.webp', gradient: 'from-[#5db8f0] to-[#22d3ee]' },
+    { id: 'ai', icon: '/assets/robot.webp', gradient: 'from-[#5db8f0] to-[#22d3ee]' },
   ];
 
   useEffect(() => {

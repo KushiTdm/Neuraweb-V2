@@ -47,7 +47,7 @@ export default function ContactPageClient() {
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
               {t('contact.hero.title')}{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-purple-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5db8f0] to-[#22d3ee]">
                 {t('contact.hero.title.highlight')}
               </span>
             </h1>
