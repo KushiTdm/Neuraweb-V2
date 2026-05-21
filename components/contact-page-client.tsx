@@ -197,7 +197,7 @@ export default function ContactPageClient() {
                   disabled={isSubmitting}
                   className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-semibold transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                   style={{
-                    background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                    background: 'linear-gradient(90deg, #5db8f0, #22d3ee)',
                   }}
                 >
                   {isSubmitting ? (

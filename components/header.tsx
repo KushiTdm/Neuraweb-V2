@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowRight, ChevronDown, Code, Smartphone, Zap, Brain, HeartPulse } from 'lucide-react';
+import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
 import { useTheme } from '@/components/theme-provider';
 import { useTranslation } from '@/hooks/use-translation';
 import { LanguageSelector } from '@/components/language-selector';
@@ -127,69 +127,54 @@ export function Header() {
                   <div className="rounded-xl border border-gray-200/80 dark:border-white/10 bg-white/95 dark:bg-[#0a0a1a]/95 backdrop-blur-md shadow-xl shadow-black/5 dark:shadow-black/40 p-2">
                     <LocalizedLink
                       href="/services"
-                      className="flex items-start gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
+                      className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
                         text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
                         hover:bg-gray-50 dark:hover:bg-white/5"
                     >
-                      <Code size={18} className="mt-0.5 text-sky-400 shrink-0" />
-                      <span>
-                        <span className="block font-medium">{t('nav.dropdown.web.label')}</span>
-                        <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.web.desc')}</span>
-                      </span>
+                      <span className="block font-medium">{t('nav.dropdown.web.label')}</span>
+                      <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.web.desc')}</span>
                     </LocalizedLink>
 
                     <LocalizedLink
                       href="/mobile-app-development"
-                      className="flex items-start gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
+                      className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
                         text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
                         hover:bg-gray-50 dark:hover:bg-white/5"
                     >
-                      <Smartphone size={18} className="mt-0.5 text-cyan-500 shrink-0" />
-                      <span>
-                        <span className="block font-medium">{t('nav.dropdown.mobile.label')}</span>
-                        <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.mobile.desc')}</span>
-                      </span>
+                      <span className="block font-medium">{t('nav.dropdown.mobile.label')}</span>
+                      <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.mobile.desc')}</span>
                     </LocalizedLink>
 
                     <LocalizedLink
                       href="/automatisation"
-                      className="flex items-start gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
+                      className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
                         text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
                         hover:bg-gray-50 dark:hover:bg-white/5"
                     >
-                      <Zap size={18} className="mt-0.5 text-amber-500 shrink-0" />
-                      <span>
-                        <span className="block font-medium">{t('nav.dropdown.automation.label')}</span>
-                        <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.automation.desc')}</span>
-                      </span>
+                      <span className="block font-medium">{t('nav.dropdown.automation.label')}</span>
+                      <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.automation.desc')}</span>
                     </LocalizedLink>
 
                     <LocalizedLink
                       href="/integration-ia"
-                      className="flex items-start gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
+                      className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
                         text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
                         hover:bg-gray-50 dark:hover:bg-white/5"
                     >
-                      <Brain size={18} className="mt-0.5 text-sky-400 shrink-0" />
-                      <span>
-                        <span className="block font-medium">{t('nav.dropdown.ai.label')}</span>
-                        <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.ai.desc')}</span>
-                      </span>
+                      <span className="block font-medium">{t('nav.dropdown.ai.label')}</span>
+                      <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.ai.desc')}</span>
                     </LocalizedLink>
 
                     <div className="my-1 border-t border-gray-100 dark:border-white/5" />
 
                     <LocalizedLink
                       href="/sante"
-                      className="flex items-start gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
+                      className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
                         text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
                         hover:bg-gray-50 dark:hover:bg-white/5"
                     >
-                      <HeartPulse size={18} className="mt-0.5 text-rose-500 shrink-0" />
-                      <span>
-                        <span className="block font-medium">{t('nav.dropdown.sante.label')}</span>
-                        <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.sante.desc')}</span>
-                      </span>
+                      <span className="block font-medium">{t('nav.dropdown.sante.label')}</span>
+                      <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.sante.desc')}</span>
                     </LocalizedLink>
                   </div>
                 </div>
@@ -327,41 +312,36 @@ export function Header() {
                 <LocalizedLink
                   href="/services"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2 py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  className="block py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
-                  <Code size={14} className="text-sky-400" />
                   {t('nav.dropdown.web.label')}
                 </LocalizedLink>
                 <LocalizedLink
                   href="/mobile-app-development"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2 py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  className="block py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
-                  <Smartphone size={14} className="text-cyan-500" />
                   {t('nav.dropdown.mobile.label')}
                 </LocalizedLink>
                 <LocalizedLink
                   href="/automatisation"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2 py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  className="block py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
-                  <Zap size={14} className="text-amber-500" />
                   {t('nav.dropdown.automation.label')}
                 </LocalizedLink>
                 <LocalizedLink
                   href="/integration-ia"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2 py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  className="block py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
-                  <Brain size={14} className="text-sky-400" />
                   {t('nav.dropdown.ai.label')}
                 </LocalizedLink>
                 <LocalizedLink
                   href="/sante"
                   onClick={() => setIsMenuOpen(false)}
-                  className="flex items-center gap-2 py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  className="block py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
-                  <HeartPulse size={14} className="text-rose-500" />
                   {t('nav.dropdown.sante.label')}
                 </LocalizedLink>
               </div>

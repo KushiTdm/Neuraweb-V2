@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState, forwardRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { gsap } from '@/lib/gsap-setup';
 import { useLanguage } from '@/contexts/language-context';
 import { useAnalytics } from '@/hooks/use-analytics';
-import { X, ChevronRight, Sparkles, Zap, Shield, HeadphonesIcon, Globe, Rocket, Code, Database, Bot, Settings, TrendingUp, Users, MessageSquare, ShoppingCart, Mail, Search, Server, Clock, MessageCircle } from 'lucide-react';
+import { X, ChevronRight, Sparkles, Zap, Shield, HeadphonesIcon, Globe, Rocket, Code, Database, Bot, Settings, TrendingUp, Users, MessageSquare, ShoppingCart, Mail, Search, Server, Clock, MessageCircle, Layout, BarChart3, Star, ArrowRight } from 'lucide-react';
+import { LocalizedLink } from '@/components/localized-link';
 
 interface ServicesPricingProps {
   language?: 'fr' | 'en' | 'es';
@@ -14,7 +14,7 @@ interface ServicesPricingProps {
 
 interface Pack {
   id: string;
-  icon: string;
+  lucideIcon: React.ElementType;
   gradient: string;
   popular?: boolean;
 }
@@ -303,10 +303,10 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
   } = useAnalytics();
 
   const packs: Pack[] = [
-    { id: 'starter', icon: '/assets/eclair.webp', gradient: 'from-[#5db8f0] to-[#22d3ee]' },
-    { id: 'business', icon: '/assets/eclair.webp', gradient: 'from-[#5db8f0] to-[#22d3ee]', popular: true },
-    { id: 'premium', icon: '/assets/eclair.webp', gradient: 'from-[#5db8f0] to-[#22d3ee]' },
-    { id: 'ai', icon: '/assets/robot.webp', gradient: 'from-[#5db8f0] to-[#22d3ee]' },
+    { id: 'starter', lucideIcon: Layout, gradient: 'from-[#5db8f0] to-[#22d3ee]' },
+    { id: 'business', lucideIcon: BarChart3, gradient: 'from-[#5db8f0] to-[#22d3ee]', popular: true },
+    { id: 'premium', lucideIcon: Star, gradient: 'from-[#5db8f0] to-[#22d3ee]' },
+    { id: 'ai', lucideIcon: Sparkles, gradient: 'from-[#5db8f0] to-[#22d3ee]' },
   ];
 
   useEffect(() => {
@@ -471,6 +471,22 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {packs.map((pack) => {
               const packData = t.packs[pack.id as keyof typeof t.packs];
+              const PackIconSSR = pack.lucideIcon;
+
+              if (pack.id === 'ai') {
+                return (
+                  <div key={pack.id} className="relative rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 border-dashed">
+                    <div className="p-6">
+                      <div className="w-12 h-12 mb-5 rounded-xl bg-[#5db8f0]/10 border border-[#5db8f0]/20 flex items-center justify-center">
+                        <PackIconSSR className="w-6 h-6 text-[#5db8f0]" />
+                      </div>
+                      <h3 className="text-xl font-bold text-white mb-2">IA & Automatisation</h3>
+                      <p className="text-white/60 text-sm mb-4">Services dédiés IA et automatisation.</p>
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <div
                   key={pack.id}
@@ -478,10 +494,13 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                 >
                   {pack.popular && (
                     <div className="absolute top-4 right-4">
-                      <span className="px-3 py-1 text-xs font-semibold bg-[#5db8f0] text-[#050510] rounded-full">⭐ Populaire</span>
+                      <span className="px-3 py-1 text-xs font-semibold bg-[#5db8f0] text-[#050510] rounded-full">Populaire</span>
                     </div>
                   )}
                   <div className="p-6">
+                    <div className="w-12 h-12 mb-5 rounded-xl bg-[#5db8f0]/10 border border-[#5db8f0]/20 flex items-center justify-center">
+                      <PackIconSSR className="w-6 h-6 text-[#5db8f0]" />
+                    </div>
                     <h3 className="text-xl font-bold text-white mb-2">{packData?.title}</h3>
                     <p className="text-white/60 text-sm mb-4">{packData?.subtitle}</p>
                     <div className="flex items-baseline gap-2 mb-6">
@@ -522,7 +541,50 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {packs.map((pack, index) => {
             const packData = t.packs[pack.id as keyof typeof t.packs];
-            const IconComponent = ICON_MAP['Zap'];
+            const PackIcon = pack.lucideIcon;
+
+            // Carte spéciale pour les services IA — renvoie vers les pages dédiées
+            if (pack.id === 'ai') {
+              return (
+                <div
+                  key={pack.id}
+                  ref={(el) => { if (el) cardsRef.current[index] = el; }}
+                  className="relative group rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 border-dashed hover:border-[#5db8f0]/40 transition-all duration-500"
+                >
+                  <div className="relative p-6 flex flex-col h-full">
+                    <div className="w-12 h-12 mb-5 rounded-xl bg-[#5db8f0]/10 border border-[#5db8f0]/20 flex items-center justify-center">
+                      <PackIcon className="w-6 h-6 text-[#5db8f0]" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      {language === 'fr' ? 'IA & Automatisation' : language === 'es' ? 'IA & Automatización' : 'AI & Automation'}
+                    </h3>
+                    <p className="text-white/60 text-sm mb-6 flex-1">
+                      {language === 'fr'
+                        ? 'Chatbots RAG, agents IA, automatisation n8n/Make — des services dédiés pour aller plus loin.'
+                        : language === 'es'
+                        ? 'Chatbots RAG, agentes IA, automatización n8n/Make — servicios dedicados para ir más lejos.'
+                        : 'RAG chatbots, AI agents, n8n/Make automation — dedicated services to go further.'}
+                    </p>
+                    <div className="space-y-2 mt-auto">
+                      <LocalizedLink
+                        href="/integration-ia"
+                        className="flex items-center justify-between w-full px-4 py-2.5 rounded-xl bg-[#5db8f0]/10 border border-[#5db8f0]/20 text-[#5db8f0] text-sm font-medium hover:bg-[#5db8f0]/20 transition-colors"
+                      >
+                        <span>{language === 'fr' ? 'Intégration IA' : language === 'es' ? 'Integración IA' : 'AI Integration'}</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </LocalizedLink>
+                      <LocalizedLink
+                        href="/automatisation"
+                        className="flex items-center justify-between w-full px-4 py-2.5 rounded-xl bg-[#22d3ee]/10 border border-[#22d3ee]/20 text-[#22d3ee] text-sm font-medium hover:bg-[#22d3ee]/20 transition-colors"
+                      >
+                        <span>{language === 'fr' ? 'Automatisation' : language === 'es' ? 'Automatización' : 'Automation'}</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </LocalizedLink>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
 
             return (
               <div
@@ -531,13 +593,13 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                 ref={(el) => {
                   if (el) cardsRef.current[index] = el;
                 }}
-                className={`relative group cursor-pointer rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 hover:border-slate-600 transition-all duration-500 ${pack.popular ? 'ring-2 ring-[#5db8f0]' : ''}`}
+                className={`relative group cursor-pointer rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 hover:border-[#5db8f0]/40 transition-all duration-500 ${pack.popular ? 'ring-2 ring-[#5db8f0]' : ''}`}
                 onClick={(e) => openModal(pack.id, e)}
               >
                 {pack.popular && (
                   <div className="absolute top-4 right-4 z-10">
                     <span className="px-3 py-1 text-xs font-semibold bg-[#5db8f0] text-[#050510] rounded-full">
-                      ⭐ Populaire
+                      Populaire
                     </span>
                   </div>
                 )}
@@ -545,14 +607,8 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                 <div className={`absolute inset-0 bg-gradient-to-br ${pack.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
 
                 <div className="relative p-6">
-                  <div className="w-16 h-16 mb-6 relative">
-                    <Image
-                      src={pack.icon}
-                      alt={packData?.title || pack.id}
-                      width={64}
-                      height={64}
-                      className="object-contain drop-shadow-lg"
-                    />
+                  <div className="w-12 h-12 mb-5 rounded-xl bg-[#5db8f0]/10 border border-[#5db8f0]/20 flex items-center justify-center">
+                    <PackIcon className="w-6 h-6 text-[#5db8f0]" />
                   </div>
 
                   <h3 className="text-xl font-bold text-white mb-2">
@@ -598,7 +654,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                       e.stopPropagation();
                       handleChoosePack(pack.id);
                     }}
-                    className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r ${pack.gradient} text-white hover:shadow-lg hover:scale-[1.02]`}
+                    className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r ${pack.gradient} text-[#050510] hover:shadow-lg hover:scale-[1.02]`}
                   >
                     {t.choosePack}
                   </button>
