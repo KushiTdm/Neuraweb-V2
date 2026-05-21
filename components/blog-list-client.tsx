@@ -39,7 +39,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [featuredIndex, setFeaturedIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const POSTS_PER_PAGE = 9;
+  const POSTS_PER_PAGE = 18;
 
   const trackedPosts = useRef<Set<string>>(new Set());
   const { trackBlogView, trackBlogClick, trackCTA } = useAnalytics();
@@ -216,24 +216,6 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
     setSortByDate('newest');
     setSelectedCategory('all');
   };
-
-  if (!mounted) {
-    return (
-      <section className="py-16 sm:py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            {tr.title}{' '}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              NeuraWeb
-            </span>
-          </h1>
-          <div className="animate-pulse">
-            <div className="h-6 bg-gray-200 dark:bg-gray-800 rounded-lg w-96 mx-auto" />
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   // Category badge color map (cycles through a palette)
   const CATEGORY_COLORS: Record<string, string> = {};

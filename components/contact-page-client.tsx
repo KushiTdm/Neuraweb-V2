@@ -51,8 +51,11 @@ export default function ContactPageClient() {
                 {t('contact.hero.title.highlight')}
               </span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-4">
               {t('contact.hero.subtitle')}
+            </p>
+            <p className="text-base text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
+              {t('contact.hero.description')}
             </p>
           </div>
 
