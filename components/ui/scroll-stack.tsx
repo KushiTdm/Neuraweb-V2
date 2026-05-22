@@ -62,6 +62,7 @@ const ScrollStack = ({
   const stackCompletedRef = useRef(false);
   const animationFrameRef = useRef<number | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
+  const nativeScrollHandlerRef = useRef<(() => void) | null>(null);
   const cardsRef = useRef<HTMLElement[]>([]);
   const lastTransformsRef = useRef(new Map<number, CardTransform>());
   const isUpdatingRef = useRef(false);
@@ -224,28 +225,14 @@ const ScrollStack = ({
 
   const setupLenis = useCallback(() => {
     if (useWindowScroll) {
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-        touchMultiplier: 2,
-        infinite: false,
-        wheelMultiplier: 1,
-        lerp: 0.1,
-        syncTouch: true,
-        syncTouchLerp: 0.075,
-      });
-
-      lenis.on('scroll', handleScroll);
-
-      const raf = (time: number) => {
-        lenis.raf(time);
-        animationFrameRef.current = requestAnimationFrame(raf);
-      };
-      animationFrameRef.current = requestAnimationFrame(raf);
-
-      lenisRef.current = lenis;
-      return lenis;
+      // ── Mobile / window-scroll : scroll natif sans interpolation Lenis ──
+      // Lenis avec lerp + syncTouch provoque des tremblements sur mobile car
+      // la position interpolée diverge du scroll natif → jitter visuel.
+      // On utilise un simple listener passif sur window.scroll à la place.
+      const handler = () => updateCardTransforms();
+      nativeScrollHandlerRef.current = handler;
+      window.addEventListener('scroll', handler, { passive: true });
+      return null;
     } else {
       const scroller = scrollerRef.current;
       if (!scroller) return;
@@ -278,7 +265,7 @@ const ScrollStack = ({
       lenisRef.current = lenis;
       return lenis;
     }
-  }, [handleScroll, useWindowScroll]);
+  }, [handleScroll, useWindowScroll, updateCardTransforms]);
 
   useLayoutEffect(() => {
     const scroller = scrollerRef.current;
@@ -313,9 +300,15 @@ const ScrollStack = ({
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = null;
       }
       if (lenisRef.current) {
         lenisRef.current.destroy();
+        lenisRef.current = null;
+      }
+      if (nativeScrollHandlerRef.current) {
+        window.removeEventListener('scroll', nativeScrollHandlerRef.current);
+        nativeScrollHandlerRef.current = null;
       }
       stackCompletedRef.current = false;
       cardsRef.current = [];
