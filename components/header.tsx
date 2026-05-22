@@ -96,9 +96,9 @@ export function Header() {
               {/* Services — dropdown au survol */}
               <div className="relative group">
                 <LocalizedLink
-                  href="/services"
+                  href="/developpement-web"
                   className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 inline-flex items-center gap-1 ${
-                    isActive('/services')
+                    isActive('/developpement-web')
                       ? 'text-sky-400'
                       : 'text-navy-900 dark:text-gray-300 hover:text-sky-400 dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
                   }`}
@@ -109,7 +109,7 @@ export function Header() {
                     size={14}
                     className="transition-transform duration-200 group-hover:rotate-180"
                   />
-                  {isActive('/services') && (
+                  {isActive('/developpement-web') && (
                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-sky-400" />
                   )}
                 </LocalizedLink>
@@ -127,7 +127,7 @@ export function Header() {
                 >
                   <div className="rounded-xl border border-gray-200/80 dark:border-white/10 bg-white/95 dark:bg-[#0a0a1a]/95 backdrop-blur-md shadow-xl shadow-black/5 dark:shadow-black/40 p-2">
                     <LocalizedLink
-                      href="/services"
+                      href="/developpement-web"
                       className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
                         text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
                         hover:bg-gray-50 dark:hover:bg-white/5"
@@ -282,7 +282,7 @@ export function Header() {
           contactLabel={t('nav.contact')}
           items={[
             { label: t('nav.home'),     href: '/',                     ariaLabel: t('nav.home')     },
-            { label: t('nav.services'), href: '/services',             ariaLabel: t('nav.services') },
+            { label: t('nav.services'), href: '/developpement-web',    ariaLabel: t('nav.services') },
             { label: 'Mobile',          href: '/mobile-app-development' },
             { label: 'IA',              href: '/integration-ia'        },
             { label: t('nav.blog'),     href: '/blog',                 ariaLabel: t('nav.blog')     },

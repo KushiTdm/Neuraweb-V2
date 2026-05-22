@@ -192,8 +192,8 @@ export const en: Record<TranslationKey, string> = {
   'footer.legal.terms': 'Terms',
 
   // Services Page
-  'servicePage.hero.title': 'Custom Web, Mobile App & AI Development',
-  'servicePage.hero.subtitle': 'Tailored solutions: websites, iOS/Android mobile apps, AI integration and automation. Free quote within 24h.',
+  'servicePage.hero.title': 'Custom Web Development',
+  'servicePage.hero.subtitle': 'Showcase sites, professional websites and e-commerce in Next.js — performance, SEO and clean design. Free quote within 24h.',
   'servicePage.process.title': 'Our Process',
   'servicePage.process.badge': 'Proven method',
   'servicePage.process.audit.title': '1. Audit & Analysis',

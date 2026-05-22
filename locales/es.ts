@@ -192,8 +192,8 @@ export const es: Record<TranslationKey, string> = {
   'footer.legal.terms': 'Condiciones',
 
   // Services Page
-  'servicePage.hero.title': 'Desarrollo Web, Apps Móviles e IA',
-  'servicePage.hero.subtitle': 'Soluciones a medida: sitios web, aplicaciones móviles iOS/Android, integración IA y automatización. Presupuesto gratuito en 24h.',
+  'servicePage.hero.title': 'Desarrollo Web a Medida',
+  'servicePage.hero.subtitle': 'Sitios vitrina, webs profesionales y e-commerce en Next.js — rendimiento, SEO y diseño cuidado. Presupuesto gratis en 24h.',
   'servicePage.process.title': 'Nuestro Proceso',
   'servicePage.process.badge': 'Método probado',
   'servicePage.process.audit.title': '1. Auditoría y Análisis',

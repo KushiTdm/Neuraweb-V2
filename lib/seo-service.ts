@@ -15,7 +15,7 @@ export interface SEOTemplate {
   ogImage?: string;
 }
 
-export type PageType = 'home' | 'services' | 'contact' | 'portfolio' | 'blog' | 'custom' | 'equipe' | 'booking';
+export type PageType = 'home' | 'services' | 'developpement-web' | 'contact' | 'portfolio' | 'blog' | 'custom' | 'equipe' | 'booking';
 export type Language = 'fr' | 'en' | 'es';
 
 export interface PageSEOContext {
@@ -64,6 +64,11 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       description: 'Développement web Next.js, apps mobiles iOS/Android, intégration IA et automatisation n8n. Packs Starter, Business, Premium. Devis gratuit sous 24h.',
       keywords: ['services développement web', 'création application mobile', 'app iOS Android sur mesure', 'intégration IA site web', 'automatisation processus', 'tarifs développement web', 'devis site web'],
     },
+    'developpement-web': {
+      title: 'Développement Web Sur Mesure — Packs Starter, Business, Premium | NeuraWeb',
+      description: 'Agence web Next.js : sites vitrine, sites pro et e-commerce sur mesure. Packs Starter à 1 490€, Business à 3 990€, Premium à 7 990€. Devis gratuit sous 24h.',
+      keywords: ['développement web sur mesure', 'création site web professionnel', 'agence web Next.js', 'site vitrine entreprise', 'e-commerce sur mesure', 'tarifs site web 2026', 'devis site web gratuit', 'agence web Paris', 'refonte site web'],
+    },
     contact: {
       title: 'Contactez NeuraWeb — Devis gratuit pour votre projet',
       description: 'Contactez NeuraWeb pour discuter de votre projet web, application mobile ou intégration IA. Réponse garantie sous 24h, devis gratuit et sans engagement.',
@@ -106,6 +111,11 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       description: 'Next.js web development, iOS/Android mobile apps, AI integration and n8n automation. Starter, Business, Premium packs. Free quote within 24h.',
       keywords: ['custom app development services', 'mobile app development services', 'custom web software development', 'AI integration services', 'web development pricing', 'software development company'],
     },
+    'developpement-web': {
+      title: 'Custom Web Development — Starter, Business, Premium Packages | NeuraWeb',
+      description: 'Next.js web agency: showcase sites, professional websites and e-commerce built to order. Starter from €1,490, Business from €3,990, Premium from €7,990. Free quote in 24h.',
+      keywords: ['custom web development', 'professional website creation', 'Next.js web agency', 'business website design', 'custom e-commerce development', 'web development pricing 2026', 'free website quote', 'web development agency France'],
+    },
     contact: {
       title: 'Contact NeuraWeb — Free Quote for Your Web Project',
       description: 'Contact NeuraWeb to discuss your web project, mobile app or AI integration. Guaranteed response within 24 hours and a free, no-commitment quote.',
@@ -147,6 +157,11 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       title: 'Servicios — Desarrollo Web, Apps Móviles e IA | NeuraWeb',
       description: 'Desarrollo web Next.js, apps móviles iOS/Android, integración IA y automatización n8n. Paquetes Starter, Business, Premium. Presupuesto gratuito en 24h.',
       keywords: ['servicios desarrollo web', 'desarrollo apps móviles', 'desarrollo software personalizado', 'integración IA web', 'precios desarrollo web', 'presupuesto app móvil'],
+    },
+    'developpement-web': {
+      title: 'Desarrollo Web a Medida — Paquetes Starter, Business, Premium | NeuraWeb',
+      description: 'Agencia web Next.js: sitios vitrina, webs profesionales y e-commerce a medida. Starter desde 1.490€, Business desde 3.990€, Premium desde 7.990€. Presupuesto gratis en 24h.',
+      keywords: ['desarrollo web a medida', 'creación web profesional', 'agencia web Next.js', 'diseño web empresa', 'e-commerce personalizado', 'precios web 2026', 'presupuesto web gratis', 'agencia web Francia'],
     },
     contact: {
       title: 'Contacta NeuraWeb — Presupuesto gratis para tu proyecto',
@@ -465,6 +480,12 @@ function generateBoostedKeywords(context: PageSEOContext): string[] {
   if (context.pageType === 'services') {
     keywords.push(...SEO_BOOST_KEYWORDS.business);
     keywords.push(...SEO_BOOST_KEYWORDS.ai);
+  }
+
+  if (context.pageType === 'developpement-web') {
+    keywords.push(...SEO_BOOST_KEYWORDS.services);
+    keywords.push(...SEO_BOOST_KEYWORDS.business);
+    keywords.push(...SEO_BOOST_KEYWORDS.local.slice(0, 4));
   }
 
   if (context.pageType === 'home') {

@@ -14,7 +14,7 @@ const STATIC_PAGES: Record<string, {
   lastModified?: Date;
 }> = {
   // Pages de service — mises à jour au lancement, stable ensuite
-  services:                   { priority: 0.9, changeFrequency: 'monthly',  lastModified: new Date('2026-04-01') },
+  'developpement-web':        { priority: 0.9, changeFrequency: 'monthly',  lastModified: new Date('2026-05-22') },
   'mobile-app-development':   { priority: 0.9, changeFrequency: 'monthly',  lastModified: new Date('2026-04-01') },
   equipe:                     { priority: 0.7, changeFrequency: 'monthly',  lastModified: new Date('2026-03-15') },
   contact:                    { priority: 0.8, changeFrequency: 'monthly',  lastModified: new Date('2026-03-01') },

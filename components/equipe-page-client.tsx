@@ -5,6 +5,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
+import { WavyBackground } from '@/components/ui/wavy-background';
 import type { TranslationKey } from '@/locales/fr';
 
 const getTeamData = (t: (key: TranslationKey) => string) => [
@@ -39,19 +40,25 @@ export function EquipePageClient() {
     <>
       <Header />
       <main id="main-content" className="min-h-screen pt-24">
-        <section className="py-16 sm:py-24 px-4" style={{ background: '#070F26' }}>
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              {t('equipe.hero.title')}{' '}
-              <span className="bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] bg-clip-text text-transparent">
-                NeuraWeb
-              </span>
-            </h1>
-            <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto">
-              {t('equipe.hero.subtitle')}
-            </p>
-          </div>
-        </section>
+        <WavyBackground
+          containerClassName="relative py-24 sm:py-36 px-4 overflow-hidden"
+          backgroundFill="#070F26"
+          blur={12}
+          speed="slow"
+          waveOpacity={0.45}
+          waveWidth={55}
+          className="max-w-4xl mx-auto text-center"
+        >
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+            {t('equipe.hero.title')}{' '}
+            <span className="bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] bg-clip-text text-transparent">
+              NeuraWeb
+            </span>
+          </h1>
+          <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto">
+            {t('equipe.hero.subtitle')}
+          </p>
+        </WavyBackground>
 
         <section className="py-12 px-4" style={{ background: '#F7FAFD' }}>
           <div className="max-w-6xl mx-auto">

@@ -189,8 +189,8 @@ export const fr = {
   'footer.legal.terms': 'CGU',
 
   // Services Page
-  'servicePage.hero.title': 'Développement Web, Apps Mobiles & IA',
-  'servicePage.hero.subtitle': 'Solutions sur mesure : sites web, applications mobiles iOS/Android, intégration IA et automatisation. Devis gratuit sous 24h.',
+  'servicePage.hero.title': 'Développement Web Sur Mesure',
+  'servicePage.hero.subtitle': 'Sites vitrine, business et e-commerce Next.js — performance, SEO et design soigné. Devis gratuit sous 24h.',
   'servicePage.process.title': 'Notre Processus',
   'servicePage.process.badge': 'Méthode éprouvée',
   'servicePage.process.audit.title': '1. Audit & Analyse',

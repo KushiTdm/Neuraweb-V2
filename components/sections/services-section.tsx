@@ -115,11 +115,11 @@ export function ServicesSection() {
               alt="Interface mobile moderne"
               fill sizes="(max-width:1280px) 42vw, 540px"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
-              style={{ opacity: 0.45 }}
+              style={{ opacity: 0.75 }}
               loading="lazy"
             />
             {/* Overlay pour lisibilité */}
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(232,244,253,0.3) 0%, rgba(232,244,253,0.85) 60%, rgba(232,244,253,0.98) 100%)' }} />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(232,244,253,0.1) 0%, rgba(232,244,253,0.6) 55%, rgba(232,244,253,0.88) 100%)' }} />
             {/* Badge */}
             <div className="absolute top-5 right-5 z-10">
               <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold text-navy-900" style={{ background: '#5DB8F0' }}>
@@ -172,10 +172,10 @@ export function ServicesSection() {
               alt="Workflow d'automatisation n8n"
               fill sizes="20vw"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
-              style={{ opacity: 0.35 }}
+              style={{ opacity: 0.6 }}
               loading="lazy"
             />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.98) 0%, rgba(7,15,38,0.6) 60%, transparent 100%)' }} />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.88) 0%, rgba(7,15,38,0.35) 55%, transparent 100%)' }} />
             {/* Badge accent */}
             <div className="absolute top-4 left-4 right-4 z-10 flex justify-end">
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ background: '#0E1B3D' }}>
@@ -219,8 +219,8 @@ export function ServicesSection() {
 
             {/* Carte 2 — Mobile */}
             <LocalizedLink href="/mobile-app-development" className="relative rounded-3xl overflow-hidden bg-frost group block h-[340px]">
-              <Image src="/assets/services/developement_mobile.webp" alt="Apps Mobiles" fill sizes="85vw" className="object-cover" style={{ opacity: 0.4 }} loading="lazy" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(232,244,253,0.2) 0%, rgba(232,244,253,0.92) 65%)' }} />
+              <Image src="/assets/services/developement_mobile.webp" alt="Apps Mobiles" fill sizes="85vw" className="object-cover" style={{ opacity: 0.75 }} loading="lazy" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(232,244,253,0.1) 0%, rgba(232,244,253,0.78) 65%)' }} />
               <div className="absolute top-5 right-5 z-10">
                 <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold text-navy-900" style={{ background: '#5DB8F0' }}>
                   MVP 6 sem.
@@ -253,8 +253,8 @@ export function ServicesSection() {
 
             {/* Carte 4 — Automatisation */}
             <LocalizedLink href="/automatisation" className="relative rounded-3xl overflow-hidden group block h-[340px]" style={{ background: '#070F26' }}>
-              <Image src="/assets/services/automation_n8n.webp" alt="Automatisation" fill sizes="85vw" className="object-cover" style={{ opacity: 0.5 }} loading="lazy" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.95) 0%, transparent 60%)' }} />
+              <Image src="/assets/services/automation_n8n.webp" alt="Automatisation" fill sizes="85vw" className="object-cover" style={{ opacity: 0.65 }} loading="lazy" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.88) 0%, transparent 60%)' }} />
               <div className="absolute top-4 right-4">
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold text-white" style={{ background: '#0E1B3D' }}>
                   <Sparkles className="w-3 h-3" />−4h/sem

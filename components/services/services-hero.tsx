@@ -10,16 +10,16 @@ import { useTranslation } from '@/hooks/use-translation';
 // sans attendre l'hydratation JS. Doit rester synchronisé avec locales/*.ts
 const SSR_CONTENT: Record<string, { title: string; subtitle: string }> = {
   fr: {
-    title: 'Services Professionnels',
-    subtitle: 'Des solutions sur mesure pour transformer votre vision en réalité digitale',
+    title: 'Développement Web Sur Mesure',
+    subtitle: 'Sites vitrine, business et e-commerce Next.js — performance, SEO et design. Devis gratuit sous 24h.',
   },
   en: {
-    title: 'Professional Services',
-    subtitle: 'Custom solutions to transform your vision into digital reality',
+    title: 'Custom Web Development',
+    subtitle: 'Showcase sites, professional websites and e-commerce in Next.js — performance, SEO and design. Free quote in 24h.',
   },
   es: {
-    title: 'Servicios Profesionales',
-    subtitle: 'Soluciones a medida para transformar tu visión en realidad digital',
+    title: 'Desarrollo Web a Medida',
+    subtitle: 'Sitios vitrina, webs profesionales y e-commerce en Next.js — rendimiento, SEO y diseño. Presupuesto gratis en 24h.',
   },
 };
 

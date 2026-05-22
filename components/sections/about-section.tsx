@@ -6,6 +6,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
 import { MultiStepLoader } from '@/components/ui/multi-step-loader';
+import { WavyBackground } from '@/components/ui/wavy-background';
 
 const COMMITMENT_KEYS = [
   'about.commitments.1',
@@ -48,6 +49,15 @@ export function AboutSection() {
       className="relative py-8 sm:py-24 lg:py-32 overflow-hidden"
       style={{ background: '#F7FAFD' }}
     >
+      <WavyBackground
+        containerClassName="absolute inset-0 z-0"
+        backgroundFill="#F7FAFD"
+        colors={['#bfdbfe', '#c7d2fe', '#a5f3fc', '#7dd3fc', '#ddd6fe']}
+        blur={16}
+        speed="slow"
+        waveOpacity={0.38}
+        waveWidth={60}
+      />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-[52%_48%] gap-6 sm:gap-14 xl:gap-20 items-center">
 

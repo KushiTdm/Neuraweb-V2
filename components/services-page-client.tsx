@@ -7,6 +7,7 @@ import { CustomCursor } from '@/components/services/custom-cursor';
 import { ServicesHero } from '@/components/services/services-hero';
 import { ServicesProcess } from '@/components/services/services-process';
 import { ServicesPricing } from '@/components/services/services-pricing';
+import { ServicesRelatedLinks } from '@/components/services/services-related-links';
 import { ServicesCTA } from '@/components/services/services-cta';
 import { useLanguage } from '@/contexts/language-context';
 
@@ -29,6 +30,7 @@ export function ServicesPageClient() {
         <ServicesProcess language={language} onScrollToPricing={scrollToPricing} />
         <div className="overflow-x-hidden">
           <ServicesPricing ref={pricingRef} language={language} />
+          <ServicesRelatedLinks language={language} />
           <ServicesCTA language={language} />
         </div>
       </div>

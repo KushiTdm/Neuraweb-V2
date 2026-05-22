@@ -81,8 +81,6 @@ export default async function HomePage({
 
   return (
     <>
-      {/* Préchargement poster vidéo — home uniquement (la vidéo n'est pas sur les autres pages) */}
-      <link rel="preload" as="image" href="/assets/ampoulePoster.webp" />
       <JsonLd id="professional-service-schema" data={professionalServiceSchema} />
       <JsonLd id="home-faq-schema" data={faqSchema} />
       {/* LocalBusiness — porte l'aggregateRating (étoiles SERP). Restreint aux pages

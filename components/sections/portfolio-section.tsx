@@ -45,8 +45,8 @@ const portfolio: Project[] = [
 export function PortfolioSection() {
   const { t } = useTranslation();
 
-  // HeroParallax needs 15 items (3 rows × 5); repeat the 5 projects three times
-  const products = [...portfolio, ...portfolio, ...portfolio].map((p) => ({
+  // HeroParallax: 2 rows × 5 — row 1 normal order, row 2 reversed for variety
+  const products = [...portfolio, ...[...portfolio].reverse()].map((p) => ({
     title: t(p.titleKey),
     link: p.url ?? '#',
     thumbnail: p.image,

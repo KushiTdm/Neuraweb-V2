@@ -52,6 +52,9 @@ const nextConfig = {
       // /l-equipe détecté par des crawls — slug réel est /equipe
       { source: '/:lang/l-equipe', destination: '/:lang/equipe', permanent: true },
 
+      // /services → /developpement-web (page renommée pour cohérence SEO)
+      { source: '/:lang/services', destination: '/:lang/developpement-web', permanent: true },
+
     ];
   },
 
