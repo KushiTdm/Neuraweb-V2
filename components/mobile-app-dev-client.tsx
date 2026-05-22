@@ -243,7 +243,7 @@ export function MobileAppDevClient({ lang }: Props) {
     <>
       <Header />
       <main id="main-content" className="min-h-screen bg-[#050510] pt-24">
-        <section className="py-16 sm:py-24 px-4 relative overflow-hidden">
+        <section className="py-16 sm:py-24 px-4 relative overflow-hidden" style={{ background: '#070F26' }}>
           <div className="absolute inset-0 bg-gradient-to-br from-[#5db8f0]/10 via-[#22d3ee]/10 to-[#22d3ee]/5 pointer-events-none" aria-hidden="true" />
           <div className="max-w-5xl mx-auto text-center relative">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 mb-8">
@@ -277,13 +277,13 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4">
+        <section className="py-16 sm:py-20 px-4" style={{ background: '#F7FAFD' }}>
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
                 {c.tech.h2}
               </h2>
-              <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
                 {c.tech.subtitle}
               </p>
             </div>
@@ -293,7 +293,7 @@ export function MobileAppDevClient({ lang }: Props) {
                 return (
                   <article
                     key={card.name}
-                    className="p-6 rounded-2xl border border-white/10 bg-[#0e1b3d]/30 hover:border-[#5db8f0]/30 transition-colors"
+                    className="p-6 rounded-2xl border border-slate-200 shadow-sm bg-white hover:border-[#5db8f0]/30 transition-colors"
                   >
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-[#050510]" strokeWidth={2} />
@@ -301,10 +301,10 @@ export function MobileAppDevClient({ lang }: Props) {
                     <div className="text-xs font-semibold text-[#22d3ee] uppercase tracking-wider mb-2">
                       {card.tag}
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-2">
+                    <h3 className="text-xl font-bold text-[#0e1b3d] mb-2">
                       {card.name}
                     </h3>
-                    <p className="text-sm text-slate-400 leading-relaxed">
+                    <p className="text-sm text-slate-500 leading-relaxed">
                       {card.desc}
                     </p>
                   </article>
@@ -314,7 +314,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 bg-[#0e1b3d]/30">
+        <section className="py-16 sm:py-20 px-4" style={{ background: '#070F26' }}>
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -330,7 +330,7 @@ export function MobileAppDevClient({ lang }: Props) {
                 return (
                   <article
                     key={card.title}
-                    className="p-8 rounded-2xl bg-[#0e1b3d]/40 border border-white/10 hover:border-[#5db8f0]/30 transition-colors"
+                    className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-[#5db8f0]/30 transition-colors"
                   >
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center">
@@ -340,7 +340,7 @@ export function MobileAppDevClient({ lang }: Props) {
                         <h3 className="text-xl font-bold text-white mb-2">
                           {card.title}
                         </h3>
-                        <p className="text-slate-400 leading-relaxed">
+                        <p className="text-slate-300 leading-relaxed">
                           {card.desc}
                         </p>
                       </div>
@@ -352,13 +352,13 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4">
+        <section className="py-16 sm:py-20 px-4" style={{ background: '#F7FAFD' }}>
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
                 {c.process.h2}
               </h2>
-              <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
                 {c.process.subtitle}
               </p>
             </div>
@@ -368,15 +368,15 @@ export function MobileAppDevClient({ lang }: Props) {
                 return (
                   <article
                     key={step.title}
-                    className="p-6 rounded-2xl border border-white/10 bg-[#0e1b3d]/30"
+                    className="p-6 rounded-2xl border border-slate-200 shadow-sm bg-white"
                   >
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-[#050510]" strokeWidth={2} />
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-2">
+                    <h3 className="text-lg font-bold text-[#0e1b3d] mb-2">
                       {step.title}
                     </h3>
-                    <p className="text-sm text-slate-400 leading-relaxed">
+                    <p className="text-sm text-slate-500 leading-relaxed">
                       {step.desc}
                     </p>
                   </article>
@@ -386,7 +386,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section id="pricing" className="py-16 sm:py-20 px-4 bg-[#0e1b3d]/30">
+        <section id="pricing" className="py-16 sm:py-20 px-4" style={{ background: '#070F26' }}>
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -403,7 +403,7 @@ export function MobileAppDevClient({ lang }: Props) {
                   className={`p-8 rounded-3xl border-2 ${
                     pack.highlighted
                       ? 'border-[#5db8f0] bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510]'
-                      : 'border-white/10 bg-[#0e1b3d]/40'
+                      : 'border-white/10 bg-white/5'
                   }`}
                 >
                   <h3 className={`text-2xl font-bold mb-2 ${pack.highlighted ? 'text-[#050510]' : 'text-white'}`}>
@@ -437,28 +437,28 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4">
+        <section className="py-16 sm:py-20 px-4" style={{ background: '#F7FAFD' }}>
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] text-center mb-12">
               {c.faq.h2}
             </h2>
             <div className="space-y-4">
               {c.faq.items.map((item, i) => (
-                <article key={item.q} className="border border-white/10 rounded-2xl overflow-hidden bg-[#0e1b3d]/30">
+                <article key={item.q} className="border border-slate-200 rounded-2xl overflow-hidden bg-white">
                   <button
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-[#0e1b3d]/40 transition-colors"
+                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-slate-50 transition-colors"
                     aria-expanded={openFaq === i}
                   >
-                    <h3 className="text-base sm:text-lg font-semibold text-white">
+                    <h3 className="text-base sm:text-lg font-semibold text-[#0e1b3d]">
                       {item.q}
                     </h3>
                     <ChevronDown
-                      className={`w-5 h-5 flex-shrink-0 text-slate-400 transition-transform ${openFaq === i ? 'rotate-180' : ''}`}
+                      className={`w-5 h-5 flex-shrink-0 text-slate-500 transition-transform ${openFaq === i ? 'rotate-180' : ''}`}
                     />
                   </button>
                   {openFaq === i && (
-                    <div className="px-6 pb-5 text-slate-300 leading-relaxed">
+                    <div className="px-6 pb-5 text-slate-600 leading-relaxed">
                       {item.a}
                     </div>
                   )}
@@ -468,7 +468,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 bg-[#070f26]">
+        <section className="py-16 sm:py-20 px-4" style={{ background: '#070F26' }}>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               {c.cta.h2}

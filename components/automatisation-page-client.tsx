@@ -431,10 +431,10 @@ export function AutomatisationPageClient() {
   return (
     <>
       <Header />
-      <main id="main-content" className="min-h-screen bg-[#050510]">
+      <main id="main-content" className="min-h-screen">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <section className="relative pt-32 pb-24 overflow-hidden bg-[#070f26]">
+        <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#070F26' }}>
           {/* Background grid */}
           <div
             className="absolute inset-0 opacity-10"
@@ -497,13 +497,13 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
-        <section className="py-20 bg-[#0e1b3d]/30">
+        <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
                 Ça vous parle ?
               </h2>
-              <p className="text-slate-400 max-w-2xl mx-auto">
+              <p className="text-slate-600 max-w-2xl mx-auto">
                 Les PME françaises perdent en moyenne <strong>12h par semaine</strong> sur des tâches que l'automatisation peut traiter en quelques secondes.
               </p>
             </div>
@@ -511,12 +511,12 @@ export function AutomatisationPageClient() {
               {PROBLEMS.map((p, i) => {
                 const Icon = p.icon;
                 return (
-                  <div key={i} className="rounded-xl border border-white/10 bg-[#0e1b3d]/40 p-6 hover:shadow-md transition-shadow">
+                  <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 hover:shadow-md transition-shadow">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${p.color}`}>
                       <Icon size={22} />
                     </div>
-                    <h3 className="font-semibold text-white mb-2 text-sm leading-snug">{p.title}</h3>
-                    <p className="text-slate-400 text-sm">{p.text}</p>
+                    <h3 className="font-semibold text-[#0e1b3d] mb-2 text-sm leading-snug">{p.title}</h3>
+                    <p className="text-slate-500 text-sm">{p.text}</p>
                   </div>
                 );
               })}
@@ -525,7 +525,7 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
-        <section className="py-20 bg-[#050510]">
+        <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -576,19 +576,19 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── OUTILS ────────────────────────────────────────────────────── */}
-        <section className="py-14 bg-[#0e1b3d]/30 border-y border-slate-200 dark:border-slate-800">
+        <section className="py-14 border-y border-slate-200" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-sm text-slate-400 font-medium mb-8 uppercase tracking-wider">
+            <p className="text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">
               Nous connectons vos outils
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               {TOOLS.map((tool, i) => (
                 <span
                   key={i}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0e1b3d]/40 border border-white/10 text-sm text-slate-300 font-medium hover:border-[#5db8f0]/40 transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-sm text-slate-600 font-medium hover:border-[#5db8f0]/40 transition-colors"
                 >
                   {tool.name}
-                  <span className="text-xs text-slate-400">{tool.category}</span>
+                  <span className="text-xs text-slate-500">{tool.category}</span>
                 </span>
               ))}
             </div>
@@ -596,7 +596,7 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-20 bg-[#050510]">
+        <section id="pricing" className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -744,24 +744,24 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── PROCESSUS ─────────────────────────────────────────────────── */}
-        <section className="py-20 bg-[#0e1b3d]/30">
+        <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
                 Notre méthode en 4 étapes
               </h2>
-              <p className="text-slate-400 max-w-2xl mx-auto">
+              <p className="text-slate-600 max-w-2xl mx-auto">
                 Du premier appel à la mise en production : un processus éprouvé, des livrables clairs à chaque étape.
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {PROCESS_STEPS.map((step, i) => (
-                <div key={i} className={`rounded-xl border ${step.border} ${step.bg} p-6`}>
-                  <div className={`text-3xl font-black ${step.text} mb-3 opacity-40`}>{step.id}</div>
-                  <h3 className="font-bold text-white mb-1">{step.title}</h3>
+                <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6">
+                  <div className={`text-3xl font-black ${step.text} mb-3 opacity-60`}>{step.id}</div>
+                  <h3 className="font-bold text-[#0e1b3d] mb-1">{step.title}</h3>
                   <div className={`text-xs font-medium ${step.text} mb-3`}>⏱ {step.duration}</div>
-                  <p className="text-slate-400 text-sm mb-3">{step.desc}</p>
-                  <div className="text-xs text-slate-400 border-t border-slate-200 dark:border-slate-600 pt-3">
+                  <p className="text-slate-500 text-sm mb-3">{step.desc}</p>
+                  <div className="text-xs text-slate-500 border-t border-slate-200 pt-3">
                     <strong>Vous apportez :</strong> {step.bring}
                   </div>
                 </div>
@@ -771,14 +771,14 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
-        <section className="py-20 bg-[#050510]">
+        <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">Ce que disent nos clients</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {TESTIMONIALS.map((t, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-[#0e1b3d]/30 p-6">
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6">
                   <div className="flex mb-3">
                     {[...Array(5)].map((_, j) => (
                       <Star key={j} size={14} className="text-[#22d3ee] fill-[#22d3ee]" />
@@ -791,7 +791,7 @@ export function AutomatisationPageClient() {
                     </div>
                     <div>
                       <div className="text-sm font-semibold text-white">{t.name}</div>
-                      <div className="text-xs text-slate-500">{t.role} · {t.company}</div>
+                      <div className="text-xs text-slate-400">{t.role} · {t.company}</div>
                     </div>
                   </div>
                 </div>
@@ -801,22 +801,22 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
-        <section className="py-20 bg-[#0e1b3d]/30">
+        <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4">Questions fréquentes</h2>
+              <h2 className="text-3xl font-bold text-[#0e1b3d] mb-4">Questions fréquentes</h2>
             </div>
             <Accordion type="single" collapsible className="space-y-3">
               {FAQ.map((item, i) => (
                 <AccordionItem
                   key={i}
                   value={`faq-${i}`}
-                  className="rounded-xl border border-white/10 bg-[#0e1b3d]/40 overflow-hidden"
+                  className="rounded-xl border border-slate-200 bg-white overflow-hidden"
                 >
-                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-white hover:no-underline">
+                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-[#0e1b3d] hover:no-underline">
                     {item.q}
                   </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <AccordionContent className="px-6 pb-4 text-sm text-slate-600 leading-relaxed">
                     {item.a}
                   </AccordionContent>
                 </AccordionItem>
@@ -824,8 +824,8 @@ export function AutomatisationPageClient() {
             </Accordion>
 
             {/* Lien vers articles liés */}
-            <div className="mt-10 rounded-xl border border-white/10 bg-[#0e1b3d]/40 p-6">
-              <h3 className="font-semibold text-white mb-4">Pour aller plus loin</h3>
+            <div className="mt-10 rounded-xl border border-slate-200 bg-white p-6">
+              <h3 className="font-semibold text-[#0e1b3d] mb-4">Pour aller plus loin</h3>
               <ul className="space-y-3">
                 <li>
                   <LocalizedLink href="/blog/make-n8n-zapier-2026-pme-france" className="flex items-center gap-2 text-sm text-[#22d3ee] hover:underline">
@@ -857,7 +857,7 @@ export function AutomatisationPageClient() {
         </section>
 
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
-        <section className="py-24 bg-slate-950">
+        <section className="py-24" style={{ background: '#070F26' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#5db8f0]/10 border border-[#5db8f0]/20 text-[#5db8f0] text-sm font-medium mb-6">
               <Sparkles size={14} />

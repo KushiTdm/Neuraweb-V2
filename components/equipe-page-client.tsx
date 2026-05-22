@@ -38,8 +38,8 @@ export function EquipePageClient() {
   return (
     <>
       <Header />
-      <main id="main-content" className="min-h-screen bg-[#050510] pt-24">
-        <section className="py-16 sm:py-24 px-4">
+      <main id="main-content" className="min-h-screen pt-24">
+        <section className="py-16 sm:py-24 px-4" style={{ background: '#070F26' }}>
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
               {t('equipe.hero.title')}{' '}
@@ -53,26 +53,26 @@ export function EquipePageClient() {
           </div>
         </section>
 
-        <section className="py-12 px-4">
+        <section className="py-12 px-4" style={{ background: '#F7FAFD' }}>
           <div className="max-w-6xl mx-auto">
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
               {team.map((member) => (
-                <article key={member.name} className="bg-[#0e1b3d]/30 rounded-3xl p-8 border border-white/10 hover:border-[#5db8f0]/30 transition-colors">
+                <article key={member.name} className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:border-[#5db8f0]/30 transition-colors">
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
                     <div className="relative">
                       <div className="w-24 h-24 rounded-2xl overflow-hidden bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center">
                         <span className="text-4xl text-white font-bold">{member.name.charAt(0)}</span>
                       </div>
-                      <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 border-[#050510]" title={t('equipe.available')} />
+                      <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 border-white" title={t('equipe.available')} />
                     </div>
                     <div className="text-center sm:text-left">
-                      <h2 className="text-2xl font-bold text-white">{member.name}</h2>
+                      <h2 className="text-2xl font-bold text-[#0e1b3d]">{member.name}</h2>
                       <p className="text-[#5db8f0] font-medium">{member.role}</p>
                     </div>
                   </div>
-                  <p className="text-slate-300 mb-6">{member.bio}</p>
+                  <p className="text-slate-600 mb-6">{member.bio}</p>
                   <div className="mb-6">
-                    <h3 className="text-sm font-semibold text-white mb-3 uppercase tracking-wider">{t('equipe.stack')}</h3>
+                    <h3 className="text-sm font-semibold text-[#0e1b3d] mb-3 uppercase tracking-wider">{t('equipe.stack')}</h3>
                     <div className="flex flex-wrap gap-2">
                       {member.stack.map((tech) => (
                         <span key={tech} className="px-3 py-1 rounded-full text-sm font-medium bg-[#5db8f0]/10 text-[#5db8f0] border border-[#5db8f0]/20">{tech}</span>
@@ -80,7 +80,7 @@ export function EquipePageClient() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-white mb-3 uppercase tracking-wider">{t('equipe.certifications')}</h3>
+                    <h3 className="text-sm font-semibold text-[#0e1b3d] mb-3 uppercase tracking-wider">{t('equipe.certifications')}</h3>
                     <div className="flex flex-wrap gap-2">
                       {member.certifications.map((cert) => (
                         <span key={cert} className="px-3 py-1 rounded-full text-sm font-medium bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">{cert}</span>
@@ -93,7 +93,7 @@ export function EquipePageClient() {
           </div>
         </section>
 
-        <section className="py-16 px-4 bg-[#0e1b3d]/30">
+        <section className="py-16 px-4" style={{ background: '#070F26' }}>
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-white text-center mb-12">{t('equipe.values.title')}</h2>
             <div className="grid sm:grid-cols-3 gap-8">
@@ -122,10 +122,10 @@ export function EquipePageClient() {
           </div>
         </section>
 
-        <section className="py-16 px-4">
+        <section className="py-16 px-4" style={{ background: '#F7FAFD' }}>
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">{t('equipe.cta.title')}</h2>
-            <p className="text-slate-300 mb-8">{t('equipe.cta.desc')}</p>
+            <h2 className="text-3xl font-bold text-[#0e1b3d] mb-4">{t('equipe.cta.title')}</h2>
+            <p className="text-slate-600 mb-8">{t('equipe.cta.desc')}</p>
             <LocalizedLink href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510] font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
               {t('equipe.cta.button')}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>

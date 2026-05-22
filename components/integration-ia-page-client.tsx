@@ -422,10 +422,10 @@ export function IntegrationIAPageClient() {
   return (
     <>
       <Header />
-      <main id="main-content" className="min-h-screen bg-[#050510]">
+      <main id="main-content" className="min-h-screen">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <section className="relative pt-32 pb-24 overflow-hidden bg-slate-950">
+        <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#070F26' }}>
           <div
             className="absolute inset-0 opacity-10"
             style={{
@@ -486,13 +486,13 @@ export function IntegrationIAPageClient() {
         </section>
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
-        <section className="py-20 bg-[#0e1b3d]/30">
+        <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
                 Vos défis actuels
               </h2>
-              <p className="text-slate-400 max-w-2xl mx-auto">
+              <p className="text-slate-600 max-w-2xl mx-auto">
                 Les entreprises qui n'intègrent pas l'IA en 2026 laissent leurs concurrents gagner en efficacité
                 à chaque interaction client.
               </p>
@@ -501,12 +501,12 @@ export function IntegrationIAPageClient() {
               {PROBLEMS.map((p, i) => {
                 const Icon = p.icon;
                 return (
-                  <div key={i} className="rounded-xl border border-white/10 bg-[#0e1b3d]/40 p-6 hover:shadow-md transition-shadow">
+                  <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 hover:shadow-md transition-shadow">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${p.color}`}>
                       <Icon size={22} />
                     </div>
-                    <h3 className="font-semibold text-white mb-2 text-sm leading-snug">{p.title}</h3>
-                    <p className="text-slate-400 text-sm">{p.text}</p>
+                    <h3 className="font-semibold text-[#0e1b3d] mb-2 text-sm leading-snug">{p.title}</h3>
+                    <p className="text-slate-500 text-sm">{p.text}</p>
                   </div>
                 );
               })}
@@ -515,7 +515,7 @@ export function IntegrationIAPageClient() {
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
-        <section className="py-20 bg-[#050510]">
+        <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -566,27 +566,27 @@ export function IntegrationIAPageClient() {
         </section>
 
         {/* ── MODÈLES IA ────────────────────────────────────────────────── */}
-        <section className="py-14 bg-[#0e1b3d]/30 border-y border-slate-200 dark:border-slate-800">
+        <section className="py-14 border-y border-slate-200" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-sm text-slate-400 font-medium mb-8 uppercase tracking-wider">
+            <p className="text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">
               Modèles IA que nous maîtrisons
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {MODELS.map((model, i) => (
-                <div key={i} className="rounded-xl bg-[#0e1b3d]/40 border border-white/10 p-4 text-center">
+                <div key={i} className="rounded-xl bg-white border border-slate-200 p-4 text-center">
                   <div className={`font-bold text-sm mb-1 ${model.color}`}>{model.name}</div>
-                  <div className="text-xs text-slate-400">{model.strength}</div>
+                  <div className="text-xs text-slate-500">{model.strength}</div>
                 </div>
               ))}
             </div>
-            <p className="text-center text-xs text-slate-400 mt-6">
+            <p className="text-center text-xs text-slate-500 mt-6">
               Nous choisissons toujours le modèle le plus adapté à votre cas d'usage — pas le plus cher.
             </p>
           </div>
         </section>
 
         {/* ── CAS D'USAGE ───────────────────────────────────────────────── */}
-        <section className="py-20 bg-[#050510]">
+        <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">Exemples par secteur</h2>
@@ -596,10 +596,10 @@ export function IntegrationIAPageClient() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {USE_CASES.map((uc, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-[#0e1b3d]/30 p-5">
-                  <div className="text-xs font-semibold text-[#22d3ee] dark:text-[#5db8f0] uppercase tracking-wider mb-2">{uc.sector}</div>
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5">
+                  <div className="text-xs font-semibold text-[#5db8f0] uppercase tracking-wider mb-2">{uc.sector}</div>
                   <p className="text-sm text-slate-300 mb-3">{uc.useCase}</p>
-                  <span className="inline-block text-xs bg-violet-100 dark:bg-violet-900/30 text-[#22d3ee] dark:text-[#5db8f0] px-3 py-1 rounded-full font-medium">
+                  <span className="inline-block text-xs bg-[#5db8f0]/10 text-[#5db8f0] px-3 py-1 rounded-full font-medium">
                     {uc.pack}
                   </span>
                 </div>
@@ -609,13 +609,13 @@ export function IntegrationIAPageClient() {
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-20 bg-[#0e1b3d]/30">
+        <section id="pricing" className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
                 Nos packs intégration IA
               </h2>
-              <p className="text-slate-400 max-w-2xl mx-auto">
+              <p className="text-slate-600 max-w-2xl mx-auto">
                 Des prix transparents, sans surprise. TVA non applicable (art. 293B du CGI).
               </p>
             </div>
@@ -629,7 +629,7 @@ export function IntegrationIAPageClient() {
                   className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
                     selectedPack === pack.id
                       ? 'bg-[#5db8f0] text-[#050510]'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                      : 'bg-white border border-slate-200 text-slate-600'
                   }`}
                 >
                   {pack.name.split(' ')[0]}
@@ -645,8 +645,8 @@ export function IntegrationIAPageClient() {
                   onClick={() => setSelectedPack(pack.id)}
                   className={`relative rounded-2xl border-2 p-6 cursor-pointer transition-all duration-300 ${pack.borderColor} ${
                     selectedPack === pack.id
-                      ? 'shadow-xl bg-[#0e1b3d]/40 scale-[1.02]'
-                      : 'bg-[#0e1b3d]/40 hover:shadow-md'
+                      ? 'shadow-xl bg-white scale-[1.02]'
+                      : 'bg-white hover:shadow-md'
                   }`}
                 >
                   {pack.badge && (
@@ -654,17 +654,17 @@ export function IntegrationIAPageClient() {
                       {pack.badge}
                     </span>
                   )}
-                  <h3 className="font-bold text-white text-lg mb-1">{pack.name}</h3>
-                  <p className="text-slate-400 text-sm mb-4">{pack.tagline}</p>
+                  <h3 className="font-bold text-[#0e1b3d] text-lg mb-1">{pack.name}</h3>
+                  <p className="text-slate-500 text-sm mb-4">{pack.tagline}</p>
                   <div className="mb-4">
-                    <span className="text-3xl font-bold text-white">{pack.price.toLocaleString('fr-FR')} €</span>
-                    <span className="text-slate-400 text-sm ml-1">HT</span>
-                    <div className="text-sm text-slate-400">+ {pack.monthly} €/mois maintenance</div>
+                    <span className="text-3xl font-bold text-[#0e1b3d]">{pack.price.toLocaleString('fr-FR')} €</span>
+                    <span className="text-slate-500 text-sm ml-1">HT</span>
+                    <div className="text-sm text-slate-500">+ {pack.monthly} €/mois maintenance</div>
                   </div>
-                  <div className="text-xs text-slate-400 mb-4">⏱ Délai : {pack.delivery}</div>
+                  <div className="text-xs text-slate-500 mb-4">⏱ Délai : {pack.delivery}</div>
                   <ul className="space-y-2">
                     {pack.bullets.map((b, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
                         <Check size={14} className="text-emerald-500 mt-0.5 shrink-0" />
                         {b}
                       </li>
@@ -675,11 +675,11 @@ export function IntegrationIAPageClient() {
             </div>
 
             {/* Détails pack sélectionné */}
-            <div className="rounded-2xl border border-white/10 bg-[#0e1b3d]/40 p-8">
+            <div className="rounded-2xl border border-slate-200 shadow-sm bg-white p-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-1">{activePack.name}</h3>
-                  <p className="text-slate-400 text-sm">{activePack.tagline}</p>
+                  <h3 className="text-xl font-bold text-[#0e1b3d] mb-1">{activePack.name}</h3>
+                  <p className="text-slate-500 text-sm">{activePack.tagline}</p>
                 </div>
                 <LocalizedLink
                   href="/contact"
@@ -693,12 +693,12 @@ export function IntegrationIAPageClient() {
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div>
-                  <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
+                  <h4 className="font-semibold text-[#0e1b3d] mb-3 flex items-center gap-2">
                     <Check size={16} className="text-emerald-500" /> Inclus
                   </h4>
                   <ul className="space-y-2">
                     {activePack.included.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
                         <Check size={13} className="text-emerald-500 mt-0.5 shrink-0" />
                         {item}
                       </li>
@@ -707,12 +707,12 @@ export function IntegrationIAPageClient() {
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
+                  <h4 className="font-semibold text-[#0e1b3d] mb-3 flex items-center gap-2">
                     <XIcon size={16} className="text-rose-400" /> Non inclus
                   </h4>
                   <ul className="space-y-2">
                     {activePack.notIncluded.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-400">
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-500">
                         <XIcon size={13} className="text-rose-400 mt-0.5 shrink-0" />
                         {item}
                       </li>
@@ -721,22 +721,22 @@ export function IntegrationIAPageClient() {
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-white mb-3">Options disponibles</h4>
+                  <h4 className="font-semibold text-[#0e1b3d] mb-3">Options disponibles</h4>
                   <ul className="space-y-2 mb-6">
                     {activePack.options.map((opt, i) => (
                       <li key={i} className="flex items-start justify-between gap-2 text-sm">
-                        <span className="text-slate-300">{opt.label}</span>
-                        <span className="text-[#22d3ee] dark:text-[#5db8f0] font-medium shrink-0">{opt.price}</span>
+                        <span className="text-slate-600">{opt.label}</span>
+                        <span className="text-[#5db8f0] font-medium shrink-0">{opt.price}</span>
                       </li>
                     ))}
                   </ul>
-                  <div className="bg-[#0e1b3d]/30 rounded-xl p-4 border border-white/10">
-                    <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                  <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                    <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
                       Maintenance {activePack.monthly} €/mois
                     </div>
                     <ul className="space-y-1">
                       {activePack.maintenanceItems.map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+                        <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
                           <CheckCircle size={11} className="text-emerald-500 shrink-0" />
                           {item}
                         </li>
@@ -747,21 +747,21 @@ export function IntegrationIAPageClient() {
               </div>
             </div>
 
-            <p className="text-center text-sm text-slate-400 mt-6">
+            <p className="text-center text-sm text-slate-500 mt-6">
               Paiement échelonné disponible · 40% à la commande, 30% à la validation, 30% à la livraison
             </p>
           </div>
         </section>
 
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
-        <section className="py-20 bg-[#050510]">
+        <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">Ce que disent nos clients</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {TESTIMONIALS.map((t, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-[#0e1b3d]/30 p-6">
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6">
                   <div className="flex mb-3">
                     {[...Array(5)].map((_, j) => (
                       <Star key={j} size={14} className="text-[#22d3ee] fill-[#22d3ee]" />
@@ -774,7 +774,7 @@ export function IntegrationIAPageClient() {
                     </div>
                     <div>
                       <div className="text-sm font-semibold text-white">{t.name}</div>
-                      <div className="text-xs text-slate-500">{t.role} · {t.company}</div>
+                      <div className="text-xs text-slate-400">{t.role} · {t.company}</div>
                     </div>
                   </div>
                 </div>
@@ -784,22 +784,22 @@ export function IntegrationIAPageClient() {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
-        <section className="py-20 bg-[#0e1b3d]/30">
+        <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4">Questions fréquentes</h2>
+              <h2 className="text-3xl font-bold text-[#0e1b3d] mb-4">Questions fréquentes</h2>
             </div>
             <Accordion type="single" collapsible className="space-y-3">
               {FAQ.map((item, i) => (
                 <AccordionItem
                   key={i}
                   value={`faq-${i}`}
-                  className="rounded-xl border border-white/10 bg-[#0e1b3d]/40 overflow-hidden"
+                  className="rounded-xl border border-slate-200 bg-white overflow-hidden"
                 >
-                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-white hover:no-underline">
+                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-[#0e1b3d] hover:no-underline">
                     {item.q}
                   </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <AccordionContent className="px-6 pb-4 text-sm text-slate-600 leading-relaxed">
                     {item.a}
                   </AccordionContent>
                 </AccordionItem>
@@ -807,8 +807,8 @@ export function IntegrationIAPageClient() {
             </Accordion>
 
             {/* Lien vers articles liés */}
-            <div className="mt-10 rounded-xl border border-white/10 bg-[#0e1b3d]/40 p-6">
-              <h3 className="font-semibold text-white mb-4">Pour aller plus loin</h3>
+            <div className="mt-10 rounded-xl border border-slate-200 bg-white p-6">
+              <h3 className="font-semibold text-[#0e1b3d] mb-4">Pour aller plus loin</h3>
               <ul className="space-y-3">
                 <li>
                   <LocalizedLink href="/blog/integrer-ia-site-web-2025" className="flex items-center gap-2 text-sm text-[#22d3ee] dark:text-[#5db8f0] hover:underline">
@@ -840,7 +840,7 @@ export function IntegrationIAPageClient() {
         </section>
 
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
-        <section className="py-24 bg-slate-950">
+        <section className="py-24" style={{ background: '#070F26' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#5db8f0]/10 border border-[#5db8f0]/20 text-[#5db8f0] text-sm font-medium mb-6">
               <Sparkles size={14} />
