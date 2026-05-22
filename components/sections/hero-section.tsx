@@ -473,9 +473,9 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
         )}
       </div>
 
-      {/* Navigation flèches */}
+      {/* Navigation flèches — masquées sur xs pour éviter l'overlap avec les dots */}
       {heroVisible && (
-        <div className="absolute bottom-8 right-8 z-20 flex items-center gap-3">
+        <div className="hidden sm:flex absolute bottom-8 right-6 sm:right-8 z-20 items-center gap-3">
           <button onClick={() => { clearTimers(); prev(); startAutoplay(); }} className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-all duration-200" aria-label="Slide précédent">
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -485,13 +485,35 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
         </div>
       )}
 
-      {/* Dots de navigation */}
+      {/* Indicateurs de slides — <div> pour éviter min-height navigateur mobile */}
       {heroVisible && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5">
           {SLIDES.map((_, i) => (
-            <button key={i} onClick={() => { clearTimers(); goToSlide(i); startAutoplay(); }} className="relative h-1 rounded-full overflow-hidden transition-all duration-300" style={{ width: i === activeSlide ? '2.5rem' : '0.5rem', background: i === activeSlide ? 'rgba(93,184,240,.3)' : 'rgba(255,255,255,.2)' }} aria-label={`Aller au slide ${i + 1}`}>
-              {i === activeSlide && <span className="absolute inset-y-0 left-0 slide-progress" style={{ background: '#5DB8F0', animationDuration: `${SLIDE_DURATION}ms`, width: '100%' }} />}
-            </button>
+            <div
+              key={i}
+              role="tab"
+              tabIndex={0}
+              onClick={() => { clearTimers(); goToSlide(i); startAutoplay(); }}
+              onKeyDown={(e) => e.key === 'Enter' && goToSlide(i)}
+              aria-label={`Aller au slide ${i + 1}`}
+              aria-selected={i === activeSlide}
+              className="cursor-pointer relative overflow-hidden"
+              style={{
+                width: i === activeSlide ? '22px' : '5px',
+                height: '3px',
+                borderRadius: '2px',
+                background: i === activeSlide ? 'rgba(93,184,240,.35)' : 'rgba(255,255,255,.22)',
+                transition: 'width 0.3s ease, background 0.3s ease',
+                flexShrink: 0,
+              }}
+            >
+              {i === activeSlide && (
+                <span
+                  className="absolute inset-y-0 left-0 slide-progress"
+                  style={{ background: '#5DB8F0', animationDuration: `${SLIDE_DURATION}ms`, width: '100%' }}
+                />
+              )}
+            </div>
           ))}
         </div>
       )}
@@ -503,9 +525,9 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
         </div>
       )}
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — masqué sur xs, visible à partir de sm */}
       {heroVisible && onScrollToNext && (
-        <button onClick={onScrollToNext} className="absolute bottom-8 left-8 z-20 flex flex-col items-center gap-2 hover:opacity-80 transition-opacity duration-200" style={{ color: 'rgba(255,255,255,.4)' }} aria-label="Défiler vers le bas">
+        <button onClick={onScrollToNext} className="hidden sm:flex absolute bottom-8 left-6 sm:left-8 z-20 flex-col items-center gap-2 hover:opacity-80 transition-opacity duration-200" style={{ color: 'rgba(255,255,255,.4)' }} aria-label="Défiler vers le bas">
           <span className="text-xs tracking-widest uppercase font-medium">Scroll</span>
           <span className="w-px h-8 bg-white/30 animate-pulse" />
         </button>

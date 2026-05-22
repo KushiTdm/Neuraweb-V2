@@ -7,6 +7,7 @@ import { useLanguage } from '@/contexts/language-context';
 import { useAnalytics } from '@/hooks/use-analytics';
 import { X, ChevronRight, Sparkles, Zap, Shield, HeadphonesIcon, Globe, Rocket, Code, Database, Bot, Settings, TrendingUp, Users, MessageSquare, ShoppingCart, Mail, Search, Server, Clock, MessageCircle, Layout, BarChart3, Star, ArrowRight } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
+import { CardsCarousel } from '@/components/ui/cards-carousel';
 
 interface ServicesPricingProps {
   language?: 'fr' | 'en' | 'es';
@@ -463,7 +464,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
   if (!mounted) {
     // SSR: render full content so Google can index pricing
     return (
-      <section className="relative py-24 px-6 bg-gradient-to-b from-[#050510] to-[#0e1b3d]">
+      <section className="relative py-24 px-4 sm:px-6 bg-gradient-to-b from-[#050510] to-[#0e1b3d]">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">
             {t.title}
@@ -534,12 +535,12 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
       className="relative py-24 px-6 bg-gradient-to-b from-[#050510] to-[#0e1b3d]"
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 md:mb-16 text-white">
           {t.title}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {packs.map((pack, index) => {
+        {(() => {
+          const cardElements = packs.map((pack, index) => {
             const packData = t.packs[pack.id as keyof typeof t.packs];
             const PackIcon = pack.lucideIcon;
 
@@ -661,8 +662,24 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                 </div>
               </div>
             );
-          })}
-        </div>
+          });
+
+          return (
+            <>
+              {/* Desktop : grille 2 puis 4 colonnes */}
+              <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {cardElements}
+              </div>
+
+              {/* Mobile : carousel snap horizontal */}
+              <div className="sm:hidden -mx-4">
+                <CardsCarousel slideWidth="snap" padding={1} gap={1} dotColor="#5DB8F0">
+                  {cardElements}
+                </CardsCarousel>
+              </div>
+            </>
+          );
+        })()}
 
       </div>
 

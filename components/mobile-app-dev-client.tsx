@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { LocalizedLink } from '@/components/localized-link';
+import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
   Smartphone,
   Apple,
@@ -287,13 +288,13 @@ export function MobileAppDevClient({ lang }: Props) {
                 {c.tech.subtitle}
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-4" gridGap="gap-6">
               {c.tech.cards.map((card, i) => {
                 const Icon = techIcons[i % techIcons.length]!;
                 return (
                   <article
                     key={card.name}
-                    className="p-6 rounded-2xl border border-slate-200 shadow-sm bg-white hover:border-[#5db8f0]/30 transition-colors"
+                    className="p-6 rounded-2xl border border-slate-200 shadow-sm bg-white hover:border-[#5db8f0]/30 transition-colors h-full"
                   >
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-[#050510]" strokeWidth={2} />
@@ -310,7 +311,7 @@ export function MobileAppDevClient({ lang }: Props) {
                   </article>
                 );
               })}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
@@ -362,13 +363,13 @@ export function MobileAppDevClient({ lang }: Props) {
                 {c.process.subtitle}
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-4" gridGap="gap-6">
               {c.process.steps.map((step, i) => {
                 const Icon = processIcons[i % processIcons.length]!;
                 return (
                   <article
                     key={step.title}
-                    className="p-6 rounded-2xl border border-slate-200 shadow-sm bg-white"
+                    className="p-6 rounded-2xl border border-slate-200 shadow-sm bg-white h-full"
                   >
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-[#050510]" strokeWidth={2} />
@@ -382,7 +383,7 @@ export function MobileAppDevClient({ lang }: Props) {
                   </article>
                 );
               })}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
@@ -396,42 +397,44 @@ export function MobileAppDevClient({ lang }: Props) {
                 {c.pricing.subtitle}
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-              {c.pricing.packs.map((pack) => (
-                <article
-                  key={pack.name}
-                  className={`p-8 rounded-3xl border-2 ${
-                    pack.highlighted
-                      ? 'border-[#5db8f0] bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510]'
-                      : 'border-white/10 bg-white/5'
-                  }`}
-                >
-                  <h3 className={`text-2xl font-bold mb-2 ${pack.highlighted ? 'text-[#050510]' : 'text-white'}`}>
-                    {pack.name}
-                  </h3>
-                  <div className={`text-3xl font-black mb-6 ${pack.highlighted ? 'text-[#050510]' : 'text-[#5db8f0]'}`}>
-                    {pack.price}
-                  </div>
-                  <ul className="space-y-3 mb-8">
-                    {pack.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2">
-                        <CheckCircle2 className={`w-5 h-5 flex-shrink-0 mt-0.5 ${pack.highlighted ? 'text-[#050510]' : 'text-emerald-400'}`} />
-                        <span className={pack.highlighted ? 'text-[#050510]/90' : 'text-slate-300'}>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <LocalizedLink
-                    href="/booking"
-                    className={`block w-full text-center px-6 py-3 rounded-full font-semibold transition-colors ${
+            <div className="mb-6">
+              <ResponsiveCards breakpoint="md" gridClass="grid-cols-3" gridGap="gap-6">
+                {c.pricing.packs.map((pack) => (
+                  <article
+                    key={pack.name}
+                    className={`p-8 rounded-3xl border-2 h-full ${
                       pack.highlighted
-                        ? 'bg-[#050510] text-[#22d3ee] hover:bg-[#070f26]'
-                        : 'bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510] hover:opacity-90'
+                        ? 'border-[#5db8f0] bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510]'
+                        : 'border-white/10 bg-white/5'
                     }`}
                   >
-                    {c.cta.button}
-                  </LocalizedLink>
-                </article>
-              ))}
+                    <h3 className={`text-2xl font-bold mb-2 ${pack.highlighted ? 'text-[#050510]' : 'text-white'}`}>
+                      {pack.name}
+                    </h3>
+                    <div className={`text-3xl font-black mb-6 ${pack.highlighted ? 'text-[#050510]' : 'text-[#5db8f0]'}`}>
+                      {pack.price}
+                    </div>
+                    <ul className="space-y-3 mb-8">
+                      {pack.features.map((f) => (
+                        <li key={f} className="flex items-start gap-2">
+                          <CheckCircle2 className={`w-5 h-5 flex-shrink-0 mt-0.5 ${pack.highlighted ? 'text-[#050510]' : 'text-emerald-400'}`} />
+                          <span className={pack.highlighted ? 'text-[#050510]/90' : 'text-slate-300'}>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <LocalizedLink
+                      href="/booking"
+                      className={`block w-full text-center px-6 py-3 rounded-full font-semibold transition-colors ${
+                        pack.highlighted
+                          ? 'bg-[#050510] text-[#22d3ee] hover:bg-[#070f26]'
+                          : 'bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510] hover:opacity-90'
+                      }`}
+                    >
+                      {c.cta.button}
+                    </LocalizedLink>
+                  </article>
+                ))}
+              </ResponsiveCards>
             </div>
             <p className="text-sm text-slate-400 text-center">{c.pricing.note}</p>
           </div>

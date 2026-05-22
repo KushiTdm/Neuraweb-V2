@@ -11,45 +11,134 @@ export function Footer() {
   const [email, setEmail] = useState('');
 
   const services: { label: string; href: string }[] = [
-    { label: t('services.web.title'), href: '/services' },
-    { label: t('services.mobile.title'), href: '/mobile-app-development' },
-    { label: t('services.automation.title'), href: '/automatisation' },
-    { label: t('services.ai.title'), href: '/integration-ia' },
+    { label: t('services.web.title'),        href: '/services'              },
+    { label: t('services.mobile.title'),     href: '/mobile-app-development'},
+    { label: t('services.automation.title'), href: '/automatisation'        },
+    { label: t('services.ai.title'),         href: '/integration-ia'        },
   ];
 
-  const quickLinks = [
-    { href: '/contact', label: t('nav.contact') },
-    { href: '/blog', label: t('nav.blog') },
-    { href: '/equipe', label: t('nav.team') },
-    { href: '/mentions-legales', label: t('footer.legal.legalNotice') },
-  ];
-
+  // Liens légaux uniquement (quick links supprimés — déjà dans le menu)
   const legalLinks = [
-    { href: '/mentions-legales', label: t('footer.legal.legalNotice') },
-    { href: '/confidentialite', label: t('footer.legal.privacy') },
-    { href: '/conditions-utilisation', label: t('footer.legal.terms') },
+    { href: '/mentions-legales',       label: t('footer.legal.legalNotice') },
+    { href: '/confidentialite',        label: t('footer.legal.privacy')     },
+    { href: '/conditions-utilisation', label: t('footer.legal.terms')       },
   ];
 
   const socialLinks = [
-    { href: 'https://www.linkedin.com/company/neuraweb', icon: Linkedin, label: 'LinkedIn' },
-    { href: 'https://twitter.com/neurawebtech', icon: Twitter, label: 'X / Twitter' },
-    { href: 'https://github.com/neuraweb', icon: Github, label: 'GitHub' },
-    { href: 'https://www.instagram.com/neurawebtech', icon: Instagram, label: 'Instagram' },
+    { href: 'https://www.linkedin.com/company/neuraweb', icon: Linkedin, label: 'LinkedIn'  },
+    { href: 'https://twitter.com/neurawebtech',          icon: Twitter,  label: 'X/Twitter' },
+    { href: 'https://github.com/neuraweb',               icon: Github,   label: 'GitHub'    },
+    { href: 'https://www.instagram.com/neurawebtech',    icon: Instagram,label: 'Instagram' },
   ];
 
   return (
     <footer className="relative bg-[#070F26] border-t border-white/5 overflow-hidden">
-      {/* Ligne séparatrice Sky→Cyan en haut */}
+      {/* Ligne accent sky→cyan en haut */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] pointer-events-none"
         style={{ background: 'linear-gradient(90deg, transparent, #5DB8F0, #22D3EE, transparent)' }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
-        {/* ── Grille principale 4 colonnes ────────────────────── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+      {/* ══════════════════════════════════════════════════
+          MOBILE — layout compact (< sm)
+      ══════════════════════════════════════════════════ */}
+      <div className="sm:hidden px-5 pt-8 pb-6">
 
-          {/* Colonne 1 : Marque */}
+        {/* Logo + Socials inline */}
+        <div className="flex items-center justify-between mb-5">
+          <LocalizedLink href="/">
+            <Image
+              src="/assets/neurawebW.webp"
+              alt="NeuraWeb"
+              width={110}
+              height={34}
+              loading="lazy"
+              className="h-8 w-auto object-contain opacity-90"
+            />
+          </LocalizedLink>
+
+          <div className="flex gap-2">
+            {socialLinks.map(({ href, icon: Icon, label }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-sky-400 transition-colors"
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
+              >
+                <Icon size={14} />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Email */}
+        <a
+          href="mailto:contact@neuraweb.tech"
+          className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-sky-400 transition-colors mb-5"
+        >
+          <Mail size={12} className="text-sky-400" />
+          contact@neuraweb.tech
+        </a>
+
+        {/* Newsletter */}
+        <div className="mb-5">
+          <p className="text-xs text-slate-500 mb-2.5">
+            Tendances tech & conseils IA — dans votre boîte.
+          </p>
+          <form
+            onSubmit={(e) => { e.preventDefault(); setEmail(''); }}
+            className="flex gap-2"
+          >
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="votre@email.com"
+              className="flex-1 min-w-0 px-3 py-2.5 rounded-xl text-xs bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-sky-400/50 transition-colors"
+            />
+            <button
+              type="submit"
+              aria-label="S'inscrire"
+              className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0"
+              style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)' }}
+            >
+              <ArrowRight size={14} className="text-white" />
+            </button>
+          </form>
+        </div>
+
+        {/* Séparateur */}
+        <div className="h-px mb-4" style={{ background: 'rgba(255,255,255,0.06)' }} />
+
+        {/* Copyright + Legal */}
+        <p className="text-[10px] text-slate-500 mb-2">{t('footer.copyright')}</p>
+        <div className="flex flex-wrap gap-x-3 gap-y-1">
+          {legalLinks.map((link, i) => (
+            <React.Fragment key={link.href}>
+              <LocalizedLink
+                href={link.href}
+                className="text-[10px] text-slate-500 hover:text-white transition-colors"
+              >
+                {link.label}
+              </LocalizedLink>
+              {i < legalLinks.length - 1 && (
+                <span className="text-slate-700 text-[10px]">•</span>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════════════
+          DESKTOP — 3 colonnes (≥ sm) — quick links supprimés
+      ══════════════════════════════════════════════════ */}
+      <div className="hidden sm:block relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 mb-12">
+
+          {/* Col 1 : Marque */}
           <div>
             <LocalizedLink href="/" className="inline-block mb-5">
               <Image
@@ -75,7 +164,7 @@ export function Footer() {
             </a>
           </div>
 
-          {/* Colonne 2 : Services */}
+          {/* Col 2 : Services */}
           <div>
             <h3 className="text-white text-sm font-semibold mb-5 flex items-center gap-2">
               <Zap size={14} className="text-sky-400" />
@@ -96,31 +185,9 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Colonne 3 : Liens rapides */}
+          {/* Col 3 : Newsletter + Socials */}
           <div>
-            <h3 className="text-white text-sm font-semibold mb-5">
-              {t('footer.links.title')}
-            </h3>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <LocalizedLink
-                    href={link.href}
-                    className="text-sm text-slate-400 hover:text-sky-400 transition-colors duration-200 flex items-center gap-1.5 group"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-white/20 group-hover:bg-sky-400 transition-colors" />
-                    {link.label}
-                  </LocalizedLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Colonne 4 : Newsletter + Social */}
-          <div>
-            <h3 className="text-white text-sm font-semibold mb-5">
-              Newsletter
-            </h3>
+            <h3 className="text-white text-sm font-semibold mb-5">Newsletter</h3>
             <p className="text-slate-400 text-xs mb-4 leading-relaxed">
               Tendances tech, astuces IA et conseils automation — directement dans votre boîte.
             </p>
@@ -139,13 +206,12 @@ export function Footer() {
                 type="submit"
                 aria-label="S'inscrire à la newsletter"
                 className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0 transition-opacity hover:opacity-80"
-                style={{ background: 'linear-gradient(90deg, #5DB8F0, #22D3EE)' }}
+                style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)' }}
               >
                 <ArrowRight size={16} className="text-white" />
               </button>
             </form>
 
-            {/* Social icons */}
             <div className="flex gap-2">
               {socialLinks.map(({ href, icon: Icon, label }) => (
                 <a
@@ -163,14 +229,12 @@ export function Footer() {
           </div>
         </div>
 
-        {/* ── Ligne de séparation ─────────────────────────────── */}
+        {/* Séparateur */}
         <div className="h-px bg-navy-800 mb-6" />
 
-        {/* ── Legal + Copyright ──────────────────────────────── */}
+        {/* Legal + Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-400/60">
-            {t('footer.copyright')}
-          </p>
+          <p className="text-xs text-slate-400/60">{t('footer.copyright')}</p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
             {legalLinks.map((link, index) => (

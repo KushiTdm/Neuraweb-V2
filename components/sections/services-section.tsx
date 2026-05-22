@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Code, Bot, Brain, Smartphone, ArrowUpRight, Sparkles } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
+import { CardsCarousel } from '@/components/ui/cards-carousel';
 
 const SECTION_LABELS: Record<string, { chip: string; title1: string; title2: string; cta: string }> = {
   fr: { chip: 'NOS SERVICES', title1: 'Des solutions digitales', title2: 'pour scaler votre business', cta: 'Voir tous nos services' },
@@ -197,58 +198,79 @@ export function ServicesSection() {
           </LocalizedLink>
         </div>
 
-        {/* ── Mobile : stack vertical ─────────────────────────── */}
-        <div className="md:hidden flex flex-col gap-4">
-          {/* Dev Web grande */}
-          <LocalizedLink href="/services" className="relative rounded-3xl overflow-hidden group" style={{ height: '480px' }}>
-            <Image src="/assets/services/development_web-macbook.webp" alt="Développement Web" fill sizes="100vw" className="object-cover" loading="lazy" />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.95) 0%, rgba(7,15,38,0.4) 60%, transparent 100%)' }} />
-            <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)' }} />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <Code className="w-6 h-6 text-sky-400 mb-3" />
-              <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.web.title')}</h3>
-              <p className="text-sm text-white/70">{t('services.web.desc')}</p>
-            </div>
-          </LocalizedLink>
+        {/* ── Mobile : carousel snap horizontal — 4 cards défilantes ─────── */}
+        <div className="md:hidden -mx-4 sm:-mx-6">
+          <CardsCarousel slideWidth="snap" padding={1} gap={1} dotColor="#5DB8F0" showArrows autoPlay autoPlayInterval={4500}>
+            {/* Carte 1 — Dev Web */}
+            <LocalizedLink href="/services" className="relative rounded-3xl overflow-hidden group block h-[340px]">
+              <Image src="/assets/services/development_web-macbook.webp" alt="Développement Web" fill sizes="85vw" className="object-cover" loading="lazy" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.95) 0%, rgba(7,15,38,0.4) 60%, transparent 100%)' }} />
+              <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)' }} />
+              <span className="absolute top-5 left-5 text-3xl font-bold text-sky-400/40 font-mono">01</span>
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <Code className="w-6 h-6 text-sky-400 mb-3" />
+                <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.web.title')}</h3>
+                <p className="text-sm text-white/70">{t('services.web.desc')}</p>
+                <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sky-400">
+                  En savoir plus <ArrowUpRight className="w-4 h-4" />
+                </div>
+              </div>
+            </LocalizedLink>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* Mobile */}
-            <LocalizedLink href="/mobile-app-development" className="relative rounded-3xl overflow-hidden bg-frost group" style={{ height: '320px' }}>
-              <Image src="/assets/services/developement_mobile.webp" alt="Apps Mobiles" fill sizes="50vw" className="object-cover" style={{ opacity: 0.4 }} loading="lazy" />
+            {/* Carte 2 — Mobile */}
+            <LocalizedLink href="/mobile-app-development" className="relative rounded-3xl overflow-hidden bg-frost group block h-[340px]">
+              <Image src="/assets/services/developement_mobile.webp" alt="Apps Mobiles" fill sizes="85vw" className="object-cover" style={{ opacity: 0.4 }} loading="lazy" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(232,244,253,0.2) 0%, rgba(232,244,253,0.92) 65%)' }} />
-              <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
-                <Smartphone className="w-5 h-5 text-sky-400 mb-2" />
-                <h3 className="font-display text-lg font-bold text-navy-900 mb-1">{t('services.mobile.title')}</h3>
-                <p className="text-xs text-slate-700 leading-relaxed">{t('services.mobile.desc')}</p>
+              <div className="absolute top-5 right-5 z-10">
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold text-navy-900" style={{ background: '#5DB8F0' }}>
+                  MVP 6 sem.
+                </span>
+              </div>
+              <span className="absolute top-5 left-5 z-10 text-3xl font-bold text-navy-900/20 font-mono">02</span>
+              <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+                <Smartphone className="w-6 h-6 text-sky-400 mb-3" />
+                <h3 className="font-display text-2xl font-bold text-navy-900 mb-2">{t('services.mobile.title')}</h3>
+                <p className="text-sm text-slate-700 leading-relaxed">{t('services.mobile.desc')}</p>
+                <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy-900">
+                  En savoir plus <ArrowUpRight className="w-4 h-4" />
+                </div>
               </div>
             </LocalizedLink>
 
-            {/* IA */}
-            <LocalizedLink href="/integration-ia" className="relative rounded-3xl overflow-hidden group" style={{ background: '#0E1B3D', height: '320px' }}>
+            {/* Carte 3 — IA */}
+            <LocalizedLink href="/integration-ia" className="relative rounded-3xl overflow-hidden group block h-[340px]" style={{ background: '#0E1B3D' }}>
               <ConstellationSVG />
-              <div className="relative z-10 p-5 h-full flex flex-col justify-end">
-                <Brain className="w-5 h-5 text-sky-400 mb-2" />
-                <h3 className="font-display text-lg font-bold text-white mb-1">{t('services.ai.title')}</h3>
-                <p className="text-xs leading-relaxed text-slate-400">{t('services.ai.desc')}</p>
+              <span className="absolute top-5 left-5 text-3xl font-bold text-sky-400/30 font-mono">03</span>
+              <div className="relative z-10 p-6 h-full flex flex-col justify-end">
+                <Brain className="w-6 h-6 text-sky-400 mb-3" />
+                <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.ai.title')}</h3>
+                <p className="text-sm leading-relaxed text-slate-400">{t('services.ai.desc')}</p>
+                <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sky-400">
+                  En savoir plus <ArrowUpRight className="w-4 h-4" />
+                </div>
               </div>
             </LocalizedLink>
 
-            {/* Automatisation */}
-            <LocalizedLink href="/automatisation" className="relative rounded-3xl overflow-hidden group sm:col-span-2" style={{ background: '#070F26', height: '260px' }}>
-              <Image src="/assets/services/automation_n8n.webp" alt="Automatisation" fill sizes="100vw" className="object-cover" style={{ opacity: 0.5 }} loading="lazy" />
+            {/* Carte 4 — Automatisation */}
+            <LocalizedLink href="/automatisation" className="relative rounded-3xl overflow-hidden group block h-[340px]" style={{ background: '#070F26' }}>
+              <Image src="/assets/services/automation_n8n.webp" alt="Automatisation" fill sizes="85vw" className="object-cover" style={{ opacity: 0.5 }} loading="lazy" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.95) 0%, transparent 60%)' }} />
               <div className="absolute top-4 right-4">
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold text-white" style={{ background: '#0E1B3D' }}>
                   <Sparkles className="w-3 h-3" />−4h/sem
                 </span>
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-5">
-                <Bot className="w-5 h-5 text-sky-400 mb-2" />
-                <h3 className="font-display text-lg font-bold text-white mb-1">{t('services.automation.title')}</h3>
-                <p className="text-xs text-white/70">{t('services.automation.desc')}</p>
+              <span className="absolute top-5 left-5 text-3xl font-bold text-sky-400/30 font-mono">04</span>
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <Bot className="w-6 h-6 text-sky-400 mb-3" />
+                <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.automation.title')}</h3>
+                <p className="text-sm text-white/70">{t('services.automation.desc')}</p>
+                <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sky-400">
+                  En savoir plus <ArrowUpRight className="w-4 h-4" />
+                </div>
               </div>
             </LocalizedLink>
-          </div>
+          </CardsCarousel>
         </div>
       </div>
     </section>

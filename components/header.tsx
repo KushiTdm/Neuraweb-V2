@@ -3,12 +3,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import { useTheme } from '@/components/theme-provider';
 import { useTranslation } from '@/hooks/use-translation';
 import { LanguageSelector } from '@/components/language-selector';
 import { LocalizedLink } from '@/components/localized-link';
 import Image from 'next/image';
+import { StaggeredMenuPanel, type StaggeredMenuItem } from '@/components/ui/staggered-menu';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -232,166 +233,64 @@ export function Header() {
                 <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
               </LocalizedLink>
 
-              {/* Burger mobile */}
+              {/* Burger mobile — lignes animées */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100/60 dark:hover:bg-white/5 transition-all duration-200"
+                className="md:hidden flex flex-col items-center justify-center w-10 h-10 rounded-xl gap-[5px] transition-all duration-200"
+                style={{
+                  background: isMenuOpen ? 'rgba(93,184,240,0.1)' : 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  zIndex: 51, // au-dessus du panel (z-48)
+                  position: 'relative',
+                }}
                 aria-label={t('header.toggle.menu')}
+                aria-expanded={isMenuOpen}
               >
-                {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+                <span
+                  className="block w-[18px] h-[1.5px] bg-current rounded-full transition-all duration-300 origin-center"
+                  style={{
+                    color: isScrolled ? (isDark ? '#fff' : '#0E1B3D') : '#fff',
+                    transform: isMenuOpen ? 'translateY(6.5px) rotate(45deg)' : 'none',
+                  }}
+                />
+                <span
+                  className="block w-[18px] h-[1.5px] bg-current rounded-full transition-all duration-300"
+                  style={{
+                    color: isScrolled ? (isDark ? '#fff' : '#0E1B3D') : '#fff',
+                    opacity: isMenuOpen ? 0 : 1,
+                    transform: isMenuOpen ? 'scaleX(0)' : 'none',
+                  }}
+                />
+                <span
+                  className="block w-[18px] h-[1.5px] bg-current rounded-full transition-all duration-300 origin-center"
+                  style={{
+                    color: isScrolled ? (isDark ? '#fff' : '#0E1B3D') : '#fff',
+                    transform: isMenuOpen ? 'translateY(-6.5px) rotate(-45deg)' : 'none',
+                  }}
+                />
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* ── Menu mobile ─────────────────────────────────────── */}
-      <div
-        className={`fixed inset-0 z-40 md:hidden transition-all duration-400 ${
-          isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        {/* Backdrop */}
-        <div
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-          onClick={() => setIsMenuOpen(false)}
+      {/* ── Menu mobile — StaggeredMenu GSAP ─────────────────── */}
+      <div className="md:hidden">
+        <StaggeredMenuPanel
+          open={isMenuOpen}
+          onClose={() => setIsMenuOpen(false)}
+          contactLabel={t('nav.contact')}
+          items={[
+            { label: t('nav.home'),     href: '/',                     ariaLabel: t('nav.home')     },
+            { label: t('nav.services'), href: '/services',             ariaLabel: t('nav.services') },
+            { label: 'Mobile',          href: '/mobile-app-development' },
+            { label: 'IA',              href: '/integration-ia'        },
+            { label: t('nav.blog'),     href: '/blog',                 ariaLabel: t('nav.blog')     },
+            { label: t('nav.team'),     href: '/equipe',               ariaLabel: t('nav.team')     },
+          ] as StaggeredMenuItem[]}
+          colors={['#1A2847', '#0E1B3D']}
+          accentColor="#5DB8F0"
         />
-
-        {/* Panel */}
-        <div
-          className={`absolute top-0 right-0 h-full w-72 bg-white dark:bg-navy-950 border-l border-gray-100 dark:border-navy-800 shadow-2xl transition-transform duration-400 ${
-            isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
-        >
-          {/* Header du panel */}
-          <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-white/5">
-            <Image
-              src={isDark ? '/assets/neurawebW.webp' : '/assets/neurawebB.webp'}
-              alt="NeuraWeb"
-              width={120}
-              height={36}
-              className="h-8 w-auto object-contain"
-            />
-            <button
-              onClick={() => setIsMenuOpen(false)}
-              aria-label={t('nav.closeMenu')}
-              className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
-            >
-              <X size={20} aria-hidden="true" />
-            </button>
-          </div>
-
-          {/* Liens */}
-          <nav className="p-5 space-y-1">
-            <LocalizedLink
-              href="/"
-              onClick={() => setIsMenuOpen(false)}
-              className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                isActive('/')
-                  ? 'bg-frost dark:bg-navy-800 text-sky-400'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5'
-              }`}
-            >
-              {t('nav.home')}
-            </LocalizedLink>
-
-            {/* Services + sous-liens indentés */}
-            <div>
-              <LocalizedLink
-                href="/services"
-                onClick={() => setIsMenuOpen(false)}
-                className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  isActive('/services')
-                    ? 'bg-frost dark:bg-navy-800 text-sky-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5'
-                }`}
-              >
-                {t('nav.services')}
-              </LocalizedLink>
-              <div className="ml-5 mt-1 space-y-0.5 border-l border-gray-200 dark:border-white/10 pl-3">
-                <LocalizedLink
-                  href="/services"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                >
-                  {t('nav.dropdown.web.label')}
-                </LocalizedLink>
-                <LocalizedLink
-                  href="/mobile-app-development"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                >
-                  {t('nav.dropdown.mobile.label')}
-                </LocalizedLink>
-                <LocalizedLink
-                  href="/automatisation"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                >
-                  {t('nav.dropdown.automation.label')}
-                </LocalizedLink>
-                <LocalizedLink
-                  href="/integration-ia"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                >
-                  {t('nav.dropdown.ai.label')}
-                </LocalizedLink>
-                <LocalizedLink
-                  href="/sante"
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block py-2 text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                >
-                  {t('nav.dropdown.sante.label')}
-                </LocalizedLink>
-              </div>
-            </div>
-
-            <LocalizedLink
-              href="/blog"
-              onClick={() => setIsMenuOpen(false)}
-              className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                isActive('/blog')
-                  ? 'bg-frost dark:bg-navy-800 text-sky-400'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5'
-              }`}
-            >
-              {t('nav.blog')}
-            </LocalizedLink>
-
-            <LocalizedLink
-              href="/equipe"
-              onClick={() => setIsMenuOpen(false)}
-              className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                isActive('/equipe')
-                  ? 'bg-frost dark:bg-navy-800 text-sky-400'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/5'
-              }`}
-            >
-              {t('nav.team')}
-            </LocalizedLink>
-          </nav>
-
-          {/* CTA mobile */}
-          <div className="px-5 pt-2">
-            <LocalizedLink
-              href="/contact"
-              onClick={() => setIsMenuOpen(false)}
-              className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-full text-sm font-semibold text-white bg-navy-900 hover:bg-navy-800 transition-colors duration-200"
-            >
-              {t('nav.contact')}
-              <ArrowRight size={14} />
-            </LocalizedLink>
-          </div>
-
-          {/* Séparateur + infos */}
-          <div className="absolute bottom-8 left-5 right-5">
-            <div className="gradient-line mb-4" />
-            <p className="text-xs text-gray-400 dark:text-gray-600 text-center">
-              contact@neuraweb.tech
-            </p>
-          </div>
-        </div>
       </div>
     </>
   );

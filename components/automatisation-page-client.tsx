@@ -31,6 +31,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { LocalizedLink } from '@/components/localized-link';
 import { Button } from '@/components/ui/button';
+import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
   Accordion,
   AccordionContent,
@@ -485,14 +486,18 @@ export function AutomatisationPageClient() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            <ResponsiveCards
+              breakpoint="sm"
+              gridClass="grid-cols-3 max-w-3xl mx-auto"
+              gridGap="gap-6"
+            >
               {STATS.map((stat, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-6">
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 h-full">
                   <div className={`text-3xl font-bold mb-1 ${stat.color}`}>{stat.value}</div>
                   <div className="text-sm text-slate-400">{stat.label}</div>
                 </div>
               ))}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
@@ -507,11 +512,15 @@ export function AutomatisationPageClient() {
                 Les PME françaises perdent en moyenne <strong>12h par semaine</strong> sur des tâches que l'automatisation peut traiter en quelques secondes.
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <ResponsiveCards
+              breakpoint="sm"
+              gridClass="grid-cols-2 lg:grid-cols-4"
+              gridGap="gap-6"
+            >
               {PROBLEMS.map((p, i) => {
                 const Icon = p.icon;
                 return (
-                  <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 hover:shadow-md transition-shadow">
+                  <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 hover:shadow-md transition-shadow h-full">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${p.color}`}>
                       <Icon size={22} />
                     </div>
@@ -520,7 +529,7 @@ export function AutomatisationPageClient() {
                   </div>
                 );
               })}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
@@ -535,14 +544,18 @@ export function AutomatisationPageClient() {
                 De l'audit initial au monitoring mensuel, nous couvrons toute la chaîne d'automatisation.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ResponsiveCards
+              breakpoint="md"
+              gridClass="grid-cols-2 lg:grid-cols-3"
+              gridGap="gap-6"
+            >
               {SERVICES.map((service, i) => {
                 const Icon = service.icon;
                 const isExpanded = expandedService === i;
                 return (
                   <div
                     key={i}
-                    className={`rounded-xl border-2 ${service.accentColor} bg-[#0e1b3d]/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300`}
+                    className={`rounded-xl border-2 ${service.accentColor} bg-[#0e1b3d]/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300 h-full`}
                     onClick={() => setExpandedService(isExpanded ? null : i)}
                   >
                     <div className="flex items-start justify-between mb-3">
@@ -571,7 +584,7 @@ export function AutomatisationPageClient() {
                   </div>
                 );
               })}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
@@ -754,9 +767,13 @@ export function AutomatisationPageClient() {
                 Du premier appel à la mise en production : un processus éprouvé, des livrables clairs à chaque étape.
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <ResponsiveCards
+              breakpoint="sm"
+              gridClass="grid-cols-2 lg:grid-cols-4"
+              gridGap="gap-6"
+            >
               {PROCESS_STEPS.map((step, i) => (
-                <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6">
+                <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 h-full">
                   <div className={`text-3xl font-black ${step.text} mb-3 opacity-60`}>{step.id}</div>
                   <h3 className="font-bold text-[#0e1b3d] mb-1">{step.title}</h3>
                   <div className={`text-xs font-medium ${step.text} mb-3`}>⏱ {step.duration}</div>
@@ -766,7 +783,7 @@ export function AutomatisationPageClient() {
                   </div>
                 </div>
               ))}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
@@ -776,9 +793,13 @@ export function AutomatisationPageClient() {
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">Ce que disent nos clients</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <ResponsiveCards
+              breakpoint="md"
+              gridClass="grid-cols-3"
+              gridGap="gap-6"
+            >
               {TESTIMONIALS.map((t, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6">
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
                   <div className="flex mb-3">
                     {[...Array(5)].map((_, j) => (
                       <Star key={j} size={14} className="text-[#22d3ee] fill-[#22d3ee]" />
@@ -796,7 +817,7 @@ export function AutomatisationPageClient() {
                   </div>
                 </div>
               ))}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 

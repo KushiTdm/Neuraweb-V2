@@ -59,7 +59,7 @@ export default function ContactPageClient() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-2 gap-10 lg:gap-12">
             {/* Contact Info */}
             <div className="space-y-8">
               <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 shadow-sm">

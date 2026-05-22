@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, TrendingUp } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
 import { useLanguage } from '@/contexts/language-context';
+import ScrollStack, { ScrollStackItem } from '@/components/ui/scroll-stack';
 
 const T = {
   fr: {
@@ -112,7 +113,7 @@ function StatCard({
 
   return (
     <div
-      className="rounded-3xl p-8 border transition-all duration-300 hover:-translate-y-1"
+      className="rounded-3xl p-6 sm:p-8 border transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
       style={{
         background: '#1E2A4A',
         borderColor: '#1E3A6B',
@@ -121,12 +122,12 @@ function StatCard({
       }}
     >
       {/* Icône tendance */}
-      <TrendingUp className="w-5 h-5 mb-4" style={{ color: colorConfig.icon }} />
+      <TrendingUp className="w-5 h-5 mb-4 flex-shrink-0" style={{ color: colorConfig.icon }} />
 
-      {/* Nombre */}
+      {/* Nombre — clamp ajusté pour ne plus déborder à 768px */}
       <div
-        className="font-display font-bold leading-none mb-3"
-        style={{ fontSize: 'clamp(3.5rem, 7vw, 4.5rem)', ...numberStyle }}
+        className="font-display font-bold leading-none mb-3 break-words"
+        style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', ...numberStyle }}
         aria-label={`${value}${suffix} ${label}`}
       >
         {displayValue}{suffix}
@@ -162,13 +163,13 @@ export function StatsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32" style={{ background: '#070F26' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} className="py-20 sm:py-24 lg:py-32 overflow-hidden" style={{ background: '#070F26' }}>
+      <div className="max-w-7xl mx-auto md:px-6 lg:px-8">
 
-        <div className="grid grid-cols-1 lg:grid-cols-[40fr_60fr] gap-16 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[40fr_60fr] gap-10 md:gap-12 lg:gap-16 items-start">
 
           {/* ── Colonne gauche — texte ────────────────────────── */}
-          <div>
+          <div className="px-4 sm:px-6 md:px-0">
             <p className="text-xs font-semibold uppercase tracking-[0.1em] text-sky-400 mb-6">
               {t.eyebrow}
             </p>
@@ -199,8 +200,9 @@ export function StatsSection() {
             </LocalizedLink>
           </div>
 
-          {/* ── Colonne droite — 3 cartes ────────────────────── */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* ── Colonne droite — Desktop grid / Mobile carousel ────────────────────── */}
+          {/* Desktop : grille 3 colonnes à partir de sm (640px) */}
+          <div className="hidden sm:grid sm:grid-cols-3 gap-4 px-4 sm:px-6 md:px-0">
             {STATS.map((s, i) => (
               <StatCard
                 key={s.key}
@@ -213,6 +215,50 @@ export function StatsSection() {
                 index={i}
               />
             ))}
+          </div>
+
+          {/* Mobile : ScrollStack vertical avec animation d'empilement */}
+          <div className="sm:hidden px-4">
+            <ScrollStack
+              useWindowScroll
+              itemDistance={80}
+              itemStackDistance={24}
+              stackPosition="22%"
+              scaleEndPosition="12%"
+              baseScale={0.88}
+              itemScale={0.04}
+            >
+              {STATS.map((s) => {
+                const colorConfig = STAT_COLORS[s.color];
+                return (
+                  <ScrollStackItem
+                    key={s.key}
+                    itemClassName="border bg-[#1E2A4A] border-[#1E3A6B] shadow-[0_8px_28px_rgba(7,15,38,0.5)]"
+                  >
+                    <TrendingUp className="w-4 h-4 mb-3" style={{ color: colorConfig.icon }} />
+                    <div
+                      className="font-display font-bold leading-none mb-2"
+                      style={{
+                        fontSize: 'clamp(2rem, 11vw, 3.2rem)',
+                        background: colorConfig.gradient,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                      }}
+                    >
+                      {s.value}
+                      {s.suffix}
+                    </div>
+                    <p className="text-white font-semibold text-sm mb-1.5">
+                      {t[s.key as keyof typeof t] as string}
+                    </p>
+                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(148,163,184,0.75)' }}>
+                      {t[s.descKey as keyof typeof t] as string}
+                    </p>
+                  </ScrollStackItem>
+                );
+              })}
+            </ScrollStack>
           </div>
         </div>
       </div>

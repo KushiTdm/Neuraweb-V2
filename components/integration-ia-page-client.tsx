@@ -29,6 +29,7 @@ import {
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { LocalizedLink } from '@/components/localized-link';
+import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
   Accordion,
   AccordionContent,
@@ -474,14 +475,14 @@ export function IntegrationIAPageClient() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            <ResponsiveCards breakpoint="sm" gridClass="grid-cols-3 max-w-3xl mx-auto" gridGap="gap-6">
               {STATS.map((stat, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-6">
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 h-full">
                   <div className={`text-3xl font-bold mb-1 ${stat.color}`}>{stat.value}</div>
                   <div className="text-sm text-slate-400">{stat.label}</div>
                 </div>
               ))}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
@@ -497,11 +498,11 @@ export function IntegrationIAPageClient() {
                 à chaque interaction client.
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-4" gridGap="gap-6">
               {PROBLEMS.map((p, i) => {
                 const Icon = p.icon;
                 return (
-                  <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 hover:shadow-md transition-shadow">
+                  <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 hover:shadow-md transition-shadow h-full">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${p.color}`}>
                       <Icon size={22} />
                     </div>
@@ -510,7 +511,7 @@ export function IntegrationIAPageClient() {
                   </div>
                 );
               })}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
@@ -525,14 +526,14 @@ export function IntegrationIAPageClient() {
                 Du chatbot FAQ simple à l'architecture multi-agents complexe, nous avons une solution adaptée à votre maturité IA.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ResponsiveCards breakpoint="md" gridClass="grid-cols-2 lg:grid-cols-3" gridGap="gap-6">
               {SERVICES.map((service, i) => {
                 const Icon = service.icon;
                 const isExpanded = expandedService === i;
                 return (
                   <div
                     key={i}
-                    className={`rounded-xl border-2 ${service.accentColor} bg-[#0e1b3d]/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300`}
+                    className={`rounded-xl border-2 ${service.accentColor} bg-[#0e1b3d]/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300 h-full`}
                     onClick={() => setExpandedService(isExpanded ? null : i)}
                   >
                     <div className="flex items-start justify-between mb-3">
@@ -561,7 +562,7 @@ export function IntegrationIAPageClient() {
                   </div>
                 );
               })}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
@@ -594,9 +595,9 @@ export function IntegrationIAPageClient() {
                 Voici comment nous intégrons l'IA dans différents secteurs.
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-3" gridGap="gap-4">
               {USE_CASES.map((uc, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5">
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5 h-full">
                   <div className="text-xs font-semibold text-[#5db8f0] uppercase tracking-wider mb-2">{uc.sector}</div>
                   <p className="text-sm text-slate-300 mb-3">{uc.useCase}</p>
                   <span className="inline-block text-xs bg-[#5db8f0]/10 text-[#5db8f0] px-3 py-1 rounded-full font-medium">
@@ -604,7 +605,7 @@ export function IntegrationIAPageClient() {
                   </span>
                 </div>
               ))}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
@@ -759,9 +760,9 @@ export function IntegrationIAPageClient() {
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">Ce que disent nos clients</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <ResponsiveCards breakpoint="md" gridClass="grid-cols-3" gridGap="gap-6">
               {TESTIMONIALS.map((t, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6">
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
                   <div className="flex mb-3">
                     {[...Array(5)].map((_, j) => (
                       <Star key={j} size={14} className="text-[#22d3ee] fill-[#22d3ee]" />
@@ -779,7 +780,7 @@ export function IntegrationIAPageClient() {
                   </div>
                 </div>
               ))}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
