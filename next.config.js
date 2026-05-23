@@ -47,7 +47,8 @@ const nextConfig = {
       { source: '/:lang/blog/chatbot-ia-hotellerie-performant', destination: '/:lang/blog/checklist-site-hotelier-performant', permanent: true },
       { source: '/:lang/blog/integrer-ia-site-web-2024', destination: '/:lang/blog/integrer-ia-site-web-2025', permanent: true },
       { source: '/:lang/blog/marketing-digital-ia-automatisations', destination: '/:lang/blog/marketing-digital-ia-automations', permanent: true },
-      { source: '/:lang/blog/best-js-vs-wordpress-2025', destination: '/:lang/blog/nextjs-vs-wordpress-2025', permanent: true },
+      { source: '/:lang/blog/best-js-vs-wordpress-2025', destination: '/:lang/blog/nextjs-vs-wordpress-2026', permanent: true },
+      { source: '/:lang/blog/nextjs-vs-wordpress-2025', destination: '/:lang/blog/nextjs-vs-wordpress-2026', permanent: true },
       { source: '/:lang/blog/site-web-hotellerie-design-reservations', destination: '/:lang/blog/site-web-hotel-design-reservations', permanent: true },
       // /l-equipe détecté par des crawls — slug réel est /equipe
       { source: '/:lang/l-equipe', destination: '/:lang/equipe', permanent: true },

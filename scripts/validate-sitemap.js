@@ -11,7 +11,7 @@ const SITEMAP_PATH = path.join(ROOT, 'app', 'sitemap.ts');
 const CONTENT_DIR = path.join(ROOT, 'content', 'blog');
 
 const expectedStaticPages = [
-  'services',
+  'developpement-web',
   'mobile-app-development',
   'equipe',
   'contact',
@@ -26,6 +26,7 @@ const excludedRoutes = [
   '/[lang]/admin/hotel-tokens',
   '/[lang]/hotel-form',
   '/[lang]/blog/[slug]',
+  '/[lang]/services', // redirect-only page → /:lang/developpement-web
   '/',
 ];
 
