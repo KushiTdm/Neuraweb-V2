@@ -16,7 +16,7 @@ function HandDrawnUnderline() {
     >
       <path
         d="M4 8 C50 3, 100 10, 150 6 C200 2, 250 9, 296 5"
-        stroke="#5DB8F0"
+        stroke="#ffffff"
         strokeWidth="3"
         strokeLinecap="round"
         fill="none"
@@ -155,14 +155,14 @@ export function CTASection() {
             >
               <div className="flex items-center gap-3">
                 <div className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0" style={{ background: 'rgba(93,184,240,0.1)' }}>
-                  <Calendar className="w-5 h-5 text-sky-400" />
+                  <Calendar className="w-5 h-5 text-white" />
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm leading-tight">{t('cta.bookCall')}</p>
                   <p className="text-xs mt-0.5" style={{ color: 'rgba(148,163,184,0.65)' }}>Appel 30 min · Gratuit</p>
                 </div>
               </div>
-              <ArrowRight className="w-4 h-4 text-sky-400 flex-shrink-0" />
+              <ArrowRight className="w-4 h-4 text-white flex-shrink-0" />
             </button>
 
             {/* Bouton Audit IA Gratuit */}
@@ -173,19 +173,19 @@ export function CTASection() {
             >
               <div className="flex items-center gap-3">
                 <div className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0" style={{ background: 'rgba(93,184,240,0.15)' }}>
-                  <Sparkles className="w-5 h-5 text-sky-400" />
+                  <Sparkles className="w-5 h-5 text-white" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <p className="text-white font-semibold text-sm leading-tight">{t('audit.title')}</p>
-                    <span className="px-1.5 py-0.5 rounded text-[10px] font-bold" style={{ background: 'rgba(93,184,240,0.2)', color: '#5DB8F0' }}>
+                    <span className="px-1.5 py-0.5 rounded text-[10px] font-bold" style={{ background: 'rgba(255,255,255,0.2)', color: '#ffffff' }}>
                       {t('audit.badge')}
                     </span>
                   </div>
                   <p className="text-xs mt-0.5" style={{ color: 'rgba(148,163,184,0.65)' }}>Valeur 490€ · Offert</p>
                 </div>
               </div>
-              <ArrowRight className="w-4 h-4 text-sky-400 flex-shrink-0" />
+              <ArrowRight className="w-4 h-4 text-white flex-shrink-0" />
             </button>
           </div>
 
@@ -198,7 +198,7 @@ export function CTASection() {
               style={{ background: '#1E2A4A', borderColor: 'rgba(93,184,240,0.15)' }}
             >
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-6" style={{ background: 'rgba(93,184,240,0.1)' }}>
-                <Calendar className="w-6 h-6 text-sky-400" aria-hidden="true" />
+                <Calendar className="w-6 h-6 text-white" aria-hidden="true" />
               </div>
 
               <h3 className="font-display text-2xl font-bold text-white mb-3">
@@ -212,7 +212,7 @@ export function CTASection() {
               <div className="flex flex-wrap gap-3 mb-8">
                 {featureBadges.map(({ icon: Icon, label }) => (
                   <div key={label} className="inline-flex items-center gap-1.5 text-xs font-medium" style={{ color: 'rgba(148,163,184,0.7)' }}>
-                    <Icon className="w-3.5 h-3.5 text-sky-400 flex-shrink-0" aria-hidden="true" />
+                    <Icon className="w-3.5 h-3.5 text-white flex-shrink-0" aria-hidden="true" />
                     {label}
                   </div>
                 ))}
@@ -220,7 +220,7 @@ export function CTASection() {
 
               <LocalizedLink
                 href="/booking"
-                className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-white border transition-all duration-300 hover:bg-white/8 hover:border-sky-400/40 mt-auto"
+                className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-white border transition-all duration-300 hover:bg-white/8 hover:border-white/40 mt-auto"
                 style={{ borderColor: 'rgba(255,255,255,0.2)' }}
               >
                 Réserver un créneau
@@ -231,7 +231,7 @@ export function CTASection() {
             {/* Carte droite — Audit IA Gratuit (mise en avant) */}
             <div
               className="p-px rounded-3xl"
-              style={{ background: 'linear-gradient(135deg, #5DB8F0, #22D3EE)' }}
+              style={{ background: 'rgba(255,255,255,0.15)' }}
             >
               <div
                 className="flex flex-col h-full rounded-[calc(1.5rem-1px)] p-8"
@@ -239,7 +239,7 @@ export function CTASection() {
               >
                 {/* Badge + prix */}
                 <div className="flex items-center justify-between mb-6">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold" style={{ background: 'rgba(93,184,240,0.12)', color: '#5DB8F0' }}>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold" style={{ background: 'rgba(255,255,255,0.12)', color: '#ffffff' }}>
                     <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
                     {t('audit.badge')}
                   </div>
@@ -259,7 +259,7 @@ export function CTASection() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-8 flex-1">
                   {auditBenefits.map((item, i) => (
                     <div key={i} className="flex items-start gap-2">
-                      <Check className="w-4 h-4 flex-shrink-0 mt-0.5 text-sky-400" aria-hidden="true" />
+                      <Check className="w-4 h-4 flex-shrink-0 mt-0.5 text-white" aria-hidden="true" />
                       <span className="text-sm text-white/80">{item}</span>
                     </div>
                   ))}
@@ -269,7 +269,7 @@ export function CTASection() {
                 <LocalizedLink
                   href="/booking?service=audit-ia"
                   className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-navy-900 transition-all duration-300 hover:opacity-90 hover:-translate-y-0.5 mb-3"
-                  style={{ background: 'linear-gradient(90deg, #5DB8F0, #22D3EE)', boxShadow: '0 6px 24px rgba(93,184,240,0.3)' }}
+                  style={{ background: '#ffffff', boxShadow: '0 6px 24px rgba(255,255,255,0.25)' }}
                   aria-label={t('audit.cta')}
                 >
                   <Sparkles className="w-4 h-4" aria-hidden="true" />
@@ -285,7 +285,7 @@ export function CTASection() {
                 <div className="flex flex-wrap justify-center gap-5 mt-6 pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                   {trustBadges.map(({ icon: Icon, label }) => (
                     <div key={label} className="flex items-center gap-1.5">
-                      <Icon className="w-3.5 h-3.5 text-sky-400" aria-hidden="true" />
+                      <Icon className="w-3.5 h-3.5 text-white" aria-hidden="true" />
                       <span className="text-xs" style={{ color: 'rgba(148,163,184,0.6)' }}>{label}</span>
                     </div>
                   ))}
@@ -301,12 +301,12 @@ export function CTASection() {
         {/* Header : icône + titre + close */}
         <div className="flex items-center justify-between px-5 pt-4 pb-3">
           <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-9 h-9 rounded-xl flex-shrink-0" style={{ background: 'rgba(93,184,240,0.12)' }}>
-              <Calendar className="w-4 h-4 text-sky-400" />
+            <div className="flex items-center justify-center w-9 h-9 rounded-xl flex-shrink-0" style={{ background: 'rgba(255,255,255,0.12)' }}>
+              <Calendar className="w-4 h-4 text-white" />
             </div>
             <div>
               <p className="text-white font-semibold text-sm leading-tight">{t('cta.bookCall')}</p>
-              <p className="text-xs text-sky-400">Appel 30 min · Gratuit</p>
+              <p className="text-xs text-white">Appel 30 min · Gratuit</p>
             </div>
           </div>
           <button
@@ -330,7 +330,7 @@ export function CTASection() {
           <div className="flex flex-wrap gap-2.5 mb-5">
             {featureBadges.map(({ icon: Icon, label }) => (
               <div key={label} className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-lg" style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(148,163,184,0.8)' }}>
-                <Icon className="w-3 h-3 text-sky-400 flex-shrink-0" />
+                <Icon className="w-3 h-3 text-white flex-shrink-0" />
                 {label}
               </div>
             ))}
@@ -350,12 +350,12 @@ export function CTASection() {
       {/* ── Modal Audit IA Gratuit ─────────────────────────────────────── */}
       <Modal open={openModal === 'audit'} onClose={closeModal}>
         {/* Ligne accent gradient en haut */}
-        <div className="h-0.5 mx-5 rounded-full mb-0" style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)' }} />
+        <div className="h-0.5 mx-5 rounded-full mb-0" style={{ background: '#ffffff' }} />
 
         {/* Header : badge + prix + close */}
         <div className="flex items-center justify-between px-5 pt-4 pb-3">
           <div className="flex items-center gap-2.5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold" style={{ background: 'rgba(93,184,240,0.12)', color: '#5DB8F0' }}>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold" style={{ background: 'rgba(255,255,255,0.12)', color: '#ffffff' }}>
               <Sparkles className="w-3 h-3" />
               {t('audit.badge')}
             </div>
@@ -383,7 +383,7 @@ export function CTASection() {
             {auditBenefits.map((item, i) => (
               <div key={i} className="flex items-center gap-2.5">
                 <div className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center" style={{ background: 'rgba(93,184,240,0.15)' }}>
-                  <Check className="w-2.5 h-2.5 text-sky-400" />
+                  <Check className="w-2.5 h-2.5 text-white" />
                 </div>
                 <span className="text-sm text-white/80">{item}</span>
               </div>
@@ -394,7 +394,7 @@ export function CTASection() {
             href="/booking?service=audit-ia"
             onClick={closeModal}
             className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-semibold text-navy-900 mb-2"
-            style={{ background: 'linear-gradient(90deg, #5DB8F0, #22D3EE)', boxShadow: '0 4px 20px rgba(93,184,240,0.35)' }}
+            style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(93,184,240,0.35)' }}
           >
             <Sparkles className="w-4 h-4" />
             {t('audit.cta')}
@@ -406,7 +406,7 @@ export function CTASection() {
           <div className="flex flex-wrap justify-center gap-3 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
             {trustBadges.map(({ icon: Icon, label }) => (
               <div key={label} className="flex items-center gap-1">
-                <Icon className="w-3 h-3 text-sky-400" />
+                <Icon className="w-3 h-3 text-white" />
                 <span className="text-[11px]" style={{ color: 'rgba(148,163,184,0.55)' }}>{label}</span>
               </div>
             ))}

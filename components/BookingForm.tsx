@@ -228,11 +228,11 @@ export default function BookingForm({ language, onClose, onSuccess, preselectedS
       {/* Steps indicator */}
       <div className="flex items-center justify-center gap-2 mb-6">
         <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-          step === 1 ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-400'
+          step === 1 ? 'bg-gray-900 text-white' : 'bg-gray-700 text-gray-400'
         }`}>1</div>
         <div className="w-12 h-0.5 bg-gray-700" />
         <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-          step === 2 ? 'bg-purple-600 text-white' : 'bg-gray-700 text-gray-400'
+          step === 2 ? 'bg-gray-900 text-white' : 'bg-gray-700 text-gray-400'
         }`}>2</div>
       </div>
 
@@ -267,7 +267,7 @@ export default function BookingForm({ language, onClose, onSuccess, preselectedS
                         onClick={() => { setSelectedDate(date); setSelectedTime('') }}
                         className={`p-2 rounded-lg text-center transition-all ${
                           selectedDate === date 
-                            ? 'bg-purple-600 text-white' 
+                            ? 'bg-gray-900 text-white' 
                             : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                         }`}
                       >
@@ -294,7 +294,7 @@ export default function BookingForm({ language, onClose, onSuccess, preselectedS
                         onClick={() => setSelectedTime(time)}
                         className={`p-2 rounded-lg text-center transition-all ${
                           selectedTime === time 
-                            ? 'bg-purple-600 text-white' 
+                            ? 'bg-gray-900 text-white' 
                             : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                         }`}
                       >
@@ -309,7 +309,7 @@ export default function BookingForm({ language, onClose, onSuccess, preselectedS
               <button
                 onClick={() => selectedDate && selectedTime && setStep(2)}
                 disabled={!selectedDate || !selectedTime}
-                className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:from-blue-700 hover:to-purple-700 transition-all"
+                className="w-full py-3 bg-gray-900 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800 transition-all"
               >
                 {t.step2} →
               </button>
@@ -408,7 +408,7 @@ export default function BookingForm({ language, onClose, onSuccess, preselectedS
             <button
               onClick={handleSubmit}
               disabled={submitting || !formData.name || !formData.email}
-              className="flex-1 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:from-blue-700 hover:to-purple-700 transition-all flex items-center justify-center gap-2"
+              className="flex-1 py-3 bg-gray-900 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
             >
               {submitting ? (
                 <>

@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, TrendingUp } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
 import { useLanguage } from '@/contexts/language-context';
-import ScrollStack, { ScrollStackItem } from '@/components/ui/scroll-stack';
 
 const T = {
   fr: {
@@ -55,8 +54,8 @@ const STATS = [
 ];
 
 const STAT_COLORS = {
-  sky:  { gradient: 'linear-gradient(90deg, #5DB8F0, #22D3EE)', icon: '#5DB8F0' },
-  cyan: { gradient: 'linear-gradient(90deg, #22D3EE, #5DB8F0)', icon: '#22D3EE' },
+  sky:  { gradient: 'linear-gradient(90deg, #ffffff, #e5e7eb)', icon: '#ffffff' },
+  cyan: { gradient: 'linear-gradient(90deg, #e5e7eb, #ffffff)', icon: '#e5e7eb' },
 };
 
 function useCountUp(target: number, started: boolean, duration = 1800) {
@@ -124,10 +123,10 @@ function StatCard({
       {/* Icône tendance */}
       <TrendingUp className="w-5 h-5 mb-4 flex-shrink-0" style={{ color: colorConfig.icon }} />
 
-      {/* Nombre — clamp ajusté pour ne plus déborder à 768px */}
+      {/* Nombre — clamp ajusté pour ne pas déborder de la carte */}
       <div
-        className="font-display font-bold leading-none mb-3 break-words"
-        style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', ...numberStyle }}
+        className="font-display font-bold leading-none mb-3 whitespace-nowrap"
+        style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3rem)', ...numberStyle }}
         aria-label={`${value}${suffix} ${label}`}
       >
         {displayValue}{suffix}
@@ -164,27 +163,17 @@ export function StatsSection() {
 
   return (
     <section ref={sectionRef} className="py-20 sm:py-24 lg:py-32 overflow-hidden" style={{ background: '#070F26' }}>
-      <div className="max-w-7xl mx-auto md:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="grid grid-cols-1 md:grid-cols-[40fr_60fr] gap-10 md:gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[40fr_60fr] gap-10 lg:gap-16 items-start">
 
           {/* ── Colonne gauche — texte ────────────────────────── */}
-          <div className="px-4 sm:px-6 md:px-0">
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-sky-400 mb-6">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-white mb-6">
               {t.eyebrow}
             </p>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6">
-              <span className="text-white">{t.heading1} </span>
-              <span
-                style={{
-                  background: 'linear-gradient(90deg, #5DB8F0, #22D3EE)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                {t.heading2}
-              </span>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6 text-white">
+              {t.heading1} {t.heading2}
             </h2>
             <p className="text-base leading-relaxed mb-10 max-w-md" style={{ color: 'rgba(148,163,184,0.8)' }}>
               {t.sub}
@@ -200,9 +189,8 @@ export function StatsSection() {
             </LocalizedLink>
           </div>
 
-          {/* ── Colonne droite — Desktop grid / Mobile carousel ────────────────────── */}
-          {/* Desktop : grille 3 colonnes à partir de sm (640px) */}
-          <div className="hidden sm:grid sm:grid-cols-3 gap-4 px-4 sm:px-6 md:px-0">
+          {/* ── Colonne droite — Stack mobile / Grid desktop ────────────────────── */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {STATS.map((s, i) => (
               <StatCard
                 key={s.key}
@@ -215,50 +203,6 @@ export function StatsSection() {
                 index={i}
               />
             ))}
-          </div>
-
-          {/* Mobile : ScrollStack vertical avec animation d'empilement */}
-          <div className="sm:hidden px-4">
-            <ScrollStack
-              useWindowScroll
-              itemDistance={80}
-              itemStackDistance={24}
-              stackPosition="22%"
-              scaleEndPosition="12%"
-              baseScale={0.88}
-              itemScale={0.04}
-            >
-              {STATS.map((s) => {
-                const colorConfig = STAT_COLORS[s.color];
-                return (
-                  <ScrollStackItem
-                    key={s.key}
-                    itemClassName="border bg-[#1E2A4A] border-[#1E3A6B] shadow-[0_8px_28px_rgba(7,15,38,0.5)]"
-                  >
-                    <TrendingUp className="w-4 h-4 mb-3" style={{ color: colorConfig.icon }} />
-                    <div
-                      className="font-display font-bold leading-none mb-2"
-                      style={{
-                        fontSize: 'clamp(2rem, 11vw, 3.2rem)',
-                        background: colorConfig.gradient,
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                      }}
-                    >
-                      {s.value}
-                      {s.suffix}
-                    </div>
-                    <p className="text-white font-semibold text-sm mb-1.5">
-                      {t[s.key as keyof typeof t] as string}
-                    </p>
-                    <p className="text-xs leading-relaxed" style={{ color: 'rgba(148,163,184,0.75)' }}>
-                      {t[s.descKey as keyof typeof t] as string}
-                    </p>
-                  </ScrollStackItem>
-                );
-              })}
-            </ScrollStack>
           </div>
         </div>
       </div>

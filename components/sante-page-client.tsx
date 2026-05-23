@@ -1196,11 +1196,11 @@ function PacksSection({
                 <Button
                   onClick={() => onChoosePack(pack.id)}
                   className={cn(
-                    'w-full mb-2 text-white shadow-md',
-                    pack.id === 'vitrine' && 'bg-teal-600 hover:bg-teal-700 shadow-teal-600/20',
-                    pack.id === 'pro-blog' && 'bg-cyan-600 hover:bg-cyan-700 shadow-cyan-600/20',
-                    pack.id === 'pro-sante' && 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20',
-                    pack.id === 'premium' && 'bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-700 hover:to-emerald-700 shadow-cyan-600/20'
+                    'w-full mb-2 shadow-md',
+                    pack.id === 'vitrine' && 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-gray-200/20',
+                    pack.id === 'pro-blog' && 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-gray-200/20',
+                    pack.id === 'pro-sante' && 'bg-gray-900 text-white hover:bg-gray-800 shadow-gray-900/20',
+                    pack.id === 'premium' && 'bg-gray-200 text-gray-900 hover:bg-gray-300 shadow-gray-200/20'
                   )}
                 >
                   Choisir ce pack
@@ -1364,11 +1364,11 @@ function PackDetailsModal({
               <Button
                 onClick={() => onChoose(pack.id)}
                 className={cn(
-                  'text-white shadow-md h-9 text-sm',
-                  pack.id === 'vitrine' && 'bg-teal-600 hover:bg-teal-700',
-                  pack.id === 'pro-blog' && 'bg-cyan-600 hover:bg-cyan-700',
-                  pack.id === 'pro-sante' && 'bg-emerald-600 hover:bg-emerald-700',
-                  pack.id === 'premium' && 'bg-gradient-to-r from-cyan-600 to-emerald-600 hover:from-cyan-700 hover:to-emerald-700'
+                  'shadow-md h-9 text-sm',
+                  pack.id === 'vitrine' && 'bg-gray-200 text-gray-900 hover:bg-gray-300',
+                  pack.id === 'pro-blog' && 'bg-gray-200 text-gray-900 hover:bg-gray-300',
+                  pack.id === 'pro-sante' && 'bg-gray-900 text-white hover:bg-gray-800',
+                  pack.id === 'premium' && 'bg-gray-200 text-gray-900 hover:bg-gray-300'
                 )}
               >
                 Choisir ce pack

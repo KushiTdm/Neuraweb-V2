@@ -36,7 +36,7 @@ export function Footer() {
       {/* Ligne accent sky→cyan en haut */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] pointer-events-none"
-        style={{ background: 'linear-gradient(90deg, transparent, #5DB8F0, #22D3EE, transparent)' }}
+        style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), rgba(255,255,255,0.4), transparent)' }}
       />
 
       {/* ══════════════════════════════════════════════════
@@ -65,7 +65,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-sky-400 transition-colors"
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-colors"
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
               >
                 <Icon size={14} />
@@ -77,9 +77,9 @@ export function Footer() {
         {/* Email */}
         <a
           href="mailto:contact@neuraweb.tech"
-          className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-sky-400 transition-colors mb-5"
+          className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white transition-colors mb-5"
         >
-          <Mail size={12} className="text-sky-400" />
+          <Mail size={12} className="text-white" />
           contact@neuraweb.tech
         </a>
 
@@ -97,15 +97,15 @@ export function Footer() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="votre@email.com"
-              className="flex-1 min-w-0 px-3 py-2.5 rounded-xl text-xs bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-sky-400/50 transition-colors"
+              className="flex-1 min-w-0 px-3 py-2.5 rounded-xl text-xs bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-white/50 transition-colors"
             />
             <button
               type="submit"
               aria-label="S'inscrire"
               className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0"
-              style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)' }}
+              style={{ background: '#ffffff' }}
             >
-              <ArrowRight size={14} className="text-white" />
+              <ArrowRight size={14} className="text-gray-900" />
             </button>
           </form>
         </div>
@@ -157,8 +157,8 @@ export function Footer() {
               href="mailto:contact@neuraweb.tech"
               className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors duration-200 group"
             >
-              <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-sky-400/40 transition-colors">
-                <Mail size={14} className="text-slate-400 group-hover:text-sky-400 transition-colors" />
+              <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-white/40 transition-colors">
+                <Mail size={14} className="text-slate-400 group-hover:text-white transition-colors" />
               </div>
               contact@neuraweb.tech
             </a>
@@ -167,7 +167,7 @@ export function Footer() {
           {/* Col 2 : Services */}
           <div>
             <h3 className="text-white text-sm font-semibold mb-5 flex items-center gap-2">
-              <Zap size={14} className="text-sky-400" />
+              <Zap size={14} className="text-white" />
               {t('nav.services')}
             </h3>
             <ul className="space-y-3">
@@ -175,9 +175,9 @@ export function Footer() {
                 <li key={service.label}>
                   <LocalizedLink
                     href={service.href}
-                    className="text-sm text-slate-400 hover:text-sky-400 transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-sm text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
                   >
-                    <span className="w-1 h-1 rounded-full bg-sky-400/50 group-hover:bg-sky-400 transition-colors" />
+                    <span className="w-1 h-1 rounded-full bg-white/50 group-hover:bg-white transition-colors" />
                     {service.label}
                   </LocalizedLink>
                 </li>
@@ -200,15 +200,15 @@ export function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="votre@email.com"
-                className="flex-1 min-w-0 px-3 py-2 rounded-xl text-sm bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-sky-400/60 transition-colors"
+                className="flex-1 min-w-0 px-3 py-2 rounded-xl text-sm bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-white/60 transition-colors"
               />
               <button
                 type="submit"
                 aria-label="S'inscrire à la newsletter"
                 className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0 transition-opacity hover:opacity-80"
-                style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)' }}
+                style={{ background: '#ffffff' }}
               >
-                <ArrowRight size={16} className="text-white" />
+                <ArrowRight size={16} className="text-gray-900" />
               </button>
             </form>
 
@@ -220,7 +220,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg bg-navy-800 border border-white/5 flex items-center justify-center text-slate-400 hover:text-sky-400 hover:border-sky-400/30 transition-all duration-200"
+                  className="w-9 h-9 rounded-lg bg-navy-800 border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/30 transition-all duration-200"
                 >
                   <Icon size={15} />
                 </a>
@@ -254,7 +254,7 @@ export function Footer() {
 
           <div className="flex items-center gap-1.5 text-xs text-slate-600">
             <span>Crafted with</span>
-            <span className="text-sky-400">♥</span>
+            <span className="text-white">♥</span>
             <span>by NeuraWeb</span>
           </div>
         </div>

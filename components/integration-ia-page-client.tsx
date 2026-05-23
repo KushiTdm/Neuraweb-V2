@@ -42,9 +42,9 @@ import {
 // ═══════════════════════════════════════════════════════════════════════════
 
 const STATS = [
-  { value: '70%', label: 'des demandes clients traitées automatiquement', color: 'text-[#5db8f0]' },
-  { value: '24/7', label: 'disponibilité des assistants IA', color: 'text-[#5db8f0]' },
-  { value: '3×', label: 'plus de conversions avec un chatbot qualifiant', color: 'text-[#22d3ee]' },
+  { value: '70%', label: 'des demandes clients traitées automatiquement', color: 'text-white' },
+  { value: '24/7', label: 'disponibilité des assistants IA', color: 'text-white' },
+  { value: '3×', label: 'plus de conversions avec un chatbot qualifiant', color: 'text-white' },
 ];
 
 const PROBLEMS = [
@@ -52,19 +52,19 @@ const PROBLEMS = [
     icon: MessageSquare,
     title: 'Votre équipe répond manuellement aux mêmes questions',
     text: "FAQ, tarifs, disponibilités, processus de commande : 70% des questions sont identiques. Un assistant IA les traite instantanément, 24h/24.",
-    color: 'text-[#5db8f0] bg-[#5db8f0]/10',
+    color: 'text-white bg-white/5',
   },
   {
     icon: Users,
     title: 'Vos leads ne sont pas qualifiés avant de passer en vente',
     text: "Budget, besoin, timing, autorité décisionnelle : un agent IA pose les bonnes questions et vous livre uniquement les prospects chauds.",
-    color: 'text-[#5db8f0] bg-[#5db8f0]/10',
+    color: 'text-white bg-white/5',
   },
   {
     icon: Database,
     title: 'Votre site ne tire pas parti de vos données internes',
     text: "Documentation, catalogue produits, FAQ, cas clients : un assistant RAG indexe vos contenus et répond avec précision à toutes les questions.",
-    color: 'text-[#22d3ee] bg-[#22d3ee]/10',
+    color: 'text-white bg-white/5',
   },
   {
     icon: TrendingUp,
@@ -87,8 +87,8 @@ const SERVICES = [
       'Disponible sur site, WhatsApp, email',
     ],
     badge: 'À partir de 1 999 €',
-    badgeColor: 'bg-[#5db8f0]',
-    accentColor: 'border-[#5db8f0]',
+    badgeColor: 'bg-gray-900',
+    accentColor: 'border-white',
   },
   {
     icon: Code2,
@@ -102,8 +102,8 @@ const SERVICES = [
       'Intégration dans n8n / Make si besoin',
     ],
     badge: 'À partir de 699 €',
-    badgeColor: 'bg-[#5db8f0]',
-    accentColor: 'border-[#5db8f0]',
+    badgeColor: 'bg-gray-900',
+    accentColor: 'border-white',
   },
   {
     icon: Bot,
@@ -117,8 +117,8 @@ const SERVICES = [
       'Suivi multicanal (email, chat, WhatsApp)',
     ],
     badge: 'À partir de 2 999 €',
-    badgeColor: 'bg-cyan-500',
-    accentColor: 'border-cyan-400',
+    badgeColor: 'bg-gray-700',
+    accentColor: 'border-gray-400',
   },
   {
     icon: FileText,
@@ -241,9 +241,9 @@ const PACKS: Pack[] = [
     monthly: 89,
     delivery: '3 à 5 semaines',
     badge: 'Le plus populaire',
-    badgeColor: 'bg-[#5db8f0]',
+    badgeColor: 'bg-gray-900',
     popular: true,
-    borderColor: 'border-[#5db8f0] dark:border-[#5db8f0]',
+    borderColor: 'border-gray-900 dark:border-white',
     bullets: [
       'Agent IA qualifiant (jusqu\'à 10 intentions)',
       'Indexation illimitée (site + docs + CRM)',
@@ -292,7 +292,7 @@ const PACKS: Pack[] = [
     price: 7999,
     monthly: 189,
     delivery: '6 à 12 semaines',
-    borderColor: 'border-[#5db8f0] dark:border-indigo-500',
+    borderColor: 'border-gray-900 dark:border-white',
     bullets: [
       'Jusqu\'à 3 agents IA spécialisés (vente, support, SEO)',
       'Architecture RAG sur données volumineuses',
@@ -347,7 +347,7 @@ const USE_CASES = [
 
 const MODELS = [
   { name: 'Claude (Anthropic)', strength: 'Raisonnement complexe, conformité', color: 'text-orange-600 dark:text-orange-400' },
-  { name: 'Mistral', strength: 'Open source, souveraineté, français', color: 'text-blue-600 dark:text-blue-400' },
+  { name: 'Mistral', strength: 'Open source, souveraineté, français', color: 'text-gray-700 dark:text-gray-300' },
   { name: 'GPT-4o (OpenAI)', strength: 'Multimodal, éco-système vaste', color: 'text-green-600 dark:text-green-400' },
   { name: 'LLama 3 (Meta)', strength: 'Self-hosted gratuit, RGPD total', color: 'text-purple-600 dark:text-purple-400' },
 ];
@@ -390,7 +390,7 @@ const TESTIMONIALS = [
     role: 'Directrice Customer Success',
     company: 'SaaS B2B, Bordeaux',
     initials: 'CM',
-    color: 'bg-violet-100 text-[#22d3ee]',
+    color: 'bg-gray-200 text-gray-800',
   },
   {
     quote: "L'agent IA qualifiant a transformé notre prospection. On ne parle plus qu'à des leads chauds. Le taux de closing est passé de 12% à 31% en 6 semaines.",
@@ -398,7 +398,7 @@ const TESTIMONIALS = [
     role: 'Directeur commercial',
     company: 'Agence immobilière, Paris',
     initials: 'ML',
-    color: 'bg-indigo-100 text-indigo-700',
+    color: 'bg-gray-200 text-gray-800',
   },
   {
     quote: "L'assistant RAG connaît tous nos 800 produits par cœur. Les clients trouvent exactement ce qu'ils cherchent sans passer par notre SAV. Remarquable.",
@@ -406,7 +406,7 @@ const TESTIMONIALS = [
     role: 'CEO',
     company: 'E-commerce mode, Lyon',
     initials: 'AT',
-    color: 'bg-cyan-100 text-cyan-700',
+    color: 'bg-gray-200 text-gray-800',
   },
 ];
 
@@ -434,18 +434,18 @@ export function IntegrationIAPageClient() {
               backgroundSize: '40px 40px',
             }}
           />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#5db8f0]/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-[#5db8f0]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#5db8f0]/10 border border-[#5db8f0]/20 text-[#5db8f0] text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Brain size={14} />
               <span>Chatbots IA · Agents RAG · LLM · Claude · Mistral · GPT</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               L'IA intégrée dans votre site{' '}
-              <span className="bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 et vos outils métier
               </span>
             </h1>
@@ -458,8 +458,8 @@ export function IntegrationIAPageClient() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <LocalizedLink
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-[#050510] transition-all duration-300"
-                style={{ background: 'linear-gradient(90deg, #5db8f0, #22d3ee)', boxShadow: '0 4px 20px rgba(93,184,240,0.35)' }}
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90"
+                style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}
               >
                 <Brain size={18} />
                 Audit IA gratuit
@@ -556,7 +556,7 @@ export function IntegrationIAPageClient() {
                         ))}
                       </ul>
                     )}
-                    <button className="mt-2 text-xs text-[#5db8f0] hover:text-[#22d3ee] font-medium">
+                    <button className="mt-2 text-xs text-gray-600 hover:text-gray-900 font-medium">
                       {isExpanded ? 'Masquer les détails ↑' : 'Voir les détails ↓'}
                     </button>
                   </div>
@@ -598,9 +598,9 @@ export function IntegrationIAPageClient() {
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-3" gridGap="gap-4">
               {USE_CASES.map((uc, i) => (
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5 h-full">
-                  <div className="text-xs font-semibold text-[#5db8f0] uppercase tracking-wider mb-2">{uc.sector}</div>
+                  <div className="text-xs font-semibold text-white uppercase tracking-wider mb-2">{uc.sector}</div>
                   <p className="text-sm text-slate-300 mb-3">{uc.useCase}</p>
-                  <span className="inline-block text-xs bg-[#5db8f0]/10 text-[#5db8f0] px-3 py-1 rounded-full font-medium">
+                  <span className="inline-block text-xs bg-white/5 text-white px-3 py-1 rounded-full font-medium">
                     {uc.pack}
                   </span>
                 </div>
@@ -629,7 +629,7 @@ export function IntegrationIAPageClient() {
                   onClick={() => setSelectedPack(pack.id)}
                   className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
                     selectedPack === pack.id
-                      ? 'bg-[#5db8f0] text-[#050510]'
+                      ? 'bg-gray-900 text-white'
                       : 'bg-white border border-slate-200 text-slate-600'
                   }`}
                 >
@@ -684,8 +684,8 @@ export function IntegrationIAPageClient() {
                 </div>
                 <LocalizedLink
                   href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-[#050510] transition-all duration-300"
-                  style={{ background: 'linear-gradient(90deg, #5db8f0, #22d3ee)', boxShadow: '0 4px 15px rgba(93,184,240,0.3)' }}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:opacity-90"
+                  style={{ background: '#111827', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}
                 >
                   Choisir {activePack.name}
                   <ArrowRight size={14} />
@@ -727,7 +727,7 @@ export function IntegrationIAPageClient() {
                     {activePack.options.map((opt, i) => (
                       <li key={i} className="flex items-start justify-between gap-2 text-sm">
                         <span className="text-slate-600">{opt.label}</span>
-                        <span className="text-[#5db8f0] font-medium shrink-0">{opt.price}</span>
+                        <span className="text-white font-medium shrink-0">{opt.price}</span>
                       </li>
                     ))}
                   </ul>
@@ -765,7 +765,7 @@ export function IntegrationIAPageClient() {
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
                   <div className="flex mb-3">
                     {[...Array(5)].map((_, j) => (
-                      <Star key={j} size={14} className="text-[#22d3ee] fill-[#22d3ee]" />
+                      <Star key={j} size={14} className="text-amber-400 fill-amber-400" />
                     ))}
                   </div>
                   <p className="text-slate-300 text-sm mb-4 italic">&ldquo;{t.quote}&rdquo;</p>
@@ -812,25 +812,25 @@ export function IntegrationIAPageClient() {
               <h3 className="font-semibold text-[#0e1b3d] mb-4">Pour aller plus loin</h3>
               <ul className="space-y-3">
                 <li>
-                  <LocalizedLink href="/blog/integrer-ia-site-web-2025" className="flex items-center gap-2 text-sm text-[#22d3ee] dark:text-[#5db8f0] hover:underline">
+                  <LocalizedLink href="/blog/integrer-ia-site-web-2025" className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 hover:underline">
                     <ArrowRight size={14} />
                     Comment intégrer une IA dans votre site web
                   </LocalizedLink>
                 </li>
                 <li>
-                  <LocalizedLink href="/blog/ia-agents-remplacent-equipes-2026" className="flex items-center gap-2 text-sm text-[#22d3ee] dark:text-[#5db8f0] hover:underline">
+                  <LocalizedLink href="/blog/ia-agents-remplacent-equipes-2026" className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 hover:underline">
                     <ArrowRight size={14} />
                     IA agentique : ce que font déjà vos concurrents
                   </LocalizedLink>
                 </li>
                 <li>
-                  <LocalizedLink href="/blog/site-vitrine-ia-machine-leads" className="flex items-center gap-2 text-sm text-[#22d3ee] dark:text-[#5db8f0] hover:underline">
+                  <LocalizedLink href="/blog/site-vitrine-ia-machine-leads" className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 hover:underline">
                     <ArrowRight size={14} />
                     7 façons d'utiliser l'IA pour générer des leads
                   </LocalizedLink>
                 </li>
                 <li>
-                  <LocalizedLink href="/blog/automatisation-ia-pme-prix-2026" className="flex items-center gap-2 text-sm text-[#22d3ee] dark:text-[#5db8f0] hover:underline">
+                  <LocalizedLink href="/blog/automatisation-ia-pme-prix-2026" className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 hover:underline">
                     <ArrowRight size={14} />
                     Automatisation IA pour PME : prix réels 2026
                   </LocalizedLink>
@@ -843,7 +843,7 @@ export function IntegrationIAPageClient() {
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
         <section className="py-24" style={{ background: '#070F26' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#5db8f0]/10 border border-[#5db8f0]/20 text-[#5db8f0] text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />
               Audit IA gratuit · Valorisé 490 € · Sans engagement
             </div>
@@ -858,7 +858,7 @@ export function IntegrationIAPageClient() {
               <LocalizedLink
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-[#050510] transition-all duration-300"
-                style={{ background: 'linear-gradient(90deg, #5db8f0, #22d3ee)', boxShadow: '0 4px 20px rgba(93,184,240,0.35)' }}
+                style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}
               >
                 <Brain size={18} />
                 Demander l'audit IA gratuit

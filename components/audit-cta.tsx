@@ -48,7 +48,7 @@ export function AuditCTA() {
         {/* Wrapper gradient pour la bordure */}
         <div
           className="p-px rounded-[2rem]"
-          style={{ background: 'linear-gradient(135deg, #5DB8F0, #22D3EE)' }}
+          style={{ background: 'rgba(255,255,255,0.15)' }}
         >
           <div className="rounded-[calc(2rem-1px)] p-8 sm:p-12 lg:p-16" style={{ background: '#1E2A4A' }}>
             <div className="grid grid-cols-1 lg:grid-cols-[60fr_40fr] gap-10 items-center">
@@ -56,7 +56,7 @@ export function AuditCTA() {
               {/* ── Colonne gauche — texte + features ─────── */}
               <div>
                 {/* Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-semibold" style={{ background: 'rgba(93,184,240,0.12)', color: '#5DB8F0' }}>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-semibold" style={{ background: 'rgba(255,255,255,0.08)', color: '#ffffff' }}>
                   <Sparkles className="w-4 h-4" aria-hidden="true" />
                   {t('audit.badge')}
                 </div>
@@ -99,10 +99,10 @@ export function AuditCTA() {
                 {/* CTA button */}
                 <LocalizedLink
                   href="/booking?service=audit-ia"
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:opacity-90 hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold text-gray-900 transition-all duration-300 hover:opacity-90 hover:-translate-y-0.5"
                   style={{
-                    background: 'linear-gradient(90deg, #5DB8F0, #22D3EE)',
-                    boxShadow: '0 8px 30px rgba(93,184,240,0.3)',
+                    background: '#ffffff',
+                    boxShadow: '0 8px 30px rgba(255,255,255,0.2)',
                   }}
                   aria-label={t('audit.cta')}
                 >
@@ -131,7 +131,7 @@ export function AuditCTA() {
                       className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
                       style={{ background: 'rgba(93,184,240,0.1)' }}
                     >
-                      <Monitor className="w-7 h-7 text-sky-400" />
+                      <Monitor className="w-7 h-7 text-white" />
                     </div>
                     <p className="text-sm font-medium text-white mb-1">Rapport d&apos;audit</p>
                     <p className="text-xs" style={{ color: 'rgba(148,163,184,0.5)' }}>
@@ -149,7 +149,7 @@ export function AuditCTA() {
             >
               {trustBadges.map(({ icon: Icon, label }) => (
                 <div key={label} className="flex items-center gap-2">
-                  <Icon className="w-4 h-4 text-sky-400" aria-hidden="true" />
+                  <Icon className="w-4 h-4 text-white" aria-hidden="true" />
                   <span className="text-xs font-medium" style={{ color: 'rgba(148,163,184,0.7)' }}>
                     {label}
                   </span>
@@ -169,7 +169,7 @@ export function AuditBanner() {
   return (
     <div
       className="rounded-2xl p-6 text-white"
-      style={{ background: 'linear-gradient(90deg, #5DB8F0, #22D3EE)' }}
+      style={{ background: '#111827' }}
     >
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4">

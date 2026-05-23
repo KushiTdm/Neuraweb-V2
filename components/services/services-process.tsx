@@ -15,9 +15,9 @@ const STEP_DATA = {
       description: 'Appel découverte gratuit de 30 minutes. Analyse de votre marché, concurrents et cibles. Cahier des charges détaillé et roadmap sur mesure.',
       icon: '🔍',
       colorHex: '#3b82f6',
-      accentClass: 'from-blue-500/20 to-blue-600/5 border-blue-500/30',
-      badgeClass: 'bg-blue-500/20 text-blue-400 border-blue-500/40',
-      dotClass: 'bg-blue-500',
+      accentClass: 'from-white/20 to-white/5 border-white/30',
+      badgeClass: 'bg-white/15 text-white border-white/30',
+      dotClass: 'bg-white',
       glowClass: 'shadow-blue-500/20',
     },
     {
@@ -67,9 +67,9 @@ const STEP_DATA = {
       description: 'Free 30-minute discovery call. Market, competitor and target analysis. Detailed specifications and tailored roadmap.',
       icon: '🔍',
       colorHex: '#3b82f6',
-      accentClass: 'from-blue-500/20 to-blue-600/5 border-blue-500/30',
-      badgeClass: 'bg-blue-500/20 text-blue-400 border-blue-500/40',
-      dotClass: 'bg-blue-500',
+      accentClass: 'from-white/20 to-white/5 border-white/30',
+      badgeClass: 'bg-white/15 text-white border-white/30',
+      dotClass: 'bg-white',
       glowClass: 'shadow-blue-500/20',
     },
     {
@@ -119,9 +119,9 @@ const STEP_DATA = {
       description: 'Llamada gratuita de 30 minutos. Análisis de mercado, competidores y público. Pliego de condiciones y roadmap personalizado.',
       icon: '🔍',
       colorHex: '#3b82f6',
-      accentClass: 'from-blue-500/20 to-blue-600/5 border-blue-500/30',
-      badgeClass: 'bg-blue-500/20 text-blue-400 border-blue-500/40',
-      dotClass: 'bg-blue-500',
+      accentClass: 'from-white/20 to-white/5 border-white/30',
+      badgeClass: 'bg-white/15 text-white border-white/30',
+      dotClass: 'bg-white',
       glowClass: 'shadow-blue-500/20',
     },
     {
@@ -399,7 +399,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
             {onScrollToPricing && (
               <button
                 onClick={onScrollToPricing}
-                className="pointer-events-auto px-5 md:px-6 py-2.5 md:py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold text-xs md:text-sm rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-cyan-500/30"
+                className="pointer-events-auto px-5 md:px-6 py-2.5 md:py-3 bg-white text-gray-900 font-bold text-xs md:text-sm rounded-full hover:scale-105 transition-all duration-300 shadow-lg shadow-white/20"
                 style={{
                   opacity: activeStep >= steps.length - 1 ? 1 : 0,
                   transform: activeStep >= steps.length - 1 ? 'translateY(0)' : 'translateY(20px)',

@@ -220,7 +220,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
   // Category badge color map (cycles through a palette)
   const CATEGORY_COLORS: Record<string, string> = {};
   const PALETTE = [
-    'bg-blue-500',
+    'bg-gray-700',
     'bg-purple-500',
     'bg-teal-500',
     'bg-orange-500',
@@ -240,7 +240,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             {tr.title}{' '}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-gray-200 via-white to-gray-300 bg-clip-text text-transparent">
               NeuraWeb
             </span>
           </h1>
@@ -272,7 +272,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
                       <button
                         key={idx}
                         onClick={() => setFeaturedIndex(idx)}
-                        className={`h-1.5 rounded-full transition-all ${idx === featuredIndex ? 'w-8 bg-blue-500' : 'w-2 bg-gray-400/60'}`}
+                        className={`h-1.5 rounded-full transition-all ${idx === featuredIndex ? 'w-8 bg-white' : 'w-2 bg-gray-400/60'}`}
                         aria-label={`Slide ${idx + 1}`}
                       />
                     ))}
@@ -315,7 +315,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={tr.searchPlaceholder}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400/50 focus:border-gray-400 transition"
               />
             </div>
 
@@ -324,7 +324,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
               <select
                 value={sortByDate}
                 onChange={(e) => setSortByDate(e.target.value as 'newest' | 'oldest')}
-                className="appearance-none pl-3 pr-9 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition cursor-pointer"
+                className="appearance-none pl-3 pr-9 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400/50 focus:border-gray-400 transition cursor-pointer"
               >
                 <option value="newest">{tr.dateLabel} ↓ {tr.newest}</option>
                 <option value="oldest">{tr.dateLabel} ↑ {tr.oldest}</option>
@@ -339,7 +339,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="appearance-none pl-3 pr-9 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition cursor-pointer"
+                className="appearance-none pl-3 pr-9 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400/50 focus:border-gray-400 transition cursor-pointer"
               >
                 <option value="all">{tr.contentType} — {tr.allTypes}</option>
                 {categories.map((cat) => (
@@ -382,7 +382,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
                     key={post.slug}
                     data-blog-slug={post.slug}
                     data-blog-title={post.title}
-                    className="group bg-white dark:bg-gray-900/40 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/5 transition-all duration-300 flex flex-col"
+                    className="group bg-white dark:bg-gray-900/40 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-gray-400/50 hover:shadow-lg hover:shadow-gray-400/10 transition-all duration-300 flex flex-col"
                   >
                     {/* Image */}
                     <div className="relative h-44 w-full overflow-hidden flex-shrink-0">
@@ -393,7 +393,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3">
-                        <span className={`px-2.5 py-1 rounded-full text-xs font-semibold text-white ${CATEGORY_COLORS[post.category] ?? 'bg-blue-500'}`}>
+                        <span className={`px-2.5 py-1 rounded-full text-xs font-semibold text-white ${CATEGORY_COLORS[post.category] ?? 'bg-gray-700'}`}>
                           {post.category}
                         </span>
                       </div>
@@ -401,7 +401,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
 
                     {/* Content */}
                     <div className="p-5 flex flex-col flex-1">
-                      <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug">
+                      <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-gray-900 dark:group-hover:text-white transition-colors line-clamp-2 leading-snug">
                         <Link href={`/blog/${post.slug}`} onClick={() => handleBlogClick(post.slug, post.title)}>
                           {post.title}
                         </Link>
@@ -410,7 +410,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
                         {post.excerpt}
                       </p>
                       <div className="flex items-center gap-2 mt-auto">
-                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center flex-shrink-0">
                           <span className="text-white text-xs font-bold">N</span>
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400 truncate">{post.author}</span>
@@ -430,7 +430,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
                   <button
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-blue-500 hover:text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed transition"
+                    className="w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-900 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition"
                     aria-label="Previous"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -456,8 +456,8 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
                           onClick={() => setCurrentPage(p as number)}
                           className={`w-9 h-9 flex items-center justify-center rounded-xl text-sm font-medium transition border ${
                             currentPage === p
-                              ? 'bg-blue-600 text-white border-blue-600'
-                              : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-blue-500 hover:text-blue-600'
+                              ? 'bg-gray-900 text-white border-gray-900'
+                              : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-gray-900 hover:text-gray-900'
                           }`}
                         >
                           {p}
@@ -468,7 +468,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
                   <button
                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-blue-500 hover:text-blue-600 disabled:opacity-30 disabled:cursor-not-allowed transition"
+                    className="w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-900 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition"
                     aria-label="Next"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -487,7 +487,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row items-center gap-6 bg-gray-900 dark:bg-gray-800/50 rounded-2xl px-8 py-7 border border-gray-700">
             {/* Icon */}
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center">
+            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
@@ -504,9 +504,9 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
               <input
                 type="email"
                 placeholder={tr.emailPlaceholder}
-                className="flex-1 sm:w-60 px-4 py-2.5 rounded-xl bg-gray-800 dark:bg-gray-700 border border-gray-700 dark:border-gray-600 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition"
+                className="flex-1 sm:w-60 px-4 py-2.5 rounded-xl bg-gray-800 dark:bg-gray-700 border border-gray-700 dark:border-gray-600 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400/50 focus:border-gray-400 transition"
               />
-              <button className="flex-shrink-0 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition">
+              <button className="flex-shrink-0 px-5 py-2.5 rounded-xl bg-white hover:bg-gray-100 text-gray-900 text-sm font-semibold transition">
                 {tr.subscribe} →
               </button>
             </div>
@@ -532,7 +532,7 @@ function HeroCard({ post, tr, formatDate, categoryColors }: HeroCardProps) {
     <div className="flex flex-col md:flex-row min-h-[340px]">
       {/* Text side */}
       <div className="flex-1 p-8 flex flex-col justify-center z-10">
-        <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-blue-600 text-white mb-4 self-start tracking-wide">
+        <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-gray-900 text-white mb-4 self-start tracking-wide">
           {tr.featuredBadge}
         </span>
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">
@@ -542,7 +542,7 @@ function HeroCard({ post, tr, formatDate, categoryColors }: HeroCardProps) {
           {post.excerpt}
         </p>
         <div className="flex items-center gap-2 mb-6 text-sm text-gray-500 dark:text-gray-400">
-          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
             <span className="text-white text-xs font-bold">N</span>
           </div>
           <span>{post.author}</span>

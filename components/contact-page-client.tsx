@@ -47,7 +47,7 @@ export default function ContactPageClient() {
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
               {t('contact.hero.title')}{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5db8f0] to-[#22d3ee]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600">
                 {t('contact.hero.title.highlight')}
               </span>
             </h1>
@@ -197,7 +197,7 @@ export default function ContactPageClient() {
                   disabled={isSubmitting}
                   className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-semibold transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                   style={{
-                    background: 'linear-gradient(90deg, #5db8f0, #22d3ee)',
+                    background: '#111827',
                   }}
                 >
                   {isSubmitting ? (

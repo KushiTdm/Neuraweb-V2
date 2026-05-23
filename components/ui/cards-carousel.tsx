@@ -36,7 +36,7 @@ export function ResponsiveCards({
   breakpoint = 'sm',
   gridClass = 'grid-cols-2 lg:grid-cols-4',
   gridGap = 'gap-6',
-  dotColor = '#5DB8F0',
+  dotColor = '#ffffff',
   carouselPadding = 1,
   className,
   showArrows = false,
@@ -108,7 +108,7 @@ export function CardsCarousel({
   autoPlay = false,
   autoPlayInterval = 4000,
   className,
-  dotColor = '#5DB8F0',
+  dotColor = '#ffffff',
   gap = 1,
   padding = 1,
 }: CardsCarouselProps) {

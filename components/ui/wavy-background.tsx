@@ -47,13 +47,13 @@ export const WavyBackground = ({
     }
   };
 
-  // Palette NeuraWeb : sky + cyan + indigo + violet
+  // Palette neutre : gris + blanc
   const waveColors = colors ?? [
-    "#5db8f0",
-    "#22d3ee",
-    "#818cf8",
-    "#c084fc",
-    "#38bdf8",
+    "#9ca3af",
+    "#d1d5db",
+    "#e5e7eb",
+    "#f3f4f6",
+    "#ffffff",
   ];
 
   const drawWave = (n: number) => {

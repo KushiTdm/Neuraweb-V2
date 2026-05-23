@@ -37,7 +37,7 @@ export function StaggeredMenuPanel({
   onClose,
   items,
   colors = ['#1E2A4A', '#0E1B3D'],
-  accentColor = '#5DB8F0',
+  accentColor = '#ffffff',
   displayItemNumbering = false,
   contactLabel = 'Contact',
 }: StaggeredMenuPanelProps) {
@@ -208,7 +208,7 @@ export function StaggeredMenuPanel({
         </div>
 
         {/* Ligne de séparation gradient */}
-        <div className="mx-5 mb-6 h-px" style={{ background: 'linear-gradient(90deg,rgba(93,184,240,0.4),transparent)' }} />
+        <div className="mx-5 mb-6 h-px" style={{ background: 'linear-gradient(90deg,rgba(255,255,255,0.3),transparent)' }} />
 
         {/* Items de navigation */}
         <nav className="flex-1 px-5 overflow-y-auto">
@@ -236,7 +236,7 @@ export function StaggeredMenuPanel({
                   data-index={idx + 1}
                 >
                   <span
-                    className="sm-panel-itemLabel inline-block transition-colors duration-150 group-hover:text-sky-400"
+                    className="sm-panel-itemLabel inline-block transition-colors duration-150 group-hover:text-white"
                     style={{ transformOrigin: '50% 100%', willChange: 'transform' }}
                   >
                     {item.label}
@@ -257,7 +257,7 @@ export function StaggeredMenuPanel({
             href="/contact"
             onClick={onClose}
             className="flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-full text-sm font-semibold mb-5 transition-opacity hover:opacity-90"
-            style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)', color: '#070F26' }}
+            style={{ background: '#ffffff', color: '#111827' }}
           >
             {contactLabel}
             <ArrowRight size={15} />
@@ -280,7 +280,7 @@ export function StaggeredMenuPanel({
           right: 0;
           font-size: 13px;
           font-weight: 400;
-          color: #5DB8F0;
+          color: #9ca3af;
           letter-spacing: 0;
           pointer-events: none;
           user-select: none;

@@ -22,7 +22,7 @@ export function OfferBannerSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         <div
           className="relative rounded-3xl overflow-hidden border border-rose-200/40 dark:border-rose-500/20
-            bg-gradient-to-br from-rose-50 via-white to-indigo-50
+            bg-gradient-to-br from-rose-50 via-white to-gray-50
             dark:from-[#1a0a1a] dark:via-[#0a0a1a] dark:to-[#0a0f1f]
             shadow-xl shadow-rose-500/5 dark:shadow-rose-500/10"
         >
@@ -49,7 +49,7 @@ export function OfferBannerSection() {
 
               <h2 className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {t('offer.banner.title')}{' '}
-                <span className="bg-gradient-to-r from-rose-500 via-pink-500 to-indigo-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500 bg-clip-text text-transparent">
                   {t('offer.banner.highlight')}
                 </span>
               </h2>
@@ -142,7 +142,7 @@ export function OfferBannerSection() {
                 <div className="my-5 h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-white/10 to-transparent" />
 
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">+ 29€</span>
+                  <span className="text-2xl font-bold text-gray-900 dark:text-white">+ 29€</span>
                   <span className="text-sm text-gray-600 dark:text-gray-400">/ mois</span>
                 </div>
                 <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">

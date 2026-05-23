@@ -117,19 +117,19 @@ export function ServicesRelatedLinks({ language = 'fr' }: ServicesRelatedLinksPr
             <LocalizedLink
               key={`article-${i}`}
               href={item.href}
-              className="group flex flex-col gap-3 p-5 rounded-2xl bg-[#0e1b3d]/60 border border-white/10 hover:border-[#22d3ee]/40 hover:bg-[#0e1b3d] transition-all duration-300"
+              className="group flex flex-col gap-3 p-5 rounded-2xl bg-[#0e1b3d]/60 border border-white/10 hover:border-white/40 hover:bg-[#0e1b3d] transition-all duration-300"
             >
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-[#22d3ee]/10 border border-[#22d3ee]/20 text-[#22d3ee]">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/10 border border-white/20 text-white">
                   <BookOpen className="w-3 h-3" />
                   {c.articleTag}
                 </span>
               </div>
-              <p className="text-white font-semibold text-sm leading-snug group-hover:text-[#22d3ee] transition-colors">
+              <p className="text-white font-semibold text-sm leading-snug group-hover:text-white transition-colors">
                 {item.label}
               </p>
               <p className="text-white/50 text-xs leading-relaxed">{item.desc}</p>
-              <div className="flex items-center gap-1.5 text-[#22d3ee] text-xs font-medium mt-auto">
+              <div className="flex items-center gap-1.5 text-white text-xs font-medium mt-auto">
                 <span>{language === 'fr' ? 'Lire l\'article' : language === 'es' ? 'Leer el artículo' : 'Read the article'}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>
@@ -141,19 +141,19 @@ export function ServicesRelatedLinks({ language = 'fr' }: ServicesRelatedLinksPr
             <LocalizedLink
               key={`service-${i}`}
               href={item.href}
-              className="group flex flex-col gap-3 p-5 rounded-2xl bg-[#0e1b3d]/60 border border-white/10 hover:border-[#5db8f0]/40 hover:bg-[#0e1b3d] transition-all duration-300"
+              className="group flex flex-col gap-3 p-5 rounded-2xl bg-[#0e1b3d]/60 border border-white/10 hover:border-white/40 hover:bg-[#0e1b3d] transition-all duration-300"
             >
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-[#5db8f0]/10 border border-[#5db8f0]/20 text-[#5db8f0]">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/10 border border-white/20 text-white">
                   {i === 0 ? <Bot className="w-3 h-3" /> : <Zap className="w-3 h-3" />}
                   {c.serviceTag}
                 </span>
               </div>
-              <p className="text-white font-semibold text-sm leading-snug group-hover:text-[#5db8f0] transition-colors">
+              <p className="text-white font-semibold text-sm leading-snug group-hover:text-white transition-colors">
                 {item.label}
               </p>
               <p className="text-white/50 text-xs leading-relaxed">{item.desc}</p>
-              <div className="flex items-center gap-1.5 text-[#5db8f0] text-xs font-medium mt-auto">
+              <div className="flex items-center gap-1.5 text-white text-xs font-medium mt-auto">
                 <span>{language === 'fr' ? 'Découvrir' : language === 'es' ? 'Descubrir' : 'Discover'}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </div>

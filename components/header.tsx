@@ -83,13 +83,13 @@ export function Header() {
                 href="/"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/')
-                    ? 'text-sky-400'
-                    : 'text-navy-900 dark:text-gray-300 hover:text-sky-400 dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
+                    ? 'text-white'
+                    : 'text-navy-900 dark:text-gray-300 hover:text-white dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
                 }`}
               >
                 {t('nav.home')}
                 {isActive('/') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-sky-400" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-white" />
                 )}
               </LocalizedLink>
 
@@ -99,8 +99,8 @@ export function Header() {
                   href="/developpement-web"
                   className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 inline-flex items-center gap-1 ${
                     isActive('/developpement-web')
-                      ? 'text-sky-400'
-                      : 'text-navy-900 dark:text-gray-300 hover:text-sky-400 dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
+                      ? 'text-white'
+                      : 'text-navy-900 dark:text-gray-300 hover:text-white dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
                   }`}
                   aria-haspopup="menu"
                 >
@@ -110,7 +110,7 @@ export function Header() {
                     className="transition-transform duration-200 group-hover:rotate-180"
                   />
                   {isActive('/developpement-web') && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-sky-400" />
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-white" />
                   )}
                 </LocalizedLink>
 
@@ -185,13 +185,13 @@ export function Header() {
                 href="/blog"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/blog')
-                    ? 'text-sky-400'
-                    : 'text-navy-900 dark:text-gray-300 hover:text-sky-400 dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
+                    ? 'text-white'
+                    : 'text-navy-900 dark:text-gray-300 hover:text-white dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
                 }`}
               >
                 {t('nav.blog')}
                 {isActive('/blog') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-sky-400" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-white" />
                 )}
               </LocalizedLink>
 
@@ -199,13 +199,13 @@ export function Header() {
                 href="/equipe"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/equipe')
-                    ? 'text-sky-400'
-                    : 'text-navy-900 dark:text-gray-300 hover:text-sky-400 dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
+                    ? 'text-white'
+                    : 'text-navy-900 dark:text-gray-300 hover:text-white dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
                 }`}
               >
                 {t('nav.team')}
                 {isActive('/equipe') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-sky-400" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-white" />
                 )}
               </LocalizedLink>
             </nav>
@@ -289,7 +289,7 @@ export function Header() {
             { label: t('nav.team'),     href: '/equipe',               ariaLabel: t('nav.team')     },
           ] as StaggeredMenuItem[]}
           colors={['#1A2847', '#0E1B3D']}
-          accentColor="#5DB8F0"
+          accentColor="#ffffff"
         />
       </div>
     </>

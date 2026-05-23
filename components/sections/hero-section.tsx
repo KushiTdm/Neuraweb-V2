@@ -159,10 +159,10 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
         </div>
         <div className="relative z-10 flex items-center min-h-screen max-w-7xl mx-auto px-6 lg:px-12">
           <div className="max-w-2xl pt-28 pb-20">
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-sky-400 mb-6">NEURAWEB — AGENCE TECH</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-white/70 mb-6">NEURAWEB — AGENCE TECH</p>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[5rem] font-bold text-white leading-tight mb-6">
               {SLIDES[0].title[lang]}{' '}
-              <span style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <span style={{ background: 'linear-gradient(90deg,#ffffff,#e5e7eb)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 {SLIDES[0].titleHighlight[lang]}
               </span>
             </h1>
@@ -211,7 +211,7 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
       <div className="relative z-10 flex items-center min-h-screen max-w-7xl mx-auto px-6 lg:px-12">
         <div className="w-full lg:w-[55%] pt-28 pb-20">
           <p
-            className="text-xs font-semibold uppercase tracking-[0.1em] text-sky-400 mb-6"
+            className="text-xs font-semibold uppercase tracking-[0.1em] text-white/70 mb-6"
             style={{ opacity: heroVisible ? 1 : 0, transition: 'opacity 0.6s ease' }}
           >
             NEURAWEB — AGENCE TECH
@@ -223,7 +223,7 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
             style={{ fontSize: 'clamp(2.5rem,6vw,5rem)', letterSpacing: '-0.02em', opacity: heroVisible ? 1 : 0, animation: heroVisible ? 'fadeInUp 0.7s ease forwards' : 'none' }}
           >
             {currentSlide.title[lang]}{' '}
-            <span style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <span style={{ background: 'linear-gradient(90deg,#ffffff,#e5e7eb)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               {currentSlide.titleHighlight[lang]}
             </span>
           </h1>
@@ -239,8 +239,8 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
           <div className="flex flex-wrap items-center gap-4" style={{ opacity: heroVisible ? 1 : 0, transition: 'opacity 0.9s 0.5s ease' }}>
             <LocalizedLink
               href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:opacity-90 hover:-translate-y-0.5"
-              style={{ background: 'linear-gradient(90deg,#5DB8F0,#22D3EE)', boxShadow: '0 4px 20px rgba(93,184,240,.35)' }}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold text-gray-900 transition-all duration-300 hover:opacity-90 hover:-translate-y-0.5"
+              style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,.2)' }}
             >
               {t('hero.cta.start')}
             </LocalizedLink>
@@ -315,7 +315,7 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
               {i === activeSlide && (
                 <span
                   className="absolute inset-y-0 left-0 slide-progress"
-                  style={{ background: '#5DB8F0', animationDuration: `${SLIDE_DURATION}ms`, width: '100%' }}
+                  style={{ background: '#ffffff', animationDuration: `${SLIDE_DURATION}ms`, width: '100%' }}
                 />
               )}
             </div>
@@ -326,7 +326,7 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
       {/* Barre de progression (desktop) */}
       {heroVisible && (
         <div className="absolute top-0 left-0 right-0 h-0.5 bg-white/10 z-20">
-          <div className="h-full transition-none" style={{ width: `${progress}%`, background: '#5DB8F0' }} />
+          <div className="h-full transition-none" style={{ width: `${progress}%`, background: '#ffffff' }} />
         </div>
       )}
 

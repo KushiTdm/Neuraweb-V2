@@ -71,7 +71,7 @@ export function LanguageSelector() {
               onClick={() => handleLanguageChange(lang.code)}
               className={`w-full px-4 py-3 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
                 language === lang.code
-                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                  ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
                   : 'text-gray-700 dark:text-gray-300'
               }`}
             >
@@ -80,7 +80,7 @@ export function LanguageSelector() {
                 <span className="font-medium">{lang.name}</span>
               </span>
               {language === lang.code && (
-                <Check size={18} className="text-blue-600 dark:text-blue-400" />
+                <Check size={18} className="text-gray-900 dark:text-white" />
               )}
             </button>
           ))}

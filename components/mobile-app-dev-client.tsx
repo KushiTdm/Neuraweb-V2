@@ -245,15 +245,15 @@ export function MobileAppDevClient({ lang }: Props) {
       <Header />
       <main id="main-content" className="min-h-screen bg-[#050510] pt-24">
         <section className="py-16 sm:py-24 px-4 relative overflow-hidden" style={{ background: '#070F26' }}>
-          <div className="absolute inset-0 bg-gradient-to-br from-[#5db8f0]/10 via-[#22d3ee]/10 to-[#22d3ee]/5 pointer-events-none" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/5 to-white/5 pointer-events-none" aria-hidden="true" />
           <div className="max-w-5xl mx-auto text-center relative">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/5 mb-8">
-              <Smartphone className="w-4 h-4 text-cyan-400" />
-              <span className="text-sm font-medium text-cyan-300">Mobile App Development</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 mb-8">
+              <Smartphone className="w-4 h-4 text-white" />
+              <span className="text-sm font-medium text-white">Mobile App Development</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
               {c.hero.h1}{' '}
-              <span className="bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 {c.hero.highlight}
               </span>
             </h1>
@@ -263,14 +263,14 @@ export function MobileAppDevClient({ lang }: Props) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <LocalizedLink
                 href="/booking"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510] font-semibold text-lg shadow-lg hover:shadow-xl transition-all"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white text-gray-900 font-semibold text-lg shadow-lg hover:shadow-xl hover:bg-gray-100 transition-all"
               >
                 {c.hero.ctaPrimary}
                 <ArrowRight className="w-5 h-5" />
               </LocalizedLink>
               <a
                 href="#pricing"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-[#22d3ee]/40 text-[#22d3ee] font-semibold text-lg hover:bg-[#22d3ee]/10 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-white/40 text-white font-semibold text-lg hover:bg-white/10 transition-colors"
               >
                 {c.hero.ctaSecondary}
               </a>
@@ -294,12 +294,12 @@ export function MobileAppDevClient({ lang }: Props) {
                 return (
                   <article
                     key={card.name}
-                    className="p-6 rounded-2xl border border-slate-200 shadow-sm bg-white hover:border-[#5db8f0]/30 transition-colors h-full"
+                    className="p-6 rounded-2xl border border-slate-200 shadow-sm bg-white hover:border-gray-300 transition-colors h-full"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-[#050510]" strokeWidth={2} />
+                    <div className="w-12 h-12 rounded-xl bg-gray-900 flex items-center justify-center mb-4">
+                      <Icon className="w-6 h-6 text-white" strokeWidth={2} />
                     </div>
-                    <div className="text-xs font-semibold text-[#22d3ee] uppercase tracking-wider mb-2">
+                    <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
                       {card.tag}
                     </div>
                     <h3 className="text-xl font-bold text-[#0e1b3d] mb-2">
@@ -331,11 +331,11 @@ export function MobileAppDevClient({ lang }: Props) {
                 return (
                   <article
                     key={card.title}
-                    className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-[#5db8f0]/30 transition-colors"
+                    className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gray-300 transition-colors"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center">
-                        <Icon className="w-6 h-6 text-[#050510]" strokeWidth={2} />
+                      <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white flex items-center justify-center">
+                        <Icon className="w-6 h-6 text-gray-900" strokeWidth={2} />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white mb-2">
@@ -371,8 +371,8 @@ export function MobileAppDevClient({ lang }: Props) {
                     key={step.title}
                     className="p-6 rounded-2xl border border-slate-200 shadow-sm bg-white h-full"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] flex items-center justify-center mb-4">
-                      <Icon className="w-6 h-6 text-[#050510]" strokeWidth={2} />
+                    <div className="w-12 h-12 rounded-xl bg-gray-900 flex items-center justify-center mb-4">
+                      <Icon className="w-6 h-6 text-white" strokeWidth={2} />
                     </div>
                     <h3 className="text-lg font-bold text-[#0e1b3d] mb-2">
                       {step.title}
@@ -404,21 +404,21 @@ export function MobileAppDevClient({ lang }: Props) {
                     key={pack.name}
                     className={`p-8 rounded-3xl border-2 h-full ${
                       pack.highlighted
-                        ? 'border-[#5db8f0] bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510]'
-                        : 'border-white/10 bg-white/5'
+                        ? 'border-white bg-white text-gray-900'
+                        : 'border-white/20 bg-white/5'
                     }`}
                   >
-                    <h3 className={`text-2xl font-bold mb-2 ${pack.highlighted ? 'text-[#050510]' : 'text-white'}`}>
+                    <h3 className={`text-2xl font-bold mb-2 ${pack.highlighted ? 'text-gray-900' : 'text-white'}`}>
                       {pack.name}
                     </h3>
-                    <div className={`text-3xl font-black mb-6 ${pack.highlighted ? 'text-[#050510]' : 'text-[#5db8f0]'}`}>
+                    <div className={`text-3xl font-black mb-6 ${pack.highlighted ? 'text-gray-900' : 'text-white'}`}>
                       {pack.price}
                     </div>
                     <ul className="space-y-3 mb-8">
                       {pack.features.map((f) => (
                         <li key={f} className="flex items-start gap-2">
-                          <CheckCircle2 className={`w-5 h-5 flex-shrink-0 mt-0.5 ${pack.highlighted ? 'text-[#050510]' : 'text-emerald-400'}`} />
-                          <span className={pack.highlighted ? 'text-[#050510]/90' : 'text-slate-300'}>{f}</span>
+                          <CheckCircle2 className={`w-5 h-5 flex-shrink-0 mt-0.5 ${pack.highlighted ? 'text-gray-900' : 'text-emerald-400'}`} />
+                          <span className={pack.highlighted ? 'text-gray-900/90' : 'text-slate-300'}>{f}</span>
                         </li>
                       ))}
                     </ul>
@@ -426,8 +426,8 @@ export function MobileAppDevClient({ lang }: Props) {
                       href="/booking"
                       className={`block w-full text-center px-6 py-3 rounded-full font-semibold transition-colors ${
                         pack.highlighted
-                          ? 'bg-[#050510] text-[#22d3ee] hover:bg-[#070f26]'
-                          : 'bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510] hover:opacity-90'
+                          ? 'bg-gray-900 text-white hover:bg-gray-800'
+                          : 'bg-white/10 border border-white/30 text-white hover:bg-white/20'
                       }`}
                     >
                       {c.cta.button}
@@ -481,7 +481,7 @@ export function MobileAppDevClient({ lang }: Props) {
             </p>
             <LocalizedLink
               href="/booking"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] text-[#050510] font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-gray-900 font-semibold text-lg shadow-lg hover:shadow-xl hover:bg-gray-100 transform hover:scale-105 transition-all"
             >
               {c.cta.button}
               <ArrowRight className="w-5 h-5" />

@@ -175,7 +175,7 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
       <div className="absolute inset-0 bg-gradient-radial from-violet-600/20 via-transparent to-transparent" />
 
       <div className="relative max-w-5xl mx-auto text-center z-10">
-        <MessageCircle className="w-20 h-20 mx-auto mb-8 text-[#5db8f0] animate-pulse" />
+        <MessageCircle className="w-20 h-20 mx-auto mb-8 text-white animate-pulse" />
 
         <h2 ref={titleRef} className="text-5xl md:text-7xl font-bold mb-12 leading-tight text-white">
           <span className="word inline-block mr-4">{t('servicePage.cta.title.word1')}</span>
@@ -205,13 +205,13 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
           href="/booking?service=devis"
           onMouseEnter={() => handleButtonHover(true)}
           onMouseLeave={() => handleButtonHover(false)}
-          className="group inline-block relative px-12 py-6 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white text-xl font-bold rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
+          className="group inline-block relative px-12 py-6 bg-white text-gray-900 text-xl font-bold rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
         >
           <span className="relative z-10 flex items-center gap-3">
             {t('servicePage.cta.button')}
             <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
           </span>
-          <div className="absolute inset-0 bg-gradient-to-r from-fuchsia-600 to-violet-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gray-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </LocalizedLink>
 
         <div className="mt-16 flex justify-center gap-8 text-sm text-white/60">
@@ -220,11 +220,11 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
             <span>{t('servicePage.cta.feature1')}</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+            <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" />
             <span>{t('servicePage.cta.feature2')}</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse" />
+            <div className="w-2 h-2 bg-gray-500 rounded-full animate-pulse" />
             <span>{t('servicePage.cta.feature3')}</span>
           </div>
         </div>

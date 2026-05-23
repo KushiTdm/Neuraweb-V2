@@ -122,7 +122,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
       .replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-pink-600 dark:text-pink-400 text-sm font-mono">$1</code>')
       .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-gray-900 dark:bg-gray-950 rounded-xl p-4 overflow-x-auto my-6"><code class="text-sm text-gray-100 font-mono whitespace-pre">$2</code></pre>')
-      .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-blue-50 dark:bg-blue-900/20 rounded-r-lg text-gray-700 dark:text-gray-300">$1</blockquote>')
+      .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-gray-900 dark:border-gray-200 pl-4 py-2 my-4 bg-gray-100 dark:bg-gray-800/40 rounded-r-lg text-gray-700 dark:text-gray-300">$1</blockquote>')
       .replace(/^- (.*$)/gim, '<li class="text-gray-600 dark:text-gray-300 ml-4 mb-2">$1</li>')
       .replace(/\|(.+)\|/g, (match) => {
         const cells = match.split('|').filter(c => c.trim());
@@ -178,7 +178,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between gap-3 mb-6 flex-wrap">
             <div className="flex items-center gap-3">
-              <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
+              <span className="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200">
                 {post.category}
               </span>
               <span className="text-gray-500 dark:text-gray-400">
@@ -189,7 +189,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
             {/* ── Bouton Copier le lien ──────────────────────────────── ← ANALYTICS */}
             <button
               onClick={handleCopyLink}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-gray-900 hover:text-gray-900 dark:hover:text-white dark:hover:border-white transition-all"
               aria-label={tr.copyLink}
             >
               {copied ? (
@@ -219,7 +219,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
 
           {/* Author & Date */}
           <div className="flex items-center gap-4 pt-6 border-t border-gray-100 dark:border-gray-800">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
               <span className="text-white font-bold text-lg">N</span>
             </div>
             <div>
@@ -241,7 +241,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
           <div className="prose prose-lg dark:prose-invert max-w-none
             prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
             prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
-            prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+            prose-a:text-gray-900 dark:prose-a:text-white prose-a:no-underline hover:prose-a:underline
             prose-strong:font-semibold prose-strong:text-gray-900 dark:prose-strong:text-white
             prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
             prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3"
@@ -285,7 +285,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
                   <button
                     key={tag}
                     onClick={() => trackTagClick(tag)} // ← ANALYTICS
-                    className="px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-pointer"
+                    className="px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-gray-900 transition-colors cursor-pointer"
                   >
                     {tag}
                   </button>
@@ -309,12 +309,12 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
                   key={relatedPost.slug}
                   href={`/blog/${relatedPost.slug}`}
                   onClick={() => trackRelatedArticleClick(relatedPost.slug, relatedPost.title)} // ← ANALYTICS
-                  className="group bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 hover:border-blue-500/50 transition-all duration-300"
+                  className="group bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 hover:border-gray-400/50 transition-all duration-300"
                 >
-                  <span className="text-xs font-medium text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+                  <span className="text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                     {relatedPost.category}
                   </span>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mt-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mt-2 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
                     {relatedPost.title}
                   </h3>
                   <p className="text-gray-500 dark:text-gray-400 text-sm mt-2 line-clamp-2">
@@ -339,7 +339,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
           <LocalizedLink
             href="/contact"
             onClick={() => trackCTAClick(tr.contactUs, '/contact')} // ← ANALYTICS
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
             {tr.contactUs}
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -356,14 +356,14 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
               <LocalizedLink
                 href="/services"
                 onClick={() => trackCTAClick(tr.webAi, '/services')} // ← ANALYTICS
-                className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-gray-900 hover:text-gray-900 dark:hover:text-white dark:hover:border-white transition-colors"
               >
                 {tr.webAi}
               </LocalizedLink>
               <LocalizedLink
                 href="/mobile-app-development"
                 onClick={() => trackCTAClick(tr.mobileApp, '/mobile-app-development')} // ← ANALYTICS
-                className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-gray-900 hover:text-gray-900 dark:hover:text-white dark:hover:border-white transition-colors"
               >
                 {tr.mobileApp}
               </LocalizedLink>

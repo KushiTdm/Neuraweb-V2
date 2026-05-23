@@ -44,9 +44,9 @@ import {
 // ═══════════════════════════════════════════════════════════════════════════
 
 const STATS = [
-  { value: '12h', label: 'économisées / semaine en moyenne', color: 'text-[#22d3ee]' },
-  { value: '3×', label: 'plus de leads qualifiés traités', color: 'text-[#5db8f0]' },
-  { value: '94%', label: 'de réduction des tâches manuelles', color: 'text-[#22d3ee]' },
+  { value: '12h', label: 'économisées / semaine en moyenne', color: 'text-white' },
+  { value: '3×', label: 'plus de leads qualifiés traités', color: 'text-white' },
+  { value: '94%', label: 'de réduction des tâches manuelles', color: 'text-white' },
 ];
 
 const PROBLEMS = [
@@ -54,7 +54,7 @@ const PROBLEMS = [
     icon: Clock,
     title: 'Vos équipes passent des heures sur des tâches répétitives',
     text: "Saisie manuelle, copier-coller entre outils, relances email, transferts de données : chaque minute perdue est une minute en moins pour votre cœur de métier.",
-    color: 'text-[#22d3ee] bg-[#22d3ee]/10',
+    color: 'text-white bg-white/5',
   },
   {
     icon: AlertTriangle,
@@ -66,13 +66,13 @@ const PROBLEMS = [
     icon: Database,
     title: 'Vos données sont éparpillées entre 5, 10, 15 outils',
     text: "Google Sheets, HubSpot, Notion, Airtable, Slack, Gmail... la circulation de l'information coûte cher en énergie et génère des erreurs.",
-    color: 'text-[#5db8f0] bg-[#5db8f0]/10',
+    color: 'text-white bg-white/5',
   },
   {
     icon: TrendingUp,
     title: "Vous ne savez pas par quoi commencer",
     text: "L'automatisation fait peur. Vous ne savez pas quels workflows ont le meilleur ROI, ni quel outil choisir entre n8n, Make et Zapier.",
-    color: 'text-[#5db8f0] bg-[#5db8f0]/10',
+    color: 'text-white bg-white/5',
   },
 ];
 
@@ -92,8 +92,8 @@ const SERVICES = [
     desc: 'Nous construisons vos automatisations sur mesure : formulaire→CRM, qualification de leads, synchronisation d\'outils, notifications, relances automatiques, reporting.',
     details: ['Connexion formulaire → CRM / Airtable / Notion', 'Relances automatiques par email ou SMS', 'Synchronisation multi-outils (Slack, Gmail, Drive)', 'Alertes et notifications en temps réel'],
     badge: 'À partir de 999 €',
-    badgeColor: 'bg-[#5db8f0]',
-    accentColor: 'border-[#5db8f0]',
+    badgeColor: 'bg-gray-900',
+    accentColor: 'border-white',
   },
   {
     icon: Bot,
@@ -102,7 +102,7 @@ const SERVICES = [
     details: ['Qualification automatique des leads entrants', 'Réponses aux questions fréquentes (FAQ)', 'Intégration calendrier (Calendly, Google Agenda)', 'Handoff vers CRM avec scoring'],
     badge: 'À partir de 2 499 €',
     badgeColor: 'bg-violet-500',
-    accentColor: 'border-violet-400',
+    accentColor: 'border-gray-400',
   },
   {
     icon: Mail,
@@ -110,8 +110,8 @@ const SERVICES = [
     desc: 'Séquences email intelligentes, lead scoring, personnalisation dynamique, segmentation automatique : votre marketing travaille même quand vous dormez.',
     details: ['Séquences de nurturing multi-étapes', 'Lead scoring automatique', 'Segmentation comportementale', 'Intégration Brevo, Mailchimp, ActiveCampaign'],
     badge: 'À partir de 1 499 €',
-    badgeColor: 'bg-cyan-500',
-    accentColor: 'border-cyan-400',
+    badgeColor: 'bg-gray-700',
+    accentColor: 'border-gray-400',
   },
   {
     icon: RefreshCw,
@@ -203,9 +203,9 @@ const PACKS: Pack[] = [
     monthly: 79,
     delivery: '3 à 5 semaines',
     badge: 'Le plus populaire',
-    badgeColor: 'bg-[#5db8f0]',
+    badgeColor: 'bg-gray-900',
     popular: true,
-    borderColor: 'border-[#5db8f0]',
+    borderColor: 'border-white',
     bullets: [
       'Audit complet (processus illimités)',
       '3 à 5 workflows sur mesure',
@@ -253,7 +253,7 @@ const PACKS: Pack[] = [
     price: 5999,
     monthly: 149,
     delivery: '6 à 10 semaines',
-    borderColor: 'border-violet-400 dark:border-violet-500',
+    borderColor: 'border-white/10',
     bullets: [
       'Audit + roadmap 6 mois',
       'Workflows illimités',
@@ -306,9 +306,9 @@ const PROCESS_STEPS = [
     duration: '30 à 60 min',
     desc: 'On analyse vos outils, vos processus et vos douleurs. Vous repartez avec une liste des workflows à automatiser en priorité et leur ROI estimé.',
     bring: 'Vos outils, vos processus',
-    bg: 'bg-[#22d3ee]/5',
-    text: 'text-[#22d3ee]',
-    border: 'border-[#22d3ee]/20',
+    bg: 'bg-white/5',
+    text: 'text-white',
+    border: 'border-white/20',
   },
   {
     id: '02',
@@ -316,9 +316,9 @@ const PROCESS_STEPS = [
     duration: '3 à 5 jours',
     desc: 'Nous modélisons chaque workflow, choisissons les bons outils et validons l\'architecture avec vous avant de coder la moindre ligne.',
     bring: 'Vos accès outils (lecture seule)',
-    bg: 'bg-[#5db8f0]/5',
-    text: 'text-[#5db8f0]',
-    border: 'border-[#5db8f0]/20',
+    bg: 'bg-white/5',
+    text: 'text-white',
+    border: 'border-white/20',
   },
   {
     id: '03',
@@ -326,9 +326,9 @@ const PROCESS_STEPS = [
     duration: '1 à 8 semaines',
     desc: 'Nous développons les workflows, les connectons à vos outils et les testons sur des données réelles. Vous validez chaque étape.',
     bring: 'Vos données de test',
-    bg: 'bg-[#5db8f0]/5',
-    text: 'text-[#5db8f0]',
-    border: 'border-[#5db8f0]/20',
+    bg: 'bg-white/5',
+    text: 'text-white',
+    border: 'border-white/20',
   },
   {
     id: '04',
@@ -336,9 +336,9 @@ const PROCESS_STEPS = [
     duration: '1 jour',
     desc: 'Basculement en production avec surveillance renforcée les 7 premiers jours. Formation de votre équipe incluse.',
     bring: '30 min pour la formation',
-    bg: 'bg-[#22d3ee]/5',
-    text: 'text-[#22d3ee]',
-    border: 'border-[#22d3ee]/20',
+    bg: 'bg-white/5',
+    text: 'text-white',
+    border: 'border-white/20',
   },
 ];
 
@@ -399,7 +399,7 @@ const TESTIMONIALS = [
     role: 'Directeur commercial',
     company: 'Agence immobilière, Paris',
     initials: 'AD',
-    color: 'bg-[#22d3ee]/20 text-[#22d3ee]',
+    color: 'bg-white/10 text-white',
   },
   {
     quote: "Le workflow de qualification de leads n8n a transformé notre équipe commerciale. Les commerciaux ne traitent plus que des leads chauds. Le CA a augmenté de 34% en 2 mois.",
@@ -407,7 +407,7 @@ const TESTIMONIALS = [
     role: 'CEO',
     company: 'SaaS B2B, Lyon',
     initials: 'SM',
-    color: 'bg-[#5db8f0]/20 text-[#5db8f0]',
+    color: 'bg-white/10 text-white',
   },
   {
     quote: "J'avais peur que ce soit compliqué. L'audit gratuit a tout clarifié. On est partis sur le pack Business, livré en 4 semaines. La synchro Airtable-Gmail-Slack fonctionne impeccablement.",
@@ -445,18 +445,18 @@ export function AutomatisationPageClient() {
             }}
           />
           {/* Glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#5db8f0]/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-[#22d3ee]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#5db8f0]/10 border border-[#5db8f0]/20 text-[#5db8f0] text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Zap size={14} />
               <span>Automatisation n8n · Make · Zapier · Agents IA</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Automatisez vos processus,{' '}
-              <span className="bg-gradient-to-r from-[#5db8f0] to-[#22d3ee] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 libérez votre potentiel
               </span>
             </h1>
@@ -469,8 +469,8 @@ export function AutomatisationPageClient() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <LocalizedLink
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-[#050510] transition-all duration-300"
-                style={{ background: 'linear-gradient(90deg, #5db8f0, #22d3ee)', boxShadow: '0 4px 20px rgba(93,184,240,0.35)' }}
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90"
+                style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}
               >
                 <Zap size={18} />
                 Demander l'audit gratuit
@@ -578,7 +578,7 @@ export function AutomatisationPageClient() {
                         ))}
                       </ul>
                     )}
-                    <button className="mt-2 text-xs text-indigo-500 hover:text-indigo-600 font-medium">
+                    <button className="mt-2 text-xs text-gray-500 hover:text-gray-800 font-medium">
                       {isExpanded ? 'Masquer les détails ↑' : 'Voir les détails ↓'}
                     </button>
                   </div>
@@ -598,7 +598,7 @@ export function AutomatisationPageClient() {
               {TOOLS.map((tool, i) => (
                 <span
                   key={i}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-sm text-slate-600 font-medium hover:border-[#5db8f0]/40 transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-sm text-slate-600 font-medium hover:border-white/40 transition-colors"
                 >
                   {tool.name}
                   <span className="text-xs text-slate-500">{tool.category}</span>
@@ -628,7 +628,7 @@ export function AutomatisationPageClient() {
                   onClick={() => setSelectedPack(pack.id)}
                   className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
                     selectedPack === pack.id
-                      ? 'bg-[#5db8f0] text-[#050510]'
+                      ? 'bg-white text-gray-900'
                       : 'bg-[#0e1b3d]/40 text-slate-300'
                   }`}
                 >
@@ -684,7 +684,7 @@ export function AutomatisationPageClient() {
                 <LocalizedLink
                   href="/contact"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300"
-                  style={{ background: 'linear-gradient(90deg, #5db8f0, #22d3ee)', boxShadow: '0 4px 15px rgba(93,184,240,0.3)' }}
+                  style={{ background: '#ffffff', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}
                 >
                   Choisir {activePack.name}
                   <ArrowRight size={14} />
@@ -729,7 +729,7 @@ export function AutomatisationPageClient() {
                     {activePack.options.map((opt, i) => (
                       <li key={i} className="flex items-start justify-between gap-2 text-sm">
                         <span className="text-slate-300">{opt.label}</span>
-                        <span className="text-[#22d3ee] font-medium shrink-0">{opt.price}</span>
+                        <span className="text-white font-medium shrink-0">{opt.price}</span>
                       </li>
                     ))}
                   </ul>
@@ -802,7 +802,7 @@ export function AutomatisationPageClient() {
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
                   <div className="flex mb-3">
                     {[...Array(5)].map((_, j) => (
-                      <Star key={j} size={14} className="text-[#22d3ee] fill-[#22d3ee]" />
+                      <Star key={j} size={14} className="text-amber-400 fill-amber-400" />
                     ))}
                   </div>
                   <p className="text-slate-300 text-sm mb-4 italic">&ldquo;{t.quote}&rdquo;</p>
@@ -849,25 +849,25 @@ export function AutomatisationPageClient() {
               <h3 className="font-semibold text-[#0e1b3d] mb-4">Pour aller plus loin</h3>
               <ul className="space-y-3">
                 <li>
-                  <LocalizedLink href="/blog/make-n8n-zapier-2026-pme-france" className="flex items-center gap-2 text-sm text-[#22d3ee] hover:underline">
+                  <LocalizedLink href="/blog/make-n8n-zapier-2026-pme-france" className="flex items-center gap-2 text-sm text-white hover:underline">
                     <ArrowRight size={14} />
                     Make vs n8n vs Zapier : comparatif 2026 pour PME françaises
                   </LocalizedLink>
                 </li>
                 <li>
-                  <LocalizedLink href="/blog/automatisation-n8n-guide" className="flex items-center gap-2 text-sm text-[#22d3ee] hover:underline">
+                  <LocalizedLink href="/blog/automatisation-n8n-guide" className="flex items-center gap-2 text-sm text-white hover:underline">
                     <ArrowRight size={14} />
                     Guide complet n8n : automatiser sans coder
                   </LocalizedLink>
                 </li>
                 <li>
-                  <LocalizedLink href="/blog/automatisation-ia-pme-prix-2026" className="flex items-center gap-2 text-sm text-[#22d3ee] hover:underline">
+                  <LocalizedLink href="/blog/automatisation-ia-pme-prix-2026" className="flex items-center gap-2 text-sm text-white hover:underline">
                     <ArrowRight size={14} />
                     Automatisation IA pour PME : prix réels 2026
                   </LocalizedLink>
                 </li>
                 <li>
-                  <LocalizedLink href="/blog/3-workflows-agents-ia-pme" className="flex items-center gap-2 text-sm text-[#22d3ee] hover:underline">
+                  <LocalizedLink href="/blog/3-workflows-agents-ia-pme" className="flex items-center gap-2 text-sm text-white hover:underline">
                     <ArrowRight size={14} />
                     3 workflows agents IA pour PME : ROI réel 2026
                   </LocalizedLink>
@@ -880,7 +880,7 @@ export function AutomatisationPageClient() {
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
         <section className="py-24" style={{ background: '#070F26' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#5db8f0]/10 border border-[#5db8f0]/20 text-[#5db8f0] text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />
               Audit gratuit · Sans engagement
             </div>
@@ -895,7 +895,7 @@ export function AutomatisationPageClient() {
               <LocalizedLink
                 href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white transition-all duration-300"
-                style={{ background: 'linear-gradient(90deg, #5db8f0, #22d3ee)', boxShadow: '0 4px 20px rgba(93,184,240,0.35)' }}
+                style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}
               >
                 <Zap size={18} />
                 Demander l'audit gratuit

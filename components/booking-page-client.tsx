@@ -248,7 +248,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
             <p className="text-gray-600 dark:text-gray-300 mb-8">{t.successMessage}</p>
             <LocalizedLink
               href="/"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium hover:from-blue-700 hover:to-purple-700 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-all"
             >
               <ArrowLeft className="w-4 h-4" />
               {t.backToHome}
@@ -274,11 +274,11 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
           {/* Steps indicator */}
           <div className="flex items-center justify-center gap-2 mb-8">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-              step === 1 ? 'bg-purple-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
+              step === 1 ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
             }`}>1</div>
             <div className="w-12 h-0.5 bg-gray-200 dark:bg-gray-700" />
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-              step === 2 ? 'bg-purple-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
+              step === 2 ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
             }`}>2</div>
           </div>
 
@@ -288,15 +288,15 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
               <div className="p-6 space-y-6">
                 {/* Pack présélectionné - affiché dès l'étape 1 */}
                 {packLabel && (
-                  <div className="bg-purple-100 dark:bg-purple-900/30 rounded-xl p-4 border border-purple-200 dark:border-purple-800">
-                    <p className="text-sm text-purple-600 dark:text-purple-400">{t.pack}</p>
-                    <p className="font-semibold text-purple-900 dark:text-purple-200">{packLabel}</p>
+                  <div className="bg-gray-100 dark:bg-gray-800/40 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{t.pack}</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">{packLabel}</p>
                   </div>
                 )}
                 
                 {loading ? (
                   <div className="text-center py-12">
-                    <Loader2 className="w-8 h-8 animate-spin mx-auto text-purple-500" />
+                    <Loader2 className="w-8 h-8 animate-spin mx-auto text-gray-500" />
                     <p className="text-gray-500 dark:text-gray-400 mt-4">{t.loading}</p>
                   </div>
                 ) : uniqueDates.length === 0 ? (
@@ -328,7 +328,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                               onClick={() => { setSelectedDate(date); setSelectedTime(''); }}
                               className={`p-2 rounded-xl text-center transition-all ${
                                 selectedDate === date 
-                                  ? 'bg-purple-600 text-white' 
+                                  ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
                                   : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                               }`}
                             >
@@ -355,7 +355,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                               onClick={() => setSelectedTime(time)}
                               className={`p-2 rounded-xl text-center transition-all font-medium ${
                                 selectedTime === time 
-                                  ? 'bg-purple-600 text-white' 
+                                  ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
                                   : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                               }`}
                             >
@@ -370,7 +370,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                     <button
                       onClick={() => selectedDate && selectedTime && setStep(2)}
                       disabled={!selectedDate || !selectedTime}
-                      className="w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:from-blue-700 hover:to-purple-700 transition-all"
+                      className="w-full py-3 bg-gray-900 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800 transition-all"
                     >
                       {t.step2} →
                     </button>
@@ -384,7 +384,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
               <div className="p-6 space-y-4">
                 {/* Résumé du créneau */}
                 <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-4 flex items-center gap-4">
-                  <Calendar className="w-6 h-6 text-purple-500" />
+                  <Calendar className="w-6 h-6 text-gray-500" />
                   <div>
                     <div className="font-medium text-gray-900 dark:text-white">{formatDate(selectedDate)}</div>
                     <div className="text-gray-500 dark:text-gray-400">{selectedTime}</div>
@@ -393,9 +393,9 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
 
                 {/* Pack présélectionné */}
                 {packLabel && (
-                  <div className="bg-purple-100 dark:bg-purple-900/30 rounded-xl p-4 border border-purple-200 dark:border-purple-800">
-                    <p className="text-sm text-purple-600 dark:text-purple-400">{t.pack}</p>
-                    <p className="font-semibold text-purple-900 dark:text-purple-200">{packLabel}</p>
+                  <div className="bg-gray-100 dark:bg-gray-800/40 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{t.pack}</p>
+                    <p className="font-semibold text-gray-900 dark:text-white">{packLabel}</p>
                   </div>
                 )}
 
@@ -410,7 +410,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                       type="text"
                       value={formData.name}
                       onChange={e => setFormData({...formData, name: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                     />
                   </div>
                   
@@ -423,7 +423,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                       type="email"
                       value={formData.email}
                       onChange={e => setFormData({...formData, email: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                     />
                   </div>
 
@@ -437,7 +437,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                         type="tel"
                         value={formData.phone}
                         onChange={e => setFormData({...formData, phone: e.target.value})}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                       />
                     </div>
                     <div>
@@ -449,7 +449,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                         type="tel"
                         value={formData.whatsapp}
                         onChange={e => setFormData({...formData, whatsapp: e.target.value})}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                       />
                     </div>
                   </div>
@@ -463,7 +463,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                       type="text"
                       value={formData.company}
                       onChange={e => setFormData({...formData, company: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                     />
                   </div>
 
@@ -474,7 +474,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                     <select
                       value={formData.service}
                       onChange={e => setFormData({...formData, service: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                     >
                       <option value="">{t.service}</option>
                       {t.services.map(s => (
@@ -491,7 +491,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                       value={formData.message}
                       onChange={e => setFormData({...formData, message: e.target.value})}
                       rows={3}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent resize-none"
                     />
                   </div>
                 </div>
@@ -511,7 +511,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                   <button
                     onClick={handleSubmit}
                     disabled={submitting || !formData.name || !formData.email}
-                    className="flex-1 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:from-blue-700 hover:to-purple-700 transition-all flex items-center justify-center gap-2"
+                    className="flex-1 py-3 bg-gray-900 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
                   >
                     {submitting ? (
                       <>

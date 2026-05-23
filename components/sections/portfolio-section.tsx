@@ -59,7 +59,7 @@ export function PortfolioSection() {
         className="text-2xl md:text-7xl font-bold text-gray-900 dark:text-white"
       >
         {t('portfolio.section.title.start')}{' '}
-        <span className="bg-gradient-to-r from-sky-400 to-cyan-500 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
           {t('portfolio.section.title.highlight')}
         </span>
       </h2>
@@ -85,7 +85,7 @@ export function PortfolioSection() {
         <div className="px-4 mb-10">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
             {t('portfolio.section.title.start')}{' '}
-            <span className="bg-gradient-to-r from-sky-400 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               {t('portfolio.section.title.highlight')}
             </span>
           </h2>
@@ -94,7 +94,7 @@ export function PortfolioSection() {
           </p>
         </div>
 
-        <CardsCarousel slideWidth="snap" padding={1} gap={1} dotColor="#5DB8F0" showArrows autoPlay autoPlayInterval={4000}>
+        <CardsCarousel slideWidth="snap" padding={1} gap={1} dotColor="#ffffff" showArrows autoPlay autoPlayInterval={4000}>
           {portfolio.map((project) => (
             <a
               key={project.image}

@@ -92,7 +92,7 @@ export function AboutSection() {
             }}
           >
             {/* Eyebrow badge */}
-            <span className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs font-semibold tracking-widest bg-frost text-navy-900 border border-sky-400/20 mb-3 sm:mb-6">
+            <span className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs font-semibold tracking-widest bg-frost text-navy-900 border border-white/20 mb-3 sm:mb-6">
               {labels.chip}
             </span>
 
@@ -101,7 +101,7 @@ export function AboutSection() {
               {t('about.title').split('NeuraWeb')[0]}
               <span
                 style={{
-                  background: 'linear-gradient(90deg, #5DB8F0, #22D3EE)',
+                  background: '#ffffff',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',

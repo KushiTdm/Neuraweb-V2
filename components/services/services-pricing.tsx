@@ -302,9 +302,9 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
   const { trackPackView, trackPackClick, trackPackChoose, trackPackModalClose, trackContact } = useAnalytics();
 
   const packs: Pack[] = [
-    { id: 'starter', lucideIcon: Layout, gradient: 'from-[#5db8f0] to-[#22d3ee]' },
-    { id: 'business', lucideIcon: BarChart3, gradient: 'from-[#5db8f0] to-[#22d3ee]', popular: true },
-    { id: 'premium', lucideIcon: Star, gradient: 'from-[#5db8f0] to-[#22d3ee]' },
+    { id: 'starter', lucideIcon: Layout, gradient: 'from-white/40 to-white/20' },
+    { id: 'business', lucideIcon: BarChart3, gradient: 'from-white to-gray-100', popular: true },
+    { id: 'premium', lucideIcon: Star, gradient: 'from-white/40 to-white/20' },
   ];
 
   useEffect(() => { setMounted(true); }, []);
@@ -395,15 +395,15 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
               const packData = t.packs[pack.id as keyof typeof t.packs];
               const PackIconSSR = pack.lucideIcon;
               return (
-                <div key={pack.id} className={`relative rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 ${pack.popular ? 'ring-2 ring-[#5db8f0]' : ''}`}>
+                <div key={pack.id} className={`relative rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 ${pack.popular ? 'ring-2 ring-white' : ''}`}>
                   {pack.popular && (
                     <div className="absolute top-4 right-4">
-                      <span className="px-3 py-1 text-xs font-semibold bg-[#5db8f0] text-[#050510] rounded-full">Populaire</span>
+                      <span className="px-3 py-1 text-xs font-semibold bg-white text-gray-900 rounded-full">Populaire</span>
                     </div>
                   )}
                   <div className="p-6">
-                    <div className="w-12 h-12 mb-5 rounded-xl bg-[#5db8f0]/10 border border-[#5db8f0]/20 flex items-center justify-center">
-                      <PackIconSSR className="w-6 h-6 text-[#5db8f0]" />
+                    <div className="w-12 h-12 mb-5 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+                      <PackIconSSR className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">{packData?.title}</h3>
                     <p className="text-white/60 text-sm mb-4">{packData?.subtitle}</p>
@@ -413,7 +413,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                     <ul className="space-y-3 mb-6">
                       {packData?.features?.map((feature, i) => (
                         <li key={i} className="flex items-center gap-3 text-white/70 text-sm">
-                          <span className="w-4 h-4 text-[#5db8f0] flex-shrink-0">•</span>
+                          <span className="w-4 h-4 text-white flex-shrink-0">•</span>
                           <span>{feature.text}</span>
                         </li>
                       ))}
@@ -442,18 +442,18 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
         key={pack.id}
         data-pack-id={pack.id}
         ref={(el) => { if (el) cardsRef.current[index] = el; }}
-        className={`relative group cursor-pointer rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 hover:border-[#5db8f0]/40 transition-all duration-500 ${pack.popular ? 'ring-2 ring-[#5db8f0]' : ''}`}
+        className={`relative group cursor-pointer rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 hover:border-white/40 transition-all duration-500 ${pack.popular ? 'ring-2 ring-white' : ''}`}
         onClick={(e) => openModal(pack.id, e)}
       >
         {pack.popular && (
           <div className="absolute top-4 right-4 z-10">
-            <span className="px-3 py-1 text-xs font-semibold bg-[#5db8f0] text-[#050510] rounded-full">Populaire</span>
+            <span className="px-3 py-1 text-xs font-semibold bg-white text-gray-900 rounded-full">Populaire</span>
           </div>
         )}
         <div className={`absolute inset-0 bg-gradient-to-br ${pack.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
         <div className="relative p-6">
-          <div className="w-12 h-12 mb-5 rounded-xl bg-[#5db8f0]/10 border border-[#5db8f0]/20 flex items-center justify-center">
-            <PackIcon className="w-6 h-6 text-[#5db8f0]" />
+          <div className="w-12 h-12 mb-5 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
+            <PackIcon className="w-6 h-6 text-white" />
           </div>
           <h3 className="text-xl font-bold text-white mb-2">{packData?.title}</h3>
           <p className="text-white/60 text-sm mb-4">{packData?.subtitle}</p>
@@ -466,13 +466,13 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
               const FeatureIcon = ICON_MAP[feature.icon] || Code;
               return (
                 <li key={i} className="flex items-center gap-3 text-white/70 text-sm">
-                  <FeatureIcon className="w-4 h-4 text-[#5db8f0] flex-shrink-0" />
+                  <FeatureIcon className="w-4 h-4 text-white flex-shrink-0" />
                   <span>{feature.text}</span>
                 </li>
               );
             })}
             {(packData?.features?.length ?? 0) > 4 && (
-              <li className="text-[#5db8f0] text-sm">
+              <li className="text-white/80 text-sm">
                 +{(packData?.features?.length ?? 0) - 4} {language === 'fr' ? 'autres inclus' : language === 'es' ? 'más incluidos' : 'more included'}
               </li>
             )}
@@ -483,7 +483,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
           </div>
           <button
             onClick={(e) => { e.stopPropagation(); handleChoosePack(pack.id); }}
-            className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r ${pack.gradient} text-[#050510] hover:shadow-lg hover:scale-[1.02]`}
+            className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:scale-[1.02] ${pack.popular ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-white/10 border border-white/30 text-white hover:bg-white/20'}`}
           >
             {t.choosePack}
           </button>
@@ -509,7 +509,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
 
         {/* Mobile : carousel snap horizontal */}
         <div className="sm:hidden -mx-4">
-          <CardsCarousel slideWidth="snap" padding={1} gap={1} dotColor="#5DB8F0">
+          <CardsCarousel slideWidth="snap" padding={1} gap={1} dotColor="#ffffff">
             {cardElements}
           </CardsCarousel>
         </div>
@@ -546,7 +546,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                   const FeatureIcon = ICON_MAP[feature.icon] || Code;
                   return (
                     <li key={i} className="flex items-center gap-3 text-white/80">
-                      <FeatureIcon className="w-5 h-5 text-[#5db8f0] flex-shrink-0" />
+                      <FeatureIcon className="w-5 h-5 text-white flex-shrink-0" />
                       <span>{feature.text}</span>
                     </li>
                   );
@@ -564,7 +564,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
 
               <button
                 onClick={() => handleChoosePack(modalPack)}
-                className={`w-full py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 bg-gradient-to-r ${packs.find(p => p.id === modalPack)?.gradient} text-[#050510] hover:shadow-lg hover:scale-[1.02] mb-6`}
+                className={`w-full py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02] mb-6 ${packs.find(p => p.id === modalPack)?.popular ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-white/10 border border-white/30 text-white hover:bg-white/20'}`}
               >
                 {t.choosePack}
               </button>
@@ -579,14 +579,14 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                         key={i}
                         href={link.href}
                         onClick={closeModal}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-[#5db8f0]/30 transition-all group"
+                        className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-all group"
                       >
                         {link.type === 'article'
-                          ? <BookOpen className="w-4 h-4 text-[#22d3ee] flex-shrink-0" />
-                          : <Bot className="w-4 h-4 text-[#5db8f0] flex-shrink-0" />
+                          ? <BookOpen className="w-4 h-4 text-white/80 flex-shrink-0" />
+                          : <Bot className="w-4 h-4 text-white/80 flex-shrink-0" />
                         }
                         <span className="text-sm text-white/70 group-hover:text-white transition-colors">{link.label}</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-white/30 group-hover:text-[#5db8f0] ml-auto transition-colors" />
+                        <ArrowRight className="w-3.5 h-3.5 text-white/30 group-hover:text-white ml-auto transition-colors" />
                       </LocalizedLink>
                     ))}
                   </div>

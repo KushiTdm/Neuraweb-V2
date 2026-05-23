@@ -79,7 +79,7 @@ export function MultiStepLoader({
             <span
               className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-300"
               style={{
-                background: isActive ? '#C5F277' : isDone ? '#5DB8F0' : '#E8F4FD',
+                background: isActive ? '#C5F277' : isDone ? '#ffffff' : '#E8F4FD',
               }}
             >
               {isDone ? (
@@ -87,7 +87,7 @@ export function MultiStepLoader({
               ) : isActive ? (
                 <CheckFilled style={{ color: '#0E1B3D' }} />
               ) : (
-                <CheckOutline style={{ color: '#5DB8F0' }} />
+                <CheckOutline style={{ color: '#ffffff' }} />
               )}
             </span>
 

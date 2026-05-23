@@ -13,18 +13,18 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
-            <Code2 className="h-8 w-8 text-blue-600" />
+            <Code2 className="h-8 w-8 text-gray-900" />
             <span className="text-2xl font-bold text-gray-900">NeuraWeb</span>
           </Link>
 
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link href="/" className="text-gray-700 hover:text-gray-900 transition-colors">
               Home
             </Link>
-            <Link href="/services" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link href="/services" className="text-gray-700 hover:text-gray-900 transition-colors">
               Services
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link href="/contact" className="text-gray-700 hover:text-gray-900 transition-colors">
               Contact
             </Link>
             <Button asChild>
