@@ -113,25 +113,55 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
 
   if (!post) return null;
 
-  // ── Markdown parser (identique à l'original) ────────────────────────────
+  // ── Markdown parser ──────────────────────────────────────────────────────
   const parseMarkdown = (content: string): string => {
-    return content
-      .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3">$1</h3>')
-      .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">$1</h2>')
+    const isSeparatorRow = (l: string) => /^\|[\s\-:|]+\|$/.test(l.trim());
+    const isTableRow = (l: string) => /^\s*\|/.test(l) && /\|\s*$/.test(l);
+
+    const renderInline = (text: string) => text
       .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900 dark:text-white">$1</strong>')
       .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
-      .replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-pink-600 dark:text-pink-400 text-sm font-mono">$1</code>')
-      .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-gray-900 dark:bg-gray-950 rounded-xl p-4 overflow-x-auto my-6"><code class="text-sm text-gray-100 font-mono whitespace-pre">$2</code></pre>')
-      .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-gray-900 dark:border-gray-200 pl-4 py-2 my-4 bg-gray-100 dark:bg-gray-800/40 rounded-r-lg text-gray-700 dark:text-gray-300">$1</blockquote>')
-      .replace(/^- (.*$)/gim, '<li class="text-gray-600 dark:text-gray-300 ml-4 mb-2">$1</li>')
-      .replace(/\|(.+)\|/g, (match) => {
-        const cells = match.split('|').filter(c => c.trim());
-        if (cells.some(c => c.trim().match(/^[-:]+$/))) return '';
-        const cellTags = cells.map(c => `<td class="px-4 py-2 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-gray-800">${c.trim()}</td>`).join('');
-        return `<tr>${cellTags}</tr>`;
-      })
-      .replace(/\n\n/g, '</p><p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">')
-      .replace(/\n/g, '<br />');
+      .replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-pink-600 dark:text-pink-400 text-sm font-mono">$1</code>');
+
+    const renderTable = (lines: string[]) => {
+      const dataLines = lines.filter(l => l.trim() && !isSeparatorRow(l));
+      if (dataLines.length < 2) return '';
+      const splitRow = (l: string) => l.trim().split('|').slice(1, -1);
+      const headerCells = splitRow(dataLines[0]).map(c =>
+        `<th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800/60 border-b-2 border-gray-200 dark:border-gray-700">${renderInline(c.trim())}</th>`
+      ).join('');
+      const bodyRows = dataLines.slice(1).map(row =>
+        `<tr>${splitRow(row).map(c => `<td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-gray-800">${renderInline(c.trim())}</td>`).join('')}</tr>`
+      ).join('');
+      return `<div class="my-6 overflow-x-auto"><table class="w-full border-collapse text-sm border border-gray-200 dark:border-gray-800 rounded-lg"><thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+    };
+
+    // Split into table vs non-table blocks, process separately
+    const lines = content.split('\n');
+    const blocks: { type: 'table' | 'other'; lines: string[] }[] = [];
+    let cur: { type: 'table' | 'other'; lines: string[] } = { type: 'other', lines: [] };
+    for (const line of lines) {
+      const tableRow = isTableRow(line);
+      if (tableRow && cur.type !== 'table') { if (cur.lines.length) blocks.push(cur); cur = { type: 'table', lines: [] }; }
+      if (!tableRow && cur.type !== 'other') { blocks.push(cur); cur = { type: 'other', lines: [] }; }
+      cur.lines.push(line);
+    }
+    if (cur.lines.length) blocks.push(cur);
+
+    return blocks.map(block => {
+      if (block.type === 'table') return renderTable(block.lines);
+      return block.lines.join('\n')
+        .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3">$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">$1</h2>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900 dark:text-white">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
+        .replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-pink-600 dark:text-pink-400 text-sm font-mono">$1</code>')
+        .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-gray-900 dark:bg-gray-950 rounded-xl p-4 overflow-x-auto my-6"><code class="text-sm text-gray-100 font-mono whitespace-pre">$2</code></pre>')
+        .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-gray-900 dark:border-gray-200 pl-4 py-2 my-4 bg-gray-100 dark:bg-gray-800/40 rounded-r-lg text-gray-700 dark:text-gray-300">$1</blockquote>')
+        .replace(/^- (.*$)/gim, '<li class="text-gray-600 dark:text-gray-300 ml-4 mb-2">$1</li>')
+        .replace(/\n\n/g, '</p><p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">')
+        .replace(/\n/g, '<br />');
+    }).join('');
   };
 
   const parsedContent = parseMarkdown(post.content);
