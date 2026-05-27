@@ -1,40 +1,28 @@
 import { Metadata } from 'next';
-import { permanentRedirect } from 'next/navigation';
 import { JsonLd } from '@/components/json-ld';
 import { IntegrationIAPageClient } from '@/components/integration-ia-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
 const BASE_URL = 'https://neuraweb.tech';
-const PAGE_PATH = '/fr/integration-ia';
+const PAGE_SLUG = 'integration-ia';
+
+type Lang = 'fr' | 'en' | 'es';
 
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  return [{ lang: 'fr' }];
+  return [{ lang: 'fr' }, { lang: 'en' }, { lang: 'es' }];
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}): Promise<Metadata> {
-  const { lang } = await params;
-
-  if (lang !== 'fr') {
-    return {
-      title: 'Intégration IA, Chatbot RAG & Agents IA — Neuraweb',
-      alternates: { canonical: `${BASE_URL}${PAGE_PATH}` },
-    };
-  }
-
-  const title = 'Intégration IA, Chatbot RAG, Agents Autonomes | NeuraWeb';
-  const description =
-    "Intégrez l'IA dans votre site : chatbot RAG, agents IA, LLM (Claude, Mistral, GPT), génération de contenu. Audit gratuit 490 €. Dès 1 499 € HT.";
-  const ogImage = `${BASE_URL}/assets/og-image.png`;
-
-  return {
-    title: { absolute: title },
-    description,
+const META: Record<Lang, {
+  title: string;
+  description: string;
+  keywords: string[];
+  locale: string;
+}> = {
+  fr: {
+    title: 'Intégration IA, Chatbot RAG, Agents Autonomes | NeuraWeb',
+    description: "Intégrez l'IA dans votre site : chatbot RAG, agents IA, LLM (Claude, Mistral, GPT), génération de contenu. Audit gratuit 490 €. Dès 1 499 € HT.",
     keywords: [
       'intégration IA site web',
       'chatbot IA entreprise',
@@ -49,26 +37,85 @@ export async function generateMetadata({
       'agence IA France',
       'chatbot FAQ intelligent',
     ],
+    locale: 'fr_FR',
+  },
+  en: {
+    title: 'AI Integration, RAG Chatbot & Autonomous AI Agents | NeuraWeb',
+    description: 'Integrate AI into your website: RAG chatbot, AI agents, LLMs (Claude, Mistral, GPT), content generation. Free audit. From €1,499 ex. VAT.',
+    keywords: [
+      'AI integration website',
+      'enterprise AI chatbot',
+      'AI commercial agent',
+      'RAG chatbot France',
+      'Claude GPT integration',
+      'autonomous AI agent SMB',
+      'intelligent website chatbot',
+      'agentic AI business',
+      'AI content generation',
+      'LLM integration',
+      'AI agency France',
+      'intelligent FAQ chatbot',
+    ],
+    locale: 'en_US',
+  },
+  es: {
+    title: 'Integración IA, Chatbot RAG y Agentes Autónomos | NeuraWeb',
+    description: 'Integra la IA en tu sitio web: chatbot RAG, agentes IA, LLMs (Claude, Mistral, GPT), generación de contenido. Auditoría gratuita. Desde 1.499 € sin IVA.',
+    keywords: [
+      'integración IA sitio web',
+      'chatbot IA empresa',
+      'agente IA comercial',
+      'RAG chatbot Francia',
+      'integración Claude GPT',
+      'agente IA autónomo PYME',
+      'chatbot inteligente sitio web',
+      'IA agéntica empresa',
+      'generación contenido IA',
+      'integración LLM',
+      'agencia IA Francia',
+      'chatbot FAQ inteligente',
+    ],
+    locale: 'es_ES',
+  },
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const l: Lang = (lang as Lang) in META ? (lang as Lang) : 'fr';
+  const meta = META[l];
+  const pagePath = `/${l}/${PAGE_SLUG}`;
+  const ogImage = `${BASE_URL}/assets/og-image.png`;
+
+  return {
+    title: { absolute: meta.title },
+    description: meta.description,
+    keywords: meta.keywords,
     alternates: {
-      canonical: `${BASE_URL}${PAGE_PATH}`,
+      canonical: `${BASE_URL}${pagePath}`,
       languages: {
-        fr: `${BASE_URL}${PAGE_PATH}`,
-        'x-default': `${BASE_URL}${PAGE_PATH}`,
+        fr: `${BASE_URL}/fr/${PAGE_SLUG}`,
+        en: `${BASE_URL}/en/${PAGE_SLUG}`,
+        es: `${BASE_URL}/es/${PAGE_SLUG}`,
+        'x-default': `${BASE_URL}/fr/${PAGE_SLUG}`,
       },
     },
     openGraph: {
-      title,
-      description,
-      url: `${BASE_URL}${PAGE_PATH}`,
+      title: meta.title,
+      description: meta.description,
+      url: `${BASE_URL}${pagePath}`,
       siteName: 'NeuraWeb',
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
-      locale: 'fr_FR',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: meta.title }],
+      locale: meta.locale,
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title,
-      description,
+      title: meta.title,
+      description: meta.description,
       images: [ogImage],
       creator: '@neurawebtech',
     },
@@ -78,10 +125,10 @@ export async function generateMetadata({
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Intégration IA & Chatbots — NeuraWeb',
+  name: 'AI Integration & Chatbots — NeuraWeb',
   description:
-    'Agence spécialisée en intégration IA pour PME : chatbots RAG, agents IA commerciaux, LLM (Claude, Mistral, GPT), génération de contenu, automatisation SEO. Audit gratuit inclus.',
-  url: `${BASE_URL}${PAGE_PATH}`,
+    'Agency specialised in AI integration for SMBs: RAG chatbots, commercial AI agents, LLMs (Claude, Mistral, GPT), content generation, SEO automation. Free audit included.',
+  url: `${BASE_URL}/fr/${PAGE_SLUG}`,
   provider: {
     '@type': 'Organization',
     name: 'NeuraWeb',
@@ -90,28 +137,28 @@ const serviceSchema = {
   areaServed: { '@type': 'Country', name: 'France' },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Packs intégration IA',
+    name: 'AI Integration Packs',
     itemListElement: [
       {
         '@type': 'Offer',
         name: 'Pack Essentiel IA',
         price: '1499',
         priceCurrency: 'EUR',
-        description: 'Chatbot IA FAQ, indexation site + 1 doc, 500 conversations/mois.',
+        description: 'AI FAQ chatbot, site + 1 doc indexing, 500 conversations/month.',
       },
       {
         '@type': 'Offer',
         name: 'Pack Business IA',
         price: '3999',
         priceCurrency: 'EUR',
-        description: 'Agent IA qualifiant, CRM connecté, 800 conversations/mois, 3 langues.',
+        description: 'Qualifying AI agent, connected CRM, 800 conversations/month, 3 languages.',
       },
       {
         '@type': 'Offer',
         name: 'Pack Premium IA',
         price: '7999',
         priceCurrency: 'EUR',
-        description: 'Système multi-agents, RAG volumineuse, hébergement souverain France.',
+        description: 'Multi-agent system, large-scale RAG, sovereign French hosting.',
       },
     ],
   },
@@ -148,19 +195,24 @@ const faqSchema = {
   ],
 };
 
+const BREADCRUMB_NAMES: Record<Lang, [string, string]> = {
+  fr: ['Accueil', 'Intégration IA'],
+  en: ['Home', 'AI Integration'],
+  es: ['Inicio', 'Integración IA'],
+};
+
 export default async function IntegrationIAPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  if (lang !== 'fr') {
-    permanentRedirect(PAGE_PATH);
-  }
+  const l: Lang = (lang as Lang) in META ? (lang as Lang) : 'fr';
+  const pagePath = `/${l}/${PAGE_SLUG}`;
 
   const breadcrumbData = generateBreadcrumbSchema([
-    { name: 'Accueil', url: '/fr' },
-    { name: 'Intégration IA', url: PAGE_PATH },
+    { name: BREADCRUMB_NAMES[l][0], url: `/${l}` },
+    { name: BREADCRUMB_NAMES[l][1], url: pagePath },
   ]);
 
   return (
@@ -168,7 +220,7 @@ export default async function IntegrationIAPage({
       <JsonLd id="integration-ia-service" data={serviceSchema} />
       <JsonLd id="integration-ia-faq" data={faqSchema} />
       <JsonLd id="integration-ia-breadcrumb" data={breadcrumbData} />
-      <IntegrationIAPageClient />
+      <IntegrationIAPageClient lang={l} />
     </>
   );
 }

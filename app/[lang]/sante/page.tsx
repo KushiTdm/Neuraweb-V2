@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
+import { permanentRedirect } from 'next/navigation';
 import { JsonLd } from '@/components/json-ld';
 import { SantePageClient } from '@/components/sante-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
@@ -265,7 +265,7 @@ export default async function SantePage({
 }) {
   const { lang } = await params;
   if (lang !== 'fr') {
-    redirect('/fr/sante');
+    permanentRedirect('/fr/sante');
   }
 
   const breadcrumbData = generateBreadcrumbSchema([

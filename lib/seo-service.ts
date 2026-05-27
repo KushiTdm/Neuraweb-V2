@@ -57,7 +57,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     home: {
       title: 'NeuraWeb — Agence Web Sur Mesure, Apps & IA France',
       description: 'Agence web sur mesure : Next.js, apps mobiles iOS/Android, intégration IA et n8n. Startups et PME, Paris, Lille et toute la France.',
-      keywords: ['agence web', 'développement web sur mesure', 'création application mobile', 'développement app iOS Android', 'intégration IA', 'automatisation n8n', 'Next.js', 'React', 'agence web Paris', 'agence web Lille'],
+      keywords: ['agence web', 'développement web sur mesure', 'intégration IA', 'automatisation n8n', 'Next.js', 'React', 'agence web Paris', 'agence web Lille', 'agence digitale Paris', 'agence tech startup'],
     },
     services: {
       title: 'Services — Développement Web, Apps Mobiles & IA | NeuraWeb',
@@ -104,7 +104,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     home: {
       title: 'NeuraWeb — Custom Web & Mobile App Development Agency',
       description: 'Custom web development, iOS/Android mobile apps, AI integration and n8n automation for startups and SMBs. Based in France, clients worldwide.',
-      keywords: ['custom web development', 'mobile app development', 'web development agency', 'iOS Android app development', 'AI integration', 'n8n automation', 'Next.js', 'React', 'custom web software development', 'web development company'],
+      keywords: ['custom web development', 'web development agency', 'AI integration', 'n8n automation', 'Next.js', 'React', 'custom web software development', 'web development company', 'tech agency France', 'startup web agency'],
     },
     services: {
       title: 'Services — Custom Web, Mobile App & AI Dev | NeuraWeb',
@@ -151,7 +151,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     home: {
       title: 'NeuraWeb — Agencia Web, Apps Móviles e IA | Francia',
       description: 'Agencia web a medida: Next.js, apps iOS/Android, integración IA y automatización n8n. Startups y pymes en España, Francia y toda Europa.',
-      keywords: ['agencia web', 'desarrollo web a medida', 'desarrollo aplicaciones móviles', 'apps iOS Android', 'integración IA', 'automatización n8n', 'Next.js', 'React', 'desarrollo software a medida'],
+      keywords: ['agencia web', 'desarrollo web a medida', 'integración IA', 'automatización n8n', 'Next.js', 'React', 'desarrollo software a medida', 'agencia digital Europa', 'agencia tech startup'],
     },
     services: {
       title: 'Servicios — Desarrollo Web, Apps Móviles e IA | NeuraWeb',

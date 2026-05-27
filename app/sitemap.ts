@@ -82,32 +82,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   });
 
-  // Page Automatisation — FR uniquement
-  urls.push({
-    url: `${BASE_URL}/fr/automatisation`,
-    lastModified: new Date('2026-04-15'),
-    changeFrequency: 'monthly',
-    priority: 0.95,
-    alternates: {
+  // Pages Automatisation et Intégration IA — toutes langues
+  (['automatisation', 'integration-ia'] as const).forEach((slug) => {
+    const lastModified = new Date('2026-05-27');
+    const alternates = {
       languages: {
-        fr: `${BASE_URL}/fr/automatisation`,
-        'x-default': `${BASE_URL}/fr/automatisation`,
+        fr: `${BASE_URL}/fr/${slug}`,
+        en: `${BASE_URL}/en/${slug}`,
+        es: `${BASE_URL}/es/${slug}`,
+        'x-default': `${BASE_URL}/fr/${slug}`,
       },
-    },
-  });
-
-  // Page Intégration IA — FR uniquement
-  urls.push({
-    url: `${BASE_URL}/fr/integration-ia`,
-    lastModified: new Date('2026-04-15'),
-    changeFrequency: 'monthly',
-    priority: 0.95,
-    alternates: {
-      languages: {
-        fr: `${BASE_URL}/fr/integration-ia`,
-        'x-default': `${BASE_URL}/fr/integration-ia`,
-      },
-    },
+    };
+    (['fr', 'en', 'es'] as const).forEach((lang) => {
+      urls.push({
+        url: `${BASE_URL}/${lang}/${slug}`,
+        lastModified,
+        changeFrequency: 'monthly',
+        priority: 0.95,
+        alternates,
+      });
+    });
   });
 
   // Articles de blog

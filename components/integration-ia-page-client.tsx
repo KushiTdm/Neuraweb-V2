@@ -37,388 +37,428 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
+type Lang = 'fr' | 'en' | 'es';
+interface Props { lang: Lang }
+
 // ═══════════════════════════════════════════════════════════════════════════
-// DONNÉES
+// TRANSLATIONS
 // ═══════════════════════════════════════════════════════════════════════════
 
-const STATS = [
-  { value: '70%', label: 'des demandes clients traitées automatiquement', color: 'text-white' },
-  { value: '24/7', label: 'disponibilité des assistants IA', color: 'text-white' },
-  { value: '3×', label: 'plus de conversions avec un chatbot qualifiant', color: 'text-white' },
-];
+const CONTENT: Record<Lang, {
+  hero: { badge: string; h1: string; h1highlight: string; p: string; ctaAudit: string; ctaPricing: string };
+  stats: { label: string }[];
+  problems: { h2: string; subtitle: string; items: { title: string; text: string }[] };
+  services: { h2: string; subtitle: string; items: { title: string; desc: string; details: string[]; badge: string }[] };
+  models: { label: string; note: string };
+  useCases: { h2: string; subtitle: string; items: { sector: string; useCase: string; pack: string }[] };
+  packs: {
+    h2: string; subtitle: string; popular: string; ht: string; monthly: string; delivery: string;
+    items: { name: string; tagline: string; bullets: string[]; included: string[]; notIncluded: string[]; options: { label: string; price: string }[]; maintenanceItems: string[] }[];
+  };
+  testimonials: { h2: string; items: { quote: string; name: string; role: string; company: string; initials: string; color: string }[] };
+  faq: { h2: string; items: { q: string; a: string }[] };
+  more: { h3: string; items: { label: string; href: string }[] };
+  cta: { badge: string; h2: string; p: string; ctaAudit: string; ctaBlog: string; ctaBlogHref: string };
+  detail: { included: string; notIncluded: string; options: string; maintenance: string; choose: string; payment: string };
+  showDetails: string; hideDetails: string;
+}> = {
+  fr: {
+    hero: {
+      badge: 'Chatbots IA · Agents RAG · LLM · Claude · Mistral · GPT',
+      h1: "L'IA intégrée dans votre site",
+      h1highlight: 'et vos outils métier',
+      p: "Chatbots IA, agents RAG, intégration LLM, génération de contenu, automatisation SEO. Nous déployons des solutions IA concrètes, connectées à vos données, avec un ROI mesurable.",
+      ctaAudit: 'Audit IA gratuit',
+      ctaPricing: 'Voir les tarifs',
+    },
+    stats: [
+      { label: 'des demandes clients traitées automatiquement' },
+      { label: 'disponibilité des assistants IA' },
+      { label: 'plus de conversions avec un chatbot qualifiant' },
+    ],
+    problems: {
+      h2: 'Vos défis actuels',
+      subtitle: "Les entreprises qui n'intègrent pas l'IA en 2026 laissent leurs concurrents gagner en efficacité à chaque interaction client.",
+      items: [
+        { title: 'Votre équipe répond manuellement aux mêmes questions', text: "FAQ, tarifs, disponibilités, processus de commande : 70% des questions sont identiques. Un assistant IA les traite instantanément, 24h/24." },
+        { title: 'Vos leads ne sont pas qualifiés avant de passer en vente', text: "Budget, besoin, timing, autorité décisionnelle : un agent IA pose les bonnes questions et vous livre uniquement les prospects chauds." },
+        { title: 'Votre site ne tire pas parti de vos données internes', text: "Documentation, catalogue produits, FAQ, cas clients : un assistant RAG indexe vos contenus et répond avec précision à toutes les questions." },
+        { title: "L'IA vous semble complexe ou risquée", text: "Pas besoin de data scientists. Nous intégrons des LLM (Claude, Mistral, GPT) directement dans vos outils existants, avec des garde-fous stricts." },
+      ],
+    },
+    services: {
+      h2: "Nos solutions d'intégration IA",
+      subtitle: "Du chatbot FAQ simple à l'architecture multi-agents complexe, nous avons une solution adaptée à votre maturité IA.",
+      items: [
+        { title: 'Chatbot IA / Assistant RAG', desc: 'Un chatbot intelligent connecté à votre base de connaissances (site, PDF, docs, FAQ). Il répond aux questions précises de vos visiteurs et qualifie les leads entrants.', details: ['Indexation de vos contenus (site, PDF, Notion, docs)', 'Réponses précises basées sur VOS données uniquement', 'Qualification des leads (budget, besoin, urgence)', 'Handoff vers CRM ou équipe commerciale', 'Disponible sur site, WhatsApp, email'], badge: 'À partir de 1 999 €' },
+        { title: 'Intégration LLM dans vos outils', desc: 'Nous connectons Claude, Mistral ou GPT-4 à vos outils existants via API : CRM, site web, back-office, ERP. Prompts métier robustes, tests sur données réelles.', details: ['Sélection du modèle adapté (Claude, Mistral, GPT)', 'Configuration de prompts métier robustes', 'Tests sur vos données réelles', 'Documentation et transfert de compétences', 'Intégration dans n8n / Make si besoin'], badge: 'À partir de 699 €' },
+        { title: 'Agent IA commercial autonome', desc: 'Un agent IA qui prospecte, qualifie, répond aux objections et planifie les rendez-vous sans intervention humaine. Vos commerciaux ne traitent que des leads chauds.', details: ['Qualification BANT automatique (budget, autorité, besoin, timing)', 'Réponses aux objections fréquentes', 'Prise de rendez-vous automatique (Calendly, Google Agenda)', 'Scoring et transfert vers CRM', 'Suivi multicanal (email, chat, WhatsApp)'], badge: 'À partir de 2 999 €' },
+        { title: 'Génération de contenu IA', desc: "Agent IA qui rédige vos articles SEO, fiches produits, newsletters et posts réseaux sociaux en respectant votre ton éditorial. Humain en révision finale.", details: ['Brief automatique depuis mot-clé ou sujet', 'Respect de votre charte éditoriale', 'Articles optimisés SEO + schema FAQ', 'Publication automatisée (WordPress, Notion, CMS)', 'Rapport de performance mensuel'], badge: 'À partir de 1 499 €' },
+        { title: 'Automatisation SEO & AEO', desc: "Stack complète : analyse GSC, génération de mots-clés, rédaction d'articles, balisage schema.org, monitoring positions. Apparaître dans les réponses IA (Google AI Overviews).", details: ['Connexion Google Search Console', "Détection des opportunités de contenu manquées", "Génération et publication automatique d'articles", 'Balisage schema.org FAQ / HowTo / Article', 'Monitoring mensuel + rapport de performance'], badge: 'À partir de 1 999 €' },
+        { title: 'Développement IA sur mesure', desc: "Système multi-agents, assistant interne RAG, SaaS métier IA, fine-tuning de modèle, intégration profonde dans votre SI. Pour les projets ambitieux.", details: ['Architecture multi-agents (orchestration LangChain / n8n)', 'RAG sur base documentaire volumineuse', 'Fine-tuning de modèle open source (Mistral, LLama)', 'Hébergement souverain France, RGPD', 'Intégration profonde dans votre SI existant'], badge: 'À partir de 3 000 €' },
+      ],
+    },
+    models: {
+      label: 'Modèles IA que nous maîtrisons',
+      note: "Nous choisissons toujours le modèle le plus adapté à votre cas d'usage — pas le plus cher.",
+    },
+    useCases: {
+      h2: 'Exemples par secteur',
+      subtitle: "Voici comment nous intégrons l'IA dans différents secteurs.",
+      items: [
+        { sector: 'Cabinet médical / Paramédical', useCase: 'Chatbot FAQ + prise de rendez-vous + conformité HDS', pack: 'Essentiel IA' },
+        { sector: 'Agence immobilière', useCase: 'Qualification des acheteurs/vendeurs + scoring + transfert CRM', pack: 'Business IA' },
+        { sector: 'E-commerce', useCase: 'SAV automatisé 24/7 + recommandations produits + suivi commande', pack: 'Business IA' },
+        { sector: 'SaaS / B2B tech', useCase: 'Onboarding IA + support tier 1 + génération de contenu', pack: 'Premium IA' },
+        { sector: "Cabinet d'avocats", useCase: 'Qualification des demandes + assistant juridique RAG interne', pack: 'Business IA' },
+        { sector: 'Restaurant / Hôtellerie', useCase: 'Chatbot réservation + FAQ + synchronisation PMS', pack: 'Essentiel IA' },
+      ],
+    },
+    packs: {
+      h2: 'Nos packs intégration IA',
+      subtitle: 'Des prix transparents, sans surprise. TVA non applicable (art. 293B du CGI).',
+      popular: 'Le plus populaire',
+      ht: 'HT',
+      monthly: '€/mois maintenance',
+      delivery: 'Délai',
+      items: [
+        {
+          name: 'Essentiel IA', tagline: 'Votre premier assistant IA. En ligne en 2 semaines.',
+          bullets: ["Chatbot IA FAQ (jusqu'à 5 intentions)", 'Indexation de votre site + 1 PDF ou doc', "1 langue, jusqu'à 500 conversations/mois", 'Design personnalisé intégré à votre site'],
+          included: ['Chatbot RAG connecté à votre site et 1 document', "Jusqu'à 5 intentions de conversation configurées", 'Design chatbot adapté à votre charte graphique', 'Intégration sur votre site (widget ou page dédiée)', '1 langue (français)', '500 conversations / mois incluses', 'Historique des conversations (30 jours)', 'Formation 30 min + documentation', 'Support email 30 jours'],
+          notIncluded: ['Agent IA qualifiant (BANT scoring)', 'Intégration CRM / handoff commercial', "Plus d'une langue", 'Plus de 500 conversations / mois', 'Génération de contenu IA', 'Automatisation workflow n8n'],
+          options: [{ label: 'Langue supplémentaire', price: '+290 € HT' }, { label: '500 conversations supplémentaires / mois', price: '+29 € HT/mois' }, { label: 'Intégration CRM basique', price: '+490 € HT' }, { label: 'Indexation de 5 documents supplémentaires', price: '+190 € HT' }],
+          maintenanceItems: ['Surveillance mensuelle du chatbot', 'Mise à jour de la base de connaissances (sur demande)', 'Support email (délai 72h)'],
+        },
+        {
+          name: 'Business IA', tagline: 'Agent IA complet. Qualification automatique. CRM connecté.',
+          bullets: ["Agent IA qualifiant (jusqu'à 10 intentions)", 'Indexation illimitée (site + docs + CRM)', "3 langues, jusqu'à 800 conversations/mois", 'Intégration CRM + handoff commercial'],
+          included: ['Agent IA avec qualification BANT automatique', "Jusqu'à 10 intentions de conversation", 'Indexation illimitée (site, PDF, Notion, CRM)', '3 langues au choix', '800 conversations / mois incluses', 'Intégration CRM (HubSpot, Notion, Airtable)', 'Handoff vers équipe commerciale (email + Slack)', 'Prise de rendez-vous automatique (Calendly)', 'Reporting mensuel (volume, intentions, taux de résolution)', "1h d'optimisation / mois incluse", 'Support prioritaire email (délai 48h)'],
+          notIncluded: ['Architecture multi-agents', 'Fine-tuning de modèle', 'Intégration ERP / SI legacy', 'Génération de contenu IA', 'Hébergement souverain self-hosted'],
+          options: [{ label: 'Langue supplémentaire', price: '+290 € HT' }, { label: '500 conversations supplémentaires / mois', price: '+24 € HT/mois' }, { label: 'Génération contenu IA (blog, RS)', price: '+990 € HT' }, { label: 'Automatisation workflow n8n intégrée', price: '+990 € HT' }, { label: "Formation équipe (jusqu'à 5 personnes)", price: '+390 € HT' }],
+          maintenanceItems: ['Surveillance 24/7 + alertes', 'Mise à jour base de connaissances (2×/mois)', 'Rapport mensuel de performance', "1h d'optimisation incluse / mois", 'Support prioritaire (délai 48h)'],
+        },
+        {
+          name: 'Premium IA', tagline: 'Système multi-agents. Développement sur mesure. RGPD souverain.',
+          bullets: ["Jusqu'à 3 agents IA spécialisés (vente, support, SEO)", 'Architecture RAG sur données volumineuses', 'Hébergement souverain France, RGPD', 'Intégration profonde dans votre SI'],
+          included: ["Jusqu'à 3 agents IA spécialisés (vente, support, contenu, SEO)", 'Architecture multi-agents avec orchestration', 'RAG sur base documentaire volumineuse (illimité)', 'Fine-tuning de modèle open source si pertinent', 'Hébergement souverain France (serveurs OVH)', 'Conformité RGPD complète + DPA', 'Intégration profonde SI (API, webhooks, connecteurs)', 'Dashboard BI de pilotage', 'Formation équipe 4h + documentation vidéo', 'Accompagnement stratégique 3 mois', 'Support dédié 7j/7 (délai 24h)', 'Réunion mensuelle de suivi'],
+          notIncluded: ['Budget publicitaire (Ads)', 'Community management', 'Développements backend hors IA', 'Application mobile native (sur devis)'],
+          options: [{ label: 'Agent IA supplémentaire', price: '+1 990 € HT' }, { label: 'Application mobile avec IA intégrée', price: 'Sur devis' }, { label: 'Accompagnement 6 mois supplémentaires', price: '+1 490 € HT' }, { label: 'Audit de sécurité IA (pentest)', price: '+990 € HT' }],
+          maintenanceItems: ['Surveillance temps réel + alertes immédiates', 'Mise à jour base de connaissances illimitée', 'Fine-tuning mensuel du modèle', 'Rapport mensuel avancé + réunion de suivi', 'Support dédié 7j/7 (délai 24h)', 'Optimisation continue sur suggestion'],
+        },
+      ],
+    },
+    testimonials: {
+      h2: 'Ce que disent nos clients',
+      items: [
+        { quote: "Le chatbot IA a réduit notre charge de support de 68%. Les clients obtiennent une réponse précise en 3 secondes, 24h/24. Nos agents se concentrent désormais sur les cas complexes.", name: 'Claire M.', role: 'Directrice Customer Success', company: 'SaaS B2B, Bordeaux', initials: 'CM', color: 'bg-gray-200 text-gray-800' },
+        { quote: "L'agent IA qualifiant a transformé notre prospection. On ne parle plus qu'à des leads chauds. Le taux de closing est passé de 12% à 31% en 6 semaines.", name: 'Marc L.', role: 'Directeur commercial', company: 'Agence immobilière, Paris', initials: 'ML', color: 'bg-gray-200 text-gray-800' },
+        { quote: "L'assistant RAG connaît tous nos 800 produits par cœur. Les clients trouvent exactement ce qu'ils cherchent sans passer par notre SAV. Remarquable.", name: 'Anne-Sophie T.', role: 'CEO', company: 'E-commerce mode, Lyon', initials: 'AT', color: 'bg-gray-200 text-gray-800' },
+      ],
+    },
+    faq: {
+      h2: 'Questions fréquentes',
+      items: [
+        { q: 'Quelle est la différence entre un chatbot classique et un agent IA RAG ?', a: "Un chatbot classique répond à partir d'un arbre de décision figé. Un agent IA RAG (Retrieval-Augmented Generation) indexe votre contenu réel — site, PDF, Notion, CRM — et génère des réponses précises basées sur VOS données. Il comprend les questions en langage naturel, gère les nuances et apprend de votre base. Le résultat : zéro réponse générique, 100% pertinente." },
+        { q: "Mes données restent-elles confidentielles avec l'IA ?", a: "Oui. Nous configurons les modèles pour que vos données ne servent jamais à entraîner des modèles tiers. Pour les projets sensibles (santé, juridique, données clients critiques), nous recommandons un modèle open source self-hosted (Mistral ou LLama) sur des serveurs en France. Les données ne quittent jamais votre infrastructure." },
+        { q: 'Quelle est la différence entre Claude, GPT et Mistral ?', a: "Claude (Anthropic) excelle dans le raisonnement complexe et la conformité — c'est notre recommandation pour les agents IA critiques. GPT-4o est multimodal et a l'écosystème le plus large. Mistral est open source, souverain et disponible en self-hosted — idéal pour les données sensibles et les budgets serrés. Nous choisissons toujours le modèle adapté à votre cas, pas le plus cher." },
+        { q: 'Le chatbot IA peut-il parler plusieurs langues ?', a: "Oui. Les LLM modernes (Claude, GPT, Mistral) sont nativement multilingues. Nous configurons la détection automatique de la langue et les réponses dans la langue de l'utilisateur. Le Pack Essentiel inclut 1 langue, le Business inclut 3 langues, le Premium en langues illimitées." },
+        { q: "Comment l'agent IA est-il maintenu et amélioré dans le temps ?", a: "L'agent IA s'améliore avec l'usage. Chaque mois, nous analysons les conversations (questions sans réponse, taux de satisfaction, handoffs non nécessaires) et optimisons les prompts, ajoutons des sources et affinons le scoring. En Pack Business, 1h d'optimisation est incluse chaque mois." },
+        { q: "Peut-on intégrer l'IA dans mon site existant sans le refaire ?", a: "Oui. Nous intégrons l'assistant IA dans votre site existant via un widget (quelques lignes de JavaScript) ou une API. Pas besoin de refaire votre site — l'IA s'adapte à votre charte graphique et votre identité." },
+        { q: 'Quel budget prévoir pour un projet IA de A à Z ?', a: "Un chatbot FAQ simple : 1 499 € HT + 39 €/mois. Un agent IA commercial complet avec CRM : 3 999 € HT + 89 €/mois. Un système multi-agents avec hébergement souverain : à partir de 7 999 € HT. Notre audit gratuit vous donne une estimation précise." },
+      ],
+    },
+    more: {
+      h3: 'Pour aller plus loin',
+      items: [
+        { label: 'Comment intégrer une IA dans votre site web', href: '/blog/integrer-ia-site-web-2025' },
+        { label: 'IA agentique : ce que font déjà vos concurrents', href: '/blog/ia-agents-remplacent-equipes-2026' },
+        { label: "7 façons d'utiliser l'IA pour générer des leads", href: '/blog/site-vitrine-ia-machine-leads' },
+        { label: 'Automatisation IA pour PME : prix réels 2026', href: '/blog/automatisation-ia-pme-prix-2026' },
+      ],
+    },
+    cta: { badge: 'Audit IA gratuit · Valorisé 490 € · Sans engagement', h2: "Prêt à intégrer l'IA dans votre activité ?", p: "30 minutes pour identifier vos 3 cas d'usage IA prioritaires et leur ROI estimé. Gratuit, sans engagement, sans jargon technique.", ctaAudit: "Demander l'audit IA gratuit", ctaBlog: 'Lire notre guide IA', ctaBlogHref: '/blog/integrer-ia-site-web-2025' },
+    detail: { included: 'Inclus', notIncluded: 'Non inclus', options: 'Options disponibles', maintenance: 'Maintenance', choose: 'Choisir', payment: 'Paiement échelonné disponible · 40% à la commande, 30% à la validation, 30% à la livraison' },
+    showDetails: 'Voir les détails ↓', hideDetails: 'Masquer les détails ↑',
+  },
 
-const PROBLEMS = [
-  {
-    icon: MessageSquare,
-    title: 'Votre équipe répond manuellement aux mêmes questions',
-    text: "FAQ, tarifs, disponibilités, processus de commande : 70% des questions sont identiques. Un assistant IA les traite instantanément, 24h/24.",
-    color: 'text-white bg-white/5',
+  en: {
+    hero: {
+      badge: 'AI Chatbots · RAG Agents · LLM · Claude · Mistral · GPT',
+      h1: 'AI integrated into your website',
+      h1highlight: 'and your business tools',
+      p: "AI chatbots, RAG agents, LLM integration, content generation, SEO automation. We deploy concrete AI solutions connected to your data, with measurable ROI.",
+      ctaAudit: 'Free AI audit',
+      ctaPricing: 'See pricing',
+    },
+    stats: [
+      { label: 'of customer requests handled automatically' },
+      { label: 'AI assistant availability' },
+      { label: 'more conversions with a qualifying chatbot' },
+    ],
+    problems: {
+      h2: 'Your current challenges',
+      subtitle: "Businesses that don't integrate AI in 2026 let their competitors gain efficiency with every customer interaction.",
+      items: [
+        { title: 'Your team manually answers the same questions over and over', text: "FAQs, pricing, availability, order processes: 70% of questions are identical. An AI assistant handles them instantly, 24/7." },
+        { title: 'Your leads are not qualified before reaching sales', text: "Budget, need, timing, decision authority: an AI agent asks the right questions and delivers only warm prospects to your team." },
+        { title: "Your website doesn't leverage your internal data", text: "Documentation, product catalogue, FAQs, case studies: a RAG assistant indexes your content and answers any question with precision." },
+        { title: 'AI feels complex or risky', text: "No data scientists needed. We integrate LLMs (Claude, Mistral, GPT) directly into your existing tools with strict guardrails." },
+      ],
+    },
+    services: {
+      h2: 'Our AI integration solutions',
+      subtitle: "From a simple FAQ chatbot to a complex multi-agent architecture, we have a solution matched to your AI maturity.",
+      items: [
+        { title: 'AI Chatbot / RAG Assistant', desc: 'A smart chatbot connected to your knowledge base (website, PDFs, docs, FAQs). It answers precise visitor questions and qualifies incoming leads.', details: ['Indexing your content (website, PDF, Notion, docs)', 'Precise answers based solely on YOUR data', 'Lead qualification (budget, need, urgency)', 'CRM handoff or sales team escalation', 'Available on website, WhatsApp, email'], badge: 'From €1,999' },
+        { title: 'LLM integration into your tools', desc: 'We connect Claude, Mistral or GPT-4 to your existing tools via API: CRM, website, back-office, ERP. Robust business prompts, tested on real data.', details: ['Best model selection (Claude, Mistral, GPT)', 'Robust business prompt configuration', 'Testing on your real data', 'Documentation and knowledge transfer', 'Integration into n8n / Make if needed'], badge: 'From €699' },
+        { title: 'Autonomous AI sales agent', desc: 'An AI agent that prospects, qualifies, handles objections and schedules appointments without human intervention. Your sales team only handles warm leads.', details: ['Automatic BANT qualification (budget, authority, need, timing)', 'Responses to common objections', 'Automatic appointment booking (Calendly, Google Calendar)', 'Lead scoring and CRM transfer', 'Multi-channel follow-up (email, chat, WhatsApp)'], badge: 'From €2,999' },
+        { title: 'AI content generation', desc: "AI agent that writes your SEO articles, product sheets, newsletters and social posts while respecting your editorial tone. Human final review.", details: ['Automatic brief from keyword or topic', 'Your editorial guidelines respected', 'SEO-optimised articles + FAQ schema', 'Automated publishing (WordPress, Notion, CMS)', 'Monthly performance report'], badge: 'From €1,499' },
+        { title: 'SEO & AEO automation', desc: "Full stack: GSC analysis, keyword generation, article writing, schema.org markup, position monitoring. Appear in AI answers (Google AI Overviews).", details: ['Google Search Console connection', 'Detection of missed content opportunities', 'Automatic article generation and publishing', 'FAQ / HowTo / Article schema.org markup', 'Monthly monitoring + performance report'], badge: 'From €1,999' },
+        { title: 'Custom AI development', desc: "Multi-agent systems, internal RAG assistant, AI SaaS product, model fine-tuning, deep integration into your information system. For ambitious projects.", details: ['Multi-agent architecture (LangChain / n8n orchestration)', 'RAG on large document bases', 'Open-source model fine-tuning (Mistral, LLama)', 'Sovereign France hosting, GDPR compliant', 'Deep integration into your existing IT system'], badge: 'From €3,000' },
+      ],
+    },
+    models: {
+      label: 'AI models we master',
+      note: "We always choose the model best suited to your use case — not the most expensive one.",
+    },
+    useCases: {
+      h2: 'Examples by industry',
+      subtitle: "Here's how we integrate AI across different sectors.",
+      items: [
+        { sector: 'Medical practice / Healthcare', useCase: 'FAQ chatbot + appointment booking + HDS compliance', pack: 'Essential AI' },
+        { sector: 'Real estate agency', useCase: 'Buyer/seller qualification + scoring + CRM transfer', pack: 'Business AI' },
+        { sector: 'E-commerce', useCase: 'Automated 24/7 customer service + product recommendations + order tracking', pack: 'Business AI' },
+        { sector: 'SaaS / B2B tech', useCase: 'AI onboarding + tier 1 support + content generation', pack: 'Premium AI' },
+        { sector: 'Law firm', useCase: 'Intake qualification + internal RAG legal assistant', pack: 'Business AI' },
+        { sector: 'Restaurant / Hospitality', useCase: 'Booking chatbot + FAQ + PMS synchronisation', pack: 'Essential AI' },
+      ],
+    },
+    packs: {
+      h2: 'Our AI integration packages',
+      subtitle: 'Transparent pricing, no surprises. VAT not applicable.',
+      popular: 'Most popular',
+      ht: 'excl. VAT',
+      monthly: '€/month maintenance',
+      delivery: 'Delivery',
+      items: [
+        {
+          name: 'Essential AI', tagline: 'Your first AI assistant. Live in 2 weeks.',
+          bullets: ['AI FAQ chatbot (up to 5 intents)', 'Indexing your website + 1 PDF or doc', '1 language, up to 500 conversations/month', 'Custom design integrated into your website'],
+          included: ['RAG chatbot connected to your website and 1 document', 'Up to 5 conversation intents configured', 'Chatbot design matching your brand guidelines', 'Integration on your website (widget or dedicated page)', '1 language (English)', '500 conversations / month included', 'Conversation history (30 days)', '30-min training + documentation', '30-day email support'],
+          notIncluded: ['Qualifying AI agent (BANT scoring)', 'CRM integration / sales handoff', 'More than one language', 'More than 500 conversations / month', 'AI content generation', 'n8n workflow automation'],
+          options: [{ label: 'Additional language', price: '+€290 excl. VAT' }, { label: '500 extra conversations / month', price: '+€29 excl. VAT/month' }, { label: 'Basic CRM integration', price: '+€490 excl. VAT' }, { label: 'Indexing 5 additional documents', price: '+€190 excl. VAT' }],
+          maintenanceItems: ['Monthly chatbot monitoring', 'Knowledge base updates (on request)', 'Email support (72h response)'],
+        },
+        {
+          name: 'Business AI', tagline: 'Complete AI agent. Automatic qualification. CRM connected.',
+          bullets: ['Qualifying AI agent (up to 10 intents)', 'Unlimited indexing (website + docs + CRM)', '3 languages, up to 800 conversations/month', 'CRM integration + sales handoff'],
+          included: ['AI agent with automatic BANT qualification', 'Up to 10 conversation intents', 'Unlimited indexing (website, PDF, Notion, CRM)', '3 languages of your choice', '800 conversations / month included', 'CRM integration (HubSpot, Notion, Airtable)', 'Sales team handoff (email + Slack)', 'Automatic appointment booking (Calendly)', 'Monthly reporting (volume, intents, resolution rate)', '1h optimisation / month included', 'Priority email support (48h response)'],
+          notIncluded: ['Multi-agent architecture', 'Model fine-tuning', 'ERP / legacy system integration', 'AI content generation', 'Self-hosted sovereign hosting'],
+          options: [{ label: 'Additional language', price: '+€290 excl. VAT' }, { label: '500 extra conversations / month', price: '+€24 excl. VAT/month' }, { label: 'AI content generation (blog, social)', price: '+€990 excl. VAT' }, { label: 'Integrated n8n workflow automation', price: '+€990 excl. VAT' }, { label: 'Team training (up to 5 people)', price: '+€390 excl. VAT' }],
+          maintenanceItems: ['24/7 monitoring + alerts', 'Knowledge base updates (2×/month)', 'Monthly performance report', '1h optimisation included / month', 'Priority support (48h response)'],
+        },
+        {
+          name: 'Premium AI', tagline: 'Multi-agent system. Custom development. Sovereign GDPR.',
+          bullets: ['Up to 3 specialised AI agents (sales, support, SEO)', 'RAG architecture on large datasets', 'Sovereign France hosting, GDPR compliant', 'Deep integration into your IT system'],
+          included: ['Up to 3 specialised AI agents (sales, support, content, SEO)', 'Multi-agent architecture with orchestration', 'RAG on large document base (unlimited)', 'Open-source model fine-tuning if relevant', 'Sovereign France hosting (OVH servers)', 'Full GDPR compliance + DPA', 'Deep IT system integration (API, webhooks, connectors)', 'BI management dashboard', '4h team training + video documentation', '3-month strategic coaching', 'Dedicated 7-day support (24h response)', 'Monthly review meeting'],
+          notIncluded: ['Advertising budget (Ads)', 'Community management', 'Backend development outside AI', 'Native mobile app (custom quote)'],
+          options: [{ label: 'Additional AI agent', price: '+€1,990 excl. VAT' }, { label: 'Mobile app with integrated AI', price: 'Custom quote' }, { label: 'Additional 6-month coaching', price: '+€1,490 excl. VAT' }, { label: 'AI security audit (pentest)', price: '+€990 excl. VAT' }],
+          maintenanceItems: ['Real-time monitoring + immediate alerts', 'Unlimited knowledge base updates', 'Monthly model fine-tuning', 'Advanced monthly report + review meeting', 'Dedicated 7-day support (24h response)', 'Continuous optimisation'],
+        },
+      ],
+    },
+    testimonials: {
+      h2: 'What our clients say',
+      items: [
+        { quote: "The AI chatbot reduced our support load by 68%. Customers get a precise answer in 3 seconds, 24/7. Our agents now focus on complex cases only.", name: 'Claire M.', role: 'Customer Success Director', company: 'B2B SaaS, Bordeaux', initials: 'CM', color: 'bg-gray-200 text-gray-800' },
+        { quote: "The qualifying AI agent transformed our prospecting. We now only talk to warm leads. Our closing rate went from 12% to 31% in 6 weeks.", name: 'Marc L.', role: 'Sales Director', company: 'Real estate agency, Paris', initials: 'ML', color: 'bg-gray-200 text-gray-800' },
+        { quote: "The RAG assistant knows all our 800 products perfectly. Customers find exactly what they need without going through customer service. Remarkable.", name: 'Anne-Sophie T.', role: 'CEO', company: 'Fashion e-commerce, Lyon', initials: 'AT', color: 'bg-gray-200 text-gray-800' },
+      ],
+    },
+    faq: {
+      h2: 'Frequently asked questions',
+      items: [
+        { q: "What's the difference between a classic chatbot and a RAG AI agent?", a: "A classic chatbot responds from a fixed decision tree. A RAG AI agent (Retrieval-Augmented Generation) indexes your real content — website, PDFs, Notion, CRM — and generates precise answers based on YOUR data. It understands natural language questions, handles nuances and learns from your knowledge base. Result: zero generic answers, 100% relevant." },
+        { q: 'Does my data remain confidential with AI?', a: "Yes. We configure models so your data is never used to train third-party models. For sensitive projects (healthcare, legal, critical client data), we recommend a self-hosted open-source model (Mistral or LLama) on servers in France. Data never leaves your infrastructure." },
+        { q: "What's the difference between Claude, GPT and Mistral?", a: "Claude (Anthropic) excels at complex reasoning and compliance — it's our recommendation for critical AI agents. GPT-4o is multimodal and has the largest ecosystem. Mistral is open-source, sovereign and available self-hosted — ideal for sensitive data and tighter budgets. We always choose the model suited to your case, not the most expensive." },
+        { q: 'Can the AI chatbot speak multiple languages?', a: "Yes. Modern LLMs (Claude, GPT, Mistral) are natively multilingual. We configure automatic language detection and responses in the user's language. The Essential pack includes 1 language, Business includes 3 languages, Premium has unlimited languages." },
+        { q: 'How is the AI agent maintained and improved over time?', a: "The AI agent improves with use. Every month we analyse conversations (unanswered questions, satisfaction rate, unnecessary handoffs) and optimise prompts, add sources and refine scoring. In the Business pack, 1h of optimisation is included each month." },
+        { q: 'Can you integrate AI into my existing website without rebuilding it?', a: "Yes. We integrate the AI assistant into your existing website via a widget (a few lines of JavaScript) or an API. No need to rebuild your site — the AI adapts to your brand guidelines and identity." },
+        { q: 'What budget should I plan for an end-to-end AI project?', a: "A simple FAQ chatbot: €1,499 excl. VAT + €39/month. A complete AI sales agent with CRM: €3,999 excl. VAT + €89/month. A multi-agent system with sovereign hosting: from €7,999 excl. VAT. Our free audit gives you a precise estimate." },
+      ],
+    },
+    more: {
+      h3: 'Learn more',
+      items: [
+        { label: 'How to integrate AI into your website', href: '/blog/integrer-ia-site-web-2025' },
+        { label: 'Agentic AI: what your competitors are already doing', href: '/blog/ia-agents-remplacent-equipes-2026' },
+        { label: '7 ways to use AI to generate leads', href: '/blog/site-vitrine-ia-machine-leads' },
+        { label: 'AI automation for SMBs: real prices 2026', href: '/blog/automatisation-ia-pme-prix-2026' },
+      ],
+    },
+    cta: { badge: 'Free AI audit · Worth €490 · No commitment', h2: 'Ready to integrate AI into your business?', p: "30 minutes to identify your top 3 AI use cases and their estimated ROI. Free, no commitment, no technical jargon.", ctaAudit: 'Get the free AI audit', ctaBlog: 'Read our AI guide', ctaBlogHref: '/blog/integrer-ia-site-web-2025' },
+    detail: { included: 'Included', notIncluded: 'Not included', options: 'Available options', maintenance: 'Maintenance', choose: 'Choose', payment: 'Staged payment available · 40% on order, 30% on validation, 30% on delivery' },
+    showDetails: 'Show details ↓', hideDetails: 'Hide details ↑',
   },
-  {
-    icon: Users,
-    title: 'Vos leads ne sont pas qualifiés avant de passer en vente',
-    text: "Budget, besoin, timing, autorité décisionnelle : un agent IA pose les bonnes questions et vous livre uniquement les prospects chauds.",
-    color: 'text-white bg-white/5',
-  },
-  {
-    icon: Database,
-    title: 'Votre site ne tire pas parti de vos données internes',
-    text: "Documentation, catalogue produits, FAQ, cas clients : un assistant RAG indexe vos contenus et répond avec précision à toutes les questions.",
-    color: 'text-white bg-white/5',
-  },
-  {
-    icon: TrendingUp,
-    title: "L'IA vous semble complexe ou risquée",
-    text: "Pas besoin de data scientists. Nous intégrons des LLM (Claude, Mistral, GPT) directement dans vos outils existants, avec des garde-fous stricts.",
-    color: 'text-rose-400 bg-rose-400/10',
-  },
-];
 
-const SERVICES = [
-  {
-    icon: MessageSquare,
-    title: 'Chatbot IA / Assistant RAG',
-    desc: 'Un chatbot intelligent connecté à votre base de connaissances (site, PDF, docs, FAQ). Il répond aux questions précises de vos visiteurs et qualifie les leads entrants.',
-    details: [
-      'Indexation de vos contenus (site, PDF, Notion, docs)',
-      'Réponses précises basées sur VOS données uniquement',
-      'Qualification des leads (budget, besoin, urgence)',
-      'Handoff vers CRM ou équipe commerciale',
-      'Disponible sur site, WhatsApp, email',
+  es: {
+    hero: {
+      badge: 'Chatbots IA · Agentes RAG · LLM · Claude · Mistral · GPT',
+      h1: 'IA integrada en tu sitio web',
+      h1highlight: 'y tus herramientas de negocio',
+      p: "Chatbots IA, agentes RAG, integración LLM, generación de contenido, automatización SEO. Desplegamos soluciones IA concretas, conectadas a tus datos, con ROI medible.",
+      ctaAudit: 'Auditoría IA gratuita',
+      ctaPricing: 'Ver precios',
+    },
+    stats: [
+      { label: 'de solicitudes de clientes gestionadas automáticamente' },
+      { label: 'disponibilidad de los asistentes IA' },
+      { label: 'más conversiones con un chatbot cualificador' },
     ],
-    badge: 'À partir de 1 999 €',
-    badgeColor: 'bg-gray-900',
-    accentColor: 'border-white',
+    problems: {
+      h2: 'Tus desafíos actuales',
+      subtitle: "Las empresas que no integran IA en 2026 dejan que sus competidores ganen eficiencia en cada interacción con el cliente.",
+      items: [
+        { title: 'Tu equipo responde manualmente las mismas preguntas', text: "FAQ, precios, disponibilidad, procesos de pedido: el 70% de las preguntas son idénticas. Un asistente IA las gestiona al instante, 24h/7." },
+        { title: 'Tus leads no están cualificados antes de pasar a ventas', text: "Presupuesto, necesidad, timing, autoridad de decisión: un agente IA hace las preguntas correctas y solo te entrega prospectos calientes." },
+        { title: 'Tu sitio web no aprovecha tus datos internos', text: "Documentación, catálogo de productos, FAQ, casos de clientes: un asistente RAG indexa tus contenidos y responde cualquier pregunta con precisión." },
+        { title: 'La IA te parece compleja o arriesgada', text: "No necesitas data scientists. Integramos LLMs (Claude, Mistral, GPT) directamente en tus herramientas existentes con salvaguardas estrictas." },
+      ],
+    },
+    services: {
+      h2: 'Nuestras soluciones de integración IA',
+      subtitle: "Desde un chatbot FAQ simple hasta una arquitectura multi-agente compleja, tenemos una solución adaptada a tu madurez en IA.",
+      items: [
+        { title: 'Chatbot IA / Asistente RAG', desc: 'Un chatbot inteligente conectado a tu base de conocimiento (sitio web, PDFs, docs, FAQ). Responde preguntas precisas de tus visitantes y cualifica los leads entrantes.', details: ['Indexación de tus contenidos (sitio, PDF, Notion, docs)', 'Respuestas precisas basadas únicamente en TUS datos', 'Cualificación de leads (presupuesto, necesidad, urgencia)', 'Handoff al CRM o al equipo comercial', 'Disponible en sitio web, WhatsApp, email'], badge: 'Desde 1.999 €' },
+        { title: 'Integración LLM en tus herramientas', desc: 'Conectamos Claude, Mistral o GPT-4 a tus herramientas existentes vía API: CRM, sitio web, back-office, ERP. Prompts de negocio robustos, probados con datos reales.', details: ['Selección del modelo adecuado (Claude, Mistral, GPT)', 'Configuración de prompts de negocio robustos', 'Pruebas con tus datos reales', 'Documentación y transferencia de conocimiento', 'Integración en n8n / Make si es necesario'], badge: 'Desde 699 €' },
+        { title: 'Agente IA comercial autónomo', desc: 'Un agente IA que prospecta, cualifica, responde objeciones y agenda citas sin intervención humana. Tu equipo de ventas solo trata leads calientes.', details: ['Cualificación BANT automática (presupuesto, autoridad, necesidad, timing)', 'Respuesta a objeciones frecuentes', 'Cita automática (Calendly, Google Calendar)', 'Scoring y transferencia al CRM', 'Seguimiento multicanal (email, chat, WhatsApp)'], badge: 'Desde 2.999 €' },
+        { title: 'Generación de contenido IA', desc: "Agente IA que redacta tus artículos SEO, fichas de producto, newsletters y posts en redes respetando tu tono editorial. Revisión humana final.", details: ['Brief automático desde keyword o tema', 'Respeto de tu guía editorial', 'Artículos optimizados SEO + schema FAQ', 'Publicación automatizada (WordPress, Notion, CMS)', 'Informe mensual de rendimiento'], badge: 'Desde 1.499 €' },
+        { title: 'Automatización SEO & AEO', desc: "Stack completa: análisis GSC, generación de keywords, redacción de artículos, marcado schema.org, monitorización de posiciones. Aparecer en respuestas IA (Google AI Overviews).", details: ['Conexión Google Search Console', 'Detección de oportunidades de contenido perdidas', 'Generación y publicación automática de artículos', 'Marcado schema.org FAQ / HowTo / Article', 'Monitorización mensual + informe de rendimiento'], badge: 'Desde 1.999 €' },
+        { title: 'Desarrollo IA a medida', desc: "Sistema multi-agente, asistente interno RAG, SaaS de negocio IA, fine-tuning de modelo, integración profunda en tu sistema de información. Para proyectos ambiciosos.", details: ['Arquitectura multi-agente (orquestación LangChain / n8n)', 'RAG sobre base documental voluminosa', 'Fine-tuning de modelo open source (Mistral, LLama)', 'Alojamiento soberano Francia, RGPD', 'Integración profunda en tu sistema existente'], badge: 'Desde 3.000 €' },
+      ],
+    },
+    models: {
+      label: 'Modelos IA que dominamos',
+      note: "Siempre elegimos el modelo más adecuado para tu caso de uso — no el más caro.",
+    },
+    useCases: {
+      h2: 'Ejemplos por sector',
+      subtitle: "Así es como integramos IA en diferentes sectores.",
+      items: [
+        { sector: 'Consulta médica / Paramédica', useCase: 'Chatbot FAQ + citas + conformidad HDS', pack: 'Esencial IA' },
+        { sector: 'Agencia inmobiliaria', useCase: 'Cualificación compradores/vendedores + scoring + CRM', pack: 'Business IA' },
+        { sector: 'E-commerce', useCase: 'Atención al cliente automatizada 24/7 + recomendaciones + seguimiento de pedidos', pack: 'Business IA' },
+        { sector: 'SaaS / B2B tech', useCase: 'Onboarding IA + soporte tier 1 + generación de contenido', pack: 'Premium IA' },
+        { sector: 'Despacho de abogados', useCase: 'Cualificación de consultas + asistente jurídico RAG interno', pack: 'Business IA' },
+        { sector: 'Restaurante / Hostelería', useCase: 'Chatbot de reservas + FAQ + sincronización PMS', pack: 'Esencial IA' },
+      ],
+    },
+    packs: {
+      h2: 'Nuestros paquetes de integración IA',
+      subtitle: 'Precios transparentes, sin sorpresas. IVA no incluido.',
+      popular: 'El más popular',
+      ht: 's/IVA',
+      monthly: '€/mes mantenimiento',
+      delivery: 'Plazo',
+      items: [
+        {
+          name: 'Esencial IA', tagline: 'Tu primer asistente IA. En línea en 2 semanas.',
+          bullets: ['Chatbot IA FAQ (hasta 5 intenciones)', 'Indexación de tu sitio + 1 PDF o doc', '1 idioma, hasta 500 conversaciones/mes', 'Diseño personalizado integrado en tu sitio'],
+          included: ['Chatbot RAG conectado a tu sitio y 1 documento', 'Hasta 5 intenciones de conversación configuradas', 'Diseño del chatbot adaptado a tu imagen de marca', 'Integración en tu sitio (widget o página dedicada)', '1 idioma (español)', '500 conversaciones / mes incluidas', 'Historial de conversaciones (30 días)', 'Formación de 30 min + documentación', 'Soporte por email 30 días'],
+          notIncluded: ['Agente IA cualificador (scoring BANT)', 'Integración CRM / handoff comercial', 'Más de un idioma', 'Más de 500 conversaciones / mes', 'Generación de contenido IA', 'Automatización de flujos n8n'],
+          options: [{ label: 'Idioma adicional', price: '+290 € s/IVA' }, { label: '500 conversaciones adicionales / mes', price: '+29 € s/IVA/mes' }, { label: 'Integración CRM básica', price: '+490 € s/IVA' }, { label: 'Indexación de 5 documentos adicionales', price: '+190 € s/IVA' }],
+          maintenanceItems: ['Monitorización mensual del chatbot', 'Actualización de la base de conocimiento (bajo demanda)', 'Soporte por email (72h de respuesta)'],
+        },
+        {
+          name: 'Business IA', tagline: 'Agente IA completo. Cualificación automática. CRM conectado.',
+          bullets: ['Agente IA cualificador (hasta 10 intenciones)', 'Indexación ilimitada (sitio + docs + CRM)', '3 idiomas, hasta 800 conversaciones/mes', 'Integración CRM + handoff comercial'],
+          included: ['Agente IA con cualificación BANT automática', 'Hasta 10 intenciones de conversación', 'Indexación ilimitada (sitio, PDF, Notion, CRM)', '3 idiomas a elegir', '800 conversaciones / mes incluidas', 'Integración CRM (HubSpot, Notion, Airtable)', 'Handoff al equipo comercial (email + Slack)', 'Cita automática (Calendly)', 'Reporting mensual (volumen, intenciones, tasa de resolución)', '1h de optimización / mes incluida', 'Soporte prioritario por email (48h de respuesta)'],
+          notIncluded: ['Arquitectura multi-agente', 'Fine-tuning de modelo', 'Integración ERP / sistema legacy', 'Generación de contenido IA', 'Alojamiento soberano self-hosted'],
+          options: [{ label: 'Idioma adicional', price: '+290 € s/IVA' }, { label: '500 conversaciones adicionales / mes', price: '+24 € s/IVA/mes' }, { label: 'Generación de contenido IA (blog, redes)', price: '+990 € s/IVA' }, { label: 'Automatización de flujo n8n integrada', price: '+990 € s/IVA' }, { label: 'Formación equipo (hasta 5 personas)', price: '+390 € s/IVA' }],
+          maintenanceItems: ['Monitorización 24/7 + alertas', 'Actualización base de conocimiento (2×/mes)', 'Informe mensual de rendimiento', '1h de optimización incluida / mes', 'Soporte prioritario (48h de respuesta)'],
+        },
+        {
+          name: 'Premium IA', tagline: 'Sistema multi-agente. Desarrollo a medida. RGPD soberano.',
+          bullets: ['Hasta 3 agentes IA especializados (ventas, soporte, SEO)', 'Arquitectura RAG sobre datos voluminosos', 'Alojamiento soberano Francia, RGPD', 'Integración profunda en tu sistema de información'],
+          included: ['Hasta 3 agentes IA especializados (ventas, soporte, contenido, SEO)', 'Arquitectura multi-agente con orquestación', 'RAG sobre base documental voluminosa (ilimitado)', 'Fine-tuning de modelo open source si es relevante', 'Alojamiento soberano Francia (servidores OVH)', 'Cumplimiento RGPD completo + DPA', 'Integración profunda SI (API, webhooks, conectores)', 'Dashboard BI de gestión', 'Formación equipo 4h + documentación en vídeo', 'Acompañamiento estratégico 3 meses', 'Soporte dedicado 7 días (24h de respuesta)', 'Reunión mensual de seguimiento'],
+          notIncluded: ['Presupuesto publicitario (Ads)', 'Community management', 'Desarrollo backend fuera de IA', 'App móvil nativa (presupuesto a medida)'],
+          options: [{ label: 'Agente IA adicional', price: '+1.990 € s/IVA' }, { label: 'App móvil con IA integrada', price: 'Presupuesto a medida' }, { label: 'Acompañamiento 6 meses adicionales', price: '+1.490 € s/IVA' }, { label: 'Auditoría de seguridad IA (pentest)', price: '+990 € s/IVA' }],
+          maintenanceItems: ['Monitorización en tiempo real + alertas inmediatas', 'Actualización base de conocimiento ilimitada', 'Fine-tuning mensual del modelo', 'Informe mensual avanzado + reunión de seguimiento', 'Soporte dedicado 7 días (24h de respuesta)', 'Optimización continua'],
+        },
+      ],
+    },
+    testimonials: {
+      h2: 'Lo que dicen nuestros clientes',
+      items: [
+        { quote: "El chatbot IA redujo nuestra carga de soporte en un 68%. Los clientes obtienen una respuesta precisa en 3 segundos, 24h al día. Nuestros agentes ahora se centran en casos complejos.", name: 'Claire M.', role: 'Directora de Customer Success', company: 'SaaS B2B, Burdeos', initials: 'CM', color: 'bg-gray-200 text-gray-800' },
+        { quote: "El agente IA cualificador transformó nuestra prospección. Solo hablamos con leads calientes. Nuestra tasa de cierre pasó del 12% al 31% en 6 semanas.", name: 'Marc L.', role: 'Director comercial', company: 'Agencia inmobiliaria, París', initials: 'ML', color: 'bg-gray-200 text-gray-800' },
+        { quote: "El asistente RAG conoce a la perfección nuestros 800 productos. Los clientes encuentran exactamente lo que buscan sin pasar por el servicio de atención al cliente. Extraordinario.", name: 'Anne-Sophie T.', role: 'CEO', company: 'E-commerce de moda, Lyon', initials: 'AT', color: 'bg-gray-200 text-gray-800' },
+      ],
+    },
+    faq: {
+      h2: 'Preguntas frecuentes',
+      items: [
+        { q: '¿Cuál es la diferencia entre un chatbot clásico y un agente IA RAG?', a: "Un chatbot clásico responde desde un árbol de decisión fijo. Un agente IA RAG (Retrieval-Augmented Generation) indexa tu contenido real — sitio web, PDFs, Notion, CRM — y genera respuestas precisas basadas en TUS datos. Entiende preguntas en lenguaje natural, gestiona matices y aprende de tu base. Resultado: cero respuestas genéricas, 100% relevantes." },
+        { q: '¿Mis datos permanecen confidenciales con la IA?', a: "Sí. Configuramos los modelos para que tus datos nunca se usen para entrenar modelos de terceros. Para proyectos sensibles (salud, legal, datos críticos de clientes), recomendamos un modelo open source self-hosted (Mistral o LLama) en servidores en Francia. Los datos nunca salen de tu infraestructura." },
+        { q: '¿Cuál es la diferencia entre Claude, GPT y Mistral?', a: "Claude (Anthropic) destaca en razonamiento complejo y conformidad — es nuestra recomendación para agentes IA críticos. GPT-4o es multimodal y tiene el ecosistema más amplio. Mistral es open source, soberano y disponible en self-hosted — ideal para datos sensibles y presupuestos ajustados. Siempre elegimos el modelo adecuado para tu caso, no el más caro." },
+        { q: '¿El chatbot IA puede hablar varios idiomas?', a: "Sí. Los LLMs modernos (Claude, GPT, Mistral) son multilingües de forma nativa. Configuramos la detección automática del idioma y las respuestas en el idioma del usuario. El Pack Esencial incluye 1 idioma, Business incluye 3 idiomas, Premium idiomas ilimitados." },
+        { q: '¿Cómo se mantiene y mejora el agente IA con el tiempo?', a: "El agente IA mejora con el uso. Cada mes analizamos las conversaciones (preguntas sin respuesta, tasa de satisfacción, handoffs innecesarios) y optimizamos los prompts, añadimos fuentes y refinamos el scoring. En el Pack Business, 1h de optimización está incluida cada mes." },
+        { q: '¿Podéis integrar la IA en mi sitio existente sin rehacerlo?', a: "Sí. Integramos el asistente IA en tu sitio existente mediante un widget (unas pocas líneas de JavaScript) o una API. No es necesario rehacer tu sitio — la IA se adapta a tu imagen de marca e identidad." },
+        { q: '¿Qué presupuesto prever para un proyecto IA de principio a fin?', a: "Un chatbot FAQ simple: 1.499 € s/IVA + 39 €/mes. Un agente IA comercial completo con CRM: 3.999 € s/IVA + 89 €/mes. Un sistema multi-agente con alojamiento soberano: desde 7.999 € s/IVA. Nuestra auditoría gratuita te da una estimación precisa." },
+      ],
+    },
+    more: {
+      h3: 'Saber más',
+      items: [
+        { label: 'Cómo integrar IA en tu sitio web', href: '/blog/integrer-ia-site-web-2025' },
+        { label: 'IA agéntica: lo que ya hacen tus competidores', href: '/blog/ia-agents-remplacent-equipes-2026' },
+        { label: '7 formas de usar la IA para generar leads', href: '/blog/site-vitrine-ia-machine-leads' },
+        { label: 'Automatización IA para pymes: precios reales 2026', href: '/blog/automatisation-ia-pme-prix-2026' },
+      ],
+    },
+    cta: { badge: 'Auditoría IA gratuita · Valorada en 490 € · Sin compromiso', h2: '¿Listo para integrar la IA en tu negocio?', p: "30 minutos para identificar tus 3 casos de uso IA prioritarios y su ROI estimado. Gratis, sin compromiso, sin jerga técnica.", ctaAudit: 'Solicitar la auditoría IA gratuita', ctaBlog: 'Leer nuestra guía IA', ctaBlogHref: '/blog/integrer-ia-site-web-2025' },
+    detail: { included: 'Incluido', notIncluded: 'No incluido', options: 'Opciones disponibles', maintenance: 'Mantenimiento', choose: 'Elegir', payment: 'Pago fraccionado disponible · 40% al pedido, 30% a la validación, 30% a la entrega' },
+    showDetails: 'Ver detalles ↓', hideDetails: 'Ocultar detalles ↑',
   },
-  {
-    icon: Code2,
-    title: 'Intégration LLM dans vos outils',
-    desc: 'Nous connectons Claude, Mistral ou GPT-4 à vos outils existants via API : CRM, site web, back-office, ERP. Prompts métier robustes, tests sur données réelles.',
-    details: [
-      'Sélection du modèle adapté (Claude, Mistral, GPT)',
-      'Configuration de prompts métier robustes',
-      'Tests sur vos données réelles',
-      'Documentation et transfert de compétences',
-      'Intégration dans n8n / Make si besoin',
-    ],
-    badge: 'À partir de 699 €',
-    badgeColor: 'bg-gray-900',
-    accentColor: 'border-white',
-  },
-  {
-    icon: Bot,
-    title: 'Agent IA commercial autonome',
-    desc: 'Un agent IA qui prospecte, qualifie, répond aux objections et planifie les rendez-vous sans intervention humaine. Vos commerciaux ne traitent que des leads chauds.',
-    details: [
-      'Qualification BANT automatique (budget, autorité, besoin, timing)',
-      'Réponses aux objections fréquentes',
-      'Prise de rendez-vous automatique (Calendly, Google Agenda)',
-      'Scoring et transfert vers CRM',
-      'Suivi multicanal (email, chat, WhatsApp)',
-    ],
-    badge: 'À partir de 2 999 €',
-    badgeColor: 'bg-gray-700',
-    accentColor: 'border-gray-400',
-  },
-  {
-    icon: FileText,
-    title: 'Génération de contenu IA',
-    desc: "Agent IA qui rédige vos articles SEO, fiches produits, newsletters et posts réseaux sociaux en respectant votre ton éditorial. Humain en révision finale.",
-    details: [
-      'Brief automatique depuis mot-clé ou sujet',
-      'Respect de votre charte éditoriale',
-      'Articles optimisés SEO + schema FAQ',
-      'Publication automatisée (WordPress, Notion, CMS)',
-      'Rapport de performance mensuel',
-    ],
-    badge: 'À partir de 1 499 €',
-    badgeColor: 'bg-amber-500',
-    accentColor: 'border-amber-400',
-  },
-  {
-    icon: Search,
-    title: 'Automatisation SEO & AEO',
-    desc: "Stack complète : analyse GSC, génération de mots-clés, rédaction d'articles, balisage schema.org, monitoring positions. Apparaître dans les réponses IA (Google AI Overviews).",
-    details: [
-      'Connexion Google Search Console',
-      'Détection des opportunités de contenu manquées',
-      'Génération et publication automatique d\'articles',
-      'Balisage schema.org FAQ / HowTo / Article',
-      'Monitoring mensuel + rapport de performance',
-    ],
-    badge: 'À partir de 1 999 €',
-    badgeColor: 'bg-emerald-500',
-    accentColor: 'border-emerald-400',
-  },
-  {
-    icon: Layers,
-    title: 'Développement IA sur mesure',
-    desc: "Système multi-agents, assistant interne RAG, SaaS métier IA, fine-tuning de modèle, intégration profonde dans votre SI. Pour les projets ambitieux.",
-    details: [
-      'Architecture multi-agents (orchestration LangChain / n8n)',
-      'RAG sur base documentaire volumineuse',
-      'Fine-tuning de modèle open source (Mistral, LLama)',
-      'Hébergement souverain France, RGPD',
-      'Intégration profonde dans votre SI existant',
-    ],
-    badge: 'À partir de 3 000 €',
-    badgeColor: 'bg-rose-500',
-    accentColor: 'border-rose-400',
-  },
-];
+};
 
-type PackId = 'essentiel' | 'business' | 'premium';
+// ═══════════════════════════════════════════════════════════════════════════
+// STATIC DATA
+// ═══════════════════════════════════════════════════════════════════════════
 
-interface Pack {
-  id: PackId;
-  name: string;
-  tagline: string;
-  price: number;
-  monthly: number;
-  delivery: string;
-  badge?: string;
-  badgeColor?: string;
-  borderColor: string;
-  popular?: boolean;
-  bullets: string[];
-  included: string[];
-  notIncluded: string[];
-  options: { label: string; price: string }[];
-  maintenanceItems: string[];
-}
+const STATS_VALUES = ['70%', '24/7', '3×'];
+const SERVICE_ICONS = [MessageSquare, Code2, Bot, FileText, Search, Layers];
+const SERVICE_BADGE_COLORS = ['bg-gray-900', 'bg-gray-900', 'bg-gray-700', 'bg-amber-500', 'bg-emerald-500', 'bg-rose-500'];
+const SERVICE_ACCENT_COLORS = ['border-white', 'border-white', 'border-gray-400', 'border-amber-400', 'border-emerald-400', 'border-rose-400'];
 
-const PACKS: Pack[] = [
-  {
-    id: 'essentiel',
-    name: 'Essentiel IA',
-    tagline: 'Votre premier assistant IA. En ligne en 2 semaines.',
-    price: 1499,
-    monthly: 39,
-    delivery: '1 à 2 semaines',
-    borderColor: 'border-white/10',
-    bullets: [
-      'Chatbot IA FAQ (jusqu\'à 5 intentions)',
-      'Indexation de votre site + 1 PDF ou doc',
-      '1 langue, jusqu\'à 500 conversations/mois',
-      'Design personnalisé intégré à votre site',
-    ],
-    included: [
-      'Chatbot RAG connecté à votre site et 1 document',
-      'Jusqu\'à 5 intentions de conversation configurées',
-      'Design chatbot adapté à votre charte graphique',
-      'Intégration sur votre site (widget ou page dédiée)',
-      '1 langue (français)',
-      '500 conversations / mois incluses',
-      'Historique des conversations (30 jours)',
-      'Formation 30 min + documentation',
-      'Support email 30 jours',
-    ],
-    notIncluded: [
-      'Agent IA qualifiant (BANT scoring)',
-      'Intégration CRM / handoff commercial',
-      'Plus d\'une langue',
-      'Plus de 500 conversations / mois',
-      'Génération de contenu IA',
-      'Automatisation workflow n8n',
-    ],
-    options: [
-      { label: 'Langue supplémentaire', price: '+290 € HT' },
-      { label: '500 conversations supplémentaires / mois', price: '+29 € HT/mois' },
-      { label: 'Intégration CRM basique', price: '+490 € HT' },
-      { label: 'Indexation de 5 documents supplémentaires', price: '+190 € HT' },
-    ],
-    maintenanceItems: [
-      'Surveillance mensuelle du chatbot',
-      'Mise à jour de la base de connaissances (sur demande)',
-      'Support email (délai 72h)',
-    ],
-  },
-  {
-    id: 'business',
-    name: 'Business IA',
-    tagline: 'Agent IA complet. Qualification automatique. CRM connecté.',
-    price: 3999,
-    monthly: 89,
-    delivery: '3 à 5 semaines',
-    badge: 'Le plus populaire',
-    badgeColor: 'bg-gray-900',
-    popular: true,
-    borderColor: 'border-gray-900 dark:border-white',
-    bullets: [
-      'Agent IA qualifiant (jusqu\'à 10 intentions)',
-      'Indexation illimitée (site + docs + CRM)',
-      '3 langues, jusqu\'à 800 conversations/mois',
-      'Intégration CRM + handoff commercial',
-    ],
-    included: [
-      'Agent IA avec qualification BANT automatique',
-      'Jusqu\'à 10 intentions de conversation',
-      'Indexation illimitée (site, PDF, Notion, CRM)',
-      '3 langues au choix',
-      '800 conversations / mois incluses',
-      'Intégration CRM (HubSpot, Notion, Airtable)',
-      'Handoff vers équipe commerciale (email + Slack)',
-      'Prise de rendez-vous automatique (Calendly)',
-      'Reporting mensuel (volume, intentions, taux de résolution)',
-      '1h d\'optimisation / mois incluse',
-      'Support prioritaire email (délai 48h)',
-    ],
-    notIncluded: [
-      'Architecture multi-agents',
-      'Fine-tuning de modèle',
-      'Intégration ERP / SI legacy',
-      'Génération de contenu IA',
-      'Hébergement souverain self-hosted',
-    ],
-    options: [
-      { label: 'Langue supplémentaire', price: '+290 € HT' },
-      { label: '500 conversations supplémentaires / mois', price: '+24 € HT/mois' },
-      { label: 'Génération contenu IA (blog, RS)', price: '+990 € HT' },
-      { label: 'Automatisation workflow n8n intégrée', price: '+990 € HT' },
-      { label: 'Formation équipe (jusqu\'à 5 personnes)', price: '+390 € HT' },
-    ],
-    maintenanceItems: [
-      'Surveillance 24/7 + alertes',
-      'Mise à jour base de connaissances (2×/mois)',
-      'Rapport mensuel de performance',
-      '1h d\'optimisation incluse / mois',
-      'Support prioritaire (délai 48h)',
-    ],
-  },
-  {
-    id: 'premium',
-    name: 'Premium IA',
-    tagline: 'Système multi-agents. Développement sur mesure. RGPD souverain.',
-    price: 7999,
-    monthly: 189,
-    delivery: '6 à 12 semaines',
-    borderColor: 'border-gray-900 dark:border-white',
-    bullets: [
-      'Jusqu\'à 3 agents IA spécialisés (vente, support, SEO)',
-      'Architecture RAG sur données volumineuses',
-      'Hébergement souverain France, RGPD',
-      'Intégration profonde dans votre SI',
-    ],
-    included: [
-      'Jusqu\'à 3 agents IA spécialisés (vente, support, contenu, SEO)',
-      'Architecture multi-agents avec orchestration',
-      'RAG sur base documentaire volumineuse (illimité)',
-      'Fine-tuning de modèle open source si pertinent',
-      'Hébergement souverain France (serveurs OVH)',
-      'Conformité RGPD complète + DPA',
-      'Intégration profonde SI (API, webhooks, connecteurs)',
-      'Dashboard BI de pilotage',
-      'Formation équipe 4h + documentation vidéo',
-      'Accompagnement stratégique 3 mois',
-      'Support dédié 7j/7 (délai 24h)',
-      'Réunion mensuelle de suivi',
-    ],
-    notIncluded: [
-      'Budget publicitaire (Ads)',
-      'Community management',
-      'Développements backend hors IA',
-      'Application mobile native (sur devis)',
-    ],
-    options: [
-      { label: 'Agent IA supplémentaire', price: '+1 990 € HT' },
-      { label: 'Application mobile avec IA intégrée', price: 'Sur devis' },
-      { label: 'Accompagnement 6 mois supplémentaires', price: '+1 490 € HT' },
-      { label: 'Audit de sécurité IA (pentest)', price: '+990 € HT' },
-    ],
-    maintenanceItems: [
-      'Surveillance temps réel + alertes immédiates',
-      'Mise à jour base de connaissances illimitée',
-      'Fine-tuning mensuel du modèle',
-      'Rapport mensuel avancé + réunion de suivi',
-      'Support dédié 7j/7 (délai 24h)',
-      'Optimisation continue sur suggestion',
-    ],
-  },
-];
-
-const USE_CASES = [
-  { sector: 'Cabinet médical / Paramédical', useCase: 'Chatbot FAQ + prise de rendez-vous + conformité HDS', pack: 'Essentiel IA' },
-  { sector: 'Agence immobilière', useCase: 'Qualification des acheteurs/vendeurs + scoring + transfert CRM', pack: 'Business IA' },
-  { sector: 'E-commerce', useCase: 'SAV automatisé 24/7 + recommandations produits + suivi commande', pack: 'Business IA' },
-  { sector: 'SaaS / B2B tech', useCase: 'Onboarding IA + support tier 1 + génération de contenu', pack: 'Premium IA' },
-  { sector: 'Cabinet d\'avocats', useCase: 'Qualification des demandes + assistant juridique RAG interne', pack: 'Business IA' },
-  { sector: 'Restaurant / Hôtellerie', useCase: 'Chatbot réservation + FAQ + synchronisation PMS', pack: 'Essentiel IA' },
-];
+const PACK_PRICES = [1499, 3999, 7999];
+const PACK_MONTHLY = [39, 89, 189];
+const PACK_DELIVERY: Record<Lang, string[]> = {
+  fr: ['1 à 2 semaines', '3 à 5 semaines', '6 à 12 semaines'],
+  en: ['1 to 2 weeks', '3 to 5 weeks', '6 to 12 weeks'],
+  es: ['1 a 2 semanas', '3 a 5 semanas', '6 a 12 semanas'],
+};
+const PACK_IDS = ['essentiel', 'business', 'premium'] as const;
+type PackId = (typeof PACK_IDS)[number];
 
 const MODELS = [
-  { name: 'Claude (Anthropic)', strength: 'Raisonnement complexe, conformité', color: 'text-orange-600 dark:text-orange-400' },
-  { name: 'Mistral', strength: 'Open source, souveraineté, français', color: 'text-gray-700 dark:text-gray-300' },
-  { name: 'GPT-4o (OpenAI)', strength: 'Multimodal, éco-système vaste', color: 'text-green-600 dark:text-green-400' },
-  { name: 'LLama 3 (Meta)', strength: 'Self-hosted gratuit, RGPD total', color: 'text-purple-600 dark:text-purple-400' },
-];
-
-const FAQ = [
-  {
-    q: 'Quelle est la différence entre un chatbot classique et un agent IA RAG ?',
-    a: "Un chatbot classique répond à partir d'un arbre de décision figé. Un agent IA RAG (Retrieval-Augmented Generation) indexe votre contenu réel — site, PDF, Notion, CRM — et génère des réponses précises basées sur VOS données. Il comprend les questions en langage naturel, gère les nuances et apprend de votre base. Le résultat : zéro réponse générique, 100% pertinente.",
-  },
-  {
-    q: 'Mes données restent-elles confidentielles avec l\'IA ?',
-    a: "Oui. Nous configurons les modèles pour que vos données ne servent jamais à entraîner des modèles tiers. Pour les projets sensibles (santé, juridique, données clients critiques), nous recommandons un modèle open source self-hosted (Mistral ou LLama) sur des serveurs en France. Les données ne quittent jamais votre infrastructure.",
-  },
-  {
-    q: 'Quelle est la différence entre Claude, GPT et Mistral ?',
-    a: "Claude (Anthropic) excelle dans le raisonnement complexe et la conformité — c'est notre recommandation pour les agents IA critiques. GPT-4o est multimodal et a l'écosystème le plus large. Mistral est open source, souverain et disponible en self-hosted — idéal pour les données sensibles et les budgets serrés. Nous choisissons toujours le modèle adapté à votre cas, pas le plus cher.",
-  },
-  {
-    q: 'Le chatbot IA peut-il parler plusieurs langues ?',
-    a: "Oui. Les LLM modernes (Claude, GPT, Mistral) sont nativement multilingues. Nous configurons la détection automatique de la langue et les réponses dans la langue de l'utilisateur. Le Pack Essentiel inclut 1 langue, le Business inclut 3 langues, le Premium en langues illimitées.",
-  },
-  {
-    q: 'Comment l\'agent IA est-il maintenu et amélioré dans le temps ?',
-    a: "L'agent IA s'améliore avec l'usage. Chaque mois, nous analysons les conversations (questions sans réponse, taux de satisfaction, handoffs non nécessaires) et optimisons les prompts, ajoutons des sources et affinons le scoring. En Pack Business, 1h d'optimisation est incluse chaque mois. En Pack Premium, l'optimisation est continue.",
-  },
-  {
-    q: 'Peut-on intégrer l\'IA dans mon site existant sans le refaire ?',
-    a: "Oui. Nous intégrons l'assistant IA dans votre site existant via un widget (quelques lignes de JavaScript) ou une API. Pas besoin de refaire votre site — l'IA s'adapte à votre charte graphique et votre identité. Pour les intégrations plus profondes (personnalisation dynamique, recommandations), nous travaillons directement dans votre CMS ou backend.",
-  },
-  {
-    q: 'Quel budget prévoir pour un projet IA de A à Z ?',
-    a: "Un chatbot FAQ simple : 1 499 € HT + 39 €/mois. Un agent IA commercial complet avec CRM : 3 999 € HT + 89 €/mois. Un système multi-agents avec hébergement souverain : à partir de 7 999 € HT. Notre audit gratuit vous donne une estimation précise adaptée à votre cas d'usage.",
-  },
-];
-
-const TESTIMONIALS = [
-  {
-    quote: "Le chatbot IA a réduit notre charge de support de 68%. Les clients obtiennent une réponse précise en 3 secondes, 24h/24. Nos agents se concentrent désormais sur les cas complexes.",
-    name: 'Claire M.',
-    role: 'Directrice Customer Success',
-    company: 'SaaS B2B, Bordeaux',
-    initials: 'CM',
-    color: 'bg-gray-200 text-gray-800',
-  },
-  {
-    quote: "L'agent IA qualifiant a transformé notre prospection. On ne parle plus qu'à des leads chauds. Le taux de closing est passé de 12% à 31% en 6 semaines.",
-    name: 'Marc L.',
-    role: 'Directeur commercial',
-    company: 'Agence immobilière, Paris',
-    initials: 'ML',
-    color: 'bg-gray-200 text-gray-800',
-  },
-  {
-    quote: "L'assistant RAG connaît tous nos 800 produits par cœur. Les clients trouvent exactement ce qu'ils cherchent sans passer par notre SAV. Remarquable.",
-    name: 'Anne-Sophie T.',
-    role: 'CEO',
-    company: 'E-commerce mode, Lyon',
-    initials: 'AT',
-    color: 'bg-gray-200 text-gray-800',
-  },
+  { name: 'Claude (Anthropic)', strength: { fr: 'Raisonnement complexe, conformité', en: 'Complex reasoning, compliance', es: 'Razonamiento complejo, conformidad' }, color: 'text-orange-600 dark:text-orange-400' },
+  { name: 'Mistral', strength: { fr: 'Open source, souveraineté, français', en: 'Open source, sovereignty, French', es: 'Open source, soberanía, francés' }, color: 'text-gray-700 dark:text-gray-300' },
+  { name: 'GPT-4o (OpenAI)', strength: { fr: 'Multimodal, éco-système vaste', en: 'Multimodal, vast ecosystem', es: 'Multimodal, ecosistema amplio' }, color: 'text-green-600 dark:text-green-400' },
+  { name: 'LLama 3 (Meta)', strength: { fr: 'Self-hosted gratuit, RGPD total', en: 'Free self-hosted, full GDPR', es: 'Self-hosted gratuito, RGPD total' }, color: 'text-purple-600 dark:text-purple-400' },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
 // COMPOSANT PRINCIPAL
 // ═══════════════════════════════════════════════════════════════════════════
 
-export function IntegrationIAPageClient() {
+export function IntegrationIAPageClient({ lang }: Props) {
   const [selectedPack, setSelectedPack] = useState<PackId>('business');
   const [expandedService, setExpandedService] = useState<number | null>(null);
-
-  const activePack = PACKS.find((p) => p.id === selectedPack)!;
+  const c = CONTENT[lang];
+  const packIdx = PACK_IDS.indexOf(selectedPack);
+  const activePack = c.packs.items[packIdx];
 
   return (
     <>
@@ -427,58 +467,30 @@ export function IntegrationIAPageClient() {
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
         <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#070F26' }}>
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)',
-              backgroundSize: '40px 40px',
-            }}
-          />
+          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
-              <Brain size={14} />
-              <span>Chatbots IA · Agents RAG · LLM · Claude · Mistral · GPT</span>
+              <Brain size={14} /><span>{c.hero.badge}</span>
             </div>
-
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              L'IA intégrée dans votre site{' '}
-              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                et vos outils métier
-              </span>
+              {c.hero.h1}{' '}
+              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{c.hero.h1highlight}</span>
             </h1>
-
-            <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-              Chatbots IA, agents RAG, intégration LLM, génération de contenu, automatisation SEO.
-              Nous déployons des solutions IA concrètes, connectées à vos données, avec un ROI mesurable.
-            </p>
-
+            <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{c.hero.p}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <LocalizedLink
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90"
-                style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}
-              >
-                <Brain size={18} />
-                Audit IA gratuit
-                <ArrowRight size={16} />
+              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
+                <Brain size={18} />{c.hero.ctaAudit}<ArrowRight size={16} />
               </LocalizedLink>
-              <a
-                href="#pricing"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white border border-white/20 hover:border-white/40 hover:bg-white/5 transition-all duration-300"
-              >
-                Voir les tarifs
-                <ChevronDown size={16} />
+              <a href="#pricing" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white border border-white/20 hover:border-white/40 hover:bg-white/5 transition-all duration-300">
+                {c.hero.ctaPricing}<ChevronDown size={16} />
               </a>
             </div>
-
-            {/* Stats */}
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-3 max-w-3xl mx-auto" gridGap="gap-6">
-              {STATS.map((stat, i) => (
+              {c.stats.map((stat, i) => (
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 h-full">
-                  <div className={`text-3xl font-bold mb-1 ${stat.color}`}>{stat.value}</div>
+                  <div className="text-3xl font-bold mb-1 text-white">{STATS_VALUES[i]}</div>
                   <div className="text-sm text-slate-400">{stat.label}</div>
                 </div>
               ))}
@@ -490,22 +502,17 @@ export function IntegrationIAPageClient() {
         <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
-                Vos défis actuels
-              </h2>
-              <p className="text-slate-600 max-w-2xl mx-auto">
-                Les entreprises qui n'intègrent pas l'IA en 2026 laissent leurs concurrents gagner en efficacité
-                à chaque interaction client.
-              </p>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.problems.h2}</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">{c.problems.subtitle}</p>
             </div>
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-4" gridGap="gap-6">
-              {PROBLEMS.map((p, i) => {
-                const Icon = p.icon;
+              {c.problems.items.map((p, i) => {
+                const icons = [MessageSquare, Users, Database, TrendingUp];
+                const colors = ['text-white bg-white/5', 'text-white bg-white/5', 'text-white bg-white/5', 'text-rose-400 bg-rose-400/10'];
+                const Icon = icons[i];
                 return (
                   <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 hover:shadow-md transition-shadow h-full">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${p.color}`}>
-                      <Icon size={22} />
-                    </div>
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${colors[i]}`}><Icon size={22} /></div>
                     <h3 className="font-semibold text-[#0e1b3d] mb-2 text-sm leading-snug">{p.title}</h3>
                     <p className="text-slate-500 text-sm">{p.text}</p>
                   </div>
@@ -519,45 +526,32 @@ export function IntegrationIAPageClient() {
         <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-                Nos solutions d'intégration IA
-              </h2>
-              <p className="text-slate-400 max-w-2xl mx-auto">
-                Du chatbot FAQ simple à l'architecture multi-agents complexe, nous avons une solution adaptée à votre maturité IA.
-              </p>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.services.h2}</h2>
+              <p className="text-slate-400 max-w-2xl mx-auto">{c.services.subtitle}</p>
             </div>
             <ResponsiveCards breakpoint="md" gridClass="grid-cols-2 lg:grid-cols-3" gridGap="gap-6">
-              {SERVICES.map((service, i) => {
-                const Icon = service.icon;
+              {c.services.items.map((service, i) => {
+                const Icon = SERVICE_ICONS[i];
                 const isExpanded = expandedService === i;
                 return (
-                  <div
-                    key={i}
-                    className={`rounded-xl border-2 ${service.accentColor} bg-[#0e1b3d]/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300 h-full`}
-                    onClick={() => setExpandedService(isExpanded ? null : i)}
-                  >
+                  <div key={i} className={`rounded-xl border-2 ${SERVICE_ACCENT_COLORS[i]} bg-[#0e1b3d]/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300 h-full`} onClick={() => setExpandedService(isExpanded ? null : i)}>
                     <div className="flex items-start justify-between mb-3">
-                      <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
-                        <Icon size={20} className="text-slate-300" />
-                      </div>
-                      <span className={`${service.badgeColor} text-white text-xs font-semibold px-3 py-1 rounded-full`}>
-                        {service.badge}
-                      </span>
+                      <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center"><Icon size={20} className="text-slate-300" /></div>
+                      <span className={`${SERVICE_BADGE_COLORS[i]} text-white text-xs font-semibold px-3 py-1 rounded-full`}>{service.badge}</span>
                     </div>
                     <h3 className="font-bold text-white mb-2">{service.title}</h3>
                     <p className="text-slate-400 text-sm mb-3">{service.desc}</p>
                     {isExpanded && (
-                      <ul className="mt-3 space-y-2 border-t border-slate-100 dark:border-slate-700 pt-3">
+                      <ul className="mt-3 space-y-2 border-t border-slate-700 pt-3">
                         {service.details.map((d, j) => (
                           <li key={j} className="flex items-start gap-2 text-sm text-slate-300">
-                            <Check size={14} className="text-emerald-500 mt-0.5 shrink-0" />
-                            {d}
+                            <Check size={14} className="text-emerald-500 mt-0.5 shrink-0" />{d}
                           </li>
                         ))}
                       </ul>
                     )}
-                    <button className="mt-2 text-xs text-gray-600 hover:text-gray-900 font-medium">
-                      {isExpanded ? 'Masquer les détails ↑' : 'Voir les détails ↓'}
+                    <button className="mt-2 text-xs text-gray-600 hover:text-gray-300 font-medium">
+                      {isExpanded ? c.hideDetails : c.showDetails}
                     </button>
                   </div>
                 );
@@ -569,20 +563,16 @@ export function IntegrationIAPageClient() {
         {/* ── MODÈLES IA ────────────────────────────────────────────────── */}
         <section className="py-14 border-y border-slate-200" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">
-              Modèles IA que nous maîtrisons
-            </p>
+            <p className="text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.models.label}</p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {MODELS.map((model, i) => (
                 <div key={i} className="rounded-xl bg-white border border-slate-200 p-4 text-center">
                   <div className={`font-bold text-sm mb-1 ${model.color}`}>{model.name}</div>
-                  <div className="text-xs text-slate-500">{model.strength}</div>
+                  <div className="text-xs text-slate-500">{model.strength[lang]}</div>
                 </div>
               ))}
             </div>
-            <p className="text-center text-xs text-slate-500 mt-6">
-              Nous choisissons toujours le modèle le plus adapté à votre cas d'usage — pas le plus cher.
-            </p>
+            <p className="text-center text-xs text-slate-500 mt-6">{c.models.note}</p>
           </div>
         </section>
 
@@ -590,19 +580,15 @@ export function IntegrationIAPageClient() {
         <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4">Exemples par secteur</h2>
-              <p className="text-slate-400 max-w-2xl mx-auto">
-                Voici comment nous intégrons l'IA dans différents secteurs.
-              </p>
+              <h2 className="text-3xl font-bold text-white mb-4">{c.useCases.h2}</h2>
+              <p className="text-slate-400 max-w-2xl mx-auto">{c.useCases.subtitle}</p>
             </div>
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-3" gridGap="gap-4">
-              {USE_CASES.map((uc, i) => (
+              {c.useCases.items.map((uc, i) => (
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5 h-full">
                   <div className="text-xs font-semibold text-white uppercase tracking-wider mb-2">{uc.sector}</div>
                   <p className="text-sm text-slate-300 mb-3">{uc.useCase}</p>
-                  <span className="inline-block text-xs bg-white/5 text-white px-3 py-1 rounded-full font-medium">
-                    {uc.pack}
-                  </span>
+                  <span className="inline-block text-xs bg-white/5 text-white px-3 py-1 rounded-full font-medium">{uc.pack}</span>
                 </div>
               ))}
             </ResponsiveCards>
@@ -613,66 +599,45 @@ export function IntegrationIAPageClient() {
         <section id="pricing" className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
-                Nos packs intégration IA
-              </h2>
-              <p className="text-slate-600 max-w-2xl mx-auto">
-                Des prix transparents, sans surprise. TVA non applicable (art. 293B du CGI).
-              </p>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.packs.h2}</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">{c.packs.subtitle}</p>
             </div>
 
             {/* Sélecteur mobile */}
             <div className="flex gap-2 mb-8 justify-center sm:hidden">
-              {PACKS.map((pack) => (
-                <button
-                  key={pack.id}
-                  onClick={() => setSelectedPack(pack.id)}
-                  className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
-                    selectedPack === pack.id
-                      ? 'bg-gray-900 text-white'
-                      : 'bg-white border border-slate-200 text-slate-600'
-                  }`}
-                >
-                  {pack.name.split(' ')[0]}
+              {PACK_IDS.map((id, i) => (
+                <button key={id} onClick={() => setSelectedPack(id)} className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${selectedPack === id ? 'bg-gray-900 text-white' : 'bg-white border border-slate-200 text-slate-600'}`}>
+                  {c.packs.items[i].name.split(' ')[0]}
                 </button>
               ))}
             </div>
 
             {/* Cards desktop */}
             <div className="hidden sm:grid grid-cols-3 gap-6 mb-10">
-              {PACKS.map((pack) => (
-                <div
-                  key={pack.id}
-                  onClick={() => setSelectedPack(pack.id)}
-                  className={`relative rounded-2xl border-2 p-6 cursor-pointer transition-all duration-300 ${pack.borderColor} ${
-                    selectedPack === pack.id
-                      ? 'shadow-xl bg-white scale-[1.02]'
-                      : 'bg-white hover:shadow-md'
-                  }`}
-                >
-                  {pack.badge && (
-                    <span className={`absolute -top-3 left-1/2 -translate-x-1/2 ${pack.badgeColor} text-white text-xs font-bold px-4 py-1 rounded-full`}>
-                      {pack.badge}
-                    </span>
-                  )}
-                  <h3 className="font-bold text-[#0e1b3d] text-lg mb-1">{pack.name}</h3>
-                  <p className="text-slate-500 text-sm mb-4">{pack.tagline}</p>
-                  <div className="mb-4">
-                    <span className="text-3xl font-bold text-[#0e1b3d]">{pack.price.toLocaleString('fr-FR')} €</span>
-                    <span className="text-slate-500 text-sm ml-1">HT</span>
-                    <div className="text-sm text-slate-500">+ {pack.monthly} €/mois maintenance</div>
+              {PACK_IDS.map((id, i) => {
+                const pack = c.packs.items[i];
+                const borders = ['border-white/10', 'border-gray-900 dark:border-white', 'border-gray-900 dark:border-white'];
+                return (
+                  <div key={id} onClick={() => setSelectedPack(id)} className={`relative rounded-2xl border-2 p-6 cursor-pointer transition-all duration-300 ${borders[i]} ${selectedPack === id ? 'shadow-xl bg-white scale-[1.02]' : 'bg-white hover:shadow-md'}`}>
+                    {i === 1 && <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs font-bold px-4 py-1 rounded-full">{c.packs.popular}</span>}
+                    <h3 className="font-bold text-[#0e1b3d] text-lg mb-1">{pack.name}</h3>
+                    <p className="text-slate-500 text-sm mb-4">{pack.tagline}</p>
+                    <div className="mb-4">
+                      <span className="text-3xl font-bold text-[#0e1b3d]">{PACK_PRICES[i].toLocaleString('fr-FR')} €</span>
+                      <span className="text-slate-500 text-sm ml-1">{c.packs.ht}</span>
+                      <div className="text-sm text-slate-500">+ {PACK_MONTHLY[i]} {c.packs.monthly}</div>
+                    </div>
+                    <div className="text-xs text-slate-500 mb-4">⏱ {c.packs.delivery} : {PACK_DELIVERY[lang][i]}</div>
+                    <ul className="space-y-2">
+                      {pack.bullets.map((b, j) => (
+                        <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
+                          <Check size={14} className="text-emerald-500 mt-0.5 shrink-0" />{b}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <div className="text-xs text-slate-500 mb-4">⏱ Délai : {pack.delivery}</div>
-                  <ul className="space-y-2">
-                    {pack.bullets.map((b, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
-                        <Check size={14} className="text-emerald-500 mt-0.5 shrink-0" />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Détails pack sélectionné */}
@@ -682,64 +647,49 @@ export function IntegrationIAPageClient() {
                   <h3 className="text-xl font-bold text-[#0e1b3d] mb-1">{activePack.name}</h3>
                   <p className="text-slate-500 text-sm">{activePack.tagline}</p>
                 </div>
-                <LocalizedLink
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:opacity-90"
-                  style={{ background: '#111827', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}
-                >
-                  Choisir {activePack.name}
-                  <ArrowRight size={14} />
+                <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:opacity-90" style={{ background: '#111827', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>
+                  {c.detail.choose} {activePack.name}<ArrowRight size={14} />
                 </LocalizedLink>
               </div>
-
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div>
-                  <h4 className="font-semibold text-[#0e1b3d] mb-3 flex items-center gap-2">
-                    <Check size={16} className="text-emerald-500" /> Inclus
-                  </h4>
+                  <h4 className="font-semibold text-[#0e1b3d] mb-3 flex items-center gap-2"><Check size={16} className="text-emerald-500" /> {c.detail.included}</h4>
                   <ul className="space-y-2">
                     {activePack.included.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
-                        <Check size={13} className="text-emerald-500 mt-0.5 shrink-0" />
-                        {item}
+                        <Check size={13} className="text-emerald-500 mt-0.5 shrink-0" />{item}
                       </li>
                     ))}
                   </ul>
                 </div>
-
                 <div>
-                  <h4 className="font-semibold text-[#0e1b3d] mb-3 flex items-center gap-2">
-                    <XIcon size={16} className="text-rose-400" /> Non inclus
-                  </h4>
+                  <h4 className="font-semibold text-[#0e1b3d] mb-3 flex items-center gap-2"><XIcon size={16} className="text-rose-400" /> {c.detail.notIncluded}</h4>
                   <ul className="space-y-2">
                     {activePack.notIncluded.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-slate-500">
-                        <XIcon size={13} className="text-rose-400 mt-0.5 shrink-0" />
-                        {item}
+                        <XIcon size={13} className="text-rose-400 mt-0.5 shrink-0" />{item}
                       </li>
                     ))}
                   </ul>
                 </div>
-
                 <div>
-                  <h4 className="font-semibold text-[#0e1b3d] mb-3">Options disponibles</h4>
+                  <h4 className="font-semibold text-[#0e1b3d] mb-3">{c.detail.options}</h4>
                   <ul className="space-y-2 mb-6">
                     {activePack.options.map((opt, i) => (
                       <li key={i} className="flex items-start justify-between gap-2 text-sm">
                         <span className="text-slate-600">{opt.label}</span>
-                        <span className="text-white font-medium shrink-0">{opt.price}</span>
+                        <span className="text-[#0e1b3d] font-medium shrink-0">{opt.price}</span>
                       </li>
                     ))}
                   </ul>
                   <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
                     <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-                      Maintenance {activePack.monthly} €/mois
+                      {c.detail.maintenance} {PACK_MONTHLY[packIdx]} €/{lang === 'fr' ? 'mois' : lang === 'es' ? 'mes' : 'month'}
                     </div>
                     <ul className="space-y-1">
                       {activePack.maintenanceItems.map((item, i) => (
                         <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
-                          <CheckCircle size={11} className="text-emerald-500 shrink-0" />
-                          {item}
+                          <CheckCircle size={11} className="text-emerald-500 shrink-0" />{item}
                         </li>
                       ))}
                     </ul>
@@ -747,10 +697,7 @@ export function IntegrationIAPageClient() {
                 </div>
               </div>
             </div>
-
-            <p className="text-center text-sm text-slate-500 mt-6">
-              Paiement échelonné disponible · 40% à la commande, 30% à la validation, 30% à la livraison
-            </p>
+            <p className="text-center text-sm text-slate-500 mt-6">{c.detail.payment}</p>
           </div>
         </section>
 
@@ -758,21 +705,15 @@ export function IntegrationIAPageClient() {
         <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4">Ce que disent nos clients</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">{c.testimonials.h2}</h2>
             </div>
             <ResponsiveCards breakpoint="md" gridClass="grid-cols-3" gridGap="gap-6">
-              {TESTIMONIALS.map((t, i) => (
+              {c.testimonials.items.map((t, i) => (
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
-                  <div className="flex mb-3">
-                    {[...Array(5)].map((_, j) => (
-                      <Star key={j} size={14} className="text-amber-400 fill-amber-400" />
-                    ))}
-                  </div>
+                  <div className="flex mb-3">{[...Array(5)].map((_, j) => <Star key={j} size={14} className="text-amber-400 fill-amber-400" />)}</div>
                   <p className="text-slate-300 text-sm mb-4 italic">&ldquo;{t.quote}&rdquo;</p>
                   <div className="flex items-center gap-3">
-                    <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-xs font-bold`}>
-                      {t.initials}
-                    </div>
+                    <div className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-xs font-bold`}>{t.initials}</div>
                     <div>
                       <div className="text-sm font-semibold text-white">{t.name}</div>
                       <div className="text-xs text-slate-400">{t.role} · {t.company}</div>
@@ -788,53 +729,26 @@ export function IntegrationIAPageClient() {
         <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-[#0e1b3d] mb-4">Questions fréquentes</h2>
+              <h2 className="text-3xl font-bold text-[#0e1b3d] mb-4">{c.faq.h2}</h2>
             </div>
             <Accordion type="single" collapsible className="space-y-3">
-              {FAQ.map((item, i) => (
-                <AccordionItem
-                  key={i}
-                  value={`faq-${i}`}
-                  className="rounded-xl border border-slate-200 bg-white overflow-hidden"
-                >
-                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-[#0e1b3d] hover:no-underline">
-                    {item.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4 text-sm text-slate-600 leading-relaxed">
-                    {item.a}
-                  </AccordionContent>
+              {c.faq.items.map((item, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-[#0e1b3d] hover:no-underline">{item.q}</AccordionTrigger>
+                  <AccordionContent className="px-6 pb-4 text-sm text-slate-600 leading-relaxed">{item.a}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
-
-            {/* Lien vers articles liés */}
             <div className="mt-10 rounded-xl border border-slate-200 bg-white p-6">
-              <h3 className="font-semibold text-[#0e1b3d] mb-4">Pour aller plus loin</h3>
+              <h3 className="font-semibold text-[#0e1b3d] mb-4">{c.more.h3}</h3>
               <ul className="space-y-3">
-                <li>
-                  <LocalizedLink href="/blog/integrer-ia-site-web-2025" className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 hover:underline">
-                    <ArrowRight size={14} />
-                    Comment intégrer une IA dans votre site web
-                  </LocalizedLink>
-                </li>
-                <li>
-                  <LocalizedLink href="/blog/ia-agents-remplacent-equipes-2026" className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 hover:underline">
-                    <ArrowRight size={14} />
-                    IA agentique : ce que font déjà vos concurrents
-                  </LocalizedLink>
-                </li>
-                <li>
-                  <LocalizedLink href="/blog/site-vitrine-ia-machine-leads" className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 hover:underline">
-                    <ArrowRight size={14} />
-                    7 façons d'utiliser l'IA pour générer des leads
-                  </LocalizedLink>
-                </li>
-                <li>
-                  <LocalizedLink href="/blog/automatisation-ia-pme-prix-2026" className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 hover:underline">
-                    <ArrowRight size={14} />
-                    Automatisation IA pour PME : prix réels 2026
-                  </LocalizedLink>
-                </li>
+                {c.more.items.map((item, i) => (
+                  <li key={i}>
+                    <LocalizedLink href={item.href} className="flex items-center gap-2 text-sm text-slate-700 hover:text-[#0e1b3d] hover:underline">
+                      <ArrowRight size={14} />{item.label}
+                    </LocalizedLink>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -844,32 +758,18 @@ export function IntegrationIAPageClient() {
         <section className="py-24" style={{ background: '#070F26' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
-              <Sparkles size={14} />
-              Audit IA gratuit · Valorisé 490 € · Sans engagement
+              <Sparkles size={14} />{c.cta.badge}
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-              Prêt à intégrer l'IA dans votre activité ?
-            </h2>
-            <p className="text-slate-300 text-lg mb-10 max-w-2xl mx-auto">
-              30 minutes pour identifier vos 3 cas d'usage IA prioritaires et leur ROI estimé.
-              Gratuit, sans engagement, sans jargon technique.
-            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">{c.cta.h2}</h2>
+            <p className="text-slate-300 text-lg mb-10 max-w-2xl mx-auto">{c.cta.p}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <LocalizedLink
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-[#050510] transition-all duration-300"
-                style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}
-              >
-                <Brain size={18} />
-                Demander l'audit IA gratuit
-                <ArrowRight size={16} />
+              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold transition-all duration-300" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
+                <Brain size={18} className="text-[#050510]" />
+                <span className="text-[#050510]">{c.cta.ctaAudit}</span>
+                <ArrowRight size={16} className="text-[#050510]" />
               </LocalizedLink>
-              <LocalizedLink
-                href="/blog/integrer-ia-site-web-2025"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-slate-300 border border-slate-700 hover:border-slate-500 hover:text-white transition-all duration-300"
-              >
-                Lire notre guide IA
-                <ArrowRight size={16} />
+              <LocalizedLink href={c.cta.ctaBlogHref} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-slate-300 border border-slate-700 hover:border-slate-500 hover:text-white transition-all duration-300">
+                {c.cta.ctaBlog}<ArrowRight size={16} />
               </LocalizedLink>
             </div>
           </div>
