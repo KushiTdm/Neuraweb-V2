@@ -2,19 +2,36 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { sendContactEmail } from '@/lib/email-service';
+import { rateLimitRequest, isValidEmail, isHoneypotFilled } from '@/lib/rate-limit';
 
 const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!;
 
 export async function POST(request: NextRequest) {
   try {
+    const limit = rateLimitRequest(request, 'contact', { max: 5, windowMs: 60_000 });
+    if (!limit.allowed) {
+      return NextResponse.json(
+        { error: 'Trop de soumissions. Réessayez dans une minute.' },
+        { status: 429, headers: { 'Retry-After': String(limit.retryAfter ?? 60) } }
+      );
+    }
+
     const body = await request.json();
     const { name, email, subject, budget, message, language } = body;
+
+    // Honeypot : champ leurre rempli = bot → on acquitte sans rien traiter.
+    if (isHoneypotFilled(body)) {
+      return NextResponse.json({ success: true, emailSent: false });
+    }
 
     if (!name || !email || !message) {
       return NextResponse.json(
         { error: 'Champs obligatoires manquants : name, email, message' },
         { status: 400 }
       );
+    }
+    if (!isValidEmail(email)) {
+      return NextResponse.json({ error: 'Adresse email invalide' }, { status: 400 });
     }
 
     // Construire le message avec le budget si fourni

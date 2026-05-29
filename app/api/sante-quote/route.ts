@@ -2,6 +2,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { sendContactEmail } from '@/lib/email-service';
+import { rateLimitRequest, isValidEmail, isHoneypotFilled } from '@/lib/rate-limit';
 
 const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
 
@@ -22,14 +23,30 @@ const METIER_LABELS: Record<string, string> = {
 
 export async function POST(request: NextRequest) {
   try {
+    const limit = rateLimitRequest(request, 'sante-quote', { max: 5, windowMs: 60_000 });
+    if (!limit.allowed) {
+      return NextResponse.json(
+        { error: 'Trop de demandes. Réessayez dans une minute.' },
+        { status: 429, headers: { 'Retry-After': String(limit.retryAfter ?? 60) } }
+      );
+    }
+
     const body = await request.json();
     const { fullName, metier, ville, phone, email, pack, message } = body ?? {};
+
+    // Honeypot : champ leurre rempli = bot → on acquitte sans rien traiter.
+    if (isHoneypotFilled(body)) {
+      return NextResponse.json({ ok: true });
+    }
 
     if (!fullName || !email || !phone || !metier) {
       return NextResponse.json(
         { error: 'Champs requis manquants : fullName, email, phone, metier' },
         { status: 400 }
       );
+    }
+    if (!isValidEmail(email)) {
+      return NextResponse.json({ error: 'Adresse email invalide' }, { status: 400 });
     }
 
     const metierLabel = METIER_LABELS[metier] ?? metier;

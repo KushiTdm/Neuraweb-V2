@@ -2,6 +2,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { sendBookingConfirmationEmail, sendBookingNotificationEmail } from '@/lib/email-service';
+import { rateLimitRequest, isValidEmail, isHoneypotFilled } from '@/lib/rate-limit';
 
 const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!;
 
@@ -43,6 +44,14 @@ function normalizeSlots(slots: any[]): any[] {
 // ─────────────────────────────────────────────
 export async function GET(request: NextRequest) {
   try {
+    const limit = rateLimitRequest(request, 'booking-slots', { max: 60, windowMs: 60_000 });
+    if (!limit.allowed) {
+      return NextResponse.json(
+        { slots: [], error: 'Trop de requêtes.' },
+        { status: 429, headers: { 'Retry-After': String(limit.retryAfter ?? 60) } }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const date = searchParams.get('date') || '';
 
@@ -84,17 +93,33 @@ export async function GET(request: NextRequest) {
 // ─────────────────────────────────────────────
 export async function POST(request: NextRequest) {
   try {
+    const limit = rateLimitRequest(request, 'booking', { max: 5, windowMs: 60_000 });
+    if (!limit.allowed) {
+      return NextResponse.json(
+        { error: 'Trop de réservations. Réessayez dans une minute.' },
+        { status: 429, headers: { 'Retry-After': String(limit.retryAfter ?? 60) } }
+      );
+    }
+
     const body = await request.json();
 
     // Support { action: 'bookSlot', data: { … } } ou payload plat
     const fields = body.data ?? body;
     const { name, email, phone, service, date, time, message, language } = fields;
 
+    // Honeypot : champ leurre rempli = bot → on acquitte sans rien traiter.
+    if (isHoneypotFilled(body) || isHoneypotFilled(fields)) {
+      return NextResponse.json({ success: true, emailSent: false });
+    }
+
     if (!name || !email || !date || !time) {
       return NextResponse.json(
         { error: 'Champs obligatoires manquants : name, email, date, time' },
         { status: 400 }
       );
+    }
+    if (!isValidEmail(email)) {
+      return NextResponse.json({ error: 'Adresse email invalide' }, { status: 400 });
     }
 
     // S'assurer que l'heure envoyée à Google est bien "HH:MM"

@@ -3,6 +3,14 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { sendHotelTokenEmail, sendHotelFormConfirmationEmail, sendHotelFormAdminNotification } from '@/lib/email-service';
+import { rateLimitRequest, isValidEmail, isHoneypotFilled } from '@/lib/rate-limit';
+
+function tooMany(retryAfter?: number) {
+  return NextResponse.json(
+    { error: 'Trop de requêtes. Réessayez dans un instant.' },
+    { status: 429, headers: { 'Retry-After': String(retryAfter ?? 60) } }
+  );
+}
 
 const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!;
 
@@ -18,6 +26,9 @@ function generateToken(): string {
 
 // GET - Vérifier la validité d'un token
 export async function GET(request: NextRequest) {
+  const limit = rateLimitRequest(request, 'hotel-form-verify', { max: 30, windowMs: 60_000 });
+  if (!limit.allowed) return tooMany(limit.retryAfter);
+
   const { searchParams } = new URL(request.url);
   const token = searchParams.get('token');
 
@@ -52,8 +63,16 @@ export async function GET(request: NextRequest) {
 // POST - Créer un nouveau token ou soumettre le formulaire
 export async function POST(request: NextRequest) {
   try {
+    const limit = rateLimitRequest(request, 'hotel-form', { max: 10, windowMs: 60_000 });
+    if (!limit.allowed) return tooMany(limit.retryAfter);
+
     const body = await request.json();
     const { action } = body;
+
+    // Honeypot : champ leurre rempli = bot → on acquitte sans rien traiter.
+    if (isHoneypotFilled(body)) {
+      return NextResponse.json({ success: true });
+    }
 
     if (action === 'createToken') {
       // Créer un nouveau token pour un établissement
@@ -64,6 +83,9 @@ export async function POST(request: NextRequest) {
           { error: 'Nom de l\'hôtel et email sont requis' },
           { status: 400 }
         );
+      }
+      if (!isValidEmail(email)) {
+        return NextResponse.json({ error: 'Adresse email invalide' }, { status: 400 });
       }
 
       const token = generateToken();

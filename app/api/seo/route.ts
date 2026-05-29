@@ -1,6 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateAISEO } from '@/lib/seo-ai-server';
 import { PageSEOContext } from '@/lib/seo-service';
+import { rateLimitRequest } from '@/lib/rate-limit';
+
+// Route non authentifiée déclenchant un appel IA payant (Z.AI) → limite stricte par IP.
+const SEO_RATE_LIMIT = { max: 10, windowMs: 60_000 };
+
+function tooManyRequests(retryAfter?: number) {
+  return NextResponse.json(
+    { error: 'Trop de requêtes. Réessayez dans un instant.' },
+    { status: 429, headers: { 'Retry-After': String(retryAfter ?? 60) } }
+  );
+}
 
 // ============================================================
 // API /api/seo — Usage : preview SEO, outils internes
@@ -14,6 +25,9 @@ const VALID_LANGUAGES = ['fr', 'en', 'es'];
 // POST — Génère un aperçu SEO (usage : dashboard interne, tests)
 export async function POST(request: NextRequest) {
   try {
+    const limit = rateLimitRequest(request, 'seo', SEO_RATE_LIMIT);
+    if (!limit.allowed) return tooManyRequests(limit.retryAfter);
+
     const body = await request.json();
     const { pageType, language = 'fr', customKeywords = [], customContext, path = '/' } = body;
 
@@ -36,6 +50,9 @@ export async function POST(request: NextRequest) {
 // GET — Récupère les meta tags d'une page (usage : debug, monitoring)
 export async function GET(request: NextRequest) {
   try {
+    const limit = rateLimitRequest(request, 'seo', SEO_RATE_LIMIT);
+    if (!limit.allowed) return tooManyRequests(limit.retryAfter);
+
     const { searchParams } = new URL(request.url);
     const pageType = searchParams.get('pageType') || 'home';
     const language = searchParams.get('language') || 'fr';
