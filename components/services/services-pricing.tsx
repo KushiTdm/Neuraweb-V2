@@ -35,15 +35,15 @@ const ICON_MAP: Record<string, React.ElementType> = {
 const CROSS_LINKS = {
   starter: {
     fr: [
-      { label: 'Next.js vs WordPress : quel choix pour votre site ?', href: '/blog/nextjs-vs-wordpress-2025', type: 'article' as const },
+      { label: 'WordPress vs Next.js : quel choix en 2026 ?', href: '/blog/nextjs-vs-wordpress-2026', type: 'article' as const },
       { label: 'Ajouter un chatbot IA à votre vitrine', href: '/integration-ia', type: 'service' as const },
     ],
     en: [
-      { label: 'Next.js vs WordPress: which one for your site?', href: '/blog/nextjs-vs-wordpress-2025', type: 'article' as const },
+      { label: 'WordPress vs Next.js: which choice in 2026?', href: '/blog/nextjs-vs-wordpress-2026', type: 'article' as const },
       { label: 'Add an AI chatbot to your showcase site', href: '/integration-ia', type: 'service' as const },
     ],
     es: [
-      { label: 'Next.js vs WordPress: ¿cuál elegir para tu web?', href: '/blog/nextjs-vs-wordpress-2025', type: 'article' as const },
+      { label: 'WordPress vs Next.js: ¿qué elegir en 2026?', href: '/blog/nextjs-vs-wordpress-2026', type: 'article' as const },
       { label: 'Añade un chatbot IA a tu sitio vitrina', href: '/integration-ia', type: 'service' as const },
     ],
   },

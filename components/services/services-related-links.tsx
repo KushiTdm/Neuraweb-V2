@@ -13,8 +13,8 @@ const CONTENT = {
     subtitle: 'Articles et services complémentaires à votre projet web.',
     articles: [
       {
-        label: 'Next.js vs WordPress : quel choix en 2025 ?',
-        href: '/blog/nextjs-vs-wordpress-2025',
+        label: 'WordPress vs Next.js : quel choix en 2026 ?',
+        href: '/blog/nextjs-vs-wordpress-2026',
         desc: 'Comparatif technique et business pour choisir la bonne stack.',
       },
       {
@@ -43,8 +43,8 @@ const CONTENT = {
     subtitle: 'Articles and services that complement your web project.',
     articles: [
       {
-        label: 'Next.js vs WordPress: which choice in 2025?',
-        href: '/blog/nextjs-vs-wordpress-2025',
+        label: 'WordPress vs Next.js: which choice in 2026?',
+        href: '/blog/nextjs-vs-wordpress-2026',
         desc: 'Technical and business comparison to choose the right stack.',
       },
       {
@@ -73,8 +73,8 @@ const CONTENT = {
     subtitle: 'Artículos y servicios complementarios a tu proyecto web.',
     articles: [
       {
-        label: 'Next.js vs WordPress: ¿qué elegir en 2025?',
-        href: '/blog/nextjs-vs-wordpress-2025',
+        label: 'WordPress vs Next.js: ¿qué elegir en 2026?',
+        href: '/blog/nextjs-vs-wordpress-2026',
         desc: 'Comparativa técnica y de negocio para elegir el stack correcto.',
       },
       {
