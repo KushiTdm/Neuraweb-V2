@@ -156,7 +156,7 @@ const serviceSchema = {
       {
         '@type': 'Offer',
         name: 'Pack Premium IA',
-        price: '7999',
+        price: '9999',
         priceCurrency: 'EUR',
         description: 'Multi-agent system, large-scale RAG, sovereign French hosting.',
       },
@@ -189,7 +189,7 @@ const faqSchema = {
       name: "Quel budget prévoir pour un projet IA ?",
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Un chatbot FAQ simple : 1 499 € HT + 39 €/mois. Un agent IA commercial avec CRM : 3 999 € HT + 89 €/mois. Un système multi-agents souverain : à partir de 7 999 € HT. L'audit gratuit donne une estimation précise.",
+        text: "Un chatbot FAQ simple : 1 499 € HT + 39 €/mois. Un agent IA commercial avec CRM : 3 999 € HT + 89 €/mois. Un système multi-agents souverain : à partir de 9 999 € HT. L'audit gratuit donne une estimation précise.",
       },
     },
   ],

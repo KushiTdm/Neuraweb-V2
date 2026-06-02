@@ -94,6 +94,15 @@ const PRICING_TRANSLATIONS = {
     crossLinkService: 'Service',
     otherServicesTitle: 'Nos autres services',
     otherServicesDesc: 'IA et automatisation pour aller encore plus loin.',
+    useCases: {
+      h2: "Cas d'usage par profil",
+      subtitle: 'Des scénarios concrets, avec le pack adapté et le résultat mesurable que vous pouvez en attendre.',
+      items: [
+        { sector: 'Artisan / Indépendant local', context: 'Aucune présence en ligne, devis demandés par téléphone, invisible sur Google.', solution: 'Vitrine 8 pages responsive + SEO technique + fiche Google Business + formulaire de contact.', result: 'Visible sur Google Maps · +15 à 20 contacts qualifiés/mois · ROI souvent < 2 mois', pack: 'Pack Starter' },
+        { sector: 'PME / Commerce local', context: 'Vieux site non responsive, 40% d\'abandons sur mobile, aucun contenu pour le référencement.', solution: 'Refonte design Figma sur-mesure + blog CMS + espace client + analytics avancés + SEO on-page.', result: '+35% de trafic organique · −8h/semaine de support · image professionnelle restaurée', pack: 'Pack Business' },
+        { sector: 'Startup / Scale-up', context: 'Site vitrine limité, besoin d\'e-commerce, d\'intégrations et de performance pour scaler.', solution: 'Pages illimitées + e-commerce + intégrations API + A/B testing + Core Web Vitals 90+.', result: '+25% de conversion (A/B testing) · site rapide qui soutient la croissance et le SEO', pack: 'Pack Premium' },
+      ],
+    },
     packs: {
       starter: {
         title: 'Pack Starter',
@@ -163,6 +172,15 @@ const PRICING_TRANSLATIONS = {
     crossLinkService: 'Service',
     otherServicesTitle: 'Our other services',
     otherServicesDesc: 'AI and automation to go even further.',
+    useCases: {
+      h2: 'Use cases by profile',
+      subtitle: 'Concrete scenarios, with the right pack and the measurable result you can expect.',
+      items: [
+        { sector: 'Local tradesperson / Freelancer', context: 'No online presence, quotes requested by phone, invisible on Google.', solution: '8-page responsive showcase site + technical SEO + Google Business profile + contact form.', result: 'Visible on Google Maps · +15 to 20 qualified contacts/month · ROI often < 2 months', pack: 'Starter Pack' },
+        { sector: 'SMB / Local business', context: 'Old non-responsive site, 40% mobile drop-off, no content for search ranking.', solution: 'Custom Figma redesign + CMS blog + client area + advanced analytics + on-page SEO.', result: '+35% organic traffic · −8h/week of support · professional image restored', pack: 'Business Pack' },
+        { sector: 'Startup / Scale-up', context: 'Limited showcase site, needs e-commerce, integrations and performance to scale.', solution: 'Unlimited pages + e-commerce + API integrations + A/B testing + Core Web Vitals 90+.', result: '+25% conversion (A/B testing) · fast site that supports growth and SEO', pack: 'Premium Pack' },
+      ],
+    },
     packs: {
       starter: {
         title: 'Starter Pack',
@@ -232,6 +250,15 @@ const PRICING_TRANSLATIONS = {
     crossLinkService: 'Servicio',
     otherServicesTitle: 'Nuestros otros servicios',
     otherServicesDesc: 'IA y automatización para ir aún más lejos.',
+    useCases: {
+      h2: 'Casos de uso por perfil',
+      subtitle: 'Escenarios concretos, con el pack adecuado y el resultado medible que puedes esperar.',
+      items: [
+        { sector: 'Autónomo / Profesional local', context: 'Sin presencia online, presupuestos pedidos por teléfono, invisible en Google.', solution: 'Web vitrina de 8 páginas responsive + SEO técnico + ficha Google Business + formulario de contacto.', result: 'Visible en Google Maps · +15 a 20 contactos cualificados/mes · ROI a menudo < 2 meses', pack: 'Pack Starter' },
+        { sector: 'Pyme / Comercio local', context: 'Web antigua no responsive, 40% de abandonos en móvil, sin contenido para posicionar.', solution: 'Rediseño Figma a medida + blog CMS + área de cliente + analytics avanzados + SEO on-page.', result: '+35% de tráfico orgánico · −8h/semana de soporte · imagen profesional recuperada', pack: 'Pack Business' },
+        { sector: 'Startup / Scale-up', context: 'Web vitrina limitada, necesita e-commerce, integraciones y rendimiento para escalar.', solution: 'Páginas ilimitadas + e-commerce + integraciones API + A/B testing + Core Web Vitals 90+.', result: '+25% de conversión (A/B testing) · web rápida que impulsa el crecimiento y el SEO', pack: 'Pack Premium' },
+      ],
+    },
     packs: {
       starter: {
         title: 'Pack Starter',
@@ -408,7 +435,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                     <h3 className="text-xl font-bold text-white mb-2">{packData?.title}</h3>
                     <p className="text-white/60 text-sm mb-4">{packData?.subtitle}</p>
                     <div className="flex items-baseline gap-2 mb-6">
-                      <span className="text-3xl font-bold text-white">{packData?.price}</span>
+                      <span className="text-2xl sm:text-3xl font-bold text-white whitespace-nowrap leading-none">{packData?.price}</span>
                     </div>
                     <ul className="space-y-3 mb-6">
                       {packData?.features?.map((feature, i) => (
@@ -451,15 +478,15 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
           </div>
         )}
         <div className={`absolute inset-0 bg-gradient-to-br ${pack.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-        <div className="relative p-6">
+        <div className="relative p-5 sm:p-6">
           <div className="w-12 h-12 mb-5 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center">
             <PackIcon className="w-6 h-6 text-white" />
           </div>
           <h3 className="text-xl font-bold text-white mb-2">{packData?.title}</h3>
           <p className="text-white/60 text-sm mb-4">{packData?.subtitle}</p>
-          <div className="flex items-baseline gap-2 mb-6">
-            <span className="text-3xl font-bold text-white">{packData?.price}</span>
-            <span className="text-white/50 text-sm">{t.vat}</span>
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-6">
+            <span className="text-2xl sm:text-3xl font-bold text-white whitespace-nowrap leading-none">{packData?.price}</span>
+            <span className="text-white/50 text-xs whitespace-nowrap">{t.vat}</span>
           </div>
           <ul className="space-y-3 mb-6">
             {packData?.features?.slice(0, 4).map((feature, i) => {
@@ -477,13 +504,13 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
               </li>
             )}
           </ul>
-          <div className="flex items-center justify-between text-sm text-white/50 mb-4">
-            <span>{t.deadline}:</span>
-            <span className="text-white/80">{packData?.delay}</span>
+          <div className="flex items-center justify-between gap-2 text-sm text-white/50 mb-4">
+            <span className="whitespace-nowrap">{t.deadline}:</span>
+            <span className="text-white/80 text-right">{packData?.delay}</span>
           </div>
           <button
             onClick={(e) => { e.stopPropagation(); handleChoosePack(pack.id); }}
-            className={`w-full py-3 px-4 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:scale-[1.02] ${pack.popular ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-white/10 border border-white/30 text-white hover:bg-white/20'}`}
+            className={`w-full py-2.5 sm:py-3 px-4 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 hover:shadow-lg hover:scale-[1.02] ${pack.popular ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-white/10 border border-white/30 text-white hover:bg-white/20'}`}
           >
             {t.choosePack}
           </button>
@@ -513,6 +540,30 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
             {cardElements}
           </CardsCarousel>
         </div>
+
+        {/* Cas d'usage */}
+        <div className="mt-20 md:mt-28">
+          <div className="text-center mb-10 md:mb-12">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">{t.useCases.h2}</h3>
+            <p className="text-white/60 max-w-2xl mx-auto">{t.useCases.subtitle}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {t.useCases.items.map((uc) => (
+              <article key={uc.sector} className="rounded-2xl border border-white/10 bg-white/5 p-6 h-full flex flex-col">
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <h4 className="text-base font-bold text-white">{uc.sector}</h4>
+                  <span className="text-xs bg-white/10 text-white px-2.5 py-1 rounded-full font-medium whitespace-nowrap">{uc.pack}</span>
+                </div>
+                <p className="text-sm text-white/50 mb-3 leading-relaxed">{uc.context}</p>
+                <p className="text-sm text-white/80 mb-4 leading-relaxed">{uc.solution}</p>
+                <div className="mt-auto flex items-start gap-2 rounded-xl bg-emerald-400/10 border border-emerald-400/20 p-3">
+                  <TrendingUp className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                  <span className="text-sm font-semibold text-emerald-300">{uc.result}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Modal détail pack */}
@@ -536,9 +587,9 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
               <h3 className="text-2xl font-bold text-white mb-2">{currentPack.title}</h3>
               <p className="text-white/60 mb-6">{currentPack.description}</p>
 
-              <div className="flex items-baseline gap-2 mb-6">
-                <span className="text-4xl font-bold text-white">{currentPack.price}</span>
-                <span className="text-white/40 text-sm">{t.vat}</span>
+              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-6">
+                <span className="text-3xl sm:text-4xl font-bold text-white whitespace-nowrap leading-none">{currentPack.price}</span>
+                <span className="text-white/40 text-xs whitespace-nowrap">{t.vat}</span>
               </div>
 
               <ul className="space-y-4 mb-6">
@@ -564,7 +615,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
 
               <button
                 onClick={() => handleChoosePack(modalPack)}
-                className={`w-full py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02] mb-6 ${packs.find(p => p.id === modalPack)?.popular ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-white/10 border border-white/30 text-white hover:bg-white/20'}`}
+                className={`w-full py-3.5 sm:py-4 px-6 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02] mb-6 ${packs.find(p => p.id === modalPack)?.popular ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-white/10 border border-white/30 text-white hover:bg-white/20'}`}
               >
                 {t.choosePack}
               </button>

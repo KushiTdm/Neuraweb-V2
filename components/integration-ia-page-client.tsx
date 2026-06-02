@@ -50,7 +50,7 @@ const CONTENT: Record<Lang, {
   problems: { h2: string; subtitle: string; items: { title: string; text: string }[] };
   services: { h2: string; subtitle: string; items: { title: string; desc: string; details: string[]; badge: string }[] };
   models: { label: string; note: string };
-  useCases: { h2: string; subtitle: string; items: { sector: string; useCase: string; pack: string }[] };
+  useCases: { h2: string; subtitle: string; items: { sector: string; context: string; solution: string; result: string; pack: string }[] };
   packs: {
     h2: string; subtitle: string; popular: string; ht: string; monthly: string; delivery: string;
     items: { name: string; tagline: string; bullets: string[]; included: string[]; notIncluded: string[]; options: { label: string; price: string }[]; maintenanceItems: string[] }[];
@@ -103,15 +103,15 @@ const CONTENT: Record<Lang, {
       note: "Nous choisissons toujours le modèle le plus adapté à votre cas d'usage — pas le plus cher.",
     },
     useCases: {
-      h2: 'Exemples par secteur',
-      subtitle: "Voici comment nous intégrons l'IA dans différents secteurs.",
+      h2: "Cas d'usage par secteur",
+      subtitle: "Des scénarios concrets, avec le pack adapté et le résultat mesurable que vous pouvez en attendre.",
       items: [
-        { sector: 'Cabinet médical / Paramédical', useCase: 'Chatbot FAQ + prise de rendez-vous + conformité HDS', pack: 'Essentiel IA' },
-        { sector: 'Agence immobilière', useCase: 'Qualification des acheteurs/vendeurs + scoring + transfert CRM', pack: 'Business IA' },
-        { sector: 'E-commerce', useCase: 'SAV automatisé 24/7 + recommandations produits + suivi commande', pack: 'Business IA' },
-        { sector: 'SaaS / B2B tech', useCase: 'Onboarding IA + support tier 1 + génération de contenu', pack: 'Premium IA' },
-        { sector: "Cabinet d'avocats", useCase: 'Qualification des demandes + assistant juridique RAG interne', pack: 'Business IA' },
-        { sector: 'Restaurant / Hôtellerie', useCase: 'Chatbot réservation + FAQ + synchronisation PMS', pack: 'Essentiel IA' },
+        { sector: 'Commerce / Boutique locale', context: '40% des questions sont répétitives (horaires, stock, localisation) et mobilisent le personnel en boutique.', solution: 'Chatbot RAG connecté au site + FAQ + catalogue, 5 intentions, réponses 24/7 dans votre charte.', result: '−7h/semaine de questions répétitives · +6 pts de conversion grâce à la réponse immédiate', pack: 'Essentiel IA' },
+        { sector: 'Agence immobilière', context: 'Leads SeLoger/Figaro traités à la main, réponse > 24h, CRM mis à jour à 70%.', solution: 'Agent IA de qualification BANT + indexation des biens + prise de RDV Calendly + handoff CRM/Slack.', result: 'Qualification 20 min → 2 min · réponse < 1h passée de 35% à 85% · RDV pris +87%', pack: 'Business IA' },
+        { sector: 'E-commerce', context: 'SAV débordé, mêmes questions sur les commandes, abandons faute de réponse rapide.', solution: 'Assistant RAG sur tout le catalogue + suivi de commande + recommandations produits, 3 langues.', result: 'Jusqu\'à 68% des demandes traitées sans agent · SAV recentré sur les cas complexes', pack: 'Business IA' },
+        { sector: 'Cabinet médical / Réseau de santé', context: 'Documentation interne volumineuse, données sensibles, conformité RGPD/HDS exigeante.', solution: 'Architecture multi-agents (RDV, support, contenu) + RAG sur 500+ documents + hébergement souverain OVH + DPA.', result: 'Recherche documentaire instantanée · 100% conforme RGPD santé · support patient 24/7', pack: 'Premium IA' },
+        { sector: 'SaaS / B2B tech', context: 'Onboarding chronophage, support de niveau 1 saturé, blog SEO à l\'arrêt.', solution: 'Assistant onboarding IA + support tier 1 RAG sur la doc + agent de génération de contenu SEO.', result: 'Time-to-value réduit · tickets niveau 1 absorbés · production de contenu SEO continue', pack: 'Premium IA' },
+        { sector: 'Restaurant / Hôtellerie', context: 'Réservations par téléphone hors service, questions FAQ en boucle, PMS non connecté.', solution: 'Chatbot réservation + FAQ + synchronisation PMS, multilingue pour la clientèle internationale.', result: 'Réservations captées 24/7 · standard téléphonique allégé · clientèle étrangère mieux servie', pack: 'Essentiel IA' },
       ],
     },
     packs: {
@@ -165,7 +165,7 @@ const CONTENT: Record<Lang, {
         { q: 'Le chatbot IA peut-il parler plusieurs langues ?', a: "Oui. Les LLM modernes (Claude, GPT, Mistral) sont nativement multilingues. Nous configurons la détection automatique de la langue et les réponses dans la langue de l'utilisateur. Le Pack Essentiel inclut 1 langue, le Business inclut 3 langues, le Premium en langues illimitées." },
         { q: "Comment l'agent IA est-il maintenu et amélioré dans le temps ?", a: "L'agent IA s'améliore avec l'usage. Chaque mois, nous analysons les conversations (questions sans réponse, taux de satisfaction, handoffs non nécessaires) et optimisons les prompts, ajoutons des sources et affinons le scoring. En Pack Business, 1h d'optimisation est incluse chaque mois." },
         { q: "Peut-on intégrer l'IA dans mon site existant sans le refaire ?", a: "Oui. Nous intégrons l'assistant IA dans votre site existant via un widget (quelques lignes de JavaScript) ou une API. Pas besoin de refaire votre site — l'IA s'adapte à votre charte graphique et votre identité." },
-        { q: 'Quel budget prévoir pour un projet IA de A à Z ?', a: "Un chatbot FAQ simple : 1 499 € HT + 39 €/mois. Un agent IA commercial complet avec CRM : 3 999 € HT + 89 €/mois. Un système multi-agents avec hébergement souverain : à partir de 7 999 € HT. Notre audit gratuit vous donne une estimation précise." },
+        { q: 'Quel budget prévoir pour un projet IA de A à Z ?', a: "Un chatbot FAQ simple : 1 499 € HT + 39 €/mois. Un agent IA commercial complet avec CRM : 3 999 € HT + 89 €/mois. Un système multi-agents avec hébergement souverain : à partir de 9 999 € HT (contre 12 000 à 20 000 € pour un développement sur mesure équivalent en France). Notre audit gratuit vous donne une estimation précise." },
       ],
     },
     more: {
@@ -223,15 +223,15 @@ const CONTENT: Record<Lang, {
       note: "We always choose the model best suited to your use case — not the most expensive one.",
     },
     useCases: {
-      h2: 'Examples by industry',
-      subtitle: "Here's how we integrate AI across different sectors.",
+      h2: 'Use cases by industry',
+      subtitle: 'Concrete scenarios, with the right pack and the measurable result you can expect.',
       items: [
-        { sector: 'Medical practice / Healthcare', useCase: 'FAQ chatbot + appointment booking + HDS compliance', pack: 'Essential AI' },
-        { sector: 'Real estate agency', useCase: 'Buyer/seller qualification + scoring + CRM transfer', pack: 'Business AI' },
-        { sector: 'E-commerce', useCase: 'Automated 24/7 customer service + product recommendations + order tracking', pack: 'Business AI' },
-        { sector: 'SaaS / B2B tech', useCase: 'AI onboarding + tier 1 support + content generation', pack: 'Premium AI' },
-        { sector: 'Law firm', useCase: 'Intake qualification + internal RAG legal assistant', pack: 'Business AI' },
-        { sector: 'Restaurant / Hospitality', useCase: 'Booking chatbot + FAQ + PMS synchronisation', pack: 'Essential AI' },
+        { sector: 'Local shop / Retail', context: '40% of questions are repetitive (hours, stock, location) and tie up in-store staff.', solution: 'RAG chatbot connected to your site + FAQ + catalog, 5 intents, 24/7 answers in your brand style.', result: '−7h/week of repetitive questions · +6 pts conversion thanks to instant answers', pack: 'Essential AI' },
+        { sector: 'Real estate agency', context: 'Portal leads handled by hand, replies > 24h, CRM only 70% up to date.', solution: 'BANT qualification AI agent + listing indexing + Calendly booking + CRM/Slack handoff.', result: 'Qualification 20 min → 2 min · sub-1h reply rate from 35% to 85% · bookings +87%', pack: 'Business AI' },
+        { sector: 'E-commerce', context: 'Overwhelmed support, the same order questions, drop-offs for lack of a fast answer.', solution: 'RAG assistant over the full catalog + order tracking + product recommendations, 3 languages.', result: 'Up to 68% of requests handled without an agent · support refocused on complex cases', pack: 'Business AI' },
+        { sector: 'Medical practice / Healthcare network', context: 'Large internal documentation, sensitive data, demanding GDPR/HDS compliance.', solution: 'Multi-agent architecture (booking, support, content) + RAG over 500+ documents + sovereign OVH hosting + DPA.', result: 'Instant document search · 100% health-GDPR compliant · 24/7 patient support', pack: 'Premium AI' },
+        { sector: 'SaaS / B2B tech', context: 'Time-consuming onboarding, saturated tier-1 support, SEO blog at a standstill.', solution: 'AI onboarding assistant + tier-1 RAG support over the docs + SEO content generation agent.', result: 'Reduced time-to-value · tier-1 tickets absorbed · continuous SEO content output', pack: 'Premium AI' },
+        { sector: 'Restaurant / Hospitality', context: 'After-hours phone bookings, looping FAQ questions, PMS not connected.', solution: 'Booking chatbot + FAQ + PMS synchronisation, multilingual for international guests.', result: 'Bookings captured 24/7 · lighter phone load · international guests better served', pack: 'Essential AI' },
       ],
     },
     packs: {
@@ -285,7 +285,7 @@ const CONTENT: Record<Lang, {
         { q: 'Can the AI chatbot speak multiple languages?', a: "Yes. Modern LLMs (Claude, GPT, Mistral) are natively multilingual. We configure automatic language detection and responses in the user's language. The Essential pack includes 1 language, Business includes 3 languages, Premium has unlimited languages." },
         { q: 'How is the AI agent maintained and improved over time?', a: "The AI agent improves with use. Every month we analyse conversations (unanswered questions, satisfaction rate, unnecessary handoffs) and optimise prompts, add sources and refine scoring. In the Business pack, 1h of optimisation is included each month." },
         { q: 'Can you integrate AI into my existing website without rebuilding it?', a: "Yes. We integrate the AI assistant into your existing website via a widget (a few lines of JavaScript) or an API. No need to rebuild your site — the AI adapts to your brand guidelines and identity." },
-        { q: 'What budget should I plan for an end-to-end AI project?', a: "A simple FAQ chatbot: €1,499 excl. VAT + €39/month. A complete AI sales agent with CRM: €3,999 excl. VAT + €89/month. A multi-agent system with sovereign hosting: from €7,999 excl. VAT. Our free audit gives you a precise estimate." },
+        { q: 'What budget should I plan for an end-to-end AI project?', a: "A simple FAQ chatbot: €1,499 excl. VAT + €39/month. A complete AI sales agent with CRM: €3,999 excl. VAT + €89/month. A multi-agent system with sovereign hosting: from €9,999 excl. VAT (vs €12,000 to €20,000 for an equivalent custom build in France). Our free audit gives you a precise estimate." },
       ],
     },
     more: {
@@ -343,15 +343,15 @@ const CONTENT: Record<Lang, {
       note: "Siempre elegimos el modelo más adecuado para tu caso de uso — no el más caro.",
     },
     useCases: {
-      h2: 'Ejemplos por sector',
-      subtitle: "Así es como integramos IA en diferentes sectores.",
+      h2: 'Casos de uso por sector',
+      subtitle: 'Escenarios concretos, con el pack adecuado y el resultado medible que puedes esperar.',
       items: [
-        { sector: 'Consulta médica / Paramédica', useCase: 'Chatbot FAQ + citas + conformidad HDS', pack: 'Esencial IA' },
-        { sector: 'Agencia inmobiliaria', useCase: 'Cualificación compradores/vendedores + scoring + CRM', pack: 'Business IA' },
-        { sector: 'E-commerce', useCase: 'Atención al cliente automatizada 24/7 + recomendaciones + seguimiento de pedidos', pack: 'Business IA' },
-        { sector: 'SaaS / B2B tech', useCase: 'Onboarding IA + soporte tier 1 + generación de contenido', pack: 'Premium IA' },
-        { sector: 'Despacho de abogados', useCase: 'Cualificación de consultas + asistente jurídico RAG interno', pack: 'Business IA' },
-        { sector: 'Restaurante / Hostelería', useCase: 'Chatbot de reservas + FAQ + sincronización PMS', pack: 'Esencial IA' },
+        { sector: 'Comercio / Tienda local', context: 'El 40% de las preguntas son repetitivas (horarios, stock, ubicación) y ocupan al personal de tienda.', solution: 'Chatbot RAG conectado a tu web + FAQ + catálogo, 5 intenciones, respuestas 24/7 con tu identidad.', result: '−7h/semana de preguntas repetitivas · +6 pts de conversión por la respuesta inmediata', pack: 'Esencial IA' },
+        { sector: 'Agencia inmobiliaria', context: 'Leads de portales tratados a mano, respuesta > 24h, CRM actualizado al 70%.', solution: 'Agente IA de cualificación BANT + indexación de inmuebles + cita Calendly + handoff CRM/Slack.', result: 'Cualificación 20 min → 2 min · respuesta < 1h del 35% al 85% · citas +87%', pack: 'Business IA' },
+        { sector: 'E-commerce', context: 'Atención desbordada, las mismas preguntas sobre pedidos, abandonos por falta de respuesta rápida.', solution: 'Asistente RAG sobre todo el catálogo + seguimiento de pedidos + recomendaciones, 3 idiomas.', result: 'Hasta el 68% de las consultas resueltas sin agente · atención centrada en casos complejos', pack: 'Business IA' },
+        { sector: 'Consulta médica / Red de salud', context: 'Documentación interna voluminosa, datos sensibles, conformidad RGPD/HDS exigente.', solution: 'Arquitectura multi-agente (citas, soporte, contenido) + RAG sobre 500+ documentos + alojamiento soberano OVH + DPA.', result: 'Búsqueda documental instantánea · 100% conforme RGPD salud · soporte al paciente 24/7', pack: 'Premium IA' },
+        { sector: 'SaaS / B2B tech', context: 'Onboarding lento, soporte de nivel 1 saturado, blog SEO parado.', solution: 'Asistente de onboarding IA + soporte tier 1 RAG sobre la documentación + agente de generación de contenido SEO.', result: 'Menor time-to-value · tickets de nivel 1 absorbidos · producción de contenido SEO continua', pack: 'Premium IA' },
+        { sector: 'Restaurante / Hostelería', context: 'Reservas por teléfono fuera de horario, preguntas FAQ en bucle, PMS no conectado.', solution: 'Chatbot de reservas + FAQ + sincronización PMS, multilingüe para la clientela internacional.', result: 'Reservas captadas 24/7 · centralita aliviada · clientela extranjera mejor atendida', pack: 'Esencial IA' },
       ],
     },
     packs: {
@@ -405,7 +405,7 @@ const CONTENT: Record<Lang, {
         { q: '¿El chatbot IA puede hablar varios idiomas?', a: "Sí. Los LLMs modernos (Claude, GPT, Mistral) son multilingües de forma nativa. Configuramos la detección automática del idioma y las respuestas en el idioma del usuario. El Pack Esencial incluye 1 idioma, Business incluye 3 idiomas, Premium idiomas ilimitados." },
         { q: '¿Cómo se mantiene y mejora el agente IA con el tiempo?', a: "El agente IA mejora con el uso. Cada mes analizamos las conversaciones (preguntas sin respuesta, tasa de satisfacción, handoffs innecesarios) y optimizamos los prompts, añadimos fuentes y refinamos el scoring. En el Pack Business, 1h de optimización está incluida cada mes." },
         { q: '¿Podéis integrar la IA en mi sitio existente sin rehacerlo?', a: "Sí. Integramos el asistente IA en tu sitio existente mediante un widget (unas pocas líneas de JavaScript) o una API. No es necesario rehacer tu sitio — la IA se adapta a tu imagen de marca e identidad." },
-        { q: '¿Qué presupuesto prever para un proyecto IA de principio a fin?', a: "Un chatbot FAQ simple: 1.499 € s/IVA + 39 €/mes. Un agente IA comercial completo con CRM: 3.999 € s/IVA + 89 €/mes. Un sistema multi-agente con alojamiento soberano: desde 7.999 € s/IVA. Nuestra auditoría gratuita te da una estimación precisa." },
+        { q: '¿Qué presupuesto prever para un proyecto IA de principio a fin?', a: "Un chatbot FAQ simple: 1.499 € s/IVA + 39 €/mes. Un agente IA comercial completo con CRM: 3.999 € s/IVA + 89 €/mes. Un sistema multi-agente con alojamiento soberano: desde 9.999 € s/IVA (frente a 12.000 a 20.000 € por un desarrollo a medida equivalente en Francia). Nuestra auditoría gratuita te da una estimación precisa." },
       ],
     },
     more: {
@@ -432,7 +432,7 @@ const SERVICE_ICONS = [MessageSquare, Code2, Bot, FileText, Search, Layers];
 const SERVICE_BADGE_COLORS = ['bg-gray-900', 'bg-gray-900', 'bg-gray-700', 'bg-amber-500', 'bg-emerald-500', 'bg-rose-500'];
 const SERVICE_ACCENT_COLORS = ['border-white', 'border-white', 'border-gray-400', 'border-amber-400', 'border-emerald-400', 'border-rose-400'];
 
-const PACK_PRICES = [1499, 3999, 7999];
+const PACK_PRICES = [1499, 3999, 9999];
 const PACK_MONTHLY = [39, 89, 189];
 const PACK_DELIVERY: Record<Lang, string[]> = {
   fr: ['1 à 2 semaines', '3 à 5 semaines', '6 à 12 semaines'],
@@ -583,12 +583,19 @@ export function IntegrationIAPageClient({ lang }: Props) {
               <h2 className="text-3xl font-bold text-white mb-4">{c.useCases.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.useCases.subtitle}</p>
             </div>
-            <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-3" gridGap="gap-4">
+            <ResponsiveCards breakpoint="sm" gridClass="grid-cols-1 md:grid-cols-2 lg:grid-cols-3" gridGap="gap-4">
               {c.useCases.items.map((uc, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5 h-full">
-                  <div className="text-xs font-semibold text-white uppercase tracking-wider mb-2">{uc.sector}</div>
-                  <p className="text-sm text-slate-300 mb-3">{uc.useCase}</p>
-                  <span className="inline-block text-xs bg-white/5 text-white px-3 py-1 rounded-full font-medium">{uc.pack}</span>
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5 h-full flex flex-col">
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <div className="text-sm font-bold text-white">{uc.sector}</div>
+                    <span className="text-xs bg-white/10 text-white px-2.5 py-1 rounded-full font-medium whitespace-nowrap">{uc.pack}</span>
+                  </div>
+                  <p className="text-xs text-slate-400 mb-2 leading-relaxed">{uc.context}</p>
+                  <p className="text-sm text-slate-200 mb-3 leading-relaxed">{uc.solution}</p>
+                  <div className="mt-auto flex items-start gap-2 rounded-lg bg-emerald-400/10 border border-emerald-400/20 p-2.5">
+                    <TrendingUp className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-xs font-semibold text-emerald-300 leading-snug">{uc.result}</span>
+                  </div>
                 </div>
               ))}
             </ResponsiveCards>

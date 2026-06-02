@@ -134,9 +134,9 @@ export default function Chatbot() {
       const packId = event.detail?.pack
       if (packId) {
         const packNames: Record<string, Record<string, string>> = {
-          fr: { starter: 'Starter (1 990€)', business: 'Business (4 900€)', premium: 'Premium (6 900€)', ai: 'Pack IA (sur devis)' },
-          en: { starter: 'Starter (€1,990)', business: 'Business (€4,900)', premium: 'Premium (€6,900)', ai: 'AI Pack (custom)' },
-          es: { starter: 'Starter (1 990€)', business: 'Business (4 900€)', premium: 'Premium (6 900€)', ai: 'Pack IA (a presupuesto)' }
+          fr: { starter: 'Starter (1 490€)', business: 'Business (3 990€)', premium: 'Premium (7 990€)', ai: 'Pack IA (sur devis)' },
+          en: { starter: 'Starter (€1,490)', business: 'Business (€3,990)', premium: 'Premium (€7,990)', ai: 'AI Pack (custom)' },
+          es: { starter: 'Starter (1.490€)', business: 'Business (3.990€)', premium: 'Premium (7.990€)', ai: 'Pack IA (a presupuesto)' }
         }
         const packName = packNames[language]?.[packId] || packId
         const message = language === 'fr'

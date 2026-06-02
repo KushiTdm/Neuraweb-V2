@@ -21,6 +21,8 @@ import {
   ChevronDown,
   ArrowRight,
   CheckCircle2,
+  Clock,
+  TrendingUp,
 } from 'lucide-react';
 
 type Lang = 'fr' | 'en' | 'es';
@@ -34,7 +36,8 @@ const content: Record<Lang, {
   tech: { h2: string; subtitle: string; cards: { name: string; tag: string; desc: string }[] };
   types: { h2: string; subtitle: string; cards: { title: string; desc: string }[] };
   process: { h2: string; subtitle: string; steps: { title: string; desc: string }[] };
-  pricing: { h2: string; subtitle: string; packs: { name: string; price: string; features: string[]; highlighted?: boolean }[]; note: string };
+  pricing: { h2: string; subtitle: string; packs: { name: string; price: string; delay: string; features: string[]; highlighted?: boolean }[]; note: string };
+  useCases: { h2: string; subtitle: string; items: { sector: string; context: string; solution: string; result: string; pack: string }[] };
   faq: { h2: string; items: { q: string; a: string }[] };
   cta: { h2: string; subtitle: string; button: string };
 }> = {
@@ -80,16 +83,26 @@ const content: Record<Lang, {
       h2: 'Tarifs développement application mobile',
       subtitle: 'Des forfaits transparents, pas de mauvaise surprise. Devis détaillé sous 24h.',
       packs: [
-        { name: 'MVP Mobile', price: 'À partir de 6 900€', features: ['App cross-platform (React Native)', '3 à 5 écrans clés', 'Authentification + 1 intégration API', 'Publication stores incluse', 'Support 1 mois'] },
-        { name: 'App Standard', price: 'À partir de 12 900€', features: ['iOS + Android (natif ou Flutter)', '10 à 15 écrans', 'Backend sur mesure + admin', 'Notifications push, analytics', 'Support 3 mois'], highlighted: true },
-        { name: 'App Premium', price: 'Sur devis', features: ['Features avancées (IA, temps réel)', 'Design custom animations', 'Architecture scalable', 'SLA 24/7', 'Évolutions continues'] },
+        { name: 'MVP Mobile', price: 'À partir de 8 900€', delay: '3 à 4 semaines', features: ['App cross-platform (React Native)', '3 à 5 écrans clés', 'Authentification + 1 intégration API', 'Publication stores incluse', 'Support 1 mois'] },
+        { name: 'App Standard', price: 'À partir de 15 900€', delay: '6 à 10 semaines', features: ['iOS + Android (natif ou Flutter)', '10 à 15 écrans', 'Backend sur mesure + admin', 'Notifications push, analytics', 'Support 3 mois'], highlighted: true },
+        { name: 'App Premium', price: 'Sur devis', delay: '12 semaines et +', features: ['Features avancées (IA, temps réel)', 'Design custom animations', 'Architecture scalable', 'SLA 24/7', 'Évolutions continues'] },
       ],
       note: 'Tarifs indicatifs TTC. Hébergement backend, frais développeur Apple (99$/an) et Google Play (25$) non inclus.',
+    },
+    useCases: {
+      h2: 'Cas d\'usage concrets',
+      subtitle: 'Comment nos clients utilisent une application mobile pour valider, fidéliser et faire croître leur activité.',
+      items: [
+        { sector: 'Startup FoodTech', context: 'Lever des fonds suppose de prouver la traction. Un site web ne suffit pas à valider l\'usage mobile.', solution: 'MVP React Native (5 écrans) : commande, paiement Stripe, suivi livraison temps réel, publication App Store + Play Store.', result: 'Hypothèse validée en 6 semaines au lieu de 6 mois · rétention J+30 de 22% (vs 8% en web)', pack: 'MVP Mobile' },
+        { sector: 'Chaîne de restaurants (15 sites)', context: 'Programme de fidélité papier, commandes par téléphone, aucune donnée client exploitable.', solution: 'App iOS + Android (15 écrans) : menu, commande, fidélité, paiement Apple/Google Pay, backend + notifications push.', result: 'Commandes à emporter ×4 · fréquence de visite +62% · 15 000 profils clients collectés', pack: 'App Standard' },
+        { sector: 'PME e-commerce / retail', context: 'Site mobile lent, panier abandonné, aucune notification pour relancer les clients.', solution: 'App native catalogue + paiement in-app + notifications push + suivi de commande, synchro Shopify/WooCommerce.', result: 'Taux d\'engagement ×3 grâce aux push · panier moyen +20% via l\'upsell in-app', pack: 'App Standard' },
+        { sector: 'B2B / SaaS terrain', context: 'Équipes mobiles sans outil adapté, ressaisie au bureau, données de terrain perdues.', solution: 'App métier scalable avec synchronisation offline, temps réel et tableau de bord admin sur mesure.', result: 'Remontée terrain en temps réel · 0 ressaisie · décisions basées sur des données fiables', pack: 'App Premium' },
+      ],
     },
     faq: {
       h2: 'Questions fréquentes sur le développement mobile',
       items: [
-        { q: 'Combien coûte le développement d\'une application mobile en France ?', a: 'Un MVP démarre à 6 900€ en cross-platform. Une app standard iOS + Android coûte entre 12 000€ et 30 000€ selon la complexité. Une app premium avec IA ou temps réel peut dépasser 50 000€.' },
+        { q: 'Combien coûte le développement d\'une application mobile en France ?', a: 'Un MVP démarre à 8 900€ en cross-platform — soit bien en dessous des 11 000€ à 25 000€ généralement constatés sur le marché français en 2026. Une app standard iOS + Android se situe entre 15 900€ et 30 000€ selon la complexité. Une app premium avec IA ou temps réel peut dépasser 50 000€.' },
         { q: 'Combien de temps pour créer une app mobile ?', a: 'Comptez 6 à 8 semaines pour un MVP, 12 à 16 semaines pour une app complète iOS + Android avec backend. Nous livrons par sprints de 2 semaines pour que vous voyiez l\'avancement.' },
         { q: 'Cross-platform (React Native/Flutter) ou natif (Swift/Kotlin) ?', a: 'Cross-platform pour un MVP rapide et un budget serré (une seule équipe). Natif si vous visez une expérience premium, des performances graphiques élevées ou une intégration profonde avec le système (Apple Watch, widgets iOS, etc.).' },
         { q: 'Gérez-vous la publication sur l\'App Store et Google Play ?', a: 'Oui, inclus dans tous nos packs. Nous créons les comptes développeurs si besoin, préparons les captures, descriptions, et gérons la soumission + les éventuels retours d\'Apple ou Google.' },
@@ -144,16 +157,26 @@ const content: Record<Lang, {
       h2: 'Mobile app development pricing',
       subtitle: 'Transparent packages, no surprises. Detailed quote within 24h.',
       packs: [
-        { name: 'Mobile MVP', price: 'From €6,900', features: ['Cross-platform app (React Native)', '3 to 5 core screens', 'Auth + 1 API integration', 'Store publication included', '1 month support'] },
-        { name: 'Standard App', price: 'From €12,900', features: ['iOS + Android (native or Flutter)', '10 to 15 screens', 'Custom backend + admin', 'Push notifications, analytics', '3 months support'], highlighted: true },
-        { name: 'Premium App', price: 'Custom quote', features: ['Advanced features (AI, real-time)', 'Custom design animations', 'Scalable architecture', '24/7 SLA', 'Continuous evolution'] },
+        { name: 'Mobile MVP', price: 'From €8,900', delay: '3 to 4 weeks', features: ['Cross-platform app (React Native)', '3 to 5 core screens', 'Auth + 1 API integration', 'Store publication included', '1 month support'] },
+        { name: 'Standard App', price: 'From €15,900', delay: '6 to 10 weeks', features: ['iOS + Android (native or Flutter)', '10 to 15 screens', 'Custom backend + admin', 'Push notifications, analytics', '3 months support'], highlighted: true },
+        { name: 'Premium App', price: 'Custom quote', delay: '12+ weeks', features: ['Advanced features (AI, real-time)', 'Custom design animations', 'Scalable architecture', '24/7 SLA', 'Continuous evolution'] },
       ],
       note: 'Indicative pricing, VAT included. Backend hosting, Apple Developer ($99/yr) and Google Play ($25) fees not included.',
+    },
+    useCases: {
+      h2: 'Real-world use cases',
+      subtitle: 'How our clients use a mobile app to validate, retain and grow their business.',
+      items: [
+        { sector: 'FoodTech startup', context: 'Raising funds means proving traction. A website alone can\'t validate mobile usage.', solution: 'React Native MVP (5 screens): ordering, Stripe payment, real-time delivery tracking, App Store + Play Store publication.', result: 'Hypothesis validated in 6 weeks instead of 6 months · 22% D+30 retention (vs 8% on web)', pack: 'Mobile MVP' },
+        { sector: 'Restaurant chain (15 sites)', context: 'Paper loyalty program, phone-only orders, no usable customer data.', solution: 'iOS + Android app (15 screens): menu, ordering, loyalty, Apple/Google Pay, backend + push notifications.', result: 'Takeaway orders ×4 · visit frequency +62% · 15,000 customer profiles collected', pack: 'Standard App' },
+        { sector: 'E-commerce / retail SMB', context: 'Slow mobile site, abandoned carts, no notification to re-engage customers.', solution: 'Native app with catalog + in-app payment + push notifications + order tracking, Shopify/WooCommerce sync.', result: 'Engagement ×3 thanks to push · average basket +20% via in-app upsell', pack: 'Standard App' },
+        { sector: 'B2B / field SaaS', context: 'Mobile teams with no suitable tool, re-entry at the office, field data lost.', solution: 'Scalable business app with offline sync, real-time updates and a custom admin dashboard.', result: 'Real-time field reporting · zero re-entry · decisions driven by reliable data', pack: 'Premium App' },
+      ],
     },
     faq: {
       h2: 'Mobile app development FAQ',
       items: [
-        { q: 'How much does mobile app development cost?', a: 'An MVP starts at €6,900 cross-platform. A standard iOS + Android app costs between €12,000 and €30,000 depending on complexity. A premium app with AI or real-time features can exceed €50,000.' },
+        { q: 'How much does mobile app development cost?', a: 'An MVP starts at €8,900 cross-platform — well below the €11,000 to €25,000 typically seen on the French market in 2026. A standard iOS + Android app costs between €15,900 and €30,000 depending on complexity. A premium app with AI or real-time features can exceed €50,000.' },
         { q: 'How long does it take to build a mobile app?', a: 'Count 6-8 weeks for an MVP, 12-16 weeks for a full iOS + Android app with backend. We deliver in 2-week sprints so you see progress continuously.' },
         { q: 'Cross-platform (React Native/Flutter) or native (Swift/Kotlin)?', a: 'Cross-platform for a fast MVP and tight budget (single team). Native if you need premium experience, high graphics performance, or deep OS integration (Apple Watch, iOS widgets, etc.).' },
         { q: 'Do you handle App Store and Google Play submission?', a: 'Yes, included in all packs. We set up developer accounts if needed, prepare screenshots and descriptions, and handle submission plus any feedback from Apple or Google.' },
@@ -208,16 +231,26 @@ const content: Record<Lang, {
       h2: 'Precios desarrollo aplicación móvil',
       subtitle: 'Paquetes transparentes, sin sorpresas. Presupuesto detallado en 24h.',
       packs: [
-        { name: 'MVP Móvil', price: 'Desde 6 900€', features: ['App multiplataforma (React Native)', '3 a 5 pantallas clave', 'Autenticación + 1 integración API', 'Publicación en stores incluida', 'Soporte 1 mes'] },
-        { name: 'App Estándar', price: 'Desde 12 900€', features: ['iOS + Android (nativo o Flutter)', '10 a 15 pantallas', 'Backend a medida + admin', 'Push, analytics', 'Soporte 3 meses'], highlighted: true },
-        { name: 'App Premium', price: 'Presupuesto a medida', features: ['Funciones avanzadas (IA, tiempo real)', 'Animaciones custom', 'Arquitectura escalable', 'SLA 24/7', 'Evoluciones continuas'] },
+        { name: 'MVP Móvil', price: 'Desde 8 900€', delay: '3 a 4 semanas', features: ['App multiplataforma (React Native)', '3 a 5 pantallas clave', 'Autenticación + 1 integración API', 'Publicación en stores incluida', 'Soporte 1 mes'] },
+        { name: 'App Estándar', price: 'Desde 15 900€', delay: '6 a 10 semanas', features: ['iOS + Android (nativo o Flutter)', '10 a 15 pantallas', 'Backend a medida + admin', 'Push, analytics', 'Soporte 3 meses'], highlighted: true },
+        { name: 'App Premium', price: 'Presupuesto a medida', delay: '12 semanas y +', features: ['Funciones avanzadas (IA, tiempo real)', 'Animaciones custom', 'Arquitectura escalable', 'SLA 24/7', 'Evoluciones continuas'] },
       ],
       note: 'Precios indicativos IVA incluido. Hosting backend, cuenta Apple Developer (99$/año) y Google Play (25$) no incluidos.',
+    },
+    useCases: {
+      h2: 'Casos de uso concretos',
+      subtitle: 'Cómo nuestros clientes usan una app móvil para validar, fidelizar y hacer crecer su negocio.',
+      items: [
+        { sector: 'Startup FoodTech', context: 'Levantar fondos exige demostrar tracción. Una web no basta para validar el uso móvil.', solution: 'MVP React Native (5 pantallas): pedido, pago Stripe, seguimiento de entrega en tiempo real, publicación App Store + Play Store.', result: 'Hipótesis validada en 6 semanas en lugar de 6 meses · retención D+30 del 22% (vs 8% en web)', pack: 'MVP Móvil' },
+        { sector: 'Cadena de restaurantes (15 sedes)', context: 'Programa de fidelidad en papel, pedidos solo por teléfono, sin datos de cliente aprovechables.', solution: 'App iOS + Android (15 pantallas): menú, pedido, fidelidad, pago Apple/Google Pay, backend + notificaciones push.', result: 'Pedidos para llevar ×4 · frecuencia de visita +62% · 15 000 perfiles de cliente recopilados', pack: 'App Estándar' },
+        { sector: 'Pyme e-commerce / retail', context: 'Web móvil lenta, carrito abandonado, sin notificaciones para reactivar clientes.', solution: 'App nativa con catálogo + pago in-app + notificaciones push + seguimiento de pedido, sincronización Shopify/WooCommerce.', result: 'Engagement ×3 gracias a las push · cesta media +20% vía upsell in-app', pack: 'App Estándar' },
+        { sector: 'B2B / SaaS de campo', context: 'Equipos móviles sin herramienta adecuada, reintroducción en oficina, datos de campo perdidos.', solution: 'App empresarial escalable con sincronización offline, tiempo real y panel admin a medida.', result: 'Reporte de campo en tiempo real · cero reintroducción · decisiones basadas en datos fiables', pack: 'App Premium' },
+      ],
     },
     faq: {
       h2: 'Preguntas frecuentes sobre desarrollo móvil',
       items: [
-        { q: '¿Cuánto cuesta desarrollar una app móvil?', a: 'Un MVP empieza en 6 900€ en multiplataforma. Una app estándar iOS + Android cuesta entre 12 000€ y 30 000€ según complejidad. Una app premium con IA o tiempo real puede superar 50 000€.' },
+        { q: '¿Cuánto cuesta desarrollar una app móvil?', a: 'Un MVP empieza en 8 900€ en multiplataforma — muy por debajo de los 11 000€ a 25 000€ habituales en el mercado francés en 2026. Una app estándar iOS + Android cuesta entre 15 900€ y 30 000€ según complejidad. Una app premium con IA o tiempo real puede superar 50 000€.' },
         { q: '¿Cuánto tiempo lleva crear una app móvil?', a: 'Cuenta 6 a 8 semanas para un MVP, 12 a 16 semanas para una app completa iOS + Android con backend. Entregamos por sprints de 2 semanas.' },
         { q: '¿Multiplataforma (React Native/Flutter) o nativo (Swift/Kotlin)?', a: 'Multiplataforma para un MVP rápido y presupuesto ajustado (un solo equipo). Nativo si buscas experiencia premium, rendimiento gráfico alto o integración profunda con el sistema.' },
         { q: '¿Gestionáis la publicación en App Store y Google Play?', a: 'Sí, incluido en todos nuestros paquetes. Creamos las cuentas de desarrollador si hace falta, preparamos capturas, descripciones y gestionamos el envío.' },
@@ -411,8 +444,12 @@ export function MobileAppDevClient({ lang }: Props) {
                     <h3 className={`text-2xl font-bold mb-2 ${pack.highlighted ? 'text-gray-900' : 'text-white'}`}>
                       {pack.name}
                     </h3>
-                    <div className={`text-3xl font-black mb-6 ${pack.highlighted ? 'text-gray-900' : 'text-white'}`}>
+                    <div className={`text-3xl font-black mb-2 ${pack.highlighted ? 'text-gray-900' : 'text-white'}`}>
                       {pack.price}
+                    </div>
+                    <div className={`flex items-center gap-1.5 text-sm mb-6 ${pack.highlighted ? 'text-gray-900/70' : 'text-slate-400'}`}>
+                      <Clock className="w-4 h-4 flex-shrink-0" />
+                      <span>{pack.delay}</span>
                     </div>
                     <ul className="space-y-3 mb-8">
                       {pack.features.map((f) => (
@@ -437,6 +474,35 @@ export function MobileAppDevClient({ lang }: Props) {
               </ResponsiveCards>
             </div>
             <p className="text-sm text-slate-400 text-center">{c.pricing.note}</p>
+          </div>
+        </section>
+
+        <section className="py-16 sm:py-20 px-4" style={{ background: '#0B1430' }}>
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+                {c.useCases.h2}
+              </h2>
+              <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+                {c.useCases.subtitle}
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {c.useCases.items.map((uc) => (
+                <article key={uc.sector} className="p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/10 h-full flex flex-col">
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <h3 className="text-lg font-bold text-white">{uc.sector}</h3>
+                    <span className="text-xs bg-white/10 text-white px-3 py-1 rounded-full font-medium whitespace-nowrap">{uc.pack}</span>
+                  </div>
+                  <p className="text-sm text-slate-400 mb-3 leading-relaxed">{uc.context}</p>
+                  <p className="text-sm text-slate-200 mb-4 leading-relaxed">{uc.solution}</p>
+                  <div className="mt-auto flex items-start gap-2 rounded-xl bg-emerald-400/10 border border-emerald-400/20 p-3">
+                    <TrendingUp className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-sm font-semibold text-emerald-300">{uc.result}</span>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 

@@ -30,6 +30,7 @@ import {
   Truck,
   Plus,
   Repeat,
+  TrendingUp,
 } from 'lucide-react';
 
 import { gsap, ScrollTrigger } from '@/lib/gsap-setup';
@@ -695,6 +696,7 @@ export function SantePageClient() {
           highlightedPack={highlightedPack}
           onChoosePack={(p) => openQuote(p)}
         />
+        <UseCasesSection />
         <ExampleSiteSection />
         <TestimonialsCarousel />
         <ProcessTimeline />
@@ -1110,6 +1112,91 @@ function SimulatorStep({
         ))}
       </div>
     </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SECTION — CAS D'USAGE
+// ═══════════════════════════════════════════════════════════════════════════
+
+const USE_CASES = [
+  {
+    sector: 'Médecin généraliste · libéral solo',
+    icon: Stethoscope,
+    context: 'Site obsolète, invisible sur Google, jusqu\'à 40% d\'appels manqués hors horaires de secrétariat.',
+    solution: 'Vitrine responsive + bouton Doctolib intégré + SEO local + fiche Google Business optimisée.',
+    result: 'Visible en page 1 sur sa ville · +120% de nouveaux patients · appels manqués 40% → 10% (RDV 24/7)',
+    pack: 'Vitrine Santé',
+  },
+  {
+    sector: 'Ostéopathe / Kiné · cabinet 1–2 praticiens',
+    icon: HeartPulse,
+    context: 'Concurrents en page 1, aucune autorité SEO, pas de contenu pour se différencier.',
+    solution: '10 pages + blog CMS autonome + 3 articles SEO de lancement ciblant les bonnes requêtes locales.',
+    result: '+300% de trafic organique en quelques mois · positionnement page 1 top 3 · autorité de domaine renforcée',
+    pack: 'Vitrine Pro + Blog',
+  },
+  {
+    sector: 'Centre paramédical · multi-praticiens',
+    icon: UserCheck,
+    context: 'Prise de RDV par téléphone uniquement, pas d\'espace patient, données de santé sans hébergement HDS.',
+    solution: 'Réservation en ligne multi-praticiens + espace patient sécurisé + rappels SMS/Email + hébergement HDS certifié OVH.',
+    result: 'Absences aux RDV 20% → 5% · +35% de RDV pris hors horaires · 100% conforme RGPD santé (HDS)',
+    pack: 'Pro Santé',
+  },
+  {
+    sector: 'Clinique / Réseau de cabinets',
+    icon: ShieldCheck,
+    context: 'Plusieurs sites à gérer, exigences de conformité strictes, marketing et données patients dispersés.',
+    solution: 'Architecture multi-sites + CRM patient + marketing automation + HDS + ISO 27001 + pentest + DPO externe 3 mois.',
+    result: 'Conformité maximale (HDS + ISO 27001) · pilotage centralisé via BI · acquisition patients automatisée',
+    pack: 'Premium Santé',
+  },
+];
+
+function UseCasesSection() {
+  return (
+    <section className="py-20 md:py-28 bg-slate-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 md:mb-16" data-reveal>
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+            Des résultats concrets, <span className="text-teal-600">par profil</span>
+          </h2>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            Comment chaque pack répond aux enjeux réels des professionnels de santé — du libéral solo
+            au réseau de cabinets.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {USE_CASES.map(({ sector, icon: Icon, context, solution, result, pack }) => (
+            <article
+              key={sector}
+              data-reveal
+              className="flex flex-col rounded-2xl md:rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm"
+            >
+              <div className="flex items-center justify-between gap-3 mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-display text-lg font-bold text-slate-900 leading-tight">{sector}</h3>
+                </div>
+                <span className="text-xs font-semibold bg-teal-600 text-white px-3 py-1 rounded-full whitespace-nowrap">
+                  {pack}
+                </span>
+              </div>
+              <p className="text-sm text-slate-500 mb-3 leading-relaxed">{context}</p>
+              <p className="text-sm text-slate-700 mb-5 leading-relaxed">{solution}</p>
+              <div className="mt-auto flex items-start gap-2 rounded-xl bg-emerald-50 border border-emerald-100 p-3">
+                <TrendingUp className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span className="text-sm font-semibold text-emerald-700">{result}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 

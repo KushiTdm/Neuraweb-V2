@@ -53,6 +53,7 @@ const CONTENT: Record<Lang, {
   problems: { h2: string; subtitle: string; items: { title: string; text: string }[] };
   services: { h2: string; subtitle: string; items: { title: string; desc: string; details: string[]; badge: string }[] };
   tools: { label: string };
+  useCases: { h2: string; subtitle: string; items: { sector: string; context: string; solution: string; result: string; pack: string }[] };
   packs: {
     h2: string; subtitle: string; popular: string; ht: string; monthly: string; delivery: string;
     items: { name: string; tagline: string; bullets: string[]; included: string[]; notIncluded: string[]; options: { label: string; price: string }[]; maintenanceItems: string[] }[];
@@ -102,6 +103,16 @@ const CONTENT: Record<Lang, {
       ],
     },
     tools: { label: 'Nous connectons vos outils' },
+    useCases: {
+      h2: "Cas d'usage par métier",
+      subtitle: 'Des scénarios concrets, avec le pack adapté et le gain mesurable que vous pouvez en attendre.',
+      items: [
+        { sector: 'Cabinet (avocat, expert-comptable, conseil)', context: 'Chaque lead entrant est traité à la main : email, saisie Excel, devis, relances — 45 min par dossier.', solution: 'Workflow formulaire → qualification IA → CRM → prise de RDV Calendly → devis généré automatiquement.', result: 'Traitement d\'un lead : 45 min → 3 min · +10 pts de taux de conversion · 0 oubli de relance', pack: 'Starter Auto' },
+        { sector: 'Agence / PME B2B', context: 'Prospection LinkedIn manuelle, CRM mis à jour à 60%, nurturing fait au coup par coup.', solution: '3 à 5 workflows + agent IA de qualification (scoring BANT) + séquence de nurturing + reporting automatique.', result: 'Prospection 15h → 3h/semaine · CRM 100% à jour · taux de réponse ×2 (IA personnalisée)', pack: 'Business Auto' },
+        { sector: 'E-commerce / Retail', context: 'Commandes, SAV et stock gérés dans des outils non connectés, doubles saisies et erreurs.', solution: 'Synchronisation commandes ↔ CRM ↔ facturation + alertes de stock + relances panier automatiques.', result: 'Erreurs de saisie quasi nulles · relances panier 24/7 · suivi commande sans intervention', pack: 'Business Auto' },
+        { sector: 'ETI / multi-sites', context: '10 à 15 outils non connectés (CRM, ERP, compta, RH), reporting consolidé à la main sur 3 jours.', solution: 'Infrastructure n8n self-hosted + 3 agents IA (leads, support, contenu) + dashboard de pilotage temps réel.', result: '−28h/semaine de saisie · ruptures de stock −87% · reporting 3 jours → 10 min', pack: 'Full Automation' },
+      ],
+    },
     packs: {
       h2: 'Nos packs automatisation',
       subtitle: 'Des prix transparents, sans surprise. TVA non applicable (art. 293B du CGI).',
@@ -217,6 +228,16 @@ const CONTENT: Record<Lang, {
       ],
     },
     tools: { label: 'We connect your tools' },
+    useCases: {
+      h2: 'Use cases by profession',
+      subtitle: 'Concrete scenarios, with the right pack and the measurable gain you can expect.',
+      items: [
+        { sector: 'Firm (law, accounting, consulting)', context: 'Every incoming lead is handled by hand: email, Excel entry, quote, follow-ups — 45 min per case.', solution: 'Form → AI qualification → CRM → Calendly booking → automatically generated quote workflow.', result: 'Lead handling: 45 min → 3 min · +10 pts conversion rate · zero missed follow-up', pack: 'Starter Auto' },
+        { sector: 'Agency / B2B SMB', context: 'Manual LinkedIn prospecting, CRM only 60% up to date, ad-hoc nurturing.', solution: '3 to 5 workflows + AI qualification agent (BANT scoring) + nurturing sequence + automatic reporting.', result: 'Prospecting 15h → 3h/week · CRM 100% up to date · reply rate ×2 (personalised AI)', pack: 'Business Auto' },
+        { sector: 'E-commerce / Retail', context: 'Orders, support and stock managed in disconnected tools, double entry and errors.', solution: 'Orders ↔ CRM ↔ billing sync + stock alerts + automatic cart recovery.', result: 'Near-zero data-entry errors · 24/7 cart recovery · order tracking with no manual work', pack: 'Business Auto' },
+        { sector: 'Mid-market / multi-site', context: '10 to 15 disconnected tools (CRM, ERP, accounting, HR), consolidated reporting done by hand over 3 days.', solution: 'Self-hosted n8n infrastructure + 3 AI agents (leads, support, content) + real-time management dashboard.', result: '−28h/week of data entry · stockouts −87% · reporting 3 days → 10 min', pack: 'Full Automation' },
+      ],
+    },
     packs: {
       h2: 'Our automation packages',
       subtitle: 'Transparent pricing, no surprises. VAT not applicable.',
@@ -332,6 +353,16 @@ const CONTENT: Record<Lang, {
       ],
     },
     tools: { label: 'Conectamos tus herramientas' },
+    useCases: {
+      h2: 'Casos de uso por sector',
+      subtitle: 'Escenarios concretos, con el pack adecuado y la ganancia medible que puedes esperar.',
+      items: [
+        { sector: 'Despacho (abogado, asesor, consultoría)', context: 'Cada lead entrante se trata a mano: email, Excel, presupuesto, seguimientos — 45 min por expediente.', solution: 'Flujo formulario → cualificación IA → CRM → cita Calendly → presupuesto generado automáticamente.', result: 'Tratamiento de un lead: 45 min → 3 min · +10 pts de conversión · 0 seguimiento olvidado', pack: 'Starter Auto' },
+        { sector: 'Agencia / Pyme B2B', context: 'Prospección LinkedIn manual, CRM actualizado al 60%, nurturing puntual.', solution: '3 a 5 flujos + agente IA de cualificación (scoring BANT) + secuencia de nurturing + reporting automático.', result: 'Prospección 15h → 3h/semana · CRM 100% actualizado · tasa de respuesta ×2 (IA personalizada)', pack: 'Business Auto' },
+        { sector: 'E-commerce / Retail', context: 'Pedidos, atención y stock en herramientas no conectadas, doble entrada y errores.', solution: 'Sincronización pedidos ↔ CRM ↔ facturación + alertas de stock + recuperación de carrito automática.', result: 'Errores de entrada casi nulos · recuperación de carrito 24/7 · seguimiento de pedido sin intervención', pack: 'Business Auto' },
+        { sector: 'Mediana empresa / multisede', context: '10 a 15 herramientas no conectadas (CRM, ERP, contabilidad, RRHH), reporting consolidado a mano en 3 días.', solution: 'Infraestructura n8n self-hosted + 3 agentes IA (leads, soporte, contenido) + dashboard de gestión en tiempo real.', result: '−28h/semana de entrada de datos · roturas de stock −87% · reporting 3 días → 10 min', pack: 'Full Automation' },
+      ],
+    },
     packs: {
       h2: 'Nuestros paquetes de automatización',
       subtitle: 'Precios transparentes, sin sorpresas. IVA no incluido.',
@@ -579,6 +610,32 @@ export function AutomatisationPageClient({ lang }: Props) {
                   {tool.name}
                   <span className="text-xs text-slate-500">{tool.cat[lang]}</span>
                 </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── CAS D'USAGE ───────────────────────────────────────────────── */}
+        <section className="py-20" style={{ background: '#0B1430' }}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.useCases.h2}</h2>
+              <p className="text-slate-400 max-w-2xl mx-auto">{c.useCases.subtitle}</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {c.useCases.items.map((uc, i) => (
+                <article key={i} className="rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 h-full flex flex-col">
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <h3 className="text-lg font-bold text-white">{uc.sector}</h3>
+                    <span className="text-xs bg-white/10 text-white px-3 py-1 rounded-full font-medium whitespace-nowrap">{uc.pack}</span>
+                  </div>
+                  <p className="text-sm text-slate-400 mb-3 leading-relaxed">{uc.context}</p>
+                  <p className="text-sm text-slate-200 mb-4 leading-relaxed">{uc.solution}</p>
+                  <div className="mt-auto flex items-start gap-2 rounded-xl bg-emerald-400/10 border border-emerald-400/20 p-3">
+                    <TrendingUp size={16} className="text-emerald-400 shrink-0 mt-0.5" />
+                    <span className="text-sm font-semibold text-emerald-300">{uc.result}</span>
+                  </div>
+                </article>
               ))}
             </div>
           </div>
