@@ -1,0 +1,193 @@
+---
+title: "AI Sales Agent for SMBs: n8n + Claude for under €150/month"
+excerpt: "n8n + Claude stack under €150/month: automated lead qualification, smart follow-ups, and pre-sale support. Real results from B2B SMB deployments."
+date: "2026-06-03"
+category: "Automation"
+author: "NeuraWeb"
+image: "/assets/blog/agent-ia-commercial-pme.webp"
+tags:
+  - "AI"
+  - "Automation"
+  - "n8n"
+  - "SMB"
+  - "CRM"
+featured: false
+faq:
+  - question: "How much does an AI sales agent cost for an SMB?"
+    answer: "With the n8n + Claude API + HubSpot + Brevo stack, the monthly cost is between €50 and €150. Initial setup ranges from €0 to €2,000 depending on complexity. ROI is typically visible within 2 to 4 weeks on lead qualification."
+  - question: "Can an AI sales agent replace a salesperson?"
+    answer: "No. It automates 60 to 80% of repetitive tasks (qualification, follow-ups, responses to common objections), but it doesn't replace complex closing or strategic negotiations. The goal is for your salespeople to focus exclusively on high-value deals."
+  - question: "What's the difference between n8n and Make for an AI sales agent?"
+    answer: "n8n is open source, self-hostable, and more flexible for complex workflows with conditional loops and LLM calls. Make is more accessible but less customizable for advanced cases. For an AI agent with Claude, n8n offers better control over prompt chaining and logging."
+  - question: "How quickly can you deploy a first AI sales agent?"
+    answer: "A first inbound lead qualification workflow can be operational in 48 hours: CRM connection to n8n (2-4h), Claude prompt configuration (4-8h), testing on 10% of leads (1 day). The ramp-up then happens progressively."
+  - question: "Which CRMs are compatible with n8n and Claude for an AI agent?"
+    answer: "HubSpot, Pipedrive, Salesforce, Notion, and Airtable are natively supported by n8n via dedicated nodes. The connection takes under an hour. For less common CRMs, n8n's REST API allows integration with any tool via an HTTP endpoint."
+---
+
+A French SMB can today replicate 80% of Salesforce Agentforce's capabilities for under €150/month. No heavy technical team required: the n8n + Claude + CRM stack qualifies your leads, follows up automatically, and handles objections in real time — where Agentforce demands a €50,000 initial investment.
+
+Here's how it's possible, with results measured on real deployments.
+
+---
+
+## What is an AI sales agent (and why it changes everything)?
+
+An AI sales agent automatically handles part of your sales cycle: lead qualification, smart follow-ups, objection handling, appointment booking.
+
+The fundamental difference from classic automation:
+
+- **Classic automation:** if email received → send predefined template
+- **AI agent:** analyze the prospect's intent, adapt the message based on CRM context, decide to follow up or escalate to a human
+
+This is exactly what Salesforce Agentforce offers. But since 2025, the same capabilities are accessible to SMBs via [n8n](/en/blog/automatisation-n8n-guide) and Claude — for a fraction of the budget.
+
+---
+
+## n8n + Claude + CRM stack: architecture and real costs
+
+This stack is deployed at several French B2B SMBs (services, SaaS, consulting), handling up to 1,500 leads/month automatically.
+
+**Simplified architecture:**
+
+```
+Form / Inbound email
+       ↓
+      n8n  (workflow orchestration)
+       ↓
+    Claude API  (analysis, scoring, copywriting)
+       ↓
+      CRM  (update + commercial routing)
+       ↓
+  Email / Slack / Sales action
+```
+
+### The 4 stack tools
+
+**n8n — orchestration** (~€20/month cloud, free self-hosted)
+Connects your tools, orchestrates steps, manages conditions and follow-up loops. Key strengths: open source, native HTTP node to call Claude, full execution logging.
+
+**Claude API — commercial intelligence** (€30 to €80/month depending on volume)
+Analyzes inbound leads, scores their purchase potential, writes personalized follow-ups, handles objections. The `claude-sonnet-4-20250514` model offers the best quality/cost ratio for repetitive commercial tasks.
+
+**HubSpot or Pipedrive — CRM** (€0 to €30/month)
+Centralizes prospect data, triggers n8n workflows via webhooks, tracks each commercial interaction.
+
+**Brevo — emailing** (€0 to €7/month)
+Transactional sending + open tracking to trigger smart follow-ups.
+
+**Total cost: €50 to €137/month** — vs €50,000+ for Salesforce Enterprise. For a complete breakdown of AI automation costs, see [real prices for SMBs in 2026](/en/blog/automatisation-ia-pme-prix-2026).
+
+---
+
+## 3 use cases deployed in production (with results)
+
+### 1. Automatic inbound lead qualification
+
+The most common bottleneck in B2B SMBs: leads come in, they wait hours to be qualified, and half are never called back within the first 5 minutes.
+
+**Deployed workflow:**
+1. Form or inbound email triggers an n8n webhook
+2. Lead enrichment (LinkedIn Sales Navigator API or Clearbit)
+3. Claude analyzes the message: sector, company size, urgency, intent signal
+4. Score 1 to 10 with a 3-line summary for the salesperson
+5. Personalized response sent to the prospect in under 3 minutes
+6. If score ≥ 7: automatic deal creation in CRM + Slack notification to the salesperson
+
+**Measured results (B2B SaaS client, 120 leads/month):**
+- Average response time: 4h → 3 minutes
+- Lead → first meeting conversion: +38%
+- Reduction of unqualified leads passed to salespeople: -60%
+
+### 2. Smart commercial follow-ups
+
+Manual follow-up is the task salespeople hate most — and neglect most. An AI agent does it systematically, without forgetting, without discouragement.
+
+**Deployed workflow:**
+1. n8n scans the CRM daily: deals with no activity in the last N days
+2. Full context retrieval: emails exchanged, CRM notes, last action
+3. Claude generates a contextualized follow-up — not a template, a follow-up that references the real context
+4. Sent at the optimal moment (analysis of previous open times)
+5. If opened without reply → escalation with notification to the responsible salesperson
+
+**Measured results (B2B services agency):**
+- Follow-up response rate: +52%
+- Deals recovered from "lost" pipeline: 3 to 4 per quarter
+
+### 3. Automated pre-sale commercial support
+
+Prospects always ask the same questions: price, timelines, ROI, comparison with competitors. An AI agent handles 67% of these requests without human intervention.
+
+**Deployed workflow:**
+1. Email or contact form → automatic classification (price request, objection, comparison, technical question)
+2. Claude responds from a structured knowledge base (offers, case studies, common objections)
+3. If the request exceeds scope → automatic meeting proposal via Calendly
+4. Everything is tracked in the CRM for the salesperson to take over if needed
+
+**Measured results:**
+- 67% of pre-sale requests handled without human intervention
+- +20 NPS points before the first meeting (measured)
+
+---
+
+## How to deploy your first AI agent (4 steps)
+
+At Neuraweb, we always recommend starting with a single use case — then scaling.
+
+**Step 1 — Identify your bottleneck**
+Slow qualification? Forgotten follow-ups? Repetitive pre-sale questions? Choose the problem costing the most in sales time today.
+
+**Step 2 — Connect your CRM to n8n (2 to 4 hours)**
+HubSpot, Pipedrive and Salesforce have native nodes in n8n. OAuth connection takes 30 minutes. Configuring the trigger webhook: 1 to 2 hours.
+
+**Step 3 — Configure Claude prompts**
+This is the critical step. The prompt must include: your ICP (ideal customer profile), your offers, common objections and their standard response, the desired commercial tone. A good qualification prompt is 300 to 500 tokens — no more.
+
+**Step 4 — Test on 10% of leads, then scale**
+Don't switch 100% of volume on day one. Test on a subset, measure output quality, refine the prompts. The ramp-up happens within a week.
+
+---
+
+## Errors that kill AI sales agent projects
+
+These errors recur systematically on poorly prepared projects:
+
+- **Prompts too generic** — "you are a sales assistant" isn't enough. Without context on your offer, your ICP and your objections, Claude produces correct but unusable responses in a real sales context.
+- **Automating without a clear sales strategy** — an AI agent amplifies your existing process. If your qualification process is vague, the agent will qualify vaguely.
+- **No filter before routing** — sending all scored leads to your salespeople, even bad ones, destroys trust in the system within a week.
+- **No human oversight on complex cases** — deals over €20,000 or VIP prospects should never be handled solely by the agent.
+
+---
+
+## Where to start for immediate ROI
+
+The use case with the fastest return: inbound lead qualification.
+
+Why this case first:
+- Deployable in 48 hours
+- Measurable impact from the first week (response time, conversion rate)
+- Improves the entire downstream sales chain
+
+> At Neuraweb, we deploy this type of agent in under 7 days for French SMBs via our [AI Integration service](/fr/integration-ia). In a 30-minute audit, we identify your priority use case, estimate the ROI, and create a concrete deployment plan. [Request your free audit →](/fr/contact)
+
+---
+
+## What this agent doesn't replace
+
+An AI sales agent isn't an autonomous salesperson. It doesn't replace closing on a complex deal, strategic negotiation on a large account, or the long-term relationship with a VIP client.
+
+What it automates: 60 to 80% of low-value repetitive tasks.
+
+Concrete result: your salespeople stop spending 3 hours a day qualifying lukewarm leads or following up inactive prospects — and focus on the deals that really matter.
+
+---
+
+## Further reading
+
+- [Complete n8n guide: automate without coding](/en/blog/automatisation-n8n-guide) — installation, first workflows, CRM connection
+- [3 AI agent workflows for SMBs: real ROI](/en/blog/3-workflows-agents-ia-pme) — adaptive email, lead scoring, social automation with n8n
+- [AI automation for SMBs: real prices 2026](/en/blog/automatisation-ia-pme-prix-2026) — full cost breakdown by automation level
+- [Make vs n8n vs Zapier 2026: the right tool for your stack](/en/blog/make-n8n-zapier-2026-pme-france) — full comparison for French SMBs
+- [Agentic AI: what your competitors are already doing](/en/blog/ia-agents-remplacent-equipes-2026) — go further with multi-task AI agents
+- [Our Automation service](/fr/automatisation) — n8n/Make packs with monthly monitoring included
+- [Our AI Integration service](/fr/integration-ia) — custom AI agents for your CRM and sales processes
