@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 const CONTENT = {
   fr: {
     title: 'Conditions Générales d\'Utilisation',
-    description: 'Conditions générales d\'utilisation du site NeuraWeb et des services proposés.',
+    description: 'Conditions générales d\'utilisation du site NeuraWeb : règles d\'accès, propriété intellectuelle, responsabilités et droit applicable à nos services web.',
     backToHome: 'Retour à l\'accueil',
     lastUpdate: 'Dernière mise à jour : Avril 2026',
     sections: [
@@ -141,7 +141,7 @@ Nous nous efforçons de répondre dans un délai de 48 heures ouvrées.`,
   },
   en: {
     title: 'Terms of Use',
-    description: 'Terms of use for the NeuraWeb website and services offered.',
+    description: 'Terms of use for the NeuraWeb website: access rules, intellectual property, user responsibilities and applicable law governing our web development services.',
     backToHome: 'Back to home',
     lastUpdate: 'Last updated: April 2026',
     sections: [
@@ -266,7 +266,7 @@ We strive to respond within 48 business hours.`,
   },
   es: {
     title: 'Condiciones de Uso',
-    description: 'Condiciones de uso del sitio web NeuraWeb y servicios ofrecidos.',
+    description: 'Condiciones de uso del sitio web NeuraWeb: normas de acceso, propiedad intelectual y responsabilidades de los usuarios de nuestros servicios de desarrollo web.',
     backToHome: 'Volver al inicio',
     lastUpdate: 'Última actualización: Abril 2026',
     sections: [

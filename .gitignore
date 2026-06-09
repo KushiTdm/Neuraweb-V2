@@ -41,7 +41,9 @@ next-env.d.ts
 # Google Indexing API — service account key & logs
 scripts/service-account.json
 scripts/indexing-errors-*.json
+neuraweb-indexation-*.json
 
 # Google service-account keys (private keys — never commit)
 gen-lang-client-*.json
 **/*service-account*.json
+neuraweb-indexation-859fd0c7dfeb.json

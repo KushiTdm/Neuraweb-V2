@@ -245,7 +245,7 @@ export default async function LangLayout({
         )}
 
         <a href="#main-content" className="skip-link">
-          Aller au contenu principal
+          {({'fr': 'Aller au contenu principal', 'en': 'Skip to main content', 'es': 'Ir al contenido principal'} as Record<string, string>)[lang] ?? 'Skip to main content'}
         </a>
         <ThemeProvider
           attribute="class"

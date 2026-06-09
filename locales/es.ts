@@ -24,6 +24,11 @@ export const es: Record<TranslationKey, string> = {
   'chatbot.booking.prompt': 'Aquí están nuestros horarios disponibles. Selecciona una fecha y hora que te convengan:',
   'chatbot.error.booking': 'Ocurrió un error durante la reserva. Por favor, inténtalo de nuevo o contáctanos directamente.',
 
+  // Común
+  'common.learnMore': 'Saber más',
+  'common.skipToContent': 'Ir al contenido principal',
+  'hero.tagline': 'NEURAWEB — AGENCIA TECH',
+
   // Navigation
   'nav.home': 'Inicio',
   'nav.services': 'Servicios',
@@ -190,6 +195,11 @@ export const es: Record<TranslationKey, string> = {
   'footer.legal.legalNotice': 'Aviso Legal',
   'footer.legal.privacy': 'Privacidad',
   'footer.legal.terms': 'Condiciones',
+  'footer.newsletter.tagline': 'Tendencias tech & consejos IA — en tu bandeja.',
+  'footer.newsletter.description': 'Tendencias tech, trucos de IA y consejos de automatización — directamente en tu bandeja.',
+  'footer.newsletter.placeholder': 'tu@email.com',
+  'footer.newsletter.subscribe': 'Suscribirme',
+  'footer.newsletter.subscribeLong': 'Suscribirme al boletín',
 
   // Services Page
   'servicePage.hero.title': 'Desarrollo Web a Medida',

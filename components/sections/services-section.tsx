@@ -103,7 +103,7 @@ export function ServicesSection() {
                 {t('services.web.desc')}
               </p>
               <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white group-hover:gap-2.5 transition-all duration-200">
-                En savoir plus <ArrowUpRight className="w-4 h-4" />
+                {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
               </div>
             </div>
           </LocalizedLink>
@@ -138,7 +138,7 @@ export function ServicesSection() {
                 {t('services.mobile.desc')}
               </p>
               <div className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-navy-900 group-hover:gap-2 transition-all duration-200">
-                En savoir plus <ArrowUpRight className="w-4 h-4" />
+                {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
               </div>
             </div>
           </LocalizedLink>
@@ -159,7 +159,7 @@ export function ServicesSection() {
                   {t('services.ai.desc')}
                 </p>
                 <div className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-white group-hover:gap-1.5 transition-all duration-200">
-                  En savoir plus <ArrowUpRight className="w-3 h-3" />
+                  {t('common.learnMore')} <ArrowUpRight className="w-3 h-3" />
                 </div>
               </div>
             </div>
@@ -212,7 +212,7 @@ export function ServicesSection() {
                 <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.web.title')}</h3>
                 <p className="text-sm text-white/70">{t('services.web.desc')}</p>
                 <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
-                  En savoir plus <ArrowUpRight className="w-4 h-4" />
+                  {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
                 </div>
               </div>
             </LocalizedLink>
@@ -232,7 +232,7 @@ export function ServicesSection() {
                 <h3 className="font-display text-2xl font-bold text-navy-900 mb-2">{t('services.mobile.title')}</h3>
                 <p className="text-sm text-slate-700 leading-relaxed">{t('services.mobile.desc')}</p>
                 <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy-900">
-                  En savoir plus <ArrowUpRight className="w-4 h-4" />
+                  {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
                 </div>
               </div>
             </LocalizedLink>
@@ -246,7 +246,7 @@ export function ServicesSection() {
                 <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.ai.title')}</h3>
                 <p className="text-sm leading-relaxed text-slate-400">{t('services.ai.desc')}</p>
                 <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
-                  En savoir plus <ArrowUpRight className="w-4 h-4" />
+                  {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
                 </div>
               </div>
             </LocalizedLink>
@@ -266,7 +266,7 @@ export function ServicesSection() {
                 <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.automation.title')}</h3>
                 <p className="text-sm text-white/70">{t('services.automation.desc')}</p>
                 <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
-                  En savoir plus <ArrowUpRight className="w-4 h-4" />
+                  {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
                 </div>
               </div>
             </LocalizedLink>

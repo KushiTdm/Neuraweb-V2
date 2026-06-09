@@ -159,7 +159,7 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
         </div>
         <div className="relative z-10 flex items-center min-h-screen max-w-7xl mx-auto px-6 lg:px-12">
           <div className="max-w-2xl pt-28 pb-20">
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-white/70 mb-6">NEURAWEB — AGENCE TECH</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-white/70 mb-6">{t('hero.tagline')}</p>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[5rem] font-bold text-white leading-tight mb-6">
               {SLIDES[0].title[lang]}{' '}
               <span style={{ background: 'linear-gradient(90deg,#ffffff,#e5e7eb)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
@@ -214,7 +214,7 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
             className="text-xs font-semibold uppercase tracking-[0.1em] text-white/70 mb-6"
             style={{ opacity: heroVisible ? 1 : 0, transition: 'opacity 0.6s ease' }}
           >
-            NEURAWEB — AGENCE TECH
+            {t('hero.tagline')}
           </p>
 
           <h1

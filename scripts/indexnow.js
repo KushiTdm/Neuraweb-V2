@@ -3,22 +3,33 @@
  * IndexNow — soumet toutes les URLs du sitemap à Bing (et moteurs partenaires).
  *
  * Prérequis :
- *   1. Le fichier de clé doit être accessible :
- *      https://neuraweb.tech/903d41e843804b97832bf4616b07f8a7.txt
- *   2. Le site doit être vérifié dans Bing Webmaster Tools.
+ *   1. Activer IndexNow dans Bing Webmaster Tools :
+ *      https://www.bing.com/webmasters/indexnow → "Get started"
+ *      Bing génère une clé et vérifie que le fichier .txt est accessible.
+ *      INDEXNOW_KEY ci-dessous doit correspondre à la clé affichée dans Bing WMT.
+ *   2. Le fichier de clé doit être accessible publiquement :
+ *      https://neuraweb.tech/<INDEXNOW_KEY>.txt
  *
  * Usage :
  *   node scripts/indexnow.js              # soumet toutes les URLs
  *   node scripts/indexnow.js --dry-run    # liste sans appeler l'API
  *   node scripts/indexnow.js --limit=20   # limiter le nombre d'URLs
+ *   INDEXNOW_KEY=<autre-clé> node scripts/indexnow.js  # surcharger la clé
  *
  * Quota : pas de limite officielle, mais Bing recommande de ne pas dépasser
  * 10 000 URLs par soumission batch. Le script splittera si nécessaire.
+ *
+ * ⚠️  Erreur 403 "UserForbiddedToAccessSite" ?
+ *   → La clé doit être activée dans Bing Webmaster Tools avant tout appel API.
+ *     Voir : https://www.bing.com/webmasters → IndexNow → configurer la clé.
  */
 
 const https = require('https');
 
-const INDEXNOW_KEY = '12d2379a1e5244c9b57051c18690e055';
+// Clé active — générée depuis Bing Webmaster Tools → IndexNow et vérifiée le 2026-06-09.
+// Fichier hébergé : https://neuraweb.tech/cb1ea553f2a14f15a90d2189d947e4da.txt
+// Peut être surchargée via INDEXNOW_KEY=<valeur> dans l'env.
+const INDEXNOW_KEY = process.env.INDEXNOW_KEY || 'cb1ea553f2a14f15a90d2189d947e4da';
 const SITE_HOST = 'neuraweb.tech';
 const SITEMAP_URL = `https://${SITE_HOST}/sitemap.xml`;
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
@@ -134,6 +145,13 @@ async function submitBatch(urlList) {
       } else {
         failed += batch.length;
         console.log(`✗ HTTP ${status}: ${body}`);
+        if (status === 403) {
+          console.log('\n  ⚠️  Erreur 403 : la clé IndexNow n\'est pas activée dans Bing Webmaster Tools.');
+          console.log('  → Allez sur https://www.bing.com/webmasters → IndexNow → configurez la clé :');
+          console.log(`  → Clé utilisée : ${INDEXNOW_KEY}`);
+          console.log(`  → Fichier attendu : https://${SITE_HOST}/${INDEXNOW_KEY}.txt\n`);
+          process.exit(1);
+        }
       }
     } catch (err) {
       failed += batch.length;

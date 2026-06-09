@@ -86,7 +86,7 @@ export function Footer() {
         {/* Newsletter */}
         <div className="mb-5">
           <p className="text-xs text-slate-500 mb-2.5">
-            Tendances tech & conseils IA — dans votre boîte.
+            {t('footer.newsletter.tagline')}
           </p>
           <form
             onSubmit={(e) => { e.preventDefault(); setEmail(''); }}
@@ -96,12 +96,12 @@ export function Footer() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="votre@email.com"
+              placeholder={t('footer.newsletter.placeholder')}
               className="flex-1 min-w-0 px-3 py-2.5 rounded-xl text-xs bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-white/50 transition-colors"
             />
             <button
               type="submit"
-              aria-label="S'inscrire"
+              aria-label={t('footer.newsletter.subscribe')}
               className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0"
               style={{ background: '#ffffff' }}
             >
@@ -189,7 +189,7 @@ export function Footer() {
           <div>
             <h3 className="text-white text-sm font-semibold mb-5">Newsletter</h3>
             <p className="text-slate-400 text-xs mb-4 leading-relaxed">
-              Tendances tech, astuces IA et conseils automation — directement dans votre boîte.
+              {t('footer.newsletter.description')}
             </p>
             <form
               onSubmit={(e) => { e.preventDefault(); setEmail(''); }}
@@ -199,12 +199,12 @@ export function Footer() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="votre@email.com"
+                placeholder={t('footer.newsletter.placeholder')}
                 className="flex-1 min-w-0 px-3 py-2 rounded-xl text-sm bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-white/60 transition-colors"
               />
               <button
                 type="submit"
-                aria-label="S'inscrire à la newsletter"
+                aria-label={t('footer.newsletter.subscribeLong')}
                 className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0 transition-opacity hover:opacity-80"
                 style={{ background: '#ffffff' }}
               >

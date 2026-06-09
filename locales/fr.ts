@@ -22,6 +22,11 @@ export const fr = {
   'chatbot.booking.prompt': 'Voici nos créneaux disponibles. Sélectionnez une date et une heure qui vous conviennent :',
   'chatbot.error.booking': 'Une erreur est survenue lors de la réservation. Veuillez réessayer ou nous contacter directement.',
 
+  // Commun
+  'common.learnMore': 'En savoir plus',
+  'common.skipToContent': 'Aller au contenu principal',
+  'hero.tagline': 'NEURAWEB — AGENCE TECH',
+
   // Navigation
   'nav.home': 'Accueil',
   'nav.services': 'Services',
@@ -187,6 +192,11 @@ export const fr = {
   'footer.legal.legalNotice': 'Mentions légales',
   'footer.legal.privacy': 'Confidentialité',
   'footer.legal.terms': 'CGU',
+  'footer.newsletter.tagline': 'Tendances tech & conseils IA — dans votre boîte.',
+  'footer.newsletter.description': 'Tendances tech, astuces IA et conseils automation — directement dans votre boîte.',
+  'footer.newsletter.placeholder': 'votre@email.com',
+  'footer.newsletter.subscribe': "S'inscrire",
+  'footer.newsletter.subscribeLong': "S'inscrire à la newsletter",
 
   // Services Page
   'servicePage.hero.title': 'Développement Web Sur Mesure',

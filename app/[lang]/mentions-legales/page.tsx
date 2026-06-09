@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 const CONTENT = {
   fr: {
     title: 'Mentions Légales',
-    description: 'Mentions légales et informations juridiques de NeuraWeb, agence web spécialisée en développement et intégration IA.',
+    description: 'Mentions légales et informations juridiques de NeuraWeb, agence web française spécialisée en développement Next.js, intégration IA et automatisation.',
     backToHome: 'Retour à l\'accueil',
     sections: {
       editor: {
@@ -105,7 +105,7 @@ Les présentes mentions légales peuvent être modifiées à tout moment. Nous v
   },
   en: {
     title: 'Legal Notice',
-    description: 'Legal notice and information for NeuraWeb, a web agency specializing in development and AI integration.',
+    description: 'Legal notice and company information for NeuraWeb, a French web agency specializing in Next.js development, AI integration and workflow automation.',
     backToHome: 'Back to home',
     sections: {
       editor: {
@@ -196,7 +196,7 @@ These legal notices may be modified at any time. We invite you to consult them r
   },
   es: {
     title: 'Aviso Legal',
-    description: 'Aviso legal e información jurídica de NeuraWeb, agencia web especializada en desarrollo e integración de IA.',
+    description: 'Aviso legal e información jurídica de NeuraWeb, agencia web francesa especializada en desarrollo Next.js, integración de IA y automatización de procesos.',
     backToHome: 'Volver al inicio',
     sections: {
       editor: {

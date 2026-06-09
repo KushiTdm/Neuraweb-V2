@@ -24,6 +24,11 @@ export const en: Record<TranslationKey, string> = {
   'chatbot.booking.prompt': 'Here are our available slots. Select a date and time that works for you:',
   'chatbot.error.booking': 'An error occurred during booking. Please try again or contact us directly.',
 
+  // Common
+  'common.learnMore': 'Learn more',
+  'common.skipToContent': 'Skip to main content',
+  'hero.tagline': 'NEURAWEB — TECH AGENCY',
+
   // Navigation
   'nav.home': 'Home',
   'nav.services': 'Services',
@@ -190,6 +195,11 @@ export const en: Record<TranslationKey, string> = {
   'footer.legal.legalNotice': 'Legal Notice',
   'footer.legal.privacy': 'Privacy',
   'footer.legal.terms': 'Terms',
+  'footer.newsletter.tagline': 'Tech trends & AI tips — in your inbox.',
+  'footer.newsletter.description': 'Tech trends, AI tips and automation insights — delivered straight to your inbox.',
+  'footer.newsletter.placeholder': 'your@email.com',
+  'footer.newsletter.subscribe': 'Subscribe',
+  'footer.newsletter.subscribeLong': 'Subscribe to newsletter',
 
   // Services Page
   'servicePage.hero.title': 'Custom Web Development',

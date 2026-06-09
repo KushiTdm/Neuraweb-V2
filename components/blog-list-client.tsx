@@ -144,6 +144,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
     fr: {
       title: 'Blog',
       subtitle: "Articles, tutoriels et conseils sur le développement web, l'IA et l'automatisation.",
+      intro: "Bienvenue sur le blog NeuraWeb — la ressource de référence pour les entrepreneurs, startups et PME qui veulent exploiter les technologies web de demain. Nos experts partagent chaque semaine des guides pratiques, des analyses approfondies et des retours d'expérience concrets sur trois grands thèmes : le développement web avec Next.js et React, l'intégration de l'intelligence artificielle dans les processus métier, et l'automatisation des workflows avec des outils comme n8n, Make et Zapier. Que vous cherchiez à refondre votre site, déployer un chatbot IA, automatiser votre prospection commerciale ou comprendre les enjeux du SEO en 2026, vous trouverez ici des réponses directement applicables. Chaque article est rédigé par notre équipe de développeurs et consultants IA, avec un angle orienté résultats et ROI mesurable. Pas de contenu générique — uniquement des cas concrets, des chiffres réels et des recommandations actionnables pour accélérer votre transformation digitale.",
       featuredBadge: 'À LA UNE',
       readArticle: "Lire l'article",
       searchPlaceholder: 'Rechercher un article, un mot-clé...',
@@ -164,6 +165,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
     en: {
       title: 'Blog',
       subtitle: 'Articles, tutorials and tips on web development, AI and automation.',
+      intro: 'Welcome to the NeuraWeb blog — your go-to resource for entrepreneurs, startups and SMBs looking to leverage tomorrow\'s web technologies. Our experts share weekly practical guides, in-depth analyses and real-world case studies on three major topics: web development with Next.js and React, integrating artificial intelligence into business processes, and workflow automation with tools like n8n, Make and Zapier. Whether you\'re looking to redesign your website, deploy an AI chatbot, automate your sales prospecting or understand SEO challenges in 2026, you\'ll find directly actionable answers here. Every article is written by our team of developers and AI consultants, with a results-driven, measurable ROI focus. No generic content — only concrete case studies, real numbers and actionable recommendations to accelerate your digital transformation and stay ahead of the competition.',
       featuredBadge: 'FEATURED',
       readArticle: 'Read article',
       searchPlaceholder: 'Search an article, a keyword...',
@@ -184,6 +186,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
     es: {
       title: 'Blog',
       subtitle: 'Artículos, tutoriales y consejos sobre desarrollo web, IA y automatización.',
+      intro: 'Bienvenido al blog de NeuraWeb — tu recurso de referencia para emprendedores, startups y pymes que quieren aprovechar las tecnologías web del futuro. Nuestros expertos comparten cada semana guías prácticas, análisis en profundidad y casos de uso reales sobre tres grandes temas: el desarrollo web con Next.js y React, la integración de la inteligencia artificial en los procesos de negocio, y la automatización de flujos de trabajo con herramientas como n8n, Make y Zapier. Ya sea que quieras renovar tu sitio web, desplegar un chatbot IA, automatizar tu prospección comercial o entender los desafíos del SEO en 2026, encontrarás aquí respuestas directamente aplicables. Cada artículo está redactado por nuestro equipo de desarrolladores y consultores en IA, con un enfoque orientado a resultados y ROI medible. Sin contenido genérico — solo casos concretos, cifras reales y recomendaciones accionables para acelerar tu transformación digital.',
       featuredBadge: 'DESTACADO',
       readArticle: 'Leer el artículo',
       searchPlaceholder: 'Buscar un artículo, una palabra clave...',
@@ -247,6 +250,11 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
           <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             {tr.subtitle}
           </p>
+          {tr.intro && (
+            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-3xl mx-auto mt-4 leading-relaxed">
+              {tr.intro}
+            </p>
+          )}
         </div>
       </section>
 
