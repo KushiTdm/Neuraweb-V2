@@ -52,7 +52,7 @@ Avant chaque appel de découverte, valider ces 5 critères :
 >
 > *(S'ils disent ROI)* → "Parfait. Reprenons les chiffres ensemble. Vous m'avez dit que vos équipes passent [X]h/semaine sur [tâche]. Si on valorise ça à [tarif horaire], on est déjà à [montant]€/mois de perdu. Notre solution est amortie en [Y] mois. Est-ce que ça change la perspective ?"
 >
-> *(S'ils disent budget)* → "OK, qu'est-ce qui est réaliste pour vous en ce moment ? Je peux vous proposer notre pack Starter à 1 500€ pour démarrer avec un site vitrine solide, et on peut ajouter de l'automatisation après — vous êtes opérationnel en 2-3 semaines."
+> *(S'ils disent budget)* → "OK, qu'est-ce qui est réaliste pour vous en ce moment ? Je peux vous proposer notre pack Starter à 1 490€ pour démarrer avec un site vitrine solide, et on peut ajouter de l'automatisation après — vous êtes opérationnel en 2-3 semaines."
 
 ---
 
@@ -95,9 +95,9 @@ Avant chaque appel de découverte, valider ces 5 critères :
 Ne jamais demander "Vous voulez avancer ?" — toujours proposer un choix entre deux options positives.
 
 **Exemples :**
-- *"On démarre avec le pack Starter (1 500€) pour tester l'approche, ou vous préférez aller directement sur le Business (3 500€) avec admin panel et support complet ?"*
+- *"On démarre avec le pack Starter (1 490€) pour tester l'approche, ou vous préférez aller directement sur le Business (3 990€) avec admin panel et support complet ?"*
 - *"Vous voulez qu'on commence la semaine prochaine ou la semaine d'après ?"*
-- *"Je vous envoie la proposition pour le pack Premium (6 000€) avec e-commerce complet, ou vous préférez qu'on commence par le Business et on complète après ?"*
+- *"Je vous envoie la proposition pour le pack Premium (7 990€) avec e-commerce complet, ou vous préférez qu'on commence par le Business et on complète après ?"*
 
 ---
 

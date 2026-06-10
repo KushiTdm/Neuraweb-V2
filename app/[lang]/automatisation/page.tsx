@@ -21,7 +21,7 @@ const META: Record<Lang, {
   locale: string;
 }> = {
   fr: {
-    title: 'Automatisation n8n, Make, Zapier & Agents IA pour PME | NeuraWeb',
+    title: 'Automatisation n8n, Make & Agents IA pour PME | NeuraWeb',
     description: "Automatisez vos processus avec n8n, Make ou Zapier. Workflows sur mesure, agents IA, sync CRM. Audit gratuit, ROI mesurable en 30 jours. Dès 999 € HT.",
     keywords: [
       'automatisation n8n France',

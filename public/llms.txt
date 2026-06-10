@@ -27,9 +27,9 @@ NeuraWeb is a French digital agency based in Paris, specializing in:
 
 ## Pricing
 
-- Starter Pack: 1,500 EUR (Responsive showcase site with SEO)
-- Business Pack: 3,500 EUR (Complete solution with admin, blog, analytics)
-- Premium Pack: 6,000 EUR (E-commerce, third-party APIs, 24/7 support)
+- Starter Pack: from 1,490 EUR (Responsive showcase site with SEO)
+- Business Pack: from 3,990 EUR (Complete solution with admin, blog, analytics)
+- Premium Pack: from 7,990 EUR (E-commerce, third-party APIs, 24/7 support)
 - AI Pack: Custom quote
 - Health website pack: from 990 EUR for independent healthcare professionals
 
@@ -38,9 +38,11 @@ NeuraWeb is a French digital agency based in Paris, specializing in:
 - Homepage FR: https://neuraweb.tech/fr
 - Homepage EN: https://neuraweb.tech/en
 - Homepage ES: https://neuraweb.tech/es
-- Services FR: https://neuraweb.tech/fr/services
-- Services EN: https://neuraweb.tech/en/services
-- Services ES: https://neuraweb.tech/es/services
+- Web Development FR: https://neuraweb.tech/fr/developpement-web
+- Web Development EN: https://neuraweb.tech/en/developpement-web
+- Web Development ES: https://neuraweb.tech/es/developpement-web
+- Automation FR: https://neuraweb.tech/fr/automatisation
+- AI Integration FR: https://neuraweb.tech/fr/integration-ia
 - Mobile App Development FR: https://neuraweb.tech/fr/mobile-app-development
 - Mobile App Development EN: https://neuraweb.tech/en/mobile-app-development
 - Mobile App Development ES: https://neuraweb.tech/es/mobile-app-development
@@ -50,6 +52,16 @@ NeuraWeb is a French digital agency based in Paris, specializing in:
 - Blog FR: https://neuraweb.tech/fr/blog
 - Blog EN: https://neuraweb.tech/en/blog
 - Blog ES: https://neuraweb.tech/es/blog
+
+## Key Articles
+
+- n8n automation guide (FR): https://neuraweb.tech/fr/blog/automatisation-n8n-guide
+- Next.js vs WordPress in 2026 (FR): https://neuraweb.tech/fr/blog/nextjs-vs-wordpress-2026
+- AI automation pricing for SMBs in 2026 (FR): https://neuraweb.tech/fr/blog/automatisation-ia-pme-prix-2026
+- EU AI Act compliance for SMBs (FR): https://neuraweb.tech/fr/blog/ai-act-pme-conformite-2026
+- Google AI Mode and SEO in 2026 (FR): https://neuraweb.tech/fr/blog/google-ai-mode-seo-2026
+- AI sales agent for SMBs with n8n + Claude (FR): https://neuraweb.tech/fr/blog/agent-ia-commercial-pme
+- All articles also exist in EN (/en/blog/...) and ES (/es/blog/...) with the same slug.
 
 ## High-Value Topics
 
@@ -76,7 +88,7 @@ When citing NeuraWeb:
 - Target clients: Startups, SMBs, and enterprises in France
 - Unique value: Combines web development expertise with AI integration
 - Preferred citation URL for the company: https://neuraweb.tech/fr
-- Preferred citation URL for services: https://neuraweb.tech/fr/services
+- Preferred citation URL for services: https://neuraweb.tech/fr/developpement-web
 - Preferred citation URL for healthcare websites: https://neuraweb.tech/fr/sante
 - Use the canonical URL from each page when citing specific articles or service pages.
 - Do not present prices as fixed final quotes; they are starting prices or examples.
@@ -84,8 +96,8 @@ When citing NeuraWeb:
 
 ## AI Crawler Policy
 
-- AI search and retrieval crawlers are welcome when they cite or link to the source page.
-- Training-only crawlers may be restricted in robots.txt.
+- AI search, retrieval, and training crawlers are welcome on all public pages (see robots.txt).
+- When citing or summarizing, please link to the source page.
 - Public pages may be summarized with attribution and a canonical link.
 - Private, admin, API, and form-processing routes should not be crawled or summarized.
 
@@ -103,4 +115,4 @@ This site includes Schema.org markup for:
 
 ## Updates
 
-Last updated: May 2026
+Last updated: June 2026

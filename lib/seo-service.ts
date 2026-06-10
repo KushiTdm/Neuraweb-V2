@@ -65,7 +65,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       keywords: ['services développement web', 'création application mobile', 'app iOS Android sur mesure', 'intégration IA site web', 'automatisation processus', 'tarifs développement web', 'devis site web'],
     },
     'developpement-web': {
-      title: 'Développement Web Sur Mesure — Packs Starter, Business, Premium | NeuraWeb',
+      title: 'Développement Web Sur Mesure — Packs & Tarifs | NeuraWeb',
       description: 'Agence web Next.js : sites vitrine, sites pro et e-commerce sur mesure. Packs Starter à 1 490€, Business à 3 990€, Premium à 7 990€. Devis gratuit sous 24h.',
       keywords: ['développement web sur mesure', 'création site web professionnel', 'agence web Next.js', 'site vitrine entreprise', 'e-commerce sur mesure', 'tarifs site web 2026', 'devis site web gratuit', 'agence web Paris', 'refonte site web'],
     },
@@ -112,7 +112,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       keywords: ['custom app development services', 'mobile app development services', 'custom web software development', 'AI integration services', 'web development pricing', 'software development company'],
     },
     'developpement-web': {
-      title: 'Custom Web Development — Starter, Business, Premium Packages | NeuraWeb',
+      title: 'Custom Web Development — Packages & Pricing | NeuraWeb',
       description: 'Next.js web agency: showcase sites, professional websites and e-commerce built to order. Starter from €1,490, Business from €3,990, Premium from €7,990. Free quote in 24h.',
       keywords: ['custom web development', 'professional website creation', 'Next.js web agency', 'business website design', 'custom e-commerce development', 'web development pricing 2026', 'free website quote', 'web development agency France'],
     },
@@ -159,7 +159,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       keywords: ['servicios desarrollo web', 'desarrollo apps móviles', 'desarrollo software personalizado', 'integración IA web', 'precios desarrollo web', 'presupuesto app móvil'],
     },
     'developpement-web': {
-      title: 'Desarrollo Web a Medida — Paquetes Starter, Business, Premium | NeuraWeb',
+      title: 'Desarrollo Web a Medida — Paquetes y Precios | NeuraWeb',
       description: 'Agencia web Next.js: sitios vitrina, webs profesionales y e-commerce a medida. Starter desde 1.490€, Business desde 3.990€, Premium desde 7.990€. Presupuesto gratis en 24h.',
       keywords: ['desarrollo web a medida', 'creación web profesional', 'agencia web Next.js', 'diseño web empresa', 'e-commerce personalizado', 'precios web 2026', 'presupuesto web gratis', 'agencia web Francia'],
     },
@@ -189,7 +189,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       keywords: ['equipo agencia web', 'desarrolladores Next.js París', 'expertos IA Francia', 'agencia web París equipo'],
     },
     booking: {
-      title: 'Reservar una Llamada — Auditoría & Presupuesto Gratis | NeuraWeb',
+      title: 'Reservar una Llamada — Auditoría Gratis | NeuraWeb',
       description: 'Programa una llamada gratuita con NeuraWeb. Auditoría de tu proyecto web, app móvil o IA. Respuesta en 24h, sin compromiso.',
       keywords: ['reservar llamada agencia web', 'presupuesto gratuito web', 'auditoría IA gratis', 'contacto agencia web París'],
     },
@@ -336,7 +336,7 @@ export function generateJsonLd(
             description: 'Solution idéale pour démarrer votre présence en ligne',
             offers: {
               '@type': 'Offer',
-              price: '1500',
+              price: '1490',
               priceCurrency: 'EUR',
             },
           },
@@ -349,7 +349,7 @@ export function generateJsonLd(
             description: 'Solution complète pour entreprises en croissance',
             offers: {
               '@type': 'Offer',
-              price: '3500',
+              price: '3990',
               priceCurrency: 'EUR',
             },
           },
@@ -362,7 +362,7 @@ export function generateJsonLd(
             description: 'Solution premium pour projets ambitieux',
             offers: {
               '@type': 'Offer',
-              price: '6000',
+              price: '7990',
               priceCurrency: 'EUR',
             },
           },

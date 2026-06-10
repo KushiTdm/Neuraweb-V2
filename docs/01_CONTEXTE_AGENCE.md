@@ -17,9 +17,9 @@ Jamais donneur de leçon · Jamais bullshit de consultant
 ## Offres principales
 
 ### Services Web & Automation (2-8 semaines)
-- **Starter Web** (1 500€) : Site vitrine 3-5 pages, design personnalisé, formulaire contact, hébergement 1an
-- **Business Web** (3 500€) ⭐ Populaire : Admin panel, blog, analytics avancés, support prioritaire, formation
-- **Premium Web** (6 000€) : E-commerce complet, intégrations API, dashboard client, support 24/7
+- **Starter Web** (1 490€) : Site vitrine 3-5 pages, design personnalisé, formulaire contact, hébergement 1an
+- **Business Web** (3 990€) ⭐ Populaire : Admin panel, blog, analytics avancés, support prioritaire, formation
+- **Premium Web** (7 990€) : E-commerce complet, intégrations API, dashboard client, support 24/7
 - **Pack IA & Automation** (8k-30k€+) : Chatbots IA, workflows n8n/Make, analyse de données, ML
 
 ### Services Développement Mobile (6-24 semaines)

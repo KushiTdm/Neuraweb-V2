@@ -180,21 +180,21 @@ export const professionalServiceSchema = {
         '@type': 'Offer',
         name: 'Pack Starter',
         description: 'Site vitrine responsive avec SEO optimisé',
-        price: '1500',
+        price: '1490',
         priceCurrency: 'EUR',
       },
       {
         '@type': 'Offer',
         name: 'Pack Business',
         description: 'Solution complète avec espace admin, blog et analytics',
-        price: '3500',
+        price: '3990',
         priceCurrency: 'EUR',
       },
       {
         '@type': 'Offer',
         name: 'Pack Premium',
         description: 'E-commerce, API tierces, support 24/7',
-        price: '6000',
+        price: '7990',
         priceCurrency: 'EUR',
       },
     ],
@@ -247,53 +247,81 @@ export const serviceSchema = {
   },
 };
 
-// ── FAQ Schema ──────────────────────────────────────────────────────────────
-export const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
+// ── FAQ de la home ───────────────────────────────────────────────────────────
+// Source unique : alimente le schéma FAQPage (page.tsx) ET la section FAQ
+// visible (components/sections/faq-section.tsx). Google exige que le contenu
+// balisé soit affiché sur la page — garder les deux synchronisés.
+export const HOME_FAQ_ITEMS: Record<'fr' | 'en' | 'es', Array<{ question: string; answer: string }>> = {
+  fr: [
     {
-      '@type': 'Question',
-      name: 'Quels sont les délais pour un projet web ?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: "Un MVP peut être livré en 4 à 6 semaines. Un site vitrine prend généralement 2 à 4 semaines. Les projets complexes sont évalués au cas par cas lors d'un appel découverte gratuit.",
-      },
+      question: 'Quels sont les délais pour un projet web ?',
+      answer: "Un MVP peut être livré en 4 à 6 semaines. Un site vitrine prend généralement 2 à 4 semaines. Les projets complexes sont évalués au cas par cas lors d'un appel découverte gratuit.",
     },
     {
-      '@type': 'Question',
-      name: 'Proposez-vous des forfaits tout inclus ?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Oui, nous proposons 3 packs : Starter (à partir de 1 500€), Business (à partir de 3 500€), et Premium (à partir de 6 000€). Un Pack IA sur devis est aussi disponible. Chaque pack est personnalisable.',
-      },
+      question: 'Proposez-vous des forfaits tout inclus ?',
+      answer: 'Oui, nous proposons 3 packs : Starter (à partir de 1 490€), Business (à partir de 3 990€), et Premium (à partir de 7 990€). Un Pack IA sur devis est aussi disponible. Chaque pack est personnalisable.',
     },
     {
-      '@type': 'Question',
-      name: 'Intégrez-vous des solutions IA dans les sites web ?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: "Oui, nous intégrons des chatbots IA, des agents conversationnels, des systèmes de recommandation et des workflows automatisés avec OpenAI (ChatGPT), Anthropic (Claude) ou des modèles open-source.",
-      },
+      question: 'Intégrez-vous des solutions IA dans les sites web ?',
+      answer: "Oui, nous intégrons des chatbots IA, des agents conversationnels, des systèmes de recommandation et des workflows automatisés avec OpenAI (ChatGPT), Anthropic (Claude) ou des modèles open-source.",
     },
     {
-      '@type': 'Question',
-      name: 'NeuraWeb travaille-t-elle uniquement avec des startups ?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: "Non, nous travaillons avec des startups, des PME et des grandes entreprises. Notre approche agile s'adapte à tous les types de projets.",
-      },
+      question: 'NeuraWeb travaille-t-elle uniquement avec des startups ?',
+      answer: "Non, nous travaillons avec des startups, des PME et des grandes entreprises. Notre approche agile s'adapte à tous les types de projets.",
     },
     {
-      '@type': 'Question',
-      name: "Proposez-vous de l'automatisation n8n ?",
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: "Oui, l'automatisation n8n est l'un de nos services phares. Nous concevons des workflows automatisés pour vos processus métier : emails, CRM, facturation, réseaux sociaux, et bien plus.",
-      },
+      question: "Proposez-vous de l'automatisation n8n ?",
+      answer: "Oui, l'automatisation n8n est l'un de nos services phares. Nous concevons des workflows automatisés pour vos processus métier : emails, CRM, facturation, réseaux sociaux, et bien plus.",
+    },
+  ],
+  en: [
+    {
+      question: 'How long does a web project take?',
+      answer: 'An MVP can be delivered in 4 to 6 weeks. A showcase website usually takes 2 to 4 weeks. Complex projects are assessed case by case during a free discovery call.',
+    },
+    {
+      question: 'Do you offer all-inclusive packages?',
+      answer: 'Yes, we offer 3 packs: Starter (from €1,490), Business (from €3,990), and Premium (from €7,990). An AI Pack is also available on quote. Every pack is customizable.',
+    },
+    {
+      question: 'Do you integrate AI solutions into websites?',
+      answer: 'Yes, we integrate AI chatbots, conversational agents, recommendation systems and automated workflows with OpenAI (ChatGPT), Anthropic (Claude) or open-source models.',
+    },
+    {
+      question: 'Does NeuraWeb only work with startups?',
+      answer: 'No, we work with startups, SMBs and large companies. Our agile approach adapts to every type of project.',
+    },
+    {
+      question: 'Do you offer n8n automation?',
+      answer: 'Yes, n8n automation is one of our flagship services. We design automated workflows for your business processes: emails, CRM, invoicing, social media, and much more.',
+    },
+  ],
+  es: [
+    {
+      question: '¿Cuáles son los plazos para un proyecto web?',
+      answer: 'Un MVP puede entregarse en 4 a 6 semanas. Un sitio vitrina suele tardar de 2 a 4 semanas. Los proyectos complejos se evalúan caso por caso en una llamada de descubrimiento gratuita.',
+    },
+    {
+      question: '¿Ofrecéis paquetes todo incluido?',
+      answer: 'Sí, ofrecemos 3 packs: Starter (desde 1.490€), Business (desde 3.990€) y Premium (desde 7.990€). También hay un Pack IA bajo presupuesto. Cada pack es personalizable.',
+    },
+    {
+      question: '¿Integráis soluciones de IA en los sitios web?',
+      answer: 'Sí, integramos chatbots de IA, agentes conversacionales, sistemas de recomendación y workflows automatizados con OpenAI (ChatGPT), Anthropic (Claude) o modelos open-source.',
+    },
+    {
+      question: '¿NeuraWeb trabaja solo con startups?',
+      answer: 'No, trabajamos con startups, pymes y grandes empresas. Nuestro enfoque ágil se adapta a todo tipo de proyectos.',
+    },
+    {
+      question: '¿Ofrecéis automatización con n8n?',
+      answer: 'Sí, la automatización con n8n es uno de nuestros servicios estrella. Diseñamos workflows automatizados para tus procesos de negocio: emails, CRM, facturación, redes sociales y mucho más.',
     },
   ],
 };
+
+// ── FAQ Schema (rétro-compat : version FR) ──────────────────────────────────
+export const faqSchema = generateFaqSchema(HOME_FAQ_ITEMS.fr);
 
 // ── FAQ Schema Generator ────────────────────────────────────────────────────
 export function generateFaqSchema(

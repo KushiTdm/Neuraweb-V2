@@ -177,6 +177,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
           src={post.image || '/assets/og-image.png'}
           alt={post.title}
           fill
+          sizes="100vw"
           className="object-cover opacity-60 dark:opacity-40"
           priority
         />

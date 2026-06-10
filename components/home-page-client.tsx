@@ -39,6 +39,10 @@ const TestimonialsSection = dynamic(
   () => import('@/components/sections/testimonials-section').then((mod) => ({ default: mod.TestimonialsSection })),
   { loading: () => <SectionSkeleton /> }
 );
+const FAQSection = dynamic(
+  () => import('@/components/sections/faq-section').then((mod) => ({ default: mod.FAQSection })),
+  { loading: () => <SectionSkeleton /> }
+);
 const CTASection = dynamic(
   () => import('@/components/sections/cta-section').then((mod) => ({ default: mod.CTASection })),
   { loading: () => <SectionSkeleton /> }
@@ -75,35 +79,37 @@ export function HomePageClient() {
     servicesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, []);
 
+  // Pas de <main> ici : app/[lang]/page.tsx fournit déjà <main id="main-content">.
   return (
     <>
-      <main id="main-content">
-        {/* 1. Hero — slider image, cross-fade, ken-burns */}
-        <HeroSection onScrollToNext={scrollToServices} />
+      {/* 1. Hero — slider image, cross-fade, ken-burns */}
+      <HeroSection onScrollToNext={scrollToServices} />
 
-        {/* 2. Partenaires / stack tech — marquee infini */}
-        <PartnersMarquee />
+      {/* 2. Partenaires / stack tech — marquee infini */}
+      <PartnersMarquee />
 
-        {/* 3. Services — cartes image + icône flottante, slider */}
-        <div ref={servicesRef}>
-          <ServicesSection />
-        </div>
+      {/* 3. Services — cartes image + icône flottante, slider */}
+      <div ref={servicesRef}>
+        <ServicesSection />
+      </div>
 
-        {/* 4. Stats — chiffres métalliques chrome, count-up */}
-        <StatsSection />
+      {/* 4. Stats — chiffres métalliques chrome, count-up */}
+      <StatsSection />
 
-        {/* 5. About */}
-        <AboutSection />
+      {/* 5. About */}
+      <AboutSection />
 
-        {/* 6. Portfolio */}
-        <PortfolioSection />
+      {/* 6. Portfolio */}
+      <PortfolioSection />
 
-        {/* 7. Témoignages */}
-        <TestimonialsSection />
+      {/* 7. Témoignages */}
+      <TestimonialsSection />
 
-        {/* 8. CTA final (avec audit intégré) */}
-        <CTASection />
-      </main>
+      {/* 8. FAQ — contenu visible du schéma FAQPage (AEO) */}
+      <FAQSection />
+
+      {/* 9. CTA final (avec audit intégré) */}
+      <CTASection />
     </>
   );
 }

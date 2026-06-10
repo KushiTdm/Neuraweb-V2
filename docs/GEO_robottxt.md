@@ -1,5 +1,13 @@
 **Pour apparaître dans les moteurs de recherche IA (ChatGPT Search, Perplexity, Google AI Overviews, Claude, Grok, etc.), voici les recommandations actuelles en 2026 issues de Google, OpenAI, sources SEO et discussions Reddit.**
 
+> **Décision NeuraWeb (juin 2026)** : les bots d'entraînement (GPTBot, ClaudeBot,
+> anthropic-ai, CCBot, Google-Extended) sont **autorisés** sur les pages publiques
+> dans `app/robots.ts`, en plus des bots de recherche IA. Objectif : entrer dans
+> les connaissances des futurs modèles et les index dérivés de Common Crawl.
+> Seules les routes privées (/api/, /admin/, /hotel-form/) restent bloquées,
+> pour tous les bots. Les exemples `Disallow` ci-dessous sont des modèles
+> génériques, pas la configuration du site.
+
 ## GROK
 
 ### Principe clé : Distinguer **crawl/search** vs **training**

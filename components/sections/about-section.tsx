@@ -101,7 +101,7 @@ export function AboutSection() {
               {t('about.title').split('NeuraWeb')[0]}
               <span
                 style={{
-                  background: '#ffffff',
+                  background: 'linear-gradient(135deg,#4f46e5,#7c3aed,#0891b2)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',

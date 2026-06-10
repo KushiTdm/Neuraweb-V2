@@ -52,7 +52,7 @@ export function ServicesSection() {
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-xl">
               <span className="text-navy-900">{labels.title1}</span>
               <br />
-              <span style={{ background: '#ffffff', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <span style={{ background: 'linear-gradient(135deg,#4f46e5,#7c3aed,#0891b2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 {labels.title2}
               </span>
             </h2>
@@ -129,7 +129,7 @@ export function ServicesSection() {
             <span className="absolute top-5 left-5 z-10 text-4xl font-bold text-navy-900/20 font-mono">02</span>
             <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
               <div className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-white/80 backdrop-blur-sm mb-3">
-                <Smartphone className="w-4 h-4 text-white" />
+                <Smartphone className="w-4 h-4 text-navy-900" />
               </div>
               <h3 className="font-display text-xl font-bold text-navy-900 mb-1.5">
                 {t('services.mobile.title')}
@@ -200,7 +200,7 @@ export function ServicesSection() {
 
         {/* ── Mobile : carousel snap horizontal — 4 cards défilantes ─────── */}
         <div className="md:hidden -mx-4 sm:-mx-6">
-          <CardsCarousel slideWidth="snap" padding={1} gap={1} dotColor="#ffffff" showArrows autoPlay autoPlayInterval={4500}>
+          <CardsCarousel slideWidth="snap" padding={1} gap={1} dotColor="#0E1B3D" showArrows autoPlay autoPlayInterval={4500}>
             {/* Carte 1 — Dev Web */}
             <LocalizedLink href="/services" className="relative rounded-3xl overflow-hidden group block h-[340px]">
               <Image src="/assets/services/development_web-macbook.webp" alt="Développement Web" fill sizes="85vw" className="object-cover" loading="lazy" />

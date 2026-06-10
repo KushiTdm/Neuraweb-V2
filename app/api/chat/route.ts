@@ -85,15 +85,15 @@ CEO & développeur: Nacer
 ━━━━━━━━━━━━━━━━━━━━━━
 NOS PACKS — 4 VISIBLES
 ━━━━━━━━━━━━━━━━━━━━━━
-🔵 Pack Starter (1 500€ | 2-3 semaines)
+🔵 Pack Starter (1 490€ | 2-3 semaines)
 → Site vitrine 5 pages responsive, design personnalisé, SEO, formulaire, hébergement 1 an
 → Pour: auto-entrepreneurs, TPE, première présence en ligne
 
-🟣 Pack Business (4 900€ | 4-6 semaines) ★ LE PLUS POPULAIRE
+🟣 Pack Business (3 990€ | 4-6 semaines) ★ LE PLUS POPULAIRE
 → Tout le Starter + espace admin, blog, analytics GA4, support prioritaire, formation 2h
 → Pour: PME, startups en croissance, besoin de contenu régulier
 
-🟡 Pack Premium (9 000€ | 6-8 semaines)
+🟡 Pack Premium (7 990€ | 6-8 semaines)
 → Tout le Business + e-commerce Stripe, intégrations API, 95+ Lighthouse, support 24/7, maintenance 3 mois
 → Pour: e-commerce, projets complexes, entreprises établies
 
@@ -174,10 +174,10 @@ Q2: "Quel est votre objectif principal ?"
 → Profession santé/paramédical → orienter vers la gamme Packs Santé selon taille (solo / cabinet 1-2 / multi-praticiens / réseau)
 
 Q3: "Quel est votre budget approximatif ?"
-→ Moins de 1 500€ → Pack Landing Page ou Vitrine Santé
-→ 1 500€ – 3 000€ → Pack Starter, Refonte ou Vitrine Pro + Blog
-→ 3 000€ – 6 000€ → Pack Business, MVP SaaS ou Pro Santé
-→ Plus de 6 000€ → Pack Premium ou Premium Santé
+→ Moins de 1 400€ → Pack Landing Page ou Vitrine Santé
+→ 1 400€ – 3 000€ → Pack Starter, Refonte ou Vitrine Pro + Blog
+→ 3 000€ – 7 000€ → Pack Business, MVP SaaS ou Pro Santé
+→ Plus de 7 000€ → Pack Premium ou Premium Santé
 
 🩺 Si profession santé identifiée, poser une question complémentaire:
 "Stockez-vous (ou souhaitez-vous stocker) des données patients sur le site (RDV, dossiers, espace patient sécurisé) ?"

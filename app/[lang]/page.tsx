@@ -3,7 +3,7 @@ import { HomePageClient } from '@/components/home-page-client';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { JsonLd } from '@/components/json-ld';
-import { professionalServiceSchema, faqSchema, localBusinessSchema } from '@/lib/structured-data';
+import { professionalServiceSchema, generateFaqSchema, HOME_FAQ_ITEMS, localBusinessSchema } from '@/lib/structured-data';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
 
@@ -78,11 +78,13 @@ export default async function HomePage({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
+  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
 
   return (
     <>
       <JsonLd id="professional-service-schema" data={professionalServiceSchema} />
-      <JsonLd id="home-faq-schema" data={faqSchema} />
+      {/* FAQ localisée — même source que la section FAQ visible (HOME_FAQ_ITEMS) */}
+      <JsonLd id="home-faq-schema" data={generateFaqSchema(HOME_FAQ_ITEMS[language] ?? HOME_FAQ_ITEMS.fr)} />
       {/* LocalBusiness — porte l'aggregateRating (étoiles SERP). Restreint aux pages
           "fiche entreprise" : home, /contact, /equipe. */}
       <JsonLd id="localbusiness-schema" data={localBusinessSchema} />

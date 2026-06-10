@@ -16,7 +16,7 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 ## 1. SERVICES WEB & AUTOMATION
 
 ### 1.1 Pack Starter Web
-**Prix :** 1 500€ TTC  
+**Prix :** 1 490€ TTC  
 **Délai :** 2-3 semaines  
 **Cible :** Petits commerces, indépendants, présence en ligne basique
 
@@ -37,7 +37,7 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 ---
 
 ### 1.2 Pack Business Web ⭐ POPULAIRE
-**Prix :** 3 500€ TTC  
+**Prix :** 3 990€ TTC  
 **Délai :** 4-6 semaines  
 **Cible :** PME en croissance, professionnels libéraux, agences de services
 
@@ -59,7 +59,7 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 ---
 
 ### 1.3 Pack Premium Web
-**Prix :** 6 000€ TTC  
+**Prix :** 7 990€ TTC  
 **Délai :** 6-8 semaines  
 **Cible :** E-commerce, startups tech, agences haut de gamme, projets complexes
 

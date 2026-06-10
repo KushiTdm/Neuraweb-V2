@@ -45,9 +45,9 @@ const translations = {
     error: 'Erreur lors de la réservation',
     services: ['Audit IA', 'Devis', 'Site vitrine', 'E-commerce', 'Application web', 'Intégration IA', 'Automatisation', 'Autre'],
     packs: {
-      starter: 'Pack Starter - 1 500€',
-      business: 'Pack Business - 4 900€',
-      premium: 'Pack Premium - 9 900€',
+      starter: 'Pack Starter - 1 490€',
+      business: 'Pack Business - 3 990€',
+      premium: 'Pack Premium - 7 990€',
       ai: 'Pack IA - Sur devis'
     }
   },
@@ -77,9 +77,9 @@ const translations = {
     error: 'Booking error',
     services: ['AI Audit', 'Quote', 'Showcase website', 'E-commerce', 'Web application', 'AI integration', 'Automation', 'Other'],
     packs: {
-      starter: 'Starter Pack - €1,500',
-      business: 'Business Pack - €4,900',
-      premium: 'Premium Pack - €9,900',
+      starter: 'Starter Pack - €1,490',
+      business: 'Business Pack - €3,990',
+      premium: 'Premium Pack - €7,990',
       ai: 'AI Pack - On quote'
     }
   },
@@ -109,9 +109,9 @@ const translations = {
     error: 'Error al reservar',
     services: ['Auditoría IA', 'Presupuesto', 'Sitio web', 'E-commerce', 'Aplicación web', 'Integración IA', 'Automatización', 'Otro'],
     packs: {
-      starter: 'Pack Starter - 1.500€',
-      business: 'Pack Business - 4.900€',
-      premium: 'Pack Premium - 9.900€',
+      starter: 'Pack Starter - 1.490€',
+      business: 'Pack Business - 3.990€',
+      premium: 'Pack Premium - 7.990€',
       ai: 'Pack IA - Bajo presupuesto'
     }
   }

@@ -97,7 +97,7 @@ ENTREPRISE :
 - Services : Développement web Next.js/React, Intégration IA (ChatGPT/Claude), Automatisation n8n
 - Cible : Startups, PME, entrepreneurs français
 - Localisation : Lille, France (clients internationaux)
-- Prix : À partir de 1 500€
+- Prix : À partir de 1 490€
 - Délais : 2-8 semaines selon le projet
 - Points forts : 16 avis 5 étoiles, réponse sous 24h, devis gratuit
 ${context.customContext ? `- Contexte additionnel : ${context.customContext}` : ''}
