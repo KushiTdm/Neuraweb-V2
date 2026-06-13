@@ -126,6 +126,7 @@ export function Header() {
                     transition-all duration-200 origin-top-left z-50"
                 >
                   <div className="rounded-xl border border-gray-200/80 dark:border-white/10 bg-white/95 dark:bg-[#0a0a1a]/95 backdrop-blur-md shadow-xl shadow-black/5 dark:shadow-black/40 p-2">
+                    {/* Développement web + ses verticales sectorielles */}
                     <LocalizedLink
                       href="/developpement-web"
                       className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
@@ -135,6 +136,31 @@ export function Header() {
                       <span className="block font-medium">{t('nav.dropdown.web.label')}</span>
                       <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.web.desc')}</span>
                     </LocalizedLink>
+
+                    {/* Sous-pages sectorielles de Développement web */}
+                    <div className="ml-3 pl-3 border-l border-gray-100 dark:border-white/10">
+                      <LocalizedLink
+                        href="/restaurants"
+                        className="flex flex-col px-3 py-2 rounded-lg text-sm transition-colors
+                          text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white
+                          hover:bg-gray-50 dark:hover:bg-white/5"
+                      >
+                        <span className="block font-medium">{t('nav.dropdown.restaurants.label')}</span>
+                        <span className="block text-xs text-gray-400 dark:text-gray-600">{t('nav.dropdown.restaurants.desc')}</span>
+                      </LocalizedLink>
+
+                      <LocalizedLink
+                        href="/sante"
+                        className="flex flex-col px-3 py-2 rounded-lg text-sm transition-colors
+                          text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white
+                          hover:bg-gray-50 dark:hover:bg-white/5"
+                      >
+                        <span className="block font-medium">{t('nav.dropdown.sante.label')}</span>
+                        <span className="block text-xs text-gray-400 dark:text-gray-600">{t('nav.dropdown.sante.desc')}</span>
+                      </LocalizedLink>
+                    </div>
+
+                    <div className="my-1 border-t border-gray-100 dark:border-white/5" />
 
                     <LocalizedLink
                       href="/mobile-app-development"
@@ -164,18 +190,6 @@ export function Header() {
                     >
                       <span className="block font-medium">{t('nav.dropdown.ai.label')}</span>
                       <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.ai.desc')}</span>
-                    </LocalizedLink>
-
-                    <div className="my-1 border-t border-gray-100 dark:border-white/5" />
-
-                    <LocalizedLink
-                      href="/sante"
-                      className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
-                        text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
-                        hover:bg-gray-50 dark:hover:bg-white/5"
-                    >
-                      <span className="block font-medium">{t('nav.dropdown.sante.label')}</span>
-                      <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.sante.desc')}</span>
                     </LocalizedLink>
                   </div>
                 </div>
@@ -282,7 +296,9 @@ export function Header() {
           contactLabel={t('nav.contact')}
           items={[
             { label: t('nav.home'),     href: '/',                     ariaLabel: t('nav.home')     },
-            { label: t('nav.services'), href: '/developpement-web',    ariaLabel: t('nav.services') },
+            { label: t('nav.dropdown.web.label'), href: '/developpement-web' },
+            { label: t('nav.dropdown.restaurants.label'), href: '/restaurants', isSubItem: true },
+            { label: t('nav.dropdown.sante.label'),       href: '/sante',       isSubItem: true },
             { label: 'Mobile',          href: '/mobile-app-development' },
             { label: 'IA',              href: '/integration-ia'        },
             { label: t('nav.blog'),     href: '/blog',                 ariaLabel: t('nav.blog')     },

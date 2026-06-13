@@ -82,6 +82,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   });
 
+  // Page Restaurants — FR uniquement (canal de conversion vertical, pas traduit)
+  urls.push({
+    url: `${BASE_URL}/fr/restaurants`,
+    lastModified: new Date('2026-06-13'),
+    changeFrequency: 'monthly',
+    priority: 0.95,
+    alternates: {
+      languages: {
+        fr: `${BASE_URL}/fr/restaurants`,
+        'x-default': `${BASE_URL}/fr/restaurants`,
+      },
+    },
+  });
+
   // Pages Automatisation et Intégration IA — toutes langues
   (['automatisation', 'integration-ia'] as const).forEach((slug) => {
     const lastModified = new Date('2026-05-27');

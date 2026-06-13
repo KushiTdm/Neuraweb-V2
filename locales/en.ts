@@ -50,6 +50,8 @@ export const en: Record<TranslationKey, string> = {
   'nav.dropdown.automation.desc': 'n8n & smart workflows',
   'nav.dropdown.ai.label': 'AI Integration',
   'nav.dropdown.ai.desc': 'ChatGPT, LLM, AI agents',
+  'nav.dropdown.restaurants.label': 'Restaurants',
+  'nav.dropdown.restaurants.desc': 'Online ordering without commission',
   'nav.dropdown.sante.label': 'Healthcare',
   'nav.dropdown.sante.desc': 'Websites for health pros — from €990',
 

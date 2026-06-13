@@ -48,6 +48,8 @@ export const fr = {
   'nav.dropdown.automation.desc': 'n8n & workflows intelligents',
   'nav.dropdown.ai.label': 'Intégration IA',
   'nav.dropdown.ai.desc': 'ChatGPT, LLM, agents IA',
+  'nav.dropdown.restaurants.label': 'Restaurants',
+  'nav.dropdown.restaurants.desc': 'Réservation, commande sans commission',
   'nav.dropdown.sante.label': 'Santé & Paramédical',
   'nav.dropdown.sante.desc': 'Sites pour pros de santé — dès 990€',
 

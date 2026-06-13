@@ -16,6 +16,7 @@ export interface StaggeredMenuItem {
   label: string;
   href: string;
   ariaLabel?: string;
+  isSubItem?: boolean;
 }
 
 interface StaggeredMenuPanelProps {
@@ -221,16 +222,20 @@ export function StaggeredMenuPanel({
             {items.map((item, idx) => (
               <li
                 key={item.label + idx}
-                className="sm-panel-itemWrap relative overflow-hidden leading-none"
+                className={`sm-panel-itemWrap relative overflow-hidden leading-none ${item.isSubItem ? 'ml-5 border-l border-white/10 pl-4' : ''}`}
               >
                 <LocalizedLink
                   href={item.href}
                   onClick={onClose}
-                  className="sm-panel-item group relative text-white/90 font-bold cursor-pointer leading-none tracking-tight uppercase inline-block no-underline py-2"
+                  className={`sm-panel-item group relative cursor-pointer leading-none inline-block no-underline ${
+                    item.isSubItem
+                      ? 'text-white/60 font-semibold py-1.5 hover:text-white/90'
+                      : 'text-white/90 font-bold tracking-tight uppercase py-2'
+                  }`}
                   style={{
-                    fontSize: 'clamp(2.2rem, 9vw, 3.4rem)',
-                    letterSpacing: '-0.03em',
-                    paddingRight: displayItemNumbering ? '2.5em' : undefined,
+                    fontSize: item.isSubItem ? 'clamp(1.1rem, 4.5vw, 1.5rem)' : 'clamp(2.2rem, 9vw, 3.4rem)',
+                    letterSpacing: item.isSubItem ? '-0.01em' : '-0.03em',
+                    paddingRight: displayItemNumbering && !item.isSubItem ? '2.5em' : undefined,
                   }}
                   aria-label={item.ariaLabel}
                   data-index={idx + 1}
@@ -239,6 +244,7 @@ export function StaggeredMenuPanel({
                     className="sm-panel-itemLabel inline-block transition-colors duration-150 group-hover:text-white"
                     style={{ transformOrigin: '50% 100%', willChange: 'transform' }}
                   >
+                    {item.isSubItem && <span className="mr-1.5 opacity-40">—</span>}
                     {item.label}
                   </span>
                 </LocalizedLink>
