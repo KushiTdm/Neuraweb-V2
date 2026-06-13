@@ -13,7 +13,6 @@ import {
   ArrowRight,
   ExternalLink,
   TrendingUp,
-  Phone,
   Sparkles,
   Clock,
   Percent,
@@ -29,6 +28,7 @@ import { Button } from '@/components/ui/button';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { LocalizedLink } from '@/components/localized-link';
+import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
   Accordion,
   AccordionContent,
@@ -340,37 +340,37 @@ export function RestaurantsPageClient() {
 
 function Hero({ onScrollToFormules }: { onScrollToFormules: () => void }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-white to-rose-50 pt-28 pb-20 md:pt-32 md:pb-28">
+    <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-white to-rose-50 pt-24 pb-12 md:pt-32 md:pb-28">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(244,114,182,0.10),transparent_60%)] pointer-events-none" />
       <div className="absolute -top-32 -right-32 w-96 h-96 bg-amber-200/30 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-rose-200/30 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         <div className="lg:col-span-7" data-reveal>
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur border border-amber-200 text-amber-700 text-sm font-medium mb-6">
-            <UtensilsCrossed className="w-4 h-4" />
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur border border-amber-200 text-amber-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
+            <UtensilsCrossed className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             Sites web pour restaurants
           </span>
 
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-slate-900">
+          <h1 className="font-display text-[2rem] leading-[1.1] sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
             Votre restaurant mérite mieux que{' '}
             <span className="bg-gradient-to-r from-amber-600 via-orange-500 to-rose-500 bg-clip-text text-transparent">
               30 % de commission
             </span>
           </h1>
 
-          <p className="mt-6 text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl">
+          <p className="mt-4 md:mt-6 text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl">
             Réservation en ligne, commande et <strong>click & collect avec paiement
             sans commission</strong>, fidélité : un site qui vous appartient et qui
             transforme un visiteur en client fidèle. <strong>7 démos en ligne</strong> à
             l’appui.
           </p>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
             <Button
               onClick={onScrollToFormules}
               size="lg"
-              className="bg-gradient-to-r from-amber-600 to-rose-500 hover:from-amber-700 hover:to-rose-600 text-white shadow-lg shadow-amber-600/20 h-12 px-8"
+              className="bg-gradient-to-r from-amber-600 to-rose-500 hover:from-amber-700 hover:to-rose-600 text-white shadow-lg shadow-amber-600/20 h-12 px-6 sm:px-8"
             >
               Voir les formules
               <ArrowRight className="ml-2 w-4 h-4" />
@@ -379,21 +379,23 @@ function Hero({ onScrollToFormules }: { onScrollToFormules: () => void }) {
               asChild
               variant="outline"
               size="lg"
-              className="bg-white border-amber-300 text-amber-700 hover:bg-amber-50 hover:text-amber-800 h-12 px-8"
+              className="bg-white border-amber-300 text-amber-700 hover:bg-amber-50 hover:text-amber-800 h-12 px-6 sm:px-8"
             >
               <LocalizedLink href="/booking">Demander un devis gratuit</LocalizedLink>
             </Button>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* Trust badges : ligne compacte mobile, grille à partir de sm */}
+          <div className="mt-6 md:mt-10 flex flex-wrap gap-x-4 gap-y-2 sm:grid sm:grid-cols-3 sm:gap-4">
             {[
-              { icon: CreditCard, label: 'Paiement sans commission', color: 'text-rose-600' },
-              { icon: CalendarCheck, label: 'Réservation en ligne', color: 'text-amber-600' },
-              { icon: ShieldCheck, label: 'Site & données à vous', color: 'text-orange-600' },
-            ].map(({ icon: Icon, label, color }) => (
-              <div key={label} className="flex items-center gap-2 text-sm font-medium text-slate-700">
-                <Icon className={cn('w-5 h-5', color)} />
-                {label}
+              { icon: CreditCard, label: 'Sans commission', longLabel: 'Paiement sans commission', color: 'text-rose-600' },
+              { icon: CalendarCheck, label: 'Réservation', longLabel: 'Réservation en ligne', color: 'text-amber-600' },
+              { icon: ShieldCheck, label: 'Site à vous', longLabel: 'Site & données à vous', color: 'text-orange-600' },
+            ].map(({ icon: Icon, label, longLabel, color }) => (
+              <div key={label} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-slate-700">
+                <Icon className={cn('w-4 h-4 sm:w-5 sm:h-5', color)} />
+                <span className="sm:hidden">{label}</span>
+                <span className="hidden sm:inline">{longLabel}</span>
               </div>
             ))}
           </div>
@@ -401,14 +403,14 @@ function Hero({ onScrollToFormules }: { onScrollToFormules: () => void }) {
 
         <div className="lg:col-span-5" data-reveal>
           <div className="relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-amber-600/20 border border-white/60 bg-white">
+            <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-amber-600/20 border border-white/60 bg-white max-h-[60vh] md:max-h-none">
               <Image
                 src="/assets/restaurant/template-restaurant.webp"
                 alt="Aperçu d'un site web pour restaurant créé par NeuraWeb"
                 width={800}
                 height={1200}
                 priority
-                className="w-full h-auto"
+                className="w-full h-auto object-cover object-top max-h-[60vh] md:max-h-none"
                 sizes="(min-width: 1024px) 40vw, 90vw"
               />
             </div>
@@ -440,22 +442,22 @@ function Problem() {
     { value: '×5', label: 'plus cher d’acquérir un client que d’en fidéliser un' },
   ];
   return (
-    <section className="bg-slate-50 py-14 md:py-16 border-y border-slate-200">
+    <section className="bg-slate-50 py-10 md:py-16 border-y border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 md:mb-12">
           {stats.map((s) => (
-            <div key={s.value} className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm text-center">
-              <div className="font-display text-3xl sm:text-4xl font-extrabold text-amber-600 mb-2">{s.value}</div>
-              <p className="text-sm text-slate-600 leading-snug">{s.label}</p>
+            <div key={s.value} className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm text-center">
+              <div className="font-display text-2xl sm:text-4xl font-extrabold text-amber-600 mb-1.5 sm:mb-2">{s.value}</div>
+              <p className="text-xs sm:text-sm text-slate-600 leading-snug">{s.label}</p>
             </div>
           ))}
         </div>
-        <p className="text-center text-sm font-semibold uppercase tracking-wider text-slate-500 mb-6">
+        <p className="text-center text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-500 mb-4 md:mb-6">
           Pensé pour tous les profils de restauration
         </p>
-        <div className="flex flex-wrap justify-center gap-2.5">
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2.5">
           {TYPES_RESTO.map((t) => (
-            <span key={t} className="px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-700 font-medium text-sm shadow-sm">
+            <span key={t} className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white border border-slate-200 text-slate-700 font-medium text-xs sm:text-sm shadow-sm">
               {t}
             </span>
           ))}
@@ -468,84 +470,95 @@ function Problem() {
 // ─── FORMULES (sans prix) ──────────────────────────────────────────────────
 
 function Formules() {
+  const formuleCards = FORMULES.map((f) => {
+    const a = ACCENT[f.accent];
+    const Icon = f.icon;
+    return (
+      <div
+        key={f.id}
+        data-reveal
+        className={cn(
+          'flex flex-col rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm transition-all hover:shadow-md h-full',
+          a.ring
+        )}
+      >
+        <div className="flex items-center gap-3 mb-4">
+          <div className={cn('w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center', a.icon)}>
+            <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+          </div>
+          <span className={cn('text-xs font-semibold px-2.5 py-1 rounded-full border', a.chip)}>
+            {f.name}
+          </span>
+        </div>
+        <h3 className="font-display text-lg sm:text-xl font-bold text-slate-900 mb-1">{f.tagline}</h3>
+        <p className="text-sm text-slate-500 mb-4">{f.profil}</p>
+        <ul className="space-y-2 sm:space-y-2.5 mb-6">
+          {f.bullets.map((b) => (
+            <li key={b} className="flex items-start gap-2 text-sm text-slate-700">
+              <Check className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-auto pt-4 border-t border-slate-100">
+          <LocalizedLink
+            href="/booking"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-amber-700 hover:text-amber-800 transition-colors"
+          >
+            Demander un devis
+            <ArrowRight className="w-4 h-4" />
+          </LocalizedLink>
+        </div>
+      </div>
+    );
+  });
+
+  // Carte CTA finale (incluse dans la grille desktop ET le carrousel mobile)
+  const ctaCard = (
+    <div
+      key="cta"
+      data-reveal
+      className="flex flex-col justify-center rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-rose-50 p-5 sm:p-6 text-center h-full"
+    >
+      <Sparkles className="w-7 h-7 sm:w-8 sm:h-8 text-amber-600 mx-auto mb-3" />
+      <h3 className="font-display text-lg font-bold text-slate-900 mb-2">
+        Pas sûr de la bonne formule ?
+      </h3>
+      <p className="text-sm text-slate-600 mb-5">
+        On audite votre situation et on vous recommande le bon niveau, gratuitement.
+      </p>
+      <Button
+        asChild
+        className="bg-gradient-to-r from-amber-600 to-rose-500 hover:from-amber-700 hover:to-rose-600 text-white w-full"
+      >
+        <LocalizedLink href="/booking">Échanger avec nous</LocalizedLink>
+      </Button>
+    </div>
+  );
+
   return (
-    <section id="formules" className="py-20 md:py-28 bg-white">
+    <section id="formules" className="py-14 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-14" data-reveal>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14" data-reveal>
+          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
             5 formules, <span className="text-amber-600">de la vitrine au réseau</span>
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-base sm:text-lg text-slate-600">
             Chaque formule inclut tout le niveau précédent. On démarre petit, on fait évoluer
             sans rien refaire. <span className="text-slate-800 font-medium">Les fourchettes de prix
             sont détaillées dans la&nbsp;FAQ.</span>
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {FORMULES.map((f) => {
-            const a = ACCENT[f.accent];
-            const Icon = f.icon;
-            return (
-              <div
-                key={f.id}
-                data-reveal
-                className={cn(
-                  'flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-md',
-                  a.ring
-                )}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className={cn('w-12 h-12 rounded-xl flex items-center justify-center', a.icon)}>
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <span className={cn('text-xs font-semibold px-2.5 py-1 rounded-full border', a.chip)}>
-                    {f.name}
-                  </span>
-                </div>
-                <h3 className="font-display text-xl font-bold text-slate-900 mb-1">{f.tagline}</h3>
-                <p className="text-sm text-slate-500 mb-4">{f.profil}</p>
-                <ul className="space-y-2.5 mb-6">
-                  {f.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2 text-sm text-slate-700">
-                      <Check className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-auto pt-4 border-t border-slate-100">
-                  <LocalizedLink
-                    href="/booking"
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-amber-700 hover:text-amber-800 transition-colors"
-                  >
-                    Demander un devis
-                    <ArrowRight className="w-4 h-4" />
-                  </LocalizedLink>
-                </div>
-              </div>
-            );
-          })}
-
-          {/* Carte CTA finale dans la grille */}
-          <div
-            data-reveal
-            className="flex flex-col justify-center rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-rose-50 p-6 text-center"
-          >
-            <Sparkles className="w-8 h-8 text-amber-600 mx-auto mb-3" />
-            <h3 className="font-display text-lg font-bold text-slate-900 mb-2">
-              Pas sûr de la bonne formule ?
-            </h3>
-            <p className="text-sm text-slate-600 mb-5">
-              On audite votre situation et on vous recommande le bon niveau, gratuitement.
-            </p>
-            <Button
-              asChild
-              className="bg-gradient-to-r from-amber-600 to-rose-500 hover:from-amber-700 hover:to-rose-600 text-white w-full"
-            >
-              <LocalizedLink href="/booking">Échanger avec nous</LocalizedLink>
-            </Button>
-          </div>
-        </div>
+        <ResponsiveCards
+          breakpoint="md"
+          gridClass="grid-cols-2 lg:grid-cols-3"
+          gridGap="gap-6"
+          dotColor="#d97706"
+          carouselPadding={1}
+        >
+          {[...formuleCards, ctaCard]}
+        </ResponsiveCards>
       </div>
     </section>
   );
@@ -554,49 +567,57 @@ function Formules() {
 // ─── DÉMOS LIVE ────────────────────────────────────────────────────────────
 
 function Demos() {
+  const demoCards = DEMOS.map((d) => (
+    <a
+      key={d.name}
+      href={d.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-reveal
+      className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm transition-all hover:shadow-lg hover:border-amber-300 hover:-translate-y-0.5 h-full"
+    >
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+          {d.tag}
+        </span>
+        <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-amber-600 transition-colors" />
+      </div>
+      <h3 className="font-display text-lg sm:text-xl font-bold text-slate-900">{d.name}</h3>
+      <p className="text-sm font-medium text-slate-400 mb-3">{d.type}</p>
+      <p className="text-sm text-slate-600 leading-relaxed mb-4">{d.desc}</p>
+      <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-amber-700 group-hover:gap-2.5 transition-all">
+        Ouvrir la démo
+        <ArrowRight className="w-4 h-4" />
+      </span>
+    </a>
+  ));
+
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-br from-rose-50 via-amber-50 to-white">
+    <section className="py-14 md:py-28 bg-gradient-to-br from-rose-50 via-amber-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-14" data-reveal>
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-rose-200 text-rose-700 text-sm font-medium mb-5">
-            <BadgeCheck className="w-4 h-4" />
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14" data-reveal>
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-rose-200 text-rose-700 text-xs sm:text-sm font-medium mb-4 md:mb-5">
+            <BadgeCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             7 démos réelles & cliquables
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
             Voyez exactement ce que vous achetez
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-base sm:text-lg text-slate-600">
             Pas de maquette PowerPoint : des sites en ligne, fonctionnels, que vous pouvez tester
-            tout de suite — de la simple landing au réseau multi-restaurants.
+            tout de suite.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {DEMOS.map((d) => (
-            <a
-              key={d.name}
-              href={d.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-reveal
-              className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-lg hover:border-amber-300 hover:-translate-y-0.5"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
-                  {d.tag}
-                </span>
-                <ExternalLink className="w-4 h-4 text-slate-300 group-hover:text-amber-600 transition-colors" />
-              </div>
-              <h3 className="font-display text-xl font-bold text-slate-900">{d.name}</h3>
-              <p className="text-sm font-medium text-slate-400 mb-3">{d.type}</p>
-              <p className="text-sm text-slate-600 leading-relaxed mb-4">{d.desc}</p>
-              <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-amber-700 group-hover:gap-2.5 transition-all">
-                Ouvrir la démo
-                <ArrowRight className="w-4 h-4" />
-              </span>
-            </a>
-          ))}
-        </div>
+        <ResponsiveCards
+          breakpoint="md"
+          gridClass="grid-cols-2 lg:grid-cols-3"
+          gridGap="gap-6"
+          dotColor="#e11d48"
+          carouselPadding={1}
+        >
+          {demoCards}
+        </ResponsiveCards>
       </div>
     </section>
   );
@@ -605,42 +626,50 @@ function Demos() {
 // ─── CAS D'USAGE CHIFFRÉS ──────────────────────────────────────────────────
 
 function UseCases() {
+  const useCaseCards = USE_CASES.map((uc, i) => {
+    const Icon = uc.icon;
+    return (
+      <article
+        key={i}
+        data-reveal
+        className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm h-full"
+      >
+        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-amber-50 flex items-center justify-center mb-4">
+          <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />
+        </div>
+        <p className="text-sm text-slate-500 mb-3 leading-relaxed">{uc.context}</p>
+        <p className="text-sm text-slate-800 mb-4 leading-relaxed font-medium">{uc.solution}</p>
+        <div className="mt-auto flex items-start gap-2 rounded-xl bg-emerald-50 border border-emerald-200 p-3">
+          <TrendingUp className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+          <span className="text-sm font-semibold text-emerald-700">{uc.result}</span>
+        </div>
+      </article>
+    );
+  });
+
   return (
-    <section className="py-20 md:py-28 bg-white">
+    <section className="py-14 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-14" data-reveal>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14" data-reveal>
+          <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
             Des résultats <span className="text-amber-600">chiffrés</span>, pas des promesses
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-base sm:text-lg text-slate-600">
             Ce qui se fait vraiment en 2026 dans la restauration, et ce que vous pouvez en attendre.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {USE_CASES.map((uc, i) => {
-            const Icon = uc.icon;
-            return (
-              <article
-                key={i}
-                data-reveal
-                className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm h-full"
-              >
-                <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-amber-600" />
-                </div>
-                <p className="text-sm text-slate-500 mb-3 leading-relaxed">{uc.context}</p>
-                <p className="text-sm text-slate-800 mb-4 leading-relaxed font-medium">{uc.solution}</p>
-                <div className="mt-auto flex items-start gap-2 rounded-xl bg-emerald-50 border border-emerald-200 p-3">
-                  <TrendingUp className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <span className="text-sm font-semibold text-emerald-700">{uc.result}</span>
-                </div>
-              </article>
-            );
-          })}
-        </div>
+        <ResponsiveCards
+          breakpoint="md"
+          gridClass="grid-cols-2 lg:grid-cols-3"
+          gridGap="gap-6"
+          dotColor="#d97706"
+          carouselPadding={1}
+        >
+          {useCaseCards}
+        </ResponsiveCards>
 
-        <p className="text-center text-xs text-slate-400 mt-8 max-w-3xl mx-auto">
+        <p className="text-center text-xs text-slate-400 mt-6 md:mt-8 max-w-3xl mx-auto px-2">
           Fourchettes indicatives basées sur des moyennes du secteur et nos projets ; les résultats
           réels dépendent de votre volume, votre ticket moyen et votre zone de chalandise.
         </p>
@@ -653,13 +682,13 @@ function UseCases() {
 
 function Faq() {
   return (
-    <section className="py-16 md:py-24 bg-slate-50">
+    <section className="py-12 md:py-24 bg-slate-50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10" data-reveal>
+        <div className="text-center mb-8 md:mb-10" data-reveal>
           <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
             Questions <span className="text-amber-600">fréquentes</span>
           </h2>
-          <p className="text-base text-slate-600">
+          <p className="text-sm sm:text-base text-slate-600">
             Budgets, délais, fonctionnement : tout ce que les restaurateurs nous demandent avant de se lancer.
           </p>
         </div>
@@ -689,25 +718,25 @@ function Faq() {
 
 function BlogTeaser() {
   return (
-    <section className="py-12 bg-white">
+    <section className="py-10 md:py-12 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
-        <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
+        <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 md:mb-4">
           À lire aussi
         </p>
         <LocalizedLink
           href="/blog/site-restaurant-sans-commission-2026"
-          className="group flex items-start gap-5 rounded-2xl border border-amber-200 bg-amber-50 hover:bg-amber-100 transition-colors p-5"
+          className="group flex items-start gap-3 sm:gap-5 rounded-2xl border border-amber-200 bg-amber-50 hover:bg-amber-100 transition-colors p-4 sm:p-5"
         >
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold text-amber-700 uppercase tracking-wider mb-1">
               Article · Sites Web
             </p>
-            <h3 className="font-display text-lg font-bold text-slate-900 mb-2 group-hover:text-amber-700 transition-colors">
+            <h3 className="font-display text-base sm:text-lg font-bold text-slate-900 mb-1.5 sm:mb-2 group-hover:text-amber-700 transition-colors leading-snug">
               Site de restaurant en 2026 : zéro commission, 100 % de marge
             </h3>
             <p className="text-sm text-slate-600 leading-relaxed">
               Uber Eats prend 30 %, votre site direct 1,4 %. Sur 5 000 €/mois de ventes,
-              c'est ~1 400 € récupérés chaque mois. La démonstration chiffrée.
+              c'est ~1 400 € récupérés chaque mois.
             </p>
           </div>
           <ArrowRight className="w-5 h-5 text-amber-600 flex-shrink-0 mt-1 group-hover:translate-x-1 transition-transform" />
@@ -721,40 +750,33 @@ function BlogTeaser() {
 
 function FinalCTA() {
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-amber-600 via-orange-500 to-rose-500 text-white">
+    <section className="relative py-14 md:py-28 overflow-hidden bg-gradient-to-br from-amber-600 via-orange-500 to-rose-500 text-white">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)] pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
-        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 leading-tight">
+        <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold mb-4 md:mb-5 leading-tight">
           Reprenez la main sur vos commandes
         </h2>
-        <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+        <p className="text-base sm:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto">
           Devis gratuit sous 24h. Sans engagement. On vous montre les démos en direct.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
           <Button
             asChild
             size="lg"
-            className="bg-white hover:bg-slate-50 text-amber-700 h-14 px-8 text-base font-bold shadow-2xl shadow-amber-900/30"
+            className="bg-white hover:bg-slate-50 text-amber-700 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold shadow-2xl shadow-amber-900/30 w-full sm:w-auto"
           >
             <LocalizedLink href="/booking">
-              <Sparkles className="mr-2 w-5 h-5" />
+              <Sparkles className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
               Demander mon devis gratuit
             </LocalizedLink>
           </Button>
-          <a
-            href="tel:+33749775654"
-            className="inline-flex items-center gap-2 text-white font-semibold hover:underline"
-          >
-            <Phone className="w-5 h-5" />
-            Ou appelez-nous au 07 49 77 56 54
-          </a>
         </div>
 
-        <p className="mt-8 inline-flex items-center gap-2 text-sm text-white/80">
-          <Clock className="w-4 h-4" />
+        <p className="mt-6 md:mt-8 inline-flex items-center gap-2 text-xs sm:text-sm text-white/80">
+          <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           Réponse garantie sous 4 heures ouvrées
         </p>
       </div>

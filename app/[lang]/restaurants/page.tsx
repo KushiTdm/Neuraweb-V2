@@ -92,7 +92,6 @@ const professionalServiceSchema = {
   description:
     'Agence web spécialisée dans la création de sites internet pour restaurants, bistrots, brasseries et réseaux de restauration : réservation en ligne, commande et click & collect avec paiement Stripe sans commission, programme de fidélité, pilotage multi-sites.',
   url: `${BASE_URL}${PAGE_PATH}`,
-  telephone: '+33749775654',
   email: 'contact@neuraweb.tech',
   logo: `${BASE_URL}/assets/neurawebW.webp`,
   priceRange: '€€',
