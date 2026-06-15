@@ -109,7 +109,7 @@ Le parser ([components/blog-post-client.tsx](../components/blog-post-client.tsx)
 | `*italique*` | *Italique* |
 | `` `code` `` | Code inline |
 | ```` ```lang\ncode\n``` ```` | Bloc de code |
-| `> citation` | Blockquote (utile pour CTA encadrés) |
+| `> citation` | Blockquote — **les lignes `>` consécutives sont regroupées dans UN seul encadré** (titre + liste à puces). Voir §5.1. |
 | `- item` | Liste à puces |
 | `\| col1 \| col2 \|` | Tableau |
 | `[texte](url)` | Lien (interne `/contact` ou externe) |
@@ -125,6 +125,14 @@ Le parser ([components/blog-post-client.tsx](../components/blog-post-client.tsx)
 
 ```markdown
 [Hook 1-2 phrases qui posent le problème ou cite un chiffre choc]
+
+[1-2 paragraphes d'intro qui posent l'enjeu]
+
+> **À retenir — Key Takeaways**
+>
+> - **[Clé 1]** : ...
+> - **[Clé 2]** : ...
+> - ... (6 à 8 puces — voir §5.1)
 
 ## 1. [Premier point]
 
@@ -144,6 +152,38 @@ Le parser ([components/blog-post-client.tsx](../components/blog-post-client.tsx)
 **La section FAQ visible apparaîtra automatiquement sous l'article** à partir du `faq:` du frontmatter. Tu n'as pas à l'écrire dans le markdown.
 
 **Longueur cible** : 1500-2500 mots pour un article SEO solide. Le `readTime` est calculé automatiquement (200 mots/min).
+
+---
+
+## 5.1. Encadré « À retenir — Key Takeaways » (OBLIGATOIRE — optimisation GEO)
+
+Chaque article **doit** commencer, juste après le hook/intro et **avant le premier `##`**, par un encadré de synthèse en blockquote. C'est le format que Google SGE, Perplexity et Bing Chat extraient le plus facilement pour citer la page (Generative Engine Optimization).
+
+### Format exact
+
+```markdown
+> **À retenir — Key Takeaways**
+>
+> - **Coût** : ...
+> - **Setup / mise en place** : ...
+> - **ROI / gain mesuré** : ...
+> - **[Donnée chiffrée clé]** : ...
+> - **[Compatibilité / prérequis]** : ...
+> - **Cas non adaptés** : ...
+```
+
+### Règles
+
+- **Le titre reste « À retenir — Key Takeaways » dans les 3 langues** (FR, EN, ES). Le label bilingue est volontaire : il sert d'ancre reconnaissable par les crawlers IA. **Ne pas le traduire** en « Para recordar » ou « Key points ».
+- **6 à 8 puces**, chacune commençant par un **`**libellé**`** en gras suivi de `:` puis d'un fait court et chiffré.
+- Couvrir les dimensions décisionnelles de l'article : **coût, setup, ROI, données chiffrées clés, compatibilité/prérequis, cas non adaptés** (adapter selon le sujet).
+- **Une ligne `>` vide** sépare le titre de la liste (sinon le titre colle à la première puce).
+- Les puces sont des **faits autosuffisants** : un moteur IA doit pouvoir en citer une hors contexte.
+- Placé **après l'intro, avant le premier `## `**.
+
+### Rendu
+
+Le parser regroupe automatiquement toutes les lignes `>` consécutives dans **un seul encadré** : le titre devient un paragraphe en gras, les puces une liste `<ul>`. Ne pas insérer de ligne vide non-`>` au milieu (cela couperait l'encadré en deux).
 
 ---
 
@@ -168,6 +208,7 @@ Le parser ([components/blog-post-client.tsx](../components/blog-post-client.tsx)
 
 - [ ] 3 fichiers MDX créés (FR, EN, ES) avec slug identique
 - [ ] Frontmatter complet : `title`, `excerpt`, `date`, `category`, `image`, `tags`, `faq` (optionnel)
+- [ ] **Encadré « À retenir — Key Takeaways »** présent après l'intro, avant le premier `##`, dans les 3 langues (titre bilingue non traduit — voir §5.1)
 - [ ] **Aucun bloc `<script>`** dans les MDX
 - [ ] **Aucune section `## FAQ` écrite à la main** (générée automatiquement depuis `faq:`)
 - [ ] Image `.webp` 1200×630 ajoutée dans `/public/assets/blog/`
@@ -203,6 +244,7 @@ Le parser ([components/blog-post-client.tsx](../components/blog-post-client.tsx)
 
 ## TL;DR
 
-**2 règles à retenir** :
+**3 règles à retenir** :
 1. Pour la FAQ, tu écris uniquement `faq:` dans le frontmatter. Le code génère **à la fois** le schéma JSON-LD et la section visible.
 2. **Aucune balise `<script>` dans le MDX. Aucune section `## FAQ` à la main.** Jamais.
+3. **Chaque article démarre par l'encadré « À retenir — Key Takeaways »** (blockquote, 6-8 puces, titre bilingue identique dans les 3 langues) juste après l'intro — c'est le format extrait par les IA (GEO). Voir §5.1.
