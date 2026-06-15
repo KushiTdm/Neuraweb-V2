@@ -137,6 +137,30 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       return `<div class="my-6 overflow-x-auto"><table class="w-full border-collapse text-sm border border-gray-200 dark:border-gray-800 rounded-lg"><thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
     };
 
+    // Group a run of consecutive "> ..." lines into ONE blockquote box.
+    // Handles a title paragraph + a bulleted list (e.g. the "Key Takeaways" box).
+    const renderQuote = (qLines: string[]) => {
+      const inner = qLines.map(l => l.replace(/^>\s?/, ''));
+      const parts: string[] = [];
+      let listBuf: string[] = [];
+      const flush = () => {
+        if (listBuf.length) {
+          parts.push(`<ul class="list-disc pl-5 space-y-1 my-2 marker:text-gray-400">${listBuf.map(li => `<li>${renderInline(li)}</li>`).join('')}</ul>`);
+          listBuf = [];
+        }
+      };
+      for (const raw of inner) {
+        const t = raw.trim();
+        if (!t) { flush(); continue; }
+        const m = t.match(/^- (.*)$/);
+        if (m) { listBuf.push(m[1]); continue; }
+        flush();
+        parts.push(`<p class="mb-1">${renderInline(t)}</p>`);
+      }
+      flush();
+      return `<blockquote class="border-l-4 border-gray-900 dark:border-gray-200 pl-4 py-3 my-6 bg-gray-100 dark:bg-gray-800/40 rounded-r-lg text-gray-700 dark:text-gray-300 [&>p:first-child]:font-semibold [&>p:first-child]:text-gray-900 dark:[&>p:first-child]:text-white">${parts.join('')}</blockquote>`;
+    };
+
     // Split into table vs non-table blocks, process separately
     const lines = content.split('\n');
     const blocks: { type: 'table' | 'other'; lines: string[] }[] = [];
@@ -152,6 +176,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
     return blocks.map(block => {
       if (block.type === 'table') return renderTable(block.lines);
       return block.lines.join('\n')
+        .replace(/(?:^>.*(?:\r?\n|$))+/gim, (match) => renderQuote(match.split(/\r?\n/).filter(l => /^>/.test(l))))
         .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3">$1</h3>')
         .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">$1</h2>')
         .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-indigo-600 dark:text-indigo-400 font-medium underline decoration-indigo-300 dark:decoration-indigo-700 hover:decoration-indigo-600 dark:hover:decoration-indigo-400">$1</a>')
@@ -159,10 +184,11 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
         .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
         .replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-pink-600 dark:text-pink-400 text-sm font-mono">$1</code>')
         .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-gray-900 dark:bg-gray-950 rounded-xl p-4 overflow-x-auto my-6"><code class="text-sm text-gray-100 font-mono whitespace-pre">$2</code></pre>')
-        .replace(/^> (.*$)/gim, '<blockquote class="border-l-4 border-gray-900 dark:border-gray-200 pl-4 py-2 my-4 bg-gray-100 dark:bg-gray-800/40 rounded-r-lg text-gray-700 dark:text-gray-300">$1</blockquote>')
         .replace(/^- (.*$)/gim, '<li class="text-gray-600 dark:text-gray-300 ml-4 mb-2">$1</li>')
         .replace(/\n\n/g, '</p><p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">')
-        .replace(/\n/g, '<br />');
+        .replace(/\n/g, '<br />')
+        // drop the stray <br /> the grouped blockquote leaves before the next block
+        .replace(/(<\/blockquote>)\s*<br \/>/g, '$1');
     }).join('');
   };
 
