@@ -180,6 +180,7 @@ const CONTENT: Record<Lang, {
     more: {
       h3: 'Pour aller plus loin',
       items: [
+        { label: 'Agent IA relance factures PME : guide n8n + Claude', href: '/blog/agent-ia-relance-factures-pme' },
         { label: 'Make vs n8n vs Zapier : comparatif 2026 pour PME françaises', href: '/blog/make-n8n-zapier-2026-pme-france' },
         { label: 'Guide complet n8n : automatiser sans coder', href: '/blog/automatisation-n8n-guide' },
         { label: 'Automatisation IA pour PME : prix réels 2026', href: '/blog/automatisation-ia-pme-prix-2026' },
@@ -305,6 +306,7 @@ const CONTENT: Record<Lang, {
     more: {
       h3: 'Learn more',
       items: [
+        { label: 'AI agent for invoice chasing: n8n + Claude guide', href: '/blog/agent-ia-relance-factures-pme' },
         { label: 'Make vs n8n vs Zapier: 2026 comparison', href: '/blog/make-n8n-zapier-2026-pme-france' },
         { label: 'Complete n8n guide: automate without coding', href: '/blog/automatisation-n8n-guide' },
         { label: 'AI automation for SMBs: real prices 2026', href: '/blog/automatisation-ia-pme-prix-2026' },
@@ -430,6 +432,7 @@ const CONTENT: Record<Lang, {
     more: {
       h3: 'Saber más',
       items: [
+        { label: 'Agente IA para cobros impagados: guía n8n + Claude', href: '/blog/agent-ia-relance-factures-pme' },
         { label: 'Make vs n8n vs Zapier: comparativa 2026', href: '/blog/make-n8n-zapier-2026-pme-france' },
         { label: 'Guía completa n8n: automatizar sin programar', href: '/blog/automatisation-n8n-guide' },
         { label: 'Automatización IA para pymes: precios reales 2026', href: '/blog/automatisation-ia-pme-prix-2026' },

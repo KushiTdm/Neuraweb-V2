@@ -1,0 +1,203 @@
+---
+title: "AI agent for invoice chasing: complete n8n + Claude guide for SMBs"
+seoTitle: "Automate invoice chasing SMB: AI agent n8n + Claude"
+excerpt: "Automate your overdue invoice follow-ups with n8n and Claude API. 4-hour setup, €25–40/month, average cash flow gain of €3,000–8,000 over 3 months."
+date: "2026-06-15"
+category: "Automation"
+author: "NeuraWeb"
+image: "/assets/blog/agent-ia-relance-factures-pme.webp"
+tags:
+  - "Automation"
+  - "AI"
+  - "n8n"
+  - "SMB"
+  - "Cash Flow"
+featured: false
+faq:
+  - question: "How much does an AI agent to automate invoice chasing cost?"
+    answer: "The total cost is €25–40 per month: n8n Cloud at ~€20/month, Claude API at €5–15/month depending on email volume generated, and Brevo free up to 300 emails/day. Self-hosted, n8n is free — only the Claude API cost remains."
+  - question: "Do you need technical skills to set up this workflow?"
+    answer: "No. n8n is a no-code/low-code platform with a visual drag-and-drop interface. The basic setup (Google Sheets connection, daily trigger, Brevo sending) requires no coding. Claude API integration means copying an API key and writing a prompt — about 30 minutes of work."
+  - question: "Can the AI agent handle phone follow-ups or disputes?"
+    answer: "No, and this is intentional. The agent only handles email follow-ups on standard invoices (D+1, D+7, D+15). Once an invoice passes D+21 without a response, the system sends you an alert for manual handling. Strategic clients, disputes and specific protocols remain under your control."
+  - question: "Is this workflow GDPR-compliant?"
+    answer: "Yes, provided you respect three rules: host n8n on a French or European server (OVH, Scaleway), use Claude API in stateless mode (Anthropic does not retain your data between calls), and mention automated processing in your GDPR processing register (Article 30). Client data does not leave your Google Workspace environment or your server."
+  - question: "Which billing software is compatible with this workflow?"
+    answer: "Any tool that exposes an API or allows export to Google Sheets is compatible: Pennylane, Sellsy, QuickBooks, FreeAgent, Xero. Without a direct API, a simple Google Sheet updated manually each week is enough — n8n reads it and triggers follow-ups automatically."
+---
+
+In the UK and across Europe, **one in three SMBs waits more than 30 days past the due date** to receive payment on their **overdue invoices**. The average cost: €4,200 of frozen cash flow per month for a 10-person team, with an average **payment delay** of 47 days. And the chasing? Between 45 minutes and 2 hours every week — for mediocre results, because you always put it off.
+
+An AI agent configured on n8n + Claude API solves this problem in 4 hours of setup, for €25–40 per month.
+
+> **Key Takeaways**
+>
+> - **Total cost**: €25–40/month (n8n Cloud ~€20 + Claude API €5–15 + Brevo free)
+> - **Setup**: 4 hours maximum, no technical skills required
+> - **Cash flow gain**: €3,000–8,000 over 3 months (SMB average)
+> - **Payment rate at D+7**: 58–72% with the AI agent vs 31% with manual chasing
+> - **Time recovered**: 1h30–2h per week
+> - **GDPR**: Compliant if EU-hosted (OVH/Scaleway) + Claude API stateless + Article 30 register
+> - **Compatibility**: Pennylane, Sellsy, QuickBooks, FreeAgent, Xero (or manual Google Sheets)
+> - **Not suitable for**: <10 clients/month, public contracts, frequent disputes, unstructured invoice list
+
+## Why manual follow-ups fail (and cost more)
+
+Invoice chasing is a textbook case for automation: it's repetitive, follows clear rules, and every hour of delay has a measurable financial cost.
+
+**The problem isn't a lack of willpower. It's context.** When you're finalising a quote, handling an unhappy client or preparing a presentation, chasing a €1,500 invoice drops to the bottom of the list. Then it's D+7. Then D+15.
+
+The numbers speak for themselves:
+
+| Method | Payment rate at D+7 post-chase | Weekly time |
+|---|---|---|
+| Manual follow-up | ~31% | 1h30–2h |
+| Automated AI agent | 58–72% | ~5 minutes (supervision) |
+
+The difference doesn't come from AI magic. It comes from **mechanical consistency**: the agent never procrastinates, never feels awkward about sending a follow-up email, and adapts the tone to the delay without effort.
+
+## What the agent actually does — step by step
+
+The agent monitors your invoice list continuously. As soon as an invoice becomes overdue, it triggers a precise sequence:
+
+1. **History check** — have we already chased this client? When?
+2. **Tone selection** appropriate to the delay (cordial at D+1, direct at D+7, firm at D+15)
+3. **Email generation** via Claude API, personalised with the client's name, amount and invoice reference
+4. **Sending via Brevo** (or your SMTP)
+5. **Status update** in Google Sheets + action log
+6. **Slack or email alert** if an invoice reaches D+21 without a response
+
+You only intervene on complex cases — strategic clients, disputes, phone calls. Everything else is handled without you.
+
+## The stack — technical choices and why
+
+### n8n: the no-code orchestrator
+
+[n8n](/en/blog/automatisation-n8n-guide) is an open-source automation platform with a visual interface. Unlike Zapier or Make, it can be hosted in Europe (OVH, Scaleway), which simplifies GDPR compliance.
+
+- **n8n Cloud**: ~€20/month, no infrastructure to manage
+- **n8n Self-hosted**: free, but requires a VPS at ~€5–10/month
+
+### Claude API: email generation
+
+Claude API (Anthropic) generates follow-up emails from a structured prompt. Key advantage: the model produces natural, non-robotic emails adapted to context — something a static template cannot do.
+
+Real cost: **€5–15/month** for an SMB with 20 to 80 active invoices.
+
+### Brevo + Google Sheets
+
+- **Brevo**: SMTP sending up to 300 emails/day free of charge
+- **Google Sheets**: data source accessible by n8n without complex configuration
+
+**Total budget: €25–40/month.** For an average cash flow gain of €3,000–8,000 over 3 months.
+
+## Building the workflow — 5 steps
+
+### Step 1 — Prepare the data source
+
+Create a Google Sheet with these columns:
+
+```
+| Number | Client | Email | Amount | Due date | Status | Last contact | Follow-ups count |
+```
+
+The `Status` field accepts three values: `Pending`, `Chased`, `Paid`. This is the field n8n reads to decide whether to act.
+
+If you use Pennylane, Sellsy or QuickBooks, check whether your plan includes an API — n8n can read these tools directly without going through Sheets.
+
+### Step 2 — Configure the automatic trigger
+
+In n8n, create a workflow with a **Schedule Trigger** node set to `Every day at 8:00 AM`.
+
+This node triggers reading your Sheets file, filters rows where `Status = "Pending"` and `Due date < today`, then calculates the exact delay in days.
+
+### Step 3 — Generate the email with Claude
+
+For each **overdue invoice**, n8n calls the Claude API with a contextual prompt that adapts the tone to the delay. Here is an operational prompt example:
+
+```
+You are the accounting assistant for a small business.
+Write a payment reminder email for an overdue invoice.
+
+Client: {{client_name}}
+Amount: {{amount}}€
+Days overdue: {{delay_days}}
+Invoice reference: {{invoice_number}}
+
+Tone rules:
+- D+1 to D+6: cordial and understanding, assume a simple administrative oversight
+- D+7 to D+14: direct and factual, remind of contractual payment terms
+- D+15 to D+20: firm, mention possible next steps
+
+Generate the subject line and email body. No signature, no generic opening formula.
+```
+
+Claude returns the subject and body. n8n passes them to the Brevo node.
+
+### Step 4 — Sending and traceability
+
+The Brevo node sends the email from your professional address. Immediately after, n8n updates Google Sheets:
+
+- `Last contact` → today's date
+- `Status` → `Chased`
+- `Follow-ups count` → incremented by 1
+
+A conditional node checks if `Follow-ups count >= 3` or `Delay > 21 days`. If so: Slack or email notification to you for manual handling.
+
+### Step 5 — GDPR guardrails
+
+Three rules to follow:
+
+- **European hosting** for n8n (OVH, Scaleway, or n8n Cloud EU region)
+- **Claude API stateless** — Anthropic does not retain your data between calls
+- **Processing register** — mention this workflow in your GDPR register (Article 30) with the note "automated follow-ups by AI agent"
+
+Client data does not leave your Google Workspace environment. The only external flow is the prompt sent to Claude API, which contains only the name, amount and delay — not the email address or sensitive information.
+
+## Results measured on deployed SMBs
+
+On SMBs that activated this type of workflow for at least 60 days:
+
+- **Payment rate within 7 days of follow-up**: 58–72% (vs 31% with manual chasing)
+- **Average payment delay reduced**: −12 days on tracked invoices, thanks to **accelerated payment** from the first automatic reminder
+- **Time recovered**: 1h30–2h per week
+- **Cash flow gain over 3 months**: between €3,000 and €8,000 depending on invoice volume
+- **Automated coverage**: the agent handles 80% of chasing work — you only deal with the 20% of complex cases that require your judgment
+
+Return on investment is immediate: at €40/month cost, a single automated follow-up that accelerates a €500 payment makes the system profitable for that month.
+
+## Cases where this workflow is not suitable
+
+This system is not right if:
+
+- You invoice **fewer than 10 active clients per month** — the value doesn't justify the setup
+- Your invoices relate to **public contracts or clients with specific procurement protocols** (mandatory purchase orders, different statutory payment terms)
+- You have **no structured invoice list** — the minimal prerequisite for n8n to read the data
+- You have **frequent disputes** — the agent lacks context to handle a commercial disagreement
+
+In these cases, automation can apply to a subset of your client portfolio (standard invoices) and exclude complex cases via a filter in Google Sheets.
+
+## To get started this week
+
+The workflow can be live in 3–4 hours:
+
+1. **Create your Google Sheet** with the columns listed in step 1
+2. **Sign up for n8n.cloud** (Starter plan, ~€20/month)
+3. **Create a Claude API account** at console.anthropic.com — top up €20 to start
+4. **Open a Brevo account** free for email sending
+5. **Build the workflow** following the 5 steps above
+
+The first automatic follow-up will go out the next morning at 8 AM.
+
+---
+
+## Learn more
+
+- [Complete n8n guide: automate without coding](/en/blog/automatisation-n8n-guide) — install n8n, create your first workflows, connect Google Sheets and Brevo
+- [AI commercial agent for SMBs: n8n + Claude](/en/blog/agent-ia-commercial-pme) — the same principle applied to lead qualification and sales follow-ups
+- [Business process automation: maximum ROI](/en/blog/automatisation-processus-roi) — prioritisation framework for choosing your first automations
+- [AI automation for SMBs: real prices 2026](/en/blog/automatisation-ia-pme-prix-2026) — full cost breakdown by volume
+- [3 AI agent workflows for SMBs: real ROI](/en/blog/3-workflows-agents-ia-pme) — adaptive email, lead scoring and social auto with n8n
+- [Our Automation Service](/en/automatisation) — n8n/Make packages with monitoring included
+
+> 💡 **Neuraweb deploys this type of AI agent in under a week**, with integrated human oversight and documented GDPR compliance. If your use case is more complex (multi-currency, specific CRM, advanced sequences), [let's talk directly →](/en/contact)

@@ -43,7 +43,7 @@ const translations = {
     success: 'Rendez-vous confirmé !',
     successMessage: 'Vous recevrez un email de confirmation. À bientôt !',
     error: 'Erreur lors de la réservation',
-    services: ['Audit IA', 'Devis', 'Site vitrine', 'E-commerce', 'Application web', 'Intégration IA', 'Automatisation', 'Autre'],
+    services: ['Développement Web', 'Application Mobile', 'Intégration IA', 'Automatisation', 'Site Restaurant', 'Site Santé', 'Audit IA', 'Autre'],
     packs: {
       starter: 'Pack Starter - 1 490€',
       business: 'Pack Business - 3 990€',
@@ -75,7 +75,7 @@ const translations = {
     success: 'Appointment confirmed!',
     successMessage: 'You will receive a confirmation email. See you soon!',
     error: 'Booking error',
-    services: ['AI Audit', 'Quote', 'Showcase website', 'E-commerce', 'Web application', 'AI integration', 'Automation', 'Other'],
+    services: ['Web Development', 'Mobile App', 'AI Integration', 'Automation', 'Restaurant Website', 'Healthcare Website', 'AI Audit', 'Other'],
     packs: {
       starter: 'Starter Pack - €1,490',
       business: 'Business Pack - €3,990',
@@ -107,7 +107,7 @@ const translations = {
     success: '¡Cita confirmada!',
     successMessage: 'Recibirás un email de confirmación. ¡Hasta pronto!',
     error: 'Error al reservar',
-    services: ['Auditoría IA', 'Presupuesto', 'Sitio web', 'E-commerce', 'Aplicación web', 'Integración IA', 'Automatización', 'Otro'],
+    services: ['Desarrollo Web', 'Aplicación Móvil', 'Integración IA', 'Automatización', 'Sitio Restaurante', 'Sitio Salud', 'Auditoría IA', 'Otro'],
     packs: {
       starter: 'Pack Starter - 1.490€',
       business: 'Pack Business - 3.990€',
@@ -136,7 +136,13 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
   const serviceMapping: Record<string, Record<string, string>> = {
     'audit-ia': { fr: 'Audit IA', en: 'AI Audit', es: 'Auditoría IA' },
     'audit': { fr: 'Audit IA', en: 'AI Audit', es: 'Auditoría IA' },
-    'devis': { fr: 'Devis', en: 'Quote', es: 'Presupuesto' },
+    'devis': { fr: 'Développement Web', en: 'Web Development', es: 'Desarrollo Web' },
+    'developpement-web': { fr: 'Développement Web', en: 'Web Development', es: 'Desarrollo Web' },
+    'mobile': { fr: 'Application Mobile', en: 'Mobile App', es: 'Aplicación Móvil' },
+    'integration-ia': { fr: 'Intégration IA', en: 'AI Integration', es: 'Integración IA' },
+    'automatisation': { fr: 'Automatisation', en: 'Automation', es: 'Automatización' },
+    'restaurant': { fr: 'Site Restaurant', en: 'Restaurant Website', es: 'Sitio Restaurante' },
+    'sante': { fr: 'Site Santé', en: 'Healthcare Website', es: 'Sitio Salud' },
     'appel': { fr: 'Autre', en: 'Other', es: 'Otro' },
     'renseignement': { fr: 'Autre', en: 'Other', es: 'Otro' },
   };

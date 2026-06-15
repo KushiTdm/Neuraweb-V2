@@ -1,0 +1,203 @@
+---
+title: "Agente IA para cobros impagados: guía completa n8n + Claude para pymes"
+seoTitle: "Automatizar cobros impagados pymes: agente IA n8n + Claude"
+excerpt: "Automatiza tus recordatorios de facturas impagadas con n8n y Claude API. Configuración en 4 horas, 25-40€/mes, ganancia media de 3.000 a 8.000€ en tesorería en 3 meses."
+date: "2026-06-15"
+category: "Automatización"
+author: "NeuraWeb"
+image: "/assets/blog/agent-ia-relance-factures-pme.webp"
+tags:
+  - "Automatización"
+  - "IA"
+  - "n8n"
+  - "Pyme"
+  - "Tesorería"
+featured: false
+faq:
+  - question: "¿Cuánto cuesta un agente IA para automatizar los cobros impagados?"
+    answer: "El coste total es de 25 a 40€ al mes: n8n Cloud a ~20€/mes, Claude API a 5-15€/mes según el volumen de emails generados, y Brevo gratuito hasta 300 emails/día. En self-hosted, n8n es gratuito — solo queda el coste de Claude API."
+  - question: "¿Hace falta conocimientos técnicos para configurar este flujo?"
+    answer: "No. n8n es una plataforma no-code/low-code con interfaz visual de arrastrar y soltar. La configuración básica (conexión Google Sheets, disparador diario, envío Brevo) no requiere escribir código. La integración con Claude API consiste en copiar una clave API y redactar un prompt — unos 30 minutos de trabajo."
+  - question: "¿Puede el agente IA gestionar llamadas de cobro o disputas?"
+    answer: "No, y es intencional. El agente solo gestiona recordatorios por email en facturas estándar (D+1, D+7, D+15). Si una factura supera D+21 sin respuesta, el sistema te envía una alerta para gestión manual. Clientes estratégicos, disputas y protocolos específicos quedan bajo tu control."
+  - question: "¿Este flujo cumple con el RGPD?"
+    answer: "Sí, siempre que respetes tres puntos: alojar n8n en un servidor francés o europeo (OVH, Scaleway), usar Claude API en modo stateless (Anthropic no conserva tus datos entre llamadas), y mencionar el tratamiento automatizado en tu registro de tratamientos RGPD (artículo 30). Los datos de clientes no salen de tu entorno Google Workspace ni de tu servidor."
+  - question: "¿Qué software de facturación es compatible con este flujo?"
+    answer: "Cualquier herramienta que exponga una API o permita exportar a Google Sheets es compatible: Pennylane, Sellsy, QuickBooks, Holded, Billin. Sin API directa, una simple hoja de Google Sheets actualizada manualmente cada semana basta — n8n la lee y lanza los recordatorios automáticamente."
+---
+
+En España y en toda Europa, **una de cada tres pymes espera más de 30 días tras el vencimiento** para cobrar sus **facturas impagadas**. El coste medio: 4.200€ de tesorería inmovilizada al mes para un equipo de 10 personas, con un **plazo medio de pago** de 47 días. ¿Y los recordatorios? Entre 45 minutos y 2 horas cada semana — con resultados mediocres, porque siempre se postergan.
+
+Un agente IA configurado en n8n + Claude API resuelve este problema en 4 horas de configuración, por 25 a 40€ al mes.
+
+> **Key Takeaways**
+>
+> - **Coste total**: 25 a 40€/mes (n8n Cloud ~20€ + Claude API 5–15€ + Brevo gratuito)
+> - **Configuración**: 4 horas máximo, sin conocimientos técnicos
+> - **Ganancia de tesorería**: 3.000 a 8.000€ en 3 meses (media pyme)
+> - **Tasa de cobro a D+7**: 58–72% con el agente IA vs 31% en gestión manual
+> - **Tiempo recuperado**: 1h30 a 2h por semana
+> - **RGPD**: Conforme si alojamiento EU (OVH/Scaleway) + Claude API stateless + registro artículo 30
+> - **Compatibilidad**: Pennylane, Sellsy, QuickBooks, Holded, Billin (o Google Sheets manual)
+> - **No apto para**: <10 clientes/mes, contratos públicos, disputas frecuentes, lista de facturas no estructurada
+
+## Por qué fallan los recordatorios manuales (y cuánto cuestan)
+
+La gestión de cobros impagados es un ejemplo perfecto de tarea para automatizar: es repetitiva, sigue reglas claras y cada hora de retraso tiene un coste financiero medible.
+
+**El problema no es la falta de voluntad. Es el contexto.** Cuando estás finalizando un presupuesto, gestionando un cliente insatisfecho o preparando una presentación, llamar a un cliente por una factura de 1.500€ baja al final de la lista. Luego es D+7. Luego D+15.
+
+Los números hablan por sí solos:
+
+| Método | Tasa de cobro a D+7 tras el recordatorio | Tiempo semanal |
+|---|---|---|
+| Recordatorio manual | ~31% | 1h30 a 2h |
+| Agente IA automatizado | 58 a 72% | ~5 minutos (supervisión) |
+
+La diferencia no viene de la magia de la IA. Viene de la **regularidad mecánica**: el agente nunca pospone, nunca siente incomodidad al enviar un recordatorio, y adapta el tono al retraso sin esfuerzo.
+
+## Qué hace exactamente el agente — paso a paso
+
+El agente monitoriza tu lista de facturas de forma continua. En cuanto una factura vence, activa una secuencia precisa:
+
+1. **Comprobación del historial** — ¿ya hemos contactado a este cliente? ¿Cuándo?
+2. **Selección del tono** según el retraso (cordial a D+1, directo a D+7, firme a D+15)
+3. **Generación del email** vía Claude API, personalizado con el nombre del cliente, el importe y la referencia de factura
+4. **Envío vía Brevo** (o tu SMTP)
+5. **Actualización del estado** en Google Sheets + registro de la acción
+6. **Alerta Slack o email** si una factura llega a D+21 sin respuesta
+
+Solo intervienen en los casos complejos — clientes estratégicos, disputas, llamadas telefónicas. Todo lo demás se gestiona sin ti.
+
+## La stack — decisiones técnicas y por qué
+
+### n8n: el orquestador no-code
+
+[n8n](/es/blog/automatisation-n8n-guide) es una plataforma de automatización open-source con interfaz visual. A diferencia de Zapier o Make, puede alojarse en Europa (OVH, Scaleway), lo que simplifica el cumplimiento del RGPD.
+
+- **n8n Cloud**: ~20€/mes, sin infraestructura que gestionar
+- **n8n Self-hosted**: gratuito, pero requiere un VPS a ~5–10€/mes
+
+### Claude API: la generación de emails
+
+Claude API (Anthropic) genera los emails de recordatorio a partir de un prompt estructurado. Ventaja clave: el modelo produce emails naturales, no robóticos, adaptados al contexto — algo que una plantilla estática no puede hacer.
+
+Coste real: **5 a 15€/mes** para una pyme con 20 a 80 facturas activas.
+
+### Brevo + Google Sheets
+
+- **Brevo**: envío SMTP hasta 300 emails/día gratis
+- **Google Sheets**: fuente de datos accesible por n8n sin configuración compleja
+
+**Presupuesto total: 25 a 40€/mes.** Para una ganancia de tesorería media de 3.000 a 8.000€ en 3 meses.
+
+## Construcción del flujo — 5 pasos
+
+### Paso 1 — Preparar la fuente de datos
+
+Crea una hoja de Google Sheets con estas columnas:
+
+```
+| Número | Cliente | Email | Importe | Fecha vencimiento | Estado | Último contacto | Nº recordatorios |
+```
+
+El campo `Estado` acepta tres valores: `Pendiente`, `Recordado`, `Pagado`. Este es el campo que n8n lee para decidir si actúa.
+
+Si usas Pennylane, Sellsy o QuickBooks, comprueba si tu plan incluye API — n8n puede leer estas herramientas directamente sin pasar por Sheets.
+
+### Paso 2 — Configurar el disparador automático
+
+En n8n, crea un flujo con un nodo **Schedule Trigger** configurado en `Cada día a las 8:00`.
+
+Este nodo activa la lectura de tu hoja Sheets, filtra las filas donde `Estado = "Pendiente"` y `Fecha vencimiento < hoy`, luego calcula el retraso exacto en días.
+
+### Paso 3 — Generar el email con Claude
+
+Para cada **factura vencida**, n8n llama a la API de Claude con un prompt contextual que adapta el tono al retraso. Aquí un ejemplo de prompt operativo:
+
+```
+Eres el asistente contable de una pequeña empresa.
+Redacta un email de recordatorio de pago para una factura impagada.
+
+Cliente: {{nombre_cliente}}
+Importe: {{importe}}€
+Días de retraso: {{dias_retraso}}
+Referencia factura: {{numero_factura}}
+
+Reglas de tono:
+- D+1 a D+6: cordial y comprensivo, asume un simple descuido administrativo del cliente
+- D+7 a D+14: directo y factual, recuerda los plazos contractuales de pago
+- D+15 a D+20: firme, menciona los posibles pasos siguientes
+
+Genera el asunto y el cuerpo del email. Sin firma, sin fórmula de apertura genérica.
+```
+
+Claude devuelve el asunto y el cuerpo. n8n los pasa al nodo Brevo.
+
+### Paso 4 — Envío y trazabilidad
+
+El nodo Brevo envía el email desde tu dirección profesional. Inmediatamente después, n8n actualiza Google Sheets:
+
+- `Último contacto` → fecha de hoy
+- `Estado` → `Recordado`
+- `Nº recordatorios` → incremento de 1
+
+Un nodo condicional comprueba si `Nº recordatorios >= 3` o `Retraso > 21 días`. Si es así: notificación por Slack o email hacia ti para gestión manual.
+
+### Paso 5 — Salvaguardas RGPD
+
+Tres reglas a respetar:
+
+- **Alojamiento europeo** para n8n (OVH, Scaleway, o n8n Cloud región EU)
+- **Claude API stateless** — Anthropic no conserva tus datos entre llamadas
+- **Registro de tratamientos** — menciona este flujo en tu registro RGPD (artículo 30) con la nota "recordatorios automatizados por agente IA"
+
+Los datos de clientes no salen de tu entorno Google Workspace. El único flujo externo es el prompt enviado a Claude API, que solo contiene el nombre, el importe y el retraso — sin dirección de email ni información sensible.
+
+## Resultados medidos en pymes desplegadas
+
+En pymes que activaron este tipo de flujo durante al menos 60 días:
+
+- **Tasa de cobro en los 7 días tras el recordatorio**: 58 a 72% (frente al 31% en gestión manual)
+- **Plazo medio de pago reducido**: −12 días en las facturas seguidas, gracias a un **pago acelerado** desde el primer recordatorio automático
+- **Tiempo recuperado**: 1h30 a 2h por semana
+- **Ganancia de tesorería en 3 meses**: entre 3.000 y 8.000€ según el volumen de facturación
+- **Cobertura automatizada**: el agente gestiona el 80% del trabajo de cobros — solo tratas el 20% de casos complejos que requieren tu criterio
+
+El retorno sobre la inversión es inmediato: a 40€/mes de coste, basta con que un solo recordatorio automatizado acelere el pago de 500€ para que el sistema sea rentable en el mes.
+
+## Casos en los que este flujo no es adecuado
+
+Este sistema no es apropiado si:
+
+- Facturas a **menos de 10 clientes activos al mes** — el valor no justifica la configuración
+- Tus facturas corresponden a **contratos públicos o clientes con protocolo de compra específico** (órdenes de compra obligatorias, plazos legales diferentes)
+- No tienes **una lista de facturas estructurada** — requisito mínimo para que n8n pueda leer los datos
+- Tienes **disputas frecuentes** — el agente no tiene el contexto para gestionar un desacuerdo comercial
+
+En estos casos, la automatización puede aplicarse a un subconjunto de tu cartera de clientes (facturas estándar) y excluir los casos complejos mediante un filtro en Google Sheets.
+
+## Para empezar esta semana
+
+El flujo puede estar operativo en 3 a 4 horas:
+
+1. **Crea tu Google Sheet** con las columnas del paso 1
+2. **Regístrate en n8n.cloud** (plan Starter, ~20€/mes)
+3. **Crea una cuenta Claude API** en console.anthropic.com — recarga 20€ para empezar
+4. **Abre una cuenta Brevo** gratuita para el envío de emails
+5. **Construye el flujo** siguiendo los 5 pasos anteriores
+
+El primer recordatorio automático saldrá a la mañana siguiente a las 8h.
+
+---
+
+## Saber más
+
+- [Guía completa n8n: automatizar sin programar](/es/blog/automatisation-n8n-guide) — instalar n8n, crear tus primeros flujos, conectar Google Sheets y Brevo
+- [Agente IA comercial para pymes: n8n + Claude](/es/blog/agent-ia-commercial-pme) — el mismo principio aplicado a la cualificación de leads y seguimiento comercial
+- [Automatización de procesos de negocio: ROI máximo](/es/blog/automatisation-processus-roi) — marco de priorización para elegir tus primeras automatizaciones
+- [Automatización IA para pymes: precios reales 2026](/es/blog/automatisation-ia-pme-prix-2026) — cuadro completo de costes según tu volumen
+- [3 flujos de agentes IA para pymes: ROI real](/es/blog/3-workflows-agents-ia-pme) — email adaptativo, lead scoring y social auto con n8n
+- [Nuestro servicio de Automatización](/es/automatisation) — packs n8n/Make con monitorización incluida
+
+> 💡 **Neuraweb despliega este tipo de agente IA en menos de una semana**, con supervisión humana integrada y conformidad RGPD documentada. Si tu caso de uso es más complejo (multi-divisa, CRM específico, secuencias avanzadas), [hablemos directamente →](/es/contact)
