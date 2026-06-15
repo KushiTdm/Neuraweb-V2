@@ -206,7 +206,7 @@ interface UseCase {
 const USE_CASES: UseCase[] = [
   {
     icon: CreditCard,
-    context: 'Un bistrot fait 5 000 €/mois de ventes via Uber Eats et Deliveroo, qui prélèvent 30 %.',
+    context: 'Un fast-food fait 5 000 €/mois de ventes via Uber Eats et Deliveroo, qui prélèvent 30 %.',
     solution: 'Commande + paiement Stripe en direct sur son propre site (≈ 1,4 % + 0,25 €).',
     result: '≈ 1 400 €/mois récupérés · ~17 000 €/an · site amorti en 1 à 3 mois',
   },
