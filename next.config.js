@@ -181,9 +181,11 @@ const nextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://client.crisp.chat",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-              "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://images.unsplash.com https://images.pexels.com",
+              // *.google-analytics.com couvre region1/region2/etc. (endpoints
+              // régionaux GA4 utilisés pour la conformité RGPD en UE).
+              "img-src 'self' data: blob: https://*.google-analytics.com https://www.googletagmanager.com https://images.unsplash.com https://images.pexels.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://client.crisp.chat wss://client.relay.crisp.chat",
+              "connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.googletagmanager.com https://client.crisp.chat wss://client.relay.crisp.chat",
               "frame-src 'self' https://www.google.com",
               "media-src 'self' blob:",
               "worker-src 'self' blob:",

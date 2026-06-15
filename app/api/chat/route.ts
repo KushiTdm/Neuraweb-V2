@@ -117,6 +117,40 @@ PACKS CACHÉS — proposer UNIQUEMENT si le profil correspond
 → Proposer si: site existant lent, vieillissant ou mal optimisé
 
 ━━━━━━━━━━━━━━━━━━━━━━
+PACKS RESTAURANT — proposer si le client est restaurateur
+━━━━━━━━━━━━━━━━━━━━━━
+Argument clé : Uber Eats / Deliveroo prennent 20 à 30 % par commande. Stripe coûte ~1,4 %. Sur 5 000 €/mois de ventes en ligne, passer au direct récupère ~1 400 €/mois (soit ~17 000 €/an).
+
+🍽️ Vitrine Restaurant (~990€ | 1 semaine)
+→ Menu, horaires, galerie, formulaire réservation, Google Maps, SEO local
+→ Proposer si: premier site, restaurant qui veut être trouvé sur Google
+
+🍽️ Vitrine Pro Restaurant (~1 490 à 2 490€ | 2-3 semaines)
+→ Design soigné, galerie pro, réservation en ligne, avis clients intégrés, SEO renforcé
+→ Proposer si: restaurant établi ou gastronomique, besoin d'une présence qualitative
+
+🍽️ Click & Collect + Paiement (~2 990 à 3 990€ | 3-4 semaines)
+→ Commande en ligne, paiement Stripe (1,4%), suivi temps réel (Reçue → En préparation → Prête), promos anti-gaspillage en un clic, zéro commission
+→ Proposer si: restaurant voulant sortir d'Uber Eats / Deliveroo, livraison ou retrait en boutique
+
+🍽️ Fidélité + Compte client (~4 990 à 7 990€ | 4-6 semaines)
+→ Tout Click & Collect + programme de points (1€ = 1 point, paliers récompenses), espace client, marketing automation, relances ciblées
+→ Proposer si: restaurant avec clientèle régulière (300 habitués × 1 visite/mois supplémentaire = +7 500€/mois)
+
+🍽️ Réseau / Franchise (sur devis)
+→ Architecture multi-sites, espace franchise, carte de fidélité commune (déployé sur réseau de 80+ restaurants)
+→ Proposer si: chaîne, réseau de restaurants, franchise
+
+📊 Démos à montrer: Marguerite (cantine), Le Jardin d'Or (gastro 2 étoiles), Séraphine (bistrot + commande), BurgerBoom (burger + click & collect + fidélité), Voltaire (fidélité complète), L'Éden Fruité (réseau 80+ restaurants)
+
+🍽️ Si restaurant identifié, poser une question complémentaire:
+"Avez-vous besoin de commande en ligne / paiement sur votre site, ou plutôt d'une vitrine avec réservation de table ?"
+→ Vitrine + réservation de table → Vitrine Restaurant ou Vitrine Pro
+→ Commande en ligne + paiement → Click & Collect + Paiement
+→ Programme de fidélité / compte client → Fidélité + Compte client
+→ Plusieurs établissements / franchise → Réseau / Franchise
+
+━━━━━━━━━━━━━━━━━━━━━━
 PACKS SANTÉ & PARAMÉDICAL — proposer si le client est dans le secteur santé/bien-être
 ━━━━━━━━━━━━━━━━━━━━━━
 Tarifs HT, TVA 20% en sus. Engagement 12 mois sur l'abonnement. Tous incluent SSL, hébergement, nom de domaine 1ère année, RGPD.
@@ -171,6 +205,7 @@ Q2: "Quel est votre objectif principal ?"
 → Lancer une campagne ou un produit → Pack Landing Page
 → Automatiser des tâches / intégrer l'IA → Pack IA
 → Créer une application / SaaS → Pack MVP SaaS
+→ Restaurant / restauration / café / brasserie / food → orienter vers Packs Restaurant selon besoin (vitrine, click & collect, fidélité, réseau)
 → Profession santé/paramédical → orienter vers la gamme Packs Santé selon taille (solo / cabinet 1-2 / multi-praticiens / réseau)
 
 Q3: "Quel est votre budget approximatif ?"
@@ -253,6 +288,25 @@ HIDDEN PACKS — propose ONLY if profile matches
 🟤 Redesign Pack (€2,900 | 3-4 weeks) → WordPress migration, +50 Lighthouse pts guaranteed. Suggest if: slow or outdated existing site
 
 ━━━━━━━━━━━━━━━━━━━━━━
+RESTAURANT PACKS — propose if client is in food service / restaurant industry
+━━━━━━━━━━━━━━━━━━━━━━
+Key pitch: Uber Eats / Deliveroo take 20–30% per order. Stripe costs ~1.4%. On €5,000/month in online sales, going direct saves ~€1,400/month (~€17,000/year).
+
+🍽️ Restaurant Showcase (~€990 | 1 week) → Menu, hours, gallery, reservation form, Google Maps, local SEO. Suggest if: first website, restaurant wanting to be found on Google
+🍽️ Pro Restaurant (~€1,490–2,490 | 2-3 weeks) → Premium design, pro gallery, online booking, integrated reviews. Suggest if: established or fine-dining restaurant
+🍽️ Click & Collect + Payment (~€2,990–3,990 | 3-4 weeks) → Online ordering, Stripe (1.4%), real-time tracking (Received → Preparing → Ready), anti-waste flash promos, zero commission. Suggest if: restaurant wanting to quit Uber Eats / Deliveroo
+🍽️ Loyalty + Customer Account (~€4,990–7,990 | 4-6 weeks) → All above + loyalty points (€1 = 1 point, reward tiers), customer account, marketing automation. Suggest if: regular clientele (300 regulars × 1 extra visit/month = +€7,500/month)
+🍽️ Network / Franchise (custom quote) → Multi-site architecture, franchise portal, shared loyalty card (deployed on 80+ restaurant network). Suggest if: chain, restaurant group, franchise
+
+Demos: Marguerite (canteen), Le Jardin d'Or (2-star fine dining), Séraphine (bistro + ordering), BurgerBoom (burger + click & collect + loyalty), Voltaire (full loyalty), L'Éden Fruité (80+ restaurant network)
+
+🍽️ If restaurant identified, ask: "Do you need online ordering with payment on your site, or mainly a showcase with table reservations?"
+→ Showcase + table reservation → Restaurant Showcase or Pro Restaurant
+→ Online ordering + payment + click & collect → Click & Collect + Payment
+→ Loyalty program / customer account → Loyalty + Customer Account
+→ Multiple locations / franchise → Network / Franchise
+
+━━━━━━━━━━━━━━━━━━━━━━
 HEALTHCARE & PARAMEDICAL PACKS — propose if client is in healthcare/wellness sector
 ━━━━━━━━━━━━━━━━━━━━━━
 All prices excl. VAT (20%). 12-month subscription commitment. SSL, hosting, 1st-year domain & GDPR included.
@@ -296,7 +350,7 @@ All prices excl. VAT (20%). 12-month subscription commitment. SSL, hosting, 1st-
 QUALIFICATION LOGIC (3 questions, ONE AT A TIME)
 ━━━━━━━━━━━━━━━━━━━━━━
 Q1: "Do you already have an existing website?"
-Q2: "What is your main goal?" (sell products / generate leads / launch campaign / automate / build an app / healthcare practice presence)
+Q2: "What is your main goal?" (sell products / generate leads / launch campaign / automate / build an app / restaurant or food service / healthcare practice presence)
 Q3: "What is your approximate budget?" (< €1,500 / €1,500-3,000 / €3,000-6,000 / €6,000+)
 
 🩺 If healthcare profession identified, also ask: "Do you store (or want to store) patient data on the site (appointments, records, secure patient area)?"
@@ -348,6 +402,25 @@ PACKS OCULTOS — proponer SOLO si el perfil corresponde
 🟤 Pack Rediseño (2.900€ | 3-4 semanas) → si: sitio existente lento o anticuado
 
 ━━━━━━━━━━━━━━━━━━━━━━
+PACKS RESTAURANTE — proponer si el cliente trabaja en restauración
+━━━━━━━━━━━━━━━━━━━━━━
+Argumento clave: Uber Eats / Deliveroo cobran 20-30% por pedido. Stripe cuesta ~1,4%. En 5.000€/mes de ventas online, pasarse al directo recupera ~1.400€/mes (~17.000€/año).
+
+🍽️ Vitrina Restaurante (~990€ | 1 semana) → Menú, horarios, galería, formulario reservas, Google Maps, SEO local. Si: primer sitio, restaurante que quiere aparecer en Google
+🍽️ Vitrina Pro (~1.490-2.490€ | 2-3 semanas) → Diseño cuidado, galería pro, reserva online, reseñas integradas. Si: restaurante establecido o gastronómico
+🍽️ Click & Collect + Pago (~2.990-3.990€ | 3-4 semanas) → Pedido online, pago Stripe (1,4%), seguimiento en tiempo real (Recibido → Preparando → Listo), promos anti-desperdicio, cero comisión. Si: restaurante que quiere salir de Uber Eats / Deliveroo
+🍽️ Fidelidad + Cuenta cliente (~4.990-7.990€ | 4-6 semanas) → Todo lo anterior + programa de puntos (1€ = 1 punto, escalas de recompensas), espacio cliente, marketing automation. Si: clientela habitual (300 habituales × 1 visita más/mes = +7.500€/mes)
+🍽️ Red / Franquicia (a presupuesto) → Multi-sitios, portal franquicia, tarjeta de fidelidad común (desplegado en red de 80+ restaurantes). Si: cadena, grupo de restaurantes, franquicia
+
+Demos disponibles: Marguerite (cantina), Le Jardin d'Or (gastronómica 2 estrellas), Séraphine (bistró + pedidos), BurgerBoom (burger + click & collect + fidelidad), Voltaire (fidelidad completa), L'Éden Fruité (red 80+ restaurantes)
+
+🍽️ Si restaurante identificado, preguntar: "¿Necesitas pedidos online con pago en tu web, o más bien una vitrina con reservas de mesa?"
+→ Vitrina + reservas de mesa → Vitrina Restaurante o Vitrina Pro
+→ Pedido online + pago + click & collect → Click & Collect + Pago
+→ Programa de fidelidad / cuenta cliente → Fidelidad + Cuenta cliente
+→ Varios locales / franquicia → Red / Franquicia
+
+━━━━━━━━━━━━━━━━━━━━━━
 PACKS SALUD Y PARAMÉDICO — proponer si el cliente trabaja en sector salud/bienestar
 ━━━━━━━━━━━━━━━━━━━━━━
 Precios sin IVA (20%). Compromiso suscripción 12 meses. Incluyen SSL, hosting, dominio 1er año y RGPD.
@@ -391,7 +464,7 @@ Precios sin IVA (20%). Compromiso suscripción 12 meses. Incluyen SSL, hosting, 
 CALIFICACIÓN (3 preguntas, UNA A LA VEZ)
 ━━━━━━━━━━━━━━━━━━━━━━
 P1: "¿Ya tienes un sitio web existente?"
-P2: "¿Cuál es tu objetivo principal?" (vender / generar leads / lanzar campaña / automatizar / crear app / presencia profesional sanitaria)
+P2: "¿Cuál es tu objetivo principal?" (vender / generar leads / lanzar campaña / automatizar / crear app / restaurante o hostelería / presencia profesional sanitaria)
 P3: "¿Cuál es tu presupuesto aproximado?" (< 1.500€ / 1.500-3.000€ / 3.000-6.000€ / +6.000€)
 
 🩺 Si profesión sanitaria identificada, preguntar también: "¿Almacenas (o quieres almacenar) datos de pacientes en el sitio (citas, expedientes, área paciente segura)?"
