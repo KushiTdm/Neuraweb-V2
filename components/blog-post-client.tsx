@@ -19,6 +19,12 @@ import Image from 'next/image';
 import { LocalizedLink } from '@/components/localized-link';
 import type { BlogPost, BlogPostMeta } from '@/lib/mdx';
 import { useBlogPostAnalytics } from '@/hooks/use-blog-analytics'; // ← ANALYTICS
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 interface BlogPostClientProps {
   post: BlogPost;
@@ -318,18 +324,18 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                 {faqHeading}
               </h2>
-              <div className="space-y-6">
+              <Accordion type="single" collapsible className="w-full">
                 {post.faq.map((item, idx) => (
-                  <div key={idx}>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  <AccordionItem key={idx} value={`faq-${idx}`} className="border-gray-200 dark:border-gray-800">
+                    <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 dark:text-white hover:no-underline">
                       {item.question}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    </AccordionTrigger>
+                    <AccordionContent className="text-gray-600 dark:text-gray-300 leading-relaxed">
                       {item.answer}
-                    </p>
-                  </div>
+                    </AccordionContent>
+                  </AccordionItem>
                 ))}
-              </div>
+              </Accordion>
             </section>
           )}
 
