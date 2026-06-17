@@ -3,9 +3,11 @@ import type { Metadata, Viewport } from 'next';
 import { Inter, Inter_Tight, JetBrains_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
-import Script from 'next/script';
+import { CookieConsentProvider } from '@/contexts/cookie-consent-context';
 import ChatbotWrapper from '@/components/chatbot-wrapper';
 import { ScrollToTopOnNavigate } from '@/components/scroll-to-top-on-navigate';
+import { GoogleAnalyticsLoader } from '@/components/google-analytics-loader';
+import { CookieConsentBanner } from '@/components/cookie-consent-banner';
 
 import {
   organizationSchema,
@@ -210,7 +212,7 @@ export default async function LangLayout({
 
         {/* DNS prefetch pour les origines non-critiques */}
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        <link rel="dns-prefetch" href="https://client.crisp.chat" />
+        <link rel="dns-prefetch" href="https://api.mistral.ai" />
 
         {/* Le preload du poster vidéo est dans app/[lang]/page.tsx (home seulement) */}
 
@@ -224,27 +226,6 @@ export default async function LangLayout({
             pollue les pages article (Google : "Reviews snippet invalide"). */}
       </head>
       <body className={`${inter.className} font-sans`}>
-        {/* Google Analytics — lazyOnload pour ne pas bloquer le rendu */}
-        {gaId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="lazyOnload"
-            />
-            <Script id="google-analytics" strategy="lazyOnload">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${gaId}', {
-                  page_path: window.location.pathname,
-                  send_page_view: true
-                });
-              `}
-            </Script>
-          </>
-        )}
-
         <a href="#main-content" className="skip-link">
           {({'fr': 'Aller au contenu principal', 'en': 'Skip to main content', 'es': 'Ir al contenido principal'} as Record<string, string>)[lang] ?? 'Skip to main content'}
         </a>
@@ -255,9 +236,14 @@ export default async function LangLayout({
           disableTransitionOnChange
         >
           <LanguageProvider initialLanguage={lang as any}>
-            <ScrollToTopOnNavigate />
-            {children}
-            <ChatbotWrapper />
+            <CookieConsentProvider>
+              {/* Google Analytics n'est chargé qu'après consentement explicite (RGPD/CNIL) */}
+              <GoogleAnalyticsLoader gaId={gaId} />
+              <ScrollToTopOnNavigate />
+              {children}
+              <ChatbotWrapper />
+              <CookieConsentBanner />
+            </CookieConsentProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

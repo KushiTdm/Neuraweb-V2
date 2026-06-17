@@ -5,9 +5,11 @@ import Image from 'next/image';
 import { Mail, Zap, Linkedin, Twitter, Github, Instagram, ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
+import { useCookieConsent } from '@/contexts/cookie-consent-context';
 
 export function Footer() {
   const { t } = useTranslation();
+  const { openPreferences } = useCookieConsent();
   const [email, setEmail] = useState('');
 
   const services: { label: string; href: string }[] = [
@@ -129,6 +131,14 @@ export function Footer() {
               )}
             </React.Fragment>
           ))}
+          <span className="text-slate-700 text-[10px]">•</span>
+          <button
+            type="button"
+            onClick={openPreferences}
+            className="text-[10px] text-slate-500 hover:text-white transition-colors"
+          >
+            {t('cookies.manage')}
+          </button>
         </div>
       </div>
 
@@ -250,6 +260,14 @@ export function Footer() {
                 )}
               </React.Fragment>
             ))}
+            <span className="text-slate-700">•</span>
+            <button
+              type="button"
+              onClick={openPreferences}
+              className="text-slate-400/60 hover:text-white transition-colors"
+            >
+              {t('cookies.manage')}
+            </button>
           </div>
 
           <div className="flex items-center gap-1.5 text-xs text-slate-600">

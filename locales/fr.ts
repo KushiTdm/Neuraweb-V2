@@ -680,6 +680,27 @@ export const fr = {
   'equipe.cta.title': 'Prêt à construire ensemble ?',
   'equipe.cta.desc': "Discutons de votre projet et voyons comment l'IA peut accélérer votre croissance.",
   'equipe.cta.button': 'Démarrer un projet',
+
+  // Bandeau & préférences cookies (RGPD/CNIL)
+  'cookies.banner.title': 'Respect de votre vie privée',
+  'cookies.banner.description': "Nous utilisons des cookies essentiels au fonctionnement du site et, avec votre accord, des cookies de mesure d'audience (Google Analytics). Vous pouvez accepter, refuser ou personnaliser votre choix à tout moment.",
+  'cookies.banner.acceptAll': 'Accepter tout',
+  'cookies.banner.rejectAll': 'Refuser tout',
+  'cookies.banner.customize': 'Personnaliser',
+  'cookies.banner.privacyLink': 'Politique de confidentialité',
+  'cookies.modal.title': 'Préférences cookies',
+  'cookies.modal.description': "Choisissez les catégories de cookies que vous autorisez. Ce choix est modifiable à tout moment depuis le lien « Gérer les cookies » en bas de page.",
+  'cookies.modal.essential.title': 'Cookies essentiels',
+  'cookies.modal.essential.description': 'Nécessaires au fonctionnement du site (langue, thème, session). Toujours actifs.',
+  'cookies.modal.analytics.title': "Mesure d'audience",
+  'cookies.modal.analytics.description': 'Google Analytics — statistiques de visite anonymisées pour améliorer le site.',
+  'cookies.modal.save': 'Enregistrer mes préférences',
+  'cookies.manage': 'Gérer les cookies',
+
+  // Consentement formulaires (contact, booking)
+  'forms.consent.prefix': "J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la",
+  'forms.consent.link': 'politique de confidentialité',
+  'forms.consent.suffix': '.',
 } as const;
 
 export type TranslationKey = keyof typeof fr;

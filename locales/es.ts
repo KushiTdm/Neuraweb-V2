@@ -683,4 +683,25 @@ export const es: Record<TranslationKey, string> = {
   'equipe.cta.title': '¿Listo para construir juntos?',
   'equipe.cta.desc': 'Hablemos de tu proyecto y veamos cómo la IA puede acelerar tu crecimiento.',
   'equipe.cta.button': 'Iniciar un proyecto',
+
+  // Banner y preferencias de cookies (RGPD/CNIL)
+  'cookies.banner.title': 'Respetamos tu privacidad',
+  'cookies.banner.description': 'Utilizamos cookies esenciales para el funcionamiento del sitio y, con tu consentimiento, cookies de medición de audiencia (Google Analytics). Puedes aceptar, rechazar o personalizar tu elección en cualquier momento.',
+  'cookies.banner.acceptAll': 'Aceptar todo',
+  'cookies.banner.rejectAll': 'Rechazar todo',
+  'cookies.banner.customize': 'Personalizar',
+  'cookies.banner.privacyLink': 'Política de privacidad',
+  'cookies.modal.title': 'Preferencias de cookies',
+  'cookies.modal.description': 'Elige las categorías de cookies que autorizas. Puedes cambiar esta elección en cualquier momento desde el enlace "Gestionar cookies" al pie de página.',
+  'cookies.modal.essential.title': 'Cookies esenciales',
+  'cookies.modal.essential.description': 'Necesarias para el funcionamiento del sitio (idioma, tema, sesión). Siempre activas.',
+  'cookies.modal.analytics.title': 'Medición de audiencia',
+  'cookies.modal.analytics.description': 'Google Analytics — estadísticas de visitas anonimizadas para mejorar el sitio.',
+  'cookies.modal.save': 'Guardar mis preferencias',
+  'cookies.manage': 'Gestionar cookies',
+
+  // Consentimiento en formularios (contacto, reserva)
+  'forms.consent.prefix': 'Acepto que mis datos se utilicen para tramitar mi solicitud, de acuerdo con la',
+  'forms.consent.link': 'política de privacidad',
+  'forms.consent.suffix': '.',
 };

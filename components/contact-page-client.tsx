@@ -4,27 +4,32 @@ import React, { useState } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { useTranslation } from '@/hooks/use-translation';
+import { LocalizedLink } from '@/components/localized-link';
 import { Mail, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 export default function ContactPageClient() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [consent, setConsent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       const formData = new FormData(e.currentTarget);
+      const payload = Object.fromEntries(formData.entries());
       const response = await fetch('/api/contact', {
         method: 'POST',
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...payload, language }),
       });
-      
+
       if (response.ok) {
         setSubmitStatus('success');
         (e.target as HTMLFormElement).reset();
+        setConsent(false);
       } else {
         setSubmitStatus('error');
       }
@@ -192,9 +197,27 @@ export default function ContactPageClient() {
                   />
                 </div>
 
+                <label className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+                  <input
+                    type="checkbox"
+                    name="consent"
+                    required
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-gray-900"
+                  />
+                  <span>
+                    {t('forms.consent.prefix')}{' '}
+                    <LocalizedLink href="/confidentialite" className="underline hover:text-gray-900 dark:hover:text-white">
+                      {t('forms.consent.link')}
+                    </LocalizedLink>
+                    {t('forms.consent.suffix')}
+                  </span>
+                </label>
+
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !consent}
                   className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-semibold transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                   style={{
                     background: '#111827',

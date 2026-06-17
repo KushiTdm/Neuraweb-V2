@@ -3,7 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 // ============================================================
 // CONFIGURATION
 // ============================================================
-const AI_MODEL = "glm-4.5-flash";
+// Ancien fournisseur Z.AI — conservé en commentaire si besoin de revenir en arrière
+// const AI_MODEL = "glm-4.5-flash";
+const AI_MODEL = "mistral-small-latest"; // Mistral AI, version gratuite (La Plateforme)
 const MAX_MESSAGES_PER_SESSION = 20;
 const MAX_TOKENS = 600;
 const MIN_MESSAGE_INTERVAL = 2000;
@@ -632,10 +634,16 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // 3️⃣ Appel API Z.AI pour toutes les autres questions
-    const apiKey = process.env.ZAI_API_KEY;
+    // 3️⃣ Appel API Mistral pour toutes les autres questions
+    // --- Ancien fournisseur Z.AI — conservé en commentaire si besoin de revenir en arrière ---
+    // const apiKey = process.env.ZAI_API_KEY;
+    // if (!apiKey) {
+    //   console.error("ZAI_API_KEY is not set");
+    //   return NextResponse.json({ error: errors.configMissing }, { status: 500 });
+    // }
+    const apiKey = process.env.MISTRAL_API_KEY;
     if (!apiKey) {
-      console.error("ZAI_API_KEY is not set");
+      console.error("MISTRAL_API_KEY is not set");
       return NextResponse.json({ error: errors.configMissing }, { status: 500 });
     }
 
@@ -655,7 +663,28 @@ export async function POST(request: NextRequest) {
 
     messages.push({ role: "user", content: message });
 
-    const response = await fetch("https://open.bigmodel.cn/api/paas/v4/chat/completions", {
+    // --- Ancien appel Z.AI — conservé en commentaire si besoin de revenir en arrière ---
+    // const response = await fetch("https://open.bigmodel.cn/api/paas/v4/chat/completions", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${apiKey}`,
+    //   },
+    //   body: JSON.stringify({
+    //     model: AI_MODEL,
+    //     messages,
+    //     max_tokens: MAX_TOKENS,
+    //     temperature: 0.5,
+    //     stream: false,
+    //   }),
+    // });
+    // if (!response.ok) {
+    //   const errorData = await response.json().catch(() => ({}));
+    //   console.error("Z.AI API error:", response.status, errorData);
+    //   throw new Error(`API Z.AI error: ${response.status}`);
+    // }
+
+    const response = await fetch("https://api.mistral.ai/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -672,8 +701,8 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      console.error("Z.AI API error:", response.status, errorData);
-      throw new Error(`API Z.AI error: ${response.status}`);
+      console.error("Mistral API error:", response.status, errorData);
+      throw new Error(`API Mistral error: ${response.status}`);
     }
 
     const completion = await response.json();

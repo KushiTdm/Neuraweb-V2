@@ -18,7 +18,7 @@ const CONTENT = {
     title: 'Politique de Confidentialité',
     description: 'Politique de confidentialité NeuraWeb : collecte, utilisation et protection de vos données personnelles. Conformité RGPD garantie, transparence totale.',
     backToHome: 'Retour à l\'accueil',
-    lastUpdate: 'Dernière mise à jour : Avril 2026',
+    lastUpdate: 'Dernière mise à jour : Juin 2026',
     sections: [
       {
         title: '1. Introduction',
@@ -83,19 +83,22 @@ Téléphone : +33 7 49 77 56 54`,
         title: '7. Destinataires des données',
         content: `Vos données peuvent être partagées avec :
 
-- **Vercel Inc.** : hébergement du site (États-Unis, Privacy Shield)
-- **Google LLC** : analytics (États-Unis, Privacy Shield)
-- **Crisp IM** : chat en ligne (France)
+- **Vercel Inc.** : hébergement du site (États-Unis)
+- **Google LLC** : analytics, uniquement si vous avez donné votre consentement aux cookies de mesure d'audience (États-Unis)
+- **Mistral AI** : assistant conversationnel du site — uniquement les messages que vous envoyez au chatbot (France, Union européenne)
 - **Resend** : envoi d'emails transactionnels
+- **Supabase** : hébergement de la base de données de réservation
 
 Nous ne vendons jamais vos données à des tiers.`,
       },
       {
         title: '8. Transferts internationaux',
-        content: `Certaines données peuvent être transférées vers les États-Unis (Vercel, Google). Ces transferts sont encadrés par :
+        content: `Certaines données peuvent être transférées vers les États-Unis (Vercel, Google, lorsque le consentement aux cookies analytics a été donné). Ces transferts sont encadrés par :
 
 - Les clauses contractuelles types de la Commission européenne
-- Le Data Privacy Framework UE-États-Unis
+- Le Data Privacy Framework (DPF) UE-États-Unis, qui a remplacé le Privacy Shield invalidé par la Cour de justice de l'Union européenne en 2020
+
+Notre assistant conversationnel s'appuie sur Mistral AI, société française soumise directement au RGPD.
 
 Nous veillons à ce que vos données bénéficient d'un niveau de protection équivalent au RGPD.`,
       },
@@ -124,13 +127,10 @@ Vous pouvez également introduire une réclamation auprès de la CNIL : https://
 - Thème (clair/sombre)
 - Session utilisateur
 
-**Cookies d'analyse (avec consentement) :**
+**Cookies d'analyse (uniquement avec votre consentement) :**
 - Google Analytics : mesure d'audience anonymisée
 
-**Cookies tiers :**
-- Crisp : chat en ligne
-
-Vous pouvez gérer vos préférences de cookies à tout moment via les paramètres de votre navigateur.`,
+Lors de votre première visite, un bandeau vous permet d'accepter, de refuser ou de personnaliser ces cookies d'analyse. Aucun cookie de mesure d'audience n'est déposé avant votre accord. Vous pouvez à tout moment modifier votre choix via le lien « Gérer les cookies » disponible en bas de chaque page.`,
       },
       {
         title: '11. Sécurité',
@@ -163,7 +163,7 @@ Nous nous engageons à répondre dans un délai de 30 jours.`,
     title: 'Privacy Policy',
     description: 'NeuraWeb privacy policy: how we collect, use and safeguard your personal data in full compliance with GDPR. Read our data protection commitments.',
     backToHome: 'Back to home',
-    lastUpdate: 'Last updated: April 2026',
+    lastUpdate: 'Last updated: June 2026',
     sections: [
       {
         title: '1. Introduction',
@@ -229,18 +229,21 @@ Phone: +33 7 49 77 56 54`,
         content: `Your data may be shared with:
 
 - **Vercel Inc.**: website hosting (United States)
-- **Google LLC**: analytics (United States)
-- **Crisp IM**: online chat (France)
+- **Google LLC**: analytics, only if you have consented to analytics cookies (United States)
+- **Mistral AI**: the site's conversational assistant — only the messages you send to the chatbot (France, European Union)
 - **Resend**: transactional emails
+- **Supabase**: booking database hosting
 
 We never sell your data to third parties.`,
       },
       {
         title: '8. International Transfers',
-        content: `Some data may be transferred to the United States (Vercel, Google). These transfers are governed by:
+        content: `Some data may be transferred to the United States (Vercel, Google, when consent to analytics cookies has been given). These transfers are governed by:
 
 - Standard contractual clauses of the European Commission
-- EU-US Data Privacy Framework
+- The EU-US Data Privacy Framework (DPF), which replaced the Privacy Shield invalidated by the Court of Justice of the European Union in 2020
+
+Our conversational assistant relies on Mistral AI, a French company directly subject to GDPR.
 
 We ensure your data receives a level of protection equivalent to GDPR.`,
       },
@@ -269,13 +272,10 @@ You can also file a complaint with the French data protection authority (CNIL): 
 - Theme (light/dark)
 - User session
 
-**Analytics cookies (with consent):**
+**Analytics cookies (only with your consent):**
 - Google Analytics: anonymous audience measurement
 
-**Third-party cookies:**
-- Crisp: online chat
-
-You can manage your cookie preferences at any time through your browser settings.`,
+On your first visit, a banner lets you accept, reject, or customize these analytics cookies. No audience-measurement cookie is set before your consent. You can change your choice at any time via the "Manage cookies" link at the bottom of every page.`,
       },
       {
         title: '11. Security',
@@ -308,7 +308,7 @@ We commit to responding within 30 days.`,
     title: 'Política de Privacidad',
     description: 'Política de privacidad de NeuraWeb: cómo recopilamos, usamos y protegemos tus datos personales con total conformidad al RGPD. Compromisos de transparencia.',
     backToHome: 'Volver al inicio',
-    lastUpdate: 'Última actualización: Abril 2026',
+    lastUpdate: 'Última actualización: Junio 2026',
     sections: [
       {
         title: '1. Introducción',
@@ -374,18 +374,21 @@ Teléfono: +33 7 49 77 56 54`,
         content: `Sus datos pueden compartirse con:
 
 - **Vercel Inc.**: alojamiento del sitio (Estados Unidos)
-- **Google LLC**: analytics (Estados Unidos)
-- **Crisp IM**: chat en línea (Francia)
+- **Google LLC**: analytics, solo si ha dado su consentimiento a las cookies de análisis (Estados Unidos)
+- **Mistral AI**: el asistente conversacional del sitio — únicamente los mensajes que envía al chatbot (Francia, Unión Europea)
 - **Resend**: emails transaccionales
+- **Supabase**: alojamiento de la base de datos de reservas
 
 Nunca vendemos sus datos a terceros.`,
       },
       {
         title: '8. Transferencias internacionales',
-        content: `Algunos datos pueden transferirse a Estados Unidos (Vercel, Google). Estas transferencias están regidas por:
+        content: `Algunos datos pueden transferirse a Estados Unidos (Vercel, Google, cuando se ha dado el consentimiento a las cookies de análisis). Estas transferencias están regidas por:
 
 - Cláusulas contractuales tipo de la Comisión Europea
-- Marco de Privacidad de Datos UE-EE.UU.
+- El Marco de Privacidad de Datos (DPF) UE-EE.UU., que sustituyó al Privacy Shield invalidado por el Tribunal de Justicia de la Unión Europea en 2020
+
+Nuestro asistente conversacional se basa en Mistral AI, empresa francesa sujeta directamente al RGPD.
 
 Nos aseguramos de que sus datos reciban un nivel de protección equivalente al RGPD.`,
       },
@@ -412,13 +415,10 @@ Para ejercer estos derechos, contáctenos en: **contact@neuraweb.tech**`,
 - Tema (claro/oscuro)
 - Sesión de usuario
 
-**Cookies de análisis (con consentimiento):**
+**Cookies de análisis (solo con su consentimiento):**
 - Google Analytics: medición de audiencia anónima
 
-**Cookies de terceros:**
-- Crisp: chat en línea
-
-Puede gestionar sus preferencias de cookies en cualquier momento a través de la configuración de su navegador.`,
+En su primera visita, un banner le permite aceptar, rechazar o personalizar estas cookies de análisis. No se instala ninguna cookie de medición de audiencia antes de su consentimiento. Puede modificar su elección en cualquier momento a través del enlace «Gestionar cookies» disponible al pie de cada página.`,
       },
       {
         title: '11. Seguridad',

@@ -50,6 +50,9 @@ const translations = {
     success: 'Rendez-vous confirmé !',
     successMessage: 'Vous recevrez un email de confirmation. À bientôt !',
     error: 'Erreur lors de la réservation',
+    consentPrefix: "J'accepte que mes données soient utilisées pour traiter ma demande, conformément à la",
+    consentLink: 'politique de confidentialité',
+    consentSuffix: '.',
     services: ['Développement Web', 'Application Mobile', 'Intégration IA', 'Automatisation', 'Site Restaurant', 'Site Santé', 'Audit IA', 'Autre'],
     packs: {
       starter: 'Pack Starter - 1 490€',
@@ -82,6 +85,9 @@ const translations = {
     success: 'Appointment confirmed!',
     successMessage: 'You will receive a confirmation email. See you soon!',
     error: 'Booking error',
+    consentPrefix: 'I agree that my data will be used to process my request, in accordance with the',
+    consentLink: 'privacy policy',
+    consentSuffix: '.',
     services: ['Web Development', 'Mobile App', 'AI Integration', 'Automation', 'Restaurant Website', 'Healthcare Website', 'AI Audit', 'Other'],
     packs: {
       starter: 'Starter Pack - €1,490',
@@ -114,6 +120,9 @@ const translations = {
     success: '¡Cita confirmada!',
     successMessage: 'Recibirás un email de confirmación. ¡Hasta pronto!',
     error: 'Error al reservar',
+    consentPrefix: 'Acepto que mis datos se utilicen para tramitar mi solicitud, de acuerdo con la',
+    consentLink: 'política de privacidad',
+    consentSuffix: '.',
     services: ['Desarrollo Web', 'Aplicación Móvil', 'Integración IA', 'Automatización', 'Sitio Restaurante', 'Sitio Salud', 'Auditoría IA', 'Otro'],
     packs: {
       starter: 'Pack Starter - 1.490€',
@@ -165,7 +174,8 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
     company: '',
     service: '',
     pack: '',
-    message: ''
+    message: '',
+    consent: false
   });
 
   // Synchroniser les props avec le state au montage et quand les props changent
@@ -241,7 +251,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
   };
 
   const handleSubmit = async () => {
-    if (!formData.name || !formData.email || !selectedDate || !selectedTime) {
+    if (!formData.name || !formData.email || !selectedDate || !selectedTime || !formData.consent) {
       setError(t.error);
       sendGAEvent('booking_submit_error', { language: lang, reason: 'missing_fields' });
       return;
@@ -563,6 +573,22 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                   </div>
                 </div>
 
+                <label className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+                  <input
+                    type="checkbox"
+                    checked={formData.consent}
+                    onChange={e => setFormData({...formData, consent: e.target.checked})}
+                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-gray-900"
+                  />
+                  <span>
+                    {t.consentPrefix}{' '}
+                    <LocalizedLink href="/confidentialite" className="underline hover:text-gray-900 dark:hover:text-white">
+                      {t.consentLink}
+                    </LocalizedLink>
+                    {t.consentSuffix}
+                  </span>
+                </label>
+
                 {error && (
                   <p className="text-red-500 text-sm text-center">{error}</p>
                 )}
@@ -577,7 +603,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                   </button>
                   <button
                     onClick={handleSubmit}
-                    disabled={submitting || !formData.name || !formData.email}
+                    disabled={submitting || !formData.name || !formData.email || !formData.consent}
                     className="flex-1 py-3 bg-gray-900 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
                   >
                     {submitting ? (

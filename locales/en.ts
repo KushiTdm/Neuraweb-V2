@@ -683,4 +683,25 @@ export const en: Record<TranslationKey, string> = {
   'equipe.cta.title': 'Ready to build together?',
   'equipe.cta.desc': 'Let\'s discuss your project and see how AI can accelerate your growth.',
   'equipe.cta.button': 'Start a project',
+
+  // Cookie banner & preferences (GDPR/CNIL)
+  'cookies.banner.title': 'Your privacy matters',
+  'cookies.banner.description': 'We use cookies that are essential to the site and, with your consent, audience measurement cookies (Google Analytics). You can accept, reject, or customize your choice at any time.',
+  'cookies.banner.acceptAll': 'Accept all',
+  'cookies.banner.rejectAll': 'Reject all',
+  'cookies.banner.customize': 'Customize',
+  'cookies.banner.privacyLink': 'Privacy policy',
+  'cookies.modal.title': 'Cookie preferences',
+  'cookies.modal.description': 'Choose the cookie categories you allow. You can change this choice at any time via the "Manage cookies" link at the bottom of the page.',
+  'cookies.modal.essential.title': 'Essential cookies',
+  'cookies.modal.essential.description': 'Required for the site to function (language, theme, session). Always active.',
+  'cookies.modal.analytics.title': 'Audience measurement',
+  'cookies.modal.analytics.description': 'Google Analytics — anonymized visit statistics to improve the site.',
+  'cookies.modal.save': 'Save my preferences',
+  'cookies.manage': 'Manage cookies',
+
+  // Form consent (contact, booking)
+  'forms.consent.prefix': 'I agree that my data will be used to process my request, in accordance with the',
+  'forms.consent.link': 'privacy policy',
+  'forms.consent.suffix': '.',
 };
