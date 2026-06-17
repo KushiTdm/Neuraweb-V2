@@ -116,7 +116,7 @@ The website https://neuraweb.tech is published by:
 **NeuraWeb**
 Micro-enterprise (French sole proprietorship)
 SIRET: 991 296 047 00020
-Address: Paris, Île-de-France, France
+Address: Lille, Hauts-de-France, France
 
 **Contact:**
 - Email: contact@neuraweb.tech
@@ -207,7 +207,7 @@ El sitio https://neuraweb.tech es editado por:
 **NeuraWeb**
 Microempresa (autónomo francés)
 SIRET: 991 296 047 00020
-Dirección: París, Île-de-France, Francia
+Dirección: Lille, Hauts-de-France, Francia
 
 **Contacto:**
 - Email: contact@neuraweb.tech

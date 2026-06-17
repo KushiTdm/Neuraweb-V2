@@ -137,29 +137,6 @@ export function Header() {
                       <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.web.desc')}</span>
                     </LocalizedLink>
 
-                    {/* Sous-pages sectorielles de Développement web */}
-                    <div className="ml-3 pl-3 border-l border-gray-100 dark:border-white/10">
-                      <LocalizedLink
-                        href="/restaurants"
-                        className="flex flex-col px-3 py-2 rounded-lg text-sm transition-colors
-                          text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white
-                          hover:bg-gray-50 dark:hover:bg-white/5"
-                      >
-                        <span className="block font-medium">{t('nav.dropdown.restaurants.label')}</span>
-                        <span className="block text-xs text-gray-400 dark:text-gray-600">{t('nav.dropdown.restaurants.desc')}</span>
-                      </LocalizedLink>
-
-                      <LocalizedLink
-                        href="/sante"
-                        className="flex flex-col px-3 py-2 rounded-lg text-sm transition-colors
-                          text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white
-                          hover:bg-gray-50 dark:hover:bg-white/5"
-                      >
-                        <span className="block font-medium">{t('nav.dropdown.sante.label')}</span>
-                        <span className="block text-xs text-gray-400 dark:text-gray-600">{t('nav.dropdown.sante.desc')}</span>
-                      </LocalizedLink>
-                    </div>
-
                     <div className="my-1 border-t border-gray-100 dark:border-white/5" />
 
                     <LocalizedLink
@@ -297,8 +274,6 @@ export function Header() {
           items={[
             { label: t('nav.home'),     href: '/',                     ariaLabel: t('nav.home')     },
             { label: t('nav.dropdown.web.label'), href: '/developpement-web' },
-            { label: t('nav.dropdown.restaurants.label'), href: '/restaurants', isSubItem: true },
-            { label: t('nav.dropdown.sante.label'),       href: '/sante',       isSubItem: true },
             { label: 'Mobile',          href: '/mobile-app-development' },
             { label: 'IA',              href: '/integration-ia'        },
             { label: t('nav.blog'),     href: '/blog',                 ariaLabel: t('nav.blog')     },

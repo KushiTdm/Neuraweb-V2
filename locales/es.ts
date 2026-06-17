@@ -359,7 +359,7 @@ export const es: Record<TranslationKey, string> = {
   'seo.boost.technical': 'Next.js, React, TypeScript, Node.js',
   'seo.boost.business': 'transformación digital, crecimiento, ROI',
   'seo.boost.ai': 'inteligencia artificial, machine learning, automatización',
-  'seo.boost.local': 'París, Francia, agencia francesa',
+  'seo.boost.local': 'Lille, Francia, agencia francesa',
   'seo.boost.cta': 'Presupuesto gratis, Respuesta 24h',
 
   // Audit CTA Section

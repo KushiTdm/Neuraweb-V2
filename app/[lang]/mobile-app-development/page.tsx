@@ -15,7 +15,7 @@ export const revalidate = 3600;
 const META: Record<Lang, { title: string; description: string; keywords: string[]; ogTitle: string; ogDescription: string }> = {
   fr: {
     title: 'Développement Application Mobile iOS & Android | NeuraWeb',
-    description: 'Agence de développement d\'applications mobiles à Paris et Lille. Apps iOS, Android, React Native, Flutter. MVP à partir de 8 900€. Devis gratuit sous 24h.',
+    description: 'Agence de développement d\'applications mobiles basée à Lille, clients à Paris et partout en France. Apps iOS, Android, React Native, Flutter. MVP à partir de 8 900€. Devis gratuit sous 24h.',
     keywords: [
       'développement application mobile',
       'création application mobile',
@@ -118,7 +118,7 @@ const FAQ_BY_LANG: Record<Lang, { question: string; answer: string }[]> = {
     { question: 'Combien de temps pour créer une app mobile ?', answer: 'Comptez 6 à 8 semaines pour un MVP, 12 à 16 semaines pour une app complète iOS + Android avec backend. Livraison par sprints de 2 semaines.' },
     { question: 'Cross-platform (React Native/Flutter) ou natif (Swift/Kotlin) ?', answer: 'Cross-platform pour un MVP rapide et un budget serré. Natif si vous visez une expérience premium ou une intégration profonde avec le système.' },
     { question: 'Gérez-vous la publication sur l\'App Store et Google Play ?', answer: 'Oui, inclus dans tous nos packs. Nous créons les comptes développeurs si besoin et gérons la soumission complète.' },
-    { question: 'Intervenez-vous à Lille, Lyon, Marseille ?', answer: 'Oui. Équipe basée à Paris, clients partout en France. Travail à distance avec points hebdomadaires en visio.' },
+    { question: 'Intervenez-vous à Lille, Lyon, Marseille ?', answer: 'Oui. Équipe basée à Lille, clients partout en France (Paris, Lyon, Marseille...). Travail à distance avec points hebdomadaires en visio.' },
   ],
   en: [
     { question: 'How much does mobile app development cost?', answer: 'An MVP starts at €8,900 cross-platform — well below the €11,000-€25,000 typically seen on the French market in 2026. A standard iOS + Android app costs €15,900-€30,000. A premium app with AI or real-time features can exceed €50,000.' },

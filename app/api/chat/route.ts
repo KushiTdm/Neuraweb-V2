@@ -80,8 +80,9 @@ const NEURAWEB_CONTEXTS = {
 ━━━━━━━━━━━━━━━━━━━━━━
 ENTREPRISE
 ━━━━━━━━━━━━━━━━━━━━━━
-NeuraWeb — Agence web & IA à Paris
-Contact: contact@neuraweb.tech | https://neuraweb.tech
+NeuraWeb — Agence web & IA basée à Lille (Hauts-de-France), intervient partout en France (Paris, Lyon, Marseille, Bordeaux, Toulouse...) en remote
+SIRET: 991 296 047 00020 (micro-entreprise)
+Contact: contact@neuraweb.tech | https://neuraweb.tech | Tél: +33 7 49 77 56 54
 CEO & développeur: Nacer
 
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -270,16 +271,17 @@ RÈGLES
 ━━━━━━━━━━━━━━━━━━━━━━
 COMPANY
 ━━━━━━━━━━━━━━━━━━━━━━
-NeuraWeb — Web & AI Agency in Paris
-Contact: contact@neuraweb.tech | https://neuraweb.tech
+NeuraWeb — Web & AI Agency based in Lille (Hauts-de-France, France), working remotely with clients across France (Paris, Lyon, Marseille, Bordeaux, Toulouse...)
+SIRET: 991 296 047 00020 (French micro-business)
+Contact: contact@neuraweb.tech | https://neuraweb.tech | Phone: +33 7 49 77 56 54
 CEO & developer: Nacer
 
 ━━━━━━━━━━━━━━━━━━━━━━
 OUR PACKS — 4 VISIBLE
 ━━━━━━━━━━━━━━━━━━━━━━
-🔵 Starter Pack (€1,500 | 2-3 weeks) → 5-page showcase site, SEO, contact form, 1yr hosting
-🟣 Business Pack (€4,900 | 4-6 weeks) ★ MOST POPULAR → full site, admin panel, blog, GA4 analytics, priority support
-🟡 Premium Pack (€9,000 | 6-8 weeks) → full e-commerce, Stripe, APIs, 24/7 support, 3-month maintenance
+🔵 Starter Pack (€1,490 | 2-3 weeks) → 5-page showcase site, SEO, contact form, 1yr hosting
+🟣 Business Pack (€3,990 | 4-6 weeks) ★ MOST POPULAR → full site, admin panel, blog, GA4 analytics, priority support
+🟡 Premium Pack (€7,990 | 6-8 weeks) → full e-commerce, Stripe, APIs, 24/7 support, 3-month maintenance
 🤖 AI Pack (custom quote) → custom AI chatbot, n8n automation, machine learning, data analysis
 
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -353,7 +355,7 @@ QUALIFICATION LOGIC (3 questions, ONE AT A TIME)
 ━━━━━━━━━━━━━━━━━━━━━━
 Q1: "Do you already have an existing website?"
 Q2: "What is your main goal?" (sell products / generate leads / launch campaign / automate / build an app / restaurant or food service / healthcare practice presence)
-Q3: "What is your approximate budget?" (< €1,500 / €1,500-3,000 / €3,000-6,000 / €6,000+)
+Q3: "What is your approximate budget?" (< €1,400 / €1,400-3,000 / €3,000-7,000 / €7,000+)
 
 🩺 If healthcare profession identified, also ask: "Do you store (or want to store) patient data on the site (appointments, records, secure patient area)?"
 → No / showcase + Doctolib link only → Vitrine Santé (solo) or Vitrine Pro + Blog (established practice)
@@ -384,16 +386,17 @@ RULES
 ━━━━━━━━━━━━━━━━━━━━━━
 EMPRESA
 ━━━━━━━━━━━━━━━━━━━━━━
-NeuraWeb — Agencia Web & IA en París
-Contacto: contact@neuraweb.tech | https://neuraweb.tech
+NeuraWeb — Agencia Web & IA con sede en Lille (Hauts-de-France, Francia), trabaja en remoto con clientes en toda Francia (París, Lyon, Marsella, Burdeos, Toulouse...)
+SIRET: 991 296 047 00020 (microempresa francesa)
+Contacto: contact@neuraweb.tech | https://neuraweb.tech | Tel: +33 7 49 77 56 54
 CEO & desarrollador: Nacer
 
 ━━━━━━━━━━━━━━━━━━━━━━
 PACKS VISIBLES (4)
 ━━━━━━━━━━━━━━━━━━━━━━
-🔵 Pack Starter (1.500€ | 2-3 semanas) → sitio vitrina 5 páginas, SEO, formulario, hosting 1 año
-🟣 Pack Business (4.900€ | 4-6 semanas) ★ MÁS POPULAR → sitio completo, admin, blog, analytics GA4, soporte prioritario
-🟡 Pack Premium (9.000€ | 6-8 semanas) → e-commerce Stripe, APIs, 95+ Lighthouse, soporte 24/7, mantenimiento 3 meses
+🔵 Pack Starter (1.490€ | 2-3 semanas) → sitio vitrina 5 páginas, SEO, formulario, hosting 1 año
+🟣 Pack Business (3.990€ | 4-6 semanas) ★ MÁS POPULAR → sitio completo, admin, blog, analytics GA4, soporte prioritario
+🟡 Pack Premium (7.990€ | 6-8 semanas) → e-commerce Stripe, APIs, 95+ Lighthouse, soporte 24/7, mantenimiento 3 meses
 🤖 Pack IA (bajo presupuesto) → chatbot IA personalizado, automatización n8n, machine learning
 
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -467,7 +470,7 @@ CALIFICACIÓN (3 preguntas, UNA A LA VEZ)
 ━━━━━━━━━━━━━━━━━━━━━━
 P1: "¿Ya tienes un sitio web existente?"
 P2: "¿Cuál es tu objetivo principal?" (vender / generar leads / lanzar campaña / automatizar / crear app / restaurante o hostelería / presencia profesional sanitaria)
-P3: "¿Cuál es tu presupuesto aproximado?" (< 1.500€ / 1.500-3.000€ / 3.000-6.000€ / +6.000€)
+P3: "¿Cuál es tu presupuesto aproximado?" (< 1.400€ / 1.400-3.000€ / 3.000-7.000€ / +7.000€)
 
 🩺 Si profesión sanitaria identificada, preguntar también: "¿Almacenas (o quieres almacenar) datos de pacientes en el sitio (citas, expedientes, área paciente segura)?"
 → No / vitrina + enlace Doctolib → Vitrine Santé (solo) o Vitrine Pro + Blog (consulta establecida)

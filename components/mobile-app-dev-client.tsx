@@ -45,7 +45,7 @@ const content: Record<Lang, {
     hero: {
       h1: 'Développement d\'Applications Mobiles',
       highlight: 'iOS & Android',
-      subtitle: 'Création d\'applications mobiles natives et cross-platform pour startups et PME. React Native, Flutter, Swift, Kotlin. Paris, Lille et partout en France.',
+      subtitle: 'Création d\'applications mobiles natives et cross-platform pour startups et PME. React Native, Flutter, Swift, Kotlin. Basée à Lille, partout en France.',
       ctaPrimary: 'Demander un devis gratuit',
       ctaSecondary: 'Voir les tarifs',
     },
@@ -106,7 +106,7 @@ const content: Record<Lang, {
         { q: 'Combien de temps pour créer une app mobile ?', a: 'Comptez 6 à 8 semaines pour un MVP, 12 à 16 semaines pour une app complète iOS + Android avec backend. Nous livrons par sprints de 2 semaines pour que vous voyiez l\'avancement.' },
         { q: 'Cross-platform (React Native/Flutter) ou natif (Swift/Kotlin) ?', a: 'Cross-platform pour un MVP rapide et un budget serré (une seule équipe). Natif si vous visez une expérience premium, des performances graphiques élevées ou une intégration profonde avec le système (Apple Watch, widgets iOS, etc.).' },
         { q: 'Gérez-vous la publication sur l\'App Store et Google Play ?', a: 'Oui, inclus dans tous nos packs. Nous créons les comptes développeurs si besoin, préparons les captures, descriptions, et gérons la soumission + les éventuels retours d\'Apple ou Google.' },
-        { q: 'Intervenez-vous à Lille, Lyon, Marseille ?', a: 'Oui. Équipe basée à Paris mais clients partout en France. Nous travaillons en remote avec points hebdomadaires visio, et nous déplaçons pour les kick-offs et jalons majeurs.' },
+        { q: 'Intervenez-vous à Lille, Lyon, Marseille ?', a: 'Oui. Équipe basée à Lille, clients partout en France (Paris, Lyon, Marseille...). Nous travaillons en remote avec points hebdomadaires visio, et nous déplaçons pour les kick-offs et jalons majeurs.' },
       ],
     },
     cta: {

@@ -110,6 +110,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   });
 
+  // Page Agence Web Paris — FR uniquement (page locale SEO)
+  urls.push({
+    url: `${BASE_URL}/fr/agence-web-paris`,
+    lastModified: new Date('2026-06-18'),
+    changeFrequency: 'monthly',
+    priority: 0.95,
+    alternates: {
+      languages: {
+        fr: `${BASE_URL}/fr/agence-web-paris`,
+        'x-default': `${BASE_URL}/fr/agence-web-paris`,
+      },
+    },
+  });
+
   // Pages Automatisation et Intégration IA — toutes langues
   (['automatisation', 'integration-ia'] as const).forEach((slug) => {
     const lastModified = new Date('2026-05-27');

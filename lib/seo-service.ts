@@ -300,7 +300,8 @@ export function generateJsonLd(
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'FR',
-      addressLocality: 'Paris',
+      addressLocality: 'Lille',
+      addressRegion: 'Hauts-de-France',
     },
     contactPoint: {
       '@type': 'ContactPoint',

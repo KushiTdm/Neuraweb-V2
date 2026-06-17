@@ -26,6 +26,18 @@ export function Footer() {
     { href: '/conditions-utilisation', label: t('footer.legal.terms')       },
   ];
 
+  // Pages locales SEO — FR uniquement (redirigent vers /fr depuis en/es)
+  const localPages = [
+    { href: '/agence-web-lille', label: 'Agence web Lille' },
+    { href: '/agence-web-paris', label: 'Agence web Paris' },
+  ];
+
+  // Pages sectorielles — retirées de la navbar, déplacées ici
+  const sectorPages = [
+    { href: '/restaurants', label: t('nav.dropdown.restaurants.label') },
+    { href: '/sante',       label: t('nav.dropdown.sante.label')       },
+  ];
+
   const socialLinks = [
     { href: 'https://www.linkedin.com/company/neuraweb', icon: Linkedin, label: 'LinkedIn'  },
     { href: 'https://twitter.com/neurawebtech',          icon: Twitter,  label: 'X/Twitter' },
@@ -84,6 +96,19 @@ export function Footer() {
           <Mail size={12} className="text-white" />
           contact@neuraweb.tech
         </a>
+
+        {/* Pages locales + sectorielles */}
+        <div className="flex flex-wrap gap-x-3 gap-y-1 mb-5">
+          {[...localPages, ...sectorPages].map((link) => (
+            <LocalizedLink
+              key={link.href}
+              href={link.href}
+              className="text-xs text-slate-400 hover:text-white transition-colors"
+            >
+              {link.label}
+            </LocalizedLink>
+          ))}
+        </div>
 
         {/* Newsletter */}
         <div className="mb-5">
@@ -189,6 +214,21 @@ export function Footer() {
                   >
                     <span className="w-1 h-1 rounded-full bg-white/50 group-hover:bg-white transition-colors" />
                     {service.label}
+                  </LocalizedLink>
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="text-white text-sm font-semibold mt-6 mb-3">Agences & secteurs</h3>
+            <ul className="space-y-2">
+              {[...localPages, ...sectorPages].map((link) => (
+                <li key={link.href}>
+                  <LocalizedLink
+                    href={link.href}
+                    className="text-sm text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-white/50 group-hover:bg-white transition-colors" />
+                    {link.label}
                   </LocalizedLink>
                 </li>
               ))}

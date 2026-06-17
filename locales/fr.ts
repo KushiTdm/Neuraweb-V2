@@ -356,7 +356,7 @@ export const fr = {
   'seo.boost.technical': 'Next.js, React, TypeScript, Node.js',
   'seo.boost.business': 'transformation digitale, croissance, ROI',
   'seo.boost.ai': 'intelligence artificielle, machine learning, automatisation',
-  'seo.boost.local': 'Paris, France, agence française',
+  'seo.boost.local': 'Lille, France, agence française',
   'seo.boost.cta': 'Devis gratuit, Réponse 24h',
 
   // Audit CTA Section

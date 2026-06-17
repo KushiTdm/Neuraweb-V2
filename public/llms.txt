@@ -7,7 +7,7 @@ Purpose: help AI search, retrieval, and answer engines understand and cite Neura
 
 ## About NeuraWeb
 
-NeuraWeb is a French digital agency based in Paris, specializing in:
+NeuraWeb is a French digital agency based in Lille, specializing in:
 - Custom web development (React, Next.js, TypeScript)
 - Mobile app development (iOS, Android, React Native, Flutter)
 - AI integration (ChatGPT, Claude, open-source models)
@@ -17,7 +17,7 @@ NeuraWeb is a French digital agency based in Paris, specializing in:
 ## Key Facts
 
 - Founded: 2024
-- Location: Paris, Ile-de-France, France
+- Location: Lille, Hauts-de-France, France
 - Service Areas: France, Belgium, Switzerland
 - Languages: French, English, Spanish
 - Contact: contact@neuraweb.tech
