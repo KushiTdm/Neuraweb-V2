@@ -25,6 +25,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import {
+  ArticleCTASidebar,
+  ArticleCTAMobile,
+} from '@/components/blog/article-cta-sidebar';
 
 interface BlogPostClientProps {
   post: BlogPost;
@@ -300,64 +304,100 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
         </div>
       </header>
 
-      {/* Article Content */}
+      {/* Article Content + Sidebar CTA */}
       <article className="pb-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="prose prose-lg dark:prose-invert max-w-none
-            prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
-            prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
-            prose-a:text-gray-900 dark:prose-a:text-white prose-a:no-underline hover:prose-a:underline
-            prose-strong:font-semibold prose-strong:text-gray-900 dark:prose-strong:text-white
-            prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-            prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3"
-          >
-            <div
-              dangerouslySetInnerHTML={{
-                __html: `<p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">${parsedContent}</p>`,
+        <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-[280px_1fr] lg:gap-10 xl:gap-14">
+
+          {/* Sidebar CTA — sticky sur desktop ≥ lg */}
+          <ArticleCTASidebar
+            slug={post.slug}
+            category={post.category}
+            tags={post.tags}
+            language={language}
+            onTrack={(kind, href) => {
+              const labels = {
+                service: tr.ourServices,
+                audit: tr.freeQuote,
+                booking: tr.contactUs,
+              } as const;
+              trackCTAClick(`sidebar:${kind}:${labels[kind]}`, href);
+            }}
+          />
+
+          {/* Colonne contenu */}
+          <div className="max-w-3xl mx-auto lg:mx-0 w-full">
+            <div className="prose prose-lg dark:prose-invert max-w-none
+              prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
+              prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
+              prose-a:text-gray-900 dark:prose-a:text-white prose-a:no-underline hover:prose-a:underline
+              prose-strong:font-semibold prose-strong:text-gray-900 dark:prose-strong:text-white
+              prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3"
+            >
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: `<p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">${parsedContent}</p>`,
+                }}
+              />
+            </div>
+
+            {/* CTA inline mobile (visible < lg) */}
+            <ArticleCTAMobile
+              slug={post.slug}
+              category={post.category}
+              tags={post.tags}
+              language={language}
+              onTrack={(kind, href) => {
+                const labels = {
+                  service: tr.ourServices,
+                  audit: tr.freeQuote,
+                  booking: tr.contactUs,
+                } as const;
+                trackCTAClick(`mobile-cta:${kind}:${labels[kind]}`, href);
               }}
             />
-          </div>
 
-          {/* FAQ */}
-          {post.faq && post.faq.length > 0 && (
-            <section className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                {faqHeading}
-              </h2>
-              <Accordion type="single" collapsible className="w-full">
-                {post.faq.map((item, idx) => (
-                  <AccordionItem key={idx} value={`faq-${idx}`} className="border-gray-200 dark:border-gray-800">
-                    <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 dark:text-white hover:no-underline">
-                      {item.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                      {item.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </section>
-          )}
+            {/* FAQ */}
+            {post.faq && post.faq.length > 0 && (
+              <section className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                  {faqHeading}
+                </h2>
+                <Accordion type="single" collapsible className="w-full">
+                  {post.faq.map((item, idx) => (
+                    <AccordionItem key={idx} value={`faq-${idx}`} className="border-gray-200 dark:border-gray-800">
+                      <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 dark:text-white hover:no-underline">
+                        {item.question}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                        {item.answer}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </section>
+            )}
 
-          {/* ── Tags avec tracking ────────────────────────────────────── ← ANALYTICS */}
-          {post.tags.length > 0 && (
-            <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
-              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
-                {tr.tags}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <button
-                    key={tag}
-                    onClick={() => trackTagClick(tag)} // ← ANALYTICS
-                    className="px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-gray-900 transition-colors cursor-pointer"
-                  >
-                    {tag}
-                  </button>
-                ))}
+            {/* ── Tags avec tracking ────────────────────────────────────── ← ANALYTICS */}
+            {post.tags.length > 0 && (
+              <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+                  {tr.tags}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {post.tags.map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => trackTagClick(tag)} // ← ANALYTICS
+                      className="px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-gray-900 transition-colors cursor-pointer"
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </article>
 
