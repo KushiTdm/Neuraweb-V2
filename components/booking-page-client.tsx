@@ -1,10 +1,17 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { Calendar, Clock, User, Mail, Phone, MessageSquare, Building, CheckCircle, Loader2, ArrowLeft } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
+
+function sendGAEvent(event: string, params: Record<string, unknown>) {
+  if (typeof window === 'undefined') return;
+  const w = window as Window & { gtag?: (...args: unknown[]) => void };
+  if (typeof w.gtag !== 'function') return;
+  w.gtag('event', event, params);
+}
 
 interface Slot {
   date: string;
@@ -119,17 +126,15 @@ const translations = {
 
 export function BookingPageClient({ lang, preselectedService, preselectedPack }: BookingPageClientProps) {
   const t = translations[lang];
-  
-  // Debug: log les props reçues
-  console.log('BookingPageClient props:', { lang, preselectedService, preselectedPack });
-  
+
   const [step, setStep] = useState(1);
   const [slots, setSlots] = useState<Slot[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+  const formStarted = useRef(false);
+
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
   // Mapping des services de l'URL vers les labels affichés
@@ -178,6 +183,38 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
 
   const packLabel = preselectedPack && t.packs[preselectedPack as keyof typeof t.packs];
 
+  // Tracking : vue de la page booking
+  useEffect(() => {
+    sendGAEvent('booking_page_view', {
+      language: lang,
+      preselected_service: preselectedService || 'none',
+      preselected_pack: preselectedPack || 'none',
+    });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Tracking : créneau sélectionné
+  useEffect(() => {
+    if (selectedDate) {
+      sendGAEvent('booking_date_selected', { language: lang, selected_date: selectedDate });
+    }
+  }, [selectedDate]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (selectedTime) {
+      sendGAEvent('booking_time_selected', { language: lang, selected_time: selectedTime });
+    }
+  }, [selectedTime]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const trackFormStart = useCallback(() => {
+    if (formStarted.current) return;
+    formStarted.current = true;
+    sendGAEvent('booking_form_start', {
+      language: lang,
+      preselected_service: preselectedService || 'none',
+      preselected_pack: preselectedPack || 'none',
+    });
+  }, [lang, preselectedService, preselectedPack]);
+
   useEffect(() => {
     fetch('/api/booking?action=getAvailableSlots')
       .then(res => res.json())
@@ -206,11 +243,18 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
   const handleSubmit = async () => {
     if (!formData.name || !formData.email || !selectedDate || !selectedTime) {
       setError(t.error);
+      sendGAEvent('booking_submit_error', { language: lang, reason: 'missing_fields' });
       return;
     }
 
     setSubmitting(true);
     setError(null);
+    sendGAEvent('booking_submit_attempt', {
+      language: lang,
+      service: formData.service || 'none',
+      pack: formData.pack || 'none',
+      has_message: !!formData.message,
+    });
 
     try {
       const response = await fetch('/api/booking', {
@@ -231,11 +275,19 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
 
       if (data.success) {
         setSuccess(true);
+        sendGAEvent('booking_success', {
+          language: lang,
+          service: formData.service || 'none',
+          pack: formData.pack || 'none',
+        });
+        sendGAEvent('generate_lead', { language: lang, value: 1 });
       } else {
         setError(data.error || t.error);
+        sendGAEvent('booking_submit_error', { language: lang, reason: data.error || 'api_error' });
       }
     } catch {
       setError(t.error);
+      sendGAEvent('booking_submit_error', { language: lang, reason: 'network_error' });
     } finally {
       setSubmitting(false);
     }
@@ -374,7 +426,16 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
 
                     {/* Bouton suivant */}
                     <button
-                      onClick={() => selectedDate && selectedTime && setStep(2)}
+                      onClick={() => {
+                        if (selectedDate && selectedTime) {
+                          setStep(2);
+                          sendGAEvent('booking_step_advance', {
+                            language: lang,
+                            selected_date: selectedDate,
+                            selected_time: selectedTime,
+                          });
+                        }
+                      }}
                       disabled={!selectedDate || !selectedTime}
                       className="w-full py-3 bg-gray-900 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800 transition-all"
                     >
@@ -415,7 +476,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                     <input
                       type="text"
                       value={formData.name}
-                      onChange={e => setFormData({...formData, name: e.target.value})}
+                      onChange={e => { trackFormStart(); setFormData({...formData, name: e.target.value}); }}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                     />
                   </div>

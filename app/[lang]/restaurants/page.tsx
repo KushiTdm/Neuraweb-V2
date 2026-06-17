@@ -98,8 +98,9 @@ const professionalServiceSchema = {
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'FR',
-    addressLocality: 'Paris',
-    addressRegion: 'Île-de-France',
+    addressLocality: 'Lille',
+    addressRegion: 'Hauts-de-France',
+    postalCode: '59000',
   },
   areaServed: { '@type': 'Country', name: 'France' },
   serviceType: [

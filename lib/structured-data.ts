@@ -11,11 +11,11 @@
 const BASE_URL = 'https://neuraweb.tech';
 
 const REAL_PHONE = '+33749775654'; // identique à la fiche Google Business
-const REAL_ADDRESS_LOCALITY = 'Paris';
-const REAL_ADDRESS_REGION = 'Île-de-France';
+const REAL_ADDRESS_LOCALITY = 'Lille';
+const REAL_ADDRESS_REGION = 'Hauts-de-France';
 const REAL_ADDRESS_COUNTRY = 'FR';
-const GEO_LAT = '48.8566';
-const GEO_LNG = '2.3522';
+const GEO_LAT = '50.6292';
+const GEO_LNG = '3.0573';
 
 const OG_IMAGE = `${BASE_URL}/assets/og-image.png`;
 

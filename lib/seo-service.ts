@@ -55,9 +55,9 @@ type PageSEOConfig = {
 const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = {
   fr: {
     home: {
-      title: 'NeuraWeb — Agence Web Sur Mesure, Apps & IA France',
-      description: 'Agence web sur mesure : Next.js, apps mobiles iOS/Android, intégration IA et n8n. Startups et PME, Paris, Lille et toute la France.',
-      keywords: ['agence web', 'développement web sur mesure', 'intégration IA', 'automatisation n8n', 'Next.js', 'React', 'agence web Paris', 'agence web Lille', 'agence digitale Paris', 'agence tech startup'],
+      title: 'NeuraWeb — Agence Web & IA à Lille | Sur Mesure France',
+      description: 'Agence web & IA à Lille : sites Next.js, apps mobiles iOS/Android, automatisation n8n et agents IA sur mesure. PME et hôteliers, Hauts-de-France et toute la France.',
+      keywords: ['agence web Lille', 'agence web IA PME', 'développement web sur mesure', 'intégration IA', 'automatisation n8n', 'Next.js', 'agence web Hauts-de-France', 'agence digitale Lille', 'création site web PME'],
     },
     services: {
       title: 'Services — Développement Web, Apps Mobiles & IA | NeuraWeb',
@@ -90,9 +90,9 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       keywords: ['neuraweb', 'agence web', 'digital'],
     },
     equipe: {
-      title: "L'équipe NeuraWeb — Développeurs Web & Experts IA | Paris",
-      description: "Rencontrez l'équipe NeuraWeb : développeurs Next.js, experts IA et automatisation. 16+ projets livrés, 5 étoiles. Basés à Paris.",
-      keywords: ['équipe agence web', 'développeurs Next.js Paris', 'experts IA France', 'agence web Paris équipe'],
+      title: "L'équipe NeuraWeb — Développeurs Web & Experts IA | Lille",
+      description: "Rencontrez l'équipe NeuraWeb : développeurs Next.js, experts IA et automatisation. 16+ projets livrés, 5 étoiles. Basés à Lille, Hauts-de-France.",
+      keywords: ['équipe agence web Lille', 'développeurs Next.js Lille', 'experts IA France', 'agence web Hauts-de-France équipe'],
     },
     booking: {
       title: 'Prendre rendez-vous — Audit & Devis Gratuit | NeuraWeb',
@@ -137,9 +137,9 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       keywords: ['neuraweb', 'web agency', 'digital'],
     },
     equipe: {
-      title: 'NeuraWeb Team — Web Developers & AI Experts | Paris',
-      description: 'Meet the NeuraWeb team: Next.js developers, AI and automation experts. 16+ projects delivered, 5-star rated. Based in Paris.',
-      keywords: ['web agency team', 'Next.js developers Paris', 'AI experts France', 'web development team'],
+      title: 'NeuraWeb Team — Web Developers & AI Experts | Lille',
+      description: 'Meet the NeuraWeb team: Next.js developers, AI and automation experts. 16+ projects delivered, 5-star rated. Based in Lille, France.',
+      keywords: ['web agency team Lille', 'Next.js developers France', 'AI experts France', 'web development team Hauts-de-France'],
     },
     booking: {
       title: 'Book a Call — Free Audit & Quote | NeuraWeb',
@@ -184,9 +184,9 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       keywords: ['neuraweb', 'agencia web', 'digital'],
     },
     equipe: {
-      title: 'Equipo NeuraWeb — Desarrolladores Web & Expertos IA | París',
-      description: 'Conoce al equipo NeuraWeb: desarrolladores Next.js, expertos en IA y automatización. +16 proyectos entregados, 5 estrellas. Basados en París.',
-      keywords: ['equipo agencia web', 'desarrolladores Next.js París', 'expertos IA Francia', 'agencia web París equipo'],
+      title: 'Equipo NeuraWeb — Desarrolladores Web & Expertos IA | Lille',
+      description: 'Conoce al equipo NeuraWeb: desarrolladores Next.js, expertos en IA y automatización. +16 proyectos entregados, 5 estrellas. Basados en Lille, Francia.',
+      keywords: ['equipo agencia web', 'desarrolladores Next.js Francia', 'expertos IA Francia', 'agencia web Hauts-de-France'],
     },
     booking: {
       title: 'Reservar una Llamada — Auditoría Gratis | NeuraWeb',
@@ -199,23 +199,23 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
 // Mots-clés SEO boostés par catégorie - LONGUE TRAÎNE
 const SEO_BOOST_KEYWORDS = {
   technical: [
-    'développeur Next.js Paris',
-    'agence React France',
+    'développeur Next.js Lille',
+    'agence React Hauts-de-France',
     'développement Next.js startup',
     'application web React TypeScript',
     'développeur full-stack Node.js',
-    'création site web Next.js',
+    'création site web Next.js PME',
     'audit performance web React',
-    'migration React vers Next.js',
+    'refonte site web PME 2026',
   ],
   business: [
-    'transformation digitale PME Paris',
-    'agence web croissance startup',
+    'transformation digitale PME Hauts-de-France',
+    'agence web PME Nord France',
     'ROI site web entreprise',
     'améliorer conversion site e-commerce',
     'générer leads site web B2B',
     'stratégie digitale PME France',
-    'consultant digital Paris',
+    'devis site web gratuit agence Lille',
   ],
   ai: [
     'intégration chatbot IA site web',

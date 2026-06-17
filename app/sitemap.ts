@@ -96,6 +96,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   });
 
+  // Page Agence Web Lille — FR uniquement (page locale SEO)
+  urls.push({
+    url: `${BASE_URL}/fr/agence-web-lille`,
+    lastModified: new Date('2026-06-17'),
+    changeFrequency: 'monthly',
+    priority: 0.95,
+    alternates: {
+      languages: {
+        fr: `${BASE_URL}/fr/agence-web-lille`,
+        'x-default': `${BASE_URL}/fr/agence-web-lille`,
+      },
+    },
+  });
+
   // Pages Automatisation et Intégration IA — toutes langues
   (['automatisation', 'integration-ia'] as const).forEach((slug) => {
     const lastModified = new Date('2026-05-27');
