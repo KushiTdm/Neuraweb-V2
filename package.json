@@ -10,7 +10,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "sitemap:check": "node scripts/validate-sitemap.js",
-    "indexing": "node scripts/indexing.js",
+    "indexing": "GOOGLE_SERVICE_ACCOUNT_KEY_PATH=./neuraweb-indexation-859fd0c7dfeb.json node scripts/indexing.js",
     "indexnow": "node scripts/indexnow.js",
     "pagespeed": "node scripts/pagespeed.js",
     "analyze": "GOOGLE_SERVICE_ACCOUNT_KEY_PATH=./neuraweb-indexation-859fd0c7dfeb.json GA4_PROPERTY_ID=517812956 node scripts/analyze-site.js",
