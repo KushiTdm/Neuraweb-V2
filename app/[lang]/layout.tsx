@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
 import Script from 'next/script';
 import ChatbotWrapper from '@/components/chatbot-wrapper';
+import { ScrollToTopOnNavigate } from '@/components/scroll-to-top-on-navigate';
 
 import {
   organizationSchema,
@@ -254,6 +255,7 @@ export default async function LangLayout({
           disableTransitionOnChange
         >
           <LanguageProvider initialLanguage={lang as any}>
+            <ScrollToTopOnNavigate />
             {children}
             <ChatbotWrapper />
           </LanguageProvider>

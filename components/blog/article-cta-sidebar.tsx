@@ -1,6 +1,6 @@
 'use client';
 
-import { ArrowRight, Sparkles, Calendar, Zap } from 'lucide-react';
+import { ArrowRight, Calendar, Zap } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
 import { getSidebarContent, type SidebarLanguage } from '@/lib/blog-cta-mapping';
 
@@ -9,14 +9,15 @@ interface ArticleCTASidebarProps {
   category: string;
   tags: string[];
   language: SidebarLanguage;
-  onTrack?: (kind: 'service' | 'audit' | 'booking', href: string) => void;
+  onTrack?: (kind: 'service' | 'booking', href: string) => void;
 }
 
 /**
  * ArticleCTASidebar — colonne CTA sticky à gauche d'un article blog.
  *
- * Trois cartes empilées : service en lien, audit gratuit, prise de RDV.
- * Sticky sur ≥lg, masquée en dessous (le footer CTA prend le relais).
+ * Deux cartes empilées : service en lien (carte sobre) et prise de RDV
+ * (carte mise en avant avec gradient). Sticky sur ≥lg, masquée en dessous
+ * (le composant ArticleCTAMobile prend le relais).
  */
 export function ArticleCTASidebar({
   slug,
@@ -25,7 +26,7 @@ export function ArticleCTASidebar({
   language,
   onTrack,
 }: ArticleCTASidebarProps) {
-  const { service, audit, booking } = getSidebarContent(slug, category, tags, language);
+  const { service, booking } = getSidebarContent(slug, category, tags, language);
 
   return (
     <aside
@@ -65,10 +66,10 @@ export function ArticleCTASidebar({
           </span>
         </LocalizedLink>
 
-        {/* ─── Carte 2 : Audit gratuit (mise en avant) ───────────────────── */}
+        {/* ─── Carte 2 : Prise de RDV (mise en avant) ────────────────────── */}
         <LocalizedLink
-          href="/booking?service=audit-ia"
-          onClick={() => onTrack?.('audit', '/booking?service=audit-ia')}
+          href="/booking"
+          onClick={() => onTrack?.('booking', '/booking')}
           className="group relative block rounded-2xl p-5 overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-200/40 dark:hover:shadow-indigo-900/30"
           style={{
             background:
@@ -82,59 +83,30 @@ export function ArticleCTASidebar({
             aria-hidden="true"
           />
 
-          <div className="relative flex items-center justify-between mb-3">
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-sm">
-              <Sparkles className="w-3 h-3 text-white" aria-hidden="true" />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-white">
-                {audit.badge}
-              </span>
+          <div className="relative flex items-center gap-2 mb-3">
+            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm">
+              <Calendar className="w-4 h-4 text-white" aria-hidden="true" />
             </div>
-            <span className="text-[11px] font-medium text-white/70 line-through">
-              {audit.value}
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-white/90">
+              {booking.eyebrow}
             </span>
           </div>
 
           <h3 className="relative text-base font-bold text-white leading-snug mb-2">
-            {audit.title}
-          </h3>
-          <p className="relative text-sm text-white/85 leading-relaxed mb-4">
-            {audit.description}
-          </p>
-
-          <span className="relative inline-flex items-center justify-center gap-1.5 w-full px-4 py-2.5 rounded-xl bg-white text-indigo-700 text-sm font-bold shadow-sm group-hover:shadow-md transition-shadow">
-            <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
-            {audit.cta}
-            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
-          </span>
-        </LocalizedLink>
-
-        {/* ─── Carte 3 : Prise de RDV ────────────────────────────────────── */}
-        <LocalizedLink
-          href="/booking"
-          onClick={() => onTrack?.('booking', '/booking')}
-          className="group block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-5 transition-all duration-300 hover:border-cyan-300 dark:hover:border-cyan-500/40 hover:shadow-lg hover:shadow-cyan-100/40 dark:hover:shadow-cyan-900/20 hover:-translate-y-0.5"
-        >
-          <div className="flex items-center gap-2 mb-3">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-cyan-50 dark:bg-cyan-500/10">
-              <Calendar className="w-4 h-4 text-cyan-600 dark:text-cyan-400" aria-hidden="true" />
-            </div>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
-              {booking.eyebrow}
-            </span>
-          </div>
-          <h3 className="text-base font-bold text-gray-900 dark:text-white leading-snug mb-2">
             {booking.title}
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+          <p className="relative text-sm text-white/85 leading-relaxed mb-3">
             {booking.description}
           </p>
-          <p className="text-[11px] font-medium text-gray-400 dark:text-gray-500 mb-3 flex items-center gap-1.5">
+          <p className="relative text-[11px] font-medium text-white/70 mb-4 flex items-center gap-1.5">
             <Calendar className="w-3 h-3" aria-hidden="true" />
             {booking.duration}
           </p>
-          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-cyan-600 dark:text-cyan-400 group-hover:gap-2.5 transition-all">
+
+          <span className="relative inline-flex items-center justify-center gap-1.5 w-full px-4 py-2.5 rounded-xl bg-white text-indigo-700 text-sm font-bold shadow-sm group-hover:shadow-md transition-shadow">
+            <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
             {booking.cta}
-            <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
           </span>
         </LocalizedLink>
       </div>
@@ -143,8 +115,8 @@ export function ArticleCTASidebar({
 }
 
 /**
- * Variante mobile : grid à 1/2 colonnes affiché inline dans le flux du
- * contenu (visible sur < lg). Reprend les mêmes données.
+ * Variante mobile : grid affichée inline dans le flux du contenu
+ * (visible sur < lg). Reprend les mêmes deux cartes.
  */
 export function ArticleCTAMobile({
   slug,
@@ -153,34 +125,37 @@ export function ArticleCTAMobile({
   language,
   onTrack,
 }: ArticleCTASidebarProps) {
-  const { service, audit, booking } = getSidebarContent(slug, category, tags, language);
+  const { service, booking } = getSidebarContent(slug, category, tags, language);
 
   return (
-    <div className="lg:hidden my-10 grid grid-cols-1 sm:grid-cols-2 gap-3">
-      {/* Audit gratuit (full-width sm:col-span-2) */}
+    <div className="lg:hidden my-10 grid grid-cols-1 gap-3">
+      {/* Prise de RDV (mise en avant) */}
       <LocalizedLink
-        href="/booking?service=audit-ia"
-        onClick={() => onTrack?.('audit', '/booking?service=audit-ia')}
-        className="sm:col-span-2 relative block rounded-2xl p-5 overflow-hidden transition-transform active:scale-[.99]"
+        href="/booking"
+        onClick={() => onTrack?.('booking', '/booking')}
+        className="relative block rounded-2xl p-5 overflow-hidden transition-transform active:scale-[.99]"
         style={{
           background:
             'linear-gradient(135deg, rgb(79, 70, 229) 0%, rgb(124, 58, 237) 50%, rgb(34, 211, 238) 100%)',
         }}
       >
-        <div className="flex items-center justify-between mb-3">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-sm">
-            <Sparkles className="w-3 h-3 text-white" aria-hidden="true" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-white">
-              {audit.badge}
-            </span>
+        <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm">
+            <Calendar className="w-4 h-4 text-white" aria-hidden="true" />
           </div>
-          <span className="text-[11px] font-medium text-white/70 line-through">{audit.value}</span>
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-white/90">
+            {booking.eyebrow}
+          </span>
         </div>
-        <h3 className="text-base font-bold text-white leading-snug mb-1">{audit.title}</h3>
-        <p className="text-sm text-white/85 leading-relaxed mb-3">{audit.description}</p>
+        <h3 className="text-base font-bold text-white leading-snug mb-2">{booking.title}</h3>
+        <p className="text-sm text-white/85 leading-relaxed mb-3">{booking.description}</p>
+        <p className="text-[11px] font-medium text-white/70 mb-3 flex items-center gap-1.5">
+          <Calendar className="w-3 h-3" aria-hidden="true" />
+          {booking.duration}
+        </p>
         <span className="inline-flex items-center justify-center gap-1.5 w-full px-4 py-2.5 rounded-xl bg-white text-indigo-700 text-sm font-bold">
-          <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
-          {audit.cta}
+          <Calendar className="w-3.5 h-3.5" aria-hidden="true" />
+          {booking.cta}
           <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
         </span>
       </LocalizedLink>
@@ -189,41 +164,25 @@ export function ArticleCTAMobile({
       <LocalizedLink
         href={service.href}
         onClick={() => onTrack?.('service', service.href)}
-        className="block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-4 active:scale-[.99] transition-transform"
+        className="block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-5 active:scale-[.99] transition-transform"
       >
-        <div className="flex items-center gap-2 mb-2">
-          <Zap className="w-4 h-4 text-indigo-600 dark:text-indigo-400" aria-hidden="true" />
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-500/10">
+            <Zap className="w-4 h-4 text-indigo-600 dark:text-indigo-400" aria-hidden="true" />
+          </div>
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
             {service.eyebrow}
           </span>
         </div>
-        <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug mb-1">
+        <h3 className="text-base font-bold text-gray-900 dark:text-white leading-snug mb-2">
           {service.title}
         </h3>
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400 mt-2">
+        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+          {service.description}
+        </p>
+        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 dark:text-indigo-400">
           {service.cta}
-          <ArrowRight className="w-3 h-3" aria-hidden="true" />
-        </span>
-      </LocalizedLink>
-
-      {/* Prise de RDV */}
-      <LocalizedLink
-        href="/booking"
-        onClick={() => onTrack?.('booking', '/booking')}
-        className="block rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-4 active:scale-[.99] transition-transform"
-      >
-        <div className="flex items-center gap-2 mb-2">
-          <Calendar className="w-4 h-4 text-cyan-600 dark:text-cyan-400" aria-hidden="true" />
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
-            {booking.eyebrow}
-          </span>
-        </div>
-        <h3 className="text-sm font-bold text-gray-900 dark:text-white leading-snug mb-1">
-          {booking.title}
-        </h3>
-        <span className="inline-flex items-center gap-1 text-xs font-semibold text-cyan-600 dark:text-cyan-400 mt-2">
-          {booking.cta}
-          <ArrowRight className="w-3 h-3" aria-hidden="true" />
+          <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </span>
       </LocalizedLink>
     </div>

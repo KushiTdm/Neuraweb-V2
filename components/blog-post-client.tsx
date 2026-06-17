@@ -317,7 +317,6 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
             onTrack={(kind, href) => {
               const labels = {
                 service: tr.ourServices,
-                audit: tr.freeQuote,
                 booking: tr.contactUs,
               } as const;
               trackCTAClick(`sidebar:${kind}:${labels[kind]}`, href);
@@ -350,7 +349,6 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
               onTrack={(kind, href) => {
                 const labels = {
                   service: tr.ourServices,
-                  audit: tr.freeQuote,
                   booking: tr.contactUs,
                 } as const;
                 trackCTAClick(`mobile-cta:${kind}:${labels[kind]}`, href);
