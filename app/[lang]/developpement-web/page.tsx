@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { ServicesPageClient } from '@/components/services-page-client';
+import { DeveloppementWebPageClient } from '@/components/developpement-web-page-client';
 import { JsonLd } from '@/components/json-ld';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
@@ -165,9 +165,8 @@ export default async function DeveloppementWebPage({
     <>
       <JsonLd id="services-schema" data={generateServiceJsonLd(lang)} />
       <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
-      <main id="main-content">
-        <ServicesPageClient />
-      </main>
+      <DeveloppementWebPageClient lang={lang as 'fr' | 'en' | 'es'} />
+
     </>
   );
 }
