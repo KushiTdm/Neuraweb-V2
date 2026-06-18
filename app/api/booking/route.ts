@@ -39,6 +39,28 @@ function normalizeSlots(slots: any[]): any[] {
   }));
 }
 
+/**
+ * Extrait la partie "YYYY-MM-DD" d'une valeur date de la feuille, qui peut
+ * arriver soit en "YYYY-MM-DD", soit en ISO datetime ("…T00:00:00.000Z").
+ */
+function parseSheetDate(raw: string): string {
+  if (!raw) return '';
+  return raw.includes('T') ? raw.split('T')[0] : raw.substring(0, 10);
+}
+
+/**
+ * Date du jour (YYYY-MM-DD) dans le fuseau Europe/Paris — fuseau de l'agence.
+ * Évite que les créneaux passés restent réservables si le serveur tourne en UTC.
+ */
+function todayKeyParis(): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Paris',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date());
+}
+
 // ─────────────────────────────────────────────
 // GET — Récupérer les créneaux disponibles
 // ─────────────────────────────────────────────
@@ -69,6 +91,13 @@ export async function GET(request: NextRequest) {
 
     if (result.slots && Array.isArray(result.slots)) {
       result.slots = normalizeSlots(result.slots);
+
+      // Écarter les créneaux dont la date est passée (la feuille conserve les
+      // anciennes lignes). Comparaison de clés "YYYY-MM-DD" en fuseau Paris.
+      const today = todayKeyParis();
+      result.slots = result.slots.filter(
+        (slot: any) => parseSheetDate(String(slot.date ?? '')) >= today
+      );
 
       // Supprimer les éventuels doublons date+time (clé React unique)
       const seen = new Set<string>();
