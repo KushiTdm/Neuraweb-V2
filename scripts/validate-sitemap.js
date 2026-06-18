@@ -101,7 +101,7 @@ function getBlogFiles(language) {
 }
 
 function validateStaticRoutes(pageRoutes, sitemapStaticPages) {
-  const FR_ONLY_ROUTES = ['sante', 'restaurants', 'automatisation', 'integration-ia', 'agence-web-lille', 'agence-web-paris'];
+  const FR_ONLY_ROUTES = ['sante', 'restaurants', 'collectivites', 'automatisation', 'integration-ia', 'agence-web-lille', 'agence-web-paris'];
 
   const publicLanguageRoutes = pageRoutes
     .filter((route) => route.startsWith('/[lang]/'))
@@ -126,6 +126,9 @@ function validateStaticRoutes(pageRoutes, sitemapStaticPages) {
   }
   if (!pageRoutes.includes('/[lang]/restaurants')) {
     fail('Expected FR-only /[lang]/restaurants route was not found.');
+  }
+  if (!pageRoutes.includes('/[lang]/collectivites')) {
+    fail('Expected FR-only /[lang]/collectivites route was not found.');
   }
   if (!pageRoutes.includes('/[lang]/automatisation')) {
     fail('Expected FR-only /[lang]/automatisation route was not found.');
@@ -174,7 +177,7 @@ function validateBlogPosts() {
 function buildExpectedUrlCount(blogPostCount) {
   const homeUrls = LANGUAGES.length;
   const staticUrls = expectedStaticPages.length * LANGUAGES.length;
-  const frenchOnlyUrls = 6; // sante, restaurants, automatisation, integration-ia, agence-web-lille, agence-web-paris
+  const frenchOnlyUrls = 7; // sante, restaurants, collectivites, automatisation, integration-ia, agence-web-lille, agence-web-paris
   return homeUrls + staticUrls + frenchOnlyUrls + blogPostCount;
 }
 

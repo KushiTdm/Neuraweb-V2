@@ -96,6 +96,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   });
 
+  // Page Collectivités — FR uniquement (canal de conversion B2G, pas traduit)
+  urls.push({
+    url: `${BASE_URL}/fr/collectivites`,
+    lastModified: new Date('2026-06-18'),
+    changeFrequency: 'monthly',
+    priority: 0.95,
+    alternates: {
+      languages: {
+        fr: `${BASE_URL}/fr/collectivites`,
+        'x-default': `${BASE_URL}/fr/collectivites`,
+      },
+    },
+  });
+
   // Page Agence Web Lille — FR uniquement (page locale SEO)
   urls.push({
     url: `${BASE_URL}/fr/agence-web-lille`,

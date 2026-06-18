@@ -45,6 +45,10 @@ const nextConfig = {
       { source: '/en/restaurants', destination: '/fr/restaurants', permanent: true },
       { source: '/es/restaurants', destination: '/fr/restaurants', permanent: true },
 
+      // Page Collectivités — FR uniquement, on redirige les autres langues
+      { source: '/en/collectivites', destination: '/fr/collectivites', permanent: true },
+      { source: '/es/collectivites', destination: '/fr/collectivites', permanent: true },
+
       // Slugs de blog incorrects détectés par Google Search Console ("Détectée, non indexée")
       // Ces URLs ont été crawlées mais retournaient 404 — on les redirige vers les vrais slugs
       { source: '/:lang/blog/automation-n8n-guide', destination: '/:lang/blog/automatisation-n8n-guide', permanent: true },

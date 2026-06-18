@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Mail, Zap, Linkedin, Twitter, Github, Instagram, ArrowRight } from 'lucide-react';
+import { Mail, Zap, Twitter, ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
 import { useCookieConsent } from '@/contexts/cookie-consent-context';
@@ -39,10 +39,7 @@ export function Footer() {
   ];
 
   const socialLinks = [
-    { href: 'https://www.linkedin.com/company/neuraweb', icon: Linkedin, label: 'LinkedIn'  },
     { href: 'https://twitter.com/neurawebtech',          icon: Twitter,  label: 'X/Twitter' },
-    { href: 'https://github.com/neuraweb',               icon: Github,   label: 'GitHub'    },
-    { href: 'https://www.instagram.com/neurawebtech',    icon: Instagram,label: 'Instagram' },
   ];
 
   return (
@@ -98,7 +95,7 @@ export function Footer() {
         </a>
 
         {/* Pages locales + sectorielles */}
-        <div className="flex flex-wrap gap-x-3 gap-y-1 mb-5">
+        <div className="flex flex-wrap gap-x-3 gap-y-1 mb-4">
           {[...localPages, ...sectorPages].map((link) => (
             <LocalizedLink
               key={link.href}
@@ -108,6 +105,19 @@ export function Footer() {
               {link.label}
             </LocalizedLink>
           ))}
+        </div>
+
+        {/* Secteur public — partie à part (marchés publics ≠ autres secteurs) */}
+        <div className="mb-5">
+          <p className="text-[10px] uppercase tracking-wider text-slate-500 mb-1.5">
+            Secteur public
+          </p>
+          <LocalizedLink
+            href="/collectivites"
+            className="text-xs text-slate-400 hover:text-white transition-colors"
+          >
+            Collectivités &amp; mairies
+          </LocalizedLink>
         </div>
 
         {/* Newsletter */}
@@ -232,6 +242,20 @@ export function Footer() {
                   </LocalizedLink>
                 </li>
               ))}
+            </ul>
+
+            {/* Secteur public — partie à part (marchés publics ≠ autres secteurs) */}
+            <h3 className="text-white text-sm font-semibold mt-6 mb-3">Secteur public</h3>
+            <ul className="space-y-2">
+              <li>
+                <LocalizedLink
+                  href="/collectivites"
+                  className="text-sm text-slate-400 hover:text-white transition-colors duration-200 flex items-center gap-1.5 group"
+                >
+                  <span className="w-1 h-1 rounded-full bg-white/50 group-hover:bg-white transition-colors" />
+                  Collectivités &amp; mairies
+                </LocalizedLink>
+              </li>
             </ul>
           </div>
 
