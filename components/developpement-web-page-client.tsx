@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Code,
   Layout,
@@ -472,12 +472,34 @@ const TOOLS = [
 // COMPOSANT PRINCIPAL
 // ═══════════════════════════════════════════════════════════════════════════
 
+// Délai de stagger par index (classes définies dans globals.css)
+const DELAY_CLASSES = ['', 'delay-100', 'delay-200', 'delay-300', 'delay-400', 'delay-500'];
+
 export function DeveloppementWebPageClient({ lang }: Props) {
   const [selectedPack, setSelectedPack] = useState<PackId>('business');
   const [expandedService, setExpandedService] = useState<number | null>(null);
   const c = CONTENT[lang];
   const packIdx = PACK_IDS.indexOf(selectedPack);
   const activePack = c.packs.items[packIdx];
+
+  // IntersectionObserver pour les animations fade-up au scroll
+  // (même convention que home-page-client / cta-section : .animate-on-scroll → .animate-in)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
+    );
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [lang]);
 
   return (
     <>
@@ -491,16 +513,16 @@ export function DeveloppementWebPageClient({ lang }: Props) {
           <div className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
+            <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Code size={14} />
               <span>{c.hero.badge}</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="animate-on-scroll fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               {c.hero.h1}{' '}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{c.hero.h1highlight}</span>
             </h1>
-            <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{c.hero.p}</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{c.hero.p}</p>
+            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
                 <Code size={18} />{c.hero.ctaAudit}<ArrowRight size={16} />
               </LocalizedLink>
@@ -508,6 +530,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                 {c.hero.ctaPricing}<ChevronDown size={16} />
               </a>
             </div>
+            <div className="animate-on-scroll fade-up delay-400">
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-3 max-w-3xl mx-auto" gridGap="gap-6">
               {c.stats.map((stat, i) => (
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 h-full">
@@ -516,16 +539,18 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                 </div>
               ))}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
         <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.problems.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto" dangerouslySetInnerHTML={{ __html: c.problems.subtitle }} />
             </div>
+            <div className="animate-on-scroll fade-up delay-100">
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-4" gridGap="gap-6">
               {c.problems.items.map((p, i) => {
                 const icons = [Gauge, Search, AlertTriangle, TrendingUp];
@@ -542,16 +567,18 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                 );
               })}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
         <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.services.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.services.subtitle}</p>
             </div>
+            <div className="animate-on-scroll fade-up delay-100">
             <ResponsiveCards breakpoint="md" gridClass="grid-cols-2 lg:grid-cols-3" gridGap="gap-6">
               {c.services.items.map((service, i) => {
                 const Icon = SERVICE_ICONS[i];
@@ -582,14 +609,15 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                 );
               })}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         {/* ── OUTILS ────────────────────────────────────────────────────── */}
         <section className="py-14 border-y border-slate-200" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.tools.label}</p>
-            <div className="flex flex-wrap justify-center gap-3">
+            <p className="animate-on-scroll fade-up text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.tools.label}</p>
+            <div className="animate-on-scroll fade-up delay-100 flex flex-wrap justify-center gap-3">
               {TOOLS.map((tool, i) => (
                 <span key={i} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-sm text-slate-600 font-medium hover:border-slate-400 transition-colors">
                   {tool.name}
@@ -603,13 +631,13 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         {/* ── CAS D'USAGE ───────────────────────────────────────────────── */}
         <section className="py-20" style={{ background: '#0B1430' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.useCases.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.useCases.subtitle}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {c.useCases.items.map((uc, i) => (
-                <article key={i} className="rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 h-full flex flex-col">
+                <article key={i} className={`animate-on-scroll fade-up ${DELAY_CLASSES[i]} rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 h-full flex flex-col`}>
                   <div className="flex items-center justify-between gap-3 mb-4">
                     <h3 className="text-lg font-bold text-white">{uc.sector}</h3>
                     <span className="text-xs bg-white/10 text-white px-3 py-1 rounded-full font-medium whitespace-nowrap">{uc.pack}</span>
@@ -629,7 +657,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         {/* ── PRICING ───────────────────────────────────────────────────── */}
         <section id="pricing" className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.packs.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.packs.subtitle}</p>
             </div>
@@ -644,7 +672,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
             </div>
 
             {/* Cards desktop */}
-            <div className="hidden sm:grid grid-cols-3 gap-6 mb-10">
+            <div className="animate-on-scroll fade-up hidden sm:grid grid-cols-3 gap-6 mb-10">
               {PACK_IDS.map((id, i) => {
                 const pack = c.packs.items[i];
                 const borders = ['border-white/10', 'border-white', 'border-white/10'];
@@ -672,7 +700,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
             </div>
 
             {/* Détails pack sélectionné */}
-            <div className="rounded-2xl border border-white/10 bg-[#0e1b3d]/30 p-8">
+            <div className="animate-on-scroll fade-up delay-100 rounded-2xl border border-white/10 bg-[#0e1b3d]/30 p-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 <div>
                   <h3 className="text-xl font-bold text-white mb-1">{activePack.name}</h3>
@@ -735,10 +763,11 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         {/* ── PROCESSUS ─────────────────────────────────────────────────── */}
         <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.process.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">{c.process.subtitle}</p>
             </div>
+            <div className="animate-on-scroll fade-up delay-100">
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-4" gridGap="gap-6">
               {c.process.steps.map((step, i) => (
                 <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 h-full">
@@ -752,15 +781,17 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                 </div>
               ))}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
         <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.testimonials.h2}</h2>
             </div>
+            <div className="animate-on-scroll fade-up delay-100">
             <ResponsiveCards breakpoint="md" gridClass="grid-cols-3" gridGap="gap-6">
               {c.testimonials.items.map((t, i) => (
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
@@ -776,16 +807,17 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                 </div>
               ))}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
         <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-[#0e1b3d] mb-4">{c.faq.h2}</h2>
             </div>
-            <Accordion type="single" collapsible className="space-y-3">
+            <Accordion type="single" collapsible className="animate-on-scroll fade-up delay-100 space-y-3">
               {c.faq.items.map((item, i) => (
                 <AccordionItem key={i} value={`faq-${i}`} className="rounded-xl border border-slate-200 bg-white overflow-hidden">
                   <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-[#0e1b3d] hover:no-underline">{item.q}</AccordionTrigger>
@@ -793,7 +825,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                 </AccordionItem>
               ))}
             </Accordion>
-            <div className="mt-10 rounded-xl border border-slate-200 bg-white p-6">
+            <div className="animate-on-scroll fade-up mt-10 rounded-xl border border-slate-200 bg-white p-6">
               <h3 className="font-semibold text-[#0e1b3d] mb-4">{c.more.h3}</h3>
               <ul className="space-y-3">
                 {c.more.items.map((item, i) => (
@@ -811,12 +843,12 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
         <section className="py-24" style={{ background: '#070F26' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
+            <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />{c.cta.badge}
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">{c.cta.h2}</h2>
-            <p className="text-slate-300 text-lg mb-10 max-w-2xl mx-auto">{c.cta.p}</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <h2 className="animate-on-scroll fade-up delay-100 text-3xl sm:text-4xl font-bold text-white mb-6">{c.cta.h2}</h2>
+            <p className="animate-on-scroll fade-up delay-200 text-slate-300 text-lg mb-10 max-w-2xl mx-auto">{c.cta.p}</p>
+            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center">
               <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white transition-all duration-300" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
                 <Code size={18} className="text-gray-900" />
                 <span className="text-gray-900">{c.cta.ctaAudit}</span>
