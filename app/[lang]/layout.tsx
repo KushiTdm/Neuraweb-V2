@@ -102,9 +102,9 @@ export async function generateMetadata({
 
     // ─── Icônes ────────────────────────────────────────────────────────────
     icons: {
-      icon: '/assets/neurawebB.png',
-      shortcut: '/assets/neurawebB.png',
-      apple: '/assets/neurawebB.png',
+      icon: '/assets/logo/neuraweb-agence_tech.png',
+      shortcut: '/assets/logo/neuraweb-agence_tech.png',
+      apple: '/assets/logo/neuraweb-agence_tech.png',
     },
 
     // ─── Open Graph ────────────────────────────────────────────────────────
