@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useGsapReveal } from '@/hooks/use-gsap-reveal';
 import {
   Brain,
   Bot,
@@ -453,6 +454,9 @@ const MODELS = [
 // COMPOSANT PRINCIPAL
 // ═══════════════════════════════════════════════════════════════════════════
 
+// Délais d'apparition échelonnés pour les grilles de cartes (reveal au scroll)
+const DELAY_CLASSES = ['', 'delay-100', 'delay-200', 'delay-300', 'delay-400', 'delay-500'];
+
 export function IntegrationIAPageClient({ lang }: Props) {
   const [selectedPack, setSelectedPack] = useState<PackId>('business');
   const [expandedService, setExpandedService] = useState<number | null>(null);
@@ -460,26 +464,30 @@ export function IntegrationIAPageClient({ lang }: Props) {
   const packIdx = PACK_IDS.indexOf(selectedPack);
   const activePack = c.packs.items[packIdx];
 
+  // Animations au scroll (GSAP ScrollTrigger) + parallaxe — voir useGsapReveal
+  const containerRef = useRef<HTMLElement>(null);
+  useGsapReveal(containerRef, [lang]);
+
   return (
     <>
       <Header />
-      <main id="main-content" className="min-h-screen">
+      <main ref={containerRef} id="main-content" className="min-h-screen">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
         <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#070F26' }}>
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
+          <div data-parallax="-50" className="absolute top-0 left-1/2 -ml-[400px] w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
+          <div data-parallax="80" className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
+            <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Brain size={14} /><span>{c.hero.badge}</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="animate-on-scroll fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               {c.hero.h1}{' '}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{c.hero.h1highlight}</span>
             </h1>
-            <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{c.hero.p}</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{c.hero.p}</p>
+            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
                 <Brain size={18} />{c.hero.ctaAudit}<ArrowRight size={16} />
               </LocalizedLink>
@@ -487,6 +495,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 {c.hero.ctaPricing}<ChevronDown size={16} />
               </a>
             </div>
+            <div className="animate-on-scroll fade-up delay-400">
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-3 max-w-3xl mx-auto" gridGap="gap-6">
               {c.stats.map((stat, i) => (
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 h-full">
@@ -495,16 +504,18 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 </div>
               ))}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
         <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.problems.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">{c.problems.subtitle}</p>
             </div>
+            <div className="animate-on-scroll fade-up delay-100">
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-4" gridGap="gap-6">
               {c.problems.items.map((p, i) => {
                 const icons = [MessageSquare, Users, Database, TrendingUp];
@@ -519,16 +530,18 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 );
               })}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
         <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.services.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.services.subtitle}</p>
             </div>
+            <div className="animate-on-scroll fade-up delay-100">
             <ResponsiveCards breakpoint="md" gridClass="grid-cols-2 lg:grid-cols-3" gridGap="gap-6">
               {c.services.items.map((service, i) => {
                 const Icon = SERVICE_ICONS[i];
@@ -557,14 +570,15 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 );
               })}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         {/* ── MODÈLES IA ────────────────────────────────────────────────── */}
         <section className="py-14 border-y border-slate-200" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.models.label}</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <p className="animate-on-scroll fade-up text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.models.label}</p>
+            <div className="animate-on-scroll fade-up delay-100 grid grid-cols-2 sm:grid-cols-4 gap-4">
               {MODELS.map((model, i) => (
                 <div key={i} className="rounded-xl bg-white border border-slate-200 p-4 text-center">
                   <div className={`font-bold text-sm mb-1 ${model.color}`}>{model.name}</div>
@@ -572,17 +586,18 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 </div>
               ))}
             </div>
-            <p className="text-center text-xs text-slate-500 mt-6">{c.models.note}</p>
+            <p className="animate-on-scroll fade-up delay-200 text-center text-xs text-slate-500 mt-6">{c.models.note}</p>
           </div>
         </section>
 
         {/* ── CAS D'USAGE ───────────────────────────────────────────────── */}
         <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.useCases.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.useCases.subtitle}</p>
             </div>
+            <div className="animate-on-scroll fade-up delay-100">
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-1 md:grid-cols-2 lg:grid-cols-3" gridGap="gap-4">
               {c.useCases.items.map((uc, i) => (
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-5 h-full flex flex-col">
@@ -599,13 +614,14 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 </div>
               ))}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
         <section id="pricing" className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.packs.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">{c.packs.subtitle}</p>
             </div>
@@ -620,7 +636,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
             </div>
 
             {/* Cards desktop */}
-            <div className="hidden sm:grid grid-cols-3 gap-6 mb-10">
+            <div className="animate-on-scroll fade-up delay-100 hidden sm:grid grid-cols-3 gap-6 mb-10">
               {PACK_IDS.map((id, i) => {
                 const pack = c.packs.items[i];
                 const borders = ['border-white/10', 'border-gray-900 dark:border-white', 'border-gray-900 dark:border-white'];
@@ -648,7 +664,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
             </div>
 
             {/* Détails pack sélectionné */}
-            <div className="rounded-2xl border border-slate-200 shadow-sm bg-white p-8">
+            <div className="animate-on-scroll fade-up delay-200 rounded-2xl border border-slate-200 shadow-sm bg-white p-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 <div>
                   <h3 className="text-xl font-bold text-[#0e1b3d] mb-1">{activePack.name}</h3>
@@ -711,9 +727,10 @@ export function IntegrationIAPageClient({ lang }: Props) {
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
         <section className="py-20" style={{ background: '#070F26' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.testimonials.h2}</h2>
             </div>
+            <div className="animate-on-scroll fade-up delay-100">
             <ResponsiveCards breakpoint="md" gridClass="grid-cols-3" gridGap="gap-6">
               {c.testimonials.items.map((t, i) => (
                 <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
@@ -729,16 +746,17 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 </div>
               ))}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
         <section className="py-20" style={{ background: '#F7FAFD' }}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-[#0e1b3d] mb-4">{c.faq.h2}</h2>
             </div>
-            <Accordion type="single" collapsible className="space-y-3">
+            <Accordion type="single" collapsible className="animate-on-scroll fade-up delay-100 space-y-3">
               {c.faq.items.map((item, i) => (
                 <AccordionItem key={i} value={`faq-${i}`} className="rounded-xl border border-slate-200 bg-white overflow-hidden">
                   <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-[#0e1b3d] hover:no-underline">{item.q}</AccordionTrigger>
@@ -746,7 +764,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 </AccordionItem>
               ))}
             </Accordion>
-            <div className="mt-10 rounded-xl border border-slate-200 bg-white p-6">
+            <div className="animate-on-scroll fade-up delay-200 mt-10 rounded-xl border border-slate-200 bg-white p-6">
               <h3 className="font-semibold text-[#0e1b3d] mb-4">{c.more.h3}</h3>
               <ul className="space-y-3">
                 {c.more.items.map((item, i) => (
@@ -764,12 +782,12 @@ export function IntegrationIAPageClient({ lang }: Props) {
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
         <section className="py-24" style={{ background: '#070F26' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
+            <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />{c.cta.badge}
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">{c.cta.h2}</h2>
-            <p className="text-slate-300 text-lg mb-10 max-w-2xl mx-auto">{c.cta.p}</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <h2 className="animate-on-scroll fade-up delay-100 text-3xl sm:text-4xl font-bold text-white mb-6">{c.cta.h2}</h2>
+            <p className="animate-on-scroll fade-up delay-200 text-slate-300 text-lg mb-10 max-w-2xl mx-auto">{c.cta.p}</p>
+            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center">
               <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold transition-all duration-300" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
                 <Brain size={18} className="text-[#050510]" />
                 <span className="text-[#050510]">{c.cta.ctaAudit}</span>

@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useGsapReveal } from '@/hooks/use-gsap-reveal';
 import {
   Code,
   Layout,
@@ -482,35 +483,20 @@ export function DeveloppementWebPageClient({ lang }: Props) {
   const packIdx = PACK_IDS.indexOf(selectedPack);
   const activePack = c.packs.items[packIdx];
 
-  // IntersectionObserver pour les animations fade-up au scroll
-  // (même convention que home-page-client / cta-section : .animate-on-scroll → .animate-in)
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
-    );
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [lang]);
+  // Animations au scroll (GSAP ScrollTrigger) + parallaxe — voir useGsapReveal
+  const containerRef = useRef<HTMLElement>(null);
+  useGsapReveal(containerRef, [lang]);
 
   return (
     <>
       <Header />
-      <main id="main-content" className="min-h-screen">
+      <main ref={containerRef} id="main-content" className="min-h-screen">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
         <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#070F26' }}>
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
+          <div data-parallax="-50" className="absolute top-0 left-1/2 -ml-[400px] w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
+          <div data-parallax="80" className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">

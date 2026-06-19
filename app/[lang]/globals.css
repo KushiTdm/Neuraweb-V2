@@ -283,6 +283,9 @@
   }
 
   /* ── Animations d'entrée au scroll ─────────────────────── */
+  /* Système legacy basé sur IntersectionObserver (.animate-in), encore utilisé
+     par cta-section. Les pages services pilotent désormais ces mêmes marqueurs
+     via GSAP ScrollTrigger (useGsapReveal), qui neutralise la transition CSS. */
   .animate-on-scroll {
     opacity: 0;
     transform: translateY(40px);
@@ -633,6 +636,17 @@ select:focus-visible {
   .animate-cardFloat,
   .animate-ping-slow {
     animation: none !important;
+  }
+
+  /* Les éléments en reveal au scroll doivent rester visibles : ne jamais
+     dépendre du JS / d'une transition pour afficher du contenu. */
+  .animate-on-scroll,
+  .fade-up,
+  .fade-left,
+  .fade-right,
+  .scale-up {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

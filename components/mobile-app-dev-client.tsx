@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useGsapReveal } from '@/hooks/use-gsap-reveal';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { LocalizedLink } from '@/components/localized-link';
@@ -269,31 +270,38 @@ const techIcons = [Code2, Zap, Apple, Smartphone];
 const typeIcons = [ShoppingBag, Calendar, Briefcase, Globe];
 const processIcons = [Search, Palette, Wrench, Upload];
 
+// Délais d'apparition échelonnés pour les grilles de cartes (reveal au scroll)
+const DELAY_CLASSES = ['', 'delay-100', 'delay-200', 'delay-300', 'delay-400', 'delay-500'];
+
 export function MobileAppDevClient({ lang }: Props) {
   const c = content[lang];
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  // Animations au scroll (GSAP ScrollTrigger) + parallaxe — voir useGsapReveal
+  const containerRef = useRef<HTMLElement>(null);
+  useGsapReveal(containerRef, [lang]);
+
   return (
     <>
       <Header />
-      <main id="main-content" className="min-h-screen bg-[#050510] pt-24">
+      <main ref={containerRef} id="main-content" className="min-h-screen bg-[#050510] pt-24">
         <section className="py-16 sm:py-24 px-4 relative overflow-hidden" style={{ background: '#070F26' }}>
           <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/5 to-white/5 pointer-events-none" aria-hidden="true" />
           <div className="max-w-5xl mx-auto text-center relative">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 mb-8">
+            <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 mb-8">
               <Smartphone className="w-4 h-4 text-white" />
               <span className="text-sm font-medium text-white">Mobile App Development</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
+            <h1 className="animate-on-scroll fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
               {c.hero.h1}{' '}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 {c.hero.highlight}
               </span>
             </h1>
-            <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10">
+            <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10">
               {c.hero.subtitle}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center">
               <LocalizedLink
                 href="/booking"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white text-gray-900 font-semibold text-lg shadow-lg hover:shadow-xl hover:bg-gray-100 transition-all"
@@ -313,7 +321,7 @@ export function MobileAppDevClient({ lang }: Props) {
 
         <section className="py-16 sm:py-20 px-4" style={{ background: '#F7FAFD' }}>
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
                 {c.tech.h2}
               </h2>
@@ -321,6 +329,7 @@ export function MobileAppDevClient({ lang }: Props) {
                 {c.tech.subtitle}
               </p>
             </div>
+            <div className="animate-on-scroll fade-up delay-100">
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-4" gridGap="gap-6">
               {c.tech.cards.map((card, i) => {
                 const Icon = techIcons[i % techIcons.length]!;
@@ -345,12 +354,13 @@ export function MobileAppDevClient({ lang }: Props) {
                 );
               })}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         <section className="py-16 sm:py-20 px-4" style={{ background: '#070F26' }}>
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {c.types.h2}
               </h2>
@@ -364,7 +374,7 @@ export function MobileAppDevClient({ lang }: Props) {
                 return (
                   <article
                     key={card.title}
-                    className="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gray-300 transition-colors"
+                    className={`animate-on-scroll fade-up ${DELAY_CLASSES[Math.min(i, 5)]} p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gray-300 transition-colors`}
                   >
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white flex items-center justify-center">
@@ -388,7 +398,7 @@ export function MobileAppDevClient({ lang }: Props) {
 
         <section className="py-16 sm:py-20 px-4" style={{ background: '#F7FAFD' }}>
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
                 {c.process.h2}
               </h2>
@@ -396,6 +406,7 @@ export function MobileAppDevClient({ lang }: Props) {
                 {c.process.subtitle}
               </p>
             </div>
+            <div className="animate-on-scroll fade-up delay-100">
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-4" gridGap="gap-6">
               {c.process.steps.map((step, i) => {
                 const Icon = processIcons[i % processIcons.length]!;
@@ -417,12 +428,13 @@ export function MobileAppDevClient({ lang }: Props) {
                 );
               })}
             </ResponsiveCards>
+            </div>
           </div>
         </section>
 
         <section id="pricing" className="py-16 sm:py-20 px-4" style={{ background: '#070F26' }}>
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {c.pricing.h2}
               </h2>
@@ -430,7 +442,7 @@ export function MobileAppDevClient({ lang }: Props) {
                 {c.pricing.subtitle}
               </p>
             </div>
-            <div className="mb-6">
+            <div className="animate-on-scroll fade-up delay-100 mb-6">
               <ResponsiveCards breakpoint="md" gridClass="grid-cols-3" gridGap="gap-6">
                 {c.pricing.packs.map((pack) => (
                   <article
@@ -473,13 +485,13 @@ export function MobileAppDevClient({ lang }: Props) {
                 ))}
               </ResponsiveCards>
             </div>
-            <p className="text-sm text-slate-400 text-center">{c.pricing.note}</p>
+            <p className="animate-on-scroll fade-up delay-200 text-sm text-slate-400 text-center">{c.pricing.note}</p>
           </div>
         </section>
 
         <section className="py-16 sm:py-20 px-4" style={{ background: '#0B1430' }}>
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {c.useCases.h2}
               </h2>
@@ -488,8 +500,8 @@ export function MobileAppDevClient({ lang }: Props) {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {c.useCases.items.map((uc) => (
-                <article key={uc.sector} className="p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/10 h-full flex flex-col">
+              {c.useCases.items.map((uc, i) => (
+                <article key={uc.sector} className={`animate-on-scroll fade-up ${DELAY_CLASSES[Math.min(i, 5)]} p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/10 h-full flex flex-col`}>
                   <div className="flex items-center justify-between gap-3 mb-4">
                     <h3 className="text-lg font-bold text-white">{uc.sector}</h3>
                     <span className="text-xs bg-white/10 text-white px-3 py-1 rounded-full font-medium whitespace-nowrap">{uc.pack}</span>
@@ -508,10 +520,10 @@ export function MobileAppDevClient({ lang }: Props) {
 
         <section className="py-16 sm:py-20 px-4" style={{ background: '#F7FAFD' }}>
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] text-center mb-12">
+            <h2 className="animate-on-scroll fade-up text-3xl sm:text-4xl font-bold text-[#0e1b3d] text-center mb-12">
               {c.faq.h2}
             </h2>
-            <div className="space-y-4">
+            <div className="animate-on-scroll fade-up delay-100 space-y-4">
               {c.faq.items.map((item, i) => (
                 <article key={item.q} className="border border-slate-200 rounded-2xl overflow-hidden bg-white">
                   <button
@@ -539,12 +551,13 @@ export function MobileAppDevClient({ lang }: Props) {
 
         <section className="py-16 sm:py-20 px-4" style={{ background: '#070F26' }}>
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="animate-on-scroll fade-up text-3xl sm:text-4xl font-bold text-white mb-4">
               {c.cta.h2}
             </h2>
-            <p className="text-lg text-slate-300 mb-8">
+            <p className="animate-on-scroll fade-up delay-100 text-lg text-slate-300 mb-8">
               {c.cta.subtitle}
             </p>
+            <div className="animate-on-scroll fade-up delay-200">
             <LocalizedLink
               href="/booking"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-gray-900 font-semibold text-lg shadow-lg hover:shadow-xl hover:bg-gray-100 transform hover:scale-105 transition-all"
@@ -552,6 +565,7 @@ export function MobileAppDevClient({ lang }: Props) {
               {c.cta.button}
               <ArrowRight className="w-5 h-5" />
             </LocalizedLink>
+            </div>
           </div>
         </section>
       </main>
