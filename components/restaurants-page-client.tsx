@@ -28,6 +28,7 @@ import { Button } from '@/components/ui/button';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { LocalizedLink } from '@/components/localized-link';
+import { DemoCTA } from '@/components/demo-cta';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
   Accordion,
@@ -329,6 +330,7 @@ export function RestaurantsPageClient() {
         <UseCases />
         <Faq />
         <BlogTeaser />
+        <DemoCTA sector="restaurant" />
         <FinalCTA />
       </div>
       <Footer />

@@ -1,0 +1,100 @@
+{
+  "name": "Génération contenu social (LinkedIn / Facebook)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "social-content",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-social",
+      "name": "Webhook social-content",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-720, 320],
+      "webhookId": "social-content"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1) Auth simple par en-tête partagé avec la GitHub Action.\nconst secret = $env.N8N_WEBHOOK_SECRET;\nconst got = $json.headers?.['x-webhook-secret'];\nif (secret && got !== secret) {\n  throw new Error('Unauthorized: x-webhook-secret invalide');\n}\n\n// La payload utile est dans body (webhook n8n).\nconst body = $json.body ?? $json;\nconst { slug, lang = 'fr', path = '', commit = '', raw = '' } = body;\n\nif (!slug) throw new Error('slug manquant');\nif (!raw) throw new Error('raw (contenu MDX) manquant');\n\n// 2) Parse minimal du frontmatter YAML (entre les deux premiers ---).\n//    On n'a besoin que de title / excerpt / image ; on ignore tags/faq.\nfunction parseFrontmatter(src) {\n  const m = src.match(/^---\\n([\\s\\S]*?)\\n---/);\n  const fm = {};\n  let bodyMd = src;\n  if (m) {\n    bodyMd = src.slice(m[0].length);\n    for (const line of m[1].split('\\n')) {\n      const kv = line.match(/^([A-Za-z0-9_]+):\\s*(.*)$/);\n      if (!kv) continue;\n      let [, k, v] = kv;\n      v = v.trim().replace(/^[\"']|[\"']$/g, '');\n      if (v !== '') fm[k] = v;\n    }\n  }\n  return { fm, bodyMd };\n}\n\nconst { fm, bodyMd } = parseFrontmatter(raw);\nconst title = fm.title || slug;\nconst excerpt = fm.excerpt || '';\nconst image = fm.image || `/assets/blog/${slug}.webp`;\nconst seoTitle = fm.seoTitle || '';\n\nif (!title) throw new Error('title manquant dans le frontmatter');\nif (!bodyMd.trim()) throw new Error('corps MDX vide');\n\n// 3) Nettoyage du corps : retire JSX/HTML, compacte, tronque.\nconst content = bodyMd\n  .replace(/import\\s+.*?from\\s+['\"].*?['\"];?/g, ' ')\n  .replace(/<[^>]+>/g, ' ')\n  .replace(/\\n{2,}/g, '\\n')\n  .trim()\n  .substring(0, 12000);\n\n// 4) Langue lisible pour le prompt.\nconst LANGS = { fr: 'français', en: 'English', es: 'español' };\nconst langLabel = LANGS[lang] || 'français';\n\nconst prompt = `Tu es responsable marketing chez NeuraWeb (agence web + IA / automatisation pour PME).\\n` +\n`À partir de l'article ci-dessous, crée des publications pour Facebook et LinkedIn.\\n` +\n`IMPORTANT : rédige TOUT le contenu en ${langLabel} (la langue de l'article).\\n\\n` +\n`=== ARTICLE ===\\nTitre : ${title}\\nRésumé : ${excerpt}\\nContenu :\\n${content}\\n=== FIN ===\\n\\n` +\n`Règles Facebook : 120-180 mots, ton professionnel et accessible aux PME, un CTA clair, maximum 4 hashtags.\\n` +\n`Règles LinkedIn : 300-500 mots, ton expert, structure aérée, une question d'ouverture, un CTA final.\\n` +\n`Le champ \"hook\" est une première phrase d'accroche courte et percutante.\\n\\n` +\n`Réponds avec un JSON STRICTEMENT conforme à ce schéma :\\n` +\n`{\"facebook\":{\"hook\":\"\",\"post\":\"\"},\"linkedin\":{\"hook\":\"\",\"post\":\"\"}}`;\n\nreturn [{ json: { slug, lang, path, commit, title, seoTitle, excerpt, image, prompt } }];"
+      },
+      "id": "parse-validate",
+      "name": "Parse & Validate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-480, 320]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={{ $env.GEMINI_API_KEY }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { contents: [ { parts: [ { text: $json.prompt } ] } ], generationConfig: { temperature: 0.7, responseMimeType: 'application/json' } } }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "gemini",
+      "name": "Gemini 2.5 Flash",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-240, 320]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extrait et parse le JSON renvoyé par Gemini, puis fusionne avec les champs article.\nconst src = $('Parse & Validate').first().json;\n\nlet text = $json.candidates?.[0]?.content?.parts?.[0]?.text;\nif (!text) throw new Error('Réponse Gemini vide: ' + JSON.stringify($json).slice(0, 500));\n\n// Sécurité : retire d'éventuels fences ```json ... ``` malgré responseMimeType.\ntext = text.trim().replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();\n\nlet social;\ntry {\n  social = JSON.parse(text);\n} catch (e) {\n  throw new Error('JSON Gemini invalide: ' + text.slice(0, 500));\n}\n\nconst fb = social.facebook || {};\nconst li = social.linkedin || {};\n\nreturn [{\n  json: {\n    slug: src.slug,\n    lang: src.lang,\n    title: src.title,\n    image: src.image,\n    facebook_hook: fb.hook || '',\n    facebook_post: fb.post || '',\n    linkedin_hook: li.hook || '',\n    linkedin_post: li.post || '',\n    status: 'pending',\n    source_path: src.path,\n    source_commit: src.commit\n  }\n}];"
+      },
+      "id": "parse-ai",
+      "name": "Parse AI JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [0, 320]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.SUPABASE_URL }}/rest/v1/generated_social_posts?on_conflict=slug,lang",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "apikey", "value": "={{ $env.SUPABASE_SERVICE_KEY }}" },
+            { "name": "Authorization", "value": "=Bearer {{ $env.SUPABASE_SERVICE_KEY }}" },
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "Prefer", "value": "resolution=merge-duplicates,return=representation" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { slug: $json.slug, lang: $json.lang, title: $json.title, image: $json.image, facebook_hook: $json.facebook_hook, facebook_post: $json.facebook_post, linkedin_hook: $json.linkedin_hook, linkedin_post: $json.linkedin_post, status: $json.status, source_path: $json.source_path, source_commit: $json.source_commit } }}",
+        "options": {}
+      },
+      "id": "supabase-upsert",
+      "name": "Supabase upsert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [240, 320]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, slug: $('Parse AI JSON').first().json.slug, lang: $('Parse AI JSON').first().json.lang, status: 'pending' } }}"
+      },
+      "id": "respond",
+      "name": "Respond OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [480, 320]
+    }
+  ],
+  "connections": {
+    "Webhook social-content": { "main": [[{ "node": "Parse & Validate", "type": "main", "index": 0 }]] },
+    "Parse & Validate": { "main": [[{ "node": "Gemini 2.5 Flash", "type": "main", "index": 0 }]] },
+    "Gemini 2.5 Flash": { "main": [[{ "node": "Parse AI JSON", "type": "main", "index": 0 }]] },
+    "Parse AI JSON": { "main": [[{ "node": "Supabase upsert", "type": "main", "index": 0 }]] },
+    "Supabase upsert": { "main": [[{ "node": "Respond OK", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}

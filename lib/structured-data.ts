@@ -259,7 +259,7 @@ export const HOME_FAQ_ITEMS: Record<'fr' | 'en' | 'es', Array<{ question: string
     },
     {
       question: 'Proposez-vous des forfaits tout inclus ?',
-      answer: 'Oui, nous proposons 3 packs : Starter (à partir de 1 490€), Business (à partir de 3 990€), et Premium (à partir de 7 990€). Un Pack IA sur devis est aussi disponible. Chaque pack est personnalisable.',
+      answer: 'Oui, nous proposons 3 packs web : Starter (à partir de 1 490€), Business (à partir de 3 990€), et Premium (à partir de 7 990€). Nous proposons aussi des packs Automatisation (à partir de 999€) et Intégration IA (à partir de 1 499€). Chaque pack est personnalisable.',
     },
     {
       question: 'Intégrez-vous des solutions IA dans les sites web ?',
@@ -281,7 +281,7 @@ export const HOME_FAQ_ITEMS: Record<'fr' | 'en' | 'es', Array<{ question: string
     },
     {
       question: 'Do you offer all-inclusive packages?',
-      answer: 'Yes, we offer 3 packs: Starter (from €1,490), Business (from €3,990), and Premium (from €7,990). An AI Pack is also available on quote. Every pack is customizable.',
+      answer: 'Yes, we offer 3 web packs: Starter (from €1,490), Business (from €3,990), and Premium (from €7,990). We also offer Automation packs (from €999) and AI Integration packs (from €1,499). Every pack is customizable.',
     },
     {
       question: 'Do you integrate AI solutions into websites?',
@@ -303,7 +303,7 @@ export const HOME_FAQ_ITEMS: Record<'fr' | 'en' | 'es', Array<{ question: string
     },
     {
       question: '¿Ofrecéis paquetes todo incluido?',
-      answer: 'Sí, ofrecemos 3 packs: Starter (desde 1.490€), Business (desde 3.990€) y Premium (desde 7.990€). También hay un Pack IA bajo presupuesto. Cada pack es personalizable.',
+      answer: 'Sí, ofrecemos 3 packs web: Starter (desde 1.490€), Business (desde 3.990€) y Premium (desde 7.990€). También ofrecemos packs de Automatización (desde 999€) e Integración IA (desde 1.499€). Cada pack es personalizable.',
     },
     {
       question: '¿Integráis soluciones de IA en los sitios web?',

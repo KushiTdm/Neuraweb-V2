@@ -8,6 +8,7 @@ import { useTheme } from '@/components/theme-provider';
 import { useTranslation } from '@/hooks/use-translation';
 import { LanguageSelector } from '@/components/language-selector';
 import { LocalizedLink } from '@/components/localized-link';
+import { DEMO_URL } from '@/lib/site-config';
 import Image from 'next/image';
 import { StaggeredMenuPanel, type StaggeredMenuItem } from '@/components/ui/staggered-menu';
 
@@ -168,6 +169,23 @@ export function Header() {
                       <span className="block font-medium">{t('nav.dropdown.ai.label')}</span>
                       <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.ai.desc')}</span>
                     </LocalizedLink>
+
+                    <div className="my-1 border-t border-gray-100 dark:border-white/5" />
+
+                    {/* Démo interactive — sous-domaine externe (web + mobile connectés) */}
+                    <a
+                      href={DEMO_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
+                        text-indigo-700 dark:text-sky-300 hover:bg-indigo-50 dark:hover:bg-white/5"
+                    >
+                      <span className="flex items-center gap-1.5 font-medium">
+                        Démo interactive
+                        <ArrowRight size={13} className="-rotate-45" />
+                      </span>
+                      <span className="block text-xs text-gray-500 dark:text-gray-500">Web + mobile connectés en temps réel</span>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -276,6 +294,7 @@ export function Header() {
             { label: t('nav.dropdown.web.label'), href: '/developpement-web' },
             { label: 'Mobile',          href: '/mobile-app-development' },
             { label: 'IA',              href: '/integration-ia'        },
+            { label: 'Démo',            href: DEMO_URL, external: true, ariaLabel: 'Démo interactive web + mobile' },
             { label: t('nav.blog'),     href: '/blog',                 ariaLabel: t('nav.blog')     },
             { label: t('nav.team'),     href: '/equipe',               ariaLabel: t('nav.team')     },
           ] as StaggeredMenuItem[]}

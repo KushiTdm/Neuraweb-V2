@@ -30,6 +30,7 @@ import { Button } from '@/components/ui/button';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { LocalizedLink } from '@/components/localized-link';
+import { DemoCTA } from '@/components/demo-cta';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
   Accordion,
@@ -351,6 +352,7 @@ export function CollectivitesPageClient() {
         <Conformite />
         <UseCases />
         <Process />
+        <DemoCTA sector="collectivite" />
         <Faq />
         <FinalCTA />
       </div>

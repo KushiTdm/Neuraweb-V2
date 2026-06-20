@@ -142,7 +142,7 @@ Je vais créer le rapport complet manuellement en analysant les données de rech
 |---------------|---------|-------------|------------------------|-----------|---------|
 | **Essentiel IA** (chatbot RAG, 1 document, 5 intentions) | 1 499 € | 39 €/mois | 5 000-15 000 € chatbot RAG  [youtube](https://www.youtube.com/watch?v=TEE8DUqfmBE) | ✅ **TRÈS COMPÉTITIF** | Prix très bas pour RAG. Attention : Scope limité (1 document) justifie prix |
 | **Business IA ⭐** (agent IA, BANT, CRM, 10 intentions) | 3 999 € | 89 €/mois | 3 000-15 000 €  [youtube](https://www.youtube.com/watch?v=TEE8DUqfmBE) | ✅ **COHÉRENT** | Bon prix pour agent IA complet. CRM handoff + Calendly rares à ce prix |
-| **Premium IA** (multi-agents, fine-tuning, hébergement souverain) | 7 999 € | 189 €/mois | 20 000-40 000 € RAG volumineux  [realitim](https://www.realitim.com/estimateur/projet-ia) | ⚠️ **SOUS-ÉVALUÉ** | **Prix trop bas** pour architecture multi-agents + fine-tuning + OVH souverain + DPO 3 mois |
+| **Premium IA** (multi-agents, fine-tuning, hébergement souverain) | 9 999 € | 189 €/mois | 20 000-40 000 € RAG volumineux  [realitim](https://www.realitim.com/estimateur/projet-ia) | ⚠️ **SOUS-ÉVALUÉ** | **Prix trop bas** pour architecture multi-agents + fine-tuning + OVH souverain + DPO 3 mois |
 
 #### Points Forts
 - **Audit IA gratuit** (valorisé 490 €) : excellent lead magnet
@@ -290,9 +290,9 @@ Je vais créer le rapport complet manuellement en analysant les données de rech
 
 | Action | Prix actuel | Prix recommandé | Justification |
 |--------|-------------|-----------------|---------------|
-| **Pack Premium IA** | 7 999 € | **12 000-15 000 €** | Sous-évalué de 40-50%  [realitim](https://www.realitim.com/estimateur/projet-ia) |
-| **MVP Mobile** | 6 900 € | **8 900-9 900 €** | Marge plus saine, reste compétitif |
-| **App Standard Mobile** | 12 900 € | **15 900-18 900 €** | Alignement marché agence  [digitalunicorn](https://digitalunicorn.fr/le-prix-pour-la-creation-dune-application-mobile/) |
+| **Pack Premium IA** | 9 999 € | **12 000-15 000 €** | Sous-évalué de 40-50%  [realitim](https://www.realitim.com/estimateur/projet-ia) |
+| **MVP Mobile** | 8 900 € ✅ déjà ajusté | **8 900-9 900 €** | Marge plus saine, reste compétitif |
+| **App Standard Mobile** | 15 900 € ✅ déjà ajusté | **15 900-18 900 €** | Alignement marché agence  [digitalunicorn](https://digitalunicorn.fr/le-prix-pour-la-creation-dune-application-mobile/) |
 | **Maintenance Auto (high)** | 149 €/mois | **179-199 €/mois** | Alignement benchmark 100-300 €  [plateya](https://www.plateya.fr/blog/detail/expert-n8n-boostez-lautomatisation-de-votre-entreprise) |
 
 ### 3.2 Ajouts de Services (Upsell)
@@ -746,7 +746,7 @@ Hébergement souverain France :
 | **Documentation interne** | 500 pages Inaccessibles | Recherche instantanée (RAG) |
 
 **ROI concret :**
-- Investissement : 7 999 € (revalorisé à 12 000-15 000 €) + 189 €/mois
+- Investissement : 9 999 € (revalorisé à 12 000-15 000 €) + 189 €/mois
 - Gain : 4 secrétaires × 2 000 €/mois = +8 000 €/mois
 - RDV supplémentaires : +200/mois × 50 € = +10 000 €/mois
 - Éviter sanction RGPD : 20M€ ou 4% CA (risque évité)

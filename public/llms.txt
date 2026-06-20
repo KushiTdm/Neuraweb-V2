@@ -27,11 +27,15 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 
 ## Pricing
 
-- Starter Pack: from 1,490 EUR (Responsive showcase site with SEO)
-- Business Pack: from 3,990 EUR (Complete solution with admin, blog, analytics)
-- Premium Pack: from 7,990 EUR (E-commerce, third-party APIs, 24/7 support)
-- AI Pack: Custom quote
-- Health website pack: from 990 EUR for independent healthcare professionals
+- Starter Pack: from 1,490 EUR (Responsive showcase site up to 8 pages, with SEO)
+- Business Pack: from 3,990 EUR (Site up to 20 pages with admin, blog, analytics)
+- Premium Pack: from 7,990 EUR (Unlimited pages, e-commerce, third-party APIs, 24/7 support)
+- Automation Pack: from 999 EUR + 29 EUR/month (n8n/Make workflows, up to 5,999 EUR for full automation with AI agents)
+- AI Integration Pack: from 1,499 EUR + 39 EUR/month (custom AI chatbot/agent, up to 9,999 EUR for multi-agent systems)
+- Mobile App Pack: from 8,900 EUR (cross-platform MVP, from 15,900 EUR for a standard native app, custom quote for premium apps)
+- Health website pack: from 990 EUR for independent healthcare professionals, up to 8,900 EUR for multi-site networks (HDS-compliant hosting)
+- Restaurant website pack: from 990 EUR, up to 7,990 EUR for loyalty/customer account features, custom quote for multi-location chains
+- Public sector (local authorities): custom quote only
 
 ## Priority Pages
 
@@ -74,7 +78,7 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 
 ## Technologies Used
 
-- Frontend: React, Next.js 15, TypeScript, Tailwind CSS
+- Frontend: React, Next.js 16, TypeScript, Tailwind CSS
 - Backend: Node.js, Supabase
 - AI: OpenAI API, Anthropic Claude, Mistral AI
 - Automation: n8n, Make (Integromat)

@@ -255,7 +255,7 @@ const PACKS = [
     chipColor: 'bg-indigo-50 text-indigo-700 border-indigo-200',
     featured: false,
     bullets: [
-      'Site vitrine jusqu\'à 5 pages',
+      'Site vitrine jusqu\'à 8 pages',
       'Design sur mesure (mobile-first)',
       'Optimisation SEO de base',
       'Intégration Google Analytics',
@@ -272,7 +272,7 @@ const PACKS = [
     color: 'border-violet-400 ring-2 ring-violet-400',
     chipColor: 'bg-violet-600 text-white border-violet-600',
     bullets: [
-      'Site multi-pages illimité',
+      'Site jusqu\'à 20 pages',
       'Blog / actualités intégré',
       'SEO avancé + données structurées',
       'Chatbot IA de qualification',

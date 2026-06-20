@@ -17,6 +17,8 @@ export interface StaggeredMenuItem {
   href: string;
   ariaLabel?: string;
   isSubItem?: boolean;
+  /** lien externe (ex. sous-domaine démo) — rendu via <a> + nouvel onglet */
+  external?: boolean;
 }
 
 interface StaggeredMenuPanelProps {
@@ -224,30 +226,52 @@ export function StaggeredMenuPanel({
                 key={item.label + idx}
                 className={`sm-panel-itemWrap relative overflow-hidden leading-none ${item.isSubItem ? 'ml-5 border-l border-white/10 pl-4' : ''}`}
               >
-                <LocalizedLink
-                  href={item.href}
-                  onClick={onClose}
-                  className={`sm-panel-item group relative cursor-pointer leading-none inline-block no-underline ${
+                {(() => {
+                  const className = `sm-panel-item group relative cursor-pointer leading-none inline-block no-underline ${
                     item.isSubItem
                       ? 'text-white/60 font-semibold py-1.5 hover:text-white/90'
                       : 'text-white/90 font-bold tracking-tight uppercase py-2'
-                  }`}
-                  style={{
+                  }`;
+                  const style = {
                     fontSize: item.isSubItem ? 'clamp(1.1rem, 4.5vw, 1.5rem)' : 'clamp(2.2rem, 9vw, 3.4rem)',
                     letterSpacing: item.isSubItem ? '-0.01em' : '-0.03em',
                     paddingRight: displayItemNumbering && !item.isSubItem ? '2.5em' : undefined,
-                  }}
-                  aria-label={item.ariaLabel}
-                  data-index={idx + 1}
-                >
-                  <span
-                    className="sm-panel-itemLabel inline-block transition-colors duration-150 group-hover:text-white"
-                    style={{ transformOrigin: '50% 100%', willChange: 'transform' }}
-                  >
-                    {item.isSubItem && <span className="mr-1.5 opacity-40">—</span>}
-                    {item.label}
-                  </span>
-                </LocalizedLink>
+                  } as const;
+                  const inner = (
+                    <span
+                      className="sm-panel-itemLabel inline-block transition-colors duration-150 group-hover:text-white"
+                      style={{ transformOrigin: '50% 100%', willChange: 'transform' }}
+                    >
+                      {item.isSubItem && <span className="mr-1.5 opacity-40">—</span>}
+                      {item.label}
+                    </span>
+                  );
+                  return item.external ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={onClose}
+                      className={className}
+                      style={style}
+                      aria-label={item.ariaLabel}
+                      data-index={idx + 1}
+                    >
+                      {inner}
+                    </a>
+                  ) : (
+                    <LocalizedLink
+                      href={item.href}
+                      onClick={onClose}
+                      className={className}
+                      style={style}
+                      aria-label={item.ariaLabel}
+                      data-index={idx + 1}
+                    >
+                      {inner}
+                    </LocalizedLink>
+                  );
+                })()}
               </li>
             ))}
           </ul>

@@ -23,6 +23,7 @@ import {
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { LocalizedLink } from '@/components/localized-link';
+import { DemoCTA } from '@/components/demo-cta';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
   Accordion,
@@ -847,6 +848,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
           </div>
         </section>
 
+        <DemoCTA sector="web" />
       </main>
       <Footer />
     </>

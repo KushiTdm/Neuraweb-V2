@@ -5,11 +5,16 @@
 
 ## Vue d'ensemble
 
-NeuraWeb propose une suite complète de services digitaux organisée en **2 catégories principales** :
-- **Développement Web** (sites, apps web, automation)
+NeuraWeb propose une suite complète de services digitaux :
+- **Développement Web** (sites, apps web)
+- **Automatisation** (workflows n8n/Make/Zapier)
+- **Intégration IA** (chatbots, agents RAG)
 - **Développement Mobile** (apps iOS/Android)
+- **Santé & Paramédical** (sites conformes RGPD/HDS)
+- **Restaurants** (vitrine à plateforme de fidélité)
+- **Collectivités** (secteur public, sur devis uniquement)
 
-Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Business, Premium) + options sur devis.
+Chaque service propose généralement **3 niveaux** (Starter, Business/Standard, Premium) + options sur devis pour les besoins avancés.
 
 ---
 
@@ -21,7 +26,7 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 **Cible :** Petits commerces, indépendants, présence en ligne basique
 
 **Inclus :**
-- ✅ Site vitrine responsive (3-5 pages)
+- ✅ Site vitrine responsive (jusqu'à 8 pages)
 - ✅ Design personnalisé et moderne
 - ✅ Optimisation SEO de base (mots-clés, balises)
 - ✅ Formulaire de contact
@@ -81,32 +86,37 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 
 ---
 
-### 1.4 Pack IA & Automation
-**Prix :** Sur devis (variable : 8k€ - 30k€+)  
-**Délai :** Variable selon complexité  
-**Cible :** Startups tech, PME avec processus opérationnels complexes, agences
+### 1.4 Pack Automatisation
+**Page :** `/automatisation`  
+**Prix :** À partir de 999€ + 29€/mois  
+**Délai :** 1-10 semaines selon le palier  
+**Cible :** PME avec processus opérationnels répétitifs
 
-**Inclus :**
-- ✅ Chatbot IA conversationnel (formation Claude/GPT)
-- ✅ Automation workflows (Make, n8n)
-- ✅ Analyse de données et intelligence métier
-- ✅ Machine Learning si applicable
-- ✅ Support dédié durant implémentation
-- ✅ Documentation et formation d'équipe
+**3 paliers :**
+- **Starter Auto** (999€ + 29€/mois, 1-2 sem) : 1 workflow n8n/Make complexe (jusqu'à 8 étapes), connexion à 3 outils max
+- **Business Auto** (2 999€ + 79€/mois, 3-5 sem) ⭐ : 3-5 workflows + 1 agent IA de qualification, intégration CRM
+- **Full Automation** (5 999€ + 149€/mois, 6-10 sem) : Workflows illimités, jusqu'à 3 agents IA, intégration CRM + ERP + facturation
 
-**Exemples :**
-- Chatbot FAQ intelligent + lead qualification
-- Automatisation pipeline ventes (email → CRM → calendrier)
-- Analyse sentiment clients + alertes
-- Recommandations produits basées IA
+---
+
+### 1.5 Pack Intégration IA
+**Page :** `/integration-ia`  
+**Prix :** À partir de 1 499€ + 39€/mois  
+**Délai :** 1-12 semaines selon le palier  
+**Cible :** Startups tech, PME voulant un chatbot ou agent IA sur mesure
+
+**3 paliers :**
+- **Essentiel IA** (1 499€ + 39€/mois, 1-2 sem) : Chatbot RAG, 1 document, 5 intentions
+- **Business IA** (3 999€ + 89€/mois, 3-5 sem) ⭐ : Agent IA avec qualification BANT, CRM, 10 intentions
+- **Premium IA** (9 999€ + 189€/mois, 6-12 sem) : Multi-agents, fine-tuning, hébergement souverain France
 
 ---
 
 ## 2. SERVICES DÉVELOPPEMENT MOBILE
 
 ### 2.1 MVP Mobile
-**Prix :** À partir de 6 900€ TTC  
-**Délai :** 6-8 semaines  
+**Prix :** À partir de 8 900€  
+**Délai :** 3-4 semaines  
 **Tech :** React Native (cross-platform)  
 **Cible :** Startups en validation, MVP rapides
 
@@ -127,8 +137,8 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 ---
 
 ### 2.2 App Standard ⭐ POPULAIRE
-**Prix :** À partir de 12 900€ TTC  
-**Délai :** 12-16 semaines  
+**Prix :** À partir de 15 900€  
+**Délai :** 6-10 semaines  
 **Tech :** iOS natif + Android (Flutter optionnel)  
 **Cible :** PME, startups établies, marques
 
@@ -153,8 +163,8 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 ---
 
 ### 2.3 App Premium Mobile
-**Prix :** Sur devis (15k€ - 50k€+)  
-**Délai :** 16-24 semaines+  
+**Prix :** Sur devis  
+**Délai :** 12 semaines et +  
 **Tech :** Architecture personnalisée (natif, cross-platform, ou hybride)  
 **Cible :** Startups VC, grandes marques, applis complexes
 
@@ -179,32 +189,43 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 
 ---
 
-## 3. OFFRE SPÉCIALE SANTÉ & PARAMEDICAL
+## 3. SANTÉ & PARAMÉDICAL
 
-**Valide jusqu'à fin mai 2026**
+**Page :** `/sante` · Hébergement France · HDS sur les packs supérieurs
 
-### 3.1 Pack Santé (Healthcare Special)
-**Prix :** 990€ TTC (au lieu de 1 500€)  
-**Délai :** 7 jours (livraison express)  
-**Cible :** Ostéopathes, kinésithérapeutes, infirmiers, sages-femmes, dentistes, psychologues
+### 3.1 Vitrine Santé
+**Prix :** 990€ + 29€/mois  
+**Délai :** 5-8 jours  
+**Cible :** Libéral solo, début d'activité (ostéopathes, kinés, infirmiers, sages-femmes, dentistes, psychologues)
 
 **Inclus :**
-- ✅ Site vitrine responsive clé en main
+- ✅ Site one-page ou jusqu'à 5 pages responsive
 - ✅ Design médical professionnel & de confiance
 - ✅ Hébergement en France (CNIL/RGPD compliant)
-- ✅ HDS (Hébergement de Données de Santé) certifié
-- ✅ Intégration Doctolib
-- ✅ SEO local (référencement géographique)
-- ✅ Formulaire contact RGPD
-- ✅ Mentions légales incluses
+- ✅ Lien Doctolib / KelDoc / Maiia intégré
+- ✅ SEO local (référencement géographique) + Google Business Profile
+- ✅ Formulaire contact RGPD (sans base de données)
 
-**Puis :**
-- 📅 Forfait mensuel à partir de 29€/mois (hébergement + maintenance)
+### 3.2 Vitrine Pro + Blog ⭐ le plus choisi
+**Prix :** 1 490€ + 49€/mois  
+**Délai :** 3-4 semaines  
+**Cible :** Cabinet établi, 1-2 praticiens
 
-**Conditions :**
-- Offre limitée au mois de mai 2026
-- Réservation effectuée en mai
-- Non cumulable avec autres réductions
+**Inclus :** Tout Vitrine Santé + jusqu'à 10 pages, blog CMS autonome, 3 articles SEO de lancement, newsletter Mailchimp/Brevo, 2 modifications/mois incluses
+
+### 3.3 Pro Santé (HDS)
+**Prix :** 4 490€ + 129€/mois  
+**Délai :** 6-8 semaines  
+**Cible :** Cabinet multi-praticiens, centre paramédical
+
+**Inclus :** Réservation en ligne multi-praticiens, espace patient sécurisé + rappels SMS/Email, hébergement HDS certifié (OVH Healthcare), tableau de bord admin + multilingue
+
+### 3.4 Premium Santé (HDS + ISO 27001)
+**Prix :** 8 900€ + 219€/mois  
+**Délai :** 8-12 semaines  
+**Cible :** Réseau de cabinets, clinique, groupement
+
+**Inclus :** Architecture multi-sites + CRM patient, marketing automation + BI, pentest initial, DPO externe 3 mois + accompagnement stratégique
 
 ---
 
@@ -212,13 +233,13 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 
 ### Par Budget Disponible
 
-| Budget | Web | Mobile |
-|--------|-----|--------|
-| **< 2k€** | Starter (1.5k) | — |
-| **2-5k€** | Business (3.5k) | — |
-| **5-10k€** | Premium (6k) | MVP (6.9k) |
-| **10-20k€** | Pack IA | App Standard (12.9k) |
-| **20k€+** | Pack IA complexe | App Premium (15k+) |
+| Budget | Web | Automatisation / IA | Mobile |
+|--------|-----|----------------------|--------|
+| **< 1,5k€** | Starter (1.49k) | Starter Auto (999€) | — |
+| **1,5-4k€** | Business (3.99k) | Business Auto (2.99k) / Essentiel IA (1.5k) | — |
+| **4-8k€** | Premium (7.99k) | Full Automation (5.99k) / Business IA (3.99k) | MVP Mobile (8.9k) |
+| **8-16k€** | — | Premium IA (9.99k) | App Standard (dès 15.9k) |
+| **16k€+** | — | — | App Premium (sur devis) |
 
 ---
 
@@ -232,22 +253,22 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 #### PME / Commerces
 - **Web :** Business ⭐
 - **Mobile :** App Standard (si besoin)
-- **Optionnel :** Pack IA pour automation pipeline ventes
+- **Optionnel :** Pack Automatisation pour le pipeline ventes
 
 #### Agences Haut de Gamme
 - **Web :** Premium (+ Portfolio custom)
 - **Mobile :** App Standard ou Premium
-- **Optionnel :** Chatbot IA pour lead qualification
+- **Optionnel :** Pack Intégration IA pour la qualification de leads
 
 #### E-commerce / Marketplaces
 - **Web :** Premium
 - **Mobile :** App Standard minimum, Premium recommandé
-- **Optionnel :** Pack IA pour recommandations
+- **Optionnel :** Pack Intégration IA pour les recommandations
 
 #### Professionnels Santé
-- **Web :** Pack Santé (990€) — mai 2026
+- **Web :** Vitrine Santé (990€) à Premium Santé (8.9k€) selon taille du cabinet
 - **Mobile :** Non applicable généralement
-- **Optionnel :** Chatbot de prise de RDV
+- **Optionnel :** Chatbot de prise de RDV (Pack Intégration IA)
 
 ---
 
@@ -257,7 +278,7 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 **What :** Sites web modernes, applicatifs web, e-commerce
 
 **Tech Stack :**
-- Frontend : Next.js 14+, React, TypeScript
+- Frontend : Next.js 16, React, TypeScript
 - Styling : Tailwind CSS, animations (GSAP, Framer Motion)
 - Backend : Node.js, Supabase (PostgreSQL)
 - Paiement : Stripe
@@ -290,9 +311,9 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 - Backend API personnalisé
 
 **Timeline typique :**
-- MVP : 6-8 semaines
-- App Standard : 12-16 semaines
-- App Premium : 16-24+ semaines
+- MVP : 3-4 semaines
+- App Standard : 6-10 semaines
+- App Premium : 12+ semaines
 
 ---
 
@@ -339,7 +360,7 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 **Pack Recommandé :**
 - Web : Starter → Business (puis Premium si traction)
 - Mobile : MVP Mobile pour validation
-- Optional : Pack IA (chatbot lead qualification)
+- Optional : Pack Intégration IA (chatbot lead qualification)
 
 **Budget typique :** 8-12k€ an 1, +5k€/an après
 
@@ -351,7 +372,7 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 **Pack Recommandé :**
 - Web : Premium (panier, checkout, analytics)
 - Mobile : App Standard minimum (panier mobile important)
-- Optional : Pack IA (recommandations produits)
+- Optional : Pack Intégration IA (recommandations produits)
 
 **Budget typique :** 15-25k€ an 1
 
@@ -363,7 +384,7 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 **Pack Recommandé :**
 - Web : Business → Premium (Portfolio, blog, design premium)
 - Mobile : Non prioritaire
-- Optional : Pack IA (chatbot + automation workflow leads)
+- Optional : Pack Automatisation + Pack Intégration IA (chatbot + workflow leads)
 
 **Budget typique :** 5-10k€ + 100-500€/mois automation
 
@@ -373,9 +394,9 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 **Besoin :** Conformité RGPD/HDS, Doctolib, SEO local
 
 **Pack Recommandé :**
-- Web : Pack Santé (990€, mai 2026)
+- Web : Vitrine Santé (990€) à Premium Santé (8.9k€) selon taille
 - Puis : Forfait mensuel (29€+)
-- Optional : Chatbot prise RDV
+- Optional : Chatbot prise RDV (Pack Intégration IA)
 
 **Budget typique :** 990€ + 29€/mois
 
@@ -385,9 +406,9 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 **Besoin :** Réservation en ligne, listings
 
 **Pack Recommandé :**
-- Web : Business → Premium (réservation intégrée)
+- Web : Business → Premium (réservation intégrée) ou Packs Restaurant dédiés (990€-7.99k€)
 - Mobile : App Standard (recherche + réservation)
-- Optional : Pack IA (chatbot bilingue)
+- Optional : Pack Intégration IA (chatbot bilingue)
 
 **Budget typique :** 12-20k€ an 1
 
@@ -397,14 +418,14 @@ Chaque catégorie propose **3 niveaux de service** (MVP/Starter, Standard/Busine
 
 ### Q1 : Puis-je combiner un pack web et un pack mobile ?
 **R :** Oui ! La plupart des clients prennent un pack web + un pack mobile.  
-**Exemple :** Business Web (3.5k€) + App Standard (12.9k€) = 16.4k€  
+**Exemple :** Business Web (3.99k€) + App Standard (dès 15.9k€) = dès 19.89k€  
 **Remise possible :** 10-15% si combo (à négocier lors du devis)
 
 ---
 
 ### Q2 : Puis-je passer d'un pack à un autre après livraison ?
 **R :** Oui, facilement.  
-**Exemple :** Démarrer avec Starter (1.5k€), puis upgrader à Business (+2k€ supplémentaires) pour ajouter blog et analytics.
+**Exemple :** Démarrer avec Starter (1.49k€), puis upgrader à Business (+2.5k€ supplémentaires) pour ajouter blog et analytics.
 
 ---
 
@@ -454,7 +475,7 @@ Mais : droit à modifications/itérations pendant la durée du projet (Starter :
 ---
 
 ### Q10 : Travaillez-vous avec des clients internationaux ?
-**R :** Oui. Équipe basée à Paris, clients partout en France + Europe.  
+**R :** Oui. Équipe basée à Lille (Hauts-de-France), clients partout en France + Europe.  
 Prix légèrement différents si décalage horaire > 6h.
 
 ---
@@ -481,46 +502,54 @@ Prix légèrement différents si décalage horaire > 6h.
 - [ ] Dashboard client
 - [ ] Besoin support 24/7
 
-**Faut-il un Pack IA ?** ✅ Si :
-- [ ] Chatbot FAQ intelligent
-- [ ] Automation workflows (Make, n8n)
-- [ ] Analyse de données / ML
-- [ ] Lead scoring automatisé
+**Faut-il un Pack Automatisation ?** ✅ Si :
+- [ ] Tâches répétitives à automatiser (formulaire→CRM, relances, reporting)
+- [ ] Workflows n8n/Make/Zapier
+- [ ] Connexion d'outils métier (CRM, ERP, facturation)
+
+**Faut-il un Pack Intégration IA ?** ✅ Si :
+- [ ] Chatbot FAQ intelligent ou agent de qualification de leads
+- [ ] Génération de contenu IA
+- [ ] Besoin d'hébergement souverain France / conformité RGPD renforcée
 
 ---
 
 ### Checklist Développement Mobile
 
 **Faut-il un MVP Mobile ?** ✅ Si :
-- [ ] Budget 6-8k€
+- [ ] Budget dès 8.9k€
 - [ ] Validation rapide d'idée
 - [ ] Cross-platform acceptable
 - [ ] Pas de perfo graphique extrême
 
 **Faut-il une App Standard ?** ✅ Si :
-- [ ] Budget 12-15k€
+- [ ] Budget dès 15.9k€
 - [ ] Apps natives de qualité professionnelle
 - [ ] 10+ écrans
 - [ ] Backend custom important
 
 **Faut-il une App Premium ?** ✅ Si :
-- [ ] Budget 20k€+
+- [ ] Sur devis (projets avancés)
 - [ ] Millions d'utilisateurs potentiels
 - [ ] Features avancées (IA, temps réel)
-- [ ] SLA 99.9%
+- [ ] SLA 24/7
 
 ---
 
 ## 9. PRICING SUMMARY TABLE
 
-| Service | Starter | Standard | Premium | Custom |
-|---------|---------|----------|---------|--------|
-| **Web** | 1.5k€ | 3.5k€ | 6k€ | 8k-30k€ (IA) |
-| **Mobile** | N/A | 6.9k€ (MVP) | 12.9k€ | 15k-50k€+ |
-| **Délai Web** | 2-3 sem | 4-6 sem | 6-8 sem | Variable |
-| **Délai Mobile** | N/A | 6-8 sem (MVP) | 12-16 sem | 16-24+ sem |
-| **Support Post** | 1 mois | 3 mois | 3 mois | 3 mois |
-| **Hébergement An1** | Inclus | Inclus | Inclus | Inclus |
+| Service | Starter | Standard | Premium |
+|---------|---------|----------|---------|
+| **Web** | 1.49k€ | 3.99k€ | 7.99k€ |
+| **Automatisation** | 999€ +29€/mo | 2.99k€ +79€/mo | 5.99k€ +149€/mo |
+| **Intégration IA** | 1.5k€ +39€/mo | 3.99k€ +89€/mo | 9.99k€ +189€/mo |
+| **Mobile** | dès 8.9k€ (MVP) | dès 15.9k€ | Sur devis |
+| **Santé** | 990€ +29€/mo | 1.49k€ +49€/mo | 4.49k€/8.9k€ +129-219€/mo |
+| **Restaurant** | dès 990€ | 2.99k-3.99k€ | 4.99k-7.99k€ / sur devis |
+| **Délai Web** | 2-3 sem | 4-6 sem | 6-8 sem |
+| **Délai Mobile** | 3-4 sem (MVP) | 6-10 sem | 12+ sem |
+| **Support Post** | 1 mois | 3 mois | 3 mois |
+| **Hébergement An1** | Inclus | Inclus | Inclus |
 
 ---
 

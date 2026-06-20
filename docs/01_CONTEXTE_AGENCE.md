@@ -16,23 +16,34 @@ Jamais donneur de leçon · Jamais bullshit de consultant
 
 ## Offres principales
 
-### Services Web & Automation (2-8 semaines)
-- **Starter Web** (1 490€) : Site vitrine 3-5 pages, design personnalisé, formulaire contact, hébergement 1an
-- **Business Web** (3 990€) ⭐ Populaire : Admin panel, blog, analytics avancés, support prioritaire, formation
-- **Premium Web** (7 990€) : E-commerce complet, intégrations API, dashboard client, support 24/7
-- **Pack IA & Automation** (8k-30k€+) : Chatbots IA, workflows n8n/Make, analyse de données, ML
+### Services Web (2-8 semaines)
+- **Starter Web** (1 490€) : Site vitrine jusqu'à 8 pages, design personnalisé, formulaire contact, hébergement 1an
+- **Business Web** (3 990€) ⭐ Populaire : Site jusqu'à 20 pages, admin panel, blog, analytics avancés, support prioritaire, formation
+- **Premium Web** (7 990€) : Pages illimitées, e-commerce complet, intégrations API, dashboard client, support 24/7
 
-### Services Développement Mobile (6-24 semaines)
-- **MVP Mobile** (6 900€+) : Cross-platform React Native, 3-5 écrans, authentification, 1 intégration API
-- **App Standard** (12 900€+) ⭐ Populaire : Native iOS/Android, 10-15 écrans, backend custom, admin panel
-- **App Premium** (15k-50k€+) : Architecture scalable, IA/temps réel, sync offline, SLA 99.9%
+### Automatisation (1-10 semaines) — n8n/Make/Zapier
+- **Starter Auto** (999€ + 29€/mois) : 1 workflow
+- **Business Auto** (2 999€ + 79€/mois) ⭐ : 3-5 workflows + 1 agent IA
+- **Full Automation** (5 999€ + 149€/mois) : Workflows illimités + jusqu'à 3 agents IA
 
-### Offre Spéciale Santé (mai 2026)
-- **Pack Santé** (990€ au lieu de 1 500€) : Site vitrine RGPD/HDS, Doctolib, SEO local, livraison 7 jours
-- **Forfait mensuel** : 29€+ (hébergement + maintenance)
+### Intégration IA (1-12 semaines) — chatbots, agents RAG
+- **Essentiel IA** (1 499€ + 39€/mois) : Chatbot RAG, 1 document, 5 intentions
+- **Business IA** (3 999€ + 89€/mois) ⭐ : Agent IA BANT, CRM, 10 intentions
+- **Premium IA** (9 999€ + 189€/mois) : Multi-agents, fine-tuning, hébergement souverain France
+
+### Services Développement Mobile (3 semaines et +)
+- **MVP Mobile** (dès 8 900€) : Cross-platform React Native, 3-5 écrans, authentification, 1 intégration API
+- **App Standard** (dès 15 900€) ⭐ Populaire : Native ou Flutter iOS/Android, 10-15 écrans, backend custom, admin panel
+- **App Premium** (sur devis) : Architecture scalable, IA/temps réel, sync offline, SLA 24/7
+
+### Santé — 4 paliers (hébergement France, HDS sur les packs supérieurs)
+- **Vitrine Santé** (990€ + 29€/mois) : Site vitrine RGPD, Doctolib, SEO local, livraison 5-8 jours
+- **Vitrine Pro + Blog** (1 490€ + 49€/mois) ⭐ : Jusqu'à 10 pages + blog CMS autonome
+- **Pro Santé** (4 490€ + 129€/mois, HDS) : Réservation multi-praticiens, espace patient sécurisé
+- **Premium Santé** (8 900€ + 219€/mois, HDS + ISO 27001) : Multi-sites, CRM patient, BI
 
 ## Stack technologique
-- **Frontend** : Next.js 14+, React, TypeScript, Tailwind CSS
+- **Frontend** : Next.js 16, React, TypeScript, Tailwind CSS
 - **Backend** : Node.js, Supabase (PostgreSQL)
 - **Intégrations** : Stripe (paiement), Resend (email), Claude API, n8n, Make
 - **Mobile** : React Native (cross-platform), Native iOS (Swift), Android (Kotlin), Flutter
