@@ -3,6 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendBookingConfirmationEmail, sendBookingNotificationEmail } from '@/lib/email-service';
 import { rateLimitRequest, isValidEmail, isHoneypotFilled } from '@/lib/rate-limit';
+import { getServiceSupabase } from '@/lib/supabase-server';
 
 const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!;
 
@@ -151,26 +152,50 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Adresse email invalide' }, { status: 400 });
     }
 
-    // S'assurer que l'heure envoyée à Google est bien "HH:MM"
+    // S'assurer que l'heure stockée est bien "HH:MM"
     const normalizedTime = parseSheetTime(String(time));
 
-    // Sauvegarder dans Google Sheets
-    const googlePromise = fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action:   'book',
-        name,
-        email,
-        phone:    phone    ?? '',
-        service:  service  ?? '',
-        date,
-        time:     normalizedTime,
-        message:  message  ?? '',
-        language: language ?? 'fr',
-      }),
-      redirect: 'follow',
-    });
+    // ─────────────────────────────────────────────────────────
+    // Stockage de la réservation → Supabase (source de vérité).
+    // L'app mobile lit/gère les RDV depuis cette table en Realtime.
+    // ─────────────────────────────────────────────────────────
+    const supabase = getServiceSupabase();
+    const supabasePromise = supabase
+      ? supabase.from('bookings').insert({
+          name,
+          email,
+          phone:    phone   ?? null,
+          service:  service ?? null,
+          date,
+          time:     normalizedTime,
+          message:  message ?? null,
+          language: language ?? 'fr',
+          source:   'website',
+          status:   'pending',
+        })
+      : Promise.resolve({ error: null });
+
+    // ─────────────────────────────────────────────────────────
+    // FALLBACK Google Sheets — conservé en commentaire pour rollback.
+    // Réactiver ce bloc (et le rajouter au Promise.all ci-dessous) si
+    // l'on souhaite revenir à un stockage Sheets.
+    // ─────────────────────────────────────────────────────────
+    // const googlePromise = fetch(GOOGLE_SCRIPT_URL, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     action:   'book',
+    //     name,
+    //     email,
+    //     phone:    phone    ?? '',
+    //     service:  service  ?? '',
+    //     date,
+    //     time:     normalizedTime,
+    //     message:  message  ?? '',
+    //     language: language ?? 'fr',
+    //   }),
+    //   redirect: 'follow',
+    // });
 
     // Préparer les données pour les emails
     const bookingData = {
@@ -188,21 +213,16 @@ export async function POST(request: NextRequest) {
     const emailNotificationPromise = sendBookingNotificationEmail(bookingData);
     const emailConfirmationPromise = sendBookingConfirmationEmail(bookingData);
 
-    // Exécuter tout en parallèle
-    const [googleResponse, emailNotificationResult, emailConfirmationResult] = await Promise.all([
-      googlePromise,
+    // Exécuter tout en parallèle (stockage + emails)
+    const [supabaseResult, emailNotificationResult, emailConfirmationResult] = await Promise.all([
+      supabasePromise,
       emailNotificationPromise,
       emailConfirmationPromise,
     ]);
 
-    // Vérifier la réponse Google
-    if (!googleResponse.ok) {
-      console.warn(`Google Script warning: ${googleResponse.status}`);
-    } else {
-      const googleResult = await googleResponse.json();
-      if (googleResult.error) {
-        console.warn('Google Script warning:', googleResult.error);
-      }
+    // Vérifier l'enregistrement Supabase (non bloquant : les emails partent quand même)
+    if ((supabaseResult as { error?: unknown })?.error) {
+      console.warn('Supabase booking insert warning:', (supabaseResult as { error: unknown }).error);
     }
 
     // Log les résultats des emails (non bloquant)

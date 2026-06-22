@@ -1,0 +1,71 @@
+name: Génération contenu social (LinkedIn / Facebook)
+
+# Déclenché à chaque article MDX ajouté ou modifié sur main.
+# Détecte les fichiers .mdx changés via git diff, puis notifie le webhook n8n
+# (un POST par article). n8n se charge de parser le frontmatter, d'appeler
+# Gemini et de stocker le résultat dans Supabase (status = pending).
+#
+# Secrets requis (Repo > Settings > Secrets and variables > Actions) :
+#   N8N_WEBHOOK_URL     ex. https://n8n.tondomaine.com/webhook/social-content
+#   N8N_WEBHOOK_SECRET  chaîne partagée, renvoyée dans l'en-tête x-webhook-secret
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'content/blog/**/*.mdx'
+  # Permet de relancer manuellement sur un fichier précis depuis l'onglet Actions.
+  workflow_dispatch:
+    inputs:
+      files:
+        description: 'Chemins .mdx à (re)traiter, séparés par des espaces'
+        required: false
+        default: ''
+
+jobs:
+  notify-n8n:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (historique complet pour le diff)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Déterminer les .mdx ajoutés / modifiés
+        id: changed
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.files }}" ]; then
+            FILES="${{ github.event.inputs.files }}"
+          else
+            BEFORE="${{ github.event.before }}"
+            AFTER="${{ github.sha }}"
+            # Premier push / branche neuve : pas de commit "before" exploitable → on compare au parent.
+            if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+              BEFORE="${AFTER}^"
+            fi
+            FILES="$(git diff --name-only --diff-filter=AM "$BEFORE" "$AFTER" -- 'content/blog/**/*.mdx' || true)"
+          fi
+
+          # Normalise en liste séparée par des espaces sur une seule ligne.
+          FILES="$(printf '%s\n' "$FILES" | grep -E '\.mdx$' | tr '\n' ' ' | sed 's/  */ /g; s/^ //; s/ $//')"
+          echo "Fichiers détectés: ${FILES:-<aucun>}"
+          echo "files=$FILES" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node
+        if: steps.changed.outputs.files != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Notifier n8n
+        if: steps.changed.outputs.files != ''
+        env:
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
+          N8N_WEBHOOK_SECRET: ${{ secrets.N8N_WEBHOOK_SECRET }}
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: node .github/scripts/social-notify.mjs

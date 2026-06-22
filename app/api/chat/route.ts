@@ -1,4 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getServiceSupabase } from "@/lib/supabase-server";
+import { getClientIp } from "@/lib/rate-limit";
+
+// ============================================================
+// LOG HISTORIQUE CHATBOT → SUPABASE (best-effort, non bloquant)
+// Trace IP, question, réponse et intent pour analyse côté app mobile.
+// ============================================================
+type ChatIntent = "normal" | "booking" | "qualification";
+function logChat(entry: {
+  sessionId: string;
+  ip: string;
+  lang: string;
+  userMessage: string;
+  assistantResponse: string;
+  intent: ChatIntent;
+}): void {
+  const supabase = getServiceSupabase();
+  if (!supabase) return;
+  // fire-and-forget : ne jamais bloquer ni faire échouer la réponse au visiteur
+  void supabase
+    .from("chat_logs")
+    .insert({
+      session_id: entry.sessionId,
+      ip: entry.ip,
+      lang: entry.lang,
+      user_message: entry.userMessage,
+      assistant_response: entry.assistantResponse,
+      intent: entry.intent,
+    })
+    .then(({ error }) => {
+      if (error) console.warn("[chat_logs] insert warning:", error.message);
+    });
+}
 
 // ============================================================
 // CONFIGURATION
@@ -731,10 +764,14 @@ export async function POST(request: NextRequest) {
     const session = sessionData.get(sessionId);
     const remainingMessages = session ? MAX_MESSAGES_PER_SESSION - session.count : MAX_MESSAGES_PER_SESSION;
 
+    const clientIp = getClientIp(request);
+
     // 1️⃣ Détection booking → réponse statique immédiate (zéro appel API)
     if (isBookingRequest(message, lang)) {
+      const staticResponse = BOOKING_RESPONSES[lang as keyof typeof BOOKING_RESPONSES];
+      logChat({ sessionId, ip: clientIp, lang, userMessage: message, assistantResponse: staticResponse, intent: "booking" });
       return NextResponse.json({
-        response: BOOKING_RESPONSES[lang as keyof typeof BOOKING_RESPONSES],
+        response: staticResponse,
         remainingMessages,
         maxMessages: MAX_MESSAGES_PER_SESSION,
         showBookingDates: true,
@@ -744,8 +781,10 @@ export async function POST(request: NextRequest) {
     // 2️⃣ Détection demande de conseil → lancer la qualification (zéro appel API)
     // Seulement si peu d'historique (début de conversation)
     if (isQualificationTrigger(message, lang) && history.length <= 2) {
+      const staticResponse = QUALIFICATION_START[lang as keyof typeof QUALIFICATION_START];
+      logChat({ sessionId, ip: clientIp, lang, userMessage: message, assistantResponse: staticResponse, intent: "qualification" });
       return NextResponse.json({
-        response: QUALIFICATION_START[lang as keyof typeof QUALIFICATION_START],
+        response: staticResponse,
         remainingMessages,
         maxMessages: MAX_MESSAGES_PER_SESSION,
         isQualification: true,
@@ -832,6 +871,8 @@ export async function POST(request: NextRequest) {
     const showBookingHint = bookingHintPatterns.some(p =>
       responseContent.toLowerCase().includes(p)
     );
+
+    logChat({ sessionId, ip: clientIp, lang, userMessage: message, assistantResponse: responseContent, intent: "normal" });
 
     return NextResponse.json({
       response: responseContent,
