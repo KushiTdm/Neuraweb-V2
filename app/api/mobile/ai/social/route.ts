@@ -34,6 +34,11 @@ Réponds en français, au format EXACT :
 - <conseil 2>
 ...
 
+IMPORTANT : le texte sous "### Version optimisée" doit être du TEXTE BRUT prêt à copier-coller
+directement sur la plateforme. N'utilise AUCUN markdown dans cette partie (pas de **gras**, pas de
+#titres, pas de listes à tirets) — seulement des emojis et des sauts de ligne naturels au format de
+la plateforme cible. Le markdown est autorisé uniquement dans la partie "### Conseils".
+
 ━━━ MARQUE ━━━
 ${NEURAWEB_BRAND}
 
