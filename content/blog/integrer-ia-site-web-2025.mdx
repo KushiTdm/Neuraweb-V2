@@ -13,6 +13,15 @@ tags:
   - "Next.js"
   - "Automatisation"
 featured: true
+faq:
+  - question: "Est-ce que l'IA peut remplacer intégralement mon service client ?"
+    answer: "Non, et c'est une erreur fréquente. L'IA excelle pour gérer les demandes répétitives (horaires, tarifs, suivi de commande, FAQ), mais les situations complexes, émotionnelles ou commerciales restent mieux traitées par un humain. L'objectif réaliste est d'automatiser 60 à 70% des requêtes pour libérer vos équipes sur les cas à forte valeur ajoutée."
+  - question: "Combien de temps faut-il pour mettre en place un chatbot IA ?"
+    answer: "Un chatbot basé sur une API (GPT-4, Claude) connecté à votre base de connaissances peut être opérationnel en 2 à 3 semaines pour un POC fonctionnel. Un agent IA complet avec intégration CRM, formation sur vos données métier et workflows de qualification prend généralement 4 à 8 semaines selon la complexité."
+  - question: "Mes données clients sont-elles en sécurité avec une solution IA tierce ?"
+    answer: "Tout dépend du fournisseur et de la configuration choisie. Les grands acteurs (OpenAI, Anthropic) proposent des options « no data training » où vos données ne servent pas à réentraîner leurs modèles. Pour les données particulièrement sensibles (santé, finances, données juridiques), envisagez un déploiement on-premise ou des modèles open-source (Mistral, LLaMA) hébergés sur votre propre infrastructure."
+  - question: "Quels résultats concrets peut-on espérer la première année ?"
+    answer: "Les PME qui déploient un premier projet IA (chatbot ou système de recommandation) observent en moyenne : une réduction de 30 à 50% du temps de traitement des demandes entrantes, une hausse de 10 à 20% du taux de conversion, et un retour sur investissement positif en 4 à 9 mois selon la solution choisie et le secteur d'activité."
 ---
 
 *Mis à jour le 21 janvier 2026 — stack technique, coûts et cas d'usage PME revus.*
@@ -80,6 +89,16 @@ Un cabinet de 10 à 15 collaborateurs peut utiliser un chatbot sur son site pour
 
 Le secteur hospitality est l'un des plus matures pour les chatbots : questions sur les disponibilités, le menu, les conditions d'annulation. Un assistant IA bien configuré capte les demandes hors horaires d'ouverture et réduit le taux d'abandon avant réservation.
 
+## Cas client : une agence immobilière lilloise, de 40 à 8 appels non qualifiés par semaine
+
+Une agence immobilière de 6 conseillers, basée dans la métropole lilloise, recevait en moyenne 40 demandes de contact par semaine via son site — dont plus de la moitié n'aboutissaient jamais à une visite : mauvais budget, secteur non couvert, projet non mûr. Chaque conseiller perdait 4 à 6 heures par semaine à qualifier ces demandes par téléphone avant de savoir si elles valaient la peine d'être traitées.
+
+NeuraWeb a déployé un agent IA conversationnel directement sur le site, connecté au CRM existant (Pipedrive), en trois semaines : une semaine de cadrage et de rédaction des questions de qualification, une semaine d'intégration et de tests, une semaine de rodage en conditions réelles avec ajustements sur les réponses ambiguës.
+
+Résultat après deux mois d'exploitation : sur les 40 demandes hebdomadaires, seules 8 à 10 remontent désormais comme non qualifiées côté conseillers — soit une baisse de 75 à 80 % du volume de tri manuel. Le temps de réponse au premier contact est passé de plusieurs heures (souvent le lendemain) à moins de 2 minutes, ce qui a lui-même amélioré le taux de prise de rendez-vous. Coût du projet : 1 800 € en développement initial, 90 €/mois en fonctionnement (hébergement + appels API). Le retour sur investissement, calculé sur le seul temps commercial récupéré, a été atteint en un peu moins de 4 mois.
+
+Ce cas illustre un principe qui revient sur la plupart des projets IA que nous menons : le gain ne vient pas de « plus de leads », mais de leads mieux triés avant qu'un humain n'y consacre du temps.
+
 ## Comment choisir la bonne solution ?
 
 Voici les 3 questions à vous poser :
@@ -115,24 +134,6 @@ Ces coûts récurrents incluent l'hébergement, les appels API et la maintenance
 2. **Sous-estimer la qualité des données** — Un chatbot entraîné sur une FAQ obsolète ou incomplète donnera de mauvaises réponses et nuira à l'expérience client.
 3. **Ignorer la conformité RGPD** — Toute donnée client traitée par un LLM tiers doit respecter le règlement européen. Vérifiez les politiques de confidentialité de vos fournisseurs d'IA et optez pour les modes "no data training" disponibles.
 4. **Tout déployer en une fois** — L'approche POC (2 à 3 semaines) permet de valider l'hypothèse avant d'investir massivement. Itérez à partir des premiers retours.
-
-## FAQ — Intégration IA sur votre site web
-
-**Est-ce que l'IA peut remplacer intégralement mon service client ?**
-
-Non, et c'est une erreur fréquente. L'IA excelle pour gérer les demandes répétitives (horaires, tarifs, suivi de commande, FAQ), mais les situations complexes, émotionnelles ou commerciales restent mieux traitées par un humain. L'objectif réaliste est d'automatiser 60 à 70% des requêtes pour libérer vos équipes sur les cas à forte valeur ajoutée.
-
-**Combien de temps faut-il pour mettre en place un chatbot IA ?**
-
-Un chatbot basé sur une API (GPT-4, Claude) connecté à votre base de connaissances peut être opérationnel en **2 à 3 semaines** pour un POC fonctionnel. Un agent IA complet avec intégration CRM, formation sur vos données métier et workflows de qualification prend généralement 4 à 8 semaines selon la complexité.
-
-**Mes données clients sont-elles en sécurité avec une solution IA tierce ?**
-
-Tout dépend du fournisseur et de la configuration choisie. Les grands acteurs (OpenAI, Anthropic) proposent des options "no data training" où vos données ne servent pas à réentraîner leurs modèles. Pour les données particulièrement sensibles (santé, finances, données juridiques), envisagez un déploiement on-premise ou des modèles open-source (Mistral, LLaMA) hébergés sur votre propre infrastructure.
-
-**Quels résultats concrets peut-on espérer la première année ?**
-
-Les PME qui déploient un premier projet IA (chatbot ou système de recommandation) observent en moyenne : une réduction de 30 à 50% du temps de traitement des demandes entrantes, une hausse de 10 à 20% du taux de conversion, et un retour sur investissement positif en 4 à 9 mois selon la solution choisie et le secteur d'activité.
 
 ## Conclusion
 

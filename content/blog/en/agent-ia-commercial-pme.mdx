@@ -138,6 +138,12 @@ Prospects always ask the same questions: price, timelines, ROI, comparison with 
 - 67% of pre-sale requests handled without human intervention
 - +20 NPS points before the first meeting (measured)
 
+### A Note on GDPR and Data Handling
+
+Sending lead emails and CRM notes to a third-party LLM API raises a legitimate question for French and EU SMBs: is this GDPR-compliant? In practice, yes, provided a few safeguards are in place. Anthropic offers a data processing addendum covering standard contractual clauses for EU customers, and API usage is not used to train models by default. On the n8n side, self-hosting the orchestration layer keeps workflow logs and stored credentials inside your own infrastructure rather than a third-party cloud.
+
+The practical checklist before going live: sign the data processing addendum with your LLM provider, document the processing in your data register, mask or exclude highly sensitive fields such as payment details or health data from prompts, and set a retention window on stored lead transcripts, with 12 months a common default. None of this requires a data protection officer or a six-figure compliance budget — a half-day review with whoever already manages your CRM's data policy is usually enough.
+
 ---
 
 ## How to deploy your first AI agent (4 steps)
@@ -201,3 +207,5 @@ Concrete result: your salespeople stop spending 3 hours a day qualifying lukewar
 - [Agentic AI: what your competitors are already doing](/en/blog/ia-agents-remplacent-equipes-2026) — go further with multi-task AI agents
 - [Our Automation service](/fr/automatisation) — n8n/Make packs with monthly monitoring included
 - [Our AI Integration service](/fr/integration-ia) — custom AI agents for your CRM and sales processes
+
+> 🤖 **Ready to deploy your first AI sales agent?** NeuraWeb sets up your n8n + LLM stack in 2 to 3 weeks: lead qualification, automatic follow-ups, CRM reporting. [See our Automation service →](/fr/automatisation) or [Book a call →](/fr/booking)

@@ -14,11 +14,24 @@ tags:
   - "Zapier"
   - "No-Code"
 featured: true
+faq:
+  - question: "¿Cuánto cuesta n8n para una pyme?"
+    answer: "En self-hosted sobre un VPS (OVH, Scaleway), cuenta entre 5 y 12 €/mes todo incluido para un volumen de unos cientos de ejecuciones mensuales. En la versión cloud gestionada, los planes de n8n empiezan en torno a 20 €/mes. En comparación, Zapier empieza en 29 $/mes y Make en 12 $/mes, pero facturan por acción y no por ejecución completa, lo que suele salir más caro en workflows con varios pasos."
+  - question: "¿Cuánto tiempo se tarda en crear el primer workflow en n8n?"
+    answer: "Un primer workflow sencillo de 2-3 nodos (por ejemplo: recibir un formulario y enviarlo por email) se puede montar en 1 a 3 horas para alguien que descubre la herramienta. Un encadenado más complejo con ramas condicionales y gestión de errores requiere más bien media jornada. Un proyecto completo confiado a NeuraWeb (workflow de negocio + pruebas + formación) se entrega normalmente en 3 a 5 días laborables."
+  - question: "¿Hay que saber programar para usar n8n?"
+    answer: "No, no para lo esencial: n8n funciona arrastrando y soltando nodos visuales y cubre la gran mayoría de los casos de uso sin una sola línea de código. Existe un nodo \"Function\" en JavaScript para transformaciones de datos avanzadas, pero es opcional. La habilidad que más importa es conocer bien tu propio proceso de negocio antes de modelizarlo."
+  - question: "n8n, Zapier o Make: ¿cuál elegir?"
+    answer: "Zapier es el más fácil de empezar a usar y ofrece el mayor número de conectores listos para usar (más de 7.000): ideal para automatizaciones sencillas con SaaS populares. Make ofrece un buen equilibrio visual y un coste por operación competitivo. n8n toma ventaja en cuanto crece el volumen (facturación por ejecución, no por acción), para workflows complejos de varios pasos, o cuando los datos deben quedarse alojados en tu propia infraestructura por motivos de cumplimiento."
+  - question: "¿Es n8n compatible con el RGPD?"
+    answer: "En self-hosted, sí por diseño: los datos transitan y se almacenan en tus propios servidores (por ejemplo con un proveedor europeo como OVH o Scaleway), lo que simplifica el cumplimiento del RGPD frente a un SaaS estadounidense. En la versión cloud gestionada por n8n, hay que comprobar la ubicación de los servidores y firmar un DPA (Data Processing Agreement), como con cualquier subcontratista que trate datos personales."
+  - question: "¿Se puede migrar fácilmente de Zapier a n8n?"
+    answer: "No existe una importación automática de un clic, pero en la práctica la migración es rápida: la lógica de tus \"Zaps\" (trigger + acciones) se traduce casi 1:1 en nodos de n8n. Para una decena de workflows estándar de Zapier, una migración acompañada suele tardar de 2 a 4 días, incluyendo las pruebas de no regresión de cada automatización."
 ---
 
 *Actualizado el 14 de enero de 2026 — precios e integraciones verificados.*
 
-n8n es una herramienta de automatización de workflows open-source que permite conectar tus aplicaciones y servicios sin escribir código. Alternativa a Zapier y Make, ofrece más flexibilidad y un costo controlado.
+n8n es una herramienta de automatización de workflows open-source que permite conectar tus aplicaciones y servicios sin escribir código. Cuesta desde 0 € (self-hosted) hasta unos 50 €/mes en la nube según el volumen, frente a los 29-99 $/mes de Zapier o Make. Alternativa directa a Zapier y Make, ofrece más flexibilidad, una facturación por ejecución completa en lugar de por acción, y la posibilidad de alojarla en tus propios servidores para cumplir con el RGPD.
 
 > **À retenir — Key Takeaways**
 >
@@ -41,12 +54,30 @@ n8n es una herramienta de automatización de workflows open-source que permite c
 | Datos | En tu servidor | En Zapier |
 | Complejidad | Curva media | Fácil |
 
+Más allá del precio anunciado, la diferencia real está en el **modelo de facturación**: Zapier y Make cuentan cada acción ejecutada (un email enviado, una fila añadida en una hoja de cálculo), mientras que n8n en self-hosted no factura nada, y en cloud factura por **ejecución completa del workflow**, sin importar cuántos pasos contenga. Para un workflow de 15 pasos ejecutado 500 veces al mes, Zapier puede facturar hasta 7.500 acciones mientras que n8n solo cuenta 500 ejecuciones. Esto explica la brecha de coste que se agranda con el volumen.
+
 ### Los casos de uso perfectos para n8n
 
 1. **Sincronización CRM** → Añadir automáticamente los leads en tu CRM
 2. **Notificaciones Slack** → Ser alertado en tiempo real de eventos importantes
 3. **Reporting automatizado** → Generar y enviar informes por email
 4. **Tratamiento de formularios** → Dirigir y procesar los envíos automáticamente
+
+Estos casos de uso tienen algo en común: combinan varios servicios (CRM, mensajería, hojas de cálculo, emailing) que no tienen integración nativa entre sí. Ese es exactamente el terreno de juego de n8n, cuyo nodo HTTP genérico permite conectar con cualquier API — incluso herramientas de negocio propietarias o ERP internos que Zapier no incluye en su catálogo.
+
+## ¿Cuánto cuesta realmente n8n?
+
+El precio anunciado ("gratis en self-hosted") esconde una realidad algo más matizada: el autoalojamiento tiene un coste de infraestructura, aunque siga siendo muy inferior a las suscripciones SaaS equivalentes.
+
+| Plan | Coste mensual | Qué incluye | Límite |
+|---|---|---|---|
+| Self-hosted (VPS OVH/Scaleway) | 5 a 12 € | Ejecuciones ilimitadas, datos en tu servidor | Mantenimiento del servidor a tu cargo |
+| n8n Cloud Starter | ~20 € | 2.500 ejecuciones/mes, hosting gestionado | Soporte limitado |
+| n8n Cloud Pro | ~50 € | 10.000 ejecuciones/mes, soporte prioritario | — |
+| Zapier Professional | ~69 $ | 2.000 tareas/mes (= acciones, no ejecuciones) | Facturación por acción |
+| Make Core | ~12 $ | 10.000 operaciones/mes | Operaciones = pasos, no workflows |
+
+Para una pyme que hace funcionar de 5 a 10 workflows con unos cientos de ejecuciones al mes, el self-hosted suele salir por menos de 10 €/mes todo incluido (VPS + dominio), frente a los 30-80 €/mes de un plan de pago equivalente en Zapier. En un año, la diferencia supera fácilmente los 500-800 € — suficiente para financiar de sobra la puesta en marcha inicial.
 
 ## Primeros pasos con n8n
 
@@ -63,12 +94,17 @@ npm install n8n -g
 n8n start
 ```
 
+Una vez lanzada la interfaz en `localhost:5678`, el primer paso consiste en crear tus **credentials**: las credenciales de conexión (clave API, OAuth2, token) para cada servicio que vas a automatizar. n8n las guarda cifradas y las reutiliza en todos tus workflows — solo las introduces una vez por servicio.
+
 ### Crear tu primer workflow
 
-1. Añadir un **Trigger** (ej: Webhook, Schedule, Manual)
-2. Conectar **Nodes** (servicios a integrar)
-3. Configurar los **mappings** entre los nodes
-4. Activar el workflow
+1. Añadir un **Trigger** (ej: Webhook, Schedule, Manual) — el evento que arranca el workflow
+2. Conectar **Nodes** (servicios a integrar) — cada nodo representa una acción o una transformación de datos
+3. Configurar los **mappings** entre los nodes — hacer corresponder los campos de salida de un nodo con los campos de entrada del siguiente
+4. Probar en la pestaña **Executions** antes de activar, para comprobar que los datos circulan como se espera
+5. Activar el workflow — n8n pasa entonces a escucha permanente sobre el trigger elegido
+
+Cuenta **1 a 3 horas** para un primer workflow sencillo (2-3 nodes), y media jornada para un encadenado más complejo con ramas condicionales y gestión de errores.
 
 ## Ejemplo concreto: Lead → CRM + Email + Slack
 
@@ -82,12 +118,43 @@ Webhook (recepción lead)
 
 Este workflow simple te hace ganar **2h por semana** en el tratamiento manual de leads.
 
-## Buenas prácticas
+## Caso cliente: una consultora de selección de personal en Lille
 
-- ✅ **Prueba antes de activar**: Usa el modo test de n8n
-- ✅ **Gestiona los errores**: Añade ramas de fallback
-- ✅ **Documenta**: Nota el objetivo de cada workflow
-- ✅ **Supervisa**: Configura alertas en caso de fallo
+Una consultora de selección de personal de tamaño intermedio (12 empleados, con sede en Lille) nos contactó en febrero de 2026: cada candidatura recibida por email tenía que copiarse manualmente en su ATS (Applicant Tracking System), se enviaba a mano un email de confirmación y luego se notificaba al consultor correspondiente por Teams. Este tratamiento tardaba unos **20 minutos por candidatura**, para un volumen de **35 candidaturas por semana** — casi **12 horas de introducción manual de datos cada semana**.
+
+Pusimos en marcha un workflow n8n self-hosted (VPS Scaleway a 9 €/mes) que:
+
+- capta los emails entrantes vía un nodo IMAP,
+- extrae el CV y los datos de contacto con un nodo de extracción de texto,
+- crea automáticamente la ficha del candidato en el ATS a través de su API,
+- envía el email de confirmación personalizado,
+- notifica al consultor adecuado en Teams según el puesto (reglas de enrutamiento condicional).
+
+**Coste del proyecto**: 1.190 € (configuración + pruebas + formación de media jornada), entregado en **4 días laborables**. **Resultado**: el tratamiento de una candidatura pasó de 20 minutos a menos de 2 minutos de verificación humana, es decir **más de 10 horas ahorradas cada semana** — el equivalente a un cuarto de tiempo completo redirigido a las entrevistas en lugar de a la introducción de datos. El proyecto se amortizó en **6 semanas**.
+
+## Plantillas de workflows n8n listas para usar
+
+No hace falta partir de una página en blanco: aquí tienes cinco plantillas de workflows que desplegamos con más frecuencia en nuestros clientes pyme.
+
+1. **Facturación automática**: un pago en Stripe desencadena la generación de una factura en PDF, su envío por email y su registro en la herramienta de contabilidad (Pennylane, QuickBooks).
+2. **Vigilancia de la competencia**: un scraping programado (cada 6 horas) de las páginas de precios de tus competidores, con alerta en Slack si se detecta un cambio.
+3. **Onboarding de clientes automatizado**: al firmar un contrato (vía firma electrónica), creación de la ficha del cliente en el CRM, envío de un email de bienvenida y creación automática del proyecto en la herramienta de gestión (Notion, ClickUp).
+4. **Seguimiento de presupuestos**: si un presupuesto enviado por tu herramienta de facturación se queda sin respuesta tras 5 días, se envía un recordatorio automático al cliente potencial, con notificación al comercial.
+5. **Sincronización e-commerce**: cada nuevo pedido en Shopify o WooCommerce actualiza el stock, crea el apunte contable y genera la etiqueta de envío.
+
+Estas cinco plantillas cubren lo esencial de las necesidades de automatización de una pyme de menos de 50 empleados, y suelen desplegarse en **1 a 3 días** cada una.
+
+## Monitorización y gestión de errores: evita las trampas
+
+Un workflow que funciona sin supervisión siempre acaba fallando en silencio — una API de terceros cambia el formato de su respuesta, un token caduca, un servicio queda temporalmente indisponible. Cinco hábitos limitan los daños:
+
+- ✅ **Prueba antes de activar**: usa el modo test de n8n y la pestaña Executions para repetir un caso real antes de pasar a producción.
+- ✅ **Gestiona los errores**: añade ramas de fallback (nodo "Error Trigger") que intercepten el fallo en lugar de dejar que el workflow se detenga sin avisar.
+- ✅ **Documenta**: anota el objetivo de cada workflow directamente en las notas de n8n (icono de nota en el canvas) — útil cuando un compañero retoma el trabajo seis meses después.
+- ✅ **Supervisa activamente**: configura una alerta en Slack o email sobre el nodo "Error Trigger" para ser notificado en tiempo real en caso de fallo, en lugar de descubrirlo después.
+- ✅ **Prevé reintentos**: en las llamadas a API externas, configura 2-3 intentos automáticos con un retraso creciente antes de abandonar — esto absorbe la mayoría de las indisponibilidades temporales.
+
+En la práctica, un workflow correctamente supervisado señala un problema en los minutos siguientes, frente a varios días en un proceso manual donde el error solo se detecta si alguien se da cuenta.
 
 ## Conclusión
 

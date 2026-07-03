@@ -33,7 +33,7 @@ Le code (`app/[lang]/blog/[slug]/page.tsx`) s'occupe **automatiquement** de :
 title: "Titre de l'article (≤ 65 caractères)"
 excerpt: "Résumé de 140-160 caractères qui sera utilisé comme description SEO et dans les listings."
 date: "2026-04-26"
-category: "IA"               # IA | Web | Automatisation | Mobile | Stratégie
+category: "IA"               # IA | Web | Automatisation | Mobile | Stratégie | SEO | Marketing Digital
 author: "NeuraWeb"
 image: "/assets/blog/<slug>.webp"   # 1200x630px, format webp
 tags:
@@ -57,8 +57,11 @@ faq:
 | `excerpt` | 140-160 caractères, doit pouvoir tenir seul comme meta description |
 | `date` | Format `YYYY-MM-DD`, pas dans le futur sauf publication programmée |
 | `image` | Toujours en `.webp`, dimensions 1200×630, dans `/public/assets/blog/` |
+| `category` | Une des 7 valeurs canoniques ci-dessus, **traduite dans chaque langue** (ex. `Automatisation` / `Automation` / `Automatización`) — le champ est affiché tel quel comme badge sur le site et alimente le filtre par catégorie, donc les variantes ("Développement Web" vs "Web", "Intelligence Artificielle" vs "IA") fragmentent silencieusement ce filtre. Toujours réutiliser exactement le même libellé pour la même langue. |
 | `tags` | 4 à 6 maximum, en majuscule de phrase, traduits dans chaque langue |
 | `faq` | **Optionnel mais fortement recommandé** — 4 à 6 Q/R, génère le schéma FAQPage automatiquement |
+
+> **Note (juillet 2026)** : Google a **supprimé les FAQ rich results** de ses résultats (dépréciation mai 2026, doc retirée le 15 juin 2026). Le bloc `faq:` reste **obligatoire dans notre pipeline** : le schéma FAQPage est toujours lu par Bing, Perplexity et les crawlers RAG, et les pages avec FAQ schema restent ~3× plus présentes dans les AI Overviews. On n'attend simplement plus de rich result FAQ côté Google.
 
 ---
 
@@ -151,7 +154,13 @@ Le parser ([components/blog-post-client.tsx](../components/blog-post-client.tsx)
 
 **La section FAQ visible apparaîtra automatiquement sous l'article** à partir du `faq:` du frontmatter. Tu n'as pas à l'écrire dans le markdown.
 
-**Longueur cible** : 1500-2500 mots pour un article SEO solide. Le `readTime` est calculé automatiquement (200 mots/min).
+**Longueur cible (mise à jour juillet 2026)** : **1 500-2 000 mots denses**. Les études 2026 montrent que les pages citées par les moteurs IA font en moyenne ~1 280 mots (corrélation longueur/citation ≈ 0, et 53 % des citations vont à des pages < 1 000 mots), tandis que la SERP classique reste à 1 500-2 500. Le padding est détecté par les évaluateurs Gemini des core updates 2026 — densité > volume. Le `readTime` est calculé automatiquement (200 mots/min).
+
+**Règles GEO complémentaires (juillet 2026)** :
+- **Réponse directe en tête** : 2 à 4 phrases qui répondent à la question principale de l'article, placées dans l'intro (pyramide inversée) — c'est le format le plus extrait par les answer engines.
+- **H2 sous forme de questions** quand c'est naturel (« Combien coûte… ? », « Comment faire… ? »).
+- **2-3 statistiques datées et sourcées minimum** (lien vers la source primaire : Gartner, MIT, etc.) + au moins un tableau ou une liste — premiers facteurs de citation IA mesurés.
+- **Signal Experience (E-E-A-T)** : un cas client réel avec des chiffres propres à NeuraWeb (« Information Gain ») vaut plus que des généralités — les core updates 2026 sur-pondèrent ce signal, y compris pour les agences.
 
 ---
 
@@ -194,13 +203,23 @@ Le parser regroupe automatiquement toutes les lignes `>` consécutives dans **un
 2. Traduire vers EN → project/content/blog/en/<slug>.mdx (slug identique)
 3. Traduire vers ES → project/content/blog/es/<slug>.mdx (slug identique)
 4. Ajouter l'image dans /public/assets/blog/<slug>.webp (1200×630)
-5. Ajouter les 3 URLs dans project/app/sitemap.ts
-6. Ajouter les 3 URLs dans project/scripts/indexing.js
-7. npm run typecheck && npm run build  → vérifier qu'il n'y a pas d'erreur
-8. git commit + push → déploiement Vercel
+5. (Optionnel) Ajouter l'article dans "Key Articles" de public/llms.txt
+6. npm run typecheck && npm run build  → vérifier qu'il n'y a pas d'erreur
+7. git commit + push → déploiement Vercel
+8. npm run indexnow → notifie Bing/IndexNow (levier n°1 : ChatGPT Search
+   et Copilot puisent dans l'index Bing)
 9. Dans Google Search Console : "Demander une indexation" pour les 3 URLs
-10. (Optionnel) npm run indexing → notifie l'API Indexing de Google
 ```
+
+> **Sitemap et indexation (corrigé juillet 2026)** : les URLs du blog sont dérivées
+> **automatiquement** des fichiers sur disque — `app/sitemap.ts` appelle
+> `getAllPostSlugsAllLanguages()` et `scripts/indexing.js` lit le sitemap déployé.
+> **Aucun ajout manuel d'URL n'est nécessaire pour un article de blog** (contrairement
+> aux pages `app/[lang]/...`, qui, elles, doivent être ajoutées à la main dans le sitemap).
+>
+> **`npm run indexing` (Google Indexing API) : à éviter pour les articles.** L'API reste
+> officiellement réservée à JobPosting/BroadcastEvent et Google applique depuis mai 2025
+> une détection anti-spam avec révocation possible. Utiliser IndexNow + demande manuelle GSC.
 
 ---
 
@@ -212,7 +231,7 @@ Le parser regroupe automatiquement toutes les lignes `>` consécutives dans **un
 - [ ] **Aucun bloc `<script>`** dans les MDX
 - [ ] **Aucune section `## FAQ` écrite à la main** (générée automatiquement depuis `faq:`)
 - [ ] Image `.webp` 1200×630 ajoutée dans `/public/assets/blog/`
-- [ ] URLs ajoutées dans `app/sitemap.ts` et `scripts/indexing.js`
+- [ ] (Rien à faire pour le sitemap : les articles y sont ajoutés automatiquement)
 - [ ] `npm run typecheck` passe sans erreur
 - [ ] `npm run build` passe sans erreur
 - [ ] L'article s'affiche correctement en local sur `/fr/blog/<slug>`, `/en/blog/<slug>`, `/es/blog/<slug>`
@@ -225,8 +244,12 @@ Le parser regroupe automatiquement toutes les lignes `>` consécutives dans **un
    - Coller `https://neuraweb.tech/fr/blog/<slug>`
    - Vérifier : 1 schéma `Article` + 1 schéma `FAQPage` (si frontmatter `faq:`) → **pas plus, pas moins**
    - Aucune erreur, aucun avertissement
+   - Note (juillet 2026) : Google n'affiche plus de rich result FAQ — le schéma FAQPage
+     peut ne plus apparaître comme "élément éligible" dans le test. C'est normal ;
+     il reste utile pour Bing/Perplexity/AI Overviews.
 2. **GSC → Inspection de l'URL** : "Demander une indexation"
-3. **Attendre 24-48h** puis vérifier que l'URL apparaît dans GSC > Pages > Indexées
+3. **Bing Webmaster Tools** : vérifier que les 3 URLs sont découvertes (IndexNow doit les avoir soumises via `npm run indexnow`)
+4. **Attendre 24-48h** puis vérifier que l'URL apparaît dans GSC > Pages > Indexées
 
 ---
 

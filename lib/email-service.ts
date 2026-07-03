@@ -229,6 +229,35 @@ function getBaseStyles(): string {
       white-space: pre-wrap;
     }
     
+    /* CTA Button */
+    .cta-wrapper {
+      text-align: center;
+      margin: 28px 0;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: ${GRADIENT_BRAND};
+      color: ${COLORS.white} !important;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 10px;
+    }
+
+    /* Unsubscribe note (newsletter) */
+    .unsubscribe-note {
+      font-size: 12px;
+      color: #4b5563;
+      margin: 0 0 8px 0;
+    }
+
+    .unsubscribe-note a {
+      color: #4b5563;
+      text-decoration: underline;
+    }
+
     /* Divider */
     .divider {
       height: 1px;
@@ -1233,6 +1262,201 @@ export async function sendBookingNotificationEmail(data: BookingEmailData) {
     return { success: true, id: result.data?.id };
   } catch (error: any) {
     console.error('Error sending booking notification email via Resend:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// NEWSLETTER
+// ─────────────────────────────────────────────────────────────
+
+interface NewsletterWelcomeData {
+  email: string;
+  language?: string;
+  unsubscribeUrl: string;
+}
+
+interface NewsletterArticleData {
+  email: string;
+  language?: string;
+  unsubscribeUrl: string;
+  article: {
+    title: string;
+    excerpt: string;
+    url: string;
+    image?: string;
+  };
+}
+
+function unsubscribeNoteHTML(language: string, unsubscribeUrl: string): string {
+  const text = language === 'en'
+    ? 'You are receiving this email because you subscribed to the NeuraWeb newsletter.'
+    : language === 'es'
+    ? 'Recibes este email porque te suscribiste al boletín de NeuraWeb.'
+    : 'Vous recevez cet email car vous êtes inscrit à la newsletter NeuraWeb.';
+  const unsubscribeLabel = language === 'en' ? 'Unsubscribe' : language === 'es' ? 'Darse de baja' : 'Se désinscrire';
+  return `
+    <p class="unsubscribe-note">${text}<br><a href="${unsubscribeUrl}">${unsubscribeLabel}</a></p>
+  `;
+}
+
+/**
+ * Email de bienvenue envoyé immédiatement après l'inscription à la newsletter
+ * (opt-in simple). Contient le lien de désinscription dès le premier email.
+ */
+export async function sendNewsletterWelcomeEmail(data: NewsletterWelcomeData) {
+  if (!resend) {
+    console.warn('Resend API key not configured, skipping email');
+    return { success: false, error: 'Resend API key not configured' };
+  }
+
+  const { email, language = 'fr', unsubscribeUrl } = data;
+
+  const emailSubject = language === 'en'
+    ? '✨ Welcome to the NeuraWeb newsletter'
+    : language === 'es'
+    ? '✨ Bienvenido al boletín de NeuraWeb'
+    : '✨ Bienvenue dans la newsletter NeuraWeb';
+
+  const titleText = language === 'en'
+    ? 'Welcome aboard!'
+    : language === 'es'
+    ? '¡Bienvenido a bordo!'
+    : 'Bienvenue à bord !';
+
+  const bodyText = language === 'en'
+    ? 'Thanks for subscribing. You\'ll now receive our tech trends, AI tips and a heads-up whenever we publish a new article on the blog.'
+    : language === 'es'
+    ? 'Gracias por suscribirte. A partir de ahora recibirás nuestras tendencias tech, consejos de IA y un aviso cada vez que publiquemos un nuevo artículo en el blog.'
+    : 'Merci de votre inscription. Vous recevrez désormais nos tendances tech, nos conseils IA et une alerte chaque fois qu\'un nouvel article est publié sur le blog.';
+
+  const ctaLabel = language === 'en' ? 'Visit the blog' : language === 'es' ? 'Visitar el blog' : 'Voir le blog';
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${emailSubject}</title>
+  <style>${getBaseStyles()}</style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <div class="email-container">
+      <div class="email-header">
+        <h1 class="email-logo">NeuraWeb</h1>
+        <p class="email-tagline">WEB · IA · AUTOMATISATION</p>
+        <h2 class="email-title">${titleText}</h2>
+      </div>
+
+      <div class="email-content">
+        <p class="email-text">${bodyText}</p>
+
+        <div class="cta-wrapper">
+          <a href="https://neuraweb.tech/${language}/blog" class="cta-button">${ctaLabel}</a>
+        </div>
+      </div>
+
+      ${getFooterHTML(language)}
+      ${unsubscribeNoteHTML(language, unsubscribeUrl)}
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+  try {
+    const result = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: emailSubject,
+      html: htmlContent,
+    });
+
+    if (result.error) {
+      return { success: false, error: result.error.message };
+    }
+
+    return { success: true, id: result.data?.id };
+  } catch (error: any) {
+    console.error('Error sending newsletter welcome email via Resend:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
+ * Email envoyé aux abonnés pour annoncer un nouvel article de blog.
+ */
+export async function sendNewsletterArticleEmail(data: NewsletterArticleData) {
+  if (!resend) {
+    console.warn('Resend API key not configured, skipping email');
+    return { success: false, error: 'Resend API key not configured' };
+  }
+
+  const { email, language = 'fr', unsubscribeUrl, article } = data;
+
+  const emailSubject = language === 'en'
+    ? `📰 New on the blog: ${article.title}`
+    : language === 'es'
+    ? `📰 Nuevo en el blog: ${article.title}`
+    : `📰 Nouvel article : ${article.title}`;
+
+  const titleText = language === 'en' ? 'New article' : language === 'es' ? 'Nuevo artículo' : 'Nouvel article';
+  const ctaLabel = language === 'en' ? 'Read the article' : language === 'es' ? 'Leer el artículo' : 'Lire l\'article';
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${emailSubject}</title>
+  <style>${getBaseStyles()}</style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <div class="email-container">
+      <div class="email-header">
+        <h1 class="email-logo">NeuraWeb</h1>
+        <p class="email-tagline">WEB · IA · AUTOMATISATION</p>
+        <h2 class="email-title">${titleText}</h2>
+      </div>
+
+      <div class="email-content">
+        <div class="message-box">
+          <p class="message-label">${article.title}</p>
+          <p class="message-content">${article.excerpt}</p>
+        </div>
+
+        <div class="cta-wrapper">
+          <a href="${article.url}" class="cta-button">${ctaLabel}</a>
+        </div>
+      </div>
+
+      ${getFooterHTML(language)}
+      ${unsubscribeNoteHTML(language, unsubscribeUrl)}
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+  try {
+    const result = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: emailSubject,
+      html: htmlContent,
+    });
+
+    if (result.error) {
+      return { success: false, error: result.error.message };
+    }
+
+    return { success: true, id: result.data?.id };
+  } catch (error: any) {
+    console.error('Error sending newsletter article email via Resend:', error);
     return { success: false, error: error.message };
   }
 }

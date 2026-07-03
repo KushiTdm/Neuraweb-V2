@@ -8,6 +8,27 @@
 > pour tous les bots. Les exemples `Disallow` ci-dessous sont des modèles
 > génériques, pas la configuration du site.
 
+## ⚡ MISE À JOUR — État vérifié juillet 2026
+
+Synthèse des changements confirmés (docs officielles + études récentes), qui **corrige ou précise** les sections Grok/Perplexity plus bas (recherches antérieures, conservées pour historique) :
+
+### Ce qui a changé
+
+1. **Google a supprimé les FAQ rich results** (notice de dépréciation 7-8 mai 2026, doc retirée le 15 juin 2026). Les FAQ n'apparaissent plus du tout en rich result dans Google Search. **Le markup FAQPage reste à conserver** : il est toujours lu par Bingbot, PerplexityBot et les crawlers RAG, et les pages avec FAQ schema restent nettement plus présentes dans les AI Overviews (≈ 3,2×, étude AirOps). Ne rien changer au pipeline `faq:` du blog.
+2. **llms.txt — verdict mi-2026** : adoption ×8,8 mais **97 % des fichiers ne reçoivent aucune requête IA**. Google a déclaré officiellement (15 juin 2026) que llms.txt n'est pas nécessaire pour Search ; OpenAI renvoie à robots.txt ; Anthropic/Perplexity le lisent partiellement. Valeur réelle : outils dev (Cursor, Claude Code). **On garde le nôtre (coût nul) mais on n'y investit plus** — contrairement à ce que suggèrent les sections ci-dessous (« beaucoup d'outils IA le lisent » : c'est infirmé).
+3. **La citation IA ne suit pas le ranking Google** : étude mai 2026 (153 425 citations) — ~77 % des URLs citées par les moteurs IA sont **hors top-10 organique**. La reconnaissance d'**entité** pèse plus que la position (corrélation brand mentions ↔ visibilité AI Overviews = 0,664 vs 0,218 pour les backlinks). Conséquence : soigner `sameAs` (LinkedIn, GitHub, Wikidata si créable) dans le schema Organization, cohérence stricte nom/URL/description partout (NAP), et tester régulièrement « qu'est-ce que neuraweb.tech ? » dans ChatGPT/Claude/Perplexity — c'est le levier anti-cannibalisation face aux homonymes.
+4. **IndexNow confirmé comme levier n°1 vers ChatGPT** : ~80 M de sites actifs (janv. 2026) ; Bing rapporte que 22 % des URLs cliquées dans ses résultats proviennent d'IndexNow. ChatGPT Search et Copilot puisent dans l'index Bing → pas indexé Bing = invisible ChatGPT. **`npm run indexnow` à chaque publication.**
+5. **Google Indexing API — risque ToS** : toujours officiellement restreinte à JobPosting/BroadcastEvent ; depuis mai 2025, détection anti-spam sur toutes les soumissions et révocation possible. L'usage pour des articles de blog fonctionne encore mais viole les ToS. **Préférer IndexNow + demande d'indexation manuelle GSC pour les articles ; réserver `npm run indexing` à un usage exceptionnel.**
+6. **Longueur pour la citation IA** : pages citées en AI Overviews ≈ 1 282 mots en moyenne ; 53,4 % des citations vont à des pages < 1 000 mots ; corrélation longueur/citation ≈ 0. Format gagnant : réponse directe de 2-4 phrases en tête, H2 en questions, stats datées et sourcées, listes/tableaux. Pour la SERP classique, 1 500-2 500 mots restent la zone efficace → cible blog : **~1 500-2 000 mots denses, answer-first**.
+7. **E-E-A-T étendu au-delà du YMYL** (core update mars 2026) : les agences et services locaux sont désormais évalués sur ce cadre, avec sur-pondération du premier E (Experience) — cas clients réels et données propriétaires (« Information Gain ») comptent plus que les backlinks.
+
+### Ce qui est confirmé (déjà en place chez NeuraWeb)
+
+- Séparation **retrieval vs training** actée : OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot = citation/recherche → **ne jamais les bloquer**. GPTBot, ClaudeBot, Google-Extended, CCBot = training (choix NeuraWeb : autorisés aussi). `app/robots.ts` liste déjà tous ces bots avec les routes privées en disallow. ✅
+- Vérifier que le CDN/WAF (Vercel) ne bloque pas ces user-agents au niveau réseau — un blocage réseau outrepasse robots.txt.
+
+---
+
 ## GROK
 
 ### Principe clé : Distinguer **crawl/search** vs **training**

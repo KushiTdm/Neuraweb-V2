@@ -202,6 +202,9 @@ export const en: Record<TranslationKey, string> = {
   'footer.newsletter.placeholder': 'your@email.com',
   'footer.newsletter.subscribe': 'Subscribe',
   'footer.newsletter.subscribeLong': 'Subscribe to newsletter',
+  'footer.newsletter.success': 'Subscription confirmed — check your inbox!',
+  'footer.newsletter.alreadySubscribed': 'You are already subscribed to the newsletter.',
+  'footer.newsletter.error': 'Subscription failed. Please try again.',
 
   // Services Page
   'servicePage.hero.title': 'Custom Web Development',

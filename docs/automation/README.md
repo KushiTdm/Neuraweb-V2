@@ -1,10 +1,14 @@
 # Automatisation — Publication d'articles de blog (n8n)
 
-Pipeline : **Routine Claude (veille quotidienne) → Google Sheet → n8n → commit GitHub → redeploy Vercel → IndexNow**.
+Pipeline : **Routine Claude (veille quotidienne) → Google Sheet → n8n → commit GitHub → redeploy Vercel → IndexNow → campagne newsletter (en attente) → validation sur l'app mobile → envoi (immédiat ou programmé)**.
 
 Le blog est *file-based* (MDX dans `content/blog/`). Vercel a un système de fichiers en lecture seule au runtime : on ne peut donc pas écrire un article via une route API. **Publier = committer un fichier `.mdx` dans le repo GitHub `KushiTdm/Neuraweb-V2`**, ce qui déclenche le redeploy. Les pages blog (`revalidate = 86400`, `dynamicParams` par défaut `true`) et le `sitemap.ts` lisent automatiquement les fichiers MDX — aucun autre fichier à modifier.
 
-Fichier importable : [`n8n-blog-publish-workflow.json`](./n8n-blog-publish-workflow.json) (n8n → *Import from File*).
+**Aucun email n'est jamais envoyé automatiquement.** La publication crée seulement une campagne `pending_review` ; l'envoi (immédiat ou programmé à une date/heure précise) nécessite une validation explicite depuis l'app mobile (onglet Newsletter) — voir `app/api/mobile/newsletter/campaigns/[id]/route.ts`.
+
+2 fichiers importables (n8n → *Import from File*) :
+- [`n8n-blog-publish-workflow.json`](./n8n-blog-publish-workflow.json) — publication + création de la campagne en attente.
+- [`n8n-newsletter-scheduler-workflow.json`](./n8n-newsletter-scheduler-workflow.json) — déclenche l'envoi réel des campagnes programmées arrivées à échéance (tourne toutes les 5 min).
 
 ## 1. Schéma du Google Sheet (feuille `Contenu`)
 
@@ -40,6 +44,7 @@ Credentials à créer puis associer aux nodes (remplacer les `id: "REMPLACER"`) 
 Variables d'environnement n8n :
 - `NEURAWEB_SHEET_ID` — ID du Google Sheet.
 - `INDEXNOW_KEY` — nom de la clé IndexNow (= nom des fichiers `.txt` déjà dans `public/`, ex. `12d2379a1e5244c9b57051c18690e055`).
+- `NEWSLETTER_NOTIFY_SECRET` — doit être identique à la variable Vercel du même nom. Sert à authentifier les deux appels HTTP newsletter (`/api/newsletter/campaigns` et `/api/newsletter/process-scheduled`).
 
 ## 3. Étapes du workflow
 
@@ -51,7 +56,21 @@ Variables d'environnement n8n :
 6. **GitHub – create file** → commit sur `main` → redeploy Vercel.
 7. **Google Sheets – update** → `status = published`, `published_at`, `published_url`.
 8. **HTTP – IndexNow** (optionnel) → ping moteurs. N'est utile qu'après le redeploy (ajouter un node *Wait* ~2–3 min si nécessaire).
-9. **Set « Sortie JSON »** → objet de sortie final.
+9. **HTTP – Créer la campagne newsletter (à valider)** → `POST /api/newsletter/campaigns` avec `{ slug, lang }` et l'en-tête `x-webhook-secret`. Crée une ligne `pending_review` dans `newsletter_campaigns` — **n'envoie aucun email**. Best-effort : une erreur ici ne bloque pas le reste du workflow.
+10. **Set « Sortie JSON »** → objet de sortie final.
+
+### Workflow 2 — `n8n-newsletter-scheduler-workflow.json`
+
+Tourne en continu (toutes les 5 min), indépendamment du workflow de publication :
+1. **Schedule Trigger** (5 min).
+2. **HTTP – Traiter les campagnes dues** → `POST /api/newsletter/process-scheduled`. Cherche les campagnes `status = scheduled` dont `scheduled_at` est passé et déclenche leur envoi réel (voir `lib/newsletter-campaigns.ts → sendCampaign`). Ne fait rien si aucune campagne n'est due.
+
+### Validation côté app mobile
+
+Depuis l'onglet **Newsletter** du cockpit (`app-mobile/`), chaque campagne `pending_review` peut être :
+- **Approuvée et envoyée immédiatement** — déclenche l'envoi réel tout de suite (`action: 'approve'`).
+- **Programmée** à un jour/heure précis — passe en `status = scheduled`, sera envoyée par le workflow 2 dès l'échéance atteinte (`action: 'schedule'`).
+- **Annulée** — aucun envoi n'aura jamais lieu (`action: 'cancel'`).
 
 ## 4. Sortie attendue (JSON)
 

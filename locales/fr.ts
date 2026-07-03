@@ -199,6 +199,9 @@ export const fr = {
   'footer.newsletter.placeholder': 'votre@email.com',
   'footer.newsletter.subscribe': "S'inscrire",
   'footer.newsletter.subscribeLong': "S'inscrire à la newsletter",
+  'footer.newsletter.success': 'Inscription confirmée — vérifiez votre boîte mail !',
+  'footer.newsletter.alreadySubscribed': 'Vous êtes déjà inscrit à la newsletter.',
+  'footer.newsletter.error': "Erreur lors de l'inscription. Réessayez.",
 
   // Services Page
   'servicePage.hero.title': 'Développement Web Sur Mesure',

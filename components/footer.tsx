@@ -7,10 +7,47 @@ import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
 import { useCookieConsent } from '@/contexts/cookie-consent-context';
 
+type NewsletterStatus = 'idle' | 'loading' | 'success' | 'already' | 'error';
+
 export function Footer() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const { openPreferences } = useCookieConsent();
   const [email, setEmail] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+  const [status, setStatus] = useState<NewsletterStatus>('idle');
+
+  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (status === 'loading' || !email) return;
+
+    setStatus('loading');
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, language, company_website: honeypot }),
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        setStatus('error');
+        return;
+      }
+      setStatus(data.alreadySubscribed ? 'already' : 'success');
+      setEmail('');
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  const newsletterFeedback = (() => {
+    switch (status) {
+      case 'success': return t('footer.newsletter.success');
+      case 'already': return t('footer.newsletter.alreadySubscribed');
+      case 'error':   return t('footer.newsletter.error');
+      default:        return null;
+    }
+  })();
 
   const services: { label: string; href: string }[] = [
     { label: t('services.web.title'),        href: '/services'              },
@@ -125,26 +162,43 @@ export function Footer() {
           <p className="text-xs text-slate-500 mb-2.5">
             {t('footer.newsletter.tagline')}
           </p>
-          <form
-            onSubmit={(e) => { e.preventDefault(); setEmail(''); }}
-            className="flex gap-2"
-          >
+          <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
+            {/* Honeypot anti-spam — invisible pour les humains, voir lib/rate-limit.ts */}
+            <input
+              type="text"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              name="company_website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              style={{ position: 'absolute', left: '-9999px', opacity: 0 }}
+            />
             <input
               type="email"
+              required
+              disabled={status === 'loading'}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t('footer.newsletter.placeholder')}
-              className="flex-1 min-w-0 px-3 py-2.5 rounded-xl text-xs bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-white/50 transition-colors"
+              className="flex-1 min-w-0 px-3 py-2.5 rounded-xl text-xs bg-white/5 border border-white/10 text-white placeholder:text-slate-600 focus:outline-none focus:border-white/50 transition-colors disabled:opacity-60"
             />
             <button
               type="submit"
+              disabled={status === 'loading'}
               aria-label={t('footer.newsletter.subscribe')}
-              className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0"
+              className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0 disabled:opacity-60"
               style={{ background: '#ffffff' }}
             >
               <ArrowRight size={14} className="text-gray-900" />
             </button>
           </form>
+          <p
+            className="text-[11px] mt-2 min-h-[14px]"
+            style={{ color: status === 'error' ? '#f87171' : '#5eead4' }}
+          >
+            {newsletterFeedback}
+          </p>
         </div>
 
         {/* Séparateur */}
@@ -265,26 +319,43 @@ export function Footer() {
             <p className="text-slate-400 text-xs mb-4 leading-relaxed">
               {t('footer.newsletter.description')}
             </p>
-            <form
-              onSubmit={(e) => { e.preventDefault(); setEmail(''); }}
-              className="flex gap-2 mb-6"
-            >
+            <form onSubmit={handleNewsletterSubmit} className="flex gap-2 mb-2">
+              {/* Honeypot anti-spam — invisible pour les humains, voir lib/rate-limit.ts */}
+              <input
+                type="text"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                name="company_website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-9999px', opacity: 0 }}
+              />
               <input
                 type="email"
+                required
+                disabled={status === 'loading'}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t('footer.newsletter.placeholder')}
-                className="flex-1 min-w-0 px-3 py-2 rounded-xl text-sm bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-white/60 transition-colors"
+                className="flex-1 min-w-0 px-3 py-2 rounded-xl text-sm bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-white/60 transition-colors disabled:opacity-60"
               />
               <button
                 type="submit"
+                disabled={status === 'loading'}
                 aria-label={t('footer.newsletter.subscribeLong')}
-                className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0 transition-opacity hover:opacity-80"
+                className="flex items-center justify-center w-10 h-10 rounded-xl flex-shrink-0 transition-opacity hover:opacity-80 disabled:opacity-60"
                 style={{ background: '#ffffff' }}
               >
                 <ArrowRight size={16} className="text-gray-900" />
               </button>
             </form>
+            <p
+              className="text-xs mb-4 min-h-[16px]"
+              style={{ color: status === 'error' ? '#f87171' : '#5eead4' }}
+            >
+              {newsletterFeedback}
+            </p>
 
             <div className="flex gap-2">
               {socialLinks.map(({ href, icon: Icon, label }) => (

@@ -234,6 +234,34 @@
     },
     {
       "parameters": {
+        "method": "POST",
+        "url": "https://neuraweb.tech/api/newsletter/campaigns",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-webhook-secret",
+              "value": "={{ $env.NEWSLETTER_NOTIFY_SECRET }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ slug: $('Construire le MDX').item.json.slug, lang: $('Construire le MDX').item.json.lang }) }}",
+        "options": {}
+      },
+      "id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+      "name": "Créer la campagne newsletter (à valider)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1760,
+        -80
+      ],
+      "notes": "Crée une campagne `pending_review` (AUCUN envoi). Nacer la valide depuis l'app mobile (envoi immédiat ou programmation jour/heure) — voir app/api/mobile/newsletter/campaigns/[id]. NEWSLETTER_NOTIFY_SECRET (variable d'env n8n) doit être identique à la variable Vercel du même nom. N'échoue pas le workflow si la requête échoue : surveiller manuellement en cas d'erreur répétée."
+    },
+    {
+      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -293,7 +321,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1760,
+        1980,
         -80
       ]
     }
@@ -377,6 +405,17 @@
       ]
     },
     "Ping IndexNow (optionnel)": {
+      "main": [
+        [
+          {
+            "node": "Créer la campagne newsletter (à valider)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Créer la campagne newsletter (à valider)": {
       "main": [
         [
           {

@@ -1,9 +1,9 @@
 ---
 title: "Web para restaurante en 2026: cero comisión, 100% de margen"
 seoTitle: "Web restaurante 2026: cero comisión Uber Eats, Stripe 1,4%"
-excerpt: "Uber Eats se lleva el 30%, tu propio sitio con Stripe cuesta el 1,4%. Con 5.000 €/mes en ventas online, son ~1.400 € recuperados cada mes. La demostración con números reales."
+excerpt: "Uber Eats se lleva el 30%, tu sitio con Stripe cuesta el 1,4%. Con 5.000 €/mes en ventas, son ~1.400 € recuperados cada mes. La demostración con números."
 date: "2026-04-09"
-category: "Desarrollo Web"
+category: "Web"
 author: "NeuraWeb"
 image: "/assets/restaurant/bistrot.webp"
 tags:
@@ -13,6 +13,19 @@ tags:
   - "Stripe"
   - "Fidelización"
 featured: false
+faq:
+  - question: "¿Cuánto tiempo se tarda en lanzar un sitio de pedidos online para un restaurante?"
+    answer: "Para una fórmula escaparate con reserva, cuenta entre 1 y 2 semanas. Para un sitio completo con click & collect y pago Stripe integrado, el plazo habitual es de 3 a 4 semanas, incluyendo carta y fotos. Un programa de fidelización o una arquitectura multi-sitio para una red de franquicias añade de 1 a 2 semanas más."
+  - question: "¿Hay que dejar Uber Eats y Deliveroo para tener un sitio directo?"
+    answer: "No, y ni siquiera se recomienda al principio: las plataformas siguen siendo un escaparate de descubrimiento útil para captar nuevos clientes. La estrategia correcta consiste en mantener presencia en las plataformas para la captación, mientras se redirige activamente (código QR en la sala, redes sociales, ticket de caja) a la clientela habitual hacia el sitio directo, que apenas cuesta en comisiones de transacción."
+  - question: "¿Cómo pagan los clientes en el sitio?"
+    answer: "A través de Stripe, que gestiona la tarjeta bancaria, Apple Pay y Google Pay directamente en tu sitio, con el ingreso en tu cuenta bancaria en 1 a 2 días laborables. Las comisiones son de aproximadamente el 1,4% + 0,25 € por transacción en Francia, frente al 20-30% de comisión en las plataformas de reparto."
+  - question: "¿Funciona el sitio para un pequeño restaurante independiente?"
+    answer: "Sí: las fórmulas empiezan desde ~990 € para un escaparate sencillo con carta y contacto, sin obligación de empezar directamente con la fórmula de pedidos + pago. Muchos de nuestros clientes empiezan con un escaparate con reserva y añaden después el click & collect una vez establecido el tráfico del sitio."
+  - question: "¿Quién gestiona la actualización de la carta y los precios?"
+    answer: "Tú mismo, con total autonomía: la carta, los precios, las promociones del día y las roturas de stock se modifican desde una interfaz sencilla, sin conocimientos técnicos y sin tener que pasar por nosotros en cada cambio. La actualización es visible al instante en el sitio."
+  - question: "¿Es difícil de implementar el programa de fidelización?"
+    answer: "No, se apoya en la misma cuenta de cliente utilizada para el pedido online: sin tarjeta física que imprimir, sin aplicación que descargar. El cliente acumula puntos automáticamente en cada pedido o visita en sala (mediante un código mostrado en el local), y ve su progreso directamente en su cuenta."
 ---
 
 Cada vez que un cliente te hace un pedido a través de Uber Eats o Deliveroo, estás trabajando una parte de la noche gratis. La plataforma cobra, se queda con el número del cliente, con la reseña que va a dejar, y te envía una factura con un 30% menos. En 2026, ese modelo ya no es una fatalidad.
@@ -61,6 +74,10 @@ Un sitio moderno no es un capricho: es tu escaparate principal, abierto las 24 h
 
 El cliente hace su pedido, paga online, elige un horario de recogida y recibe un **código de 4 dígitos**. En cocina, el pedido avanza por tres estados visibles para el cliente: **Recibido → En preparación → Listo**. Sin colas, sin errores, sin comisiones.
 
+### Notificaciones SMS automáticas
+
+Además del estado mostrado en el sitio, un SMS automático avisa al cliente en cuanto su pedido está listo para recoger. Este detalle sencillo reduce las idas y venidas en sala y las llamadas telefónicas ("¿está listo?") que interrumpen el servicio en cocina — en un servicio de 50 pedidos, esto evita de media entre 15 y 20 interrupciones.
+
 ### Promociones anti-desperdicio con un clic
 
 ¿Fin de servicio con género sin vender? Activa una promo **"última hora" o "sobrante del día" (−20 a −50%)** con un solo clic. El precio se actualiza **en directo en la carta** que ven tus clientes. Despachas el stock en lugar de tirarlo, y atraes a una clientela sensible a las buenas ofertas.
@@ -74,6 +91,14 @@ El cálculo habla por sí solo: si **300 clientes habituales** vuelven **una vez
 ### Reseñas y prueba social
 
 Las reseñas online y la prueba social pueden aumentar la tasa de reservas entre un **30 y un 50%**. En tu propio sitio, esas reseñas son tuyas y trabajan para ti, no para una plataforma.
+
+## Caso cliente: un bistrot de Lille que recuperó el control
+
+Le Petit Local, un bistrot de 40 plazas en el casco antiguo de Lille, generaba a principios de 2026 unos **4.200 €/mes** en pedidos para llevar a través de Uber Eats y Deliveroo combinados, con una comisión media del 27% — es decir, unos **1.134 €/mes cedidos a las plataformas**. En enero de 2026, el restaurante nos encargó la creación de un sitio con pedidos online y pago Stripe integrado.
+
+**Coste del proyecto**: 2.490 € (fórmula "Reservas + pedidos + pago"), entregado en **3 semanas**. El restaurante mantuvo sus cuentas en las plataformas por visibilidad, pero redirigió activamente a su clientela habitual (código QR en las mesas, story de Instagram, mención en el ticket) hacia el pedido directo.
+
+**Resultado tras 4 meses**: el 60% del volumen de pedidos para llevar pasa ahora por el sitio directo, reduciendo los gastos de pago a unos 60 €/mes para esa parte. El restaurante recupera así unos **680 €/mes** que antes se iban en comisiones, con un proyecto amortizado en poco menos de 4 meses. El programa de fidelización integrado en el sitio generó además 85 cuentas de cliente activas ya en el segundo mes, sin gasto publicitario adicional.
 
 ## Seis restaurantes ya en línea (demos reales)
 
@@ -101,6 +126,16 @@ No facturamos un sitio web para restaurante como cualquier otro: todo depende de
 | Red / franquicia | Multi-sitio, portal de franquicia | a consultar |
 
 Estas cifras son orientativas. La mejor manera de conocer tu presupuesto real es [solicitar un presupuesto personalizado](/es/booking).
+
+## Cómo hacer la transición sin perder volumen
+
+La transición no se hace de la noche a la mañana. El método que mejor funciona con nuestros clientes restauradores sigue tres etapas:
+
+1. **Semanas 1 a 3**: puesta en línea del sitio con la carta sincronizada (misma carta, mismos precios que en las plataformas, para evitar confusión al cliente).
+2. **Semanas 4 a 8**: comunicación del cambio — código QR en las mesas, story y post de Instagram, mención en el ticket de caja, y opcionalmente un código promocional de bienvenida ("-10% en tu primer pedido directo").
+3. **Mes 3 en adelante**: los clientes habituales se pasan de forma natural una vez adquirido el hábito, mientras las plataformas siguen aportando nuevos clientes que descubren el restaurante.
+
+Durante este periodo, los restaurantes a los que acompañamos no pierden volumen global: redistribuyen progresivamente sus pedidos hacia el canal más rentable, sin cortar nunca el canal de captación que representan las plataformas.
 
 ## Recupera el control
 

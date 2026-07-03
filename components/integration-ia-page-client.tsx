@@ -172,6 +172,7 @@ const CONTENT: Record<Lang, {
     more: {
       h3: 'Pour aller plus loin',
       items: [
+        { label: 'Audit qualité des données : pourquoi vos projets IA échouent', href: '/blog/audit-qualite-donnees-projet-ia' },
         { label: 'Comment intégrer une IA dans votre site web', href: '/blog/integrer-ia-site-web-2025' },
         { label: 'IA agentique : ce que font déjà vos concurrents', href: '/blog/ia-agents-remplacent-equipes-2026' },
         { label: "7 façons d'utiliser l'IA pour générer des leads", href: '/blog/site-vitrine-ia-machine-leads' },
@@ -292,6 +293,7 @@ const CONTENT: Record<Lang, {
     more: {
       h3: 'Learn more',
       items: [
+        { label: 'Data quality audit: why most AI projects fail', href: '/blog/audit-qualite-donnees-projet-ia' },
         { label: 'How to integrate AI into your website', href: '/blog/integrer-ia-site-web-2025' },
         { label: 'Agentic AI: what your competitors are already doing', href: '/blog/ia-agents-remplacent-equipes-2026' },
         { label: '7 ways to use AI to generate leads', href: '/blog/site-vitrine-ia-machine-leads' },
@@ -412,6 +414,7 @@ const CONTENT: Record<Lang, {
     more: {
       h3: 'Saber más',
       items: [
+        { label: 'Auditoría de datos: por qué fracasan los proyectos de IA', href: '/blog/audit-qualite-donnees-projet-ia' },
         { label: 'Cómo integrar IA en tu sitio web', href: '/blog/integrer-ia-site-web-2025' },
         { label: 'IA agéntica: lo que ya hacen tus competidores', href: '/blog/ia-agents-remplacent-equipes-2026' },
         { label: '7 formas de usar la IA para generar leads', href: '/blog/site-vitrine-ia-machine-leads' },
