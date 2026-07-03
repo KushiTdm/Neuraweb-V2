@@ -1,0 +1,135 @@
+---
+title: "Auditoría de datos: por qué fracasan los proyectos de IA"
+seoTitle: "Auditoría de calidad de datos antes de un proyecto de IA"
+excerpt: "Más del 50% de los proyectos GenAI se abandonan tras el POC: la causa n.º 1 son los datos. Método de auditoría en 4 pasos, precios reales y checklist pyme."
+date: "2026-07-03"
+category: "IA"
+author: "NeuraWeb"
+image: "/assets/blog/audit-qualite-donnees-projet-ia.webp"
+tags:
+  - "IA"
+  - "Datos"
+  - "CRM"
+  - "Automatización"
+  - "Pyme"
+featured: false
+faq:
+  - question: "¿Cuánto cuesta una auditoría de calidad de datos para una pyme?"
+    answer: "Entre 800 y 1.500 € según el volumen de datos y el número de fuentes a cruzar (CRM, hojas de cálculo, herramientas de negocio). Compáralo con los 5.000 a 15.000 € de esfuerzo perdido cuando un proyecto de IA fracasa tras 2-3 meses de desarrollo por falta de datos fiables."
+  - question: "¿Cuánto dura una auditoría de datos?"
+    answer: "De 3 a 5 días para una pyme: cartografía de las fuentes, scoring automatizado con un script, análisis de una muestra asistido por IA y entrega final con una puntuación de fiabilidad sobre 100 por fuente de datos y una lista priorizada de correcciones."
+  - question: "¿Cómo saber si mis datos están listos para un proyecto de IA?"
+    answer: "Verifica cuatro criterios: completitud de los campos clave, frescura de las actualizaciones, coherencia de los valores introducidos y ausencia de duplicados. Una checklist de 5 comprobaciones, realizable en una hora sobre un simple export CSV, basta para un primer diagnóstico."
+  - question: "¿Hay que limpiar los datos antes de automatizar?"
+    answer: "Sí, siempre. Un agente de IA conectado a datos sucios no corrige nada: amplifica los errores a la velocidad de la automatización. Gartner estima que el 60% de los proyectos de IA sin datos preparados para la IA serán abandonados antes de finales de 2026."
+  - question: "¿Cómo detectar duplicados en un CRM?"
+    answer: "Exporta la base en CSV, ordena por nombre de empresa y por email para localizar los duplicados evidentes, y usa después un script de deduplicación (Python o las funciones nativas de HubSpot, Pipedrive, Airtable) para las coincidencias aproximadas. En los CRM de pymes que auditamos, la tasa de duplicados supera a menudo el 20%."
+---
+
+Una pyme nos contacta con un proyecto claro: automatizar el seguimiento de sus leads con un agente de IA. Caso de uso identificado, presupuesto aprobado, stack lista. Tres semanas después, el proyecto está parado. No por la IA. Por los datos.
+
+La respuesta corta, si te preguntas por qué fracasan tantos proyectos de IA: no es la herramienta, ni el prompt, ni el presupuesto — es la calidad de los datos que los alimentan. Gartner constató que más del 50% de los proyectos de IA generativa habían sido abandonados tras el POC a finales de 2025, y prevé que el 60% de los proyectos de IA sin datos «AI-ready» serán abandonados antes de finales de 2026. Una auditoría de calidad de datos de 3 a 5 días, facturada entre 800 y 1.500 € para una pyme, es la forma más barata de no engrosar esas estadísticas.
+
+En el caso de esta empresa, el CRM contenía un 40% de fichas duplicadas, emails inválidos y el campo «sector de actividad» vacío en dos tercios de los registros. El agente de IA puntuaba cualquier cosa, porque se le daba cualquier cosa que analizar. No es un caso aislado: en los proyectos de IA que NeuraWeb audita desde hace un año, la calidad de los datos es la causa n.º 1 de fracaso — mucho antes que la cuestión del paso del POC a producción.
+
+> **À retenir — Key Takeaways**
+>
+> - **Constatación 2026**: más del 50% de los proyectos GenAI fueron abandonados tras el POC a finales de 2025 (Gartner) — la calidad de los datos es la causa n.º 1 citada
+> - **Predicción Gartner**: el 60% de los proyectos de IA sin datos «AI-ready» serán abandonados antes de finales de 2026
+> - **4 criterios medibles**: completitud, frescura, coherencia, unicidad — diagnosticables en una hora sobre un export CSV
+> - **Método**: auditoría en 4 pasos (cartografía, scoring por script, análisis con IA, entrega con puntuación) en 3 a 5 días
+> - **Coste**: 800 a 1.500 € para una pyme, frente a 5.000 a 15.000 € perdidos en un proyecto de IA fallido
+> - **Caso real**: un CRM pasó de una fiabilidad de 52/100 a 89/100 en 2 semanas (40% de duplicados eliminados)
+> - **Autodiagnóstico**: 5 comprobaciones sin herramientas, en una hora, antes de comprometer presupuesto
+
+## ¿Por qué fracasan la mayoría de los proyectos de IA antes de llegar a producción?
+
+Las cifras publicadas entre 2024 y 2026 convergen, sea cual sea la metodología:
+
+| Estudio | Cifra | Qué mide |
+|---|---|---|
+| [Gartner, abril 2026](https://www.gartner.com/en/articles/genai-project-failure) | > 50% | Proyectos GenAI abandonados tras el POC a finales de 2025 (la predicción inicial del 30% fue superada) |
+| [Gartner, febrero 2025](https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk) | 60% | Proyectos de IA que serán abandonados antes de finales de 2026 por falta de datos «AI-ready» |
+| MIT NANDA, agosto 2025 | 95% | Pilotos GenAI sin retorno medible, pese a 30-40 mil millones de dólares invertidos |
+| [S&P Global, 2025](https://www.spglobal.com/market-intelligence/en/news-insights/research/ai-experiences-rapid-adoption-but-with-mixed-outcomes-highlights-from-vote-ai-machine-learning) | 42% | Empresas que abandonaron la mayoría de sus iniciativas de IA (eran el 17% un año antes) |
+| [RAND, 2024](https://www.rand.org/pubs/research_reports/RRA2680-1.html) | > 80% | Estimación de la tasa de fracaso de los proyectos de IA — el doble que los proyectos IT clásicos |
+
+El punto común de estos estudios: la tecnología rara vez es el problema. Gartner cita la calidad de los datos como primer factor de abandono, por delante de los controles de riesgo y de los costes. Y el 63% de las organizaciones reconoce no tener — o no saber si tiene — prácticas de gestión de datos adaptadas a la IA.
+
+Dicho de otro modo: el problema no es elegir entre ChatGPT, Claude o Mistral. Es lo que hay dentro de tu CRM.
+
+## Calidad de datos: ¿cuáles son los 4 criterios que importan?
+
+«Calidad de datos» se reduce a cuatro cosas concretas, ni una más:
+
+- **Completitud**: ¿los campos útiles están realmente rellenados, o solo existen en el esquema?
+- **Frescura**: ¿de cuándo es la última actualización? Un CRM congelado desde hace 18 meses engaña más de lo que informa.
+- **Coherencia**: ¿«París», «paris», «75000 Paris» e «Île-de-France» significan lo mismo en tus sistemas?
+- **Unicidad**: ¿cuántos duplicados silenciosos falsean tus estadísticas, tus puntuaciones y tus seguimientos?
+
+Un agente de IA conectado a datos que fallan en estos cuatro criterios no «corrige» nada: amplifica el ruido a la velocidad de la automatización. Un lead puntuado dos veces, un email de seguimiento enviado a una dirección muerta, un sector inventado — multiplicados por cientos de ejecuciones automáticas por semana.
+
+## ¿Cómo hacer una auditoría de calidad de datos en una pyme? El método en 4 pasos
+
+Antes de configurar el más mínimo agente, NeuraWeb pasa sistemáticamente por una auditoría de 3 a 5 días:
+
+1. **Extracción y cartografía** — listar las fuentes de datos reales (CRM, hojas de cálculo, formularios, herramientas de negocio) y sus volúmenes. La mayoría de las pymes descubren una o dos que habían olvidado.
+2. **Scoring automatizado** — un script (Python + consultas SQL simples) calcula una tasa de completitud, de duplicados y de incoherencia por campo clave. No hace falta una herramienta de 10.000 €: una hora de script basta en la mayoría de los CRM del mercado (HubSpot, Pipedrive, Airtable).
+3. **Análisis asistido por IA** — Claude revisa una muestra para detectar las incoherencias que un script no ve: dos etiquetas distintas para el mismo producto, notas comerciales que contradicen el estado de la ficha.
+4. **Entrega con puntuación** — una puntuación de fiabilidad sobre 100 por fuente de datos, con las correcciones priorizadas antes de cualquier proyecto de automatización o de agente de IA.
+
+Lo que produce la auditoría no es un informe de 40 páginas: es una lista ordenada de correcciones, cada una con su impacto estimado sobre el proyecto de IA que viene después.
+
+## ¿Cuánto cuesta una auditoría de datos?
+
+**Entre 800 y 1.500 € para una pyme**, según el volumen de datos y el número de fuentes a cruzar. Es una cifra que pocos proveedores publican — aquí la tienes, para que la comparación sea posible.
+
+Ponla al lado de esto: un proyecto de IA que fracasa tras 2-3 meses de desarrollo representa por lo general **de 5.000 a 15.000 € de esfuerzo perdido**, sin contar la desconfianza duradera de los equipos hacia el siguiente proyecto de automatización. La proporción es de 1 a 10.
+
+## Caso de cliente: un CRM con un 40% de duplicados (pyme industrial, norte de Francia)
+
+Una pyme industrial de 45 empleados quería automatizar la cualificación de sus leads entrantes con un agente de IA. Antes de cualquier configuración, la auditoría reveló:
+
+- 40% de fichas duplicadas en el CRM
+- 28% de emails inválidos u obsoletos
+- ninguna normalización del campo «sector de actividad»: 47 variantes para designar 12 sectores reales
+
+Tras dos semanas de limpieza — script de deduplicación + normalización asistida por Claude — la puntuación de fiabilidad de los datos pasó de **52/100 a 89/100**. El agente de IA de cualificación, configurado después, alcanzó un nivel de precisión que el equipo comercial consideró fiable desde la primera semana. El mismo proyecto, lanzado sobre la base original, había sido rechazado por falta de confianza en los resultados.
+
+Por eso nuestros [flujos de automatización de marketing](/es/blog/3-workflows-agents-ia-pme) — email adaptativo, lead scoring — nunca se despliegan sin esta etapa previa: un agente de IA, por bien configurado que esté, no puede compensar una base de datos que miente sobre sí misma.
+
+## Checklist: autodiagnostica tus datos en una hora
+
+Cinco comprobaciones que cualquier pyme puede hacer en una hora, sin herramientas:
+
+1. **Exporta tu CRM en CSV.** ¿Cuántas filas tienen el email o el teléfono vacío?
+2. **Ordena por nombre de empresa.** ¿Cuántos duplicados evidentes (mismos nombres, grafías casi idénticas)?
+3. **Mira la fecha de última modificación** en 20 fichas al azar. ¿Más de la mitad tienen más de un año?
+4. **Cuenta los valores distintos** de un campo que debería ser una lista cerrada (sector, estado, origen). Más de 15-20 variantes para una docena de valores esperados = incoherencia de entrada.
+5. **Busca los valores «test», «pendiente», «N/A»** escritos a mano en tus campos clave.
+
+Si marcas 3 casillas de 5, una auditoría antes de cualquier proyecto de automatización o de agente de IA no es opcional: es lo que decide si tu proyecto llega a buen puerto o engrosa las estadísticas de abandono de la tabla anterior.
+
+## ¿Por dónde empezar?
+
+En este orden, y sin comprometer presupuesto antes del paso 3:
+
+1. **La checklist anterior** — una hora, sin herramientas, te sitúa inmediatamente.
+2. **Un perímetro reducido** — no hace falta auditar toda la empresa: la fuente de datos del primer caso de uso de IA basta (casi siempre, el CRM).
+3. **La auditoría completa** — 3 a 5 días, 800 a 1.500 €, una puntuación por fuente y una lista de correcciones priorizadas.
+4. **La limpieza, y solo después el proyecto de IA** — en ese orden. Nunca al revés.
+
+La calidad de los datos no es la parte glamurosa de un proyecto de inteligencia artificial. Es simplemente la que decide todo lo demás.
+
+---
+
+## Para ir más lejos
+
+- [3 flujos de agentes IA para pymes: ROI real en 2026](/es/blog/3-workflows-agents-ia-pme) — los flujos que desplegamos después de la auditoría
+- [Automatización IA para pymes: precios reales 2026](/es/blog/automatisation-ia-pme-prix-2026) — desglose completo de costes por nivel de automatización
+- [Priorizar tus automatizaciones: matriz ROI](/es/blog/automatisation-processus-roi) — qué procesos automatizar primero
+- [Agente IA comercial: cualifica tus leads automáticamente](/es/blog/agent-ia-commercial-pme) — el caso de uso que más depende de la calidad del CRM
+- [Nuestro servicio de Automatización](/fr/automatisation) — packs n8n/Make con auditoría de datos incluida
+- [Nuestro servicio de Integración IA](/fr/integration-ia) — agentes IA a medida, nunca desplegados sin una auditoría de datos previa
+
+> **¿Quieres saber en qué punto estás?** La checklist lleva una hora. La auditoría completa, si resulta necesaria, dura de 3 a 5 días y cuesta entre 800 y 1.500 €. NeuraWeb — agencia web, IA y automatización con sede en Lille, Francia — audita tus datos antes de venderte cualquier otra cosa. [Solicitar una auditoría de datos →](/es/contact)

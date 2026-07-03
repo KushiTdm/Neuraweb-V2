@@ -1,0 +1,135 @@
+---
+title: "Data Quality Audit: Why Most AI Projects Fail Before They Start"
+seoTitle: "Data quality audit before an AI project: method and cost"
+excerpt: "Over 50% of GenAI projects were abandoned after the POC — and data quality is the #1 cause. A 4-step audit method, real pricing, and an SMB checklist."
+date: "2026-07-03"
+category: "IA"
+author: "NeuraWeb"
+image: "/assets/blog/audit-qualite-donnees-projet-ia.webp"
+tags:
+  - "AI"
+  - "Data"
+  - "CRM"
+  - "Automation"
+  - "SMB"
+featured: false
+faq:
+  - question: "How much does a data quality audit cost for an SMB?"
+    answer: "Between €800 and €1,500 depending on data volume and the number of sources to cross-check (CRM, spreadsheets, business tools). Compare that with the €5,000 to €15,000 of wasted effort when an AI project fails after 2–3 months of development because the underlying data can't be trusted."
+  - question: "How long does a data audit take?"
+    answer: "3 to 5 days for an SMB: mapping the data sources, automated scoring with a script, AI-assisted analysis of a sample, then a debrief with a reliability score out of 100 per data source and a prioritized list of fixes."
+  - question: "How do I know if my data is ready for an AI project?"
+    answer: "Check four criteria: completeness of the key fields, freshness of updates, consistency of the values entered, and absence of duplicates. A 5-point checklist, doable in one hour on a simple CSV export, is enough for a first diagnosis."
+  - question: "Should I clean my data before automating?"
+    answer: "Yes, always. An AI agent plugged into dirty data doesn't fix anything: it amplifies the errors at the speed of automation. Gartner estimates that 60% of AI projects not supported by AI-ready data will be abandoned by the end of 2026."
+  - question: "How do I detect duplicates in a CRM?"
+    answer: "Export the database to CSV, sort by company name and by email to spot the obvious duplicates, then use a deduplication script (Python, or the native features of HubSpot, Pipedrive, Airtable) for fuzzy matches. On the SMB CRMs we audit, the duplicate rate often exceeds 20%."
+---
+
+An SMB contacts us with a clear project: automate lead follow-up with an AI agent. Use case identified, budget approved, stack ready. Three weeks later, the project is on hold. Not because of the AI. Because of the data.
+
+Here is the short answer, if you are wondering why so many AI projects fail: it's not the tool, the prompt, or the budget — it's the quality of the data feeding them. Gartner found that more than 50% of generative AI projects had been abandoned after the POC by the end of 2025, and predicts that 60% of AI projects not supported by AI-ready data will be abandoned by the end of 2026. A 3-to-5-day data quality audit, priced at €800 to €1,500 for an SMB, is the cheapest way to stay out of those statistics.
+
+In this company's case, the CRM contained 40% duplicate records, invalid email addresses, and an empty "industry" field on two thirds of the contacts. The AI agent was scoring garbage, because it was being fed garbage. This is not an isolated case: across the AI projects NeuraWeb has audited over the past year, upstream data quality is the #1 cause of failure — well before the POC-to-production question.
+
+> **À retenir — Key Takeaways**
+>
+> - **2026 reality check**: over 50% of GenAI projects were abandoned after the POC by end of 2025 (Gartner) — data quality is the #1 cited cause
+> - **Gartner prediction**: 60% of AI projects without AI-ready data will be abandoned by the end of 2026
+> - **4 measurable criteria**: completeness, freshness, consistency, uniqueness — diagnosable in one hour on a CSV export
+> - **Method**: a 4-step audit (mapping, script-based scoring, AI-assisted analysis, scored debrief) in 3 to 5 days
+> - **Cost**: €800 to €1,500 for an SMB, versus €5,000 to €15,000 wasted on a failed AI project
+> - **Real case**: a CRM's reliability score raised from 52/100 to 89/100 in 2 weeks (40% duplicates eliminated)
+> - **Self-diagnosis**: 5 checks, no tools, one hour — before committing any budget
+
+## Why do most AI projects fail before reaching production?
+
+The figures published between 2024 and 2026 all point in the same direction, whatever the methodology:
+
+| Study | Figure | What it measures |
+|---|---|---|
+| [Gartner, April 2026](https://www.gartner.com/en/articles/genai-project-failure) | > 50% | GenAI projects abandoned after the POC by end of 2025 (the initial 30% prediction was exceeded) |
+| [Gartner, February 2025](https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk) | 60% | AI projects that will be abandoned by end of 2026 for lack of AI-ready data |
+| MIT NANDA, August 2025 | 95% | GenAI pilots with no measurable return, despite $30–40 billion invested |
+| [S&P Global, 2025](https://www.spglobal.com/market-intelligence/en/news-insights/research/ai-experiences-rapid-adoption-but-with-mixed-outcomes-highlights-from-vote-ai-machine-learning) | 42% | Companies that abandoned the majority of their AI initiatives (up from 17% a year earlier) |
+| [RAND, 2024](https://www.rand.org/pubs/research_reports/RRA2680-1.html) | > 80% | Estimated AI project failure rate — twice that of classic IT projects |
+
+What these studies have in common: the technology is rarely the problem. Gartner cites data quality as the top abandonment factor, ahead of risk controls and costs. And 63% of organizations admit they don't have — or don't know whether they have — data management practices suited to AI.
+
+In other words: the problem is not choosing between ChatGPT, Claude or Mistral. It's what is sitting in your CRM.
+
+## Data quality: which 4 criteria actually matter?
+
+"Data quality" boils down to four concrete things, no more:
+
+- **Completeness**: are the useful fields actually filled in, or merely present in the schema?
+- **Freshness**: when was the last update? A CRM frozen for 18 months misleads more than it informs.
+- **Consistency**: do "Paris", "paris", "75000 Paris" and "Île-de-France" mean the same thing across your systems?
+- **Uniqueness**: how many silent duplicates are skewing your statistics, your scores and your follow-ups?
+
+An AI agent plugged into data that fails these four criteria doesn't "fix" anything: it amplifies the noise at the speed of automation. A lead scored twice, a follow-up email sent to a dead address, an invented industry label — multiplied by hundreds of automated runs per week.
+
+## How to run a data quality audit in an SMB: the 4-step method
+
+Before configuring a single agent, NeuraWeb systematically runs a 3-to-5-day audit:
+
+1. **Extraction and mapping** — list the real data sources (CRM, spreadsheets, forms, business tools) and their volumes. Most SMBs discover one or two they had forgotten about.
+2. **Automated scoring** — a script (Python + simple SQL queries) computes a completeness, duplicate and inconsistency rate per key field. No need for a €10,000 tool: an hour of scripting covers most mainstream CRMs (HubSpot, Pipedrive, Airtable).
+3. **AI-assisted analysis** — Claude reviews a sample to spot the inconsistencies a script cannot see: two different labels for the same product, sales notes contradicting the record's status.
+4. **Scored debrief** — a reliability score out of 100 per data source, with fixes prioritized before any automation or AI agent project.
+
+What the audit produces is not a 40-page report: it's an ordered list of fixes, each with its estimated impact on the AI project that follows.
+
+## How much does a data audit cost?
+
+**Between €800 and €1,500 for an SMB**, depending on data volume and the number of sources to cross-check. Few providers publish that number — here it is, so you can compare.
+
+Put it next to this: an AI project that fails after 2–3 months of development typically represents **€5,000 to €15,000 of wasted effort**, not counting the lasting distrust it creates towards the next automation project. The ratio is 1 to 10.
+
+## Client case: a CRM with 40% duplicates (industrial SMB, northern France)
+
+An industrial SMB with 45 employees wanted to automate the qualification of its inbound leads with an AI agent. Before any configuration, the audit revealed:
+
+- 40% duplicate records in the CRM
+- 28% invalid or outdated email addresses
+- no normalization of the "industry" field: 47 variants describing 12 actual industries
+
+After two weeks of cleanup — a deduplication script plus Claude-assisted normalization — the data reliability score went from **52/100 to 89/100**. The qualification AI agent, configured afterwards, reached a precision level the sales team considered trustworthy within its first week. The same project, launched on the original database, had been rejected for lack of confidence in the results.
+
+This is also why our [marketing automation workflows](/en/blog/3-workflows-agents-ia-pme) — adaptive email, lead scoring — are never deployed without this preliminary step: an AI agent, however well configured, cannot compensate for a database that lies about itself.
+
+## Checklist: self-diagnose your data in one hour
+
+Five checks any SMB can run in an hour, without tools:
+
+1. **Export your CRM to CSV.** How many rows have an empty email or phone field?
+2. **Sort by company name.** How many obvious duplicates (same names, near-identical spellings)?
+3. **Look at the last-modified date** on 20 random records. Are more than half older than a year?
+4. **Count the distinct values** of a field that should be a closed list (industry, status, source). More than 15–20 variants for a dozen expected values = inconsistent data entry.
+5. **Search for hard-coded "test", "TBD", "N/A" values** in your key fields.
+
+If you tick 3 boxes out of 5, an audit before any automation or AI agent project is not optional: it's what decides whether your project succeeds or joins the abandonment statistics in the table above.
+
+## Where to start?
+
+In this order, without committing any budget before step 3:
+
+1. **The checklist above** — one hour, no tools, and you immediately know where you stand.
+2. **A reduced scope** — no need to audit the whole company: the data source of your first AI use case is enough (most often, the CRM).
+3. **The full audit** — 3 to 5 days, €800 to €1,500, a score per source and a prioritized list of fixes.
+4. **Cleanup first, then the AI project** — in that order. Never the other way around.
+
+Data quality is not the glamorous part of an artificial intelligence project. It's just the part that decides everything else.
+
+---
+
+## Further reading
+
+- [3 AI agent workflows for SMBs: real ROI in 2026](/en/blog/3-workflows-agents-ia-pme) — the workflows we deploy after the audit
+- [AI automation for SMBs: real 2026 pricing](/en/blog/automatisation-ia-pme-prix-2026) — full cost breakdown by automation level
+- [Prioritizing your automations: an ROI matrix](/en/blog/automatisation-processus-roi) — which processes to automate first
+- [AI sales agent: qualify your leads automatically](/en/blog/agent-ia-commercial-pme) — the use case that depends most on CRM quality
+- [Our Automation service](/fr/automatisation) — n8n/Make packs with a data audit included
+- [Our AI Integration service](/fr/integration-ia) — custom AI agents, never deployed without a prior data audit
+
+> **Want to know where you stand?** The checklist takes an hour. The full audit, if it proves necessary, takes 3 to 5 days and costs between €800 and €1,500. NeuraWeb — a web, AI and automation agency based in Lille, France — audits your data before selling you anything else. [Request a data audit →](/en/contact)
