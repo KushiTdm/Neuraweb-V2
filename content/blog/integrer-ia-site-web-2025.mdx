@@ -2,7 +2,7 @@
 title: "Comment intégrer une IA dans votre site web en 2026"
 excerpt: "Guide complet pour intégrer des fonctionnalités IA à votre application web : chatbots, recommandations personnalisées et analyse de données en 2026."
 date: "2026-01-21"
-updatedAt: "2026-01-21"
+updatedAt: "2026-07-03"
 category: "IA"
 author: "NeuraWeb"
 image: "/assets/blog/integrer-ia-site-web-2025.webp"
@@ -22,9 +22,13 @@ faq:
     answer: "Tout dépend du fournisseur et de la configuration choisie. Les grands acteurs (OpenAI, Anthropic) proposent des options « no data training » où vos données ne servent pas à réentraîner leurs modèles. Pour les données particulièrement sensibles (santé, finances, données juridiques), envisagez un déploiement on-premise ou des modèles open-source (Mistral, LLaMA) hébergés sur votre propre infrastructure."
   - question: "Quels résultats concrets peut-on espérer la première année ?"
     answer: "Les PME qui déploient un premier projet IA (chatbot ou système de recommandation) observent en moyenne : une réduction de 30 à 50% du temps de traitement des demandes entrantes, une hausse de 10 à 20% du taux de conversion, et un retour sur investissement positif en 4 à 9 mois selon la solution choisie et le secteur d'activité."
+  - question: "Peut-on intégrer une IA à son site web gratuitement ?"
+    answer: "Oui pour prototyper : Mistral, Google Gemini ou Groq proposent des plans API gratuits suffisants pour un chatbot à faible trafic. En revanche, aucune clé API n'est « gratuite et illimitée » : les plans gratuits sont plafonnés en requêtes par minute et par jour. Pour un site en production avec du trafic régulier, prévoyez 50 à 200 € par mois d'appels API."
+  - question: "Peut-on intégrer une IA dans un simple site HTML, sans framework ?"
+    answer: "Oui. Votre page HTML appelle en JavaScript une petite fonction serverless (gratuite chez Vercel, Netlify ou Cloudflare à faible volume) qui détient la clé API et interroge le LLM. La seule règle absolue : ne jamais placer la clé API dans le code HTML ou JavaScript visible par le navigateur — elle serait volée en quelques heures."
 ---
 
-*Mis à jour le 21 janvier 2026 — stack technique, coûts et cas d'usage PME revus.*
+*Mis à jour le 3 juillet 2026 — ajout du guide d'intégration pas à pas (HTML, React) avec code et clés API gratuites.*
 
 L'intelligence artificielle n'est plus réservée aux géants de la tech. En 2026, intégrer des fonctionnalités IA dans votre site web est devenu accessible à toutes les entreprises — y compris les PME avec des budgets raisonnables. Selon les dernières études sectorielles, **plus de 70% des entreprises ayant déployé une première intégration IA reportent un retour sur investissement positif en moins d'un an**. Voici un guide complet pour vous lancer sans vous perdre.
 
@@ -35,13 +39,14 @@ L'intelligence artificielle n'est plus réservée aux géants de la tech. En 202
 > - **E-commerce** : +15 à +30 % de taux de conversion via recommandations IA, -30 à -40 % de retours produits (mode)
 > - **Délai ROI** : 3 à 5 mois pour un chatbot de qualification (cabinet comptable, hôtel, agence immobilière)
 > - **Qualification leads** : -50 à -60 % du temps de traitement commercial grâce à la pré-qualification automatique
+> - **Intégration technique** : 4 étapes — clé API (plans gratuits : Mistral, Gemini, Groq), fonction serverless qui protège la clé, appel API, widget frontend — compatible HTML statique comme React
 > - **Cas non adaptés** : processus nécessitant un contexte émotionnel fort ou une expertise réglementaire lourde (médical critique, juridique)
 
 ## Les différents types d'intégration IA
 
 ### 1. Chatbots et assistants virtuels
 
-Les chatbots IA modernes (comme ceux basés sur GPT-4 ou Claude) peuvent gérer **70%+ des requêtes clients automatiquement**. Ils offrent une expérience fluide et naturelle, bien loin des bots basiques d'il y a quelques années.
+Les chatbots IA modernes (basés sur GPT, Claude ou Mistral) peuvent gérer **70%+ des requêtes clients automatiquement**. Ils offrent une expérience fluide et naturelle, bien loin des bots basiques d'il y a quelques années.
 
 **Cas d'usage :**
 - Support client 24/7
@@ -116,7 +121,44 @@ Voici les 3 questions à vous poser :
 | Frontend | Next.js + Vercel AI SDK |
 | Backend | Node.js + LangChain |
 | Base vectorielle | Pinecone ou Supabase |
-| LLM | GPT-4, Claude 3, ou Mistral |
+| LLM | GPT (OpenAI), Claude (Anthropic) ou Mistral |
+
+## Comment intégrer une API IA à votre site web, étape par étape (HTML, React, Next.js) ?
+
+Concrètement, brancher une IA sur un site web tient en 4 étapes — les mêmes que votre site soit en HTML statique, React, Next.js ou WordPress.
+
+**Étape 1 — Obtenir une clé API.** Créez un compte chez un fournisseur de LLM et générez une clé. Pour prototyper sans carte bancaire : **Mistral, Google Gemini et Groq proposent des plans API gratuits**. Soyons clairs : une clé « gratuite et illimitée » n'existe pas — les plans gratuits sont plafonnés en requêtes par minute et par jour. C'est suffisant pour un prototype ou un site vitrine à faible trafic, pas pour un usage soutenu (comptez alors 50 à 200 €/mois, voir le tableau des coûts ci-dessous).
+
+**Étape 2 — Ne jamais mettre la clé dans le code frontend.** Une clé placée dans le JavaScript d'une page HTML ou d'un composant React est lisible par quiconque ouvre les outils développeur du navigateur : elle sera volée et votre facture explosera. La clé doit vivre côté serveur — route API Next.js, fonction serverless (Vercel, Netlify, Cloudflare Workers) ou petit backend Node/PHP. Un site 100 % HTML peut donc parfaitement intégrer une IA : il suffit d'ajouter cette fonction serverless (gratuite à faible volume chez Vercel ou Netlify) entre le navigateur et l'API.
+
+**Étape 3 — Appeler l'API du LLM depuis cette route serveur.** Exemple minimal d'une route `/api/chat` qui interroge l'API Mistral :
+
+```js
+// app/api/chat/route.js — la clé reste sur le serveur
+export async function POST(req) {
+  const { messages } = await req.json();
+  const res = await fetch("https://api.mistral.ai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.MISTRAL_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "mistral-small-latest",
+      messages: [
+        { role: "system", content: "Tu es l'assistant du site. Réponds en 3 phrases maximum." },
+        ...messages,
+      ],
+    }),
+  });
+  const data = await res.json();
+  return Response.json({ reply: data.choices[0].message.content });
+}
+```
+
+**Étape 4 — Brancher le frontend et poser des garde-fous.** Côté navigateur, un simple `fetch("/api/chat")` envoie l'historique des messages et affiche la réponse — en React comme en JavaScript vanilla dans une page HTML. Avant la mise en ligne, ajoutez trois protections : un rate limiting (ex. 20 messages par session), des réponses pré-écrites pour les questions les plus fréquentes (zéro appel API, zéro coût), et un suivi de votre consommation API chez le fournisseur.
+
+C'est exactement l'architecture du chatbot de ce site : une route serverless qui appelle l'API Mistral, une détection d'intention par mots-clés qui répond aux demandes de rendez-vous sans consommer un seul token, et une limite de 20 messages par session. Coût API mesuré à notre volume actuel : 0 €.
 
 ## Coûts estimés
 

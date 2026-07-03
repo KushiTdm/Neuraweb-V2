@@ -2,7 +2,7 @@
 title: "How to Integrate AI into Your Website in 2026"
 excerpt: "Complete guide to adding AI to your website: chatbots, personalized recommendations and real-time data analysis, with real costs and use cases."
 date: "2026-01-21"
-updatedAt: "2026-01-21"
+updatedAt: "2026-07-03"
 category: "AI"
 author: "NeuraWeb"
 image: "/assets/blog/integrer-ia-site-web-2025.webp"
@@ -22,9 +22,13 @@ faq:
     answer: "It depends on the provider and the configuration you choose. Major players (OpenAI, Anthropic) offer \"no data training\" options where your data isn't used to retrain their models. For particularly sensitive data (health, finance, legal), consider an on-premise deployment or open-source models (Mistral, LLaMA) hosted on your own infrastructure."
   - question: "What concrete results can you expect in the first year?"
     answer: "SMBs that deploy a first AI project (chatbot or recommendation system) observe on average: a 30 to 50% reduction in inbound request processing time, a 10 to 20% increase in conversion rate, and a positive return on investment within 4 to 9 months depending on the solution chosen and the sector."
+  - question: "Can you integrate AI into a website for free?"
+    answer: "Yes, for prototyping: Mistral, Google Gemini and Groq offer free API plans that are enough for a low-traffic chatbot. However, no API key is \"free and unlimited\": free plans are capped in requests per minute and per day. For a production site with regular traffic, budget €50 to €200 per month in API calls."
+  - question: "Can you integrate AI into a plain HTML site, without a framework?"
+    answer: "Yes. Your HTML page uses JavaScript to call a small serverless function (free at low volume on Vercel, Netlify or Cloudflare) that holds the API key and queries the LLM. The one absolute rule: never put the API key in HTML or JavaScript code visible to the browser — it would be stolen within hours."
 ---
 
-*Updated January 21, 2026 — tech stack, costs and SMB use cases revised.*
+*Updated July 3, 2026 — added the step-by-step integration guide (HTML, React) with code and free API keys.*
 
 Artificial intelligence is no longer reserved for tech giants. In 2026, integrating AI features into your website has become accessible to every business — including SMBs with reasonable budgets. According to the latest industry studies, **more than 70% of businesses that deployed a first AI integration report a positive return on investment in under a year**. Here's a complete guide to get started without getting lost.
 
@@ -35,13 +39,14 @@ Artificial intelligence is no longer reserved for tech giants. In 2026, integrat
 > - **E-commerce**: +15 to +30% conversion rate via AI recommendations, -30 to -40% product returns (fashion)
 > - **ROI timeline**: 3–5 months for a qualification chatbot (accounting firm, hotel, real estate agency)
 > - **Lead qualification**: -50 to -60% of commercial processing time thanks to automatic pre-qualification
+> - **Technical integration**: 4 steps — API key (free plans: Mistral, Gemini, Groq), serverless function protecting the key, API call, frontend widget — works with static HTML as well as React
 > - **Not suitable for**: processes requiring strong emotional context or heavy regulatory expertise (critical medical, legal)
 
 ## Different Types of AI Integration
 
 ### 1. Chatbots and Virtual Assistants
 
-Modern AI chatbots (like those based on GPT-4 or Claude) can handle **70%+ of customer queries automatically**. They offer a fluid and natural experience, far from the basic bots of a few years ago.
+Modern AI chatbots (based on GPT, Claude or Mistral) can handle **70%+ of customer queries automatically**. They offer a fluid and natural experience, far from the basic bots of a few years ago.
 
 **Use cases:**
 - 24/7 customer support
@@ -118,7 +123,44 @@ Here are the 3 questions to ask yourself:
 | Frontend | Next.js + Vercel AI SDK |
 | Backend | Node.js + LangChain |
 | Vector Database | Pinecone or Supabase |
-| LLM | GPT-4, Claude 3, or Mistral |
+| LLM | GPT (OpenAI), Claude (Anthropic) or Mistral |
+
+## How to Integrate an AI API into Your Website, Step by Step (HTML, React, Next.js)?
+
+In practice, wiring AI into a website comes down to 4 steps — the same ones whether your site is built with static HTML, React, Next.js or WordPress.
+
+**Step 1 — Get an API key.** Create an account with an LLM provider and generate a key. To prototype without a credit card: **Mistral, Google Gemini and Groq offer free API plans**. Let's be clear: a "free and unlimited" key doesn't exist — free plans are capped in requests per minute and per day. That's enough for a prototype or a low-traffic showcase site, not for sustained usage (budget €50–200/month in that case, see the cost table below).
+
+**Step 2 — Never put the key in frontend code.** A key placed in the JavaScript of an HTML page or a React component can be read by anyone who opens the browser's developer tools: it will be stolen and your bill will explode. The key must live server-side — a Next.js API route, a serverless function (Vercel, Netlify, Cloudflare Workers) or a small Node/PHP backend. A 100% HTML site can therefore integrate AI just fine: you only need to add that serverless function (free at low volume on Vercel or Netlify) between the browser and the API.
+
+**Step 3 — Call the LLM API from that server route.** Minimal example of a `/api/chat` route querying the Mistral API:
+
+```js
+// app/api/chat/route.js — the key stays on the server
+export async function POST(req) {
+  const { messages } = await req.json();
+  const res = await fetch("https://api.mistral.ai/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${process.env.MISTRAL_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "mistral-small-latest",
+      messages: [
+        { role: "system", content: "You are the site's assistant. Answer in 3 sentences max." },
+        ...messages,
+      ],
+    }),
+  });
+  const data = await res.json();
+  return Response.json({ reply: data.choices[0].message.content });
+}
+```
+
+**Step 4 — Wire up the frontend and add guardrails.** On the browser side, a simple `fetch("/api/chat")` sends the message history and displays the reply — in React as well as in vanilla JavaScript inside an HTML page. Before going live, add three protections: rate limiting (e.g. 20 messages per session), pre-written answers for the most frequent questions (zero API calls, zero cost), and usage monitoring in your provider's dashboard.
+
+This is exactly the architecture of this site's own chatbot: a serverless route calling the Mistral API, keyword-based intent detection that answers booking requests without consuming a single token, and a 20-message-per-session limit. Measured API cost at our current volume: €0.
 
 ## Estimated Costs
 
