@@ -93,11 +93,12 @@ export async function GET(request: NextRequest) {
     if (result.slots && Array.isArray(result.slots)) {
       result.slots = normalizeSlots(result.slots);
 
-      // Écarter les créneaux dont la date est passée (la feuille conserve les
-      // anciennes lignes). Comparaison de clés "YYYY-MM-DD" en fuseau Paris.
+      // Écarter les créneaux passés ET ceux du jour même (la feuille conserve
+      // les anciennes lignes, et on ne veut pas de réservation le jour J).
+      // Comparaison de clés "YYYY-MM-DD" en fuseau Paris.
       const today = todayKeyParis();
       result.slots = result.slots.filter(
-        (slot: any) => parseSheetDate(String(slot.date ?? '')) >= today
+        (slot: any) => parseSheetDate(String(slot.date ?? '')) > today
       );
 
       // Supprimer les éventuels doublons date+time (clé React unique)
@@ -108,6 +109,10 @@ export async function GET(request: NextRequest) {
         seen.add(key);
         return true;
       });
+
+      // Ne garder que 4 créneaux horaires fixes par jour.
+      const ALLOWED_TIMES = new Set(['10:00', '12:00', '14:00', '18:00']);
+      result.slots = result.slots.filter((slot: any) => ALLOWED_TIMES.has(slot.time));
     }
 
     return NextResponse.json(result);
