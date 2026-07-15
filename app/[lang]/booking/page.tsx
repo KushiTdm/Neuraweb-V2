@@ -20,7 +20,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const language = (lang as 'fr' | 'en' | 'es') || 'fr';
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
 
   // L'IA génère les meta tags optimisés
   const seo = await generateAISEO({
@@ -94,7 +94,7 @@ export default async function BookingPage({
       : lang === 'es'
       ? 'Reserve una consulta gratuita de 30 minutos para hablar de su proyecto web, app móvil o integración IA.'
       : 'Book a free 30-minute consultation to discuss your web project, mobile app or AI integration.',
-    provider: { '@type': 'Organization', name: 'NeuraWeb', url: 'https://neuraweb.tech' },
+    provider: { '@type': 'Organization', name: 'NeuraWeb', url: 'https://neuraweb.fr' },
     serviceType: lang === 'fr' ? 'Développement web et IA' : lang === 'es' ? 'Desarrollo web e IA' : 'Web development and AI',
     areaServed: { '@type': 'Country', name: 'France' },
     offers: {

@@ -21,7 +21,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const language = (lang as 'fr' | 'en' | 'es') || 'fr';
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
 
   // L'IA génère les meta tags optimisés — résultat injecté dans le <head> statique
   const seo = await generateAISEO({

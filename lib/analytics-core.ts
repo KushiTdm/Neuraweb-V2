@@ -18,7 +18,7 @@ import path from "path";
 const TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token";
 const GSC_SCOPE = "https://www.googleapis.com/auth/webmasters.readonly";
 const GA4_SCOPE = "https://www.googleapis.com/auth/analytics.readonly";
-const SITE_URL = "sc-domain:neuraweb.tech";
+const SITE_URL = "sc-domain:neuraweb.fr";
 const GA4_PROPERTY_ID = process.env.GA4_PROPERTY_ID || "517812956";
 
 interface ServiceAccount {

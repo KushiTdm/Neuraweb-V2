@@ -23,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
 
   const meta = {
     fr: {

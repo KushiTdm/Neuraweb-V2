@@ -9,7 +9,7 @@ import { sendNewsletterWelcomeEmail } from '@/lib/email-service';
 import { rateLimitRequest, isValidEmail, isHoneypotFilled } from '@/lib/rate-limit';
 import { getServiceSupabase } from '@/lib/supabase-server';
 
-const BASE_URL = 'https://neuraweb.tech';
+const BASE_URL = 'https://neuraweb.fr';
 const SUPPORTED_LANGUAGES = ['fr', 'en', 'es'];
 
 function unsubscribeUrl(token: string): string {
@@ -131,7 +131,7 @@ export async function GET(request: NextRequest) {
   a { color:#6366f1; text-decoration:none; font-weight:600; }
 </style></head>
 <body><div class="card"><h1>${ok ? '✓' : '✗'} ${ok ? 'Désinscription confirmée' : 'Lien invalide'}</h1>
-<p>${message}</p><p style="margin-top:20px"><a href="${BASE_URL}">Retour à neuraweb.tech</a></p>
+<p>${message}</p><p style="margin-top:20px"><a href="${BASE_URL}">Retour à neuraweb.fr</a></p>
 </div></body></html>`;
 
   if (!token) {

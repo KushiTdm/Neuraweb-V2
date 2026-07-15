@@ -8,7 +8,7 @@
 //     (la précédente contenait des coordonnées GPS erronées : océan Pacifique)
 // ============================================================
 
-const BASE_URL = 'https://neuraweb.tech';
+const BASE_URL = 'https://neuraweb.fr';
 
 const REAL_PHONE = '+33749775654'; // identique à la fiche Google Business
 const REAL_ADDRESS_LOCALITY = 'Lille';

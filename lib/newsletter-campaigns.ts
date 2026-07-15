@@ -11,7 +11,7 @@ import { getServiceSupabase } from '@/lib/supabase-server';
 import { getPostBySlug } from '@/lib/mdx';
 import { sendNewsletterArticleEmail } from '@/lib/email-service';
 
-const BASE_URL = 'https://neuraweb.tech';
+const BASE_URL = 'https://neuraweb.fr';
 const CONCURRENCY = 5;
 export const SUPPORTED_LANGUAGES = ['fr', 'en', 'es'] as const;
 export type CampaignLang = (typeof SUPPORTED_LANGUAGES)[number];

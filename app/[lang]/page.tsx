@@ -21,7 +21,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const language = (lang as 'fr' | 'en' | 'es') || 'fr';
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
 
   // ✅ CORRIGÉ : chemin de l'image OG (était /og-image.png)
   const ogImage = `${baseUrl}/assets/logo/neuraweb-agence_tech.png`;

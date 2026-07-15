@@ -3,7 +3,7 @@ import { JsonLd } from '@/components/json-ld';
 import { IntegrationIAPageClient } from '@/components/integration-ia-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
-const BASE_URL = 'https://neuraweb.tech';
+const BASE_URL = 'https://neuraweb.fr';
 const PAGE_SLUG = 'integration-ia';
 
 type Lang = 'fr' | 'en' | 'es';

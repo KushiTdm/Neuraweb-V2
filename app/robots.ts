@@ -51,6 +51,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: PRIVATE_ROUTES,
       },
     ],
-    sitemap: 'https://neuraweb.tech/sitemap.xml',
+    sitemap: 'https://neuraweb.fr/sitemap.xml',
   };
 }

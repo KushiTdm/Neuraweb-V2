@@ -77,7 +77,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
 
   // ✅ CORRIGÉ : image à la bonne URL
   const ogImage = `${baseUrl}/assets/logo/neuraweb-agence_tech.png`;

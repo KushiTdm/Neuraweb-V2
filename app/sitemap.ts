@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllPostSlugsAllLanguages, getPostBySlug } from '@/lib/mdx';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 
-const BASE_URL = 'https://neuraweb.tech';
+const BASE_URL = 'https://neuraweb.fr';
 
 // ✅ Date de migration Vercel — utilisée comme lastModified minimum pour tous les contenus
 // Cela signale à Google que tout a été re-déployé depuis cette date

@@ -22,7 +22,7 @@ const CONTENT = {
     sections: [
       {
         title: '1. Introduction',
-        content: `NeuraWeb (ci-après "nous", "notre" ou "NeuraWeb") s'engage à protéger la vie privée des utilisateurs de son site web https://neuraweb.tech.
+        content: `NeuraWeb (ci-après "nous", "notre" ou "NeuraWeb") s'engage à protéger la vie privée des utilisateurs de son site web https://neuraweb.fr.
 
 Cette politique de confidentialité décrit comment nous collectons, utilisons, stockons et protégeons vos données personnelles conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés.`,
       },
@@ -167,7 +167,7 @@ Nous nous engageons à répondre dans un délai de 30 jours.`,
     sections: [
       {
         title: '1. Introduction',
-        content: `NeuraWeb (hereinafter "we", "our" or "NeuraWeb") is committed to protecting the privacy of users of its website https://neuraweb.tech.
+        content: `NeuraWeb (hereinafter "we", "our" or "NeuraWeb") is committed to protecting the privacy of users of its website https://neuraweb.fr.
 
 This privacy policy describes how we collect, use, store, and protect your personal data in accordance with the General Data Protection Regulation (GDPR).`,
       },
@@ -312,7 +312,7 @@ We commit to responding within 30 days.`,
     sections: [
       {
         title: '1. Introducción',
-        content: `NeuraWeb (en adelante "nosotros", "nuestro" o "NeuraWeb") se compromete a proteger la privacidad de los usuarios de su sitio web https://neuraweb.tech.
+        content: `NeuraWeb (en adelante "nosotros", "nuestro" o "NeuraWeb") se compromete a proteger la privacidad de los usuarios de su sitio web https://neuraweb.fr.
 
 Esta política de privacidad describe cómo recopilamos, usamos, almacenamos y protegemos sus datos personales de acuerdo con el Reglamento General de Protección de Datos (RGPD).`,
       },
@@ -456,7 +456,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const language = (lang as 'fr' | 'en' | 'es') || 'fr';
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
   const content = CONTENT[language] || CONTENT.fr;
 
   return {

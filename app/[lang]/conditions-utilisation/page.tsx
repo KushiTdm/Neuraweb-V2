@@ -22,7 +22,7 @@ const CONTENT = {
     sections: [
       {
         title: '1. Objet',
-        content: `Les présentes Conditions Générales d'Utilisation (CGU) définissent les modalités d'accès et d'utilisation du site https://neuraweb.tech (ci-après "le Site") édité par NeuraWeb.
+        content: `Les présentes Conditions Générales d'Utilisation (CGU) définissent les modalités d'accès et d'utilisation du site https://neuraweb.fr (ci-après "le Site") édité par NeuraWeb.
 
 En accédant au Site, vous acceptez sans réserve les présentes CGU. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser le Site.`,
       },
@@ -147,7 +147,7 @@ Nous nous efforçons de répondre dans un délai de 48 heures ouvrées.`,
     sections: [
       {
         title: '1. Purpose',
-        content: `These Terms of Use define the terms and conditions for accessing and using the website https://neuraweb.tech (hereinafter "the Site") published by NeuraWeb.
+        content: `These Terms of Use define the terms and conditions for accessing and using the website https://neuraweb.fr (hereinafter "the Site") published by NeuraWeb.
 
 By accessing the Site, you accept these Terms without reservation. If you do not accept these terms, please do not use the Site.`,
       },
@@ -272,7 +272,7 @@ We strive to respond within 48 business hours.`,
     sections: [
       {
         title: '1. Objeto',
-        content: `Estas Condiciones de Uso definen los términos y condiciones de acceso y uso del sitio web https://neuraweb.tech (en adelante "el Sitio") publicado por NeuraWeb.
+        content: `Estas Condiciones de Uso definen los términos y condiciones de acceso y uso del sitio web https://neuraweb.fr (en adelante "el Sitio") publicado por NeuraWeb.
 
 Al acceder al Sitio, acepta estas Condiciones sin reservas. Si no acepta estas condiciones, por favor no utilice el Sitio.`,
       },
@@ -398,7 +398,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const language = (lang as 'fr' | 'en' | 'es') || 'fr';
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
   const content = CONTENT[language] || CONTENT.fr;
 
   return {

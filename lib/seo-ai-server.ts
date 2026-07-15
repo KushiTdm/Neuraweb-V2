@@ -87,7 +87,7 @@ function buildRichContext(context: PageSEOContext): string {
   return `CONTEXTE DE LA PAGE :
 - Type : ${context.pageType}
 - Langue : ${context.language}
-- URL : https://neuraweb.tech${context.path}
+- URL : https://neuraweb.fr${context.path}
 - Titre actuel : ${pageCtx.title}
 - Description actuelle : ${pageCtx.description}
 - Mots-clés actuels : ${pageCtx.keywords.join(', ')}

@@ -115,7 +115,7 @@ ENTREPRISE
 ━━━━━━━━━━━━━━━━━━━━━━
 NeuraWeb — Agence web & IA basée à Lille (Hauts-de-France), intervient partout en France (Paris, Lyon, Marseille, Bordeaux, Toulouse...) en remote
 SIRET: 991 296 047 00020 (micro-entreprise)
-Contact: contact@neuraweb.tech | https://neuraweb.tech | Tél: +33 7 49 77 56 54
+Contact: contact@neuraweb.tech | https://neuraweb.fr | Tél: +33 7 49 77 56 54
 CEO & développeur: Nacer
 
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -237,7 +237,7 @@ Tarifs HT, TVA 20% en sus. Engagement 12 mois sur l'abonnement. Tous incluent SS
 ━━━━━━━━━━━━━━━━━━━━━━
 SECTEUR PUBLIC & COLLECTIVITÉS — proposer si le contact est une mairie, commune, intercommunalité/EPCI, métropole, CCAS, office de tourisme, médiathèque ou établissement public
 ━━━━━━━━━━━━━━━━━━━━━━
-Page dédiée: https://neuraweb.tech/fr/collectivites. Offre modulaire (briques indépendantes et phasables), toujours SUR DEVIS selon le périmètre — pas de prix public affiché.
+Page dédiée: https://neuraweb.fr/fr/collectivites. Offre modulaire (briques indépendantes et phasables), toujours SUR DEVIS selon le périmètre — pas de prix public affiché.
 
 ⚖️ Commande publique (on la maîtrise):
 - Depuis le 1er avril 2026, un marché de fournitures/services peut être conclu SANS publicité ni mise en concurrence sous 60 000 € HT (avant: 40 000 €). La plupart des projets web/IA d'une commune entrent dans cette fenêtre.
@@ -265,7 +265,7 @@ Toujours rappeler l'audit gracieux et la maîtrise de la commande publique, puis
 ━━━━━━━━━━━━━━━━━━━━━━
 L'ÉQUIPE NEURAWEB — répondre si on demande "qui êtes-vous", "qui est derrière NeuraWeb", l'équipe, le fondateur
 ━━━━━━━━━━━━━━━━━━━━━━
-Page: https://neuraweb.tech/fr/equipe. Équipe resserrée de 3 personnes, basée à Lille, intervient partout en France en remote.
+Page: https://neuraweb.fr/fr/equipe. Équipe resserrée de 3 personnes, basée à Lille, intervient partout en France en remote.
 👤 Nacer — Fondateur & Lead Developer. Développeur full-stack, 11 ans d'expérience, spécialiste React/Next.js et intégration LLM, pilote l'architecture technique. C'est l'interlocuteur dirigeant.
 👤 Sandra — Communication & Marketing. Communication digitale et stratégie marketing: campagnes impactantes et présence de marque des clients.
 👤 Arthur — Développeur IA & Automatisation. Ingénieur IA et automatisation, conçoit les solutions IA et les workflows n8n sur mesure.
@@ -353,7 +353,7 @@ COMPANY
 ━━━━━━━━━━━━━━━━━━━━━━
 NeuraWeb — Web & AI Agency based in Lille (Hauts-de-France, France), working remotely with clients across France (Paris, Lyon, Marseille, Bordeaux, Toulouse...)
 SIRET: 991 296 047 00020 (French micro-business)
-Contact: contact@neuraweb.tech | https://neuraweb.tech | Phone: +33 7 49 77 56 54
+Contact: contact@neuraweb.tech | https://neuraweb.fr | Phone: +33 7 49 77 56 54
 CEO & developer: Nacer
 
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -440,7 +440,7 @@ All prices excl. VAT (20%). 12-month subscription commitment. SSL, hosting, 1st-
 ━━━━━━━━━━━━━━━━━━━━━━
 PUBLIC SECTOR & LOCAL GOVERNMENT — propose if the contact is a town hall, municipality, intercommunality, metropolis, social-action centre (CCAS), tourist office or public body
 ━━━━━━━━━━━━━━━━━━━━━━
-Dedicated page: https://neuraweb.tech/fr/collectivites. Modular offer (independent, phaseable building blocks), always BY QUOTE depending on scope — no public price.
+Dedicated page: https://neuraweb.fr/fr/collectivites. Modular offer (independent, phaseable building blocks), always BY QUOTE depending on scope — no public price.
 
 ⚖️ Public procurement (we know it): since 1 April 2026, a supplies/services contract can be awarded WITHOUT advertising or competition under €60,000 excl. VAT (was €40,000); most municipal web/AI projects fit this window. Above it: adapted procedure (MAPA). EU formal threshold: €216,000 excl. VAT (local authorities). First step: a free, no-commitment audit + ~30-min call.
 
@@ -459,7 +459,7 @@ If a local authority is identified, ask: "Is your priority making your site comp
 ━━━━━━━━━━━━━━━━━━━━━━
 THE NEURAWEB TEAM — answer if asked "who are you", "who is behind NeuraWeb", the team, the founder
 ━━━━━━━━━━━━━━━━━━━━━━
-Page: https://neuraweb.tech/en/equipe. A tight 3-person team, based in Lille, working remotely across France.
+Page: https://neuraweb.fr/en/equipe. A tight 3-person team, based in Lille, working remotely across France.
 👤 Nacer — Founder & Lead Developer. Full-stack developer, 11 years' experience, React/Next.js and LLM integration specialist, owns technical architecture. He is the lead contact.
 👤 Sandra — Communication & Marketing. Digital communication and marketing strategy: impactful campaigns and client brand presence.
 👤 Arthur — AI & Automation Developer. AI and automation engineer, designs the AI solutions and custom n8n workflows.
@@ -502,7 +502,7 @@ EMPRESA
 ━━━━━━━━━━━━━━━━━━━━━━
 NeuraWeb — Agencia Web & IA con sede en Lille (Hauts-de-France, Francia), trabaja en remoto con clientes en toda Francia (París, Lyon, Marsella, Burdeos, Toulouse...)
 SIRET: 991 296 047 00020 (microempresa francesa)
-Contacto: contact@neuraweb.tech | https://neuraweb.tech | Tel: +33 7 49 77 56 54
+Contacto: contact@neuraweb.tech | https://neuraweb.fr | Tel: +33 7 49 77 56 54
 CEO & desarrollador: Nacer
 
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -589,7 +589,7 @@ Precios sin IVA (20%). Compromiso suscripción 12 meses. Incluyen SSL, hosting, 
 ━━━━━━━━━━━━━━━━━━━━━━
 SECTOR PÚBLICO Y ADMINISTRACIONES LOCALES — proponer si el contacto es un ayuntamiento, municipio, mancomunidad, metrópoli, centro de acción social, oficina de turismo u organismo público
 ━━━━━━━━━━━━━━━━━━━━━━
-Página dedicada: https://neuraweb.tech/fr/collectivites. Oferta modular (bloques independientes y por fases), siempre POR PRESUPUESTO según el alcance — sin precio público.
+Página dedicada: https://neuraweb.fr/fr/collectivites. Oferta modular (bloques independientes y por fases), siempre POR PRESUPUESTO según el alcance — sin precio público.
 
 ⚖️ Contratación pública (la dominamos): desde el 1 de abril de 2026, un contrato de suministros/servicios puede adjudicarse SIN publicidad ni concurrencia por debajo de 60.000 € (antes 40.000 €); la mayoría de proyectos web/IA municipales entran en esta ventana. Por encima: procedimiento adaptado. Umbral formal UE: 216.000 € (entidades locales). Primer paso: auditoría + llamada de ~30 min, GRATUITA y sin compromiso.
 
@@ -608,7 +608,7 @@ Si se identifica una administración local, preguntar: "¿Tu prioridad es la con
 ━━━━━━━━━━━━━━━━━━━━━━
 EL EQUIPO NEURAWEB — responder si preguntan "quiénes sois", "quién está detrás de NeuraWeb", el equipo, el fundador
 ━━━━━━━━━━━━━━━━━━━━━━
-Página: https://neuraweb.tech/es/equipe. Equipo reducido de 3 personas, con base en Lille, trabaja en remoto por toda Francia.
+Página: https://neuraweb.fr/es/equipe. Equipo reducido de 3 personas, con base en Lille, trabaja en remoto por toda Francia.
 👤 Nacer — Fundador & Lead Developer. Desarrollador full-stack, 11 años de experiencia, especialista en React/Next.js e integración LLM, lidera la arquitectura técnica. Es el interlocutor principal.
 👤 Sandra — Comunicación & Marketing. Comunicación digital y estrategia de marketing: campañas impactantes y presencia de marca de los clientes.
 👤 Arthur — Desarrollador IA & Automatización. Ingeniero de IA y automatización, diseña las soluciones IA y los flujos n8n a medida.

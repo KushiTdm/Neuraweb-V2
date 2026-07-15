@@ -29,7 +29,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-const BASE_URL = 'https://neuraweb.tech';
+const BASE_URL = 'https://neuraweb.fr';
 const PAGE_PATH = '/fr/agence-web-lille';
 
 // Page FR uniquement — page locale SEO (ISR 1h)

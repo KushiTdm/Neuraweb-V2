@@ -23,7 +23,7 @@ const path = require('path');
 const crypto = require('crypto');
 const https = require('https');
 
-const SITEMAP_URL = 'https://neuraweb.tech/sitemap.xml';
+const SITEMAP_URL = 'https://neuraweb.fr/sitemap.xml';
 const INDEXING_ENDPOINT = 'https://indexing.googleapis.com/v3/urlNotifications:publish';
 const TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
 const SCOPE = 'https://www.googleapis.com/auth/indexing';

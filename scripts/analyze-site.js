@@ -19,8 +19,8 @@ const crypto = require('crypto');
 
 // ─── Configuration ──────────────────────────────────────────────────────────
 
-const SITE_URL     = 'sc-domain:neuraweb.tech';
-const BASE_URL     = 'https://neuraweb.tech';
+const SITE_URL     = 'sc-domain:neuraweb.fr';
+const BASE_URL     = 'https://neuraweb.fr';
 const TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
 const GSC_SCOPE    = 'https://www.googleapis.com/auth/webmasters.readonly';
 const GA4_SCOPE    = 'https://www.googleapis.com/auth/analytics.readonly';
@@ -654,7 +654,7 @@ async function phaseIndexation(gscToken) {
   const gscPages = await gscQuery(gscToken, ['page']);
   const indexedUrls = new Set(gscPages.map(r => r.keys[0]));
 
-  const notIndexed = locs.filter(u => !indexedUrls.has(u) && !indexedUrls.has(u.replace('https://www.neuraweb.tech', BASE_URL)));
+  const notIndexed = locs.filter(u => !indexedUrls.has(u) && !indexedUrls.has(u.replace('https://www.neuraweb.fr', BASE_URL)));
 
   console.log(`\n${C.bold}État d'indexation :${C.reset}`);
   console.log(`  URLs dans sitemap     : ${C.bold}${num(locs.length)}${C.reset}`);

@@ -4,7 +4,7 @@ import { JsonLd } from '@/components/json-ld';
 import { SantePageClient } from '@/components/sante-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
-const BASE_URL = 'https://neuraweb.tech';
+const BASE_URL = 'https://neuraweb.fr';
 const PAGE_PATH = '/fr/sante';
 
 // Page FR uniquement — généreration statique 24h

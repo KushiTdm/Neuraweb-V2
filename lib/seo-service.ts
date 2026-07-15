@@ -283,7 +283,7 @@ export function generateJsonLd(
   context: PageSEOContext,
   additionalData?: Record<string, unknown>
 ): Record<string, unknown> {
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
   const pageContext = getPageSEOContext(context);
 
   const baseSchema = {
@@ -410,7 +410,7 @@ export function generatePageMetadata(
   const keywords = [...(pageContext.keywords || []), ...(context.customKeywords || [])];
   const boostedKeywords = generateBoostedKeywords(context);
 
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
   const pageUrl = `${baseUrl}${context.path}`;
   const uniqueKeywords = Array.from(new Set([...keywords, ...boostedKeywords]));
 

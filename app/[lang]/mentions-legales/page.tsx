@@ -22,7 +22,7 @@ const CONTENT = {
       editor: {
         title: '1. Éditeur du site',
         content: `
-Le site https://neuraweb.tech est édité par :
+Le site https://neuraweb.fr est édité par :
 
 **NeuraWeb**
 Micro-entreprise
@@ -111,7 +111,7 @@ Les présentes mentions légales peuvent être modifiées à tout moment. Nous v
       editor: {
         title: '1. Website Publisher',
         content: `
-The website https://neuraweb.tech is published by:
+The website https://neuraweb.fr is published by:
 
 **NeuraWeb**
 Micro-enterprise (French sole proprietorship)
@@ -202,7 +202,7 @@ These legal notices may be modified at any time. We invite you to consult them r
       editor: {
         title: '1. Editor del sitio',
         content: `
-El sitio https://neuraweb.tech es editado por:
+El sitio https://neuraweb.fr es editado por:
 
 **NeuraWeb**
 Microempresa (autónomo francés)
@@ -292,7 +292,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const language = (lang as 'fr' | 'en' | 'es') || 'fr';
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
   const content = CONTENT[language] || CONTENT.fr;
 
   return {

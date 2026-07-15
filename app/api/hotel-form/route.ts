@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
       }
 
       const token = generateToken();
-      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuraweb.tech';
+      const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://neuraweb.fr';
       const formUrl = `${baseUrl}/fr/hotel-form?token=${token}`;
 
       const payload = {

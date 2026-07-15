@@ -40,7 +40,7 @@ export async function generateMetadata({
     };
   }
 
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
 
   // L'IA génère les meta tags optimisés basés sur le contenu réel de l'article
   const seo = await generateBlogPostAISEO({
@@ -124,7 +124,7 @@ export default async function BlogPostPage({
   const otherPosts = allPosts.filter((p) => p.slug !== slug && p.category !== post.category);
   const relatedPosts = [...sameCategory, ...otherPosts].slice(0, 3);
 
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
   const articleSchema = generateArticleSchema({
     title: post.title,
     description: post.excerpt || post.title,

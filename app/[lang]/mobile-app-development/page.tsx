@@ -75,7 +75,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const language = (lang as Lang) || 'fr';
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
   const ogImage = `${baseUrl}/assets/og-image.png`;
   const meta = META[language] ?? META.fr;
   const path = `/${language}/mobile-app-development`;
@@ -137,7 +137,7 @@ const FAQ_BY_LANG: Record<Lang, { question: string; answer: string }[]> = {
 };
 
 const generateMobileAppJsonLd = (lang: Lang) => {
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
   const serviceName: Record<Lang, string> = {
     fr: 'Développement d\'applications mobiles iOS et Android',
     en: 'Mobile app development for iOS and Android',

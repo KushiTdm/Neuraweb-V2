@@ -462,9 +462,9 @@ function getFooterHTML(language: string = 'fr'): string {
       
       <!-- Links -->
       <div class="footer-links">
-        <a href="https://neuraweb.tech" class="footer-link">neuraweb.tech</a>
-        <a href="https://neuraweb.tech/contact" class="footer-link">${language === 'en' ? 'Contact' : language === 'es' ? 'Contacto' : 'Contact'}</a>
-        <a href="https://neuraweb.tech/services" class="footer-link">${language === 'en' ? 'Services' : language === 'es' ? 'Servicios' : 'Services'}</a>
+        <a href="https://neuraweb.fr" class="footer-link">neuraweb.fr</a>
+        <a href="https://neuraweb.fr/contact" class="footer-link">${language === 'en' ? 'Contact' : language === 'es' ? 'Contacto' : 'Contact'}</a>
+        <a href="https://neuraweb.fr/services" class="footer-link">${language === 'en' ? 'Services' : language === 'es' ? 'Servicios' : 'Services'}</a>
       </div>
       
       <!-- Divider -->
@@ -1354,7 +1354,7 @@ export async function sendNewsletterWelcomeEmail(data: NewsletterWelcomeData) {
         <p class="email-text">${bodyText}</p>
 
         <div class="cta-wrapper">
-          <a href="https://neuraweb.tech/${language}/blog" class="cta-button">${ctaLabel}</a>
+          <a href="https://neuraweb.fr/${language}/blog" class="cta-button">${ctaLabel}</a>
         </div>
       </div>
 

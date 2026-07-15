@@ -2,7 +2,7 @@
 /**
  * PageSpeed Insights API — audit complet mobile + desktop
  * Usage :
- *   node scripts/pagespeed.js                          → https://neuraweb.tech/
+ *   node scripts/pagespeed.js                          → https://neuraweb.fr/
  *   node scripts/pagespeed.js /fr/services             → sous-page
  *   PAGESPEED_API_KEY=xxx node scripts/pagespeed.js    → clé Google (recommandé)
  *
@@ -29,7 +29,7 @@ function loadEnvKey() {
   return '';
 }
 
-const BASE_URL   = 'https://neuraweb.tech';
+const BASE_URL   = 'https://neuraweb.fr';
 const PATH_ARG   = process.argv[2] || '/';
 const TARGET_URL = BASE_URL + (PATH_ARG.startsWith('/') ? PATH_ARG : '/' + PATH_ARG);
 const API_KEY    = process.env.PAGESPEED_API_KEY || loadEnvKey();

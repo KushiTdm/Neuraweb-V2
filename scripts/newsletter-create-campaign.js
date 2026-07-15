@@ -29,7 +29,7 @@ const args = Object.fromEntries(
 
 const SLUG = args.slug;
 const LANG = args.lang || 'fr';
-const BASE_URL = args.base || 'https://neuraweb.tech';
+const BASE_URL = args.base || 'https://neuraweb.fr';
 const SECRET = process.env.NEWSLETTER_NOTIFY_SECRET;
 
 if (!SLUG) {

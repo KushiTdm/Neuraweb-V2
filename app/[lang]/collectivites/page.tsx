@@ -4,7 +4,7 @@ import { JsonLd } from '@/components/json-ld';
 import { CollectivitesPageClient } from '@/components/collectivites-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
-const BASE_URL = 'https://neuraweb.tech';
+const BASE_URL = 'https://neuraweb.fr';
 const PAGE_PATH = '/fr/collectivites';
 
 // Page FR uniquement — canal de conversion B2G (marchés publics), non traduit (ISR 1h)

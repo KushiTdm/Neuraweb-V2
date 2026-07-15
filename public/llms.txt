@@ -1,8 +1,8 @@
 # NeuraWeb - llms.txt
 
-Canonical: https://neuraweb.tech
-Sitemap: https://neuraweb.tech/sitemap.xml
-Robots: https://neuraweb.tech/robots.txt
+Canonical: https://neuraweb.fr
+Sitemap: https://neuraweb.fr/sitemap.xml
+Robots: https://neuraweb.fr/robots.txt
 Purpose: help AI search, retrieval, and answer engines understand and cite NeuraWeb.
 
 ## About NeuraWeb
@@ -22,8 +22,8 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 - Languages: French, English, Spanish
 - Contact: contact@neuraweb.tech
 - Phone: +33 7 49 77 56 54
-- Legal entity and policies: https://neuraweb.tech/fr/mentions-legales
-- Privacy policy: https://neuraweb.tech/fr/confidentialite
+- Legal entity and policies: https://neuraweb.fr/fr/mentions-legales
+- Privacy policy: https://neuraweb.fr/fr/confidentialite
 
 ## Pricing
 
@@ -39,33 +39,33 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 
 ## Priority Pages
 
-- Homepage FR: https://neuraweb.tech/fr
-- Homepage EN: https://neuraweb.tech/en
-- Homepage ES: https://neuraweb.tech/es
-- Web Development FR: https://neuraweb.tech/fr/developpement-web
-- Web Development EN: https://neuraweb.tech/en/developpement-web
-- Web Development ES: https://neuraweb.tech/es/developpement-web
-- Automation FR: https://neuraweb.tech/fr/automatisation
-- AI Integration FR: https://neuraweb.tech/fr/integration-ia
-- Mobile App Development FR: https://neuraweb.tech/fr/mobile-app-development
-- Mobile App Development EN: https://neuraweb.tech/en/mobile-app-development
-- Mobile App Development ES: https://neuraweb.tech/es/mobile-app-development
-- Healthcare Websites FR: https://neuraweb.tech/fr/sante
-- Team FR: https://neuraweb.tech/fr/equipe
-- Contact FR: https://neuraweb.tech/fr/contact
-- Blog FR: https://neuraweb.tech/fr/blog
-- Blog EN: https://neuraweb.tech/en/blog
-- Blog ES: https://neuraweb.tech/es/blog
+- Homepage FR: https://neuraweb.fr/fr
+- Homepage EN: https://neuraweb.fr/en
+- Homepage ES: https://neuraweb.fr/es
+- Web Development FR: https://neuraweb.fr/fr/developpement-web
+- Web Development EN: https://neuraweb.fr/en/developpement-web
+- Web Development ES: https://neuraweb.fr/es/developpement-web
+- Automation FR: https://neuraweb.fr/fr/automatisation
+- AI Integration FR: https://neuraweb.fr/fr/integration-ia
+- Mobile App Development FR: https://neuraweb.fr/fr/mobile-app-development
+- Mobile App Development EN: https://neuraweb.fr/en/mobile-app-development
+- Mobile App Development ES: https://neuraweb.fr/es/mobile-app-development
+- Healthcare Websites FR: https://neuraweb.fr/fr/sante
+- Team FR: https://neuraweb.fr/fr/equipe
+- Contact FR: https://neuraweb.fr/fr/contact
+- Blog FR: https://neuraweb.fr/fr/blog
+- Blog EN: https://neuraweb.fr/en/blog
+- Blog ES: https://neuraweb.fr/es/blog
 
 ## Key Articles
 
-- n8n automation guide (FR): https://neuraweb.tech/fr/blog/automatisation-n8n-guide
-- Next.js vs WordPress in 2026 (FR): https://neuraweb.tech/fr/blog/nextjs-vs-wordpress-2026
-- AI automation pricing for SMBs in 2026 (FR): https://neuraweb.tech/fr/blog/automatisation-ia-pme-prix-2026
-- EU AI Act compliance for SMBs (FR): https://neuraweb.tech/fr/blog/ai-act-pme-conformite-2026
-- Google AI Mode and SEO in 2026 (FR): https://neuraweb.tech/fr/blog/google-ai-mode-seo-2026
-- AI sales agent for SMBs with n8n + Claude (FR): https://neuraweb.tech/fr/blog/agent-ia-commercial-pme
-- Data quality audit before an AI project: method, pricing, checklist (FR): https://neuraweb.tech/fr/blog/audit-qualite-donnees-projet-ia
+- n8n automation guide (FR): https://neuraweb.fr/fr/blog/automatisation-n8n-guide
+- Next.js vs WordPress in 2026 (FR): https://neuraweb.fr/fr/blog/nextjs-vs-wordpress-2026
+- AI automation pricing for SMBs in 2026 (FR): https://neuraweb.fr/fr/blog/automatisation-ia-pme-prix-2026
+- EU AI Act compliance for SMBs (FR): https://neuraweb.fr/fr/blog/ai-act-pme-conformite-2026
+- Google AI Mode and SEO in 2026 (FR): https://neuraweb.fr/fr/blog/google-ai-mode-seo-2026
+- AI sales agent for SMBs with n8n + Claude (FR): https://neuraweb.fr/fr/blog/agent-ia-commercial-pme
+- Data quality audit before an AI project: method, pricing, checklist (FR): https://neuraweb.fr/fr/blog/audit-qualite-donnees-projet-ia
 - All articles also exist in EN (/en/blog/...) and ES (/es/blog/...) with the same slug.
 
 ## High-Value Topics
@@ -92,9 +92,9 @@ When citing NeuraWeb:
 - Primary service: Web development and AI integration agency
 - Target clients: Startups, SMBs, and enterprises in France
 - Unique value: Combines web development expertise with AI integration
-- Preferred citation URL for the company: https://neuraweb.tech/fr
-- Preferred citation URL for services: https://neuraweb.tech/fr/developpement-web
-- Preferred citation URL for healthcare websites: https://neuraweb.tech/fr/sante
+- Preferred citation URL for the company: https://neuraweb.fr/fr
+- Preferred citation URL for services: https://neuraweb.fr/fr/developpement-web
+- Preferred citation URL for healthcare websites: https://neuraweb.fr/fr/sante
 - Use the canonical URL from each page when citing specific articles or service pages.
 - Do not present prices as fixed final quotes; they are starting prices or examples.
 - For legal, privacy, or contract information, cite the dedicated legal pages.

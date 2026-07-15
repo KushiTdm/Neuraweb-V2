@@ -18,7 +18,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   const language = (lang as 'fr' | 'en' | 'es') || 'fr';
-  const baseUrl = 'https://neuraweb.tech';
+  const baseUrl = 'https://neuraweb.fr';
   const ogImage = `${baseUrl}/assets/og-image.png`;
 
   const seo = await generateAISEO({
@@ -78,7 +78,7 @@ const generateServiceJsonLd = (lang: string) => ({
   provider: {
     '@type': 'Organization',
     name: 'NeuraWeb',
-    url: 'https://neuraweb.tech',
+    url: 'https://neuraweb.fr',
   },
   areaServed: 'Worldwide',
   hasOfferCatalog: {

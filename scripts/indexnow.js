@@ -8,7 +8,7 @@
  *      Bing génère une clé et vérifie que le fichier .txt est accessible.
  *      INDEXNOW_KEY ci-dessous doit correspondre à la clé affichée dans Bing WMT.
  *   2. Le fichier de clé doit être accessible publiquement :
- *      https://neuraweb.tech/<INDEXNOW_KEY>.txt
+ *      https://neuraweb.fr/<INDEXNOW_KEY>.txt
  *
  * Usage :
  *   node scripts/indexnow.js              # soumet toutes les URLs
@@ -22,15 +22,21 @@
  * ⚠️  Erreur 403 "UserForbiddedToAccessSite" ?
  *   → La clé doit être activée dans Bing Webmaster Tools avant tout appel API.
  *     Voir : https://www.bing.com/webmasters → IndexNow → configurer la clé.
+ *
+ * Migration de domaine (juillet 2026) : neuraweb.tech → neuraweb.fr. La même
+ * clé fonctionne sur les deux hôtes (le fichier .txt est un asset public,
+ * servi par le même déploiement) — pas besoin d'en régénérer une, mais
+ * vérifie que neuraweb.fr est bien ajouté comme site dans Bing Webmaster
+ * Tools pour que le suivi/les quotas y soient rattachés.
  */
 
 const https = require('https');
 
 // Clé active — générée depuis Bing Webmaster Tools → IndexNow et vérifiée le 2026-06-09.
-// Fichier hébergé : https://neuraweb.tech/cb1ea553f2a14f15a90d2189d947e4da.txt
+// Fichier hébergé : https://neuraweb.fr/cb1ea553f2a14f15a90d2189d947e4da.txt
 // Peut être surchargée via INDEXNOW_KEY=<valeur> dans l'env.
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY || 'cb1ea553f2a14f15a90d2189d947e4da';
-const SITE_HOST = 'neuraweb.tech';
+const SITE_HOST = 'neuraweb.fr';
 const SITEMAP_URL = `https://${SITE_HOST}/sitemap.xml`;
 const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow';
 const BATCH_SIZE = 10000;

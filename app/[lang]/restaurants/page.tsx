@@ -4,7 +4,7 @@ import { JsonLd } from '@/components/json-ld';
 import { RestaurantsPageClient } from '@/components/restaurants-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
-const BASE_URL = 'https://neuraweb.tech';
+const BASE_URL = 'https://neuraweb.fr';
 const PAGE_PATH = '/fr/restaurants';
 
 // Page FR uniquement — canal de conversion vertical, non traduit (ISR 1h)

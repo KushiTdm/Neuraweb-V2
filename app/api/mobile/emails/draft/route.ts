@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
     const system = `Tu rédiges des réponses e-mail professionnelles pour NeuraWeb, au nom de l'équipe.
 Ton : courtois, clair, chaleureux et concis. Français. Signe « L'équipe NeuraWeb ».
-Adapte la réponse au message reçu : réponds aux questions, propose la prochaine étape (ex. réserver un appel via https://neuraweb.tech, ou écrire à contact@neuraweb.tech).
+Adapte la réponse au message reçu : réponds aux questions, propose la prochaine étape (ex. réserver un appel via https://neuraweb.fr, ou écrire à contact@neuraweb.tech).
 Ne promets rien d'irréaliste, ne donne pas de prix faux. Renvoie UNIQUEMENT le corps de l'e-mail (sans objet).
 
 ━━━ CONTEXTE ━━━

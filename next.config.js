@@ -24,13 +24,33 @@ const nextConfig = {
   // ✅ AJOUTÉ : redirections permanentes pour www et http
   // Ces 4 URLs apparaissent dans Search Console comme "pages avec redirection"
   // Vercel gère http→https automatiquement, mais on déclare www ici en fallback
+  //
+  // Migration de domaine (juillet 2026) : neuraweb.tech → neuraweb.fr.
+  // Ces règles sont un filet de sécurité — la redirection primaire est
+  // configurée au niveau des domaines Vercel (Domains → Redirect to Another
+  // Domain, 308) pour neuraweb.tech, www.neuraweb.tech et www.neuraweb.fr.
+  // neuraweb.tech est conservé indéfiniment (ne jamais le supprimer/laisser
+  // expirer) car les backlinks et les moteurs IA continueront à le citer.
   async redirects() {
     return [
-      // www → non-www
+      // Ancien domaine → nouveau domaine (path-preserving)
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'neuraweb.tech' }],
+        destination: 'https://neuraweb.fr/:path*',
+        permanent: true,
+      },
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'www.neuraweb.tech' }],
-        destination: 'https://neuraweb.tech/:path*',
+        destination: 'https://neuraweb.fr/:path*',
+        permanent: true,
+      },
+      // www → non-www
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.neuraweb.fr' }],
+        destination: 'https://neuraweb.fr/:path*',
         permanent: true,
       },
       // Slugs localisés EN/ES → slug canonique FR (évite les 404 sur URLs logiques)
