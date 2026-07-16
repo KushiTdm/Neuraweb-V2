@@ -45,7 +45,7 @@ export const organizationSchema = {
     '@type': 'ContactPoint',
     telephone: REAL_PHONE,
     contactType: 'customer service',
-    email: 'contact@neuraweb.tech',
+    email: 'contact@neuraweb.fr',
     availableLanguage: ['French', 'English', 'Spanish'],
   },
   sameAs: [
@@ -73,7 +73,7 @@ export const localBusinessSchema = {
     'Agence digitale spécialisée en développement web sur mesure, intégration IA et automatisation n8n. Startups, PME et grandes entreprises.',
   url: BASE_URL,
   telephone: REAL_PHONE,
-  email: 'contact@neuraweb.tech',
+  email: 'contact@neuraweb.fr',
   image: OG_IMAGE,
   logo: `${BASE_URL}/assets/neurawebW.webp`,
   address: {
@@ -153,7 +153,7 @@ export const professionalServiceSchema = {
     'Développement web full-stack React/Next.js, intégration IA (ChatGPT, Claude), automatisation n8n et Make pour startups et PME.',
   url: BASE_URL,
   telephone: REAL_PHONE,
-  email: 'contact@neuraweb.tech',
+  email: 'contact@neuraweb.fr',
   image: OG_IMAGE,
   address: {
     '@type': 'PostalAddress',

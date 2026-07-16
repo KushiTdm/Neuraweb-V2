@@ -124,11 +124,11 @@ export function Footer() {
 
         {/* Email */}
         <a
-          href="mailto:contact@neuraweb.tech"
+          href="mailto:contact@neuraweb.fr"
           className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white transition-colors mb-5"
         >
           <Mail size={12} className="text-white" />
-          contact@neuraweb.tech
+          contact@neuraweb.fr
         </a>
 
         {/* Pages locales + sectorielles */}
@@ -253,13 +253,13 @@ export function Footer() {
               {t('footer.company.description')}
             </p>
             <a
-              href="mailto:contact@neuraweb.tech"
+              href="mailto:contact@neuraweb.fr"
               className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors duration-200 group"
             >
               <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-white/40 transition-colors">
                 <Mail size={14} className="text-slate-400 group-hover:text-white transition-colors" />
               </div>
-              contact@neuraweb.tech
+              contact@neuraweb.fr
             </a>
           </div>
 

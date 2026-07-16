@@ -555,9 +555,9 @@ Prix légèrement différents si décalage horaire > 6h.
 
 ## 10. CONTACT & PROCHAINES ÉTAPES
 
-**Email :** contact@neuraweb.tech  
+**Email :** contact@neuraweb.fr  
 **WhatsApp :** +33 7 49 77 56 54  
-**Site :** https://neuraweb.tech
+**Site :** https://neuraweb.fr
 
 **Processus standard :**
 1. 📞 Appel découverte (30 min, gratuit)

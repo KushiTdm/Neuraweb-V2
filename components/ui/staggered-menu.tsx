@@ -294,7 +294,7 @@ export function StaggeredMenuPanel({
           </LocalizedLink>
 
           <p className="text-xs text-center" style={{ color: 'rgba(255,255,255,0.2)' }}>
-            contact@neuraweb.tech
+            contact@neuraweb.fr
           </p>
         </div>
       </aside>

@@ -114,7 +114,7 @@ const professionalServiceSchema = {
   description:
     "Agence web et IA basée à Lille, spécialisée dans la création de sites Next.js sur mesure, applications mobiles iOS/Android, intégration IA et automatisation n8n pour PME et hôteliers des Hauts-de-France.",
   url: `${BASE_URL}${PAGE_PATH}`,
-  email: 'contact@neuraweb.tech',
+  email: 'contact@neuraweb.fr',
   logo: `${BASE_URL}/assets/neurawebW.webp`,
   priceRange: '€€',
   address: {

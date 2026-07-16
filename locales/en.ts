@@ -292,7 +292,7 @@ export const en: Record<TranslationKey, string> = {
   'contact.hero.subtitle': 'An idea, a project, a question? We\'re here to guide you every step of the way.',
   'contact.hero.description': 'Custom web development, AI integration or business process automation — our expert team analyzes your specific requirements and proposes a tailored solution within your budget. Every engagement begins with a complimentary 30-minute discovery call to understand your goals, technical constraints, and timeline. You will receive a detailed written proposal within 48 hours, covering project scope, technical methodology, and fully transparent pricing. Our clients benefit from dedicated support from initial consultation through post-launch maintenance, ensuring lasting digital value.',
   'contact.info.email.label': 'Email',
-  'contact.info.email.value': 'contact@neuraweb.tech',
+  'contact.info.email.value': 'contact@neuraweb.fr',
   'contact.info.email.desc': 'Response within 24h',
   'contact.info.whatsapp.label': 'WhatsApp',
   'contact.info.whatsapp.value': '+33 7 49 77 56 54',

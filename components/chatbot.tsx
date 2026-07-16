@@ -206,10 +206,10 @@ export default function Chatbot() {
       setMessages(prev => [...prev, {
         role: 'assistant',
         content: language === 'fr'
-          ? "Désolé, il n'y a pas de créneaux disponibles. Contactez-nous à contact@neuraweb.tech"
+          ? "Désolé, il n'y a pas de créneaux disponibles. Contactez-nous à contact@neuraweb.fr"
           : language === 'es'
-          ? "Lo siento, no hay horarios disponibles. Contáctenos en contact@neuraweb.tech"
-          : "Sorry, no slots available. Contact us at contact@neuraweb.tech"
+          ? "Lo siento, no hay horarios disponibles. Contáctenos en contact@neuraweb.fr"
+          : "Sorry, no slots available. Contact us at contact@neuraweb.fr"
       }])
       return
     }
@@ -750,7 +750,7 @@ export default function Chatbot() {
             {remainingMessages <= 0 ? (
               <div className="text-center py-2">
                 <p className="text-gray-400 text-sm mb-2">{t('chatbot.limit')}</p>
-                <a href="mailto:contact@neuraweb.tech" className="text-blue-400 hover:text-blue-300 text-sm underline">
+                <a href="mailto:contact@neuraweb.fr" className="text-blue-400 hover:text-blue-300 text-sm underline">
                   {t('chatbot.contact')}
                 </a>
               </div>

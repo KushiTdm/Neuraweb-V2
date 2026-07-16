@@ -1,9 +1,9 @@
 // ============================================================
 // lib/email-imap.ts
-// Lecture de la boîte contact@neuraweb.tech via IMAP (imapflow) et
+// Lecture de la boîte contact@neuraweb.fr via IMAP (imapflow) et
 // envoi via SMTP (nodemailer). Identifiants 100% côté serveur :
-//   IMAP_HOST (mail.neuraweb.tech) IMAP_PORT (143, STARTTLS)
-//   SMTP_HOST (mail.neuraweb.tech) SMTP_PORT (587, STARTTLS)
+//   IMAP_HOST (mail.neuraweb.fr / mail76.lwspanel.com) IMAP_PORT (993, SSL)
+//   SMTP_HOST (mail.neuraweb.fr / mail76.lwspanel.com) SMTP_PORT (465, SSL)
 //   IMAP_USER / IMAP_PASSWORD (réutilisés pour SMTP sauf SMTP_USER/PASSWORD).
 // ============================================================
 

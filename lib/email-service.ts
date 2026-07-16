@@ -28,8 +28,8 @@ interface BookingEmailData {
   language?: string;
 }
 
-const FROM_EMAIL = process.env.FROM_EMAIL || 'contact@neuraweb.tech';
-const TO_EMAIL = process.env.TO_EMAIL || 'contact@neuraweb.tech';
+const FROM_EMAIL = process.env.FROM_EMAIL || 'contact@neuraweb.fr';
+const TO_EMAIL = process.env.TO_EMAIL || 'contact@neuraweb.fr';
 
 // ─────────────────────────────────────────────────────────────
 // COULEURS DE LA MARQUE NEURAWEB
@@ -444,9 +444,9 @@ function getFooterHTML(language: string = 'fr'): string {
       <p class="footer-description">${description}</p>
       
       <!-- Email -->
-      <a href="mailto:contact@neuraweb.tech" class="footer-email">
+      <a href="mailto:contact@neuraweb.fr" class="footer-email">
         <span class="footer-email-icon">✉</span>
-        contact@neuraweb.tech
+        contact@neuraweb.fr
       </a>
       
       <!-- Divider -->

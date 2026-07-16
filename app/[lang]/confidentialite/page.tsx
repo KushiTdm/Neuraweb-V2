@@ -32,7 +32,7 @@ Cette politique de confidentialité décrit comment nous collectons, utilisons, 
 
 **NeuraWeb**
 SIRET : 991 296 047 00020
-Email : contact@neuraweb.tech
+Email : contact@neuraweb.fr
 Téléphone : +33 7 49 77 56 54`,
       },
       {
@@ -114,7 +114,7 @@ Nous veillons à ce que vos données bénéficient d'un niveau de protection éq
 - **Droit d'opposition** : vous opposer au traitement
 - **Droit de retirer votre consentement** : à tout moment
 
-Pour exercer ces droits, contactez-nous à : **contact@neuraweb.tech**
+Pour exercer ces droits, contactez-nous à : **contact@neuraweb.fr**
 
 Vous pouvez également introduire une réclamation auprès de la CNIL : https://www.cnil.fr`,
       },
@@ -152,7 +152,7 @@ La date de dernière mise à jour est indiquée en haut de cette page.`,
         title: '13. Contact',
         content: `Pour toute question concernant cette politique ou vos données personnelles :
 
-**Email** : contact@neuraweb.tech
+**Email** : contact@neuraweb.fr
 **Téléphone** : +33 7 49 77 56 54
 
 Nous nous engageons à répondre dans un délai de 30 jours.`,
@@ -177,7 +177,7 @@ This privacy policy describes how we collect, use, store, and protect your perso
 
 **NeuraWeb**
 SIRET: 991 296 047 00020
-Email: contact@neuraweb.tech
+Email: contact@neuraweb.fr
 Phone: +33 7 49 77 56 54`,
       },
       {
@@ -259,7 +259,7 @@ We ensure your data receives a level of protection equivalent to GDPR.`,
 - **Right to object**: object to processing
 - **Right to withdraw consent**: at any time
 
-To exercise these rights, contact us at: **contact@neuraweb.tech**
+To exercise these rights, contact us at: **contact@neuraweb.fr**
 
 You can also file a complaint with the French data protection authority (CNIL): https://www.cnil.fr`,
       },
@@ -297,7 +297,7 @@ The last update date is indicated at the top of this page.`,
         title: '13. Contact',
         content: `For any questions regarding this policy or your personal data:
 
-**Email**: contact@neuraweb.tech
+**Email**: contact@neuraweb.fr
 **Phone**: +33 7 49 77 56 54
 
 We commit to responding within 30 days.`,
@@ -322,7 +322,7 @@ Esta política de privacidad describe cómo recopilamos, usamos, almacenamos y p
 
 **NeuraWeb**
 SIRET: 991 296 047 00020
-Email: contact@neuraweb.tech
+Email: contact@neuraweb.fr
 Teléfono: +33 7 49 77 56 54`,
       },
       {
@@ -404,7 +404,7 @@ Nos aseguramos de que sus datos reciban un nivel de protección equivalente al R
 - **Derecho de oposición**: oponerse al tratamiento
 - **Derecho a retirar el consentimiento**: en cualquier momento
 
-Para ejercer estos derechos, contáctenos en: **contact@neuraweb.tech**`,
+Para ejercer estos derechos, contáctenos en: **contact@neuraweb.fr**`,
       },
       {
         title: '10. Cookies',
@@ -440,7 +440,7 @@ La fecha de última actualización se indica en la parte superior de esta págin
         title: '13. Contacto',
         content: `Para cualquier pregunta sobre esta política o sus datos personales:
 
-**Email**: contact@neuraweb.tech
+**Email**: contact@neuraweb.fr
 **Teléfono**: +33 7 49 77 56 54
 
 Nos comprometemos a responder en un plazo de 30 días.`,

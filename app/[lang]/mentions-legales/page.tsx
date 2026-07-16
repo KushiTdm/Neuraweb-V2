@@ -29,7 +29,7 @@ Micro-entreprise
 SIRET : 991 296 047 00020
 
 **Contact :**
-- Email : contact@neuraweb.tech
+- Email : contact@neuraweb.fr
 
 **Directeur de la publication :** NeuraWeb
         `,
@@ -64,7 +64,7 @@ Les informations recueillies via les formulaires du site font l'objet d'un trait
 
 Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, d'effacement et de portabilité de vos données.
 
-Pour exercer ces droits ou pour toute question relative à vos données personnelles, contactez-nous à : contact@neuraweb.tech
+Pour exercer ces droits ou pour toute question relative à vos données personnelles, contactez-nous à : contact@neuraweb.fr
 
 Pour plus d'informations, consultez notre [Politique de Confidentialité](/fr/confidentialite).
         `,
@@ -119,7 +119,7 @@ SIRET: 991 296 047 00020
 Address: Lille, Hauts-de-France, France
 
 **Contact:**
-- Email: contact@neuraweb.tech
+- Email: contact@neuraweb.fr
 - Phone: +33 7 49 77 56 54
 
 **Publication Director:** NeuraWeb
@@ -155,7 +155,7 @@ Information collected through website forms is processed to respond to your requ
 
 In accordance with the General Data Protection Regulation (GDPR), you have the right to access, rectify, delete, and transfer your data.
 
-To exercise these rights or for any questions about your personal data, contact us at: contact@neuraweb.tech
+To exercise these rights or for any questions about your personal data, contact us at: contact@neuraweb.fr
 
 For more information, see our [Privacy Policy](/en/confidentialite).
         `,
@@ -210,7 +210,7 @@ SIRET: 991 296 047 00020
 Dirección: Lille, Hauts-de-France, Francia
 
 **Contacto:**
-- Email: contact@neuraweb.tech
+- Email: contact@neuraweb.fr
 - Teléfono: +33 7 49 77 56 54
 
 **Director de publicación:** NeuraWeb
@@ -244,7 +244,7 @@ La información recopilada a través de los formularios del sitio se procesa par
 
 De acuerdo con el Reglamento General de Protección de Datos (RGPD), usted tiene derecho de acceso, rectificación, supresión y portabilidad de sus datos.
 
-Para ejercer estos derechos o para cualquier pregunta sobre sus datos personales, contáctenos en: contact@neuraweb.tech
+Para ejercer estos derechos o para cualquier pregunta sobre sus datos personales, contáctenos en: contact@neuraweb.fr
 
 Para más información, consulte nuestra [Política de Privacidad](/es/confidentialite).
         `,

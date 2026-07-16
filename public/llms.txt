@@ -20,7 +20,7 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 - Location: Lille, Hauts-de-France, France
 - Service Areas: France, Belgium, Switzerland
 - Languages: French, English, Spanish
-- Contact: contact@neuraweb.tech
+- Contact: contact@neuraweb.fr
 - Phone: +33 7 49 77 56 54
 - Legal entity and policies: https://neuraweb.fr/fr/mentions-legales
 - Privacy policy: https://neuraweb.fr/fr/confidentialite

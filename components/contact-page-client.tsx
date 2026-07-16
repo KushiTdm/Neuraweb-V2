@@ -73,14 +73,14 @@ export default function ContactPageClient() {
                 </h2>
                 <div className="space-y-4">
                   <a
-                    href="mailto:contact@neuraweb.tech"
+                    href="mailto:contact@neuraweb.fr"
                     className="flex items-center gap-4 text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
                   >
                     <div className="w-12 h-12 rounded-xl bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center">
                       <Mail className="w-5 h-5 text-brand-600 dark:text-brand-400" />
                     </div>
                     <div>
-                      <p className="font-medium">contact@neuraweb.tech</p>
+                      <p className="font-medium">contact@neuraweb.fr</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         {t('contact.info.email.desc')}
                       </p>

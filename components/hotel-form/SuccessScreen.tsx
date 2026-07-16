@@ -28,8 +28,8 @@ export function SuccessScreen() {
       </p>
       <div className="mt-6 text-xs text-slate-500">
         {t('hotelForm.success.question')}{' '}
-        <a href="mailto:contact@neuraweb.tech" className="text-violet-400 hover:text-violet-300 transition-colors no-underline">
-          contact@neuraweb.tech
+        <a href="mailto:contact@neuraweb.fr" className="text-violet-400 hover:text-violet-300 transition-colors no-underline">
+          contact@neuraweb.fr
         </a>
       </div>
     </div>

@@ -292,7 +292,7 @@ export const es: Record<TranslationKey, string> = {
   'contact.hero.subtitle': '¿Una idea, un proyecto, una pregunta? Estamos aquí para acompañarte en cada paso.',
   'contact.hero.description': 'Desarrollo web a medida, integración IA o automatización de procesos de negocio — nuestro equipo de expertos analiza tus necesidades específicas y propone una solución adaptada a tu presupuesto. Cada proyecto comienza con una llamada de descubrimiento gratuita de 30 minutos para comprender tus objetivos y contexto técnico. Recibirás una propuesta detallada en 48 horas, con el alcance del proyecto, la metodología técnica y una tarificación completamente transparente. Nuestros clientes se benefician de un acompañamiento personalizado desde la consulta inicial hasta el mantenimiento post-lanzamiento.',
   'contact.info.email.label': 'Email',
-  'contact.info.email.value': 'contact@neuraweb.tech',
+  'contact.info.email.value': 'contact@neuraweb.fr',
   'contact.info.email.desc': 'Respuesta en 24h',
   'contact.info.whatsapp.label': 'WhatsApp',
   'contact.info.whatsapp.value': '+33 7 49 77 56 54',

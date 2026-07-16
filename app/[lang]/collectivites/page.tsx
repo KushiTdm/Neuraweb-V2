@@ -92,7 +92,7 @@ const professionalServiceSchema = {
   description:
     'Agence web spécialisée dans les sites internet et services numériques des collectivités : mairies, intercommunalités, CCAS, offices de tourisme. Mise en conformité accessibilité RGAA et ARCOM, conformité RGPD/CNIL, démarches en ligne, chatbot IA conforme à l’AI Act, application mobile citoyenne, visibilité numérique des commerces locaux.',
   url: `${BASE_URL}${PAGE_PATH}`,
-  email: 'contact@neuraweb.tech',
+  email: 'contact@neuraweb.fr',
   logo: `${BASE_URL}/assets/neurawebW.webp`,
   priceRange: '€€€',
   address: {

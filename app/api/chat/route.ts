@@ -115,7 +115,7 @@ ENTREPRISE
 ━━━━━━━━━━━━━━━━━━━━━━
 NeuraWeb — Agence web & IA basée à Lille (Hauts-de-France), intervient partout en France (Paris, Lyon, Marseille, Bordeaux, Toulouse...) en remote
 SIRET: 991 296 047 00020 (micro-entreprise)
-Contact: contact@neuraweb.tech | https://neuraweb.fr | Tél: +33 7 49 77 56 54
+Contact: contact@neuraweb.fr | https://neuraweb.fr | Tél: +33 7 49 77 56 54
 CEO & développeur: Nacer
 
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -353,7 +353,7 @@ COMPANY
 ━━━━━━━━━━━━━━━━━━━━━━
 NeuraWeb — Web & AI Agency based in Lille (Hauts-de-France, France), working remotely with clients across France (Paris, Lyon, Marseille, Bordeaux, Toulouse...)
 SIRET: 991 296 047 00020 (French micro-business)
-Contact: contact@neuraweb.tech | https://neuraweb.fr | Phone: +33 7 49 77 56 54
+Contact: contact@neuraweb.fr | https://neuraweb.fr | Phone: +33 7 49 77 56 54
 CEO & developer: Nacer
 
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -502,7 +502,7 @@ EMPRESA
 ━━━━━━━━━━━━━━━━━━━━━━
 NeuraWeb — Agencia Web & IA con sede en Lille (Hauts-de-France, Francia), trabaja en remoto con clientes en toda Francia (París, Lyon, Marsella, Burdeos, Toulouse...)
 SIRET: 991 296 047 00020 (microempresa francesa)
-Contacto: contact@neuraweb.tech | https://neuraweb.fr | Tel: +33 7 49 77 56 54
+Contacto: contact@neuraweb.fr | https://neuraweb.fr | Tel: +33 7 49 77 56 54
 CEO & desarrollador: Nacer
 
 ━━━━━━━━━━━━━━━━━━━━━━
@@ -690,28 +690,28 @@ const ERROR_MESSAGES = {
     invalidMessage: "Message invalide. Veuillez entrer entre 2 et 500 caractères.",
     sessionRequired: "Session ID requis.",
     waitBeforeSend: "Veuillez attendre {time} seconde(s) avant d'envoyer un autre message.",
-    limitReached: "Vous avez atteint la limite de messages. Contactez-nous directement à contact@neuraweb.tech",
+    limitReached: "Vous avez atteint la limite de messages. Contactez-nous directement à contact@neuraweb.fr",
     configMissing: "Configuration manquante. Contactez l'administrateur.",
-    apiError: "Une erreur est survenue. Réessayez ou contactez-nous à contact@neuraweb.tech",
-    defaultResponse: "Je n'ai pas pu traiter votre demande. Contactez-nous à contact@neuraweb.tech",
+    apiError: "Une erreur est survenue. Réessayez ou contactez-nous à contact@neuraweb.fr",
+    defaultResponse: "Je n'ai pas pu traiter votre demande. Contactez-nous à contact@neuraweb.fr",
   },
   en: {
     invalidMessage: "Invalid message. Please enter between 2 and 500 characters.",
     sessionRequired: "Session ID required.",
     waitBeforeSend: "Please wait {time} second(s) before sending another message.",
-    limitReached: "Message limit reached. Contact us at contact@neuraweb.tech",
+    limitReached: "Message limit reached. Contact us at contact@neuraweb.fr",
     configMissing: "Service configuration missing. Contact the administrator.",
-    apiError: "An error occurred. Try again or contact us at contact@neuraweb.tech",
-    defaultResponse: "I couldn't process your request. Contact us at contact@neuraweb.tech",
+    apiError: "An error occurred. Try again or contact us at contact@neuraweb.fr",
+    defaultResponse: "I couldn't process your request. Contact us at contact@neuraweb.fr",
   },
   es: {
     invalidMessage: "Mensaje inválido. Por favor ingrese entre 2 y 500 caracteres.",
     sessionRequired: "ID de sesión requerido.",
     waitBeforeSend: "Por favor espere {time} segundo(s) antes de enviar otro mensaje.",
-    limitReached: "Límite de mensajes alcanzado. Contáctenos en contact@neuraweb.tech",
+    limitReached: "Límite de mensajes alcanzado. Contáctenos en contact@neuraweb.fr",
     configMissing: "Configuración faltante. Contacte al administrador.",
-    apiError: "Ocurrió un error. Intente de nuevo o contáctenos en contact@neuraweb.tech",
-    defaultResponse: "No pude procesar su solicitud. Contáctenos en contact@neuraweb.tech",
+    apiError: "Ocurrió un error. Intente de nuevo o contáctenos en contact@neuraweb.fr",
+    defaultResponse: "No pude procesar su solicitud. Contáctenos en contact@neuraweb.fr",
   },
 };
 

@@ -94,7 +94,7 @@ const medicalBusinessSchema = {
     'Agence web spécialisée dans la création de sites internet pour ostéopathes, kinésithérapeutes, infirmiers libéraux, sages-femmes et professionnels de santé. Hébergement France, conformité RGPD et HDS, intégration Doctolib.',
   url: `${BASE_URL}${PAGE_PATH}`,
   telephone: '+33749775654',
-  email: 'contact@neuraweb.tech',
+  email: 'contact@neuraweb.fr',
   image: `${BASE_URL}/assets/site_osteo.png`,
   logo: `${BASE_URL}/assets/neurawebW.webp`,
   priceRange: '€€',

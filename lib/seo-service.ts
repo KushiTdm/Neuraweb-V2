@@ -305,7 +305,7 @@ export function generateJsonLd(
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'contact@neuraweb.tech',
+      email: 'contact@neuraweb.fr',
       contactType: 'customer service',
       availableLanguage: ['French', 'English', 'Spanish'],
     },

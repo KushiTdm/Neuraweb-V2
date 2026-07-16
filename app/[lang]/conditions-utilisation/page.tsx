@@ -125,14 +125,14 @@ Votre utilisation du Site après modification vaut acceptation des nouvelles CGU
 
 En cas de litige, et après tentative de résolution amiable, les tribunaux français seront seuls compétents.
 
-Pour toute réclamation, vous pouvez nous contacter à : contact@neuraweb.tech`,
+Pour toute réclamation, vous pouvez nous contacter à : contact@neuraweb.fr`,
       },
       {
         title: '12. Contact',
         content: `Pour toute question relative aux présentes CGU :
 
 **NeuraWeb**
-Email : contact@neuraweb.tech
+Email : contact@neuraweb.fr
 Téléphone : +33 7 49 77 56 54
 
 Nous nous efforçons de répondre dans un délai de 48 heures ouvrées.`,
@@ -250,14 +250,14 @@ Your use of the Site after modification constitutes acceptance of the new Terms.
 
 In case of dispute, and after an attempt at amicable resolution, French courts shall have sole jurisdiction.
 
-For any complaints, you can contact us at: contact@neuraweb.tech`,
+For any complaints, you can contact us at: contact@neuraweb.fr`,
       },
       {
         title: '12. Contact',
         content: `For any questions regarding these Terms:
 
 **NeuraWeb**
-Email: contact@neuraweb.tech
+Email: contact@neuraweb.fr
 Phone: +33 7 49 77 56 54
 
 We strive to respond within 48 business hours.`,
@@ -375,14 +375,14 @@ Su uso del Sitio después de la modificación constituye la aceptación de las n
 
 En caso de litigio, y tras un intento de resolución amistosa, los tribunales franceses serán los únicos competentes.
 
-Para cualquier reclamación, puede contactarnos en: contact@neuraweb.tech`,
+Para cualquier reclamación, puede contactarnos en: contact@neuraweb.fr`,
       },
       {
         title: '12. Contacto',
         content: `Para cualquier pregunta sobre estas Condiciones:
 
 **NeuraWeb**
-Email: contact@neuraweb.tech
+Email: contact@neuraweb.fr
 Teléfono: +33 7 49 77 56 54
 
 Nos esforzamos por responder en un plazo de 48 horas hábiles.`,

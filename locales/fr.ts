@@ -289,7 +289,7 @@ export const fr = {
   'contact.hero.subtitle': 'Une idée, un projet, une question ? Nous sommes là pour vous accompagner à chaque étape.',
   'contact.hero.description': 'Développement web sur mesure, intégration IA ou automatisation de vos processus métier — notre équipe analyse vos besoins spécifiques et vous propose une solution adaptée à votre budget. Chaque projet démarre par un appel de découverte gratuit de 30 minutes pour comprendre vos objectifs et votre contexte. Vous recevrez une proposition détaillée sous 48 heures, incluant le périmètre du projet, la méthodologie et une tarification entièrement transparente. Nos clients bénéficient d\'un accompagnement personnalisé de la première consultation jusqu\'à la maintenance post-lancement.',
   'contact.info.email.label': 'Email',
-  'contact.info.email.value': 'contact@neuraweb.tech',
+  'contact.info.email.value': 'contact@neuraweb.fr',
   'contact.info.email.desc': 'Réponse sous 24h',
   'contact.info.whatsapp.label': 'WhatsApp',
   'contact.info.whatsapp.value': '+33 7 49 77 56 54',

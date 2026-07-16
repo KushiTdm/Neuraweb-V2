@@ -115,7 +115,7 @@ const professionalServiceSchema = {
   description:
     'Agence web et IA travaillant avec les entreprises parisiennes et d’Île-de-France : création de sites Next.js sur mesure, applications mobiles iOS/Android, intégration IA et automatisation n8n.',
   url: `${BASE_URL}${PAGE_PATH}`,
-  email: 'contact@neuraweb.tech',
+  email: 'contact@neuraweb.fr',
   logo: `${BASE_URL}/assets/neurawebW.webp`,
   priceRange: '€€',
   address: {

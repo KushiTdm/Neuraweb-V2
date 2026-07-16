@@ -2,7 +2,7 @@
 // app/api/mobile/emails/route.ts
 // GET            → liste des derniers e-mails (?limit=)
 // GET ?uid=123   → détail complet d'un e-mail
-// Lecture IMAP de contact@neuraweb.tech. JWT mobile requis.
+// Lecture IMAP de contact@neuraweb.fr. JWT mobile requis.
 // ============================================================
 
 import { NextRequest, NextResponse } from "next/server";
