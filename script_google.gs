@@ -1,14 +1,18 @@
 // ============================================================
-// NEURAWEB.TECH - Google Apps Script Backend
+// NEURAWEB.FR - Google Apps Script Backend
 // Version complète — Fix PDF async + Fix DocumentApp styles
+// Juillet 2026 : migration domaine neuraweb.fr + escapeHtml (anti-injection
+// dans les emails) + LockService anti double-réservation + fuseau via
+// Utilities.formatDate. À redéployer via la console Apps Script
+// (Déployer → Gérer les déploiements → Modifier → Nouvelle version).
 // ============================================================
 
 const CONFIG = {
   SPREADSHEET_ID: '1kTBAhj_iqE51v5wdFXLtmTXTjf9smynT5BYIdvx-eAs',
   ADMIN_EMAIL: 'benachouba.nacer@gmail.com',
-  EMAIL_ALIAS: 'contact@neuraweb.tech',
+  EMAIL_ALIAS: 'contact@neuraweb.fr',
   COMPANY_NAME: 'NeurAWeb',
-  WEBSITE: 'https://neuraweb.tech',
+  WEBSITE: 'https://neuraweb.fr',
   TIMEZONE: 'Europe/Paris',
   WORKING_HOURS: { start: 9, end: 18 },
   SLOT_DURATION: 60,
@@ -29,6 +33,9 @@ const CONFIG = {
 // ============================================================
 
 function doGet(e) {
+  // e est undefined lors d'une exécution manuelle depuis l'éditeur Apps Script
+  e = e || {};
+  e.parameter = e.parameter || {};
   const action = e.parameter.action || 'slots';
   let result;
 
@@ -59,6 +66,8 @@ function doGet(e) {
 }
 
 function doPost(e) {
+  // e est undefined lors d'une exécution manuelle depuis l'éditeur Apps Script
+  e = e || {};
   let data = {};
 
   try {
@@ -226,8 +235,8 @@ function sendContactEmails(params) {
 }
 
 function getContactClientTemplate(params) {
-  var name = params.name, service = params.service;
-  var message = params.message, language = params.language;
+  var name = escapeHtml(params.name), service = escapeHtml(params.service);
+  var message = escapeHtml(params.message), language = params.language;
 
   var isEnglish = language === 'en';
   var isSpanish = language === 'es';
@@ -297,7 +306,7 @@ function getContactClientTemplate(params) {
     + '<tr><td align="center">'
     + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
     + '<tr><td style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);border-radius:16px 16px 0 0;padding:40px 40px 32px;text-align:center;">'
-    + '<img src="https://neuraweb.tech/assets/neurawebW.png" alt="NeurAWeb" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />'
+    + '<img src="https://neuraweb.fr/assets/neurawebW.png" alt="NeurAWeb" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />'
     + '<div style="width:50px;height:3px;background:linear-gradient(135deg,#667eea,#764ba2);margin:0 auto 20px;border-radius:2px;"></div>'
     + '<h1 style="color:#fff;font-size:20px;font-weight:700;margin:0;">&#10003; ' + t.title + '</h1>'
     + '</td></tr>'
@@ -315,19 +324,19 @@ function getContactClientTemplate(params) {
     + '<table width="100%" cellpadding="0" cellspacing="0">' + stepsHtml + '</table>'
     + '</td></tr>'
     + '<tr><td style="background:#111;padding:0 40px 32px;text-align:center;">'
-    + '<a href="https://neuraweb.tech" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:15px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:8px;">&#127758; ' + t.cta + '</a>'
+    + '<a href="https://neuraweb.fr" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:15px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:8px;">&#127758; ' + t.cta + '</a>'
     + '</td></tr>'
     + '<tr><td style="background:#0d0d0d;border-top:1px solid #1a1a1a;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">'
     + '<p style="color:#505050;font-size:13px;margin:0 0 8px;">' + t.footer + ' <a href="mailto:' + CONFIG.EMAIL_ALIAS + '" style="color:#667eea;text-decoration:none;">' + CONFIG.EMAIL_ALIAS + '</a></p>'
-    + '<p style="color:#303030;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; <a href="https://neuraweb.tech" style="color:#404040;text-decoration:none;">neuraweb.tech</a></p>'
+    + '<p style="color:#303030;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; <a href="https://neuraweb.fr" style="color:#404040;text-decoration:none;">neuraweb.fr</a></p>'
     + '</td></tr>'
     + '</table></td></tr></table></body></html>';
 }
 
 function getContactAdminTemplate(params) {
-  var name = params.name, email = params.email, phone = params.phone;
-  var company = params.company, service = params.service;
-  var message = params.message, timestamp = params.timestamp;
+  var name = escapeHtml(params.name), email = escapeHtml(params.email), phone = escapeHtml(params.phone);
+  var company = escapeHtml(params.company), service = escapeHtml(params.service);
+  var message = escapeHtml(params.message), timestamp = params.timestamp;
   var year = new Date().getFullYear();
 
   var rows = [
@@ -353,7 +362,7 @@ function getContactAdminTemplate(params) {
     + '<tr><td align="center">'
     + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
     + '<tr><td style="background:#fff;border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;border-bottom:3px solid #667eea;">'
-    + '<img src="https://neuraweb.tech/assets/neurawebB.png" alt="NeurAWeb" width="160" style="display:block;margin:0 auto 12px;height:auto;" />'
+    + '<img src="https://neuraweb.fr/assets/neurawebB.png" alt="NeurAWeb" width="160" style="display:block;margin:0 auto 12px;height:auto;" />'
     + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0;">&#128235; Nouveau Message de Contact</p>'
     + '</td></tr>'
     + '<tr><td style="background:linear-gradient(135deg,#667eea,#764ba2);padding:16px 40px;text-align:center;">'
@@ -451,8 +460,8 @@ function sendBookingEmails(params) {
 }
 
 function getClientEmailTemplate(params) {
-  const bookingId = params.bookingId, name = params.name, service = params.service;
-  const date = params.date, time = params.time, language = params.language;
+  const bookingId = escapeHtml(params.bookingId), name = escapeHtml(params.name), service = escapeHtml(params.service);
+  const date = escapeHtml(params.date), time = escapeHtml(params.time), language = params.language;
 
   const isEnglish = language === 'en';
   const isSpanish = language === 'es';
@@ -529,7 +538,7 @@ function getClientEmailTemplate(params) {
     + '<tr><td align="center">'
     + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
     + '<tr><td style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);border-radius:16px 16px 0 0;padding:40px 40px 32px;text-align:center;">'
-    + '<img src="https://neuraweb.tech/assets/neurawebW.png" alt="NeurAWeb" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />'
+    + '<img src="https://neuraweb.fr/assets/neurawebW.png" alt="NeurAWeb" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />'
     + '<div style="width:50px;height:3px;background:linear-gradient(135deg,#667eea,#764ba2);margin:0 auto 20px;border-radius:2px;"></div>'
     + '<h1 style="color:#fff;font-size:20px;font-weight:700;margin:0;">&#10003; ' + t.title + '</h1>'
     + '</td></tr>'
@@ -549,19 +558,19 @@ function getClientEmailTemplate(params) {
     + '<table width="100%" cellpadding="0" cellspacing="0">' + stepsHtml + '</table>'
     + '</td></tr>'
     + '<tr><td style="background:#111;padding:0 40px 32px;text-align:center;">'
-    + '<a href="https://neuraweb.tech" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:15px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:8px;">&#127758; ' + t.cta + '</a>'
+    + '<a href="https://neuraweb.fr" style="display:inline-block;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:15px;font-weight:600;text-decoration:none;padding:14px 32px;border-radius:8px;">&#127758; ' + t.cta + '</a>'
     + '</td></tr>'
     + '<tr><td style="background:#0d0d0d;border-top:1px solid #1a1a1a;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">'
     + '<p style="color:#505050;font-size:13px;margin:0 0 8px;">' + t.footer + ' <a href="mailto:' + CONFIG.EMAIL_ALIAS + '" style="color:#667eea;text-decoration:none;">' + CONFIG.EMAIL_ALIAS + '</a></p>'
-    + '<p style="color:#303030;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; <a href="https://neuraweb.tech" style="color:#404040;text-decoration:none;">neuraweb.tech</a></p>'
+    + '<p style="color:#303030;font-size:12px;margin:0;">&#169; ' + year + ' NeurAWeb &mdash; <a href="https://neuraweb.fr" style="color:#404040;text-decoration:none;">neuraweb.fr</a></p>'
     + '</td></tr>'
     + '</table></td></tr></table></body></html>';
 }
 
 function getAdminEmailTemplate(params) {
-  const bookingId = params.bookingId, name = params.name, email = params.email;
-  const phone = params.phone, service = params.service, date = params.date;
-  const time = params.time, message = params.message;
+  const bookingId = escapeHtml(params.bookingId), name = escapeHtml(params.name), email = escapeHtml(params.email);
+  const phone = escapeHtml(params.phone), service = escapeHtml(params.service), date = escapeHtml(params.date);
+  const time = escapeHtml(params.time), message = escapeHtml(params.message);
   const year = new Date().getFullYear();
 
   const rows = [
@@ -588,7 +597,7 @@ function getAdminEmailTemplate(params) {
     + '<tr><td align="center">'
     + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
     + '<tr><td style="background:#fff;border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;border-bottom:3px solid #667eea;">'
-    + '<img src="https://neuraweb.tech/assets/neurawebB.png" alt="NeurAWeb" width="160" style="display:block;margin:0 auto 12px;height:auto;" />'
+    + '<img src="https://neuraweb.fr/assets/neurawebB.png" alt="NeurAWeb" width="160" style="display:block;margin:0 auto 12px;height:auto;" />'
     + '<p style="color:#667eea;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin:0;">&#128197; Nouvelle Réservation</p>'
     + '</td></tr>'
     + '<tr><td style="background:linear-gradient(135deg,#667eea,#764ba2);padding:16px 40px;text-align:center;">'
@@ -651,11 +660,19 @@ function initializeSheets() {
 // ============================================================
 
 function formatDateISO(date) {
-  const d = new Date(date);
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return year + '-' + month + '-' + day;
+  return Utilities.formatDate(new Date(date), CONFIG.TIMEZONE, 'yyyy-MM-dd');
+}
+
+// Échappe les données utilisateur avant insertion dans le HTML des emails
+// (anti-injection HTML/phishing : name, message, service, etc. viennent du site public)
+function escapeHtml(value) {
+  if (value === null || value === undefined) return '';
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 function formatDateFR(date) {
@@ -668,20 +685,18 @@ function formatDateFR(date) {
 function extractTime(value) {
   if (!value) return '00:00';
 
+  // Utilities.formatDate gère le fuseau (heure d'été comprise) — remplace
+  // l'ancien hack isDST() qui ajoutait +1/+2 à la main
   if (value instanceof Date) {
-    var h = String(value.getHours()).padStart(2, '0');
-    var m = String(value.getMinutes()).padStart(2, '0');
-    return h + ':' + m;
+    return Utilities.formatDate(value, CONFIG.TIMEZONE, 'HH:mm');
   }
 
   if (typeof value === 'string' && value.includes('T')) {
-    var timePart = value.split('T')[1];
-    var parts = timePart.split(':');
-    var hours = parseInt(parts[0], 10);
-    var minutes = parseInt(parts[1], 10);
-    var offset = isDST() ? 2 : 1;
-    hours = (hours + offset) % 24;
-    return String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0');
+    var parsed = new Date(value);
+    if (!isNaN(parsed.getTime())) {
+      return Utilities.formatDate(parsed, CONFIG.TIMEZONE, 'HH:mm');
+    }
+    return value.split('T')[1].substring(0, 5);
   }
 
   if (typeof value === 'string') {
@@ -689,14 +704,6 @@ function extractTime(value) {
   }
 
   return '00:00';
-}
-
-function isDST() {
-  var now = new Date();
-  var jan = new Date(now.getFullYear(), 0, 1);
-  var jul = new Date(now.getFullYear(), 6, 1);
-  var stdOffset = Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
-  return now.getTimezoneOffset() < stdOffset;
 }
 
 // ============================================================
@@ -739,8 +746,14 @@ function cleanOldSlots() {
 // ============================================================
 
 function getAvailableSlots(targetDate) {
-  initializeSheets();
-  generateUpcomingSlots();
+  // Init + génération au plus une fois par 6h (cache) au lieu de chaque requête :
+  // le trigger quotidien generateUpcomingSlots reste la source principale
+  var cache = CacheService.getScriptCache();
+  if (!cache.get('slots_generated')) {
+    initializeSheets();
+    generateUpcomingSlots();
+    cache.put('slots_generated', '1', 21600);
+  }
 
   var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
   var sheet = ss.getSheetByName(CONFIG.SHEETS.SLOTS);
@@ -749,15 +762,23 @@ function getAvailableSlots(targetDate) {
   var data = sheet.getRange(2, 1, sheet.getLastRow() - 1, 4).getValues();
   var slots = [];
 
+  // Filtre les créneaux passés : cleanOldSlots ne tourne que le lundi,
+  // sans ce garde-fou les jours écoulés restaient réservables toute la semaine
+  var now = new Date();
+  var todayStr = Utilities.formatDate(now, CONFIG.TIMEZONE, 'yyyy-MM-dd');
+  var nowTime = Utilities.formatDate(now, CONFIG.TIMEZONE, 'HH:mm');
+
   data.forEach(function(row) {
     var date = row[0], time = row[1], status = row[2], bookingId = row[3];
     if (!date) return;
 
     var dateStr = formatDateISO(new Date(date));
+    if (dateStr < todayStr) return;
     if (targetDate && dateStr !== targetDate) return;
 
     if (status === 'disponible') {
       var timeStr = extractTime(time);
+      if (dateStr === todayStr && timeStr <= nowTime) return;
       slots.push({
         date: dateStr,
         time: timeStr,
@@ -780,41 +801,60 @@ function saveBooking(data) {
     return { success: false, error: 'Champs obligatoires manquants' };
   }
 
-  var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
-  var slotsSheet = ss.getSheetByName(CONFIG.SHEETS.SLOTS);
-  var slotRow = -1;
-
-  if (slotsSheet && slotsSheet.getLastRow() > 1) {
-    var slotsData = slotsSheet.getRange(2, 1, slotsSheet.getLastRow() - 1, 4).getValues();
-    for (var i = 0; i < slotsData.length; i++) {
-      var slotDate = formatDateISO(new Date(slotsData[i][0]));
-      var slotTime = extractTime(slotsData[i][1]);
-
-      Logger.log('Comparing: slotDate=' + slotDate + ' vs date=' + date + ' | slotTime=' + slotTime + ' vs time=' + time);
-
-      if (slotDate === date && slotTime === time && slotsData[i][2] === 'disponible') {
-        slotRow = i + 2;
-        break;
-      }
-    }
-  }
-
-  if (slotRow === -1) {
-    Logger.log('Créneau non trouvé pour date=' + date + ' time=' + time);
+  // Refuse les créneaux déjà passés (même garde-fou que getAvailableSlots)
+  var nowRef = new Date();
+  var todayRef = Utilities.formatDate(nowRef, CONFIG.TIMEZONE, 'yyyy-MM-dd');
+  if (date < todayRef || (date === todayRef && time <= Utilities.formatDate(nowRef, CONFIG.TIMEZONE, 'HH:mm'))) {
     return { success: false, error: 'Créneau non disponible' };
   }
 
-  var bookingId = 'RDV-' + Utilities.getUuid().substring(0, 8).toUpperCase();
-  var timestamp = new Date();
+  // Verrou global : sans lui, deux soumissions simultanées peuvent réserver
+  // le même créneau (lecture puis écriture non atomiques sur le Sheet)
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(10000);
+  } catch (lockErr) {
+    return { success: false, error: 'Service momentanément occupé, veuillez réessayer' };
+  }
 
-  slotsSheet.getRange(slotRow, 3, 1, 2).setValues([['réservé', bookingId]]);
+  var bookingId, timestamp;
+  try {
+    var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
+    var slotsSheet = ss.getSheetByName(CONFIG.SHEETS.SLOTS);
+    var slotRow = -1;
 
-  var bookingsSheet = ss.getSheetByName(CONFIG.SHEETS.BOOKINGS);
-  bookingsSheet.appendRow([
-    timestamp, bookingId, name, email,
-    phone || '', service || '', date, time,
-    message || '', language || 'fr', 'confirmé'
-  ]);
+    if (slotsSheet && slotsSheet.getLastRow() > 1) {
+      var slotsData = slotsSheet.getRange(2, 1, slotsSheet.getLastRow() - 1, 4).getValues();
+      for (var i = 0; i < slotsData.length; i++) {
+        var slotDate = formatDateISO(new Date(slotsData[i][0]));
+        var slotTime = extractTime(slotsData[i][1]);
+
+        if (slotDate === date && slotTime === time && slotsData[i][2] === 'disponible') {
+          slotRow = i + 2;
+          break;
+        }
+      }
+    }
+
+    if (slotRow === -1) {
+      Logger.log('Créneau non trouvé pour date=' + date + ' time=' + time);
+      return { success: false, error: 'Créneau non disponible' };
+    }
+
+    bookingId = 'RDV-' + Utilities.getUuid().substring(0, 8).toUpperCase();
+    timestamp = new Date();
+
+    slotsSheet.getRange(slotRow, 3, 1, 2).setValues([['réservé', bookingId]]);
+
+    var bookingsSheet = ss.getSheetByName(CONFIG.SHEETS.BOOKINGS);
+    bookingsSheet.appendRow([
+      timestamp, bookingId, name, email,
+      phone || '', service || '', date, time,
+      message || '', language || 'fr', 'confirmé'
+    ]);
+  } finally {
+    lock.releaseLock();
+  }
 
   sendBookingEmails({
     bookingId: bookingId, name: name, email: email, phone: phone,
@@ -833,16 +873,13 @@ function generateUpcomingSlots() {
   var ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
   var sheet = ss.getSheetByName(CONFIG.SHEETS.SLOTS);
 
-  var existing = new Set ? new Set() : {};
-  var useSet = typeof Set !== 'undefined';
+  var existing = new Set();
 
   if (sheet.getLastRow() > 1) {
     var existingData = sheet.getRange(2, 1, sheet.getLastRow() - 1, 2).getValues();
     existingData.forEach(function(row) {
       if (!row[0]) return;
-      var key = formatDateISO(new Date(row[0])) + '_' + extractTime(row[1]);
-      if (useSet) existing.add(key);
-      else existing[key] = true;
+      existing.add(formatDateISO(new Date(row[0])) + '_' + extractTime(row[1]));
     });
   }
 
@@ -861,8 +898,7 @@ function generateUpcomingSlots() {
       var timeStr = (h < 10 ? '0' : '') + h + ':00';
       var key = dateStr + '_' + timeStr;
 
-      var exists = useSet ? existing.has(key) : existing.hasOwnProperty(key);
-      if (!exists) {
+      if (!existing.has(key)) {
         newRows.push([dateStr, timeStr, 'disponible', '']);
       }
     }
