@@ -14,7 +14,7 @@ interface DemoCopy {
   path?: string;
 }
 
-// Source de vérité de l'URL : lib/site-config.ts (demo.neuraweb.tech).
+// Source de vérité de l'URL : lib/site-config.ts (demo.neuraweb.fr).
 const COPY: Record<DemoSector, DemoCopy> = {
   collectivite: {
     eyebrow: 'Démo interactive',

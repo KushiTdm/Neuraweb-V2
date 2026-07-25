@@ -1460,3 +1460,131 @@ export async function sendNewsletterArticleEmail(data: NewsletterArticleData) {
     return { success: false, error: error.message };
   }
 }
+
+// ─────────────────────────────────────────────────────────────
+// ALERTE SÉCURITÉ CHATBOT
+// ─────────────────────────────────────────────────────────────
+
+interface SecurityAlertEmailData {
+  eventType: string;
+  ip: string;
+  sessionId: string;
+  lang: string;
+  userMessage?: string;
+  details?: string;
+}
+
+/** Échappe le HTML — le contenu vient d'un visiteur potentiellement hostile. */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+const SECURITY_EVENT_LABELS: Record<string, string> = {
+  injection: 'Tentative de prompt injection',
+  probe: 'Sonde technique (XSS/SQL/probe)',
+  off_topic: 'Trolling / hors-sujet répété',
+  rate_limit: 'Dépassement de rate limit',
+  blocked: 'IP bloquée temporairement',
+};
+
+export async function sendSecurityAlertEmail(data: SecurityAlertEmailData) {
+  if (!resend) {
+    console.warn('Resend API key not configured, skipping security alert email');
+    return { success: false, error: 'Resend API key not configured' };
+  }
+
+  const { eventType, ip, sessionId, lang, userMessage, details } = data;
+  const label = SECURITY_EVENT_LABELS[eventType] || eventType;
+  const subject = `🚨 Alerte chatbot — ${label} (${ip})`;
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${subject}</title>
+  <style>${getBaseStyles()}</style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <div class="email-container">
+      <!-- Header -->
+      <div class="email-header">
+        <h1 class="email-logo">NeuraWeb</h1>
+        <p class="email-tagline">SÉCURITÉ CHATBOT</p>
+        <h2 class="email-title">🚨 ${label}</h2>
+      </div>
+
+      <!-- Content -->
+      <div class="email-content">
+        <div class="field-group">
+          <div class="field-item">
+            <p class="field-label">Adresse IP</p>
+            <p class="field-value">${escapeHtml(ip)}</p>
+          </div>
+          <div class="field-item">
+            <p class="field-label">Session</p>
+            <p class="field-value">${escapeHtml(sessionId)}</p>
+          </div>
+          <div class="field-item">
+            <p class="field-label">Langue</p>
+            <p class="field-value">${escapeHtml(lang)}</p>
+          </div>
+          <div class="field-item">
+            <p class="field-label">Type d'événement</p>
+            <p class="field-value">${escapeHtml(eventType)}</p>
+          </div>
+        </div>
+
+        ${userMessage ? `
+        <div class="message-box">
+          <p class="message-label">Message du visiteur</p>
+          <p class="message-content">${escapeHtml(userMessage).replace(/\n/g, '<br>')}</p>
+        </div>
+        ` : ''}
+
+        ${details ? `
+        <div class="message-box">
+          <p class="message-label">Détails</p>
+          <p class="message-content">${escapeHtml(details).replace(/\n/g, '<br>')}</p>
+        </div>
+        ` : ''}
+
+        <p style="color: ${COLORS.textMuted}; font-size: 13px;">
+          Historique complet dans la table <strong>chat_security_events</strong> (Supabase)
+          et dans l'onglet Assistant de l'app cockpit.
+        </p>
+      </div>
+
+      <!-- Footer -->
+      ${getFooterHTML('fr')}
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+  try {
+    const result = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: TO_EMAIL,
+      subject: subject,
+      html: htmlContent,
+    });
+
+    if (result.error) {
+      return { success: false, error: result.error.message };
+    }
+
+    return { success: true, id: result.data?.id };
+  } catch (error: any) {
+    console.error('Error sending security alert email via Resend:', error);
+    return { success: false, error: error.message };
+  }
+}

@@ -5,4 +5,4 @@
  * (web + mobile connectés, projet appMobile). Lien externe → ouvrir dans un
  * nouvel onglet avec rel="noopener". Domaine canonique du site : neuraweb.fr.
  */
-export const DEMO_URL = 'https://demo.neuraweb.tech';
+export const DEMO_URL = 'https://demo.neuraweb.fr';

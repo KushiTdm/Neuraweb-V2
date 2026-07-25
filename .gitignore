@@ -47,3 +47,7 @@ neuraweb-indexation-*.json
 gen-lang-client-*.json
 **/*service-account*.json
 neuraweb-indexation-859fd0c7dfeb.json
+
+# Exports n8n réels (secrets en clair dans les nodes) — au cas où le dossier
+# serait déplacé/copié ici. Versions placeholders : app-mobile/automation/.
+workflows_n8n/
