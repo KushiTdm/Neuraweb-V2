@@ -1,0 +1,135 @@
+---
+title: "CrewAI + n8n para pymes: tutorial y presupuesto real 2026"
+seoTitle: "CrewAI + n8n 2026: arquitectura multiagente y presupuesto pyme"
+excerpt: "Un equipo de 3 a 5 agentes de IA que se coordinan entre sí, conectado a tu CRM sin código. Arquitectura CrewAI + n8n, presupuesto real y caso de una pyme."
+date: "2026-07-13"
+category: "Automatización"
+author: "NeuraWeb"
+image: "/assets/blog/crewai-n8n-pme-tutoriel-budget-2026.webp"
+tags:
+  - "CrewAI"
+  - "n8n"
+  - "IA multiagente"
+  - "Automatización"
+  - "Pyme"
+featured: false
+faq:
+  - question: "¿CrewAI sustituye por completo a un equipo comercial?"
+    answer: "No. Se encarga de la parte repetitiva (investigación, primer borrador, verificación de coherencia). La decisión comercial y la relación con el cliente siguen siendo humanas — el crew produce un borrador cualificado, no una decisión final."
+  - question: "¿Hacen falta conocimientos de desarrollo internos?"
+    answer: "Para la implantación inicial, sí — o un proveedor. Para el uso diario, no: el equipo interactúa con n8n (interfaz visual), no con el código de CrewAI. Una vez calibrado el crew, funciona en segundo plano sin intervención técnica."
+  - question: "¿Qué pasa si un agente se equivoca?"
+    answer: "El crew siempre incluye una etapa de verificación, y el resultado final pasa por una validación humana antes de cualquier acción irreversible (envío, modificación definitiva del CRM). Un crew mal diseñado que actúa solo sin validación es un error de diseño, no una fatalidad del framework."
+  - question: "¿Cuál es la diferencia con un simple agente conectado a n8n?"
+    answer: "Un agente único trata una tarea lineal con un solo prompt. CrewAI estructura varios agentes especializados (rol, objetivo, herramientas propias) que se pasan el relevo en una misma tarea compleja — cualificar, redactar, verificar — algo que un prompt único hace mal más allá de dos o tres pasos de razonamiento distintos."
+  - question: "¿Cuánto tiempo lleva tener un primer crew operativo?"
+    answer: "Cuenta con 2 a 4 semanas para un crew de 2 agentes (investigación + redacción) conectado a tu CRM vía n8n: definición de roles, prompts, pruebas, integración. El agente de verificación se añade después, una vez que los dos primeros son fiables."
+---
+
+Un agente de IA que responde a un email es útil. Un equipo de 3 a 5 agentes de IA especializados que se coordinan para tramitar un expediente completo — investigación, redacción, verificación, envío — es un sistema multiagente. CrewAI es hoy uno de los frameworks open source más usados para construir este tipo de equipo de agentes, con más de 27 millones de descargas y una adopción del 60 % de las empresas del Fortune 500 estadounidense.
+
+La pregunta que se hacen las pymes ya no es «¿funciona?» sino «¿cuánto cuesta y quién lo mantiene?». Esta guía responde a ambas: la arquitectura técnica CrewAI + n8n, y el presupuesto real para una pyme de 10 a 50 empleados — entre 65 y 240 €/mes de funcionamiento, sin contar la implantación inicial.
+
+> **À retenir — Key Takeaways**
+>
+> - **Presupuesto de funcionamiento**: 65 a 240 €/mes según el volumen (n8n, alojamiento del crew, API del modelo)
+> - **Implantación inicial**: 1.500 a 4.000 € como servicio (definición de roles, prompts, pruebas, integración CRM)
+> - **Adopción de CrewAI**: más de 27 millones de descargas, usado por el 60 % del Fortune 500 estadounidense
+> - **Comparativa SaaS**: las ofertas Agentforce de Salesforce parten de 125-150 $/usuario/mes, sin contar los créditos de consumo
+> - **Ganancia medida (caso cliente)**: la redacción de una propuesta comercial pasó de 45 minutos a 3 minutos de revisión humana
+> - **Regla de partida**: empezar con 2 agentes, no 5 — añadir la verificación una vez que los dos primeros sean fiables
+> - **Requisito no negociable**: validación humana antes de cualquier acción irreversible (envío, modificación definitiva del CRM)
+> - **Caso no adecuado**: menos de 50 expedientes similares al mes, el retorno todavía no es claramente positivo
+
+## ¿Por qué CrewAI en lugar de un agente único?
+
+Un agente de IA único (tipo asistente Claude o GPT conectado a una herramienta) funciona bien para una tarea lineal: leer un email, generar una respuesta, enviarla. En cuanto la tarea requiere varias competencias distintas — por ejemplo cualificar un lead entrante, redactar una propuesta comercial personalizada, y luego verificar la coherencia de precios antes de enviarla — un agente único tiene que hacerlo todo con un único prompt gigante, lo que degrada la calidad y hace imposible la depuración.
+
+CrewAI estructura el problema de otra manera: cada agente tiene un rol preciso (investigador, redactor, verificador), un objetivo, y puede llamar a otros agentes o herramientas. El «crew» (equipo) orquesta la secuencia — un poco como repartir una misión entre tres compañeros en lugar de dársela entera a una sola persona ya desbordada.
+
+## La arquitectura: dónde termina CrewAI, dónde empieza n8n
+
+Este es el punto que la documentación de [CrewAI](https://en.wikipedia.org/wiki/CrewAI) no explica bien para una pyme: CrewAI gestiona la inteligencia (el razonamiento multiagente), pero no la fontanería de negocio — recibir un email entrante, escribir en tu CRM, enviar una notificación Slack, generar una factura.
+
+[n8n](/es/blog/automatisation-n8n-guide) se encarga de esa fontanería:
+
+```
+1. n8n recibe el evento disparador (nuevo lead, email entrante, fila de hoja de cálculo)
+2. n8n llama al crew de CrewAI mediante un nodo HTTP Request
+   (el crew corre en un pequeño servidor Python, alojado o local)
+3. El crew ejecuta su secuencia de agentes:
+   Agente 1 (cualificación) → Agente 2 (redacción) → Agente 3 (verificación)
+4. n8n recupera el resultado, lo escribe en el CRM,
+   envía el email, notifica al equipo comercial
+```
+
+Esta separación tiene una ventaja concreta para una pyme: n8n sigue siendo la capa que tu equipo puede modificar sin tocar código (añadir un paso, cambiar un email de notificación), mientras que el crew de CrewAI permanece estable una vez calibrado. Es la misma lógica de separación entre «inteligencia» e «integración con el sistema de información» que desarrollábamos en nuestra [guía sobre la industrialización de la IA en pymes](/es/blog/industrialisation-ia-pme-budget-2026).
+
+## CrewAI + n8n vs agente único vs solución SaaS propietaria
+
+| Criterio | Agente único (n8n + un prompt) | CrewAI + n8n | SaaS propietario (Salesforce Agentforce) |
+|---|---|---|---|
+| Tareas complejas multietapa | Calidad degradada más allá de 2-3 pasos | Cada paso confiado a un agente dedicado | Sí, pero dentro del ecosistema cerrado del proveedor |
+| Coste mensual | 30-80 €/mes | 65-240 €/mes | 125-550 $/usuario/mes + créditos de consumo |
+| Implantación | Pocas horas | 1.500-4.000 € de una vez | A menudo con costes de implementación adicionales |
+| Modificable por el equipo | Fácil (un solo prompt) | Fácil en n8n, calibración en los agentes | Depende del proveedor y el contrato |
+| Alojamiento de datos | Elegido (UE posible) | Elegido (UE posible) | En el proveedor |
+
+Las ofertas de [Agentforce de Salesforce](https://www.salesforce.com/agentforce/pricing/) parten de 125-150 $ por usuario y mes para uso ilimitado, con un modelo de créditos de consumo como alternativa (500 $ por 100.000 créditos). Para un equipo de 5 a 10 comerciales, el presupuesto mensual supera rápido los mil euros, a menudo con créditos Data Cloud adicionales. Una arquitectura CrewAI + n8n reproduce buena parte de estas capacidades por una fracción del coste — al precio de una implantación inicial a prever, a diferencia de una suscripción SaaS lista para usar.
+
+## Presupuesto real: las 4 partidas de coste
+
+| Partida | Coste mensual | Detalle |
+|---|---|---|
+| n8n | 20-50 €/mes | Cloud starter o autoalojado en un pequeño servidor (5 €/mes de VPS + tiempo de mantenimiento) |
+| Alojamiento del crew CrewAI | 15-40 €/mes | Pequeño servidor Python (Railway, Render, o un VPS de OVH) — el crew corre en segundo plano y responde a las llamadas de n8n |
+| API del modelo (Claude o GPT) | 30-150 €/mes | Depende del volumen: un crew de 3 agentes que gestiona 200 expedientes/mes consume unos 40-80 €/mes en tokens de Claude |
+| Implantación inicial (proveedor) | 1.500-4.000 € de una vez | Definición de roles de los agentes, prompts, pruebas, integración CRM |
+
+**Coste mensual total de funcionamiento: 65 a 240 €/mes** según el volumen, sin contar la implantación inicial. Esta partida de implantación corresponde a lo que detallábamos como «agentes de negocio» en nuestro artículo sobre el [presupuesto de industrialización de la IA en pymes](/es/blog/industrialisation-ia-pme-budget-2026): cada agente corresponde a un proceso documentado, con reglas precisas y salvaguardas.
+
+## Caso concreto: cualificación y propuesta comercial automatizadas
+
+Para una pyme de servicios B2B (12 empleados), el crew típico incluye:
+
+- **Agente de Investigación**: enriquece el lead entrante (sector, tamaño de empresa, contexto) a partir de su email profesional y del sitio web de la empresa
+- **Agente de Redacción**: genera una propuesta comercial personalizada a partir de una plantilla y la información enriquecida
+- **Agente de Verificación**: revisa la propuesta, comprueba que las tarifas corresponden a la lista de precios vigente y que no se ha añadido ninguna promesa insostenible
+
+Resultado medido en este despliegue: el tiempo de redacción de una propuesta comercial pasó de 45 minutos (redacción manual por un comercial) a 3 minutos de revisión humana sobre un borrador ya cualificado y verificado. El comercial mantiene la decisión final de envío — ningún agente envía una propuesta sin validación humana. Es el mismo principio que calificábamos de no negociable en nuestro artículo sobre el [Shadow IA en la empresa](/es/blog/shadow-ia-entreprise-charte-2026): un sistema que decide solo sin validación humana no es una ganancia, es un riesgo.
+
+## Errores a evitar
+
+**No empezar con 5 agentes.** Un crew de 2 agentes (investigación + redacción) que funciona bien es mejor que un crew de 5 agentes mal calibrados. Añade el agente de verificación una vez que los dos primeros sean fiables.
+
+**No conectar directamente a datos sensibles sin una etapa de validación humana.** Un crew que cualifica un lead o redacta un borrador es un ahorro de tiempo. Un crew que envía automáticamente una factura o modifica un contrato sin supervisión es un riesgo — de RGPD y operativo.
+
+**Prever el mantenimiento de los prompts.** Un crew de CrewAI no se «instala y se olvida»: los prompts de los agentes deben ajustarse cuando cambia el contexto de negocio (nueva oferta, nuevo tono comercial). Cuenta con una revisión ligera cada 1-2 meses.
+
+## Checklist: ¿está tu pyme lista para un crew CrewAI + n8n?
+
+Esta arquitectura tiene sentido a partir del momento en que una tarea de negocio requiere realmente varios pasos de razonamiento distintos — no para sustituir a un simple autorespondedor. Cinco preguntas para saber si es el momento adecuado:
+
+1. **¿Gestionas más de 50 expedientes similares al mes** (leads, presupuestos, expedientes de cualificación)?
+2. **¿La tarea requiere al menos 3 competencias distintas** (investigación, redacción, verificación) que hoy confías a la misma persona?
+3. **¿Ya tienes un CRM o una herramienta de negocio conectada a n8n**, o estás listo para conectarla?
+4. **¿Es viable un presupuesto de 1.500 € o más** para la implantación inicial?
+5. **¿Aceptas que la validación humana siga siendo obligatoria** antes de cualquier acción irreversible?
+
+Si respondes que sí a cuatro preguntas o más, un primer crew de 2 agentes puede estar operativo en 2 a 4 semanas. Si no, empieza por un agente único — mira nuestro [agente IA comercial para pymes](/es/blog/agent-ia-commercial-pme) — antes de pasar al multiagente.
+
+## Lo que hay que recordar
+
+CrewAI + n8n no es una solución para sustituir a un equipo comercial, sino para quitarle la parte repetitiva de un expediente complejo — investigación, primer borrador, verificación de coherencia — manteniendo la decisión final humana. El presupuesto de 65-240 €/mes, aparte de la implantación inicial, queda muy por debajo de una solución SaaS propietaria equivalente, siempre que se acepte el trabajo de calibración inicial que una suscripción lista para usar no exige.
+
+---
+
+## Para ir más lejos
+
+- [Guía n8n: orquestar tus automatizaciones](/es/blog/automatisation-n8n-guide) — la capa de integración usada en este tutorial
+- [Agente IA comercial para pymes](/es/blog/agent-ia-commercial-pme) — la opción de agente único, antes de pasar al multiagente
+- [Industrializar la IA generativa en pymes: presupuesto real 2026](/es/blog/industrialisation-ia-pme-budget-2026) — el marco presupuestario completo más allá de un solo crew
+- [Shadow IA en la empresa: cómo regularla](/es/blog/shadow-ia-entreprise-charte-2026) — la gobernanza a aplicar a cualquier sistema de IA autónomo
+- [Nuestro servicio de Automatización](/fr/automatisation) — packs n8n/Make con auditoría incluida
+
+> 🔍 **NeuraWeb acompaña a las pymes en la implantación de agentes de IA a medida** — arquitectura CrewAI + n8n, stack con nombre propio, presupuesto transparente, cumplimiento RGPD. [Solicita un diagnóstico gratuito →](/es/contact)

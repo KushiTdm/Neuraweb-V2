@@ -1,0 +1,135 @@
+---
+title: "CrewAI + n8n for SMBs: Tutorial and Real 2026 Budget"
+seoTitle: "CrewAI + n8n 2026: Multi-Agent Architecture and SMB Budget"
+excerpt: "A team of 3 to 5 AI agents coordinating with each other, connected to your CRM without code. CrewAI + n8n architecture, real budget, and an SMB case study."
+date: "2026-07-13"
+category: "Automation"
+author: "NeuraWeb"
+image: "/assets/blog/crewai-n8n-pme-tutoriel-budget-2026.webp"
+tags:
+  - "CrewAI"
+  - "n8n"
+  - "Multi-agent AI"
+  - "Automation"
+  - "SMB"
+featured: false
+faq:
+  - question: "Does CrewAI fully replace a sales team?"
+    answer: "No. It handles the repetitive part (research, first draft, consistency checks). The sales decision and the customer relationship stay human — the crew produces a qualified draft, not a final decision."
+  - question: "Do you need in-house developer skills?"
+    answer: "For the initial setup, yes — or a provider. For day-to-day use, no: the team interacts with n8n (a visual interface), not with CrewAI code. Once the crew is calibrated, it runs in the background without technical intervention."
+  - question: "What happens if an agent gets something wrong?"
+    answer: "The crew always includes a verification step, and the final output goes through human validation before any irreversible action (sending, a definitive CRM update). A poorly designed crew that acts alone without validation is a design flaw, not an inevitability of the framework."
+  - question: "What's the difference from a simple agent connected to n8n?"
+    answer: "A single agent handles a linear task with one prompt. CrewAI structures several specialized agents (role, goal, their own tools) that hand off a complex task to each other — qualifying, drafting, verifying — which a single prompt handles poorly beyond two or three different reasoning steps."
+  - question: "How long until a first crew is operational?"
+    answer: "Budget 2 to 4 weeks for a 2-agent crew (research + drafting) connected to your CRM via n8n: defining roles, prompts, testing, integration. The verification agent gets added afterward, once the first two are reliable."
+---
+
+An AI agent that replies to an email is useful. A team of 3 to 5 specialized AI agents that coordinate to handle a complete case — research, drafting, verification, sending — is a multi-agent system. CrewAI is today one of the most widely used open-source frameworks for building this kind of agent team, with over 27 million downloads and adoption by 60% of the US Fortune 500.
+
+The question French SMBs ask is no longer "does it work?" but "how much does it cost and who maintains it?". This guide answers both: the CrewAI + n8n technical architecture, and the real budget for a 10-to-50-employee SMB — between €65 and €240/month to run, excluding initial setup.
+
+> **À retenir — Key Takeaways**
+>
+> - **Running budget**: €65 to €240/month depending on volume (n8n, crew hosting, model API)
+> - **Initial setup**: €1,500 to €4,000 as a service (defining roles, prompts, testing, CRM integration)
+> - **CrewAI adoption**: over 27 million downloads, used by 60% of the US Fortune 500
+> - **SaaS comparison**: Salesforce Agentforce plans start at $125-150/user/month, excluding consumption-based credits
+> - **Measured gain (client case)**: sales proposal drafting time went from 45 minutes to 3 minutes of human review
+> - **Starting rule**: begin with 2 agents, not 5 — add verification once the first two are reliable
+> - **Non-negotiable prerequisite**: human validation before any irreversible action (sending, a definitive CRM update)
+> - **Not suited for**: fewer than 50 similar cases handled per month, the return isn't clearly net positive yet
+
+## Why CrewAI rather than a single agent?
+
+A single AI agent (a Claude or GPT-type assistant connected to a tool) works well for a linear task: read an email, generate a reply, send it. As soon as the task requires several different skills — for example qualifying an incoming lead, drafting a personalized sales proposal, then checking pricing consistency before sending — a single agent has to do everything with one giant prompt, which degrades quality and makes debugging impossible.
+
+CrewAI structures the problem differently: each agent has a precise role (researcher, writer, reviewer), a goal, and can call other agents or tools. The "crew" orchestrates the sequence — a bit like splitting a mission across three colleagues instead of handing it all to one already overloaded person.
+
+## The architecture: where CrewAI stops, where n8n starts
+
+This is the part [CrewAI's](https://en.wikipedia.org/wiki/CrewAI) documentation doesn't explain well for an SMB: CrewAI handles the intelligence (multi-agent reasoning), but not the business plumbing — receiving an incoming email, writing to your CRM, sending a Slack notification, triggering an invoice.
+
+[n8n](/en/blog/automatisation-n8n-guide) handles that plumbing:
+
+```
+1. n8n receives the trigger event (new lead, incoming email, spreadsheet row)
+2. n8n calls the CrewAI crew via an HTTP Request node
+   (the crew runs on a small Python server, hosted or local)
+3. The crew executes its agent sequence:
+   Agent 1 (qualification) → Agent 2 (drafting) → Agent 3 (verification)
+4. n8n retrieves the result, writes it to the CRM,
+   sends the email, notifies the sales team
+```
+
+This separation has a concrete advantage for an SMB: n8n stays the layer your team can modify without touching code (adding a step, changing a notification email), while the CrewAI crew stays stable once calibrated. It's the same separation between "intelligence" and "information system integration" we covered in our [guide to AI industrialization in SMBs](/en/blog/industrialisation-ia-pme-budget-2026).
+
+## CrewAI + n8n vs a single agent vs a proprietary SaaS solution
+
+| Criteria | Single agent (n8n + one prompt) | CrewAI + n8n | Proprietary SaaS (Salesforce Agentforce) |
+|---|---|---|---|
+| Complex multi-step tasks | Quality degrades beyond 2-3 steps | Each step handled by a dedicated agent | Yes, but within the vendor's closed ecosystem |
+| Monthly cost | €30-80/month | €65-240/month | $125-550/user/month + consumption credits |
+| Setup | A few hours | €1,500-4,000 one-off | Often comes with additional implementation costs |
+| Team-editable | Easy (a single prompt) | Easy on the n8n side, calibration on the agent side | Depends on the vendor and the contract |
+| Data hosting | Chosen (EU possible) | Chosen (EU possible) | At the vendor |
+
+[Salesforce Agentforce](https://www.salesforce.com/agentforce/pricing/) plans start at $125-150 per user per month for unlimited use, with a consumption-based credit model as an alternative ($500 per 100,000 credits). For a team of 5 to 10 sales reps, the monthly budget quickly exceeds a thousand euros, often with additional Data Cloud credits on top. A CrewAI + n8n architecture reproduces a good share of these capabilities for a fraction of the cost — at the price of an initial setup to plan for, unlike a turnkey SaaS subscription.
+
+## Real budget: the 4 cost line items
+
+| Line item | Monthly cost | Detail |
+|---|---|---|
+| n8n | €20-50/month | Cloud starter or self-hosted on a small server (€5/month VPS + maintenance time) |
+| CrewAI crew hosting | €15-40/month | Small Python server (Railway, Render, or an OVH VPS) — the crew runs in the background and responds to n8n calls |
+| Model API (Claude or GPT) | €30-150/month | Depends on volume: a 3-agent crew handling 200 cases/month consumes roughly €40-80/month in Claude tokens |
+| Initial setup (provider) | €1,500-4,000 one-off | Defining agent roles, prompts, testing, CRM integration |
+
+**Total running cost: €65 to €240/month** depending on volume, excluding initial setup. This setup line item is what we detailed as "business agents" in our article on [AI industrialization budgets for SMBs](/en/blog/industrialisation-ia-pme-budget-2026): each agent corresponds to a documented process, with precise rules and guardrails.
+
+## Real case: automated qualification and sales proposals
+
+For a B2B services SMB (12 employees), the typical crew includes:
+
+- **Research Agent**: enriches the incoming lead (industry, company size, context) from their professional email and the company website
+- **Drafting Agent**: generates a personalized sales proposal from a template and the enriched information
+- **Verification Agent**: reviews the proposal, checks that pricing matches the current price list and that no unsustainable promise has been added
+
+Result measured on this deployment: sales proposal drafting time went from 45 minutes (manual drafting by a sales rep) to 3 minutes of human review on an already-qualified, already-verified draft. The sales rep keeps the final send decision — no agent sends a proposal without human validation. It's the same principle we described as non-negotiable in our article on [Shadow AI at work](/en/blog/shadow-ia-entreprise-charte-2026): a system that decides alone without human validation isn't a gain, it's a risk.
+
+## Mistakes to avoid
+
+**Don't start with 5 agents.** A well-functioning 2-agent crew (research + drafting) beats a poorly calibrated 5-agent crew. Add the verification agent once the first two are reliable.
+
+**Don't connect directly to sensitive data without a human validation step.** A crew that qualifies a lead or drafts a proposal is a time saver. A crew that automatically sends an invoice or modifies a contract without oversight is a risk — GDPR and operational.
+
+**Plan for prompt maintenance.** A CrewAI crew isn't "installed and forgotten": agent prompts need adjusting as the business context changes (a new offer, a new sales tone). Budget a light review every 1-2 months.
+
+## Checklist: is your SMB ready for a CrewAI + n8n crew?
+
+This architecture makes sense once a business task genuinely requires several different reasoning steps — not to replace a simple auto-responder. Five questions to know if it's the right time:
+
+1. **Do you handle more than 50 similar cases per month** (leads, quotes, qualification files)?
+2. **Does the task require at least 3 different skills** (research, drafting, verification) you currently hand to the same person?
+3. **Do you already have a CRM or business tool connected to n8n**, or are you ready to connect one?
+4. **Is a budget of €1,500 or more** feasible for the initial setup?
+5. **Do you accept that human validation stays mandatory** before any irreversible action?
+
+If you answered yes to four questions or more, a first 2-agent crew can be operational in 2 to 4 weeks. Otherwise, start with a single agent — see our [AI sales agent for SMBs](/en/blog/agent-ia-commercial-pme) — before moving to multi-agent.
+
+## What to remember
+
+CrewAI + n8n isn't a solution to replace a sales team, but to strip out the repetitive part of a complex case — research, first draft, consistency checks — while keeping the final decision human. The €65-240/month budget, initial setup aside, stays well below an equivalent proprietary SaaS solution, provided you accept the initial calibration work that a turnkey subscription doesn't require.
+
+---
+
+## Further reading
+
+- [n8n guide: orchestrating your automations](/en/blog/automatisation-n8n-guide) — the integration layer used in this tutorial
+- [AI sales agent for SMBs](/en/blog/agent-ia-commercial-pme) — the single-agent option, before moving to multi-agent
+- [Industrializing generative AI in SMBs: real 2026 budget](/en/blog/industrialisation-ia-pme-budget-2026) — the full budget framework beyond a single crew
+- [Shadow AI at work: how to govern it](/en/blog/shadow-ia-entreprise-charte-2026) — the governance to apply to any autonomous AI system
+- [Our Automation service](/fr/automatisation) — n8n/Make packs with an audit included
+
+> 🔍 **NeuraWeb supports French SMBs in building custom AI agents** — CrewAI + n8n architecture, a named stack, transparent budget, GDPR compliance. [Request a free diagnostic →](/en/contact)
