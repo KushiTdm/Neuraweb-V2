@@ -55,7 +55,7 @@ faq:
 |---|---|
 | `title` | ≤ 65 caractères, contient le mot-clé principal au début |
 | `excerpt` | 140-160 caractères, doit pouvoir tenir seul comme meta description |
-| `date` | Format `YYYY-MM-DD`, pas dans le futur sauf publication programmée |
+| `date` | Format `YYYY-MM-DD`, pas dans le futur sauf publication programmée. **Toujours vérifier la date réelle du jour au moment d'écrire** — ne jamais recopier la date d'un article précédent ni une date vue plus tôt dans la conversation : sur une session longue (plusieurs articles rédigés à la suite, conversation qui s'étale sur plusieurs jours), la date courante peut avoir changé entre deux articles sans que ce soit visible dans le fil de discussion. |
 | `image` | Toujours en `.webp`, dimensions 1200×630, dans `/public/assets/blog/` |
 | `category` | Une des 7 valeurs canoniques ci-dessus, **traduite dans chaque langue** (ex. `Automatisation` / `Automation` / `Automatización`) — le champ est affiché tel quel comme badge sur le site et alimente le filtre par catégorie, donc les variantes ("Développement Web" vs "Web", "Intelligence Artificielle" vs "IA") fragmentent silencieusement ce filtre. Toujours réutiliser exactement le même libellé pour la même langue. |
 | `tags` | 4 à 6 maximum, en majuscule de phrase, traduits dans chaque langue |
