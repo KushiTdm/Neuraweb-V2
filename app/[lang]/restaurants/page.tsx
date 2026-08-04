@@ -126,6 +126,10 @@ const FAQ_DATA: { q: string; a: string }[] = [
     a: "Les plateformes de livraison prélèvent 20 à 30 % de commission sur chaque commande. Un paiement encaissé directement sur votre site via Stripe coûte environ 1,4 % + 0,25 € par transaction en Europe. Pour 5 000 € de ventes en ligne par mois, l'écart représente environ 1 400 € économisés chaque mois, soit près de 17 000 €/an. En plus, vous récupérez la donnée client (e-mail, historique) que les plateformes confisquent.",
   },
   {
+    q: 'Existe-t-il un système de réservation en ligne gratuit pour un restaurant ?',
+    a: "Oui, mais le mot « gratuit » déplace toujours le coût ailleurs. Les portails de réservation proposent un module sans frais d'installation, puis se rémunèrent par un abonnement mensuel ou par une commission sur chaque couvert apporté via leur application. Les widgets gratuits des plateformes, eux, vous rendent dépendant d'un acteur qui détient la relation client. Un module de réservation intégré à votre propre site fonctionne autrement : vous financez le développement une seule fois, puis uniquement l'infrastructure (40 à 80 €/mois), sans commission par couvert et en conservant les coordonnées de vos clients. Plus votre volume de réservations augmente, plus l'écart penche en faveur du module intégré.",
+  },
+  {
     q: 'Quels sont les frais mensuels en plus du développement ?',
     a: "Les frais d'infrastructure dépendent de la formule : 10 à 20 €/mois pour une vitrine simple (domaine + hébergement), 20 à 40 €/mois avec CMS et avis, 40 à 80 €/mois dès qu'on ajoute réservation, commande et paiement (base de données + e-mail/SMS), 80 à 150 €/mois pour la fidélité avec volume marketing. S'ajoutent les frais Stripe (1,4 % + 0,25 €) uniquement sur les paiements réellement encaissés.",
   },
@@ -152,6 +156,10 @@ const FAQ_DATA: { q: string; a: string }[] = [
   {
     q: 'À qui appartient le site et les données clients ?',
     a: "À vous, intégralement. Vous êtes propriétaire de votre nom de domaine, du code de votre site et de votre base clients (e-mails, historique de commandes, points de fidélité). Contrairement aux plateformes de livraison, personne ne s'interpose entre vous et vos clients.",
+  },
+  {
+    q: 'Peut-on ajouter un chatbot IA au site de mon restaurant ?',
+    a: "Oui, c'est l'une des options les plus demandées. Un chatbot IA relié à votre carte, vos horaires et votre politique de réservation répond automatiquement aux questions répétitives — allergènes, terrasse, accessibilité, groupes, parking, menu du jour — en français comme en anglais, 24h/24. Il peut aussi enregistrer une demande de réservation en dehors des heures de service et vous la transmettre par e-mail ou SMS. Pour un établissement qui reçoit beaucoup d'appels pendant le coup de feu, c'est autant de temps de service récupéré. Cette brique s'ajoute aux formules incluant la réservation ou la commande.",
   },
 ];
 

@@ -650,8 +650,8 @@ export default async function AgenceWebLillePage({
               {[
                 { href: '/fr/integration-ia', label: 'Intégration IA sur mesure', sub: 'Chatbot, génération de contenu, personnalisation' },
                 { href: '/fr/automatisation', label: 'Automatisation n8n', sub: 'Connectez vos outils, gagnez des heures' },
-                { href: '/fr/equipe', label: "L'équipe NeuraWeb", sub: 'Qui nous sommes, notre vision' },
-                { href: '/fr/contact', label: 'Nous contacter', sub: 'Par e-mail ou formulaire, réponse rapide' },
+                { href: '/fr/agence-nextjs', label: 'Notre expertise Next.js', sub: 'Pourquoi ce framework, comparatif WordPress' },
+                { href: '/fr/sous-traitance-web-lille', label: 'Vous êtes une agence ?', sub: 'Développement en marque blanche pour agences' },
               ].map((item) => (
                 <LocalizedLink
                   key={item.href}

@@ -51,6 +51,10 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 - Mobile App Development EN: https://neuraweb.fr/en/mobile-app-development
 - Mobile App Development ES: https://neuraweb.fr/es/mobile-app-development
 - Healthcare Websites FR: https://neuraweb.fr/fr/sante
+- Restaurant Websites FR: https://neuraweb.fr/fr/restaurants
+- Next.js Agency FR: https://neuraweb.fr/fr/agence-nextjs
+- White-label Web Subcontracting for Agencies FR: https://neuraweb.fr/fr/sous-traitance-web-lille
+- Web Agency Lille FR: https://neuraweb.fr/fr/agence-web-lille
 - Team FR: https://neuraweb.fr/fr/equipe
 - Contact FR: https://neuraweb.fr/fr/contact
 - Blog FR: https://neuraweb.fr/fr/blog

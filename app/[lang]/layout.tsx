@@ -237,7 +237,8 @@ export default async function LangLayout({
         >
           <LanguageProvider initialLanguage={lang as any}>
             <CookieConsentProvider>
-              {/* Google Analytics n'est chargé qu'après consentement explicite (RGPD/CNIL) */}
+              {/* Google Analytics en Consent Mode v2 : tag chargé partout, stockage refusé
+                  par défaut jusqu'au consentement explicite (RGPD/CNIL) */}
               <GoogleAnalyticsLoader gaId={gaId} />
               <ScrollToTopOnNavigate />
               {children}

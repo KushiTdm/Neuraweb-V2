@@ -138,6 +138,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   });
 
+  // Page Sous-traitance web Lille — FR uniquement (canal B2B agences)
+  urls.push({
+    url: `${BASE_URL}/fr/sous-traitance-web-lille`,
+    lastModified: new Date('2026-08-01'),
+    changeFrequency: 'monthly',
+    priority: 0.95,
+    alternates: {
+      languages: {
+        fr: `${BASE_URL}/fr/sous-traitance-web-lille`,
+        'x-default': `${BASE_URL}/fr/sous-traitance-web-lille`,
+      },
+    },
+  });
+
+  // Page Agence Next.js — FR uniquement (page technologie SEO)
+  urls.push({
+    url: `${BASE_URL}/fr/agence-nextjs`,
+    lastModified: new Date('2026-08-01'),
+    changeFrequency: 'monthly',
+    priority: 0.95,
+    alternates: {
+      languages: {
+        fr: `${BASE_URL}/fr/agence-nextjs`,
+        'x-default': `${BASE_URL}/fr/agence-nextjs`,
+      },
+    },
+  });
+
   // Pages Automatisation et Intégration IA — toutes langues
   (['automatisation', 'integration-ia'] as const).forEach((slug) => {
     const lastModified = new Date('2026-05-27');
