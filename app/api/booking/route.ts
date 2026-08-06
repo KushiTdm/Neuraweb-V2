@@ -4,14 +4,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { sendBookingConfirmationEmail, sendBookingNotificationEmail } from '@/lib/email-service';
 import { rateLimitRequest, isValidEmail, isHoneypotFilled } from '@/lib/rate-limit';
 import { getServiceSupabase } from '@/lib/supabase-server';
-
-const GOOGLE_SCRIPT_URL = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL!;
+import { getAvailableSlots } from '@/lib/booking-slots';
 
 /**
- * Normalise une valeur "heure" qui peut provenir de Google Sheets sous
+ * Normalise une valeur "heure" qui peut provenir du formulaire sous
  * plusieurs formats :
  *   - string propre   : "09:00"          → "09:00"
- *   - string ISO      : "1899-12-30T08:00:00.000Z" (bug Sheets timezone)
+ *   - string ISO      : "1899-12-30T08:00:00.000Z" (bug Sheets timezone, legacy)
  *   - string longue   : "09:00:00"       → "09:00"
  *
  * ⚠️  NE PAS utiliser getUTCHours() : Paris était UTC+0:09:21 avant 1911,
@@ -32,38 +31,13 @@ function parseSheetTime(raw: string): string {
   return raw.substring(0, 5);
 }
 
-function normalizeSlots(slots: any[]): any[] {
-  return slots.map(slot => ({
-    ...slot,
-    time: parseSheetTime(String(slot.time ?? '')),
-    available: slot.status === 'disponible',
-  }));
-}
-
-/**
- * Extrait la partie "YYYY-MM-DD" d'une valeur date de la feuille, qui peut
- * arriver soit en "YYYY-MM-DD", soit en ISO datetime ("…T00:00:00.000Z").
- */
-function parseSheetDate(raw: string): string {
-  if (!raw) return '';
-  return raw.includes('T') ? raw.split('T')[0] : raw.substring(0, 10);
-}
-
-/**
- * Date du jour (YYYY-MM-DD) dans le fuseau Europe/Paris — fuseau de l'agence.
- * Évite que les créneaux passés restent réservables si le serveur tourne en UTC.
- */
-function todayKeyParis(): string {
-  return new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Europe/Paris',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).format(new Date());
-}
-
 // ─────────────────────────────────────────────
 // GET — Récupérer les créneaux disponibles
+//
+// Source : table Supabase `booking_slots` (gabarit lundi-vendredi + exceptions
+// gérées depuis l'app mobile), voir lib/booking-slots.ts. Remplace l'ancienne
+// lecture live du Google Sheet (cf. git history) qui ajoutait 1-3s, non mis
+// en cache, à chaque chargement de /booking.
 // ─────────────────────────────────────────────
 export async function GET(request: NextRequest) {
   try {
@@ -75,47 +49,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const { searchParams } = new URL(request.url);
-    const date = searchParams.get('date') || '';
-
-    const url = new URL(GOOGLE_SCRIPT_URL);
-    url.searchParams.set('action', 'slots');
-    if (date) url.searchParams.set('date', date);
-
-    const response = await fetch(url.toString(), { redirect: 'follow' });
-
-    if (!response.ok) {
-      throw new Error(`Google Script error: ${response.status}`);
-    }
-
-    const result = await response.json();
-
-    if (result.slots && Array.isArray(result.slots)) {
-      result.slots = normalizeSlots(result.slots);
-
-      // Écarter les créneaux passés ET ceux du jour même (la feuille conserve
-      // les anciennes lignes, et on ne veut pas de réservation le jour J).
-      // Comparaison de clés "YYYY-MM-DD" en fuseau Paris.
-      const today = todayKeyParis();
-      result.slots = result.slots.filter(
-        (slot: any) => parseSheetDate(String(slot.date ?? '')) > today
-      );
-
-      // Supprimer les éventuels doublons date+time (clé React unique)
-      const seen = new Set<string>();
-      result.slots = result.slots.filter((slot: any) => {
-        const key = `${slot.date}_${slot.time}`;
-        if (seen.has(key)) return false;
-        seen.add(key);
-        return true;
-      });
-
-      // Ne garder que 4 créneaux horaires fixes par jour.
-      const ALLOWED_TIMES = new Set(['10:00', '12:00', '14:00', '18:00']);
-      result.slots = result.slots.filter((slot: any) => ALLOWED_TIMES.has(slot.time));
-    }
-
-    return NextResponse.json(result);
+    const slots = await getAvailableSlots();
+    return NextResponse.json({ slots });
 
   } catch (error: any) {
     console.error('Slots error:', error);
@@ -163,22 +98,37 @@ export async function POST(request: NextRequest) {
     // ─────────────────────────────────────────────────────────
     // Stockage de la réservation → Supabase (source de vérité).
     // L'app mobile lit/gère les RDV depuis cette table en Realtime.
+    //
+    // Attendu seul (pas en Promise.all avec les emails) : un conflit de
+    // créneau (contrainte unique bookings_date_time_active_uidx, deux
+    // personnes réservant le même date+heure) doit être détecté avant
+    // d'envoyer une confirmation par email qui mentirait sur la réussite.
     // ─────────────────────────────────────────────────────────
     const supabase = getServiceSupabase();
-    const supabasePromise = supabase
-      ? supabase.from('bookings').insert({
-          name,
-          email,
-          phone:    phone   ?? null,
-          service:  service ?? null,
-          date,
-          time:     normalizedTime,
-          message:  message ?? null,
-          language: language ?? 'fr',
-          source:   'website',
-          status:   'pending',
-        })
-      : Promise.resolve({ error: null });
+    let supabaseError: { code?: string; message?: string } | null = null;
+
+    if (supabase) {
+      const { error } = await supabase.from('bookings').insert({
+        name,
+        email,
+        phone:    phone   ?? null,
+        service:  service ?? null,
+        date,
+        time:     normalizedTime,
+        message:  message ?? null,
+        language: language ?? 'fr',
+        source:   'website',
+        status:   'pending',
+      });
+      supabaseError = error;
+    }
+
+    if (supabaseError?.code === '23505') {
+      return NextResponse.json(
+        { error: 'Ce créneau vient d\'être réservé par quelqu\'un d\'autre. Merci d\'en choisir un autre.' },
+        { status: 409 }
+      );
+    }
 
     // ─────────────────────────────────────────────────────────
     // FALLBACK Google Sheets — conservé en commentaire pour rollback.
@@ -214,21 +164,16 @@ export async function POST(request: NextRequest) {
       language: language ?? 'fr',
     };
 
-    // Envoyer les emails via Resend (confirmation client + notification équipe)
-    const emailNotificationPromise = sendBookingNotificationEmail(bookingData);
-    const emailConfirmationPromise = sendBookingConfirmationEmail(bookingData);
-
-    // Exécuter tout en parallèle (stockage + emails)
-    const [supabaseResult, emailNotificationResult, emailConfirmationResult] = await Promise.all([
-      supabasePromise,
-      emailNotificationPromise,
-      emailConfirmationPromise,
-    ]);
-
-    // Vérifier l'enregistrement Supabase (non bloquant : les emails partent quand même)
-    if ((supabaseResult as { error?: unknown })?.error) {
-      console.warn('Supabase booking insert warning:', (supabaseResult as { error: unknown }).error);
+    // Réservation sauvegardée (ou Supabase indisponible/erreur non-bloquante) :
+    // envoyer les emails via Resend (confirmation client + notification équipe).
+    if (supabaseError) {
+      console.warn('Supabase booking insert warning:', supabaseError);
     }
+
+    const [emailNotificationResult, emailConfirmationResult] = await Promise.all([
+      sendBookingNotificationEmail(bookingData),
+      sendBookingConfirmationEmail(bookingData),
+    ]);
 
     // Log les résultats des emails (non bloquant)
     if (!emailNotificationResult.success) {

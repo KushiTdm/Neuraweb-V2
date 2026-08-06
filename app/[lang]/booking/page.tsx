@@ -4,6 +4,7 @@ import { JsonLd } from '@/components/json-ld';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
+import { getAvailableSlots } from '@/lib/booking-slots';
 
 // Juste après les imports, avant generateStaticParams()
 export const revalidate = 3600; // Cache SEO 24h — évite les appels IA à chaque crawl
@@ -80,6 +81,10 @@ export default async function BookingPage({
   const { lang } = await params;
   const { service, pack } = await searchParams;
 
+  // Récupéré côté serveur (Supabase, rapide) et passé en props : évite le
+  // waterfall HTML → JS → fetch qui ralentissait le premier affichage.
+  const initialSlots = await getAvailableSlots();
+
   const breadcrumbData = generateBreadcrumbSchema([
     { name: lang === 'fr' ? 'Accueil' : lang === 'es' ? 'Inicio' : 'Home', url: `/${lang}` },
     { name: lang === 'fr' ? 'Réservation' : lang === 'es' ? 'Reserva' : 'Booking', url: `/${lang}/booking` },
@@ -113,6 +118,7 @@ export default async function BookingPage({
         lang={lang as 'fr' | 'en' | 'es'}
         preselectedService={service}
         preselectedPack={pack}
+        initialSlots={initialSlots}
       />
     </>
   );

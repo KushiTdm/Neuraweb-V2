@@ -1,5 +1,7 @@
 # Sales Playbook — Neuraweb
 > Usage : Ce fichier est la référence pour toutes les conversations commerciales. Il couvre la qualification des prospects, la gestion des objections et les scripts de closing.
+>
+> ⚠️ Ce playbook (MEDDIC, ROI chiffré, closing "Option ou Option") cible les segments 1-3 de `target_audience.md` (SaaS, agences haut de gamme, e-commerce). Pour les commerces de proximité locaux (canal annuaires de ville, ex. `PROMO_ANNUAIRE_HAUBOURDIN.md`), utiliser un ton chaleureux et local, sans jargon — voir segment 4 de `target_audience.md`.
 
 ---
 

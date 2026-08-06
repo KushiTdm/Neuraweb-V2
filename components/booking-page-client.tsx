@@ -23,6 +23,8 @@ interface BookingPageClientProps {
   lang: 'fr' | 'en' | 'es';
   preselectedService?: string;
   preselectedPack?: string;
+  /** Créneaux disponibles, déjà résolus côté serveur — évite un fetch client au montage. */
+  initialSlots?: Slot[];
 }
 
 const translations = {
@@ -133,12 +135,11 @@ const translations = {
   }
 };
 
-export function BookingPageClient({ lang, preselectedService, preselectedPack }: BookingPageClientProps) {
+export function BookingPageClient({ lang, preselectedService, preselectedPack, initialSlots }: BookingPageClientProps) {
   const t = translations[lang];
 
   const [step, setStep] = useState(1);
-  const [slots, setSlots] = useState<Slot[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [slots] = useState<Slot[]>(initialSlots ?? []);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -224,20 +225,6 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
       preselected_pack: preselectedPack || 'none',
     });
   }, [lang, preselectedService, preselectedPack]);
-
-  useEffect(() => {
-    fetch('/api/booking?action=getAvailableSlots')
-      .then(res => res.json())
-      .then(data => {
-        if (data.slots) {
-          setSlots(data.slots);
-        }
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  }, []);
 
   const uniqueDates = Array.from(new Set(slots.map(s => s.date))).sort();
   const availableTimes = slots.filter(s => s.date === selectedDate && s.available).map(s => s.time);
@@ -362,12 +349,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack }:
                   </div>
                 )}
                 
-                {loading ? (
-                  <div className="text-center py-12">
-                    <Loader2 className="w-8 h-8 animate-spin mx-auto text-gray-500" />
-                    <p className="text-gray-500 dark:text-gray-400 mt-4">{t.loading}</p>
-                  </div>
-                ) : uniqueDates.length === 0 ? (
+                {uniqueDates.length === 0 ? (
                   <p className="text-center text-gray-500 dark:text-gray-400 py-12">{t.noSlots}</p>
                 ) : (
                   <>

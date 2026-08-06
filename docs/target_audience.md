@@ -26,12 +26,19 @@ Besoin : Personnalisation de l'expérience client.
 
 Opportunité : Création de recommandations de produits basées sur l'IA, automatisation de la gestion des stocks et du service après-vente.
 
+4. Les Commerces de Proximité Locaux (via annuaires de ville)
+Profil : TPE, artisans, indépendants et auto-entrepreneurs d'une ville donnée (coiffeurs, garages, boulangeries, esthéticiennes, épiceries...), souvent sans site web ou avec une présence en ligne quasi inexistante.
+
+Besoin : Visibilité locale simple (trouvé sur Google/Maps), crédibilité minimale, sans jargon technique ni promesse de ROI chiffré — le vocabulaire "startup" (MEDDIC, scalabilité, ROI) ne fonctionne pas sur ce segment.
+
+Opportunité : Neuraweb opère des annuaires de commerces locaux (ex. commerceshaubourdin.fr pour Haubourdin, ville où l'agence est enregistrée) à la fois comme outil de notoriété locale et comme canal d'acquisition — la fiche Neuraweb sur son propre annuaire sert de vitrine pour des offres promotionnelles ciblées (module "Promotions") dirigeant vers le Pack Starter (1 490€). Voir [PROMO_ANNUAIRE_HAUBOURDIN.md](PROMO_ANNUAIRE_HAUBOURDIN.md) pour la campagne en cours. Ton commercial : chaleureux, local, "voisin de quartier" — à l'opposé du ton segments 1-3.
+
 II. Stratégie de Positionnement (Pourquoi nous ?)
 L'Expertise "Full-Circle" : Nous ne livrons pas qu'un site. Nous livrons un écosystème où le site web (React/Next.js) communique avec des automates (Make) et de l'intelligence artificielle.
 
 Le Focus sur le ROI : Chaque ligne de code et chaque automatisation doit soit rapporter plus de clients, soit faire gagner du temps opérationnel.
 
-Visibilité & Crédibilité : Utilisation de neuraweb.tech comme vitrine technologique (vitesse, SEO, design impeccable) pour prouver notre savoir-faire par l'exemple.
+Visibilité & Crédibilité : Utilisation de neuraweb.fr comme vitrine technologique (vitesse, SEO, design impeccable) pour prouver notre savoir-faire par l'exemple.
 
 III. Message Clé
 "Neuraweb transforme votre présence numérique en une machine de guerre automatisée, combinant un design de classe mondiale avec la puissance de l'IA."
