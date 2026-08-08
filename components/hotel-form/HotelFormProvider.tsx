@@ -8,7 +8,7 @@ import { createContext, useContext, useState, ReactNode, useCallback } from 'rea
 import { getTranslation, type TranslationKey } from '@/locales';
 
 // ── Types ──────────────────────────────────────────────────
-export type Lang = 'fr' | 'en' | 'es';
+export type Lang = 'fr' | 'en' | 'es' | 'vi';
 
 export interface RoomType {
   id: number;

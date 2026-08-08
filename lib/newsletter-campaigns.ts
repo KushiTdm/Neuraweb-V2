@@ -13,7 +13,7 @@ import { sendNewsletterArticleEmail } from '@/lib/email-service';
 
 const BASE_URL = 'https://neuraweb.fr';
 const CONCURRENCY = 5;
-export const SUPPORTED_LANGUAGES = ['fr', 'en', 'es'] as const;
+export const SUPPORTED_LANGUAGES = ['fr', 'en', 'es', 'vi'] as const;
 export type CampaignLang = (typeof SUPPORTED_LANGUAGES)[number];
 
 function unsubscribeUrl(token: string): string {

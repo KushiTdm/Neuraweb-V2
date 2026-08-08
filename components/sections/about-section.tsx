@@ -21,6 +21,7 @@ const SECTION_LABELS: Record<string, { chip: string; learnMore: string }> = {
   fr: { chip: 'QUI SOMMES-NOUS ?', learnMore: "Rencontrer l'équipe" },
   en: { chip: 'ABOUT US',          learnMore: 'Meet the team'       },
   es: { chip: 'QUIÉNES SOMOS',     learnMore: 'Conocer el equipo'   },
+  vi: { chip: 'CHÚNG TÔI LÀ AI?',  learnMore: 'Gặp gỡ đội ngũ'     },
 };
 
 export function AboutSection() {

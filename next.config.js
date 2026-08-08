@@ -60,14 +60,17 @@ const nextConfig = {
       // Page Santé — FR uniquement, on redirige les autres langues
       { source: '/en/sante', destination: '/fr/sante', permanent: true },
       { source: '/es/sante', destination: '/fr/sante', permanent: true },
+      { source: '/vi/sante', destination: '/fr/sante', permanent: true },
 
       // Page Restaurants — FR uniquement, on redirige les autres langues
       { source: '/en/restaurants', destination: '/fr/restaurants', permanent: true },
       { source: '/es/restaurants', destination: '/fr/restaurants', permanent: true },
+      { source: '/vi/restaurants', destination: '/fr/restaurants', permanent: true },
 
       // Page Collectivités — FR uniquement, on redirige les autres langues
       { source: '/en/collectivites', destination: '/fr/collectivites', permanent: true },
       { source: '/es/collectivites', destination: '/fr/collectivites', permanent: true },
+      { source: '/vi/collectivites', destination: '/fr/collectivites', permanent: true },
 
       // Slugs de blog incorrects détectés par Google Search Console ("Détectée, non indexée")
       // Ces URLs ont été crawlées mais retournaient 404 — on les redirige vers les vrais slugs

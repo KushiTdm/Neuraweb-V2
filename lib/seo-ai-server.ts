@@ -55,6 +55,29 @@ Reglas estrictas:
 - keywords: 6-8 palabras clave long-tail en español
 - ogTitle: ligeramente diferente del title, más atractivo
 - ogDescription: 100-120 caracteres, orientado a conversión`,
+
+  vi: `Bạn là chuyên gia SEO. Hãy tạo metadata SEO tối ưu cho NeuraWeb — đội ngũ web & AI người Pháp có mặt tại Hà Nội, phục vụ thị trường Việt Nam.
+Chỉ trả lời bằng JSON hợp lệ, không markdown, không giải thích.
+Định dạng chính xác:
+{"title":"...","description":"...","keywords":["..."],"ogTitle":"...","ogDescription":"..."}
+
+Quy tắc bắt buộc:
+- Viết hoàn toàn bằng tiếng Việt tự nhiên, có dấu đầy đủ — không dịch máy từ tiếng Pháp hay tiếng Anh
+- title: 50-60 ký tự, từ khóa chính đặt lên đầu, có chứa "NeuraWeb"
+- description: 130-150 ký tự, có động từ hành động, có con số nếu được, kết bằng lời kêu gọi hành động
+- keywords: 6-8 từ khóa dài bằng tiếng Việt, ưu tiên gắn với Hà Nội và ngành nghề cụ thể
+- ogTitle: có thể khác title một chút, hấp dẫn hơn
+- ogDescription: 100-120 ký tự, hướng đến chuyển đổi
+
+QUY TẮC VỀ GIÁ (tuyệt đối không vi phạm):
+- Mức giá DUY NHẤT được phép nêu là gói Landing Page Express: 1.290.000 VND (ưu đãi ra mắt dành cho 30 khách hàng đầu tiên)
+- TUYỆT ĐỐI không nêu bất kỳ số tiền EUR / € nào, và không quy đổi giá EUR sang VND
+- Mọi dịch vụ khác (website doanh nghiệp, thương mại điện tử, chatbot AI, tự động hóa, ứng dụng di động) luôn ở dạng "báo giá riêng" / "báo giá miễn phí"
+
+Định vị cần truyền tải:
+- Đội ngũ người Pháp làm việc tại Hà Nội, bàn giao song ngữ Việt – Anh – Pháp, kết nối cộng đồng doanh nghiệp Pháp tại Việt Nam (CCIFV)
+- Chuyên sâu AI và tự động hóa (chatbot, n8n) — điểm khác biệt so với các công ty thiết kế web thông thường
+- Hai nhóm khách hàng: cửa hàng nhỏ / hộ kinh doanh (Landing Page Express) và doanh nghiệp, khách sạn, nhà hàng phục vụ khách quốc tế (báo giá riêng)`,
 };
 
 // ── Contexte enrichi pour l'IA ───────────────────────────────────────────────
@@ -84,6 +107,28 @@ function buildRichContext(context: PageSEOContext): string {
     relevantBoosts.push(...SEO_BOOST_KEYWORDS.services.slice(0, 3));
   }
 
+  // Bloc entreprise : la version `vi` cible le marché vietnamien (Hanoï) et n'expose
+  // aucun montant EUR — seul le tarif Landing Page Express est communicable (cf. règle
+  // prix du chantier vi). Les blocs fr/en/es restent strictement inchangés.
+  const companyBlock =
+    context.language === 'vi'
+      ? `ENTREPRISE :
+- Nom : NeuraWeb
+- Services : Développement web Next.js/React, Intégration IA (ChatGPT/Claude), Automatisation n8n
+- Cible : commerces locaux (hộ kinh doanh), PME, hôtels et restaurants tournés vers la clientèle occidentale
+- Localisation : Hanoï, Vietnam — équipe française, réseau CCIFV, livraison bilingue VI/EN/FR
+- Prix : SEUL le pack Landing Page Express (1.290.000 VND, offre de lancement) peut être cité. Tout le reste est SUR DEVIS — n'écris JAMAIS de montant en EUR/€
+- Délais : quelques jours pour la Landing Page Express, 2-8 semaines pour les autres projets
+- Points forts : réponse sous 24h, devis gratuit, standard technique européen, spécialisation IA/automatisation`
+      : `ENTREPRISE :
+- Nom : NeuraWeb
+- Services : Développement web Next.js/React, Intégration IA (ChatGPT/Claude), Automatisation n8n
+- Cible : Startups, PME, entrepreneurs français
+- Localisation : Lille, France (clients internationaux)
+- Prix : À partir de 1 490€
+- Délais : 2-8 semaines selon le projet
+- Points forts : 16 avis 5 étoiles, réponse sous 24h, devis gratuit`;
+
   return `CONTEXTE DE LA PAGE :
 - Type : ${context.pageType}
 - Langue : ${context.language}
@@ -92,14 +137,7 @@ function buildRichContext(context: PageSEOContext): string {
 - Description actuelle : ${pageCtx.description}
 - Mots-clés actuels : ${pageCtx.keywords.join(', ')}
 
-ENTREPRISE :
-- Nom : NeuraWeb
-- Services : Développement web Next.js/React, Intégration IA (ChatGPT/Claude), Automatisation n8n
-- Cible : Startups, PME, entrepreneurs français
-- Localisation : Lille, France (clients internationaux)
-- Prix : À partir de 1 490€
-- Délais : 2-8 semaines selon le projet
-- Points forts : 16 avis 5 étoiles, réponse sous 24h, devis gratuit
+${companyBlock}
 ${context.customContext ? `- Contexte additionnel : ${context.customContext}` : ''}
 
 MOTS-CLÉS PRIORITAIRES À UTILISER :
@@ -285,7 +323,7 @@ export async function generateBlogPostAISEO(params: {
   const seoHint = params.seoTitle ? ` Titre SEO court : "${params.seoTitle}".` : '';
   return generateAISEO({
     pageType: 'blog',
-    language: (params.lang as 'fr' | 'en' | 'es') || 'fr',
+    language: (params.lang as 'fr' | 'en' | 'es' | 'vi') || 'fr',
     path: `/${params.lang}/blog/${params.slug}`,
     customContext: `Article de blog intitulé "${params.title}".${seoHint} Résumé : ${params.excerpt.substring(0, 200)}`,
     customKeywords: params.tags,

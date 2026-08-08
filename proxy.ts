@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export const SUPPORTED_LANGUAGES = ['fr', 'en', 'es'] as const;
+export const SUPPORTED_LANGUAGES = ['fr', 'en', 'es', 'vi'] as const;
 export const DEFAULT_LANGUAGE = 'fr';
 
 const STATIC_PAGES = ['services', 'blog', 'equipe', 'contact'];

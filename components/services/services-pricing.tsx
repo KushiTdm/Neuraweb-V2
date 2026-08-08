@@ -9,13 +9,14 @@ import {
   X, ChevronRight, Sparkles, Zap, Shield, HeadphonesIcon, Globe,
   Rocket, Code, Database, Settings, TrendingUp, Users, MessageSquare,
   ShoppingCart, Mail, Search, Server, Clock, MessageCircle, Layout,
-  BarChart3, Star, ArrowRight, Bot, BookOpen,
+  BarChart3, Star, ArrowRight, Bot, BookOpen, Check,
 } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
 import { CardsCarousel } from '@/components/ui/cards-carousel';
+import { WhatsAppContactButton } from '@/components/whatsapp-contact-button';
 
 interface ServicesPricingProps {
-  language?: 'fr' | 'en' | 'es';
+  language?: 'fr' | 'en' | 'es' | 'vi';
 }
 
 interface Pack {
@@ -46,6 +47,10 @@ const CROSS_LINKS = {
       { label: 'WordPress vs Next.js: ¿qué elegir en 2026?', href: '/blog/nextjs-vs-wordpress-2026', type: 'article' as const },
       { label: 'Añade un chatbot IA a tu sitio vitrina', href: '/integration-ia', type: 'service' as const },
     ],
+    vi: [
+      { label: 'WordPress hay Next.js: nên chọn gì năm 2026?', href: '/blog/nextjs-vs-wordpress-2026', type: 'article' as const },
+      { label: 'Thêm chatbot AI vào website giới thiệu của bạn', href: '/integration-ia', type: 'service' as const },
+    ],
   },
   business: {
     fr: [
@@ -59,6 +64,10 @@ const CROSS_LINKS = {
     es: [
       { label: 'Cómo integrar IA en un sitio web en 2025', href: '/blog/integrer-ia-site-web-2025', type: 'article' as const },
       { label: 'Automatiza tus procesos de negocio', href: '/automatisation', type: 'service' as const },
+    ],
+    vi: [
+      { label: 'Cách tích hợp AI vào website năm 2025', href: '/blog/integrer-ia-site-web-2025', type: 'article' as const },
+      { label: 'Tự động hoá quy trình kinh doanh của bạn', href: '/automatisation', type: 'service' as const },
     ],
   },
   premium: {
@@ -74,7 +83,37 @@ const CROSS_LINKS = {
       { label: 'Integración IA para e-commerce y APIs', href: '/integration-ia', type: 'service' as const },
       { label: 'Automatización n8n & Make para pymes', href: '/automatisation', type: 'service' as const },
     ],
+    vi: [
+      { label: 'Tích hợp AI cho thương mại điện tử & API', href: '/integration-ia', type: 'service' as const },
+      { label: 'Tự động hoá n8n & Make cho doanh nghiệp SME', href: '/automatisation', type: 'service' as const },
+    ],
   },
+};
+
+// ═══════════════════════════════════════════════════════════════════════════
+// Offre d'appel Landing Page Express — VIETNAM UNIQUEMENT.
+// Seule offre du site à prix fixe affiché : elle cible les hộ kinh doanh cá thể
+// (micro-commerces) en logique de volume, là où les packs Starter/Business/Premium
+// restent en mode devis sur `vi`. Elle est rendue dans un encart distinct, JAMAIS
+// comme 4e carte de la grille de packs, pour ne pas diluer le positionnement premium.
+// Le cadrage "offre de lancement limitée" (30 premiers clients) laisse un chemin
+// naturel pour relever le prix plus tard.
+// ═══════════════════════════════════════════════════════════════════════════
+const LANDING_OFFER = {
+  badge: 'Ưu đãi ra mắt – 30 khách hàng đầu tiên',
+  title: 'Landing Page Express',
+  subtitle:
+    'Một trang web duy nhất, gọn và đầy đủ, dành cho cửa hàng, quán ăn và hộ kinh doanh cá thể chưa có mặt trên Google. Đơn giản hơn gói Starter để giữ giá và bàn giao nhanh.',
+  price: '1.290.000 VND',
+  priceNote: 'Giá trọn gói, không phát sinh',
+  features: [
+    'Một trang: giới thiệu, hình ảnh, giờ mở cửa',
+    'Thông tin liên hệ + bản đồ Google Maps',
+    'Nút nhắn tin Zalo ngay trên trang',
+    'Hiển thị chuẩn trên điện thoại',
+  ],
+  cta: 'Nhận ưu đãi ra mắt',
+  ctaNote: 'Còn hiệu lực cho 30 khách hàng đầu tiên tại Hà Nội.',
 };
 
 const PRICING_TRANSLATIONS = {
@@ -312,6 +351,87 @@ const PRICING_TRANSLATIONS = {
       },
     },
   },
+  // vi — mode devis intégral sur les 3 packs (aucun montant EUR affiché).
+  // Le seul prix visible du site vietnamien est celui de LANDING_OFFER, dans son encart dédié.
+  vi: {
+    title: 'Các gói website của chúng tôi',
+    priceLabel: 'Theo báo giá',
+    // Pas de mention de TVA à côté d'un prix "sur devis" : ligne de réassurance à la place.
+    vat: 'Báo giá miễn phí trong 24 giờ',
+    clickDetails: 'Nhấn để xem chi tiết',
+    deadline: 'Thời gian bàn giao',
+    choosePack: 'Nhận báo giá',
+    cta: 'Báo giá riêng theo nhu cầu',
+    chatbot: 'Chatbot AI',
+    chatbotDesc: 'Trả lời ngay lập tức',
+    highlight: 'Theo yêu cầu',
+    crossLinksTitle: 'Tìm hiểu thêm',
+    crossLinkArticle: 'Bài viết',
+    crossLinkService: 'Dịch vụ',
+    otherServicesTitle: 'Các dịch vụ khác',
+    otherServicesDesc: 'AI và tự động hoá để đi xa hơn nữa.',
+    useCases: {
+      h2: 'Tình huống thực tế theo từng mô hình',
+      subtitle: 'Những kịch bản cụ thể, với gói phù hợp và kết quả đo lường được mà bạn có thể kỳ vọng.',
+      items: [
+        { sector: 'Hộ kinh doanh cá thể / cửa hàng địa phương', context: 'Chưa có website, khách chỉ biết đến qua truyền miệng, thông tin nằm rải rác trên Facebook và Zalo.', solution: 'Landing Page Express: một trang duy nhất với giới thiệu, hình ảnh, giờ mở cửa, bản đồ và nút nhắn tin Zalo.', result: 'Xuất hiện trên Google · khách nhắn Zalo ngay từ website · bàn giao trong vài ngày', pack: 'Landing Page Express' },
+        { sector: 'Khách sạn / nhà hàng tại Hà Nội', context: 'Phụ thuộc nặng vào Agoda, Booking, Traveloka và GrabFood với mức hoa hồng 18–30%, không có kênh đặt trực tiếp.', solution: 'Website song ngữ Việt – Anh – Pháp + đặt chỗ trực tiếp + chatbot AI trả lời khách quốc tế 24/7.', result: 'Giảm phụ thuộc vào OTA · khách phương Tây được phục vụ bằng chính ngôn ngữ của họ', pack: 'Gói Business' },
+        { sector: 'Doanh nghiệp SME / startup', context: 'Cần thương mại điện tử, tích hợp API và hiệu năng đủ tốt để mở rộng quy mô.', solution: 'Số trang không giới hạn + thương mại điện tử + tích hợp API + A/B testing + Core Web Vitals 90+.', result: 'Tăng tỷ lệ chuyển đổi nhờ A/B testing · website nhanh, hỗ trợ tăng trưởng và SEO', pack: 'Gói Premium' },
+      ],
+    },
+    packs: {
+      starter: {
+        title: 'Gói Starter',
+        subtitle: 'Sự hiện diện chuyên nghiệp đầu tiên',
+        description: 'Dành cho chủ doanh nghiệp và người làm nghề tự do muốn một website chuyên nghiệp, tải nhanh và được Google tìm thấy.',
+        features: [
+          { icon: 'Globe', text: 'Website giới thiệu tối đa 8 trang' },
+          { icon: 'Code', text: 'Thiết kế responsive hiện đại' },
+          { icon: 'Search', text: 'SEO kỹ thuật đầy đủ' },
+          { icon: 'Mail', text: 'Biểu mẫu liên hệ' },
+          { icon: 'Server', text: 'Hosting 1 năm' },
+          { icon: 'TrendingUp', text: 'Google Analytics' },
+        ],
+        support: 'Hỗ trợ qua email',
+        price: 'Theo báo giá',
+        delay: '2–3 tuần',
+      },
+      business: {
+        title: 'Gói Business',
+        subtitle: 'Nền tảng tăng trưởng của bạn',
+        description: 'Dành cho doanh nghiệp SME và startup cần một website hoàn chỉnh, có blog, khu vực khách hàng và công cụ chuyển đổi.',
+        features: [
+          { icon: 'Globe', text: 'Website tối đa 20 trang' },
+          { icon: 'Code', text: 'Thiết kế riêng trên Figma' },
+          { icon: 'Users', text: 'Khu vực khách hàng tích hợp' },
+          { icon: 'MessageSquare', text: 'Blog + CMS gọn nhẹ' },
+          { icon: 'TrendingUp', text: 'Analytics nâng cao' },
+          { icon: 'HeadphonesIcon', text: 'Hỗ trợ ưu tiên' },
+          { icon: 'Search', text: 'SEO on-page toàn diện' },
+        ],
+        support: 'Hỗ trợ ưu tiên',
+        price: 'Theo báo giá',
+        delay: '4–6 tuần',
+      },
+      premium: {
+        title: 'Gói Premium',
+        subtitle: 'Giải pháp toàn diện & mở rộng được',
+        description: 'Dành cho doanh nghiệp tham vọng: thương mại điện tử, tích hợp API bên thứ ba, bảo mật nâng cao và hiệu năng tối đa.',
+        features: [
+          { icon: 'Globe', text: 'Số trang không giới hạn' },
+          { icon: 'ShoppingCart', text: 'Thương mại điện tử đầy đủ' },
+          { icon: 'Settings', text: 'Tích hợp API bên thứ ba' },
+          { icon: 'Shield', text: 'Bảo mật nâng cao' },
+          { icon: 'Zap', text: 'Hiệu năng Core Web Vitals 90+' },
+          { icon: 'HeadphonesIcon', text: 'Hỗ trợ riêng 24/7' },
+          { icon: 'TrendingUp', text: 'Báo cáo & A/B testing' },
+        ],
+        support: 'Hỗ trợ riêng 24/7',
+        price: 'Theo báo giá',
+        delay: '6–8 tuần',
+      },
+    },
+  },
 };
 
 export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
@@ -500,7 +620,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
             })}
             {(packData?.features?.length ?? 0) > 4 && (
               <li className="text-white/80 text-sm">
-                +{(packData?.features?.length ?? 0) - 4} {language === 'fr' ? 'autres inclus' : language === 'es' ? 'más incluidos' : 'more included'}
+                +{(packData?.features?.length ?? 0) - 4} {language === 'fr' ? 'autres inclus' : language === 'es' ? 'más incluidos' : language === 'vi' ? 'mục khác đã bao gồm' : 'more included'}
               </li>
             )}
           </ul>
@@ -528,6 +648,58 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 md:mb-16 text-white">
           {t.title}
         </h2>
+
+        {/* ── Encart Landing Page Express (vi uniquement) ─────────────────────
+            Offre d'appel à prix fixe affiché, volontairement SÉPARÉE de la grille
+            Starter/Business/Premium (qui reste en mode devis) : mélanger prix
+            affiché et devis dans une même grille diluerait le positionnement
+            premium. Voir LANDING_OFFER plus haut. */}
+        {language === 'vi' && (
+          <div className="mb-14 md:mb-20 rounded-3xl p-[1.5px] bg-gradient-to-r from-emerald-400/70 via-cyan-400/40 to-emerald-400/70">
+            <div className="rounded-3xl bg-[#050510] p-6 sm:p-8 lg:p-10">
+              <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
+                {/* Colonne offre */}
+                <div className="flex-1 min-w-0">
+                  <span className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full text-xs font-semibold bg-emerald-400/15 text-emerald-300 border border-emerald-400/30">
+                    <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                    {LANDING_OFFER.badge}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">{LANDING_OFFER.title}</h3>
+                  <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-6 max-w-2xl">
+                    {LANDING_OFFER.subtitle}
+                  </p>
+                  <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2.5">
+                    {LANDING_OFFER.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2.5 text-sm text-white/75">
+                        <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Colonne prix + CTA (dont contact Zalo) */}
+                <div className="lg:w-72 shrink-0 lg:border-l lg:border-white/10 lg:pl-10">
+                  <div className="text-3xl sm:text-4xl font-bold text-white leading-none mb-2">
+                    {LANDING_OFFER.price}
+                  </div>
+                  <p className="text-emerald-300/80 text-xs mb-6">{LANDING_OFFER.priceNote}</p>
+                  <div className="flex flex-col gap-3">
+                    <LocalizedLink
+                      href="/booking?pack=landing"
+                      className="inline-flex items-center justify-center gap-2 w-full py-3 px-6 rounded-xl bg-white text-gray-900 text-sm font-semibold transition-all duration-300 hover:bg-gray-100 hover:-translate-y-0.5"
+                    >
+                      {LANDING_OFFER.cta}
+                      <ArrowRight className="w-4 h-4 shrink-0" />
+                    </LocalizedLink>
+                    <WhatsAppContactButton className="w-full" />
+                  </div>
+                  <p className="text-white/40 text-xs mt-4 leading-relaxed">{LANDING_OFFER.ctaNote}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Desktop : grille 3 colonnes */}
         <div className="hidden sm:grid sm:grid-cols-3 gap-6">

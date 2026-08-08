@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Mail, Zap, Twitter, ArrowRight } from 'lucide-react';
+import { Mail, Zap, Twitter, Linkedin, Facebook, ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
 import { useCookieConsent } from '@/contexts/cookie-consent-context';
@@ -75,8 +75,11 @@ export function Footer() {
     { href: '/sante',       label: t('nav.dropdown.sante.label')       },
   ];
 
+  // Doit rester aligné avec `sameAs` dans lib/structured-data.ts.
   const socialLinks = [
-    { href: 'https://twitter.com/neurawebtech',          icon: Twitter,  label: 'X/Twitter' },
+    { href: 'https://twitter.com/neurawebtech',              icon: Twitter,  label: 'X/Twitter' },
+    { href: 'https://www.linkedin.com/company/neuraweb',     icon: Linkedin, label: 'LinkedIn'  },
+    { href: 'https://www.facebook.com/people/Neuraweb/61587416320627/', icon: Facebook, label: 'Facebook' },
   ];
 
   return (

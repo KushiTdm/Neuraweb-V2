@@ -20,7 +20,7 @@ function tooManyRequests(retryAfter?: number) {
 // ============================================================
 
 const VALID_PAGE_TYPES = ['home', 'services', 'contact', 'portfolio', 'blog', 'custom'];
-const VALID_LANGUAGES = ['fr', 'en', 'es'];
+const VALID_LANGUAGES = ['fr', 'en', 'es', 'vi'];
 
 // POST — Génère un aperçu SEO (usage : dashboard interne, tests)
 export async function POST(request: NextRequest) {

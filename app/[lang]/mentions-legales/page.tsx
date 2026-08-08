@@ -283,6 +283,97 @@ Estos avisos legales pueden ser modificados en cualquier momento. Le invitamos a
       },
     },
   },
+  vi: {
+    title: 'Thông tin pháp lý',
+    description: 'Thông tin pháp lý và thông tin doanh nghiệp của NeuraWeb — công ty Pháp chuyên thiết kế website Next.js, tích hợp AI và tự động hóa quy trình.',
+    backToHome: 'Về trang chủ',
+    sections: {
+      editor: {
+        title: '1. Đơn vị vận hành website',
+        content: `
+Website https://neuraweb.fr được vận hành bởi:
+
+**NeuraWeb**
+Micro-entreprise (doanh nghiệp cá thể theo pháp luật Pháp)
+SIRET : 991 296 047 00020
+
+**Liên hệ:**
+- Email: contact@neuraweb.fr
+
+**Người chịu trách nhiệm nội dung:** NeuraWeb
+        `,
+      },
+      hosting: {
+        title: '2. Đơn vị lưu trữ (hosting)',
+        content: `
+Website được lưu trữ tại:
+
+**Vercel Inc.**
+440 N Barranca Ave #4133
+Covina, CA 91723
+Hoa Kỳ
+
+Website: https://vercel.com
+        `,
+      },
+      intellectual: {
+        title: '3. Quyền sở hữu trí tuệ',
+        content: `
+Toàn bộ nội dung của website (văn bản, hình ảnh, đồ họa, logo, biểu tượng...) thuộc quyền sở hữu độc quyền của NeuraWeb, trừ khi có ghi chú khác.
+
+Mọi hành vi sao chép, trình bày lại, chỉnh sửa, xuất bản, truyền tải hoặc làm sai lệch một phần hay toàn bộ website và nội dung của website, bằng bất kỳ phương thức và trên bất kỳ phương tiện nào, đều bị nghiêm cấm nếu chưa có sự đồng ý trước bằng văn bản của NeuraWeb.
+
+Việc khai thác website hoặc nội dung website mà không được phép sẽ bị coi là hành vi xâm phạm quyền sở hữu trí tuệ và bị xử lý theo Điều L.335-2 và các điều tiếp theo của Bộ luật Sở hữu trí tuệ Pháp.
+        `,
+      },
+      data: {
+        title: '4. Dữ liệu cá nhân',
+        content: `
+Thông tin bạn cung cấp qua các biểu mẫu trên website được xử lý nhằm mục đích phản hồi yêu cầu của bạn.
+
+Theo Quy định chung về bảo vệ dữ liệu của châu Âu (GDPR — tại Pháp gọi là RGPD) và Luật Tin học và Quyền tự do của Pháp, bạn có quyền truy cập, chỉnh sửa, xóa và di chuyển dữ liệu cá nhân của mình.
+
+Nếu bạn ở Việt Nam, chúng tôi cũng tham chiếu tinh thần của Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân: dữ liệu chỉ được thu thập trong phạm vi cần thiết, được thông báo rõ mục đích và không bị chia sẻ ngoài phạm vi bạn đồng ý.
+
+Để thực hiện các quyền trên hoặc với bất kỳ câu hỏi nào liên quan đến dữ liệu cá nhân, vui lòng liên hệ: contact@neuraweb.fr
+
+Thông tin chi tiết có trong [Chính sách bảo mật](/vi/confidentialite) của chúng tôi.
+        `,
+      },
+      cookies: {
+        title: '5. Cookie',
+        content: `
+Website sử dụng cookie kỹ thuật cần thiết cho hoạt động của trang và cookie phân tích (Google Analytics) để đo lường lượng truy cập.
+
+Bạn có thể thiết lập trình duyệt để từ chối cookie. Tuy nhiên, khi đó một số tính năng của website có thể không hoạt động đầy đủ.
+        `,
+      },
+      responsibility: {
+        title: '6. Giới hạn trách nhiệm',
+        content: `
+NeuraWeb luôn cố gắng cung cấp thông tin chính xác nhất có thể. Tuy nhiên, NeuraWeb không chịu trách nhiệm đối với các thiếu sót, sai lệch hoặc chậm cập nhật thông tin, dù xuất phát từ NeuraWeb hay từ các đối tác cung cấp thông tin đó.
+
+NeuraWeb cũng không chịu trách nhiệm về các sự cố kỹ thuật mà người dùng có thể gặp phải trong quá trình truy cập website.
+        `,
+      },
+      law: {
+        title: '7. Luật áp dụng',
+        content: `
+Website này và các thông tin pháp lý nêu trên chịu sự điều chỉnh của pháp luật Pháp, do NeuraWeb là doanh nghiệp được thành lập theo pháp luật Pháp.
+
+Trong trường hợp phát sinh tranh chấp, sau khi các bên đã nỗ lực thương lượng nhưng không đạt được thỏa thuận, tòa án Pháp sẽ là cơ quan có thẩm quyền giải quyết.
+        `,
+      },
+      update: {
+        title: '8. Cập nhật',
+        content: `
+Các thông tin pháp lý này có thể được sửa đổi bất cứ lúc nào. Chúng tôi khuyến khích bạn xem lại định kỳ.
+
+**Cập nhật lần cuối:** Tháng 4 năm 2026
+        `,
+      },
+    },
+  },
 };
 
 export async function generateMetadata({
@@ -291,7 +382,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
   const baseUrl = 'https://neuraweb.fr';
   const content = CONTENT[language] || CONTENT.fr;
 
@@ -304,6 +395,7 @@ export async function generateMetadata({
         fr: `${baseUrl}/fr/mentions-legales`,
         en: `${baseUrl}/en/mentions-legales`,
         es: `${baseUrl}/es/mentions-legales`,
+        vi: `${baseUrl}/vi/mentions-legales`,
         'x-default': `${baseUrl}/fr/mentions-legales`,
       },
     },
@@ -320,7 +412,7 @@ export default async function MentionsLegalesPage({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
   const content = CONTENT[language] || CONTENT.fr;
 
   // Breadcrumb pour navigation SERP

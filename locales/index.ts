@@ -1,6 +1,7 @@
 import { fr, type TranslationKey } from './fr';
 import { en } from './en';
 import { es } from './es';
+import { vi } from './vi';
 
 export type { TranslationKey };
 
@@ -8,6 +9,7 @@ export const translations = {
   fr,
   en,
   es,
+  vi,
 } as const;
 
 export type Language = keyof typeof translations;

@@ -38,6 +38,10 @@ export async function generateMetadata({
       title: 'Formulario Proyecto Hotelero | NeuraWeb',
       description: 'Comparta las necesidades de su hotel u hostal. Creamos su sitio web a medida con sistema de reservas, multilingüe y chatbot IA.',
     },
+    vi: {
+      title: 'Phiếu thông tin dự án khách sạn | NeuraWeb',
+      description: 'Chia sẻ nhu cầu của khách sạn hoặc homestay của bạn. Chúng tôi xây dựng website riêng với hệ thống đặt phòng, đa ngôn ngữ và chatbot AI.',
+    },
   };
 
   const m = meta[lang as keyof typeof meta] ?? meta.fr;
@@ -52,6 +56,7 @@ export async function generateMetadata({
         fr: `${baseUrl}/fr/hotel-form`,
         en: `${baseUrl}/en/hotel-form`,
         es: `${baseUrl}/es/hotel-form`,
+        vi: `${baseUrl}/vi/hotel-form`,
         'x-default': `${baseUrl}/fr/hotel-form`,
       },
     },
@@ -61,7 +66,7 @@ export async function generateMetadata({
       url: `${baseUrl}/${lang}/hotel-form`,
       siteName: 'NeuraWeb',
       images: [{ url: `${baseUrl}/assets/og-image.png`, width: 1200, height: 630, alt: m.title }],
-      locale: lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : 'en_US',
+      locale: lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : lang === 'vi' ? 'vi_VN' : 'en_US',
       type: 'website',
     },
   };

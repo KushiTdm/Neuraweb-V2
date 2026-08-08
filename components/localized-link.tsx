@@ -19,7 +19,7 @@ export const LocalizedLink = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(
     const { language } = useLanguage();
 
     // Si le href commence déjà par une langue, ne pas ajouter le préfixe
-    const languagePattern = /^\/(fr|en|es)(\/|$)/;
+    const languagePattern = /^\/(fr|en|es|vi)(\/|$)/;
     
     let localizedHref = href;
     if (!languagePattern.test(href)) {

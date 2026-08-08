@@ -59,7 +59,7 @@ function Modal({ open, onClose, children }: { open: boolean; onClose: () => void
 }
 
 export function CTASection() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
   const [openModal, setOpenModal] = useState<'booking' | 'audit' | null>(null);
   const closeModal = useCallback(() => setOpenModal(null), []);
@@ -99,7 +99,10 @@ export function CTASection() {
   ];
 
   const rawTitle = t('cta.title');
-  const visionKeyword = { fr: 'votre vision', en: 'your vision', es: 'tu visión' };
+  // Chaque valeur doit être un sous-texte exact du `cta.title` de la locale
+  // correspondante (cf. locales/*.ts) — c'est ce segment qui reçoit le
+  // soulignement dessiné à la main.
+  const visionKeyword = { fr: 'votre vision', en: 'your vision', es: 'tu visión', vi: 'tầm nhìn của bạn' };
   const foundKeyword = Object.values(visionKeyword).find((kw) =>
     rawTitle.toLowerCase().includes(kw.toLowerCase())
   );
@@ -159,7 +162,7 @@ export function CTASection() {
                 </div>
                 <div>
                   <p className="text-white font-semibold text-sm leading-tight">{t('cta.bookCall')}</p>
-                  <p className="text-xs mt-0.5" style={{ color: 'rgba(148,163,184,0.65)' }}>Appel 30 min · Gratuit</p>
+                  <p className="text-xs mt-0.5" style={{ color: 'rgba(148,163,184,0.65)' }}>{t('cta.callDuration')}</p>
                 </div>
               </div>
               <ArrowRight className="w-4 h-4 text-white flex-shrink-0" />
@@ -182,7 +185,7 @@ export function CTASection() {
                       {t('audit.badge')}
                     </span>
                   </div>
-                  <p className="text-xs mt-0.5" style={{ color: 'rgba(148,163,184,0.65)' }}>Valeur 490€ · Offert</p>
+                  <p className="text-xs mt-0.5" style={{ color: 'rgba(148,163,184,0.65)' }}>{t('audit.value')}</p>
                 </div>
               </div>
               <ArrowRight className="w-4 h-4 text-white flex-shrink-0" />
@@ -206,7 +209,7 @@ export function CTASection() {
               </h3>
 
               <p className="text-sm leading-relaxed mb-8 flex-1" style={{ color: 'rgba(148,163,184,0.8)' }}>
-                Échangez avec notre équipe en 30 minutes. Présentez votre projet, obtenez un premier avis technique et explorez les pistes d&apos;optimisation adaptées à votre activité.
+                {t('cta.discoveryDescription')}
               </p>
 
               <div className="flex flex-wrap gap-3 mb-8">
@@ -223,7 +226,7 @@ export function CTASection() {
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold text-white border transition-all duration-300 hover:bg-white/8 hover:border-white/40 mt-auto"
                 style={{ borderColor: 'rgba(255,255,255,0.2)' }}
               >
-                Réserver un créneau
+                {t('cta.bookSlot')}
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </LocalizedLink>
             </div>
@@ -243,9 +246,12 @@ export function CTASection() {
                     <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
                     {t('audit.badge')}
                   </div>
-                  <span className="text-sm font-medium line-through" style={{ color: 'rgba(148,163,184,0.45)' }}>
-                    490€
-                  </span>
+                  {/* Pas de prix EUR affiché sur vi (règle du site — mode devis) */}
+                  {language !== 'vi' && (
+                    <span className="text-sm font-medium line-through" style={{ color: 'rgba(148,163,184,0.45)' }}>
+                      490€
+                    </span>
+                  )}
                 </div>
 
                 <h3 className="font-display text-2xl font-bold text-white mb-2">
@@ -313,7 +319,7 @@ export function CTASection() {
             onClick={closeModal}
             className="flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0"
             style={{ background: 'rgba(255,255,255,0.07)' }}
-            aria-label="Fermer"
+            aria-label={t('portfolio.modal.close')}
           >
             <X className="w-4 h-4 text-white/60" />
           </button>
@@ -341,7 +347,7 @@ export function CTASection() {
             className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl text-sm font-semibold text-white transition-all duration-200"
             style={{ background: 'rgba(93,184,240,0.15)', border: '1px solid rgba(93,184,240,0.3)' }}
           >
-            Réserver un créneau
+            {t('cta.bookSlot')}
             <ArrowRight size={15} />
           </LocalizedLink>
         </div>
@@ -359,13 +365,15 @@ export function CTASection() {
               <Sparkles className="w-3 h-3" />
               {t('audit.badge')}
             </div>
-            <span className="text-xs font-medium line-through" style={{ color: 'rgba(148,163,184,0.4)' }}>490€</span>
+            {language !== 'vi' && (
+              <span className="text-xs font-medium line-through" style={{ color: 'rgba(148,163,184,0.4)' }}>490€</span>
+            )}
           </div>
           <button
             onClick={closeModal}
             className="flex items-center justify-center w-8 h-8 rounded-full flex-shrink-0"
             style={{ background: 'rgba(255,255,255,0.07)' }}
-            aria-label="Fermer"
+            aria-label={t('portfolio.modal.close')}
           >
             <X className="w-4 h-4 text-white/60" />
           </button>

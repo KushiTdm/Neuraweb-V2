@@ -4,7 +4,7 @@ import { BookOpen, Bot, Zap, ArrowRight } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
 
 interface ServicesRelatedLinksProps {
-  language?: 'fr' | 'en' | 'es';
+  language?: 'fr' | 'en' | 'es' | 'vi';
 }
 
 const CONTENT = {
@@ -97,6 +97,36 @@ const CONTENT = {
     ],
     articleTag: 'Artículo',
     serviceTag: 'Servicio',
+  },
+  vi: {
+    title: 'Pour aller plus loin',
+    subtitle: 'Articles et services complémentaires à votre projet web.',
+    articles: [
+      {
+        label: 'WordPress vs Next.js : quel choix en 2026 ?',
+        href: '/blog/nextjs-vs-wordpress-2026',
+        desc: 'Comparatif technique et business pour choisir la bonne stack.',
+      },
+      {
+        label: 'Comment intégrer l\'IA dans votre site web',
+        href: '/blog/integrer-ia-site-web-2025',
+        desc: 'Chatbots, recommandations, personnalisation — les cas d\'usage concrets.',
+      },
+    ],
+    services: [
+      {
+        label: 'Intégration IA',
+        href: '/integration-ia',
+        desc: 'Chatbot RAG, agents IA, personnalisation — branchez l\'IA sur votre site.',
+      },
+      {
+        label: 'Automatisation',
+        href: '/automatisation',
+        desc: 'n8n, Make, Zapier — automatisez vos process et gagnez du temps.',
+      },
+    ],
+    articleTag: 'Article',
+    serviceTag: 'Service',
   },
 };
 

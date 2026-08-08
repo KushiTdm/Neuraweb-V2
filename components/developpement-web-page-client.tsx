@@ -32,7 +32,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-type Lang = 'fr' | 'en' | 'es';
+type Lang = 'fr' | 'en' | 'es' | 'vi';
 
 interface Props { lang: Lang }
 
@@ -433,6 +433,134 @@ const CONTENT: Record<Lang, {
     detail: { included: 'Incluido', notIncluded: 'No incluido', options: 'Opciones disponibles', maintenance: 'Mantenimiento', choose: 'Elegir', payment: 'Pago fraccionado disponible · 40% al pedido, 30% a la validación, 30% a la entrega' },
     showDetails: 'Ver detalles ↓', hideDetails: 'Ocultar detalles ↑',
   },
+  // vi — mode devis intégral (cf. Stage C du plan vi) : aucun montant EUR affiché.
+  // L'offre d'appel à prix fixe (Landing Page Express, 1.290.000 VND) vit dans son
+  // encart dédié de `components/services/services-pricing.tsx`, pas ici.
+  vi: {
+    hero: {
+      badge: 'Website Next.js · React · SEO · Thiết kế riêng',
+      h1: 'Website giúp bạn',
+      h1highlight: 'biến người xem thành khách hàng',
+      p: 'Chúng tôi thiết kế website giới thiệu, website doanh nghiệp và thương mại điện tử bằng Next.js: tải nhanh, chuẩn SEO và thiết kế riêng. Báo giá miễn phí trong 24 giờ, làm việc được bằng tiếng Việt, tiếng Anh và tiếng Pháp.',
+      ctaAudit: 'Nhận báo giá miễn phí',
+      ctaPricing: 'Xem các gói dịch vụ',
+    },
+    stats: [
+      { label: 'điểm Core Web Vitals (hiệu năng)' },
+      { label: 'lượng truy cập tự nhiên tăng thêm sau khi làm lại website' },
+      { label: 'để nhận báo giá riêng của bạn' },
+    ],
+    problems: {
+      h2: 'Website đang kìm chân bạn?',
+      subtitle: 'Một website chậm hoặc lỗi thời khiến <strong>53% người dùng điện thoại rời đi</strong> trước cả khi họ kịp xem bạn bán gì.',
+      items: [
+        { title: 'Website tải chậm và hiển thị lỗi trên điện thoại', text: 'Chờ mãi mới tải xong, bố cục vỡ trên màn hình nhỏ: ở Việt Nam phần lớn khách vào website bằng điện thoại, mỗi giây chậm là mất khách và tụt hạng trên Google.' },
+        { title: 'Bạn không xuất hiện trên Google', text: 'Không có cấu trúc SEO, nội dung chưa tối ưu, thiếu thẻ mô tả: khách tìm thấy đối thủ chứ không tìm thấy bạn.' },
+        { title: 'Giao diện cũ khiến khách thiếu tin tưởng', text: 'Một website lỗi thời gửi đi tín hiệu xấu. Khách đánh giá mức độ chuyên nghiệp của bạn trong vài giây — thường là trước khi họ kịp đọc.' },
+        { title: 'Không chuyển đổi được và cũng không đo được', text: 'Không có biểu mẫu hiệu quả, không có nút liên hệ rõ ràng, không gắn công cụ đo lường: bạn không biết khách đến từ đâu và vì sao họ rời đi.' },
+      ],
+    },
+    services: {
+      h2: 'Những gì chúng tôi xây dựng cho bạn',
+      subtitle: 'Từ website giới thiệu đến thương mại điện tử theo yêu cầu riêng, chúng tôi lo trọn chuỗi: thiết kế, lập trình, SEO và hiệu năng.',
+      items: [
+        { title: 'Website giới thiệu & website doanh nghiệp', desc: 'Website Next.js nhanh và đẹp để giới thiệu hoạt động của bạn, thu hút khách hàng và tạo niềm tin ngay từ giây đầu tiên.', details: ['Tối đa 8 hoặc 20 trang tuỳ theo gói', 'Thiết kế ưu tiên điện thoại', 'Biểu mẫu liên hệ đã kết nối sẵn', 'Tối ưu hồ sơ Google Business'], badge: 'Theo báo giá' },
+        { title: 'Làm lại website & thiết kế riêng', desc: 'Bản thiết kế Figma riêng, bộ nhận diện nhất quán, trải nghiệm người dùng được chăm chút: một website đúng chất bạn và biết chuyển đổi.', details: ['Duyệt bản thiết kế Figma trước khi lập trình', 'Bộ nhận diện và thư viện giao diện', 'Hiệu ứng và tương tác nhỏ', 'Khả năng tiếp cận (WCAG) và độ tương phản'], badge: 'Đã gồm thiết kế' },
+        { title: 'SEO kỹ thuật & SEO on-page', desc: 'Cấu trúc tối ưu, thẻ mô tả, dữ liệu có cấu trúc, sitemap: website được thiết kế để lên hạng Google ngay từ lúc ra mắt.', details: ['Thẻ tiêu đề / mô tả riêng cho từng trang', 'Dữ liệu có cấu trúc Schema.org', 'Sitemap & robots.txt', 'Tối ưu Core Web Vitals'], badge: 'Đã bao gồm' },
+        { title: 'Thương mại điện tử & thanh toán', desc: 'Cửa hàng trực tuyến đầy đủ với danh mục, giỏ hàng, thanh toán và quản lý đơn hàng — sẵn sàng bán.', details: ['Danh mục sản phẩm & phân loại', 'Thanh toán an toàn (Stripe hoặc cổng thanh toán nội địa)', 'Quản lý đơn hàng & tồn kho', 'Luồng mua hàng được tối ưu'], badge: 'Gói Premium' },
+        { title: 'Hiệu năng & Core Web Vitals', desc: 'Tải gần như tức thì, hình ảnh được tối ưu, điểm 90+: một website nhanh làm hài lòng khách và được Google ưu ái.', details: ['Cam kết điểm Lighthouse 90+', 'Tối ưu hình ảnh & tải theo nhu cầu', 'Kết xuất tĩnh / ISR của Next.js', 'CDN và bộ nhớ đệm nâng cao'], badge: 'Cam kết' },
+        { title: 'Hosting & bảo trì', desc: 'Triển khai, hosting, sao lưu và cập nhật: chúng tôi lo hết để website của bạn luôn nhanh và an toàn.', details: ['Hosting Vercel độ sẵn sàng cao', 'Sao lưu tự động', 'Cập nhật bảo mật', 'Hỗ trợ và sửa lỗi'], badge: 'Thuê bao hằng tháng' },
+      ],
+    },
+    tools: { label: 'Công nghệ chúng tôi sử dụng' },
+    useCases: {
+      h2: 'Tình huống thực tế theo từng mô hình',
+      subtitle: 'Những kịch bản cụ thể, với gói phù hợp và kết quả đo lường được mà bạn có thể kỳ vọng.',
+      items: [
+        { sector: 'Hộ kinh doanh cá thể / cửa hàng địa phương', context: 'Chưa có website, khách chỉ biết qua truyền miệng, thông tin nằm rải rác trên Facebook và Zalo.', solution: 'Website giới thiệu tối đa 8 trang + SEO kỹ thuật + hồ sơ Google Business + biểu mẫu liên hệ. Nếu bạn chỉ cần một trang duy nhất, hãy xem gói Landing Page Express.', result: 'Xuất hiện trên Google Maps · khách chủ động liên hệ · chi phí thu hồi nhanh', pack: 'Gói Starter' },
+        { sector: 'Khách sạn / nhà hàng tại Hà Nội', context: 'Phụ thuộc nặng vào Agoda, Booking, Traveloka và GrabFood với mức hoa hồng 18–30%, không có kênh đặt trực tiếp.', solution: 'Website song ngữ Việt – Anh – Pháp + đặt chỗ trực tiếp + blog + khu vực khách hàng + SEO on-page.', result: 'Giảm phụ thuộc vào OTA · khách phương Tây được phục vụ bằng chính ngôn ngữ của họ · hình ảnh chuyên nghiệp hơn', pack: 'Gói Business' },
+        { sector: 'Doanh nghiệp SME / startup', context: 'Website hiện tại quá hạn chế, cần thương mại điện tử, tích hợp API và hiệu năng đủ tốt để mở rộng.', solution: 'Số trang không giới hạn + thương mại điện tử + tích hợp API + A/B testing + Core Web Vitals 90+.', result: 'Tăng tỷ lệ chuyển đổi nhờ A/B testing · website nhanh, hỗ trợ tăng trưởng và SEO', pack: 'Gói Premium' },
+      ],
+    },
+    packs: {
+      h2: 'Các gói website',
+      subtitle: 'Mỗi dự án có số trang và tính năng khác nhau, nên chúng tôi báo giá riêng theo nhu cầu thực tế. Miễn phí và gửi trong vòng 24 giờ, không có chi phí ẩn.',
+      popular: 'Được chọn nhiều nhất',
+      // `ht` et `monthly` ne sont pas rendus en mode devis (voir QUOTE_ONLY_LANGS).
+      ht: '',
+      monthly: 'bảo trì hằng tháng',
+      delivery: 'Thời gian bàn giao',
+      items: [
+        {
+          name: 'Gói Starter', tagline: 'Sự hiện diện chuyên nghiệp đầu tiên. Lên sóng sau 3 tuần.',
+          bullets: ['Website giới thiệu tối đa 8 trang', 'Thiết kế responsive hiện đại', 'Đã bao gồm SEO kỹ thuật', 'Tặng 1 năm hosting'],
+          included: ['Website giới thiệu tối đa 8 trang', 'Thiết kế ưu tiên điện thoại', 'SEO kỹ thuật (thẻ mô tả, sitemap, Schema)', 'Biểu mẫu liên hệ đã kết nối', 'Tối ưu hồ sơ Google Business', 'Đã bao gồm 1 năm hosting', 'Cài đặt Google Analytics', 'Hướng dẫn 30 phút + tài liệu'],
+          notIncluded: ['Blog / CMS', 'Khu vực khách hàng', 'Thương mại điện tử', 'Thiết kế riêng trên Figma', 'Tích hợp API bên thứ ba'],
+          options: [{ label: 'Thêm một trang', price: 'Theo báo giá' }, { label: 'Viết nội dung (mỗi trang)', price: 'Theo báo giá' }, { label: 'Chatbot AI', price: 'Theo báo giá' }],
+          maintenanceItems: ['Hosting & tên miền', 'Cập nhật bảo mật', 'Sao lưu hằng tháng', 'Hỗ trợ qua email (phản hồi trong 72 giờ)'],
+        },
+        {
+          name: 'Gói Business', tagline: 'Nền tảng tăng trưởng của bạn. Có blog & khu vực khách hàng.',
+          bullets: ['Website tối đa 20 trang', 'Thiết kế riêng trên Figma', 'Blog + CMS gọn nhẹ', 'Khu vực khách hàng tích hợp'],
+          included: ['Website tối đa 20 trang', 'Thiết kế riêng, duyệt trên Figma', 'Khu vực khách hàng tích hợp', 'Blog + CMS gọn nhẹ', 'SEO on-page toàn diện', 'Đo lường nâng cao & sự kiện', 'Biểu mẫu & luồng chuyển đổi', 'Đã bao gồm 1 năm hosting', 'Hướng dẫn 1 giờ qua video call + tài liệu PDF', 'Hỗ trợ email ưu tiên (phản hồi trong 48 giờ)'],
+          notIncluded: ['Thương mại điện tử đầy đủ', 'Tích hợp API phức tạp', 'A/B testing', 'Hỗ trợ 24/7'],
+          options: [{ label: 'Mô-đun thương mại điện tử', price: 'Theo báo giá' }, { label: 'Thêm một trang', price: 'Theo báo giá' }, { label: 'Tích hợp API bên thứ ba', price: 'Theo báo giá' }, { label: 'Chatbot AI', price: 'Theo báo giá' }],
+          maintenanceItems: ['Hosting & tên miền', 'Cập nhật bảo mật & CMS', 'Sao lưu hằng tuần', 'Hỗ trợ ưu tiên (phản hồi trong 48 giờ)', '2 lần chỉnh sửa nội dung mỗi tháng'],
+        },
+        {
+          name: 'Gói Premium', tagline: 'Giải pháp toàn diện & mở rộng được. Thương mại điện tử & API.',
+          bullets: ['Số trang không giới hạn', 'Thương mại điện tử đầy đủ', 'Tích hợp API bên thứ ba', 'Hiệu năng Core Web Vitals 90+'],
+          included: ['Số trang không giới hạn', 'Thương mại điện tử đầy đủ (danh mục, giỏ hàng, thanh toán)', 'Tích hợp API bên thứ ba theo yêu cầu', 'Bảo mật nâng cao', 'Hiệu năng Core Web Vitals 90+', 'Báo cáo & A/B testing', 'Thiết kế riêng cao cấp', 'SEO kỹ thuật & on-page toàn diện', 'Đã bao gồm hosting độ sẵn sàng cao', 'Đào tạo đội ngũ + tài liệu video', 'Hỗ trợ riêng 24/7 (phản hồi trong 24 giờ)'],
+          notIncluded: ['Ngân sách quảng cáo', 'Quản trị mạng xã hội', 'Sản xuất ảnh / video'],
+          options: [{ label: 'Ứng dụng di động', price: 'Theo báo giá' }, { label: 'Kết nối phần mềm quản lý / hệ thống cũ', price: 'Theo báo giá' }, { label: 'Bảo trì và phát triển tăng cường', price: 'Theo báo giá' }],
+          maintenanceItems: ['Hosting độ sẵn sàng cao', 'Cập nhật bảo mật chủ động', 'Sao lưu hằng ngày', 'Giám sát & báo cáo hằng tháng', 'Hỗ trợ riêng 24/7 (phản hồi trong 24 giờ)', 'Chỉnh sửa không giới hạn'],
+        },
+      ],
+    },
+    process: {
+      h2: 'Quy trình 4 bước của chúng tôi',
+      subtitle: 'Từ buổi trao đổi đầu tiên đến lúc lên sóng: một quy trình đã được kiểm chứng, mỗi bước đều có kết quả bàn giao rõ ràng.',
+      steps: [
+        { title: 'Trao đổi & báo giá', duration: '24 đến 48 giờ', desc: 'Chúng tôi làm rõ mục tiêu, đối tượng khách hàng và nhu cầu của bạn. Bạn nhận được báo giá chi tiết và lịch trình rõ ràng trong vòng 24 giờ.', bring: 'Mục tiêu và website bạn thích', bringLabel: 'Bạn chuẩn bị:' },
+        { title: 'Thiết kế trên Figma', duration: '3 đến 7 ngày', desc: 'Chúng tôi dựng bản thiết kế trên Figma và cùng bạn duyệt trước khi viết dòng lệnh đầu tiên.', bring: 'Logo, nội dung, hình ảnh', bringLabel: 'Bạn chuẩn bị:' },
+        { title: 'Lập trình', duration: '1 đến 6 tuần', desc: 'Chúng tôi lập trình website bằng Next.js, đưa nội dung, SEO và tính năng vào, rồi kiểm thử trên mọi kích thước màn hình.', bring: 'Nội dung bản cuối', bringLabel: 'Bạn chuẩn bị:' },
+        { title: 'Lên sóng & theo dõi', duration: '1 ngày', desc: 'Triển khai, cấu hình tên miền và công cụ đo lường, rồi theo dõi sát trong những ngày đầu. Đã bao gồm hướng dẫn sử dụng.', bring: '30 phút cho buổi hướng dẫn', bringLabel: 'Bạn chuẩn bị:' },
+      ],
+    },
+    testimonials: {
+      h2: 'Khách hàng nói gì về chúng tôi',
+      items: [
+        { quote: 'Website mới tải trong chưa đến một giây và chúng tôi cuối cùng cũng xuất hiện trên Google. Sau 2 tháng, số yêu cầu báo giá tăng gấp đôi.', name: 'Julien P.', role: 'Chủ doanh nghiệp', company: 'Đơn vị thi công, Lille (Pháp)', initials: 'JP', color: 'bg-white/10 text-white' },
+        { quote: 'Việc làm lại website đã thay đổi hoàn toàn hình ảnh của chúng tôi. Thiết kế rất đẹp, khu vực khách hàng được cả đội yêu thích. Lượng truy cập tự nhiên tăng 40%.', name: 'Camille R.', role: 'Giám đốc marketing', company: 'Doanh nghiệp B2B, Lyon (Pháp)', initials: 'CR', color: 'bg-white/10 text-white' },
+        { quote: 'Cửa hàng trực tuyến bàn giao sau 6 tuần, thanh toán chạy mượt, website rất nhanh. Tỷ lệ chuyển đổi tăng 25% nhờ A/B testing.', name: 'Sofia M.', role: 'Nhà sáng lập', company: 'Thương mại điện tử, Bordeaux (Pháp)', initials: 'SM', color: 'bg-emerald-400/20 text-emerald-400' },
+      ],
+    },
+    faq: {
+      h2: 'Câu hỏi thường gặp',
+      items: [
+        { q: 'Làm một website hết bao nhiêu tiền?', a: 'Chúng tôi báo giá riêng cho từng dự án, vì chi phí phụ thuộc vào số trang, mức độ thiết kế riêng và các tính năng bạn cần (blog, khu vực khách hàng, bán hàng trực tuyến, tích hợp hệ thống). Báo giá chi tiết là miễn phí và được gửi trong vòng 24 giờ, kèm phạm vi công việc và lịch bàn giao. Bạn có thể đặt lịch trao đổi tại neuraweb.fr/vi/booking. Nếu bạn là hộ kinh doanh nhỏ và chỉ cần một trang duy nhất, gói Landing Page Express có mức giá cố định 1.290.000 VND.' },
+        { q: 'Bao lâu thì website của tôi lên sóng?', a: 'Khoảng 2 đến 3 tuần cho gói Starter, 4 đến 6 tuần cho gói Business và 6 đến 8 tuần cho gói Premium. Thời gian chủ yếu phụ thuộc vào việc bạn gửi nội dung nhanh hay chậm (chữ, hình ảnh, logo).' },
+        { q: 'Vì sao chọn Next.js thay vì WordPress?', a: 'Next.js cho ra website nhanh hơn, an toàn hơn và lên hạng tốt hơn WordPress, mà không phải nuôi hàng loạt plugin hay lo lỗ hổng bảo mật. Bạn có điểm hiệu năng 90+ và nền tảng SEO kỹ thuật vững ngay từ lúc ra mắt. Với một blog rất đơn giản và không đòi hỏi hiệu năng, WordPress vẫn là lựa chọn được — chúng tôi tư vấn theo đúng trường hợp của bạn.' },
+        { q: 'Có bao gồm SEO không?', a: 'Có. Mọi gói đều bao gồm SEO kỹ thuật: thẻ riêng cho từng trang, dữ liệu có cấu trúc Schema.org, sitemap, robots.txt và tối ưu Core Web Vitals. Gói Business bổ sung SEO on-page toàn diện (cấu trúc nội dung, liên kết nội bộ). Việc làm nội dung SEO dài hạn có thể tách thành một gói đồng hành riêng.' },
+        { q: 'Tôi có tự chỉnh sửa website được không?', a: 'Được. Gói Business và Premium đi kèm một CMS gọn nhẹ cho phép bạn sửa chữ, ảnh và bài blog mà không cần đụng đến mã nguồn. Bạn được hướng dẫn khi bàn giao. Với gói Starter, các chỉnh sửa nằm trong phần bảo trì hằng tháng.' },
+        { q: 'Bảo trì hằng tháng gồm những gì?', a: 'Hosting, tên miền, cập nhật bảo mật, sao lưu và hỗ trợ. Tuỳ theo gói, còn có thêm số lần chỉnh sửa nội dung hằng tháng và giám sát vận hành. Đây là phần tuỳ chọn, nhưng nên có để website luôn nhanh và an toàn theo thời gian.' },
+        { q: 'Các bạn có làm website bán hàng không?', a: 'Có, với gói Premium: danh mục sản phẩm, giỏ hàng, thanh toán an toàn, quản lý đơn hàng và luồng mua hàng được tối ưu. Chúng tôi cũng có thể tích hợp Shopify nếu bạn muốn. Báo giá phụ thuộc vào số lượng sản phẩm và các kết nối bạn cần.' },
+      ],
+    },
+    more: {
+      h3: 'Tìm hiểu thêm',
+      items: [
+        { label: 'WordPress hay Next.js: nên chọn gì năm 2026?', href: '/blog/nextjs-vs-wordpress-2026' },
+        { label: 'Cách tích hợp AI vào website năm 2025', href: '/blog/integrer-ia-site-web-2025' },
+        { label: 'Thêm chatbot AI vào website của bạn', href: '/integration-ia' },
+        { label: 'Tự động hoá quy trình kinh doanh', href: '/automatisation' },
+        { label: 'Phát triển ứng dụng di động', href: '/mobile-app-development' },
+      ],
+    },
+    cta: { badge: 'Báo giá miễn phí · Không ràng buộc', h2: 'Sẵn sàng khởi động website mới?', p: 'Hãy kể cho chúng tôi về dự án của bạn và nhận báo giá chi tiết kèm lịch trình rõ ràng trong vòng 24 giờ. Không ràng buộc, không thuật ngữ khó hiểu.', ctaAudit: 'Nhận báo giá miễn phí', ctaBlog: 'Đọc: Next.js hay WordPress', ctaBlogHref: '/blog/nextjs-vs-wordpress-2026' },
+    detail: { included: 'Đã bao gồm', notIncluded: 'Chưa bao gồm', options: 'Tuỳ chọn thêm', maintenance: 'Bảo trì', choose: 'Nhận báo giá cho gói', payment: 'Có thể thanh toán theo tiến độ · 40% khi khởi động, 30% khi duyệt thiết kế, 30% khi bàn giao' },
+    showDetails: 'Xem chi tiết ↓', hideDetails: 'Ẩn chi tiết ↑',
+  },
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -451,23 +579,24 @@ const PACK_DELIVERY: Record<Lang, string[]> = {
   fr: ['2 à 3 semaines', '4 à 6 semaines', '6 à 8 semaines'],
   en: ['2 to 3 weeks', '4 to 6 weeks', '6 to 8 weeks'],
   es: ['2 a 3 semanas', '4 a 6 semanas', '6 a 8 semanas'],
+  vi: ['2 à 3 semaines', '4 à 6 semaines', '6 à 8 semaines'],
 };
 const PACK_IDS = ['starter', 'business', 'premium'] as const;
 type PackId = (typeof PACK_IDS)[number];
 
 const TOOLS = [
-  { name: 'Next.js', cat: { fr: 'Framework', en: 'Framework', es: 'Framework' } },
-  { name: 'React', cat: { fr: 'Framework', en: 'Framework', es: 'Framework' } },
-  { name: 'TypeScript', cat: { fr: 'Langage', en: 'Language', es: 'Lenguaje' } },
-  { name: 'Tailwind CSS', cat: { fr: 'Design', en: 'Design', es: 'Diseño' } },
-  { name: 'Figma', cat: { fr: 'Design', en: 'Design', es: 'Diseño' } },
-  { name: 'Vercel', cat: { fr: 'Hébergement', en: 'Hosting', es: 'Alojamiento' } },
-  { name: 'Supabase', cat: { fr: 'Backend', en: 'Backend', es: 'Backend' } },
-  { name: 'Stripe', cat: { fr: 'Paiement', en: 'Payment', es: 'Pago' } },
-  { name: 'Sanity', cat: { fr: 'CMS', en: 'CMS', es: 'CMS' } },
-  { name: 'WordPress', cat: { fr: 'CMS', en: 'CMS', es: 'CMS' } },
-  { name: 'Shopify', cat: { fr: 'E-commerce', en: 'E-commerce', es: 'E-commerce' } },
-  { name: 'Google Analytics', cat: { fr: 'Analytics', en: 'Analytics', es: 'Analytics' } },
+  { name: 'Next.js', cat: { fr: 'Framework', en: 'Framework', es: 'Framework', vi: 'Framework' } },
+  { name: 'React', cat: { fr: 'Framework', en: 'Framework', es: 'Framework', vi: 'Framework' } },
+  { name: 'TypeScript', cat: { fr: 'Langage', en: 'Language', es: 'Lenguaje', vi: 'Langage' } },
+  { name: 'Tailwind CSS', cat: { fr: 'Design', en: 'Design', es: 'Diseño', vi: 'Design' } },
+  { name: 'Figma', cat: { fr: 'Design', en: 'Design', es: 'Diseño', vi: 'Design' } },
+  { name: 'Vercel', cat: { fr: 'Hébergement', en: 'Hosting', es: 'Alojamiento', vi: 'Hébergement' } },
+  { name: 'Supabase', cat: { fr: 'Backend', en: 'Backend', es: 'Backend', vi: 'Backend' } },
+  { name: 'Stripe', cat: { fr: 'Paiement', en: 'Payment', es: 'Pago', vi: 'Paiement' } },
+  { name: 'Sanity', cat: { fr: 'CMS', en: 'CMS', es: 'CMS', vi: 'CMS' } },
+  { name: 'WordPress', cat: { fr: 'CMS', en: 'CMS', es: 'CMS', vi: 'CMS' } },
+  { name: 'Shopify', cat: { fr: 'E-commerce', en: 'E-commerce', es: 'E-commerce', vi: 'E-commerce' } },
+  { name: 'Google Analytics', cat: { fr: 'Analytics', en: 'Analytics', es: 'Analytics', vi: 'Analytics' } },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════

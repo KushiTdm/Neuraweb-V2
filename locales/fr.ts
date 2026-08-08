@@ -3,7 +3,8 @@ export const fr = {
 
   // Chatbot
   'chatbot.title': 'Assistant NeuraWeb',
-  'chatbot.greeting': "Bonjour ! 👋 Je suis l'assistant NeuraWeb. Comment puis-je vous aider aujourd'hui ? N'hésitez pas à me poser vos questions sur nos services de développement web, d'automatisation ou d'intégration IA.",
+  'chatbot.aiTag': 'Assistant IA',
+  'chatbot.greeting': "Bonjour ! 👋 Vous échangez avec l'assistant IA de NeuraWeb. Comment puis-je vous aider aujourd'hui ? N'hésitez pas à me poser vos questions sur nos services de développement web, d'automatisation ou d'intégration IA.",
   'chatbot.placeholder': 'Posez votre question...',
   'chatbot.send': 'Envoyer',
   'chatbot.close': 'Fermer le chat',
@@ -186,6 +187,9 @@ export const fr = {
   'cta.guaranteedGrowth': 'Croissance garantie',
   'cta.secure': '100% Sécurisé',
   'cta.dedicatedSupport': 'Support dédié',
+  'cta.callDuration': 'Appel 30 min · Gratuit',
+  'cta.discoveryDescription': "Échangez avec notre équipe en 30 minutes. Présentez votre projet, obtenez un premier avis technique et explorez les pistes d'optimisation adaptées à votre activité.",
+  'cta.bookSlot': 'Réserver un créneau',
 
   // Footer
   'footer.company.description': 'Solutions web innovantes et automatisation intelligente pour votre entreprise.',

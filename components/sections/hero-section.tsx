@@ -20,56 +20,77 @@ interface Slide {
 
 const SLIDES: Slide[] = [
   {
-    title:          { fr: 'Automatisation',       en: 'Intelligent',    es: 'Automatización'    },
-    titleHighlight: { fr: 'Intelligente',          en: 'Automation',     es: 'Inteligente'       },
+    title:          { fr: 'Automatisation',       en: 'Intelligent',    es: 'Automatización',    vi: 'Tự động hoá' },
+    titleHighlight: { fr: 'Intelligente',          en: 'Automation',     es: 'Inteligente',       vi: 'thông minh' },
     subtitle: {
       fr: 'Workflows n8n, intégration API, productivité multipliée — libérez votre équipe des tâches répétitives.',
       en: 'n8n workflows, API integration, multiplied productivity — free your team from repetitive tasks.',
       es: 'Flujos n8n, integración API, productividad multiplicada — libera tu equipo de tareas repetitivas.',
+      vi: 'Quy trình n8n, AI agent, kết nối Zalo OA và CRM — giải phóng đội ngũ của bạn khỏi những tác vụ lặp lại mỗi ngày.',
     },
     image: '/assets/services/automation_n8n.webp',
     showKpi: true,
   },
   {
-    title:          { fr: 'Agence Web,',           en: 'Web Agency,',    es: 'Agencia Web,'      },
-    titleHighlight: { fr: 'IA & Mobile',            en: 'AI & Mobile',    es: 'IA & Móvil'        },
+    title:          { fr: 'Agence Web,',           en: 'Web Agency,',    es: 'Agencia Web,',      vi: 'Landing Page Express,' },
+    titleHighlight: { fr: 'IA & Mobile',            en: 'AI & Mobile',    es: 'IA & Móvil',        vi: 'trọn gói 1.290.000đ' },
     subtitle: {
       fr: 'Développement web sur mesure, intégration IA et applications mobiles pour propulser votre entreprise.',
       en: 'Custom web development, AI integration and mobile apps to propel your business forward.',
       es: 'Desarrollo web a medida, integración IA y apps móviles para impulsar tu empresa.',
+      vi: 'Ưu đãi ra mắt cho 30 khách hàng đầu tiên: một trang web đầy đủ thông tin, hình ảnh và nút Zalo, lên sóng trong vài ngày.',
     },
     image: '/assets/services/development_web-macbook.webp',
     showKpi: false,
   },
   {
-    title:          { fr: 'Intégration IA',        en: 'AI Integration',  es: 'Integración IA'   },
-    titleHighlight: { fr: 'de Pointe',              en: 'Cutting-Edge',    es: 'de Vanguardia'    },
+    title:          { fr: 'Intégration IA',        en: 'AI Integration',  es: 'Integración IA',   vi: 'Chuyên môn AI' },
+    titleHighlight: { fr: 'de Pointe',              en: 'Cutting-Edge',    es: 'de Vanguardia',    vi: 'từ mạng lưới Pháp' },
     subtitle: {
       fr: 'ChatGPT, LLM et agents IA intégrés directement dans vos produits et processus métier.',
       en: 'ChatGPT, LLM and AI agents integrated directly into your products and business processes.',
       es: 'ChatGPT, LLM y agentes IA integrados directamente en tus productos y procesos de negocio.',
+      vi: 'Chatbot RAG, trợ lý AI, tích hợp Claude / Mistral / GPT vào website và quy trình của bạn — kinh nghiệm triển khai cho doanh nghiệp Pháp, nay có mặt tại Hà Nội.',
     },
     image: '/assets/services/ia_integration.webp',
     showKpi: false,
   },
   {
-    title:          { fr: 'Solutions Mobiles',     en: 'Mobile Solutions', es: 'Soluciones Móviles' },
-    titleHighlight: { fr: 'iOS & Android',          en: 'iOS & Android',    es: 'iOS & Android'      },
+    title:          { fr: 'Solutions Mobiles',     en: 'Mobile Solutions', es: 'Soluciones Móviles', vi: 'Ứng dụng di động' },
+    titleHighlight: { fr: 'iOS & Android',          en: 'iOS & Android',    es: 'iOS & Android',      vi: 'iOS & Android' },
     subtitle: {
       fr: 'React Native, Flutter — MVP livré en 6 semaines, prêt pour le marché.',
       en: 'React Native, Flutter — MVP delivered in 6 weeks, market-ready.',
       es: 'React Native, Flutter — MVP entregado en 6 semanas, listo para el mercado.',
+      vi: 'React Native, Flutter — MVP bàn giao trong 6 tuần, sẵn sàng ra thị trường. Làm việc song ngữ Việt – Pháp – Anh.',
     },
     image: '/assets/services/developement_mobile.webp',
     showKpi: false,
   },
 ];
 
-const KPI_ITEMS = [
-  { label: 'API connectées',   value: '12'      },
-  { label: 'Workflows actifs', value: '47'      },
-  { label: 'Gain de temps',    value: '−4h/sem' },
-];
+const KPI_ITEMS: Record<string, { label: string; value: string }[]> = {
+  fr: [
+    { label: 'API connectées',   value: '12'      },
+    { label: 'Workflows actifs', value: '47'      },
+    { label: 'Gain de temps',    value: '−4h/sem' },
+  ],
+  en: [
+    { label: 'Connected APIs',   value: '12'      },
+    { label: 'Active workflows', value: '47'      },
+    { label: 'Time saved',       value: '−4h/wk'  },
+  ],
+  es: [
+    { label: 'APIs conectadas',    value: '12'      },
+    { label: 'Workflows activos',  value: '47'      },
+    { label: 'Tiempo ahorrado',    value: '−4h/sem' },
+  ],
+  vi: [
+    { label: 'API đã kết nối',       value: '12'      },
+    { label: 'Workflow đang chạy',   value: '47'      },
+    { label: 'Thời gian tiết kiệm',  value: '−4h/tuần' },
+  ],
+};
 
 const SLIDE_DURATION = 5500;
 
@@ -260,7 +281,7 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
             className="hidden lg:flex absolute right-12 xl:right-20 top-1/2 -translate-y-1/2 flex-col gap-3 w-52"
             style={{ opacity: kpiVisible ? 1 : 0, transform: kpiVisible ? 'translateX(0) translateY(-50%)' : 'translateX(24px) translateY(-50%)', transition: 'opacity 0.8s ease,transform 0.8s ease' }}
           >
-            {KPI_ITEMS.map((kpi, i) => (
+            {(KPI_ITEMS[lang] || KPI_ITEMS.fr).map((kpi, i) => (
               <div key={i} className="rounded-2xl px-5 py-4 flex flex-col gap-1" style={{ background: 'rgba(255,255,255,.05)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)' }}>
                 <span className="text-2xl font-bold text-white">{kpi.value}</span>
                 <span className="text-xs" style={{ color: 'rgba(232,244,253,.6)' }}>{kpi.label}</span>

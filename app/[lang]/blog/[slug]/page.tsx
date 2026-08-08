@@ -60,10 +60,16 @@ export async function generateMetadata({
     alternates: {
       canonical: `${baseUrl}/${lang}/blog/${slug}`,
       languages: (() => {
-        const langs: Record<string, string> = { 'x-default': `${baseUrl}/fr/blog/${slug}` };
+        const langs: Record<string, string> = {};
         if (getPostBySlug(slug, 'fr')) langs.fr = `${baseUrl}/fr/blog/${slug}`;
         if (getPostBySlug(slug, 'en')) langs.en = `${baseUrl}/en/blog/${slug}`;
         if (getPostBySlug(slug, 'es')) langs.es = `${baseUrl}/es/blog/${slug}`;
+        if (getPostBySlug(slug, 'vi')) langs.vi = `${baseUrl}/vi/blog/${slug}`;
+        // x-default doit pointer vers une URL qui existe : le FR est la source par
+        // défaut, mais les articles vi-only n'ont pas de version FR — on retombe
+        // alors sur la première langue réellement publiée (sinon hreflang cassé).
+        const fallback = langs.fr ?? Object.values(langs)[0];
+        if (fallback) langs['x-default'] = fallback;
         return langs;
       })(),
     },
@@ -92,7 +98,7 @@ export async function generateMetadata({
               alt: seo.ogTitle,
             },
           ],
-      locale: lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : 'en_US',
+      locale: lang === 'fr' ? 'fr_FR' : lang === 'es' ? 'es_ES' : lang === 'vi' ? 'vi_VN' : 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
@@ -141,7 +147,7 @@ export default async function BlogPostPage({
 
   // Breadcrumb pour navigation SERP
   const breadcrumbData = generateBreadcrumbSchema([
-    { name: lang === 'fr' ? 'Accueil' : lang === 'es' ? 'Inicio' : 'Home', url: `/${lang}` },
+    { name: lang === 'fr' ? 'Accueil' : lang === 'es' ? 'Inicio' : lang === 'vi' ? 'Trang chủ' : 'Home', url: `/${lang}` },
     { name: 'Blog', url: `/${lang}/blog` },
     { name: post.title, url: `/${lang}/blog/${slug}` },
   ]);

@@ -11,6 +11,7 @@ const SECTION_LABELS: Record<string, { chip: string; title1: string; title2: str
   fr: { chip: 'NOS SERVICES', title1: 'Des solutions digitales', title2: 'pour scaler votre business', cta: 'Voir tous nos services' },
   en: { chip: 'OUR SERVICES',  title1: 'Digital solutions',       title2: 'to scale your business',    cta: 'View all services'      },
   es: { chip: 'NUESTROS SERVICIOS', title1: 'Soluciones digitales', title2: 'para escalar tu negocio', cta: 'Ver todos los servicios' },
+  vi: { chip: 'DỊCH VỤ CỦA CHÚNG TÔI', title1: 'Giải pháp số', title2: 'giúp việc kinh doanh của bạn đi xa hơn', cta: 'Xem tất cả dịch vụ' },
 };
 
 // SVG constellation pour la carte IA

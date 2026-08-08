@@ -40,7 +40,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-type Lang = 'fr' | 'en' | 'es';
+type Lang = 'fr' | 'en' | 'es' | 'vi';
 
 interface Props { lang: Lang }
 
@@ -447,6 +447,137 @@ const CONTENT: Record<Lang, {
     detail: { included: 'Incluido', notIncluded: 'No incluido', options: 'Opciones disponibles', maintenance: 'Mantenimiento', choose: 'Elegir', payment: 'Pago fraccionado disponible · 40% al pedido, 30% a la validación, 30% a la entrega' },
     showDetails: 'Ver detalles ↓', hideDetails: 'Ocultar detalles ↑',
   },
+  // vi — mode devis intégral (cf. Stage C du plan vi) : aucun montant EUR affiché,
+  // ni dans les badges de services, ni dans les options, ni dans la FAQ.
+  // Seuls les coûts d'outils tiers (Make, n8n) restent cités à titre indicatif.
+  vi: {
+    hero: {
+      badge: 'Tự động hoá n8n · Make · Zapier · AI Agent',
+      h1: 'Tự động hoá quy trình,',
+      h1highlight: 'giải phóng nguồn lực của bạn',
+      p: 'Chúng tôi xây dựng workflow riêng bằng n8n, Make hoặc Zapier, triển khai AI agent tự vận hành và kết nối toàn bộ công cụ bạn đang dùng. Tư vấn miễn phí, trao đổi được bằng tiếng Việt, tiếng Anh và tiếng Pháp.',
+      ctaAudit: 'Nhận tư vấn miễn phí',
+      ctaPricing: 'Xem các gói dịch vụ',
+    },
+    stats: [
+      { label: 'tiết kiệm mỗi tuần, tính trung bình' },
+      { label: 'lượng khách tiềm năng được xử lý' },
+      { label: 'công việc thủ công được cắt giảm' },
+    ],
+    problems: {
+      h2: 'Nghe có quen không?',
+      subtitle: 'Một doanh nghiệp vừa và nhỏ mất trung bình <strong>12 giờ mỗi tuần</strong> cho những việc mà tự động hoá xử lý xong trong vài giây.',
+      items: [
+        { title: 'Nhân sự mất hàng giờ cho những việc lặp đi lặp lại', text: 'Nhập liệu thủ công, copy qua lại giữa các công cụ, nhắn tin nhắc khách, chuyển dữ liệu: mỗi phút trôi qua là một phút không dành cho công việc chính.' },
+        { title: 'Khách hàng tiềm năng rơi rớt giữa các kênh', text: 'Một tin nhắn Zalo lúc 22h, một bình luận Facebook chưa ai trả lời, một biểu mẫu website không ai theo dõi: bạn mất cơ hội mà không hề hay biết.' },
+        { title: 'Dữ liệu nằm rải rác trên 5, 10, 15 công cụ', text: 'Google Sheets, Zalo, Facebook, Excel, email, phần mềm bán hàng... thông tin luân chuyển bằng tay vừa tốn sức vừa dễ sai sót.' },
+        { title: 'Bạn không biết nên bắt đầu từ đâu', text: 'Tự động hoá nghe có vẻ phức tạp. Bạn không rõ quy trình nào nên làm trước, cũng không biết chọn n8n, Make hay Zapier.' },
+      ],
+    },
+    services: {
+      h2: 'Những gì chúng tôi xây dựng cho bạn',
+      subtitle: 'Từ buổi rà soát đầu tiên đến việc theo dõi vận hành hằng tháng, chúng tôi lo trọn chuỗi tự động hoá.',
+      items: [
+        { title: 'Rà soát quy trình có thể tự động hoá', desc: 'Chúng tôi vẽ lại luồng công việc hiện tại, chỉ ra những tác vụ lặp lại nhiều nhất và ước lượng lợi ích của từng phần tự động hoá. Kết quả: một lộ trình đã được sắp thứ tự ưu tiên.', details: ['Sơ đồ hoá toàn bộ quy trình hiện có', 'Ma trận tác động / độ phức tạp / chi phí', 'Ước lượng lợi ích cho từng quy trình', 'Tư vấn chọn Make, n8n hay Zapier'], badge: 'Miễn phí' },
+        { title: 'Workflow n8n / Make / Zapier', desc: 'Chúng tôi xây dựng các luồng tự động theo đúng cách bạn đang làm việc: biểu mẫu → CRM, sàng lọc khách hàng, đồng bộ công cụ, thông báo, nhắc khách tự động, báo cáo.', details: ['Kết nối biểu mẫu → CRM / Airtable / Notion', 'Nhắc khách tự động qua email, SMS hoặc Zalo', 'Đồng bộ nhiều công cụ cùng lúc (Gmail, Drive, Sheets)', 'Cảnh báo và thông báo theo thời gian thực'], badge: 'Theo báo giá' },
+        { title: 'AI agent bán hàng', desc: 'Một AI agent tự vận hành 24/7: sàng lọc khách hàng mới, trả lời câu hỏi thường gặp, đặt lịch hẹn và chuyển khách đã sẵn sàng cho đội kinh doanh.', details: ['Tự động sàng lọc khách hàng mới', 'Trả lời các câu hỏi thường gặp', 'Kết nối lịch hẹn (Calendly, Google Calendar)', 'Chuyển tiếp sang CRM kèm điểm đánh giá'], badge: 'Theo báo giá' },
+        { title: 'Tự động hoá marketing & chăm sóc khách', desc: 'Chuỗi email thông minh, chấm điểm khách hàng, cá nhân hoá nội dung, phân nhóm tự động: marketing vẫn chạy ngay cả khi bạn đang ngủ.', details: ['Chuỗi chăm sóc khách nhiều bước', 'Tự động chấm điểm khách hàng tiềm năng', 'Phân nhóm theo hành vi thực tế', 'Kết nối Brevo, Mailchimp, ActiveCampaign'], badge: 'Theo báo giá' },
+        { title: 'Đồng bộ CRM / phần mềm quản lý / hoá đơn', desc: 'Kết nối CRM, bảng tính, phần mềm bán hàng, phần mềm kế toán và mọi công cụ nghiệp vụ của bạn. Hết cảnh nhập hai lần và số liệu lệch nhau.', details: ['Kết nối hai chiều CRM ↔ các công cụ', 'Đồng bộ báo giá / hoá đơn tự động', 'Cập nhật hồ sơ khách hàng theo thời gian thực', 'Lưu trữ và truy vết mọi trao đổi'], badge: 'Theo báo giá' },
+        { title: 'Giám sát & tối ưu liên tục', desc: 'Workflow được theo dõi liên tục, lỗi được phát hiện ngay, khối lượng xử lý được phân tích. Báo cáo hằng tháng cho bạn biết hiệu quả và hướng cải thiện.', details: ['Theo dõi workflow 24/7', 'Cảnh báo khi có lỗi hoặc bất thường', 'Báo cáo hiệu quả hằng tháng', 'Tối ưu liên tục theo đề xuất'], badge: 'Thuê bao hằng tháng' },
+      ],
+    },
+    tools: { label: 'Chúng tôi kết nối các công cụ của bạn' },
+    useCases: {
+      h2: 'Tình huống thực tế theo từng mô hình',
+      subtitle: 'Những kịch bản cụ thể, với gói phù hợp và lợi ích đo lường được mà bạn có thể kỳ vọng.',
+      items: [
+        { sector: 'Cửa hàng / hộ kinh doanh cá thể', context: 'Đơn hàng đến từ Zalo, Facebook và điện thoại, ghi tay vào sổ, không ai nhớ đã nhắn lại cho ai.', solution: 'Một workflow duy nhất gom tin nhắn Zalo, Facebook và biểu mẫu website về cùng một bảng, kèm nhắc việc tự động.', result: 'Không còn bỏ sót khách · toàn bộ đơn nằm trong một bảng duy nhất · triển khai trong vài ngày', pack: 'Starter Auto' },
+        { sector: 'Khách sạn / nhà hàng tại Hà Nội', context: 'Yêu cầu đặt chỗ đến từ Agoda, Booking, Traveloka, GrabFood và Zalo, mỗi kênh một nơi, khách quốc tế phải chờ trả lời.', solution: '3 đến 5 workflow gom mọi kênh + AI agent trả lời tiếng Việt, Anh, Pháp 24/7 + đồng bộ lịch phòng và bàn.', result: 'Trả lời khách ngay trong vài phút · giảm phụ thuộc vào OTA · nhân viên lễ tân bớt việc thủ công', pack: 'Business Auto' },
+        { sector: 'Thương mại điện tử / bán lẻ', context: 'Đơn hàng, chăm sóc khách và tồn kho nằm ở các công cụ rời rạc, nhập liệu hai lần và hay sai.', solution: 'Đồng bộ đơn hàng ↔ CRM ↔ hoá đơn + cảnh báo tồn kho + nhắc giỏ hàng bỏ quên tự động.', result: 'Gần như không còn lỗi nhập liệu · nhắc giỏ hàng 24/7 · theo dõi đơn không cần can thiệp', pack: 'Business Auto' },
+        { sector: 'Doanh nghiệp nhiều chi nhánh', context: '10 đến 15 công cụ không kết nối (CRM, quản lý, kế toán, nhân sự), báo cáo tổng hợp làm tay mất 3 ngày.', solution: 'Hạ tầng n8n self-hosted + 3 AI agent (khách hàng, hỗ trợ, nội dung) + bảng điều hành theo thời gian thực.', result: 'Giảm mạnh thời gian nhập liệu · hạn chế hết hàng · báo cáo từ 3 ngày còn 10 phút', pack: 'Full Automation' },
+      ],
+    },
+    packs: {
+      h2: 'Các gói tự động hoá',
+      subtitle: 'Mỗi doanh nghiệp một quy trình khác nhau, nên chúng tôi báo giá riêng theo nhu cầu thực tế. Miễn phí và gửi trong vòng 24 giờ, không có chi phí ẩn.',
+      popular: 'Được chọn nhiều nhất',
+      // `ht` et `monthly` ne sont pas rendus en mode devis (voir QUOTE_ONLY_LANGS).
+      ht: '',
+      monthly: 'bảo trì hằng tháng',
+      delivery: 'Thời gian triển khai',
+      items: [
+        {
+          name: 'Starter Auto', tagline: 'Workflow đầu tiên của bạn. Thấy kết quả ngay trong tháng đầu.',
+          bullets: ['Rà soát quy trình (tối đa 5 workflow được xác định)', '1 workflow hoàn chỉnh đã bàn giao và kiểm thử', 'Hướng dẫn 30 phút + tài liệu', 'Hỗ trợ qua email trong 30 ngày'],
+          included: ['Rà soát và sơ đồ hoá quy trình ban đầu', '1 workflow n8n hoặc Make (tối đa 8 bước)', 'Kết nối tối đa 3 công cụ', 'Kiểm thử và chạy thật trên dữ liệu của bạn', 'Tài liệu mô tả workflow', 'Hướng dẫn 30 phút qua video call', 'Hỗ trợ email 30 ngày sau bàn giao'],
+          notIncluded: ['AI agent tự vận hành', 'Nhiều hơn 1 workflow', 'Kết nối quá 3 công cụ', 'Giám sát liên tục', 'Báo cáo hằng tháng'],
+          options: [{ label: 'Thêm một workflow', price: 'Theo báo giá' }, { label: 'Kết nối thêm một công cụ', price: 'Theo báo giá' }, { label: 'Gia hạn hỗ trợ thêm 3 tháng', price: 'Theo báo giá' }],
+          maintenanceItems: ['Kiểm tra workflow hằng tháng', 'Cập nhật khi công cụ thay đổi', 'Hỗ trợ qua email (phản hồi trong 72 giờ)'],
+        },
+        {
+          name: 'Business Auto', tagline: 'Nhiều quy trình được kết nối. Đã bao gồm 1 AI agent.',
+          bullets: ['Rà soát toàn diện (không giới hạn quy trình)', '3 đến 5 workflow theo nhu cầu riêng', '1 AI agent sàng lọc khách hàng', 'Đã bao gồm giám sát hằng tháng'],
+          included: ['Rà soát toàn bộ quy trình hiện có', '3 đến 5 workflow n8n hoặc Make (tối đa 20 bước mỗi luồng)', 'Kết nối tối đa 8 công cụ', '1 AI agent sàng lọc và trả lời khách hàng', 'Kết nối CRM (HubSpot, Notion, Airtable)', 'Chuỗi email chăm sóc khách (tối đa 5 bước)', 'Kiểm thử và chạy thật trên dữ liệu của bạn', 'Hướng dẫn 1 giờ qua video call + tài liệu PDF', 'Giám sát hằng tháng + báo cáo hiệu quả', 'Hỗ trợ email ưu tiên (phản hồi trong 48 giờ)'],
+          notIncluded: ['Nhiều hơn 5 workflow', 'Kết nối quá 8 công cụ', 'AI agent nâng cao đa nguồn dữ liệu', 'Phát triển AI theo yêu cầu riêng', 'Kết nối phần mềm quản lý cũ / hệ thống nội bộ'],
+          options: [{ label: 'Thêm một workflow', price: 'Theo báo giá' }, { label: 'Thêm một AI agent', price: 'Theo báo giá' }, { label: 'Kết nối phần mềm quản lý / hệ thống cũ', price: 'Theo báo giá' }, { label: 'Đào tạo đội ngũ (tối đa 5 người)', price: 'Theo báo giá' }],
+          maintenanceItems: ['Theo dõi workflow 24/7', 'Cảnh báo theo thời gian thực', 'Cập nhật và sửa lỗi', 'Báo cáo hiệu quả hằng tháng', 'Hỗ trợ ưu tiên (phản hồi trong 48 giờ)', '2 lần chỉnh sửa workflow mỗi tháng'],
+        },
+        {
+          name: 'Full Automation', tagline: 'Hạ tầng đầy đủ. Nhiều AI agent. Đồng hành dài hạn.',
+          bullets: ['Rà soát + lộ trình 6 tháng', 'Không giới hạn số workflow', 'AI agent đa nguồn dữ liệu', 'Giám sát thời gian thực + đồng hành'],
+          included: ['Rà soát toàn diện + lộ trình tự động hoá 6 tháng', 'Không giới hạn workflow (n8n self-hosted hoặc cloud)', 'Kết nối không giới hạn công cụ', 'Tối đa 3 AI agent (khách hàng, SEO, nội dung, hỗ trợ)', 'Kết nối CRM + phần mềm quản lý + hoá đơn', 'Chuỗi marketing tự động đầy đủ', 'Bảng điều hành riêng theo nhu cầu', 'Đào tạo đội ngũ 4 giờ + tài liệu video', 'Bao gồm hạ tầng n8n self-hosted (nếu cần)', 'Giám sát thời gian thực + cảnh báo', 'Báo cáo nâng cao hằng tháng + buổi họp theo dõi', 'Hỗ trợ riêng (phản hồi trong 24 giờ)', '1 buổi tư vấn chiến lược AI mỗi tháng trong 3 tháng'],
+          notIncluded: ['Ngân sách quảng cáo', 'Quản trị mạng xã hội', 'Phát triển backend phức tạp ngoài phạm vi workflow', 'Kết nối hệ thống cũ không có API (báo giá riêng)'],
+          options: [{ label: 'Hạ tầng n8n self-hosted riêng', price: 'Theo báo giá' }, { label: 'Thêm một AI agent', price: 'Theo báo giá' }, { label: 'Kết nối hệ thống cũ (không có API)', price: 'Theo báo giá' }, { label: 'Đồng hành thêm 6 tháng', price: 'Theo báo giá' }],
+          maintenanceItems: ['Giám sát thời gian thực + cảnh báo tức thì', 'Cập nhật chủ động', 'Báo cáo nâng cao hằng tháng', 'Họp theo dõi hằng tháng (30 phút)', 'Hỗ trợ riêng 7 ngày/tuần (phản hồi trong 24 giờ)', 'Chỉnh sửa không giới hạn', 'Tối ưu liên tục theo đề xuất'],
+        },
+      ],
+    },
+    process: {
+      h2: 'Quy trình 4 bước của chúng tôi',
+      subtitle: 'Từ cuộc gọi đầu tiên đến lúc vận hành thật: một quy trình đã được kiểm chứng, mỗi bước đều có kết quả bàn giao rõ ràng.',
+      steps: [
+        { title: 'Tư vấn miễn phí', duration: '30 đến 60 phút', desc: 'Chúng tôi cùng bạn xem lại công cụ, quy trình và những điểm đang gây mất thời gian nhất. Bạn nhận được danh sách workflow nên tự động hoá trước và lợi ích ước tính.', bring: 'Công cụ và quy trình hiện tại của bạn', bringLabel: 'Bạn chuẩn bị:' },
+        { title: 'Thiết kế', duration: '3 đến 5 ngày', desc: 'Chúng tôi mô hình hoá từng workflow, chọn công cụ phù hợp và thống nhất kiến trúc với bạn trước khi viết dòng lệnh đầu tiên.', bring: 'Quyền truy cập công cụ (chỉ đọc)', bringLabel: 'Bạn chuẩn bị:' },
+        { title: 'Xây dựng & kiểm thử', duration: '1 đến 8 tuần', desc: 'Chúng tôi dựng workflow, kết nối với công cụ của bạn và kiểm thử trên dữ liệu thật. Bạn duyệt từng bước.', bring: 'Dữ liệu để kiểm thử', bringLabel: 'Bạn chuẩn bị:' },
+        { title: 'Đưa vào vận hành', duration: '1 ngày', desc: 'Chuyển sang chạy thật, theo dõi sát trong 7 ngày đầu. Đã bao gồm đào tạo đội ngũ của bạn.', bring: '30 phút cho buổi hướng dẫn', bringLabel: 'Bạn chuẩn bị:' },
+      ],
+    },
+    testimonials: {
+      h2: 'Khách hàng nói gì về chúng tôi',
+      items: [
+        { quote: 'Trong 3 tuần, NeuraWeb đã tự động hoá toàn bộ khâu xử lý yêu cầu báo giá. Chúng tôi lấy lại được 8 giờ mỗi tuần, thời gian phản hồi từ 6 giờ xuống còn 12 phút.', name: 'Alexandre D.', role: 'Giám đốc kinh doanh', company: 'Công ty bất động sản, Paris (Pháp)', initials: 'AD', color: 'bg-white/10 text-white' },
+        { quote: 'Workflow sàng lọc khách hàng bằng n8n đã thay đổi hẳn cách đội kinh doanh làm việc. Nhân viên chỉ còn tiếp những khách thực sự sẵn sàng. Doanh thu tăng 34% trong 2 tháng.', name: 'Sophie M.', role: 'Giám đốc điều hành', company: 'Công ty phần mềm B2B, Lyon (Pháp)', initials: 'SM', color: 'bg-white/10 text-white' },
+        { quote: 'Tôi từng lo là sẽ rất phức tạp. Buổi tư vấn miễn phí đã làm rõ mọi thứ. Chúng tôi chọn gói Business, bàn giao sau 4 tuần. Phần đồng bộ giữa các công cụ chạy rất mượt.', name: 'Thomas R.', role: 'Nhà sáng lập', company: 'Công ty tư vấn, Bordeaux (Pháp)', initials: 'TR', color: 'bg-emerald-400/20 text-emerald-400' },
+      ],
+    },
+    faq: {
+      h2: 'Câu hỏi thường gặp',
+      items: [
+        { q: 'n8n, Make và Zapier khác nhau thế nào?', a: 'Cả ba đều là nền tảng tự động hoá không cần lập trình. Zapier dễ dùng nhất nhưng đắt nhất khi khối lượng tăng. Make (trước đây là Integromat) là lựa chọn mặc định của chúng tôi: khoảng 12 €/tháng cho 10.000 thao tác, có sẵn kết nối AI. n8n là bắt buộc nếu bạn triển khai AI agent tự vận hành hoặc xử lý dữ liệu nhạy cảm — bản Community là mã nguồn mở và miễn phí khi tự cài trên máy chủ riêng. Chúng tôi chọn công cụ phù hợp với bài toán của bạn, không phải công cụ đắt nhất.' },
+        { q: 'Bao lâu thì thấy được hiệu quả?', a: 'Với một workflow đơn giản (biểu mẫu → CRM → thông báo), hiệu quả thấy ngay từ ngày chạy thật: không còn nhập tay, không còn bỏ sót khách. Với một AI agent sàng lọc khách hàng, cần khoảng 2 đến 4 tuần để tinh chỉnh câu lệnh và ngưỡng đánh giá. Phần lớn khách hàng của chúng tôi hoàn vốn trong vòng chưa đến 3 tháng.' },
+        { q: 'Dữ liệu của tôi có đi qua máy chủ của các bạn không?', a: 'Không. Chúng tôi cấu hình tự động hoá trực tiếp trên tài khoản Make của bạn hoặc trên máy chủ n8n riêng của bạn. Dữ liệu không đi qua máy chủ của chúng tôi — nó chỉ luân chuyển giữa các công cụ của bạn thông qua API. Với dữ liệu nhạy cảm, chúng tôi khuyến nghị tự cài n8n trên một máy chủ riêng do bạn kiểm soát.' },
+        { q: 'Sau khi bàn giao, tôi có tự chỉnh sửa workflow được không?', a: 'Được. Mọi workflow đều có tài liệu và bạn được hướng dẫn để hiểu cách chúng hoạt động. Gói Starter bao gồm 2 lần chỉnh sửa nhỏ trong 30 ngày sau bàn giao. Gói Business bao gồm 2 lần chỉnh sửa mỗi tháng. Gói Full Automation không giới hạn số lần chỉnh sửa.' },
+        { q: 'Nếu một workflow bị lỗi thì sao?', a: 'Với gói Business và Full Automation, hệ thống được theo dõi liên tục. Bạn nhận cảnh báo tự động (email hoặc Zalo) ngay khi một lượt chạy thất bại, kèm chi tiết lỗi. Chúng tôi xử lý trong vòng 48 giờ (Business) hoặc 24 giờ (Full Automation).' },
+        { q: 'Có tự động hoá được quy trình rất đặc thù không?', a: 'Có, và đó chính là giá trị chúng tôi mang lại. Chúng tôi đã tự động hoá quy trình ở nhiều lĩnh vực rất khác nhau: khách sạn, nhà hàng, bán lẻ, thương mại điện tử, phần mềm, tư vấn, y tế. Nếu công cụ của bạn có API (hoặc chỉ cần một webhook), chúng tôi kết nối được.' },
+        { q: 'Chi phí cho một dự án tự động hoá là bao nhiêu?', a: 'Chúng tôi không áp một bảng giá cố định, vì mỗi doanh nghiệp có số lượng quy trình, công cụ và khối lượng dữ liệu rất khác nhau. Sau buổi tư vấn miễn phí, bạn nhận được báo giá chi tiết theo đúng nhu cầu thực tế, kèm phạm vi công việc và thời gian triển khai, trong vòng 24 giờ. Bạn có thể đặt lịch trực tiếp tại neuraweb.fr/vi/booking hoặc gửi yêu cầu qua trang liên hệ. Hoàn toàn miễn phí và không ràng buộc.' },
+        { q: 'Buổi tư vấn miễn phí diễn ra như thế nào?', a: 'Một cuộc gọi 30 đến 60 phút với bạn (hoặc đội ngũ của bạn), bằng tiếng Việt, tiếng Anh hoặc tiếng Pháp. Chúng tôi xem lại công cụ, quy trình hằng ngày và những việc đang tốn nhiều thời gian nhất. Bạn nhận được danh sách workflow nên tự động hoá trước, công cụ được khuyến nghị và ước lượng lợi ích. Không ràng buộc gì từ phía bạn.' },
+      ],
+    },
+    more: {
+      h3: 'Tìm hiểu thêm',
+      items: [
+        { label: 'Rà soát chất lượng dữ liệu: vì sao dự án AI thất bại', href: '/blog/audit-qualite-donnees-projet-ia' },
+        { label: 'AI agent nhắc công nợ cho doanh nghiệp: hướng dẫn n8n + Claude', href: '/blog/agent-ia-relance-factures-pme' },
+        { label: 'Make, n8n hay Zapier: so sánh cho doanh nghiệp SME năm 2026', href: '/blog/make-n8n-zapier-2026-pme-france' },
+        { label: 'Hướng dẫn n8n đầy đủ: tự động hoá không cần lập trình', href: '/blog/automatisation-n8n-guide' },
+        { label: 'Tự động hoá bằng AI cho doanh nghiệp SME: chi phí thực tế 2026', href: '/blog/automatisation-ia-pme-prix-2026' },
+        { label: '3 workflow AI agent cho doanh nghiệp SME: hiệu quả thực tế 2026', href: '/blog/3-workflows-agents-ia-pme' },
+      ],
+    },
+    cta: { badge: 'Tư vấn miễn phí · Không ràng buộc', h2: 'Sẵn sàng tự động hoá quy trình của bạn?', p: '30 phút trao đổi, một danh sách workflow nên tự động hoá trước và lợi ích ước tính. Không ràng buộc, không thuật ngữ khó hiểu.', ctaAudit: 'Nhận tư vấn miễn phí', ctaBlog: 'Đọc hướng dẫn n8n', ctaBlogHref: '/blog/automatisation-n8n-guide' },
+    detail: { included: 'Đã bao gồm', notIncluded: 'Chưa bao gồm', options: 'Tuỳ chọn thêm', maintenance: 'Bảo trì', choose: 'Nhận báo giá cho gói', payment: 'Có thể thanh toán theo tiến độ · 40% khi khởi động, 30% khi duyệt, 30% khi bàn giao' },
+    showDetails: 'Xem chi tiết ↓', hideDetails: 'Ẩn chi tiết ↑',
+  },
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -465,27 +596,37 @@ const PACK_DELIVERY: Record<Lang, string[]> = {
   fr: ['1 à 2 semaines', '3 à 5 semaines', '6 à 10 semaines'],
   en: ['1 to 2 weeks', '3 to 5 weeks', '6 to 10 weeks'],
   es: ['1 a 2 semanas', '3 a 5 semanas', '6 a 10 semanas'],
+  vi: ['1–2 tuần', '3–5 tuần', '6–10 tuần'],
 };
 const PACK_IDS = ['starter', 'business', 'full'] as const;
 type PackId = (typeof PACK_IDS)[number];
 
+// ── Mode devis (vi) ────────────────────────────────────────────────────────
+// Sur la version vietnamienne, aucun montant EUR n'est affiché : les 3 paliers
+// passent en devis (Stage C du plan vi). Le seul prix visible du site vi est
+// celui de l'offre Landing Page Express, dans son encart de services-pricing.tsx.
+const QUOTE_ONLY_LANGS: readonly Lang[] = ['vi'];
+const QUOTE_PRICE_LABEL = 'Theo báo giá';
+const QUOTE_PRICE_NOTE = 'Báo giá miễn phí trong 24 giờ';
+const QUOTE_MAINTENANCE_LABEL = 'Bảo trì hằng tháng theo báo giá';
+
 const TOOLS = [
-  { name: 'n8n', cat: { fr: 'Orchestration', en: 'Orchestration', es: 'Orquestación' } },
-  { name: 'Make', cat: { fr: 'Orchestration', en: 'Orchestration', es: 'Orquestación' } },
-  { name: 'Zapier', cat: { fr: 'Orchestration', en: 'Orchestration', es: 'Orquestación' } },
-  { name: 'HubSpot', cat: { fr: 'CRM', en: 'CRM', es: 'CRM' } },
-  { name: 'Notion', cat: { fr: 'CRM', en: 'CRM', es: 'CRM' } },
-  { name: 'Airtable', cat: { fr: 'CRM', en: 'CRM', es: 'CRM' } },
-  { name: 'Brevo', cat: { fr: 'Email', en: 'Email', es: 'Email' } },
-  { name: 'Mailchimp', cat: { fr: 'Email', en: 'Email', es: 'Email' } },
-  { name: 'Slack', cat: { fr: 'Communication', en: 'Communication', es: 'Comunicación' } },
-  { name: 'Gmail / Outlook', cat: { fr: 'Communication', en: 'Communication', es: 'Comunicación' } },
-  { name: 'Google Drive', cat: { fr: 'Stockage', en: 'Storage', es: 'Almacenamiento' } },
-  { name: 'Calendly', cat: { fr: 'Agenda', en: 'Calendar', es: 'Agenda' } },
-  { name: 'Claude / GPT', cat: { fr: 'IA', en: 'AI', es: 'IA' } },
-  { name: 'Pennylane', cat: { fr: 'Facturation', en: 'Billing', es: 'Facturación' } },
-  { name: 'Stripe', cat: { fr: 'Paiement', en: 'Payment', es: 'Pago' } },
-  { name: 'Doctolib', cat: { fr: 'Santé', en: 'Healthcare', es: 'Salud' } },
+  { name: 'n8n', cat: { fr: 'Orchestration', en: 'Orchestration', es: 'Orquestación', vi: 'Điều phối' } },
+  { name: 'Make', cat: { fr: 'Orchestration', en: 'Orchestration', es: 'Orquestación', vi: 'Điều phối' } },
+  { name: 'Zapier', cat: { fr: 'Orchestration', en: 'Orchestration', es: 'Orquestación', vi: 'Điều phối' } },
+  { name: 'HubSpot', cat: { fr: 'CRM', en: 'CRM', es: 'CRM', vi: 'CRM' } },
+  { name: 'Notion', cat: { fr: 'CRM', en: 'CRM', es: 'CRM', vi: 'CRM' } },
+  { name: 'Airtable', cat: { fr: 'CRM', en: 'CRM', es: 'CRM', vi: 'CRM' } },
+  { name: 'Brevo', cat: { fr: 'Email', en: 'Email', es: 'Email', vi: 'Email' } },
+  { name: 'Mailchimp', cat: { fr: 'Email', en: 'Email', es: 'Email', vi: 'Email' } },
+  { name: 'Slack', cat: { fr: 'Communication', en: 'Communication', es: 'Comunicación', vi: 'Trao đổi nội bộ' } },
+  { name: 'Gmail / Outlook', cat: { fr: 'Communication', en: 'Communication', es: 'Comunicación', vi: 'Trao đổi nội bộ' } },
+  { name: 'Google Drive', cat: { fr: 'Stockage', en: 'Storage', es: 'Almacenamiento', vi: 'Lưu trữ' } },
+  { name: 'Calendly', cat: { fr: 'Agenda', en: 'Calendar', es: 'Agenda', vi: 'Lịch hẹn' } },
+  { name: 'Claude / GPT', cat: { fr: 'IA', en: 'AI', es: 'IA', vi: 'AI' } },
+  { name: 'Pennylane', cat: { fr: 'Facturation', en: 'Billing', es: 'Facturación', vi: 'Hoá đơn' } },
+  { name: 'Stripe', cat: { fr: 'Paiement', en: 'Payment', es: 'Pago', vi: 'Thanh toán' } },
+  { name: 'Doctolib', cat: { fr: 'Santé', en: 'Healthcare', es: 'Salud', vi: 'Y tế' } },
 ];
 
 const PROCESS_BG = ['bg-white/5', 'bg-white/5', 'bg-white/5', 'bg-white/5'];
@@ -503,6 +644,7 @@ export function AutomatisationPageClient({ lang }: Props) {
   const c = CONTENT[lang];
   const packIdx = PACK_IDS.indexOf(selectedPack);
   const activePack = c.packs.items[packIdx];
+  const isQuoteOnly = QUOTE_ONLY_LANGS.includes(lang);
 
   // Animations au scroll (GSAP ScrollTrigger) + parallaxe — voir useGsapReveal
   const containerRef = useRef<HTMLElement>(null);
@@ -689,9 +831,18 @@ export function AutomatisationPageClient({ lang }: Props) {
                     <h3 className="font-bold text-white text-lg mb-1">{pack.name}</h3>
                     <p className="text-slate-400 text-sm mb-4">{pack.tagline}</p>
                     <div className="mb-4">
-                      <span className="text-3xl font-bold text-white">{PACK_PRICES[i].toLocaleString('fr-FR')} €</span>
-                      <span className="text-slate-400 text-sm ml-1">{c.packs.ht}</span>
-                      <div className="text-sm text-slate-400">+ {PACK_MONTHLY[i]} {c.packs.monthly}</div>
+                      {isQuoteOnly ? (
+                        <>
+                          <span className="text-3xl font-bold text-white">{QUOTE_PRICE_LABEL}</span>
+                          <div className="text-sm text-slate-400">{QUOTE_PRICE_NOTE}</div>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-3xl font-bold text-white">{PACK_PRICES[i].toLocaleString('fr-FR')} €</span>
+                          <span className="text-slate-400 text-sm ml-1">{c.packs.ht}</span>
+                          <div className="text-sm text-slate-400">+ {PACK_MONTHLY[i]} {c.packs.monthly}</div>
+                        </>
+                      )}
                     </div>
                     <div className="text-xs text-slate-400 mb-4">⏱ {c.packs.delivery} : {PACK_DELIVERY[lang][i]}</div>
                     <ul className="space-y-2">
@@ -750,7 +901,9 @@ export function AutomatisationPageClient({ lang }: Props) {
                   </ul>
                   <div className="bg-[#0e1b3d]/40 rounded-xl p-4 border border-white/10">
                     <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                      {c.detail.maintenance} {PACK_MONTHLY[packIdx]} €/{lang === 'fr' ? 'mois' : lang === 'es' ? 'mes' : 'month'}
+                      {isQuoteOnly
+                        ? QUOTE_MAINTENANCE_LABEL
+                        : `${c.detail.maintenance} ${PACK_MONTHLY[packIdx]} €/${lang === 'fr' ? 'mois' : lang === 'es' ? 'mes' : 'month'}`}
                     </div>
                     <ul className="space-y-1">
                       {activePack.maintenanceItems.map((item, i) => (

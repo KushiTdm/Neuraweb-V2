@@ -37,7 +37,7 @@ interface BlogPostClientProps {
 }
 
 export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps) {
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
 
   // ── ANALYTICS : initialisation ─────────────────────────────────────────── ← ANALYTICS
   const { trackTagClick, trackRelatedArticleClick, trackCTAClick, trackShareClick } =
@@ -81,6 +81,8 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       copyLink: 'Copier le lien',
       copied: 'Lien copié !',
       shareArticle: 'Partager',
+      aiImageLabel: 'Image générée par IA',
+      aiAssisted: 'Assisté par IA',
     },
     en: {
       home: 'Home',
@@ -98,6 +100,8 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       copyLink: 'Copy link',
       copied: 'Link copied!',
       shareArticle: 'Share',
+      aiImageLabel: 'AI-generated image',
+      aiAssisted: 'AI-assisted',
     },
     es: {
       home: 'Inicio',
@@ -115,11 +119,32 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       copyLink: 'Copiar enlace',
       copied: '¡Enlace copiado!',
       shareArticle: 'Compartir',
+      aiImageLabel: 'Imagen generada por IA',
+      aiAssisted: 'Asistido por IA',
+    },
+    vi: {
+      home: 'Trang chủ',
+      blog: 'Blog',
+      readTime: 'phút đọc',
+      tags: 'Từ khóa',
+      relatedArticles: 'Bài viết liên quan',
+      needHelp: 'Bạn cần hỗ trợ cho dự án của mình?',
+      helpDesc: 'NeuraWeb đồng hành cùng bạn trong thiết kế website, tích hợp AI và tự động hóa.',
+      contactUs: 'Liên hệ với chúng tôi',
+      ourServices: 'Dịch vụ của chúng tôi',
+      webAi: 'Website & Trí tuệ nhân tạo',
+      mobileApp: 'Ứng dụng di động',
+      freeQuote: 'Nhận báo giá miễn phí',
+      copyLink: 'Sao chép liên kết',
+      copied: 'Đã sao chép liên kết!',
+      shareArticle: 'Chia sẻ',
+      aiImageLabel: 'Hình ảnh do AI tạo',
+      aiAssisted: 'Có hỗ trợ của AI',
     },
   };
 
   const tr = t[language] || t.fr;
-  const faqHeading = language === 'en' ? 'FAQ' : language === 'es' ? 'Preguntas frecuentes' : 'FAQ';
+  const faqHeading = language === 'en' ? 'FAQ' : language === 'es' ? 'Preguntas frecuentes' : language === 'vi' ? 'Câu hỏi thường gặp' : 'FAQ';
 
   if (!post) return null;
 
@@ -222,6 +247,11 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
           className="object-cover opacity-60 dark:opacity-40"
           priority
         />
+        {post.image && (
+          <span className="absolute bottom-4 left-4 z-20 px-2.5 py-1 rounded-md text-xs font-medium bg-black/60 text-white backdrop-blur-sm">
+            {tr.aiImageLabel}
+          </span>
+        )}
       </div>
 
       {/* Breadcrumb */}
@@ -297,10 +327,15 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
               <span className="text-white font-bold text-lg">N</span>
             </div>
             <div>
-              <p className="font-semibold text-gray-900 dark:text-white">{post.author}</p>
+              <div className="flex items-center gap-2">
+                <p className="font-semibold text-gray-900 dark:text-white">{post.author}</p>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wide bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300">
+                  {tr.aiAssisted}
+                </span>
+              </div>
               <time className="text-sm text-gray-500 dark:text-gray-400" dateTime={post.date}>
                 {new Date(post.date).toLocaleDateString(
-                  language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : 'fr-FR',
+                  language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : language === 'vi' ? 'vi-VN' : 'fr-FR',
                   { day: 'numeric', month: 'long', year: 'numeric' }
                 )}
               </time>

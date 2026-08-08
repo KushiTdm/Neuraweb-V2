@@ -1,0 +1,197 @@
+---
+title: "Make vs n8n vs Zapier 2026: chọn công cụ nào cho SME?"
+seoTitle: "Make vs n8n vs Zapier 2026: hướng dẫn chọn cho SME"
+excerpt: "So sánh Make, n8n và Zapier trên giá thực tế đã kiểm chứng, khả năng AI agent và tuân thủ dữ liệu. Kết luận sau các đợt triển khai thực tế năm 2026."
+date: "2026-05-15"
+category: "Tự động hóa"
+author: "NeuraWeb"
+image: "/assets/blog/make-n8n-zapier-2026-pme-france.webp"
+tags:
+  - "Tự động hóa"
+  - "n8n"
+  - "Make"
+  - "No-code"
+  - "Dữ liệu"
+featured: false
+faq:
+  - question: "Nên chọn công cụ no-code nào giữa Make, n8n và Zapier?"
+    answer: "Make là khuyến nghị mặc định của chúng tôi cho phần lớn doanh nghiệp vừa và nhỏ: 12 USD/tháng cho 10.000 credit, và các connector AI gốc đủ dùng cho hầu hết nhu cầu. n8n là bắt buộc nếu bạn triển khai AI agent tự chủ hoặc xử lý dữ liệu nhạy cảm — bản Community Edition tự host miễn phí. Zapier phù hợp để khởi động nhanh, nhưng gói Team 69 USD/tháng nhanh chóng trở nên gò bó khi khối lượng tăng."
+  - question: "n8n có thật sự miễn phí không?"
+    answer: "Community Edition của n8n là mã nguồn mở và miễn phí nếu bạn tự host — bạn chỉ trả tiền hạ tầng máy chủ (khoảng 10 đến 30 USD mỗi tháng trên một VPS đặt tại Singapore hoặc tại Việt Nam). Bản cloud chính thức của n8n bắt đầu từ 20 EUR/tháng (gói Starter, 2.500 lượt chạy/tháng) hoặc 50 EUR/tháng (gói Pro, 10.000 lượt chạy/tháng)."
+  - question: "Khác biệt thật sự giữa credit của Make và execution của n8n là gì?"
+    answer: "Ở Make, mỗi hành động của một module tính là 1 credit — một kịch bản 5 bước tiêu thụ 5 credit mỗi lượt chạy. Ở n8n, một lượt chạy tính là 1 bất kể workflow có bao nhiêu bước. Với workflow phức tạp, n8n vì thế thường tiết kiệm hơn ở cùng khối lượng."
+  - question: "Chuyển từ Zapier sang Make có rủi ro không?"
+    answer: "Không. Make có công cụ nhập kịch bản Zapier có hướng dẫn. Hãy dự trù khoảng 1 giờ cho mỗi workflow phức tạp để kiểm tra và tinh chỉnh. Hai nền tảng có thể chạy song song trong lúc chuyển đổi, không gây gián đoạn cho các automation đang hoạt động."
+  - question: "Có kết nối được Claude hay ChatGPT với cả ba công cụ này không?"
+    answer: "Có, cả ba đều làm được. Zapier qua các connector dựng sẵn trong Zap tiêu chuẩn. Make qua connector gốc cho Claude và OpenAI cùng tính năng AI Agents đang ở giai đoạn beta. n8n qua các node gốc có quản lý bộ nhớ và vòng lặp suy luận — mạnh nhất trong ba công cụ cho agent tự chủ."
+---
+
+Năm 2026, tự động hóa quy trình không còn là lựa chọn thêm với doanh nghiệp vừa và nhỏ — đó là lợi thế cạnh tranh đo được. Câu hỏi không còn là "có nên tự động hóa không?" mà là "dùng công cụ nào?".
+
+Ba nền tảng no-code thống trị thị trường: Zapier, Make (trước đây là Integromat) và n8n. Mỗi bên có người ủng hộ, tình huống phù hợp và điểm mù riêng. Và các trang bảng giá của họ chỉ kể một phần câu chuyện — mô hình tính tiền khác nhau đến mức so sánh từng dòng là việc gây hiểu nhầm.
+
+Sau khi triển khai workflow cho nhiều doanh nghiệp vừa và nhỏ — từ sàng lọc lead đến điều phối AI agent — đây là so sánh của chúng tôi, dựa trên giá chính thức đã kiểm chứng vào tháng 5/2026.
+
+> **À retenir — Key Takeaways**
+>
+> - **Zapier** : từ 19,99 USD/tháng (750 tác vụ), hơn 7.000 tích hợp, lý tưởng để khởi động nhanh — chi phí thực tế vượt 40 USD/tháng ngay khi dùng ở mức trung bình
+> - **Make** : 12 USD/tháng gói Core (10.000 credit/tháng), tỷ lệ sức mạnh trên giá tốt nhất cho phần lớn doanh nghiệp vừa và nhỏ
+> - **n8n** : miễn phí khi tự host, khoảng 20 EUR/tháng bản cloud, tính tiền theo lượt chạy trọn workflow — lợi thế cấu trúc trên workflow phức tạp
+> - **Tuân thủ dữ liệu** : chỉ n8n tự host cho phép giữ dữ liệu trên máy chủ đặt tại Việt Nam — Make và Zapier không có vùng máy chủ tại Việt Nam
+> - **AI agent** : chỉ n8n đủ chín cho vòng lặp suy luận và bộ nhớ bền vững — Make AI Agents còn beta, Zapier hạn chế
+> - **Chọn nhanh** : Zapier nếu dưới 5 Zap đơn giản ; Make nếu 5-20 kịch bản đa dạng ; n8n nếu có AI agent hoặc dữ liệu nhạy cảm
+> - **Độ trễ** : với đội ngũ và khách hàng tại Việt Nam, hãy ưu tiên vùng máy chủ Singapore — chênh lệch 150-250 ms so với vùng châu Âu hoặc Bắc Mỹ
+
+## Hiểu mô hình tính tiền trước khi so sánh
+
+Đây là điểm mà phần lớn bài so sánh bỏ sót: Zapier, Make và n8n không tính tiền cùng một thứ.
+
+**Zapier tính theo tác vụ (task)** — mỗi hành động thành công trong một Zap tiêu thụ 1 tác vụ. Một Zap 5 hành động chạy 500 lần mỗi tháng = 2.500 tác vụ.
+
+**Make tính theo credit** — mỗi module được thực thi trong một kịch bản tiêu thụ 1 credit. Một kịch bản 5 module chạy 500 lần mỗi tháng = 2.500 credit. Logic tương tự Zapier, nhưng giá và hạn mức đi kèm khác nhau.
+
+**n8n tính theo lượt chạy (execution)** — một lần chạy trọn workflow tính là 1, bất kể có bao nhiêu bước. Cũng workflow 5 bước đó chạy 500 lần mỗi tháng = 500 lượt chạy. Đây là lợi thế cấu trúc lớn với workflow phức tạp.
+
+## 4 tiêu chí quyết định
+
+**Chi phí thực tế sau 6 tháng** — không phải giá vào cửa, mà số tiền bạn thật sự trả khi mức sử dụng tăng lên. Cấu trúc tính tiền thay đổi tất cả.
+
+**Độ dễ làm quen** — cần bao nhiêu giờ để một nhân sự không chuyên kỹ thuật tự tạo được workflow đầu tiên?
+
+**Khả năng chạy AI agent** — vòng lặp suy luận, bộ nhớ bền vững, điều phối nhiều agent: công cụ nào thật sự hỗ trợ trong môi trường vận hành thật?
+
+**Tuân thủ và vị trí dữ liệu** — nơi đặt máy chủ, thỏa thuận xử lý dữ liệu, chủ quyền dữ liệu. Kể từ khi Luật Bảo vệ dữ liệu cá nhân có hiệu lực ngày 01/01/2026, cộng với các yêu cầu lưu trữ dữ liệu trong nước theo Nghị định 53/2022/NĐ-CP đối với một số loại hình dịch vụ, đây là điểm chặn thật sự với nhiều ngành tại Việt Nam.
+
+## Zapier — chuẩn mực về sự dễ dùng, cao cấp về giá
+
+Zapier là nền tảng dễ tiếp cận nhất thị trường. Hơn 7.000 tích hợp, giao diện kéo thả nắm được trong một giờ, tài liệu đầy đủ, hỗ trợ phản hồi nhanh.
+
+### Giá chính thức (tháng 5/2026, thanh toán theo năm)
+
+- **Free**: 100 tác vụ/tháng, chỉ Zap 2 bước
+- **Professional**: từ **19,99 USD/tháng** — Zap nhiều bước không giới hạn, số tác vụ điều chỉnh được bằng thanh trượt (750, 1.500, 2.000, 5.000… lên tới hơn 2 triệu) với giá tăng dần theo từng mốc
+- **Team**: từ **69 USD/tháng** — 25 người dùng, kết nối dùng chung, SAML SSO
+- **Enterprise**: theo báo giá
+
+Gói Agents (AI hội thoại tự chủ) được tính **riêng**: 33,33 USD/tháng cho 1.500 hoạt động, hoặc miễn phí với 400 hoạt động.
+
+### Cái bẫy giá cần biết
+
+Mức giá vào cửa 19,99 USD/tháng gây hiểu nhầm. Con số đó ứng với mốc thấp nhất — 750 tác vụ/tháng. Với 500 lead đến, mỗi lead 5 hành động, bạn tiêu thụ 2.500 tác vụ và buộc phải lên mốc cao hơn. Chi phí thật ở mức sử dụng trung bình của một doanh nghiệp đang hoạt động luôn vượt 40 đến 60 USD/tháng.
+
+### Điểm mạnh và giới hạn
+
+Điểm mạnh: tốc độ khởi động không có đối thủ. Kết nối trong 5 phút, không cần đào tạo cho các tình huống đơn giản, danh mục tích hợp rộng nhất thị trường (hơn 7.000).
+
+Giới hạn thực tế: AI agent vẫn ở mức cơ bản trong các Zap thông thường — không có vòng lặp, không có bộ nhớ bền vững giữa các lượt chạy. Dữ liệu mặc định đi qua máy chủ tại Mỹ, có thỏa thuận xử lý dữ liệu nhưng vẫn tạo ma sát pháp lý thật với dữ liệu nhạy cảm.
+
+### Kết luận về Zapier
+
+Lựa chọn tốt để khởi động nhanh trên các workflow tuyến tính đơn giản. Trở nên đắt và gò bó ngay khi khối lượng tăng hoặc khi nhu cầu AI vượt quá việc gọi ChatGPT đơn thuần.
+
+## Make — điểm ngọt cho phần lớn doanh nghiệp vừa và nhỏ
+
+Make cân bằng tốt nhất giữa sức mạnh, độ dễ tiếp cận và giá cho một doanh nghiệp vừa và nhỏ trong năm 2026.
+
+### Giá chính thức (tháng 5/2026, thanh toán theo năm)
+
+- **Free**: 1.000 credit/tháng, tối đa 2 kịch bản hoạt động, khoảng cách tối thiểu 15 phút giữa các lượt chạy
+- **Core**: **12 USD/tháng** — 10.000 credit/tháng, kịch bản không giới hạn, chạy tới từng phút, truy cập API của Make
+- **Pro**: **21 USD/tháng** — 10.000 credit/tháng + ưu tiên thực thi, biến tùy chỉnh, tìm kiếm toàn văn trong log
+- **Teams**: **38 USD/tháng** — 10.000 credit/tháng + quản lý nhóm, phân quyền, mẫu dùng chung
+- **Enterprise**: theo báo giá — hàm tùy chỉnh, ứng dụng doanh nghiệp, hỗ trợ 24/7
+
+Credit bổ sung (ngoài 10.000 đã bao gồm) mua theo mốc: 20k, 40k, 80k credit/tháng với đơn giá giảm dần.
+
+### Cẩn thận với cách tính credit
+
+10.000 credit/tháng nghĩa là 10.000 hành động module được thực thi. Một kịch bản 8 bước kích hoạt 500 lần mỗi tháng tiêu thụ 4.000 credit — bạn đã dùng 40% hạn mức chỉ với một workflow. Với một doanh nghiệp có 5 đến 10 kịch bản hoạt động ở khối lượng vừa phải, gói Core 12 USD/tháng thường là đủ. Với khối lượng cao hơn, Make vẫn cạnh tranh: 20.000 credit/tháng về khoảng 16 USD/tháng.
+
+### Điểm mạnh và giới hạn
+
+Điểm mạnh: xử lý lỗi gốc, bộ lọc điều kiện, kịch bản chạy song song, và **Make AI Agents** đang ở giai đoạn beta với connector gốc cho Claude, OpenAI và Mistral.
+
+Giới hạn: thuật ngữ (module, bundle, route, credit) làm người mới bối rối. Hãy dự trù 3 đến 4 giờ làm quen cho một nhân sự không chuyên kỹ thuật. Make không được thiết kế từ gốc cho AI agent có bộ nhớ bền vững và vòng lặp suy luận phức tạp — AI Agents còn beta và vẫn yếu hơn n8n ở điểm này. Ngoài ra, Make không có vùng máy chủ tại Việt Nam: lựa chọn hiện tại là AWS EU hoặc Bắc Mỹ.
+
+### Một tình huống chuyển đổi cụ thể
+
+Một doanh nghiệp thương mại điện tử đang trả gói Zapier Professional vượt 50 USD/tháng với khối lượng tác vụ của họ. Chuyển sang Make Core (12 USD/tháng): 4 giờ làm việc, không mất tính năng nào. Tiết kiệm mỗi năm: hơn 450 USD.
+
+### Kết luận về Make
+
+Khuyến nghị mặc định của chúng tôi. Gói Core 12 USD/tháng phủ 80% nhu cầu tự động hóa của một doanh nghiệp đang hoạt động. Gói Pro 21 USD/tháng bổ sung tính năng nhóm và log nâng cao, cần thiết khi vận hành nghiêm túc.
+
+## n8n — nền tảng của AI agent và chủ quyền dữ liệu
+
+n8n là công cụ kỹ thuật nhất trong ba — và là công cụ duy nhất được thiết kế từ gốc cho AI agent tự chủ: vòng lặp, bộ nhớ bền vững, ra quyết định có điều kiện, điều phối nhiều agent.
+
+### Giá chính thức (tháng 5/2026)
+
+**Community Edition (tự host)**:
+- Mã nguồn mở, hoàn toàn miễn phí khi sử dụng
+- Chi phí thật: chỉ hạ tầng VPS — khoảng 10 đến 30 USD/tháng trên Vultr, DigitalOcean vùng Singapore, hoặc nhà cung cấp trong nước như BizFly Cloud, Viettel IDC, VNG Cloud
+- Dữ liệu nằm ở nơi bạn quyết định, bao gồm cả máy chủ đặt tại Việt Nam — chủ quyền dữ liệu hoàn toàn
+
+**Các gói cloud của n8n (thanh toán theo năm)**:
+- **Starter**: **20 EUR/tháng** — 2.500 lượt chạy/tháng, 1 dự án dùng chung, 5 lượt chạy đồng thời
+- **Pro**: **50 EUR/tháng** — 10.000 lượt chạy/tháng, 3 dự án dùng chung, 20 lượt chạy đồng thời, biến toàn cục, lịch sử workflow, tìm kiếm trong log
+- **Business**: **667 EUR/tháng** — 40.000 lượt chạy/tháng, chỉ tự host, SSO/SAML/LDAP, môi trường tách biệt (dev/staging/prod), quản lý phiên bản qua Git
+- **Enterprise**: theo báo giá
+
+Lưu ý: gói Business chỉ có ở dạng tự host. Với đội ngũ không có nguồn lực DevOps, gói Pro cloud 50 EUR/tháng là điểm vào hợp lý cho môi trường vận hành thật.
+
+Với startup dưới 20 nhân sự: n8n có gói Startup giảm 50% trên gói Business — nên kiểm tra trên trang chính thức của họ.
+
+### Lợi thế cấu trúc của mô hình lượt chạy
+
+Đây là điểm bị đánh giá thấp nhất trong toàn bộ so sánh. Trên n8n, một workflow 15 bước chạy 500 lần mỗi tháng = 500 lượt chạy. Cũng workflow đó trên Make tiêu thụ 7.500 credit. Trên Zapier là 7.500 tác vụ.
+
+Với workflow đơn giản, chênh lệch không đáng kể. Với AI agent có hàng chục bước suy luận, n8n rẻ hơn rõ rệt ở cùng khối lượng.
+
+### Điểm mạnh và giới hạn
+
+Điểm mạnh: các node gốc cho Claude API, OpenAI, Mistral và LangChain quản lý được bộ nhớ phiên và vòng lặp suy luận trong môi trường vận hành thật. Ở bản Community Edition tự host, dữ liệu không bao giờ rời hạ tầng của bạn — thường là phương án duy nhất khả thi với các ngành nhạy cảm về dữ liệu cá nhân, và là cách đơn giản nhất để đáp ứng yêu cầu lưu trữ dữ liệu trong nước khi nó áp dụng.
+
+Giới hạn: đường cong học tập là có thật — 6 đến 8 giờ cho một đội không chuyên kỹ thuật. Community Edition không có hỗ trợ riêng (diễn đàn hơn 45.000 thành viên rất sôi động, nhưng không có cam kết SLA). Gói Business 667 EUR/tháng đắt hơn hẳn đối thủ với các đội cần tính năng nâng cao trên cloud.
+
+### Một stack đã triển khai
+
+Stack theo dõi thị trường cho một doanh nghiệp B2B: n8n Community Edition + Claude API + Search Console, chạy trên một VPS đặt tại Singapore. Tổng chi phí: khoảng 120 USD/tháng (hạ tầng + API Claude). Kết quả: 20 phút làm việc thủ công mỗi tuần cho một bản tóm tắt hằng ngày đầy đủ về các tín hiệu trong ngành.
+
+Cùng stack đó trên Make Pro (21 USD/tháng) vẫn xử lý được phần điều phối, nhưng không có vòng lặp ra quyết định bền vững. Trên Zapier, kiểu workflow agent này không làm được một cách gốc.
+
+> NeuraWeb đồng hành cùng doanh nghiệp trong việc chọn và triển khai các stack này. [Yêu cầu một buổi kiểm toán miễn phí](https://neuraweb.fr/vi/contact) — trong 30 phút, chúng tôi xác định các workflow ưu tiên và công cụ phù hợp với bối cảnh của bạn.
+
+## Bảng so sánh — giá và tiêu chí chính (tháng 5/2026)
+
+| | Zapier | Make | n8n |
+|---|---|---|---|
+| **Gói vào cửa** | 19,99 USD/tháng (Pro) | 12 USD/tháng (Core) | 20 EUR/tháng cloud — 0 EUR tự host |
+| **Đơn vị tính tiền** | Tác vụ (mỗi hành động) | Credit (mỗi hành động module) | Lượt chạy (mỗi lần chạy trọn) |
+| **Hạn mức cơ bản** | Từ 750 tác vụ/tháng | 10.000 credit/tháng | 2.500 lượt Starter / 10.000 Pro |
+| **Gói nhóm** | 69 USD/tháng (Team) | 38 USD/tháng (Teams) | 50 EUR/tháng Pro (cloud) |
+| **AI agent gốc** | Một phần (module riêng) | Có (beta) | Có (gốc, dùng thật được) |
+| **Vị trí máy chủ** | Mặc định Mỹ | AWS EU / Bắc Mỹ | Cloud Frankfurt / tự host ở bất kỳ đâu |
+| **Ưu thế chính** | Khởi động trong 1 giờ | Cân bằng giá/sức mạnh | AI agent + chủ quyền dữ liệu |
+| **Hạn chế chính** | Chi phí khi khối lượng cao | Phải nắm mô hình credit | Đường cong học tập |
+
+## Chọn công cụ nào theo hồ sơ của bạn
+
+**Bạn mới bắt đầu**, không có nền tảng kỹ thuật và muốn tự động hóa 2 đến 3 quy trình đơn giản thật nhanh → **Zapier Professional**. Chấp nhận mức giá cao như một khoản đầu tư khởi động, đánh giá lại sau 3 tháng.
+
+**Bạn có 5 đến 15 workflow cần xây dựng** với ngân sách kiểm soát được và đôi khi cần một lớp AI → **Make Core hoặc Pro** (12 đến 21 USD/tháng). Đây là khuyến nghị mặc định. Đang dùng Zapier? Hãy dự trù 4 giờ làm việc cho một khoản tiết kiệm hoàn vốn trong chưa đầy một quý.
+
+**Bạn muốn AI agent tự chủ**, xử lý dữ liệu cá nhân nhạy cảm, hoặc dự kiến workflow từ 10 bước trở lên với khối lượng cao → **n8n**. Community Edition nếu bạn có nguồn lực kỹ thuật để tự host, gói Pro cloud 50 EUR/tháng nếu không.
+
+---
+
+## Đọc thêm
+
+- [Hướng dẫn n8n đầy đủ: tự động hóa không cần code](/vi/blog/automatisation-n8n-guide) — cài đặt, workflow đầu tiên, tình huống thực tế
+- [3 workflow AI agent cho SME: ROI thật](/vi/blog/3-workflows-agents-ia-pme) — email thích ứng, chấm điểm lead, đăng bài tự động kèm chi phí thật
+- [Tự động hóa AI cho SME: chi phí thực tế 2026](/vi/blog/automatisation-ia-pme-prix-2026) — bảng chi phí đầy đủ theo từng cấp độ
+- [Nên tự động hóa quy trình nào trước?](/vi/blog/automatisation-processus-roi) — khung ưu tiên theo ROI
+- [AI agent bán hàng: n8n + Claude dưới 150 USD/tháng](/vi/blog/agent-ia-commercial-pme) — tình huống n8n có ROI cao nhất cho SME B2B
+- [Dịch vụ tự động hóa n8n và Make của chúng tôi](https://neuraweb.fr/vi/automatisation) — phạm vi và cách làm việc của NeuraWeb
+
+> ⚙️ **NeuraWeb chọn và triển khai stack tự động hóa cho bạn** — n8n, Make hay Zapier tùy bối cảnh. Kiểm toán miễn phí 30 phút, ước lượng ROI, không thuật ngữ rối rắm. [Xem dịch vụ Tự động hóa →](https://neuraweb.fr/vi/automatisation) hoặc [Đặt lịch hẹn →](https://neuraweb.fr/vi/booking)

@@ -389,6 +389,131 @@ Nos esforzamos por responder en un plazo de 48 horas hábiles.`,
       },
     ],
   },
+  vi: {
+    title: 'Điều khoản sử dụng',
+    description: 'Điều khoản sử dụng website NeuraWeb: quy định truy cập, quyền sở hữu trí tuệ, trách nhiệm các bên và luật áp dụng cho dịch vụ của chúng tôi.',
+    backToHome: 'Về trang chủ',
+    lastUpdate: 'Cập nhật lần cuối: Tháng 4 năm 2026',
+    sections: [
+      {
+        title: '1. Mục đích',
+        content: `Điều khoản sử dụng này quy định cách truy cập và sử dụng website https://neuraweb.fr (sau đây gọi là "Website") do NeuraWeb vận hành.
+
+Khi truy cập Website, bạn được xem là đã chấp nhận toàn bộ các điều khoản này. Nếu bạn không đồng ý, vui lòng không sử dụng Website.`,
+      },
+      {
+        title: '2. Truy cập website',
+        content: `Website được truy cập miễn phí đối với mọi người dùng có kết nối Internet.
+
+NeuraWeb nỗ lực bảo đảm Website hoạt động liên tục. Tuy nhiên, việc truy cập có thể bị gián đoạn để bảo trì, cập nhật hoặc vì các lý do kỹ thuật khác.
+
+NeuraWeb không chịu trách nhiệm về các thiệt hại phát sinh do Website tạm thời không truy cập được.`,
+      },
+      {
+        title: '3. Các dịch vụ trên website',
+        content: `Thông qua Website, NeuraWeb cung cấp:
+
+- **Thông tin** về các dịch vụ thiết kế website, tích hợp AI và tự động hóa
+- **Biểu mẫu liên hệ** để gửi yêu cầu báo giá và câu hỏi
+- **Trò chuyện trực tuyến** để được hỗ trợ nhanh
+- **Blog** với các bài viết về thiết kế website và trí tuệ nhân tạo
+- **Chatbot AI** trả lời các câu hỏi thường gặp
+
+Các nội dung này mang tính thông tin tham khảo và không cấu thành cam kết hợp đồng. Mọi báo giá chính thức đều được gửi riêng sau khi trao đổi về nhu cầu cụ thể của bạn.`,
+      },
+      {
+        title: '4. Quyền sở hữu trí tuệ',
+        content: `Toàn bộ các thành phần của Website (văn bản, hình ảnh, logo, biểu tượng, mã nguồn...) được bảo hộ theo pháp luật về sở hữu trí tuệ.
+
+Trừ khi có ghi chú khác, các thành phần này thuộc quyền sở hữu độc quyền của NeuraWeb.
+
+Mọi hành vi sao chép, chỉnh sửa, phân phối hoặc khai thác khi chưa được phép đều bị nghiêm cấm và có thể bị xử lý theo pháp luật.
+
+**Bạn được phép:**
+- Xem Website cho mục đích cá nhân
+- Chia sẻ liên kết đến các trang của chúng tôi
+
+**Bạn không được phép:**
+- Sao chép nội dung cho mục đích thương mại
+- Chỉnh sửa hoặc chuyển thể mã nguồn
+- Sử dụng logo của chúng tôi khi chưa được phép`,
+      },
+      {
+        title: '5. Trách nhiệm của người dùng',
+        content: `Khi sử dụng Website, bạn cam kết:
+
+- Cung cấp thông tin chính xác và đầy đủ trong các biểu mẫu
+- Không mạo danh người khác
+- Không đăng tải nội dung trái pháp luật, bôi nhọ hoặc xúc phạm
+- Không tìm cách gây rối loạn hoạt động của Website
+- Không sử dụng chatbot với mục đích lạm dụng
+- Tôn trọng các quyền sở hữu trí tuệ
+
+Mọi vi phạm các cam kết trên có thể dẫn đến việc tạm ngừng quyền truy cập Website.`,
+      },
+      {
+        title: '6. Giới hạn trách nhiệm',
+        content: `NeuraWeb nỗ lực cung cấp thông tin chính xác và được cập nhật. Tuy nhiên, NeuraWeb không bảo đảm tính chính xác, đầy đủ hoặc tính thời sự tuyệt đối của các thông tin đăng trên Website.
+
+**NeuraWeb không chịu trách nhiệm đối với:**
+- Các sai sót hoặc thiếu sót trong nội dung Website
+- Thiệt hại phát sinh từ việc sử dụng Website
+- Nội dung của các website bên thứ ba được liên kết
+- Việc gián đoạn hoặc trục trặc của Website
+- Các câu trả lời do chatbot AI đưa ra
+
+Bạn tự chịu trách nhiệm về việc sử dụng Website của mình.`,
+      },
+      {
+        title: '7. Liên kết ngoài',
+        content: `Website có thể chứa liên kết đến các trang của bên thứ ba. NeuraWeb không kiểm soát các trang này và không chịu trách nhiệm về nội dung của chúng.
+
+Sự hiện diện của các liên kết đó không có nghĩa là NeuraWeb tán thành hoặc khuyến nghị các trang này.
+
+Bạn có thể tự do tạo liên kết đến Website của chúng tôi, với điều kiện liên kết đó không gây ảnh hưởng xấu đến hình ảnh hoặc uy tín của chúng tôi.`,
+      },
+      {
+        title: '8. Dữ liệu cá nhân',
+        content: `Việc thu thập và xử lý dữ liệu cá nhân của bạn được quy định trong Chính sách bảo mật của chúng tôi, xem tại: /vi/confidentialite
+
+Khi sử dụng Website, bạn đồng ý cho việc thu thập và xử lý dữ liệu của mình theo chính sách đó.`,
+      },
+      {
+        title: '9. Cookie',
+        content: `Website sử dụng cookie để cải thiện trải nghiệm duyệt web của bạn và phân tích lượng truy cập.
+
+Thông tin chi tiết về các loại cookie được sử dụng có trong Chính sách bảo mật của chúng tôi.
+
+Bạn có thể thiết lập trình duyệt để từ chối cookie, nhưng khi đó một số tính năng của Website có thể không hoạt động đúng.`,
+      },
+      {
+        title: '10. Thay đổi điều khoản',
+        content: `NeuraWeb có quyền sửa đổi các điều khoản này bất cứ lúc nào.
+
+Các thay đổi có hiệu lực ngay khi được đăng trên Website. Chúng tôi khuyến khích bạn xem lại trang này định kỳ.
+
+Việc bạn tiếp tục sử dụng Website sau khi có thay đổi được xem là chấp nhận các điều khoản mới.`,
+      },
+      {
+        title: '11. Luật áp dụng và thẩm quyền giải quyết',
+        content: `Các điều khoản này chịu sự điều chỉnh của pháp luật Pháp, do NeuraWeb là doanh nghiệp được thành lập theo pháp luật Pháp.
+
+Trong trường hợp phát sinh tranh chấp, sau khi các bên đã nỗ lực thương lượng nhưng không đạt kết quả, tòa án Pháp sẽ là cơ quan có thẩm quyền giải quyết.
+
+Mọi khiếu nại xin gửi về: contact@neuraweb.fr`,
+      },
+      {
+        title: '12. Liên hệ',
+        content: `Nếu bạn có câu hỏi liên quan đến các điều khoản này:
+
+**NeuraWeb**
+Email : contact@neuraweb.fr
+Điện thoại : +33 7 49 77 56 54
+
+Chúng tôi cố gắng phản hồi trong vòng 48 giờ làm việc.`,
+      },
+    ],
+  },
 };
 
 export async function generateMetadata({
@@ -397,7 +522,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
   const baseUrl = 'https://neuraweb.fr';
   const content = CONTENT[language] || CONTENT.fr;
 
@@ -410,6 +535,7 @@ export async function generateMetadata({
         fr: `${baseUrl}/fr/conditions-utilisation`,
         en: `${baseUrl}/en/conditions-utilisation`,
         es: `${baseUrl}/es/conditions-utilisation`,
+        vi: `${baseUrl}/vi/conditions-utilisation`,
         'x-default': `${baseUrl}/fr/conditions-utilisation`,
       },
     },
@@ -426,7 +552,7 @@ export default async function ConditionsUtilisationPage({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
   const content = CONTENT[language] || CONTENT.fr;
 
   // Breadcrumb pour navigation SERP

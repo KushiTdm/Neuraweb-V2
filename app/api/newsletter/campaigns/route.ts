@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
 
     const { slug, lang } = await request.json();
     if (!slug || !SUPPORTED_LANGUAGES.includes(lang)) {
-      return NextResponse.json({ error: 'slug et lang (fr|en|es) requis.' }, { status: 400 });
+      return NextResponse.json({ error: 'slug et lang (fr|en|es|vi) requis.' }, { status: 400 });
     }
 
     const result = await createCampaignFromPost(slug, lang as CampaignLang);

@@ -20,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
   const baseUrl = 'https://neuraweb.fr';
 
   // L'IA génère les meta tags optimisés — résultat injecté dans le <head> statique
@@ -40,6 +40,7 @@ export async function generateMetadata({
         fr: `${baseUrl}/fr/contact`,
         en: `${baseUrl}/en/contact`,
         es: `${baseUrl}/es/contact`,
+        vi: `${baseUrl}/vi/contact`,
         'x-default': `${baseUrl}/fr/contact`,
       },
     },
@@ -56,7 +57,7 @@ export async function generateMetadata({
           alt: seo.ogTitle,
         },
       ],
-      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : 'en_US',
+      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : language === 'vi' ? 'vi_VN' : 'en_US',
       type: 'website',
     },
     twitter: {

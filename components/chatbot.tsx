@@ -136,13 +136,18 @@ export default function Chatbot() {
         const packNames: Record<string, Record<string, string>> = {
           fr: { starter: 'Starter (1 490€)', business: 'Business (3 990€)', premium: 'Premium (7 990€)', ai: 'Pack IA (sur devis)' },
           en: { starter: 'Starter (€1,490)', business: 'Business (€3,990)', premium: 'Premium (€7,990)', ai: 'AI Pack (custom)' },
-          es: { starter: 'Starter (1.490€)', business: 'Business (3.990€)', premium: 'Premium (7.990€)', ai: 'Pack IA (a presupuesto)' }
+          es: { starter: 'Starter (1.490€)', business: 'Business (3.990€)', premium: 'Premium (7.990€)', ai: 'Pack IA (a presupuesto)' },
+          // vi : aucun prix EUR fixe (règle du site) — seule l'offre Landing Page
+          // Express a un prix affiché, tout le reste est en mode devis.
+          vi: { landing: 'Landing Page Express (1.290.000 VND)', starter: 'Starter (Theo báo giá)', business: 'Business (Theo báo giá)', premium: 'Premium (Theo báo giá)', ai: 'Gói AI (Theo báo giá)' },
         }
         const packName = packNames[language]?.[packId] || packId
         const message = language === 'fr'
           ? `Bonjour ! Je suis intéressé(e) par le ${packName}. Pouvez-vous m'en dire plus ?`
           : language === 'es'
           ? `¡Hola! Estoy interesado/a en el ${packName}. ¿Puede decirme más?`
+          : language === 'vi'
+          ? `Xin chào! Tôi quan tâm đến ${packName}. Bạn có thể cho tôi biết thêm thông tin không?`
           : `Hello! I'm interested in the ${packName}. Can you tell me more?`
         setInput(message)
         setTimeout(() => inputRef.current?.focus(), 100)
@@ -209,6 +214,8 @@ export default function Chatbot() {
           ? "Désolé, il n'y a pas de créneaux disponibles. Contactez-nous à contact@neuraweb.fr"
           : language === 'es'
           ? "Lo siento, no hay horarios disponibles. Contáctenos en contact@neuraweb.fr"
+          : language === 'vi'
+          ? "Xin lỗi, hiện không có khung giờ trống. Vui lòng liên hệ contact@neuraweb.fr"
           : "Sorry, no slots available. Contact us at contact@neuraweb.fr"
       }])
       return
@@ -218,6 +225,7 @@ export default function Chatbot() {
       role: 'assistant',
       content: language === 'fr' ? "📅 **Choisissez une date pour votre rendez-vous :**"
         : language === 'es' ? "📅 **Elige una fecha para tu cita:**"
+        : language === 'vi' ? "📅 **Chọn ngày hẹn của bạn:**"
         : "📅 **Choose a date for your appointment:**",
       showBooking: 'dates',
       slots
@@ -227,7 +235,7 @@ export default function Chatbot() {
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr)
     return date.toLocaleDateString(
-      language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : 'en-US',
+      language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : language === 'vi' ? 'vi-VN' : 'en-US',
       { weekday: 'long', day: 'numeric', month: 'long' }
     )
   }
@@ -245,6 +253,8 @@ export default function Chatbot() {
           ? `🕐 **Créneaux disponibles le ${formatDate(date)} :**\n\n${availableTimes.length} créneau${availableTimes.length > 1 ? 'x' : ''} disponible${availableTimes.length > 1 ? 's' : ''}`
           : language === 'es'
           ? `🕐 **Horarios disponibles el ${formatDate(date)}:**\n\n${availableTimes.length} horario${availableTimes.length > 1 ? 's' : ''} disponible${availableTimes.length > 1 ? 's' : ''}`
+          : language === 'vi'
+          ? `🕐 **Khung giờ trống ngày ${formatDate(date)}:**\n\n${availableTimes.length} khung giờ trống`
           : `🕐 **Available slots on ${formatDate(date)}:**\n\n${availableTimes.length} slot${availableTimes.length > 1 ? 's' : ''} available`,
         showBooking: 'times',
         selectedDate: date,
@@ -264,6 +274,8 @@ export default function Chatbot() {
           ? `📝 **Parfait ! Vos informations pour confirmer le rendez-vous :**\n\n📅 ${formatDate(selectedDate)} à ${time}`
           : language === 'es'
           ? `📝 **¡Perfecto! Su información para confirmar la cita:**\n\n📅 ${formatDate(selectedDate)} a las ${time}`
+          : language === 'vi'
+          ? `📝 **Tuyệt vời! Vui lòng để lại thông tin để xác nhận lịch hẹn:**\n\n📅 ${formatDate(selectedDate)} lúc ${time}`
           : `📝 **Perfect! Your details to confirm the appointment:**\n\n📅 ${formatDate(selectedDate)} at ${time}`,
         showBooking: 'form',
         selectedDate
@@ -291,6 +303,8 @@ export default function Chatbot() {
               ? `✅ **Rendez-vous confirmé !**\n\n📅 ${formatDate(selectedDate)} à ${selectedTime}\n\n📧 Email de confirmation envoyé.\n\nÀ très bientôt !`
               : language === 'es'
               ? `✅ **¡Cita confirmada!**\n\n📅 ${formatDate(selectedDate)} a las ${selectedTime}\n\n📧 Email de confirmación enviado.\n\n¡Hasta pronto!`
+              : language === 'vi'
+              ? `✅ **Đã xác nhận lịch hẹn!**\n\n📅 ${formatDate(selectedDate)} lúc ${selectedTime}\n\n📧 Email xác nhận đã được gửi.\n\nHẹn sớm gặp lại bạn!`
               : `✅ **Appointment confirmed!**\n\n📅 ${formatDate(selectedDate)} at ${selectedTime}\n\n📧 Confirmation email sent.\n\nSee you soon!`
           }
         ])
@@ -363,10 +377,10 @@ export default function Chatbot() {
   const dots = ["", ".", "..", "..."][dotPhase]
 
   const toggleLabel = isOpen
-    ? (language === 'fr' ? 'Fermer le chat' : language === 'es' ? 'Cerrar el chat' : 'Close chat')
-    : (language === 'fr' ? 'Ouvrir le chat avec NeuraWeb IA' : language === 'es' ? 'Abrir el chat con NeuraWeb IA' : 'Open chat with NeuraWeb AI')
+    ? (language === 'fr' ? 'Fermer le chat' : language === 'es' ? 'Cerrar el chat' : language === 'vi' ? 'Đóng khung chat' : 'Close chat')
+    : (language === 'fr' ? 'Ouvrir le chat avec NeuraWeb IA' : language === 'es' ? 'Abrir el chat con NeuraWeb IA' : language === 'vi' ? 'Mở khung chat với NeuraWeb IA' : 'Open chat with NeuraWeb AI')
 
-  const sendLabel = language === 'fr' ? 'Envoyer le message' : language === 'es' ? 'Enviar mensaje' : 'Send message'
+  const sendLabel = language === 'fr' ? 'Envoyer le message' : language === 'es' ? 'Enviar mensaje' : language === 'vi' ? 'Gửi tin nhắn' : 'Send message'
 
   return (
     <>
@@ -535,7 +549,7 @@ export default function Chatbot() {
                 fontSize: 13, fontWeight: 500, color: '#e2e8f0',
                 display: 'flex', alignItems: 'center', gap: 4,
               }}>
-                {language === 'fr' ? 'Parlez à notre IA' : language === 'es' ? 'Hable con nuestra IA' : 'Talk to our AI'}
+                {language === 'fr' ? 'Parlez à notre IA' : language === 'es' ? 'Hable con nuestra IA' : language === 'vi' ? 'Trò chuyện với AI của chúng tôi' : 'Talk to our AI'}
                 <span style={{ color: '#9ca3af', fontFamily: 'monospace', minWidth: 16 }}>
                   {dots}
                 </span>
@@ -578,7 +592,7 @@ export default function Chatbot() {
       <div
         role="dialog"
         aria-modal="true"
-        aria-label={language === 'fr' ? 'Chat NeuraWeb' : language === 'es' ? 'Chat NeuraWeb' : 'NeuraWeb Chat'}
+        aria-label={language === 'fr' ? 'Chat NeuraWeb' : language === 'es' ? 'Chat NeuraWeb' : language === 'vi' ? 'Chat NeuraWeb' : 'NeuraWeb Chat'}
         className={`fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-48px)] transition-all duration-300 ${
           isOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
@@ -592,7 +606,12 @@ export default function Chatbot() {
                 <RobotIcon className="w-5 h-5 text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="text-white font-semibold">{t('chatbot.title')}</h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-white font-semibold">{t('chatbot.title')}</h3>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium uppercase tracking-wide bg-white/20 text-white">
+                    {t('chatbot.aiTag')}
+                  </span>
+                </div>
                 <p className="text-white/70 text-xs">{remainingMessages} {t('chatbot.remaining')}</p>
               </div>
             </div>
@@ -603,7 +622,7 @@ export default function Chatbot() {
             className="h-80 overflow-y-auto p-4 space-y-4 bg-gray-950"
             role="log"
             aria-live="polite"
-            aria-label={language === 'fr' ? 'Messages du chat' : language === 'es' ? 'Mensajes del chat' : 'Chat messages'}
+            aria-label={language === 'fr' ? 'Messages du chat' : language === 'es' ? 'Mensajes del chat' : language === 'vi' ? 'Tin nhắn trò chuyện' : 'Chat messages'}
           >
             {messages.map((msg, index) => (
               <div key={index}>
@@ -630,7 +649,7 @@ export default function Chatbot() {
 
                 {/* Dates cliquables */}
                 {msg.showBooking === 'dates' && msg.slots && (
-                  <div className="mt-3 ml-11 grid grid-cols-3 gap-2" role="group" aria-label={language === 'fr' ? 'Choisir une date' : 'Choose a date'}>
+                  <div className="mt-3 ml-11 grid grid-cols-3 gap-2" role="group" aria-label={language === 'fr' ? 'Choisir une date' : language === 'vi' ? 'Chọn ngày' : 'Choose a date'}>
                     {Array.from(new Set(msg.slots.filter(s => s.available).map(s => s.date))).sort().slice(0, 9).map(date => (
                       <button
                         key={date}
@@ -639,11 +658,11 @@ export default function Chatbot() {
                         className="p-2 bg-gray-800 hover:bg-gray-600 border border-gray-700 hover:border-gray-600 rounded-lg text-center text-white text-sm transition-all"
                       >
                         <div className="text-xs text-gray-400">{new Date(date).toLocaleDateString(
-                          language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : 'en-US', { weekday: 'short' }
+                          language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : language === 'vi' ? 'vi-VN' : 'en-US', { weekday: 'short' }
                         )}</div>
                         <div className="font-bold text-lg">{new Date(date).getDate()}</div>
                         <div className="text-xs text-gray-400">{new Date(date).toLocaleDateString(
-                          language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : 'en-US', { month: 'short' }
+                          language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : language === 'vi' ? 'vi-VN' : 'en-US', { month: 'short' }
                         )}</div>
                       </button>
                     ))}
@@ -652,12 +671,12 @@ export default function Chatbot() {
 
                 {/* Heures cliquables */}
                 {msg.showBooking === 'times' && msg.selectedDate && msg.slots && (
-                  <div className="mt-3 ml-11 grid grid-cols-4 gap-2" role="group" aria-label={language === 'fr' ? 'Choisir un horaire' : 'Choose a time'}>
+                  <div className="mt-3 ml-11 grid grid-cols-4 gap-2" role="group" aria-label={language === 'fr' ? 'Choisir un horaire' : language === 'vi' ? 'Chọn giờ' : 'Choose a time'}>
                     {msg.slots.filter(s => s.date === msg.selectedDate && s.available).map(s => s.time).map(time => (
                       <button
                         key={time}
                         onClick={() => selectTime(time)}
-                        aria-label={`${language === 'fr' ? 'Réserver à' : 'Book at'} ${time}`}
+                        aria-label={`${language === 'fr' ? 'Réserver à' : language === 'vi' ? 'Đặt lúc' : 'Book at'} ${time}`}
                         className="p-2 bg-gray-800 hover:bg-gray-600 border border-gray-700 hover:border-gray-600 rounded-lg text-white text-sm font-medium transition-all"
                       >
                         {time}
@@ -670,24 +689,24 @@ export default function Chatbot() {
                 {msg.showBooking === 'form' && (
                   <div className="mt-3 ml-11 space-y-2">
                     <input type="text"
-                      placeholder={language === 'fr' ? 'Nom *' : language === 'es' ? 'Nombre *' : 'Name *'}
+                      placeholder={language === 'fr' ? 'Nom *' : language === 'es' ? 'Nombre *' : language === 'vi' ? 'Họ tên *' : 'Name *'}
                       value={bookingForm.name}
                       onChange={e => setBookingForm({...bookingForm, name: e.target.value})}
-                      aria-label={language === 'fr' ? 'Votre nom' : 'Your name'}
+                      aria-label={language === 'fr' ? 'Votre nom' : language === 'vi' ? 'Họ tên của bạn' : 'Your name'}
                       className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400"
                     />
                     <input type="email" placeholder="Email *"
                       value={bookingForm.email}
                       onChange={e => setBookingForm({...bookingForm, email: e.target.value})}
-                      aria-label={language === 'fr' ? 'Votre email' : 'Your email'}
+                      aria-label={language === 'fr' ? 'Votre email' : language === 'vi' ? 'Email của bạn' : 'Your email'}
                       className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400"
                     />
                     <div className="grid grid-cols-2 gap-2">
                       <input type="tel"
-                        placeholder={language === 'fr' ? 'Téléphone' : 'Phone'}
+                        placeholder={language === 'fr' ? 'Téléphone' : language === 'vi' ? 'Số điện thoại' : 'Phone'}
                         value={bookingForm.phone}
                         onChange={e => setBookingForm({...bookingForm, phone: e.target.value})}
-                        aria-label={language === 'fr' ? 'Téléphone' : 'Phone'}
+                        aria-label={language === 'fr' ? 'Téléphone' : language === 'vi' ? 'Số điện thoại' : 'Phone'}
                         className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400"
                       />
                       <input type="tel" placeholder="WhatsApp"
@@ -698,23 +717,23 @@ export default function Chatbot() {
                       />
                     </div>
                     <textarea
-                      placeholder={language === 'fr' ? 'Message (optionnel)' : 'Message (optional)'}
+                      placeholder={language === 'fr' ? 'Message (optionnel)' : language === 'vi' ? 'Lời nhắn (không bắt buộc)' : 'Message (optional)'}
                       value={bookingForm.message}
                       onChange={e => setBookingForm({...bookingForm, message: e.target.value})}
                       rows={2}
-                      aria-label={language === 'fr' ? 'Message optionnel' : 'Optional message'}
+                      aria-label={language === 'fr' ? 'Message optionnel' : language === 'vi' ? 'Lời nhắn không bắt buộc' : 'Optional message'}
                       className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400 resize-none"
                     />
                     <button
                       onClick={submitBooking}
                       disabled={!bookingForm.name || !bookingForm.email || isSubmittingBooking}
-                      aria-label={language === 'fr' ? 'Confirmer le rendez-vous' : 'Confirm booking'}
+                      aria-label={language === 'fr' ? 'Confirmer le rendez-vous' : language === 'vi' ? 'Xác nhận lịch hẹn' : 'Confirm booking'}
                       className="w-full py-2 bg-gradient-to-r from-navy-900 to-navy-800 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       {isSubmittingBooking ? (
-                        <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />{language === 'fr' ? 'Réservation...' : 'Booking...'}</>
+                        <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />{language === 'fr' ? 'Réservation...' : language === 'vi' ? 'Đang đặt lịch...' : 'Booking...'}</>
                       ) : (
-                        <><CheckCircle className="w-4 h-4" aria-hidden="true" />{language === 'fr' ? 'Confirmer le RDV' : language === 'es' ? 'Confirmar cita' : 'Confirm booking'}</>
+                        <><CheckCircle className="w-4 h-4" aria-hidden="true" />{language === 'fr' ? 'Confirmer le RDV' : language === 'es' ? 'Confirmar cita' : language === 'vi' ? 'Xác nhận lịch hẹn' : 'Confirm booking'}</>
                       )}
                     </button>
                   </div>
@@ -723,7 +742,7 @@ export default function Chatbot() {
             ))}
 
             {isLoading && (
-              <div className="flex gap-3" role="status" aria-label={language === 'fr' ? 'En cours de réponse…' : 'Typing…'}>
+              <div className="flex gap-3" role="status" aria-label={language === 'fr' ? 'En cours de réponse…' : language === 'vi' ? 'Đang trả lời…' : 'Typing…'}>
                 <div className="w-8 h-8 rounded-full bg-gradient-to-r from-navy-800 to-navy-700 flex items-center justify-center flex-shrink-0" aria-hidden="true">
                   <RobotIcon className="w-4 h-4 text-white" />
                 </div>

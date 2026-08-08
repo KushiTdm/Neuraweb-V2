@@ -27,7 +27,7 @@ import {
   TrendingUp,
 } from 'lucide-react';
 
-type Lang = 'fr' | 'en' | 'es';
+type Lang = 'fr' | 'en' | 'es' | 'vi';
 
 interface Props {
   lang: Lang;
@@ -263,6 +263,84 @@ const content: Record<Lang, {
       h2: '¿Listo para lanzar tu app móvil?',
       subtitle: 'Presupuesto gratis en 24h. Sin compromiso.',
       button: 'Solicitar presupuesto',
+    },
+  },
+  // vi — mode devis intégral (cf. Stage C du plan vi) : les 3 paliers passent en
+  // « Theo báo giá », sur le modèle du palier premium déjà en devis en fr/en/es.
+  // Aucun montant EUR affiché ; seuls les frais de stores Apple/Google (coûts tiers
+  // subis par le client, pas une tarification NeuraWeb) restent chiffrés.
+  vi: {
+    hero: {
+      h1: 'Phát triển ứng dụng di động',
+      highlight: 'iOS & Android',
+      subtitle: 'Chúng tôi phát triển ứng dụng di động native và đa nền tảng cho startup, doanh nghiệp vừa và nhỏ: React Native, Flutter, Swift, Kotlin. Báo giá miễn phí trong 24 giờ, làm việc được bằng tiếng Việt, tiếng Anh và tiếng Pháp.',
+      ctaPrimary: 'Nhận báo giá miễn phí',
+      ctaSecondary: 'Xem các gói dịch vụ',
+    },
+    tech: {
+      h2: 'Công nghệ di động chúng tôi làm chủ',
+      subtitle: 'Từ PWA đến ứng dụng native, chúng tôi chọn công nghệ phù hợp với ngân sách và với người dùng của bạn.',
+      cards: [
+        { name: 'React Native', tag: 'Đa nền tảng', desc: 'Một mã nguồn duy nhất cho cả iOS và Android. Phù hợp để kiểm chứng nhanh một sản phẩm tối giản (MVP).' },
+        { name: 'Flutter', tag: 'Hiệu năng', desc: 'Giao diện mượt 60 fps, framework do Google phát triển. Phù hợp với ứng dụng nhiều đồ hoạ và hoạt ảnh.' },
+        { name: 'Swift (iOS native)', tag: 'Apple', desc: 'Trải nghiệm cao cấp, truy cập đầy đủ API iOS, tối ưu khi đưa lên App Store.' },
+        { name: 'Kotlin (Android native)', tag: 'Google', desc: 'Hiệu năng native trên Android — nền tảng chiếm phần lớn thị phần điện thoại tại Việt Nam — chuẩn Material Design, phát hành trên Play Store.' },
+      ],
+    },
+    types: {
+      h2: 'Bạn cần loại ứng dụng nào?',
+      subtitle: 'Chúng tôi xây dựng ứng dụng bám sát ngành nghề và mục tiêu kinh doanh của bạn.',
+      cards: [
+        { title: 'Ứng dụng bán hàng / thương mại điện tử', desc: 'Danh mục sản phẩm, thanh toán ngay trong ứng dụng, thông báo đẩy, theo dõi đơn hàng. Kết nối VNPay, MoMo, ZaloPay hoặc Stripe cho khách quốc tế.' },
+        { title: 'Ứng dụng đặt chỗ / đặt lịch', desc: 'Đặt bàn, đặt phòng, đặt lịch hẹn với lịch cập nhật theo thời gian thực và xác nhận tự động. Phù hợp với khách sạn, nhà hàng, phòng khám muốn giảm phụ thuộc vào Agoda, Booking hay Traveloka.' },
+        { title: 'Ứng dụng nghiệp vụ / B2B', desc: 'Công cụ nội bộ, CRM trên điện thoại, quản lý đội xe, báo cáo từ hiện trường. Đã bao gồm đồng bộ khi mất mạng (offline).' },
+        { title: 'Progressive Web App (PWA)', desc: 'Giải pháp tiết kiệm thay cho ứng dụng native: chạy thẳng trên trình duyệt, cài được ra màn hình chính, vẫn có thông báo đẩy và không mất phí kho ứng dụng.' },
+      ],
+    },
+    process: {
+      h2: 'Quy trình phát triển ứng dụng di động',
+      subtitle: 'Từ ý tưởng đến khi lên App Store và Google Play, thường trong khoảng 8 đến 16 tuần tuỳ phạm vi.',
+      steps: [
+        { title: '1. Rà soát & xác định phạm vi', desc: 'Phân tích thị trường, chốt phạm vi bản MVP, chọn công nghệ (native hay đa nền tảng) theo ngân sách và ràng buộc của bạn.' },
+        { title: '2. Thiết kế UX/UI', desc: 'Bản thiết kế trên Figma, nguyên mẫu bấm được, tuân thủ chuẩn iOS Human Interface và Material Design.' },
+        { title: '3. Lập trình', desc: 'Sprint hai tuần một lần kèm demo, mã nguồn quản lý trên GitHub, kiểm thử tự động, backend API an toàn.' },
+        { title: '4. Kiểm thử & phát hành', desc: 'Bản beta trên TestFlight và Play Console, sửa lỗi, nộp lên kho ứng dụng, đã bao gồm 3 tháng hỗ trợ sau khi ra mắt.' },
+      ],
+    },
+    pricing: {
+      h2: 'Các gói phát triển ứng dụng di động',
+      subtitle: 'Mỗi ứng dụng có phạm vi khác nhau, nên chúng tôi báo giá riêng theo nhu cầu thực tế. Miễn phí và gửi trong vòng 24 giờ, không có chi phí ẩn.',
+      packs: [
+        { name: 'MVP di động', price: 'Theo báo giá', delay: '3 đến 4 tuần', features: ['Ứng dụng đa nền tảng (React Native)', '3 đến 5 màn hình cốt lõi', 'Đăng nhập + 1 kết nối API', 'Đã bao gồm phát hành lên kho ứng dụng', 'Hỗ trợ 1 tháng'] },
+        { name: 'Ứng dụng tiêu chuẩn', price: 'Theo báo giá', delay: '6 đến 10 tuần', features: ['iOS + Android (native hoặc Flutter)', '10 đến 15 màn hình', 'Backend riêng + trang quản trị', 'Thông báo đẩy, đo lường hành vi', 'Hỗ trợ 3 tháng'], highlighted: true },
+        { name: 'Ứng dụng cao cấp', price: 'Theo báo giá', delay: 'Từ 12 tuần trở lên', features: ['Tính năng nâng cao (AI, thời gian thực)', 'Thiết kế và hoạt ảnh riêng', 'Kiến trúc mở rộng được', 'Cam kết hỗ trợ 24/7', 'Phát triển tiếp liên tục'] },
+      ],
+      note: 'Báo giá phụ thuộc vào số màn hình, hệ điều hành cần hỗ trợ, mức độ thiết kế riêng và các kết nối cần thiết. Chưa bao gồm chi phí hosting backend và phí tài khoản nhà phát triển trả trực tiếp cho Apple (99 USD/năm) và Google Play (25 USD, trả một lần).',
+    },
+    useCases: {
+      h2: 'Tình huống thực tế theo từng mô hình',
+      subtitle: 'Những kịch bản cụ thể, với gói phù hợp và kết quả đo lường được mà bạn có thể kỳ vọng.',
+      items: [
+        { sector: 'Startup công nghệ ẩm thực', context: 'Muốn gọi vốn thì phải chứng minh có người dùng thật. Một website thôi không đủ để kiểm chứng hành vi trên điện thoại.', solution: 'MVP React Native (5 màn hình): đặt món, thanh toán MoMo / ZaloPay, theo dõi giao hàng theo thời gian thực, phát hành trên App Store và Play Store.', result: 'Kiểm chứng giả thuyết trong 6 tuần thay vì 6 tháng · tỷ lệ quay lại sau 30 ngày đạt 22% (so với 8% trên web)', pack: 'MVP di động' },
+        { sector: 'Chuỗi nhà hàng tại Hà Nội', context: 'Thẻ tích điểm bằng giấy, đơn đặt qua điện thoại và Zalo, phụ thuộc nặng vào GrabFood và ShopeeFood, không giữ được dữ liệu khách hàng.', solution: 'Ứng dụng iOS + Android (15 màn hình): thực đơn, đặt món, tích điểm, thanh toán MoMo / ZaloPay / Apple Pay, backend và thông báo đẩy.', result: 'Đơn đặt trực tiếp tăng mạnh · giảm phụ thuộc vào ứng dụng giao đồ ăn · tự sở hữu dữ liệu khách hàng', pack: 'Ứng dụng tiêu chuẩn' },
+        { sector: 'Bán lẻ / thương mại điện tử', context: 'Website trên điện thoại tải chậm, khách bỏ giỏ hàng giữa chừng, không có kênh nào để nhắc họ quay lại.', solution: 'Ứng dụng native: danh mục sản phẩm, thanh toán trong ứng dụng, thông báo đẩy, theo dõi đơn hàng, đồng bộ với hệ thống bán hàng đang dùng.', result: 'Mức độ tương tác tăng gấp 3 nhờ thông báo đẩy · giá trị đơn trung bình +20% nhờ gợi ý mua thêm ngay trong ứng dụng', pack: 'Ứng dụng tiêu chuẩn' },
+        { sector: 'Doanh nghiệp B2B / đội ngũ đi hiện trường', context: 'Nhân viên đi thị trường không có công cụ phù hợp, về văn phòng phải nhập lại từ đầu, dữ liệu hiện trường thất lạc.', solution: 'Ứng dụng nghiệp vụ mở rộng được, đồng bộ khi mất mạng, cập nhật theo thời gian thực và bảng điều hành riêng cho quản lý.', result: 'Báo cáo hiện trường theo thời gian thực · không phải nhập lại · quyết định dựa trên số liệu đáng tin', pack: 'Ứng dụng cao cấp' },
+      ],
+    },
+    faq: {
+      h2: 'Câu hỏi thường gặp về phát triển ứng dụng di động',
+      items: [
+        { q: 'Làm một ứng dụng di động hết bao nhiêu tiền?', a: 'Chúng tôi báo giá riêng cho từng dự án, vì chi phí phụ thuộc vào số màn hình, hệ điều hành cần hỗ trợ (chỉ Android hay cả iOS), mức độ thiết kế riêng và các kết nối cần thiết (thanh toán, CRM, phần mềm quản lý). Báo giá chi tiết là miễn phí và được gửi trong vòng 24 giờ, kèm phạm vi công việc và lịch bàn giao. Bạn có thể đặt lịch trao đổi tại neuraweb.fr/vi/booking. Nếu ngân sách còn hạn chế, chúng tôi thường khuyên nên bắt đầu bằng một PWA hoặc một bản MVP thu gọn trước khi đầu tư vào ứng dụng đầy đủ.' },
+        { q: 'Bao lâu thì ứng dụng của tôi lên được kho ứng dụng?', a: 'Khoảng 6 đến 8 tuần cho một bản MVP, 12 đến 16 tuần cho ứng dụng đầy đủ iOS + Android kèm backend. Chúng tôi bàn giao theo từng sprint 2 tuần để bạn luôn thấy được tiến độ.' },
+        { q: 'Nên chọn đa nền tảng (React Native/Flutter) hay native (Swift/Kotlin)?', a: 'Đa nền tảng khi bạn cần ra mắt nhanh và tối ưu ngân sách, vì chỉ cần một đội và một mã nguồn. Tại Việt Nam, Android chiếm phần lớn thị phần điện thoại, nên nhiều dự án bắt đầu bằng Android rồi mở rộng sang iOS sau — đây cũng là cách chia nhỏ chi phí đầu tư. Chọn native khi bạn cần trải nghiệm cao cấp, hiệu năng đồ hoạ cao hoặc tích hợp sâu với hệ điều hành (Apple Watch, widget iOS...).' },
+        { q: 'Các bạn có lo phần đưa ứng dụng lên App Store và Google Play không?', a: 'Có, đã bao gồm trong mọi gói. Chúng tôi mở tài khoản nhà phát triển nếu bạn chưa có, chuẩn bị ảnh chụp màn hình và phần mô tả, rồi xử lý toàn bộ khâu nộp cùng các phản hồi từ Apple hoặc Google. Riêng phí tài khoản (Apple 99 USD/năm, Google Play 25 USD trả một lần) bạn thanh toán trực tiếp cho hai hãng.' },
+        { q: 'Ứng dụng có kết nối được với thanh toán và Zalo tại Việt Nam không?', a: 'Được. Chúng tôi tích hợp các cổng thanh toán phổ biến tại Việt Nam (VNPay, MoMo, ZaloPay) cũng như Stripe cho khách quốc tế, và có thể kết nối ứng dụng với Zalo để gửi thông báo hoặc chăm sóc khách hàng. Chúng tôi làm việc tại Hà Nội và trao đổi được bằng tiếng Việt, tiếng Anh và tiếng Pháp.' },
+      ],
+    },
+    cta: {
+      h2: 'Sẵn sàng khởi động ứng dụng di động của bạn?',
+      subtitle: 'Báo giá miễn phí trong 24 giờ. Không ràng buộc.',
+      button: 'Nhận báo giá',
     },
   },
 };

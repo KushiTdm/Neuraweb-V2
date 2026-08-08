@@ -38,7 +38,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-type Lang = 'fr' | 'en' | 'es';
+type Lang = 'fr' | 'en' | 'es' | 'vi';
 interface Props { lang: Lang }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -425,6 +425,129 @@ const CONTENT: Record<Lang, {
     detail: { included: 'Incluido', notIncluded: 'No incluido', options: 'Opciones disponibles', maintenance: 'Mantenimiento', choose: 'Elegir', payment: 'Pago fraccionado disponible · 40% al pedido, 30% a la validación, 30% a la entrega' },
     showDetails: 'Ver detalles ↓', hideDetails: 'Ocultar detalles ↑',
   },
+  // vi — mode devis intégral (cf. Stage C du plan vi) : aucun montant EUR affiché,
+  // ni dans les badges de services, ni dans les options, ni dans la FAQ budget.
+  vi: {
+    hero: {
+      badge: 'Chatbot AI · RAG Agent · LLM · Claude · Mistral · GPT',
+      h1: 'Đưa AI vào website',
+      h1highlight: 'và công cụ nghiệp vụ của bạn',
+      p: 'Chatbot AI, RAG agent, tích hợp LLM, tạo nội dung, tự động hoá SEO. Chúng tôi triển khai những giải pháp AI cụ thể, kết nối với chính dữ liệu của bạn, và đo được hiệu quả.',
+      ctaAudit: 'Tư vấn AI miễn phí',
+      ctaPricing: 'Xem các gói dịch vụ',
+    },
+    stats: [
+      { label: 'yêu cầu của khách được xử lý tự động' },
+      { label: 'thời gian trợ lý AI luôn sẵn sàng' },
+      { label: 'tăng chuyển đổi nhờ chatbot biết sàng lọc' },
+    ],
+    problems: {
+      h2: 'Những khó khăn bạn đang gặp',
+      subtitle: 'Doanh nghiệp không đưa AI vào vận hành sẽ dần tụt lại: đối thủ trả lời khách nhanh hơn trong mọi lượt tương tác.',
+      items: [
+        { title: 'Nhân viên trả lời tay cùng những câu hỏi giống nhau', text: 'Giờ mở cửa, giá, tình trạng còn hàng, cách đặt hàng: khoảng 70% câu hỏi là giống nhau. Một trợ lý AI xử lý ngay lập tức, 24/7, trên website và Zalo.' },
+        { title: 'Khách hàng chưa được sàng lọc trước khi đến tay đội bán hàng', text: 'Ngân sách, nhu cầu, thời điểm, người ra quyết định: một AI agent hỏi đúng những điều cần biết và chỉ chuyển cho bạn khách đã thực sự sẵn sàng.' },
+        { title: 'Website chưa tận dụng được dữ liệu nội bộ của bạn', text: 'Tài liệu, danh mục sản phẩm, câu hỏi thường gặp, hồ sơ khách hàng: một trợ lý RAG lập chỉ mục toàn bộ nội dung và trả lời chính xác mọi câu hỏi.' },
+        { title: 'AI nghe có vẻ phức tạp hoặc rủi ro', text: 'Bạn không cần đội ngũ khoa học dữ liệu. Chúng tôi tích hợp các mô hình LLM (Claude, Mistral, GPT) thẳng vào công cụ bạn đang dùng, kèm những ràng buộc kiểm soát chặt chẽ.' },
+      ],
+    },
+    services: {
+      h2: 'Các giải pháp tích hợp AI',
+      subtitle: 'Từ chatbot trả lời câu hỏi thường gặp cho đến kiến trúc nhiều AI agent, luôn có giải pháp phù hợp với mức độ sẵn sàng của bạn.',
+      items: [
+        { title: 'Chatbot AI / trợ lý RAG', desc: 'Một chatbot thông minh kết nối với kho kiến thức của bạn (website, PDF, tài liệu, câu hỏi thường gặp). Nó trả lời chính xác câu hỏi của khách và sàng lọc khách hàng tiềm năng.', details: ['Lập chỉ mục nội dung của bạn (website, PDF, Notion, tài liệu)', 'Trả lời chỉ dựa trên dữ liệu CỦA BẠN', 'Sàng lọc khách hàng (ngân sách, nhu cầu, mức độ gấp)', 'Chuyển tiếp sang CRM hoặc đội kinh doanh', 'Hoạt động trên website, Zalo và email'], badge: 'Theo báo giá' },
+        { title: 'Tích hợp LLM vào công cụ của bạn', desc: 'Chúng tôi kết nối Claude, Mistral hoặc GPT-4 vào các công cụ sẵn có qua API: CRM, website, hệ thống quản trị nội bộ, phần mềm quản lý. Câu lệnh nghiệp vụ chắc chắn, kiểm thử trên dữ liệu thật.', details: ['Chọn mô hình phù hợp (Claude, Mistral, GPT)', 'Cấu hình câu lệnh nghiệp vụ chắc chắn', 'Kiểm thử trên dữ liệu thật của bạn', 'Tài liệu hoá và chuyển giao kỹ năng', 'Tích hợp vào n8n / Make nếu cần'], badge: 'Theo báo giá' },
+        { title: 'AI agent bán hàng tự vận hành', desc: 'Một AI agent tiếp cận, sàng lọc, trả lời thắc mắc và đặt lịch hẹn mà không cần người can thiệp. Đội kinh doanh của bạn chỉ tiếp những khách đã sẵn sàng.', details: ['Tự động sàng lọc theo ngân sách, quyền quyết định, nhu cầu, thời điểm', 'Trả lời các thắc mắc thường gặp', 'Tự động đặt lịch hẹn (Calendly, Google Calendar)', 'Chấm điểm và chuyển sang CRM', 'Theo dõi đa kênh (email, chat, Zalo)'], badge: 'Theo báo giá' },
+        { title: 'Tạo nội dung bằng AI', desc: 'AI agent viết bài chuẩn SEO, mô tả sản phẩm, bản tin và bài đăng mạng xã hội theo đúng giọng văn thương hiệu của bạn. Người thật vẫn duyệt lần cuối.', details: ['Tự động lập dàn ý từ một từ khoá hoặc chủ đề', 'Tôn trọng giọng văn và quy chuẩn của bạn', 'Bài viết chuẩn SEO + đánh dấu FAQ', 'Tự động đăng bài (WordPress, Notion, CMS)', 'Báo cáo hiệu quả hằng tháng'], badge: 'Theo báo giá' },
+        { title: 'Tự động hoá SEO & AEO', desc: 'Một quy trình hoàn chỉnh: phân tích Google Search Console, tìm từ khoá, viết bài, đánh dấu schema.org, theo dõi thứ hạng. Mục tiêu: xuất hiện trong các câu trả lời do AI tạo ra.', details: ['Kết nối Google Search Console', 'Phát hiện những chủ đề bạn đang bỏ lỡ', 'Tự động tạo và đăng bài viết', 'Đánh dấu schema.org FAQ / HowTo / Article', 'Theo dõi hằng tháng + báo cáo hiệu quả'], badge: 'Theo báo giá' },
+        { title: 'Phát triển AI theo yêu cầu riêng', desc: 'Hệ thống nhiều AI agent, trợ lý nội bộ RAG, phần mềm nghiệp vụ tích hợp AI, tinh chỉnh mô hình, tích hợp sâu vào hệ thống của bạn. Dành cho những dự án tham vọng.', details: ['Kiến trúc nhiều agent (điều phối bằng LangChain / n8n)', 'RAG trên kho tài liệu lớn', 'Tinh chỉnh mô hình mã nguồn mở (Mistral, LLama)', 'Máy chủ riêng do bạn kiểm soát, tuân thủ quy định bảo vệ dữ liệu cá nhân', 'Tích hợp sâu vào hệ thống hiện có'], badge: 'Theo báo giá' },
+      ],
+    },
+    models: {
+      label: 'Các mô hình AI chúng tôi thành thạo',
+      note: 'Chúng tôi luôn chọn mô hình phù hợp nhất với bài toán của bạn — không phải mô hình đắt nhất.',
+    },
+    useCases: {
+      h2: 'Tình huống thực tế theo từng ngành',
+      subtitle: 'Những kịch bản cụ thể, với gói phù hợp và kết quả đo lường được mà bạn có thể kỳ vọng.',
+      items: [
+        { sector: 'Cửa hàng / hộ kinh doanh địa phương', context: 'Phần lớn câu hỏi lặp đi lặp lại (giờ mở cửa, còn hàng không, ở đâu) và chiếm hết thời gian của nhân viên bán hàng.', solution: 'Chatbot RAG kết nối website + câu hỏi thường gặp + danh mục hàng, 5 tình huống, trả lời 24/7 trên website và Zalo.', result: 'Giảm mạnh thời gian trả lời câu hỏi lặp lại · khách được phản hồi ngay nên chốt nhanh hơn', pack: 'Essentiel IA' },
+        { sector: 'Khách sạn tại Hà Nội', context: 'Yêu cầu đặt phòng đến từ Agoda, Booking, Traveloka và Zalo, trả lời chậm, khách quốc tế phải chờ qua đêm.', solution: 'AI agent trả lời tiếng Việt, Anh, Pháp 24/7 + lập chỉ mục thông tin phòng, dịch vụ, chính sách + đặt phòng trực tiếp.', result: 'Trả lời ngay trong vài phút · giảm phụ thuộc vào OTA · khách phương Tây được phục vụ bằng chính ngôn ngữ của họ', pack: 'Business IA' },
+        { sector: 'Thương mại điện tử', context: 'Bộ phận chăm sóc khách quá tải, cùng những câu hỏi về đơn hàng, khách bỏ giỏ vì không được trả lời kịp.', solution: 'Trợ lý RAG trên toàn bộ danh mục + tra cứu đơn hàng + gợi ý sản phẩm, hỗ trợ 3 ngôn ngữ.', result: 'Phần lớn yêu cầu được xử lý không cần nhân viên · đội chăm sóc khách tập trung vào ca khó', pack: 'Business IA' },
+        { sector: 'Phòng khám / cơ sở y tế', context: 'Tài liệu nội bộ nhiều, dữ liệu nhạy cảm, yêu cầu bảo mật cao.', solution: 'Kiến trúc nhiều agent (đặt lịch, hỗ trợ, nội dung) + RAG trên hơn 500 tài liệu + máy chủ riêng do cơ sở kiểm soát.', result: 'Tra cứu tài liệu tức thì · dữ liệu không rời khỏi hệ thống của bạn · hỗ trợ bệnh nhân 24/7', pack: 'Premium IA' },
+        { sector: 'Công ty phần mềm / B2B', context: 'Onboarding tốn thời gian, hỗ trợ cấp 1 quá tải, blog SEO bỏ không.', solution: 'Trợ lý onboarding bằng AI + hỗ trợ cấp 1 dạng RAG trên tài liệu + agent tạo nội dung SEO.', result: 'Khách dùng được sản phẩm nhanh hơn · phiếu hỗ trợ cấp 1 được hấp thụ · nội dung SEO ra đều', pack: 'Premium IA' },
+        { sector: 'Nhà hàng / quán ăn', context: 'Đặt bàn qua điện thoại ngoài giờ không ai nghe, cùng những câu hỏi về thực đơn, đơn GrabFood và ShopeeFood nằm rời rạc.', solution: 'Chatbot đặt bàn + câu hỏi thường gặp + đồng bộ lịch bàn, đa ngôn ngữ cho khách nước ngoài.', result: 'Nhận đặt bàn 24/7 · giảm tải cho tổng đài · khách nước ngoài được phục vụ tốt hơn', pack: 'Essentiel IA' },
+      ],
+    },
+    packs: {
+      h2: 'Các gói tích hợp AI',
+      subtitle: 'Mỗi dự án AI có khối lượng dữ liệu và số kênh khác nhau, nên chúng tôi báo giá riêng theo nhu cầu thực tế. Miễn phí và gửi trong vòng 24 giờ, không có chi phí ẩn.',
+      popular: 'Được chọn nhiều nhất',
+      // `ht` et `monthly` ne sont pas rendus en mode devis (voir QUOTE_ONLY_LANGS).
+      ht: '',
+      monthly: 'bảo trì hằng tháng',
+      delivery: 'Thời gian triển khai',
+      items: [
+        {
+          name: 'Essentiel IA', tagline: 'Trợ lý AI đầu tiên của bạn. Lên sóng trong 2 tuần.',
+          bullets: ['Chatbot AI trả lời câu hỏi thường gặp (tối đa 5 tình huống)', 'Lập chỉ mục website + 1 tài liệu PDF', '1 ngôn ngữ, tối đa 500 lượt trò chuyện mỗi tháng', 'Giao diện thiết kế riêng, gắn thẳng vào website'],
+          included: ['Chatbot RAG kết nối website và 1 tài liệu', 'Tối đa 5 tình huống hội thoại được cấu hình', 'Giao diện chatbot theo bộ nhận diện của bạn', 'Gắn vào website (widget hoặc trang riêng)', '1 ngôn ngữ (tiếng Việt hoặc tiếng Anh)', '500 lượt trò chuyện mỗi tháng', 'Lưu lịch sử hội thoại (30 ngày)', 'Hướng dẫn 30 phút + tài liệu', 'Hỗ trợ qua email trong 30 ngày'],
+          notIncluded: ['AI agent biết sàng lọc khách hàng', 'Kết nối CRM / chuyển tiếp cho đội kinh doanh', 'Nhiều hơn một ngôn ngữ', 'Quá 500 lượt trò chuyện mỗi tháng', 'Tạo nội dung bằng AI', 'Tự động hoá workflow n8n'],
+          options: [{ label: 'Thêm một ngôn ngữ', price: 'Theo báo giá' }, { label: 'Thêm 500 lượt trò chuyện mỗi tháng', price: 'Theo báo giá' }, { label: 'Kết nối CRM cơ bản', price: 'Theo báo giá' }, { label: 'Lập chỉ mục thêm 5 tài liệu', price: 'Theo báo giá' }],
+          maintenanceItems: ['Kiểm tra chatbot hằng tháng', 'Cập nhật kho kiến thức (theo yêu cầu)', 'Hỗ trợ qua email (phản hồi trong 72 giờ)'],
+        },
+        {
+          name: 'Business IA', tagline: 'AI agent đầy đủ. Tự động sàng lọc. Đã kết nối CRM.',
+          bullets: ['AI agent biết sàng lọc (tối đa 10 tình huống)', 'Lập chỉ mục không giới hạn (website + tài liệu + CRM)', '3 ngôn ngữ, tối đa 800 lượt trò chuyện mỗi tháng', 'Kết nối CRM + chuyển tiếp cho đội kinh doanh'],
+          included: ['AI agent tự động sàng lọc theo ngân sách, quyền quyết định, nhu cầu, thời điểm', 'Tối đa 10 tình huống hội thoại', 'Lập chỉ mục không giới hạn (website, PDF, Notion, CRM)', '3 ngôn ngữ tuỳ chọn (ví dụ Việt – Anh – Pháp)', '800 lượt trò chuyện mỗi tháng', 'Kết nối CRM (HubSpot, Notion, Airtable)', 'Chuyển tiếp cho đội kinh doanh (email + Zalo)', 'Tự động đặt lịch hẹn (Calendly)', 'Báo cáo hằng tháng (khối lượng, tình huống, tỷ lệ giải quyết)', 'Bao gồm 1 giờ tối ưu mỗi tháng', 'Hỗ trợ email ưu tiên (phản hồi trong 48 giờ)'],
+          notIncluded: ['Kiến trúc nhiều AI agent', 'Tinh chỉnh mô hình', 'Kết nối phần mềm quản lý / hệ thống cũ', 'Tạo nội dung bằng AI', 'Máy chủ riêng tự vận hành'],
+          options: [{ label: 'Thêm một ngôn ngữ', price: 'Theo báo giá' }, { label: 'Thêm 500 lượt trò chuyện mỗi tháng', price: 'Theo báo giá' }, { label: 'Tạo nội dung bằng AI (blog, mạng xã hội)', price: 'Theo báo giá' }, { label: 'Tích hợp thêm workflow tự động n8n', price: 'Theo báo giá' }, { label: 'Đào tạo đội ngũ (tối đa 5 người)', price: 'Theo báo giá' }],
+          maintenanceItems: ['Theo dõi 24/7 + cảnh báo', 'Cập nhật kho kiến thức (2 lần/tháng)', 'Báo cáo hiệu quả hằng tháng', 'Bao gồm 1 giờ tối ưu mỗi tháng', 'Hỗ trợ ưu tiên (phản hồi trong 48 giờ)'],
+        },
+        {
+          name: 'Premium IA', tagline: 'Hệ thống nhiều AI agent. Phát triển riêng. Dữ liệu do bạn kiểm soát.',
+          bullets: ['Tối đa 3 AI agent chuyên biệt (bán hàng, hỗ trợ, SEO)', 'Kiến trúc RAG trên khối lượng dữ liệu lớn', 'Máy chủ riêng, dữ liệu không rời khỏi hệ thống của bạn', 'Tích hợp sâu vào hệ thống hiện có'],
+          included: ['Tối đa 3 AI agent chuyên biệt (bán hàng, hỗ trợ, nội dung, SEO)', 'Kiến trúc nhiều agent có điều phối', 'RAG trên kho tài liệu lớn (không giới hạn)', 'Tinh chỉnh mô hình mã nguồn mở nếu phù hợp', 'Máy chủ riêng do bạn kiểm soát (đặt tại Việt Nam hoặc châu Âu tuỳ nhu cầu)', 'Tuân thủ đầy đủ quy định bảo vệ dữ liệu cá nhân + thoả thuận xử lý dữ liệu', 'Tích hợp sâu (API, webhook, connector)', 'Bảng điều hành số liệu', 'Đào tạo đội ngũ 4 giờ + tài liệu video', 'Đồng hành chiến lược trong 3 tháng', 'Hỗ trợ riêng 7 ngày/tuần (phản hồi trong 24 giờ)', 'Họp theo dõi hằng tháng'],
+          notIncluded: ['Ngân sách quảng cáo', 'Quản trị mạng xã hội', 'Phát triển backend ngoài phạm vi AI', 'Ứng dụng di động gốc (báo giá riêng)'],
+          options: [{ label: 'Thêm một AI agent', price: 'Theo báo giá' }, { label: 'Ứng dụng di động có tích hợp AI', price: 'Theo báo giá' }, { label: 'Đồng hành thêm 6 tháng', price: 'Theo báo giá' }, { label: 'Kiểm thử bảo mật hệ thống AI', price: 'Theo báo giá' }],
+          maintenanceItems: ['Giám sát thời gian thực + cảnh báo tức thì', 'Cập nhật kho kiến thức không giới hạn', 'Tinh chỉnh mô hình hằng tháng', 'Báo cáo nâng cao hằng tháng + buổi họp theo dõi', 'Hỗ trợ riêng 7 ngày/tuần (phản hồi trong 24 giờ)', 'Tối ưu liên tục theo đề xuất'],
+        },
+      ],
+    },
+    testimonials: {
+      h2: 'Khách hàng nói gì về chúng tôi',
+      items: [
+        { quote: 'Chatbot AI đã giảm 68% khối lượng hỗ trợ của chúng tôi. Khách nhận được câu trả lời chính xác trong 3 giây, 24/7. Nhân viên giờ chỉ tập trung vào những ca phức tạp.', name: 'Claire M.', role: 'Giám đốc chăm sóc khách hàng', company: 'Công ty phần mềm B2B, Bordeaux (Pháp)', initials: 'CM', color: 'bg-gray-200 text-gray-800' },
+        { quote: 'AI agent biết sàng lọc đã thay đổi hẳn cách chúng tôi tìm khách. Giờ chúng tôi chỉ nói chuyện với khách thực sự sẵn sàng. Tỷ lệ chốt tăng từ 12% lên 31% trong 6 tuần.', name: 'Marc L.', role: 'Giám đốc kinh doanh', company: 'Công ty bất động sản, Paris (Pháp)', initials: 'ML', color: 'bg-gray-200 text-gray-800' },
+        { quote: 'Trợ lý RAG nắm rõ cả 800 sản phẩm của chúng tôi. Khách tìm đúng thứ họ cần mà không phải liên hệ bộ phận chăm sóc khách hàng. Rất ấn tượng.', name: 'Anne-Sophie T.', role: 'Giám đốc điều hành', company: 'Thương mại điện tử thời trang, Lyon (Pháp)', initials: 'AT', color: 'bg-gray-200 text-gray-800' },
+      ],
+    },
+    faq: {
+      h2: 'Câu hỏi thường gặp',
+      items: [
+        { q: 'Chatbot thông thường và AI agent RAG khác nhau thế nào?', a: 'Chatbot thông thường trả lời theo một cây kịch bản cố định. AI agent RAG (Retrieval-Augmented Generation) lập chỉ mục nội dung thật của bạn — website, PDF, Notion, CRM — rồi tạo ra câu trả lời chính xác dựa trên chính DỮ LIỆU CỦA BẠN. Nó hiểu câu hỏi viết theo ngôn ngữ tự nhiên, xử lý được các sắc thái và học từ kho dữ liệu của bạn. Kết quả: không còn câu trả lời chung chung.' },
+        { q: 'Dữ liệu của tôi có được giữ bí mật khi dùng AI không?', a: 'Có. Chúng tôi cấu hình các mô hình sao cho dữ liệu của bạn không bao giờ được dùng để huấn luyện mô hình của bên thứ ba. Với những dự án nhạy cảm (y tế, pháp lý, dữ liệu khách hàng quan trọng), chúng tôi khuyến nghị dùng mô hình mã nguồn mở tự cài (Mistral hoặc LLama) trên máy chủ riêng do bạn kiểm soát. Khi đó dữ liệu không rời khỏi hệ thống của bạn.' },
+        { q: 'Claude, GPT và Mistral khác nhau ra sao?', a: 'Claude (Anthropic) mạnh ở suy luận phức tạp và tuân thủ quy tắc — đây là lựa chọn chúng tôi khuyến nghị cho những AI agent quan trọng. GPT-4o xử lý được nhiều loại dữ liệu và có hệ sinh thái rộng nhất. Mistral là mã nguồn mở, có thể tự cài trên máy chủ riêng — phù hợp với dữ liệu nhạy cảm và ngân sách chặt. Chúng tôi luôn chọn mô hình hợp với bài toán của bạn, không phải mô hình đắt nhất.' },
+        { q: 'Chatbot AI có nói được nhiều ngôn ngữ không?', a: 'Có. Các mô hình LLM hiện nay (Claude, GPT, Mistral) vốn đã đa ngôn ngữ. Chúng tôi cấu hình để chatbot tự nhận diện ngôn ngữ và trả lời đúng ngôn ngữ của người dùng — rất hữu ích với khách quốc tế tại Hà Nội. Gói Essentiel gồm 1 ngôn ngữ, gói Business gồm 3 ngôn ngữ (ví dụ Việt – Anh – Pháp), gói Premium không giới hạn.' },
+        { q: 'AI agent được bảo trì và cải thiện theo thời gian như thế nào?', a: 'AI agent tốt lên theo mức độ sử dụng. Mỗi tháng, chúng tôi phân tích các cuộc hội thoại (câu hỏi chưa có lời giải, mức độ hài lòng, những lần chuyển tiếp không cần thiết) rồi tối ưu câu lệnh, bổ sung nguồn dữ liệu và tinh chỉnh cách chấm điểm. Gói Business đã bao gồm 1 giờ tối ưu mỗi tháng.' },
+        { q: 'Có tích hợp AI vào website hiện tại mà không cần làm lại website không?', a: 'Có. Chúng tôi gắn trợ lý AI vào website sẵn có của bạn bằng một widget (vài dòng JavaScript) hoặc qua API. Không cần làm lại website — AI sẽ khớp với bộ nhận diện và phong cách của bạn.' },
+        { q: 'Chi phí cho một dự án AI trọn gói là bao nhiêu?', a: 'Chúng tôi không áp một bảng giá cố định: chi phí phụ thuộc vào số tình huống hội thoại, khối lượng tài liệu cần lập chỉ mục, số ngôn ngữ và mức độ tích hợp vào hệ thống của bạn. Sau buổi tư vấn miễn phí, bạn nhận được báo giá chi tiết theo đúng nhu cầu thực tế, kèm phạm vi công việc và thời gian triển khai, trong vòng 24 giờ. Bạn có thể đặt lịch trực tiếp tại neuraweb.fr/vi/booking hoặc gửi yêu cầu qua trang liên hệ.' },
+      ],
+    },
+    more: {
+      h3: 'Tìm hiểu thêm',
+      items: [
+        { label: 'Rà soát chất lượng dữ liệu: vì sao dự án AI thất bại', href: '/blog/audit-qualite-donnees-projet-ia' },
+        { label: 'Cách tích hợp AI vào website của bạn', href: '/blog/integrer-ia-site-web-2025' },
+        { label: 'AI tác tử: điều đối thủ của bạn đã làm', href: '/blog/ia-agents-remplacent-equipes-2026' },
+        { label: '7 cách dùng AI để có thêm khách hàng', href: '/blog/site-vitrine-ia-machine-leads' },
+        { label: 'Tự động hoá bằng AI cho doanh nghiệp SME: chi phí thực tế 2026', href: '/blog/automatisation-ia-pme-prix-2026' },
+      ],
+    },
+    cta: { badge: 'Tư vấn AI miễn phí · Không ràng buộc', h2: 'Sẵn sàng đưa AI vào hoạt động kinh doanh?', p: '30 phút để xác định 3 tình huống nên áp dụng AI trước và lợi ích ước tính. Miễn phí, không ràng buộc, không thuật ngữ khó hiểu.', ctaAudit: 'Nhận tư vấn AI miễn phí', ctaBlog: 'Đọc hướng dẫn về AI', ctaBlogHref: '/blog/integrer-ia-site-web-2025' },
+    detail: { included: 'Đã bao gồm', notIncluded: 'Chưa bao gồm', options: 'Tuỳ chọn thêm', maintenance: 'Bảo trì', choose: 'Nhận báo giá cho gói', payment: 'Có thể thanh toán theo tiến độ · 40% khi khởi động, 30% khi duyệt, 30% khi bàn giao' },
+    showDetails: 'Xem chi tiết ↓', hideDetails: 'Ẩn chi tiết ↑',
+  },
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -442,15 +565,25 @@ const PACK_DELIVERY: Record<Lang, string[]> = {
   fr: ['1 à 2 semaines', '3 à 5 semaines', '6 à 12 semaines'],
   en: ['1 to 2 weeks', '3 to 5 weeks', '6 to 12 weeks'],
   es: ['1 a 2 semanas', '3 a 5 semanas', '6 a 12 semanas'],
+  vi: ['1–2 tuần', '3–5 tuần', '6–12 tuần'],
 };
 const PACK_IDS = ['essentiel', 'business', 'premium'] as const;
 type PackId = (typeof PACK_IDS)[number];
 
+// ── Mode devis (vi) ────────────────────────────────────────────────────────
+// Sur la version vietnamienne, aucun montant EUR n'est affiché : les 3 paliers
+// passent en devis (Stage C du plan vi). Le seul prix visible du site vi est
+// celui de l'offre Landing Page Express, dans son encart de services-pricing.tsx.
+const QUOTE_ONLY_LANGS: readonly Lang[] = ['vi'];
+const QUOTE_PRICE_LABEL = 'Theo báo giá';
+const QUOTE_PRICE_NOTE = 'Báo giá miễn phí trong 24 giờ';
+const QUOTE_MAINTENANCE_LABEL = 'Bảo trì hằng tháng theo báo giá';
+
 const MODELS = [
-  { name: 'Claude (Anthropic)', strength: { fr: 'Raisonnement complexe, conformité', en: 'Complex reasoning, compliance', es: 'Razonamiento complejo, conformidad' }, color: 'text-orange-600 dark:text-orange-400' },
-  { name: 'Mistral', strength: { fr: 'Open source, souveraineté, français', en: 'Open source, sovereignty, French', es: 'Open source, soberanía, francés' }, color: 'text-gray-700 dark:text-gray-300' },
-  { name: 'GPT-4o (OpenAI)', strength: { fr: 'Multimodal, éco-système vaste', en: 'Multimodal, vast ecosystem', es: 'Multimodal, ecosistema amplio' }, color: 'text-green-600 dark:text-green-400' },
-  { name: 'LLama 3 (Meta)', strength: { fr: 'Self-hosted gratuit, RGPD total', en: 'Free self-hosted, full GDPR', es: 'Self-hosted gratuito, RGPD total' }, color: 'text-purple-600 dark:text-purple-400' },
+  { name: 'Claude (Anthropic)', strength: { fr: 'Raisonnement complexe, conformité', en: 'Complex reasoning, compliance', es: 'Razonamiento complejo, conformidad', vi: 'Suy luận phức tạp, tuân thủ quy tắc' }, color: 'text-orange-600 dark:text-orange-400' },
+  { name: 'Mistral', strength: { fr: 'Open source, souveraineté, français', en: 'Open source, sovereignty, French', es: 'Open source, soberanía, francés', vi: 'Mã nguồn mở, tự chủ dữ liệu, tiếng Pháp' }, color: 'text-gray-700 dark:text-gray-300' },
+  { name: 'GPT-4o (OpenAI)', strength: { fr: 'Multimodal, éco-système vaste', en: 'Multimodal, vast ecosystem', es: 'Multimodal, ecosistema amplio', vi: 'Đa phương thức, hệ sinh thái rộng' }, color: 'text-green-600 dark:text-green-400' },
+  { name: 'LLama 3 (Meta)', strength: { fr: 'Self-hosted gratuit, RGPD total', en: 'Free self-hosted, full GDPR', es: 'Self-hosted gratuito, RGPD total', vi: 'Tự cài miễn phí, dữ liệu do bạn kiểm soát' }, color: 'text-purple-600 dark:text-purple-400' },
 ];
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -466,6 +599,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
   const c = CONTENT[lang];
   const packIdx = PACK_IDS.indexOf(selectedPack);
   const activePack = c.packs.items[packIdx];
+  const isQuoteOnly = QUOTE_ONLY_LANGS.includes(lang);
 
   // Animations au scroll (GSAP ScrollTrigger) + parallaxe — voir useGsapReveal
   const containerRef = useRef<HTMLElement>(null);
@@ -649,9 +783,18 @@ export function IntegrationIAPageClient({ lang }: Props) {
                     <h3 className="font-bold text-[#0e1b3d] text-lg mb-1">{pack.name}</h3>
                     <p className="text-slate-500 text-sm mb-4">{pack.tagline}</p>
                     <div className="mb-4">
-                      <span className="text-3xl font-bold text-[#0e1b3d]">{PACK_PRICES[i].toLocaleString('fr-FR')} €</span>
-                      <span className="text-slate-500 text-sm ml-1">{c.packs.ht}</span>
-                      <div className="text-sm text-slate-500">+ {PACK_MONTHLY[i]} {c.packs.monthly}</div>
+                      {isQuoteOnly ? (
+                        <>
+                          <span className="text-3xl font-bold text-[#0e1b3d]">{QUOTE_PRICE_LABEL}</span>
+                          <div className="text-sm text-slate-500">{QUOTE_PRICE_NOTE}</div>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-3xl font-bold text-[#0e1b3d]">{PACK_PRICES[i].toLocaleString('fr-FR')} €</span>
+                          <span className="text-slate-500 text-sm ml-1">{c.packs.ht}</span>
+                          <div className="text-sm text-slate-500">+ {PACK_MONTHLY[i]} {c.packs.monthly}</div>
+                        </>
+                      )}
                     </div>
                     <div className="text-xs text-slate-500 mb-4">⏱ {c.packs.delivery} : {PACK_DELIVERY[lang][i]}</div>
                     <ul className="space-y-2">
@@ -710,7 +853,9 @@ export function IntegrationIAPageClient({ lang }: Props) {
                   </ul>
                   <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
                     <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
-                      {c.detail.maintenance} {PACK_MONTHLY[packIdx]} €/{lang === 'fr' ? 'mois' : lang === 'es' ? 'mes' : 'month'}
+                      {isQuoteOnly
+                        ? QUOTE_MAINTENANCE_LABEL
+                        : `${c.detail.maintenance} ${PACK_MONTHLY[packIdx]} €/${lang === 'fr' ? 'mois' : lang === 'es' ? 'mes' : 'month'}`}
                     </div>
                     <ul className="space-y-1">
                       {activePack.maintenanceItems.map((item, i) => (

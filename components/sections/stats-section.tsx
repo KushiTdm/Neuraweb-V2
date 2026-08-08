@@ -45,6 +45,19 @@ const T = {
     sub: 'Desde nuestra creación, hemos ayudado a docenas de empresas a acelerar su crecimiento.',
     learn: 'Sobre NeuraWeb',
   },
+  vi: {
+    eyebrow: '● KẾT QUẢ CỦA CHÚNG TÔI',
+    label1: 'Dự án đã bàn giao',
+    desc1: 'Website, ứng dụng di động và quy trình tự động hóa được bàn giao đúng hẹn.',
+    label2: 'Khách hàng hài lòng',
+    desc2: 'Tỷ lệ hài lòng được ghi nhận sau mỗi lần bàn giao — ưu tiên hàng đầu của chúng tôi.',
+    label3: 'Hiệu quả đầu tư trung bình',
+    desc3: 'Mức hiệu quả đầu tư ghi nhận được trên các dự án tự động hóa và AI.',
+    heading1: 'Những con số',
+    heading2: 'tự nói lên tất cả',
+    sub: 'Từ ngày thành lập, chúng tôi đã đồng hành cùng hàng chục doanh nghiệp tăng trưởng nhanh hơn nhờ website, AI và tự động hóa.',
+    learn: 'Về NeuraWeb',
+  },
 };
 
 const STATS = [

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { RetroGrid } from '@/components/ui/retro-grid';
 
 interface ServicesProcessProps {
-  language?: 'fr' | 'en' | 'es';
+  language?: 'fr' | 'en' | 'es' | 'vi';
   onScrollToPricing?: () => void;
 }
 
@@ -157,6 +157,58 @@ const STEP_DATA = {
     {
       title: 'Entrega y Soporte',
       description: 'Despliegue en Vercel o tu servidor. Formación del equipo incluida. Soporte reactivo 3 meses incluido en todos los paquetes.',
+      icon: '🚀',
+      colorHex: '#eab308',
+      accentClass: 'from-yellow-500/20 to-yellow-600/5 border-yellow-500/30',
+      badgeClass: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40',
+      dotClass: 'bg-yellow-500',
+      glowClass: 'shadow-yellow-500/20',
+    },
+  ],
+  vi: [
+    {
+      title: 'Audit & Analyse',
+      description: 'Appel découverte gratuit de 30 minutes. Analyse de votre marché, concurrents et cibles. Cahier des charges détaillé et roadmap sur mesure.',
+      icon: '🔍',
+      colorHex: '#3b82f6',
+      accentClass: 'from-white/20 to-white/5 border-white/30',
+      badgeClass: 'bg-white/15 text-white border-white/30',
+      dotClass: 'bg-white',
+      glowClass: 'shadow-blue-500/20',
+    },
+    {
+      title: 'Design & UX',
+      description: 'Wireframes interactifs validés avec vous. Design system sur Figma. Maquettes responsive testées sur utilisateurs réels.',
+      icon: '🎨',
+      colorHex: '#a855f7',
+      accentClass: 'from-purple-500/20 to-purple-600/5 border-purple-500/30',
+      badgeClass: 'bg-purple-500/20 text-purple-400 border-purple-500/40',
+      dotClass: 'bg-purple-500',
+      glowClass: 'shadow-purple-500/20',
+    },
+    {
+      title: 'Développement',
+      description: 'Stack moderne : React, Next.js 15, TypeScript, Tailwind CSS. Sprints de 2 semaines avec démos. Code versionné sur GitHub.',
+      icon: '⚡',
+      colorHex: '#f97316',
+      accentClass: 'from-orange-500/20 to-orange-600/5 border-orange-500/30',
+      badgeClass: 'bg-orange-500/20 text-orange-400 border-orange-500/40',
+      dotClass: 'bg-orange-500',
+      glowClass: 'shadow-orange-500/20',
+    },
+    {
+      title: 'Tests & Optimisation',
+      description: 'Tests automatisés et manuels. Score Lighthouse 90+ garanti. Optimisation Core Web Vitals et SEO technique.',
+      icon: '✅',
+      colorHex: '#10b981',
+      accentClass: 'from-emerald-500/20 to-emerald-600/5 border-emerald-500/30',
+      badgeClass: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
+      dotClass: 'bg-emerald-500',
+      glowClass: 'shadow-emerald-500/20',
+    },
+    {
+      title: 'Livraison & Support',
+      description: 'Déploiement sur Vercel ou votre serveur. Formation équipe incluse. Support réactif 3 mois inclus dans tous les packs.',
       icon: '🚀',
       colorHex: '#eab308',
       accentClass: 'from-yellow-500/20 to-yellow-600/5 border-yellow-500/30',

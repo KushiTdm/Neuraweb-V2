@@ -8,9 +8,11 @@ const PRIVATE_ROUTES = [
   '/fr/admin/',
   '/en/admin/',
   '/es/admin/',
+  '/vi/admin/',
   '/fr/hotel-form/',
   '/en/hotel-form/',
   '/es/hotel-form/',
+  '/vi/hotel-form/',
 ];
 
 // Search crawlers + AI search/retrieval + AI training : tous autorisés sur le

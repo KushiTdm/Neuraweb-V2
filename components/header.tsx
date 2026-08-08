@@ -23,7 +23,7 @@ export function Header() {
 
   // Vérifie si le chemin correspond (en ignorant le préfixe de langue)
   const isActive = (path: string) => {
-    const pathWithoutLang = pathname.replace(/^\/(fr|en|es)/, '') || '/';
+    const pathWithoutLang = pathname.replace(/^\/(fr|en|es|vi)/, '') || '/';
     return pathWithoutLang === path;
   };
 

@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 // Types de langues supportées
-export type Language = 'fr' | 'en' | 'es';
+export type Language = 'fr' | 'en' | 'es' | 'vi';
 
 interface LanguageContextType {
   language: Language;
@@ -36,7 +36,7 @@ export function LanguageProvider({ children, initialLanguage }: LanguageProvider
     // Sinon, vérifier le localStorage
     const savedLanguage = localStorage.getItem('preferred-language') as Language | null;
     
-    if (savedLanguage && ['fr', 'en', 'es'].includes(savedLanguage)) {
+    if (savedLanguage && ['fr', 'en', 'es', 'vi'].includes(savedLanguage)) {
       setLanguageState(savedLanguage);
       return;
     }
@@ -48,6 +48,8 @@ export function LanguageProvider({ children, initialLanguage }: LanguageProvider
       setLanguageState('fr');
     } else if (browserLanguage.startsWith('es')) {
       setLanguageState('es');
+    } else if (browserLanguage.startsWith('vi')) {
+      setLanguageState('vi');
     } else {
       setLanguageState('en');
     }
@@ -61,7 +63,7 @@ export function LanguageProvider({ children, initialLanguage }: LanguageProvider
       
       // Mettre à jour l'URL pour refléter la nouvelle langue
       const currentPath = window.location.pathname;
-      const pathWithoutLang = currentPath.replace(/^\/(fr|en|es)/, '');
+      const pathWithoutLang = currentPath.replace(/^\/(fr|en|es|vi)/, '');
       const newPath = `/${lang}${pathWithoutLang}`;
       
       // Utiliser history.pushState pour éviter un rechargement complet

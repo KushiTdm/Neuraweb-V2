@@ -23,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
   const baseUrl = 'https://neuraweb.fr';
 
   // L'IA génère les meta tags optimisés — résultat injecté dans le <head> statique
@@ -43,6 +43,7 @@ export async function generateMetadata({
         fr: `${baseUrl}/fr/blog`,
         en: `${baseUrl}/en/blog`,
         es: `${baseUrl}/es/blog`,
+        vi: `${baseUrl}/vi/blog`,
         'x-default': `${baseUrl}/fr/blog`,
       },
     },
@@ -59,7 +60,7 @@ export async function generateMetadata({
           alt: seo.ogTitle,
         },
       ],
-      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : 'en_US',
+      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : language === 'vi' ? 'vi_VN' : 'en_US',
       type: 'website',
     },
     twitter: {
@@ -83,13 +84,15 @@ export default async function BlogPage({
   const postsFr = getAllPosts('fr');
   const postsEn = getAllPosts('en');
   const postsEs = getAllPosts('es');
+  const postsVi = getAllPosts('vi');
   const featuredFr = getFeaturedPosts('fr');
   const featuredEn = getFeaturedPosts('en');
   const featuredEs = getFeaturedPosts('es');
+  const featuredVi = getFeaturedPosts('vi');
 
   // Breadcrumb pour navigation SERP
   const breadcrumbData = generateBreadcrumbSchema([
-    { name: lang === 'fr' ? 'Accueil' : lang === 'es' ? 'Inicio' : 'Home', url: `/${lang}` },
+    { name: lang === 'fr' ? 'Accueil' : lang === 'es' ? 'Inicio' : lang === 'vi' ? 'Trang chủ' : 'Home', url: `/${lang}` },
     { name: 'Blog', url: `/${lang}/blog` },
   ]);
 
@@ -102,9 +105,11 @@ export default async function BlogPage({
           postsFr={postsFr}
           postsEn={postsEn}
           postsEs={postsEs}
+          postsVi={postsVi}
           featuredFr={featuredFr}
           featuredEn={featuredEn}
           featuredEs={featuredEs}
+          featuredVi={featuredVi}
         />
       </main>
       <Footer />

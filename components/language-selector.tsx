@@ -17,6 +17,7 @@ export function LanguageSelector() {
     { code: 'fr', name: 'Français', flag: '🇫🇷' },
     { code: 'en', name: 'English', flag: '🇬🇧' },
     { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
   ];
 
   // Fermer le dropdown au clic extérieur
@@ -36,7 +37,12 @@ export function LanguageSelector() {
     setIsOpen(false);
 
     const pathSegments = pathname.split('/');
-    if (pathSegments[1] === 'fr' || pathSegments[1] === 'en' || pathSegments[1] === 'es') {
+    if (
+      pathSegments[1] === 'fr' ||
+      pathSegments[1] === 'en' ||
+      pathSegments[1] === 'es' ||
+      pathSegments[1] === 'vi'
+    ) {
       pathSegments[1] = newLang;
       router.push(pathSegments.join('/'));
     } else {

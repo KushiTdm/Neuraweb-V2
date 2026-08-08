@@ -4,7 +4,7 @@ import { JsonLd } from '@/components/json-ld';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
-type Lang = 'fr' | 'en' | 'es';
+type Lang = 'fr' | 'en' | 'es' | 'vi';
 
 export async function generateStaticParams() {
   return SUPPORTED_LANGUAGES.map((lang) => ({ lang }));
@@ -66,6 +66,24 @@ const META: Record<Lang, { title: string; description: string; keywords: string[
     ogTitle: 'Desarrollo Aplicaciones Móviles iOS y Android — NeuraWeb',
     ogDescription: 'Apps móviles a medida para startups y pymes. MVP desde 8 900€. Presupuesto gratis en 24h.',
   },
+  vi: {
+    title: 'Phát triển ứng dụng di động iOS & Android | NeuraWeb',
+    description: 'Đội ngũ Pháp tại Hà Nội phát triển ứng dụng di động iOS, Android, React Native, Flutter cho startup và doanh nghiệp. MVP trong 6 tuần, báo giá miễn phí trong 24 giờ.',
+    keywords: [
+      'phát triển ứng dụng di động',
+      'thiết kế app mobile',
+      'công ty làm app Hà Nội',
+      'phát triển app iOS Android',
+      'lập trình React Native',
+      'lập trình Flutter',
+      'làm app cho doanh nghiệp',
+      'app di động theo yêu cầu',
+      'MVP ứng dụng di động',
+      'báo giá phát triển app',
+    ],
+    ogTitle: 'Phát triển ứng dụng di động iOS & Android — NeuraWeb',
+    ogDescription: 'Phát triển ứng dụng di động native và đa nền tảng cho startup và doanh nghiệp. MVP trong 6 tuần.',
+  },
 };
 
 export async function generateMetadata({
@@ -90,6 +108,7 @@ export async function generateMetadata({
         fr: `${baseUrl}/fr/mobile-app-development`,
         en: `${baseUrl}/en/mobile-app-development`,
         es: `${baseUrl}/es/mobile-app-development`,
+        vi: `${baseUrl}/vi/mobile-app-development`,
         'x-default': `${baseUrl}/fr/mobile-app-development`,
       },
     },
@@ -99,7 +118,7 @@ export async function generateMetadata({
       url: `${baseUrl}${path}`,
       siteName: 'NeuraWeb',
       images: [{ url: ogImage, width: 1200, height: 630, alt: meta.ogTitle }],
-      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : 'en_US',
+      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : language === 'vi' ? 'vi_VN' : 'en_US',
       type: 'website',
     },
     twitter: {
@@ -134,6 +153,13 @@ const FAQ_BY_LANG: Record<Lang, { question: string; answer: string }[]> = {
     { question: '¿Gestionáis la publicación en App Store y Google Play?', answer: 'Sí, incluido en todos los paquetes. Creamos las cuentas de desarrollador y gestionamos el envío completo.' },
     { question: '¿Trabajáis con clientes internacionales?', answer: 'Sí. Equipo basado en Francia, clientes en toda Europa. Remoto con puntos semanales por video.' },
   ],
+  vi: [
+    { question: 'Chi phí phát triển một ứng dụng di động là bao nhiêu?', answer: 'Chi phí phụ thuộc vào phạm vi thực tế: số màn hình, backend, tích hợp thanh toán hay AI. Vì vậy chúng tôi báo giá riêng cho từng dự án sau một buổi trao đổi ngắn về nhu cầu của bạn. Báo giá miễn phí, gửi trong 24 giờ và không ràng buộc.' },
+    { question: 'Làm một ứng dụng di động mất bao lâu?', answer: 'Khoảng 6 đến 8 tuần cho bản MVP, và 12 đến 16 tuần cho một ứng dụng hoàn chỉnh iOS + Android kèm backend. Chúng tôi bàn giao theo từng sprint 2 tuần để bạn thấy tiến độ liên tục.' },
+    { question: 'Nên chọn đa nền tảng (React Native/Flutter) hay native (Swift/Kotlin)?', answer: 'Đa nền tảng phù hợp khi bạn cần ra mắt MVP nhanh với ngân sách gọn. Native phù hợp khi bạn hướng tới trải nghiệm cao cấp hoặc cần khai thác sâu tính năng của hệ điều hành.' },
+    { question: 'Các bạn có lo phần đăng ứng dụng lên App Store và Google Play không?', answer: 'Có, việc này nằm trong tất cả các gói. Chúng tôi tạo tài khoản nhà phát triển nếu bạn chưa có và xử lý toàn bộ quá trình gửi duyệt ứng dụng.' },
+    { question: 'Các bạn làm việc với khách hàng tại Việt Nam như thế nào?', answer: 'Đội ngũ người Pháp của chúng tôi có mặt tại Hà Nội, làm việc trực tiếp hoặc từ xa với khách hàng trên cả nước. Trao đổi được bằng tiếng Việt, tiếng Anh và tiếng Pháp, với buổi cập nhật tiến độ hằng tuần qua video call.' },
+  ],
 };
 
 const generateMobileAppJsonLd = (lang: Lang) => {
@@ -142,11 +168,13 @@ const generateMobileAppJsonLd = (lang: Lang) => {
     fr: 'Développement d\'applications mobiles iOS et Android',
     en: 'Mobile app development for iOS and Android',
     es: 'Desarrollo de aplicaciones móviles iOS y Android',
+    vi: 'Phát triển ứng dụng di động iOS và Android',
   };
   const serviceDesc: Record<Lang, string> = {
     fr: 'Création d\'applications mobiles natives (Swift, Kotlin) et cross-platform (React Native, Flutter) pour startups et PME.',
     en: 'Native (Swift, Kotlin) and cross-platform (React Native, Flutter) mobile app development for startups and SMBs.',
     es: 'Desarrollo de aplicaciones móviles nativas (Swift, Kotlin) y multiplataforma (React Native, Flutter) para startups y pymes.',
+    vi: 'Phát triển ứng dụng di động native (Swift, Kotlin) và đa nền tảng (React Native, Flutter) cho startup và doanh nghiệp.',
   };
 
   const service = {
@@ -175,8 +203,10 @@ const generateMobileAppJsonLd = (lang: Lang) => {
       '@type': 'OfferCatalog',
       name: 'Mobile App Development Packs',
       itemListElement: [
-        { '@type': 'Offer', name: 'Mobile MVP', price: '8900', priceCurrency: 'EUR', description: 'React Native cross-platform MVP, 3-5 screens, store publication.' },
-        { '@type': 'Offer', name: 'Standard App', price: '15900', priceCurrency: 'EUR', description: 'iOS + Android app, 10-15 screens, custom backend, 3 months support.' },
+        // Mode devis intégral en vi (cf. QUOTE_ONLY_LANGS) : aucun montant EUR
+        // n'est exposé dans le balisage pour la locale vietnamienne.
+        { '@type': 'Offer', name: 'Mobile MVP', ...(lang === 'vi' ? {} : { price: '8900', priceCurrency: 'EUR' }), description: 'React Native cross-platform MVP, 3-5 screens, store publication.' },
+        { '@type': 'Offer', name: 'Standard App', ...(lang === 'vi' ? {} : { price: '15900', priceCurrency: 'EUR' }), description: 'iOS + Android app, 10-15 screens, custom backend, 3 months support.' },
         { '@type': 'Offer', name: 'Premium App', description: 'Advanced features (AI, real-time), custom design, scalable architecture, 24/7 SLA.' },
       ],
     },
@@ -213,9 +243,10 @@ export default async function MobileAppDevPage({
     fr: 'Développement Mobile',
     en: 'Mobile Development',
     es: 'Desarrollo Móvil',
+    vi: 'Phát triển ứng dụng di động',
   };
   const breadcrumbData = generateBreadcrumbSchema([
-    { name: language === 'fr' ? 'Accueil' : language === 'es' ? 'Inicio' : 'Home', url: `/${language}` },
+    { name: language === 'fr' ? 'Accueil' : language === 'es' ? 'Inicio' : language === 'vi' ? 'Trang chủ' : 'Home', url: `/${language}` },
     { name: breadcrumbName[language], url: `/${language}/mobile-app-development` },
   ]);
 

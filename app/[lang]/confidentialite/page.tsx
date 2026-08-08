@@ -447,6 +447,153 @@ Nos comprometemos a responder en un plazo de 30 días.`,
       },
     ],
   },
+  vi: {
+    title: 'Chính sách bảo mật',
+    description: 'Chính sách bảo mật của NeuraWeb: cách chúng tôi thu thập, sử dụng và bảo vệ dữ liệu cá nhân của bạn. Tuân thủ GDPR, minh bạch hoàn toàn.',
+    backToHome: 'Về trang chủ',
+    lastUpdate: 'Cập nhật lần cuối: Tháng 6 năm 2026',
+    sections: [
+      {
+        title: '1. Giới thiệu',
+        content: `NeuraWeb (sau đây gọi là "chúng tôi" hoặc "NeuraWeb") cam kết bảo vệ quyền riêng tư của người dùng website https://neuraweb.fr.
+
+Chính sách bảo mật này mô tả cách chúng tôi thu thập, sử dụng, lưu trữ và bảo vệ dữ liệu cá nhân của bạn, theo Quy định chung về bảo vệ dữ liệu của châu Âu (GDPR) và Luật Tin học và Quyền tự do của Pháp. Nếu bạn ở Việt Nam, chúng tôi cũng áp dụng các nguyên tắc của Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân: thu thập đúng mục đích, thông báo rõ ràng và chỉ sử dụng trong phạm vi bạn đã đồng ý.`,
+      },
+      {
+        title: '2. Bên kiểm soát dữ liệu',
+        content: `Bên chịu trách nhiệm xử lý dữ liệu là:
+
+**NeuraWeb**
+SIRET : 991 296 047 00020
+Email : contact@neuraweb.fr
+Điện thoại : +33 7 49 77 56 54`,
+      },
+      {
+        title: '3. Dữ liệu chúng tôi thu thập',
+        content: `Chúng tôi thu thập các dữ liệu sau:
+
+**Dữ liệu bạn tự nguyện cung cấp:**
+- Họ và tên
+- Địa chỉ email
+- Số điện thoại
+- Tên doanh nghiệp / cửa hàng
+- Nội dung tin nhắn liên hệ
+
+**Dữ liệu được thu thập tự động:**
+- Địa chỉ IP (đã ẩn danh)
+- Loại trình duyệt và thiết bị
+- Các trang đã xem và thời gian truy cập
+- Nguồn truy cập (qua Google Analytics)`,
+      },
+      {
+        title: '4. Mục đích xử lý dữ liệu',
+        content: `Dữ liệu của bạn được xử lý nhằm:
+
+- **Phản hồi yêu cầu của bạn**: xử lý biểu mẫu liên hệ và yêu cầu báo giá
+- **Cải thiện dịch vụ**: phân tích ẩn danh cách website được sử dụng
+- **Liên hệ giới thiệu dịch vụ**: chỉ khi bạn đã đồng ý rõ ràng
+- **Nghĩa vụ pháp lý**: lưu trữ chứng từ, hóa đơn theo quy định`,
+      },
+      {
+        title: '5. Cơ sở pháp lý của việc xử lý',
+        content: `Việc xử lý dữ liệu của bạn dựa trên:
+
+- **Sự đồng ý của bạn**: đối với cookie không thiết yếu và bản tin email
+- **Thực hiện hợp đồng**: đối với việc triển khai dự án của khách hàng
+- **Lợi ích hợp pháp**: đối với việc cải thiện chất lượng dịch vụ
+- **Nghĩa vụ pháp lý**: đối với việc lưu trữ dữ liệu kế toán`,
+      },
+      {
+        title: '6. Thời gian lưu trữ',
+        content: `Dữ liệu của bạn được lưu trong thời hạn:
+
+- **Dữ liệu liên hệ**: 3 năm kể từ lần liên hệ gần nhất
+- **Dữ liệu khách hàng**: 10 năm (theo nghĩa vụ kế toán)
+- **Dữ liệu phân tích**: 26 tháng (Google Analytics)
+- **Cookie**: tối đa 13 tháng`,
+      },
+      {
+        title: '7. Bên nhận dữ liệu',
+        content: `Dữ liệu của bạn có thể được chia sẻ với:
+
+- **Vercel Inc.**: lưu trữ website (Hoa Kỳ)
+- **Google LLC**: phân tích lượng truy cập, chỉ khi bạn đã đồng ý với cookie đo lường (Hoa Kỳ)
+- **Mistral AI**: trợ lý trò chuyện của website — chỉ gồm các tin nhắn bạn gửi cho chatbot (Pháp, Liên minh châu Âu)
+- **Resend**: gửi email giao dịch
+- **Supabase**: lưu trữ cơ sở dữ liệu đặt lịch hẹn
+
+Chúng tôi không bao giờ bán dữ liệu của bạn cho bên thứ ba.`,
+      },
+      {
+        title: '8. Chuyển dữ liệu ra nước ngoài',
+        content: `Một số dữ liệu có thể được chuyển sang Hoa Kỳ (Vercel, và Google khi bạn đã đồng ý với cookie phân tích). Việc chuyển dữ liệu này được bảo đảm bởi:
+
+- Các điều khoản hợp đồng mẫu của Ủy ban châu Âu
+- Khuôn khổ Data Privacy Framework (DPF) giữa EU và Hoa Kỳ, thay thế cho Privacy Shield đã bị Tòa án Công lý Liên minh châu Âu vô hiệu năm 2020
+
+Trợ lý trò chuyện của chúng tôi sử dụng Mistral AI — một công ty của Pháp, chịu sự điều chỉnh trực tiếp của GDPR.
+
+Chúng tôi bảo đảm dữ liệu của bạn luôn được bảo vệ ở mức tương đương tiêu chuẩn GDPR.`,
+      },
+      {
+        title: '9. Quyền của bạn',
+        content: `Theo GDPR, bạn có các quyền sau:
+
+- **Quyền truy cập**: nhận một bản sao dữ liệu của bạn
+- **Quyền chỉnh sửa**: sửa các dữ liệu chưa chính xác
+- **Quyền xóa**: yêu cầu xóa dữ liệu của bạn
+- **Quyền hạn chế xử lý**: yêu cầu tạm dừng việc xử lý
+- **Quyền chuyển dữ liệu**: nhận dữ liệu ở định dạng có cấu trúc
+- **Quyền phản đối**: phản đối việc xử lý dữ liệu
+- **Quyền rút lại sự đồng ý**: vào bất kỳ lúc nào
+
+Các quyền tương tự (biết, đồng ý, truy cập, rút lại đồng ý, xóa, hạn chế, phản đối, khiếu nại) cũng được ghi nhận trong Nghị định 13/2023/NĐ-CP nếu bạn là chủ thể dữ liệu tại Việt Nam.
+
+Để thực hiện các quyền này, vui lòng liên hệ: **contact@neuraweb.fr**
+
+Bạn cũng có thể gửi khiếu nại đến cơ quan bảo vệ dữ liệu của Pháp (CNIL): https://www.cnil.fr`,
+      },
+      {
+        title: '10. Cookie',
+        content: `Website của chúng tôi sử dụng cookie:
+
+**Cookie thiết yếu (luôn bật):**
+- Ngôn ngữ hiển thị
+- Giao diện sáng / tối
+- Phiên đăng nhập của người dùng
+
+**Cookie phân tích (chỉ khi bạn đồng ý):**
+- Google Analytics: đo lường lượng truy cập ở dạng ẩn danh
+
+Trong lần truy cập đầu tiên, một thanh thông báo cho phép bạn chấp nhận, từ chối hoặc tùy chỉnh các cookie phân tích này. Không cookie đo lường nào được đặt trước khi bạn đồng ý. Bạn có thể thay đổi lựa chọn bất cứ lúc nào qua liên kết « Quản lý cookie » ở cuối mỗi trang.`,
+      },
+      {
+        title: '11. Bảo mật',
+        content: `Chúng tôi áp dụng các biện pháp bảo mật phù hợp:
+
+- Mã hóa HTTPS (TLS 1.3)
+- Các header bảo mật (CSP, HSTS, X-Frame-Options)
+- Giới hạn quyền truy cập dữ liệu
+- Sao lưu định kỳ
+- Giám sát truy cập`,
+      },
+      {
+        title: '12. Thay đổi chính sách',
+        content: `Chính sách này có thể được cập nhật. Chúng tôi sẽ thông báo cho bạn về mọi thay đổi quan trọng qua email hoặc qua thông báo trên website.
+
+Ngày cập nhật gần nhất được ghi ở đầu trang này.`,
+      },
+      {
+        title: '13. Liên hệ',
+        content: `Nếu bạn có bất kỳ câu hỏi nào về chính sách này hoặc về dữ liệu cá nhân của mình:
+
+**Email**: contact@neuraweb.fr
+**Điện thoại**: +33 7 49 77 56 54
+
+Chúng tôi cam kết phản hồi trong vòng 30 ngày.`,
+      },
+    ],
+  },
 };
 
 export async function generateMetadata({
@@ -455,7 +602,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
   const baseUrl = 'https://neuraweb.fr';
   const content = CONTENT[language] || CONTENT.fr;
 
@@ -468,6 +615,7 @@ export async function generateMetadata({
         fr: `${baseUrl}/fr/confidentialite`,
         en: `${baseUrl}/en/confidentialite`,
         es: `${baseUrl}/es/confidentialite`,
+        vi: `${baseUrl}/vi/confidentialite`,
         'x-default': `${baseUrl}/fr/confidentialite`,
       },
     },
@@ -484,7 +632,7 @@ export default async function ConfidentialitePage({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
   const content = CONTENT[language] || CONTENT.fr;
 
   // Breadcrumb pour navigation SERP

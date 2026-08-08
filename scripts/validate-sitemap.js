@@ -6,7 +6,7 @@ const matter = require('gray-matter');
 
 const ROOT = process.cwd();
 const BASE_URL = 'https://neuraweb.fr';
-const LANGUAGES = ['fr', 'en', 'es'];
+const LANGUAGES = ['fr', 'en', 'es', 'vi'];
 const SITEMAP_PATH = path.join(ROOT, 'app', 'sitemap.ts');
 const CONTENT_DIR = path.join(ROOT, 'content', 'blog');
 

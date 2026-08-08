@@ -28,12 +28,19 @@ const SECTION_LABELS: Record<string, { chip: string; title1: string; title2: str
     subtitle: 'Plazos, precios, IA, automatización — respuestas a las preguntas que más nos hacen.',
     cta: '¿Otra pregunta? Contáctanos',
   },
+  vi: {
+    chip: 'FAQ',
+    title1: 'Câu hỏi',
+    title2: 'thường gặp',
+    subtitle: 'Thời gian, chi phí, AI, tự động hóa — giải đáp những thắc mắc chúng tôi nhận được nhiều nhất.',
+    cta: 'Bạn còn câu hỏi khác? Liên hệ với chúng tôi',
+  },
 };
 
 export function FAQSection() {
   const { language } = useTranslation();
   const labels = SECTION_LABELS[(language as string)] ?? SECTION_LABELS.fr;
-  const items = HOME_FAQ_ITEMS[(language as 'fr' | 'en' | 'es')] ?? HOME_FAQ_ITEMS.fr;
+  const items = HOME_FAQ_ITEMS[(language as 'fr' | 'en' | 'es' | 'vi')] ?? HOME_FAQ_ITEMS.fr;
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (

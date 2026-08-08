@@ -20,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
   const baseUrl = 'https://neuraweb.fr';
 
   // L'IA génère les meta tags optimisés
@@ -42,6 +42,7 @@ export async function generateMetadata({
         fr: `${baseUrl}/fr/booking`,
         en: `${baseUrl}/en/booking`,
         es: `${baseUrl}/es/booking`,
+        vi: `${baseUrl}/vi/booking`,
         'x-default': `${baseUrl}/fr/booking`,
       },
     },
@@ -58,7 +59,7 @@ export async function generateMetadata({
           alt: seo.ogTitle,
         },
       ],
-      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : 'en_US',
+      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : language === 'vi' ? 'vi_VN' : 'en_US',
       type: 'website',
     },
     twitter: {
@@ -115,7 +116,7 @@ export default async function BookingPage({
       <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
       <JsonLd id="booking-service-schema" data={bookingServiceSchema} />
       <BookingPageClient
-        lang={lang as 'fr' | 'en' | 'es'}
+        lang={lang as 'fr' | 'en' | 'es' | 'vi'}
         preselectedService={service}
         preselectedPack={pack}
         initialSlots={initialSlots}

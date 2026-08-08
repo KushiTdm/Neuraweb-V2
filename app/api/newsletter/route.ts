@@ -10,7 +10,7 @@ import { rateLimitRequest, isValidEmail, isHoneypotFilled } from '@/lib/rate-lim
 import { getServiceSupabase } from '@/lib/supabase-server';
 
 const BASE_URL = 'https://neuraweb.fr';
-const SUPPORTED_LANGUAGES = ['fr', 'en', 'es'];
+const SUPPORTED_LANGUAGES = ['fr', 'en', 'es', 'vi'];
 
 function unsubscribeUrl(token: string): string {
   return `${BASE_URL}/api/newsletter?token=${encodeURIComponent(token)}`;

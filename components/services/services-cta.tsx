@@ -6,7 +6,7 @@ import { MessageCircle, ArrowRight } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
 
 interface ServicesCTAProps {
-  language?: 'fr' | 'en' | 'es';
+  language?: 'fr' | 'en' | 'es' | 'vi';
 }
 
 export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
@@ -57,6 +57,20 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
         'servicePage.cta.feature1': 'Respuesta en 24h',
         'servicePage.cta.feature2': 'Presupuesto gratis',
         'servicePage.cta.feature3': 'Sin compromiso',
+      },
+      vi: {
+        'servicePage.cta.title.word1': 'Prêt',
+        'servicePage.cta.title.word2': 'à',
+        'servicePage.cta.title.word3': 'lancer',
+        'servicePage.cta.title.word4': 'votre',
+        'servicePage.cta.title.word5': 'projet',
+        'servicePage.cta.title.word6': 'avec',
+        'servicePage.cta.title.word7': 'nous ?',
+        'servicePage.cta.subtitle': 'Discutons de vos objectifs et transformons votre vision en réalité',
+        'servicePage.cta.button': 'Demander un devis',
+        'servicePage.cta.feature1': 'Réponse sous 24h',
+        'servicePage.cta.feature2': 'Devis gratuit',
+        'servicePage.cta.feature3': 'Sans engagement',
       },
     };
     return translations[language]?.[key] || key;

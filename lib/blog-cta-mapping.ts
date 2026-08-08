@@ -25,13 +25,13 @@ export interface ServiceCTAContent {
   key: ServiceKey;
   href: string;
   /** Petit eyebrow ("Service en lien", etc.) */
-  eyebrow: { fr: string; en: string; es: string };
+  eyebrow: Record<SidebarLanguage, string>;
   /** Titre de la carte service */
-  title: { fr: string; en: string; es: string };
+  title: Record<SidebarLanguage, string>;
   /** Description courte 1-2 lignes */
-  description: { fr: string; en: string; es: string };
+  description: Record<SidebarLanguage, string>;
   /** Label du bouton */
-  cta: { fr: string; en: string; es: string };
+  cta: Record<SidebarLanguage, string>;
 }
 
 const SERVICES: Record<ServiceKey, ServiceCTAContent> = {
@@ -42,21 +42,25 @@ const SERVICES: Record<ServiceKey, ServiceCTAContent> = {
       fr: 'Service en lien',
       en: 'Related service',
       es: 'Servicio relacionado',
+      vi: 'Dịch vụ liên quan',
     },
     title: {
       fr: 'Automatisation IA & workflows',
       en: 'AI automation & workflows',
       es: 'Automatización IA y flujos',
+      vi: 'Tự động hóa & quy trình AI',
     },
     description: {
       fr: 'n8n, Make, agents IA : automatisez vos relances, vos leads et vos process. Setup en quelques jours.',
       en: 'n8n, Make, AI agents: automate follow-ups, leads and processes. Setup in days.',
       es: 'n8n, Make, agentes IA: automatiza seguimientos, leads y procesos. Configuración en días.',
+      vi: 'n8n, Make, AI agent: tự động hóa việc nhắc khách, quản lý khách tiềm năng và quy trình nội bộ. Triển khai trong vài ngày.',
     },
     cta: {
       fr: 'Découvrir le service',
       en: 'Discover the service',
       es: 'Descubrir el servicio',
+      vi: 'Tìm hiểu dịch vụ',
     },
   },
   'integration-ia': {
@@ -66,21 +70,25 @@ const SERVICES: Record<ServiceKey, ServiceCTAContent> = {
       fr: 'Service en lien',
       en: 'Related service',
       es: 'Servicio relacionado',
+      vi: 'Dịch vụ liên quan',
     },
     title: {
       fr: 'Intégration IA sur votre site',
       en: 'AI integration on your site',
       es: 'Integración IA en tu sitio',
+      vi: 'Tích hợp AI vào website',
     },
     description: {
       fr: 'Chatbot, recommandations, recherche sémantique : transformez votre site en machine à conversions.',
       en: 'Chatbot, recommendations, semantic search: turn your site into a conversion machine.',
       es: 'Chatbot, recomendaciones, búsqueda semántica: convierte tu sitio en una máquina de conversiones.',
+      vi: 'Chatbot, gợi ý sản phẩm, tìm kiếm thông minh: biến website thành cỗ máy mang khách về.',
     },
     cta: {
       fr: 'Découvrir le service',
       en: 'Discover the service',
       es: 'Descubrir el servicio',
+      vi: 'Tìm hiểu dịch vụ',
     },
   },
   'developpement-web': {
@@ -90,21 +98,25 @@ const SERVICES: Record<ServiceKey, ServiceCTAContent> = {
       fr: 'Service en lien',
       en: 'Related service',
       es: 'Servicio relacionado',
+      vi: 'Dịch vụ liên quan',
     },
     title: {
       fr: 'Sites web sur-mesure',
       en: 'Tailor-made websites',
       es: 'Sitios web a medida',
+      vi: 'Website thiết kế riêng',
     },
     description: {
       fr: 'Next.js, performance Core Web Vitals, SEO technique. Packs à partir de 1 490 €.',
       en: 'Next.js, Core Web Vitals performance, technical SEO. Packs from €1,490.',
       es: 'Next.js, rendimiento Core Web Vitals, SEO técnico. Packs desde 1.490 €.',
+      vi: 'Next.js, tốc độ Core Web Vitals, chuẩn SEO kỹ thuật. Có gói Landing Page Express 1.290.000 VND cho cửa hàng nhỏ.',
     },
     cta: {
       fr: 'Voir les packs',
       en: 'See the packs',
       es: 'Ver los packs',
+      vi: 'Xem các gói dịch vụ',
     },
   },
   restaurants: {
@@ -114,21 +126,25 @@ const SERVICES: Record<ServiceKey, ServiceCTAContent> = {
       fr: 'Service en lien',
       en: 'Related service',
       es: 'Servicio relacionado',
+      vi: 'Dịch vụ liên quan',
     },
     title: {
       fr: 'Sites pour restaurants',
       en: 'Restaurant websites',
       es: 'Sitios para restaurantes',
+      vi: 'Website cho nhà hàng & quán ăn',
     },
     description: {
       fr: 'Réservations directes, click & collect, fidélité : reprenez la main sur vos commissions.',
       en: 'Direct bookings, click & collect, loyalty: take back control of your commissions.',
       es: 'Reservas directas, click & collect, fidelización: recupera el control de tus comisiones.',
+      vi: 'Đặt bàn trực tiếp, đặt món mang về, chăm sóc khách quen: giảm phụ thuộc vào app giao đồ ăn.',
     },
     cta: {
       fr: 'Voir l’offre restauration',
       en: 'See the restaurant offer',
       es: 'Ver la oferta restauración',
+      vi: 'Xem giải pháp nhà hàng',
     },
   },
   'mobile-app': {
@@ -138,21 +154,25 @@ const SERVICES: Record<ServiceKey, ServiceCTAContent> = {
       fr: 'Service en lien',
       en: 'Related service',
       es: 'Servicio relacionado',
+      vi: 'Dịch vụ liên quan',
     },
     title: {
       fr: 'Applications mobiles',
       en: 'Mobile applications',
       es: 'Aplicaciones móviles',
+      vi: 'Ứng dụng di động',
     },
     description: {
       fr: 'Apps iOS & Android natives ou cross-platform, conçues pour vos clients et vos équipes.',
       en: 'Native or cross-platform iOS & Android apps, designed for your customers and teams.',
       es: 'Apps iOS y Android nativas o multiplataforma, diseñadas para tus clientes y equipos.',
+      vi: 'Ứng dụng iOS & Android native hoặc đa nền tảng, thiết kế riêng cho khách hàng và đội ngũ của bạn.',
     },
     cta: {
       fr: 'Découvrir le service',
       en: 'Discover the service',
       es: 'Descubrir el servicio',
+      vi: 'Tìm hiểu dịch vụ',
     },
   },
   services: {
@@ -162,21 +182,25 @@ const SERVICES: Record<ServiceKey, ServiceCTAContent> = {
       fr: 'Service en lien',
       en: 'Related service',
       es: 'Servicio relacionado',
+      vi: 'Dịch vụ liên quan',
     },
     title: {
       fr: 'Web, IA & automatisation',
       en: 'Web, AI & automation',
       es: 'Web, IA y automatización',
+      vi: 'Web, AI & tự động hóa',
     },
     description: {
       fr: 'Découvrez l’ensemble de nos prestations sur-mesure pour PME et indépendants.',
       en: 'Discover our full range of tailor-made services for SMBs and freelancers.',
       es: 'Descubre toda nuestra gama de servicios a medida para pymes y autónomos.',
+      vi: 'Khám phá toàn bộ dịch vụ thiết kế riêng của NeuraWeb dành cho doanh nghiệp và hộ kinh doanh.',
     },
     cta: {
       fr: 'Voir nos services',
       en: 'See our services',
       es: 'Ver nuestros servicios',
+      vi: 'Xem tất cả dịch vụ',
     },
   },
 };
@@ -250,7 +274,7 @@ export function getServiceForPost(
   return SERVICES.services;
 }
 
-export type SidebarLanguage = 'fr' | 'en' | 'es';
+export type SidebarLanguage = 'fr' | 'en' | 'es' | 'vi';
 
 export interface SidebarTranslations {
   service: ServiceCTAContent;
@@ -300,6 +324,16 @@ export const SIDEBAR_COPY = {
       badge: 'Gratis',
       value: 'Valor 490 €',
     },
+    // Version vi : aucune valeur en EUR (règle prix du marché vietnamien).
+    vi: {
+      eyebrow: 'Miễn phí',
+      title: 'Rà soát website & AI miễn phí',
+      description:
+        '30 phút cùng chuyên gia NeuraWeb: xác định 3 việc cần làm ngay về SEO, AI và tỷ lệ chuyển đổi.',
+      cta: 'Đặt lịch rà soát',
+      badge: 'Miễn phí',
+      value: 'Không mất phí, không ràng buộc',
+    },
   },
   booking: {
     fr: {
@@ -325,6 +359,14 @@ export const SIDEBAR_COPY = {
         'Llamada de descubrimiento de 30 min: haz tus preguntas, esbozamos una primera vía concreta.',
       cta: 'Reservar una cita',
       duration: '30 min · sin compromiso',
+    },
+    vi: {
+      eyebrow: 'Trao đổi trực tiếp',
+      title: 'Cùng bàn về dự án của bạn',
+      description:
+        'Buổi trao đổi 30 phút: bạn đặt câu hỏi, bên mình phác thảo hướng triển khai đầu tiên.',
+      cta: 'Đặt lịch tư vấn',
+      duration: '30 phút · không ràng buộc',
     },
   },
 } as const;

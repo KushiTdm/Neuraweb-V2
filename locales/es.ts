@@ -5,7 +5,8 @@ export const es: Record<TranslationKey, string> = {
 
   // Chatbot
   'chatbot.title': 'Asistente NeuraWeb',
-  'chatbot.greeting': '¡Hola! 👋 Soy el asistente NeuraWeb. ¿Cómo puedo ayudarte hoy? No dudes en hacerme preguntas sobre nuestros servicios de desarrollo web, automatización o integración de IA.',
+  'chatbot.aiTag': 'Asistente IA',
+  'chatbot.greeting': '¡Hola! 👋 Estás hablando con el asistente de IA de NeuraWeb. ¿Cómo puedo ayudarte hoy? No dudes en hacerme preguntas sobre nuestros servicios de desarrollo web, automatización o integración de IA.',
   'chatbot.placeholder': 'Haz tu pregunta...',
   'chatbot.send': 'Enviar',
   'chatbot.close': 'Cerrar chat',
@@ -189,6 +190,9 @@ export const es: Record<TranslationKey, string> = {
   'cta.guaranteedGrowth': 'Crecimiento garantizado',
   'cta.secure': '100% Seguro',
   'cta.dedicatedSupport': 'Soporte dedicado',
+  'cta.callDuration': 'Llamada 30 min · Gratis',
+  'cta.discoveryDescription': 'Hable con nuestro equipo durante 30 minutos. Presente su proyecto, obtenga una primera opinión técnica y explore las vías de optimización adaptadas a su actividad.',
+  'cta.bookSlot': 'Reservar una cita',
 
   // Footer
   'footer.company.description': 'Soluciones web innovadoras y automatización inteligente para tu empresa.',

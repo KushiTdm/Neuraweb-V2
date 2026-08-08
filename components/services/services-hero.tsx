@@ -21,6 +21,10 @@ const SSR_CONTENT: Record<string, { title: string; subtitle: string }> = {
     title: 'Desarrollo Web a Medida',
     subtitle: 'Sitios vitrina, webs profesionales y e-commerce en Next.js — rendimiento, SEO y diseño. Presupuesto gratis en 24h.',
   },
+  vi: {
+    title: 'Développement Web Sur Mesure',
+    subtitle: 'Sites vitrine, business et e-commerce Next.js — performance, SEO et design. Devis gratuit sous 24h.',
+  },
 };
 
 export function ServicesHero() {

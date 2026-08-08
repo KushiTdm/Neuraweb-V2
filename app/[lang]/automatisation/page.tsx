@@ -6,12 +6,12 @@ import { generateBreadcrumbSchema } from '@/lib/structured-data';
 const BASE_URL = 'https://neuraweb.fr';
 const PAGE_SLUG = 'automatisation';
 
-type Lang = 'fr' | 'en' | 'es';
+type Lang = 'fr' | 'en' | 'es' | 'vi';
 
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  return [{ lang: 'fr' }, { lang: 'en' }, { lang: 'es' }];
+  return [{ lang: 'fr' }, { lang: 'en' }, { lang: 'es' }, { lang: 'vi' }];
 }
 
 const META: Record<Lang, {
@@ -77,6 +77,25 @@ const META: Record<Lang, {
     ],
     locale: 'es_ES',
   },
+  vi: {
+    title: 'Tự động hóa n8n, Make & AI Agent cho doanh nghiệp | NeuraWeb',
+    description: 'Tự động hóa quy trình với n8n, Make hoặc Zapier: workflow riêng, AI agent, đồng bộ CRM. Tư vấn miễn phí, báo giá theo nhu cầu, trao đổi Việt – Anh – Pháp.',
+    keywords: [
+      'tự động hóa quy trình',
+      'tự động hóa n8n',
+      'n8n Việt Nam',
+      'Make Integromat Việt Nam',
+      'workflow tự động doanh nghiệp',
+      'AI agent sàng lọc khách hàng',
+      'tự động hóa CRM',
+      'đồng bộ dữ liệu tự động',
+      'tự động hóa không cần lập trình',
+      'công ty tự động hóa Hà Nội',
+      'Zapier cho doanh nghiệp',
+      'AI agent bán hàng',
+    ],
+    locale: 'vi_VN',
+  },
 };
 
 export async function generateMetadata({
@@ -100,6 +119,7 @@ export async function generateMetadata({
         fr: `${BASE_URL}/fr/${PAGE_SLUG}`,
         en: `${BASE_URL}/en/${PAGE_SLUG}`,
         es: `${BASE_URL}/es/${PAGE_SLUG}`,
+        vi: `${BASE_URL}/vi/${PAGE_SLUG}`,
         'x-default': `${BASE_URL}/fr/${PAGE_SLUG}`,
       },
     },
@@ -164,6 +184,19 @@ const serviceSchema = {
   },
 };
 
+/**
+ * La version vietnamienne du site est commercialisée en mode devis intégral :
+ * on retire `hasOfferCatalog` (donc les montants EUR) pour `lang === 'vi'`,
+ * comme le fait déjà `getProfessionalServiceSchema` dans lib/structured-data.
+ */
+function serviceSchemaForLang(lang: Lang): Record<string, unknown> {
+  if (lang === 'vi') {
+    const { hasOfferCatalog: _omitted, ...withoutOffers } = serviceSchema;
+    return withoutOffers;
+  }
+  return serviceSchema;
+}
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -195,10 +228,51 @@ const faqSchema = {
   ],
 };
 
+/**
+ * Ce FAQPage schema était injecté tel quel (français, prix EUR) sur toutes les
+ * langues, y compris vi — bug indépendant du chantier de localisation, corrigé
+ * ici pour vi uniquement (fr/en/es inchangés, aucune régression possible).
+ */
+const faqSchemaVi = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'n8n, Make và Zapier khác nhau như thế nào?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Make là lựa chọn mặc định phù hợp với hầu hết doanh nghiệp: khoảng 12€/tháng cho 10.000 thao tác, máy chủ đặt tại châu Âu. n8n cần thiết khi bạn triển khai AI agent tự vận hành hoặc xử lý dữ liệu nhạy cảm — bản Community miễn phí nếu tự host. Zapier phù hợp để bắt đầu nhanh nhưng chi phí tăng mạnh khi mở rộng quy mô.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Bao lâu thì thấy được hiệu quả (ROI)?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Với một workflow đơn giản, hiệu quả thấy ngay lập tức. Với một AI agent sàng lọc khách hàng, thường mất 2 đến 4 tuần. Phần lớn khách hàng của chúng tôi thu hồi vốn đầu tư trong vòng chưa đầy 3 tháng.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Buổi tư vấn miễn phí diễn ra như thế nào?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Một cuộc gọi 30 đến 60 phút. Chúng tôi phân tích công cụ, quy trình hiện tại và những tác vụ tốn thời gian nhất của bạn. Bạn nhận được danh sách ưu tiên các workflow nên tự động hóa, công cụ đề xuất và ước tính hiệu quả — không ràng buộc. Chi phí triển khai thực tế sẽ được báo giá riêng sau buổi tư vấn.',
+      },
+    },
+  ],
+};
+
+function faqSchemaForLang(lang: Lang) {
+  return lang === 'vi' ? faqSchemaVi : faqSchema;
+}
+
 const BREADCRUMB_NAMES: Record<Lang, [string, string]> = {
   fr: ['Accueil', 'Automatisation'],
   en: ['Home', 'Automation'],
   es: ['Inicio', 'Automatización'],
+  vi: ['Trang chủ', 'Tự động hóa'],
 };
 
 export default async function AutomatisationPage({
@@ -217,8 +291,8 @@ export default async function AutomatisationPage({
 
   return (
     <>
-      <JsonLd id="automatisation-service" data={serviceSchema} />
-      <JsonLd id="automatisation-faq" data={faqSchema} />
+      <JsonLd id="automatisation-service" data={serviceSchemaForLang(l)} />
+      <JsonLd id="automatisation-faq" data={faqSchemaForLang(l)} />
       <JsonLd id="automatisation-breadcrumb" data={breadcrumbData} />
       <AutomatisationPageClient lang={l} />
     </>

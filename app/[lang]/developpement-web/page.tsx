@@ -17,7 +17,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
   const baseUrl = 'https://neuraweb.fr';
   const ogImage = `${baseUrl}/assets/og-image.png`;
 
@@ -37,6 +37,7 @@ export async function generateMetadata({
         fr: `${baseUrl}/fr/developpement-web`,
         en: `${baseUrl}/en/developpement-web`,
         es: `${baseUrl}/es/developpement-web`,
+        vi: `${baseUrl}/vi/developpement-web`,
         'x-default': `${baseUrl}/fr/developpement-web`,
       },
     },
@@ -53,7 +54,7 @@ export async function generateMetadata({
           alt: seo.ogTitle,
         },
       ],
-      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : 'en_US',
+      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : language === 'vi' ? 'vi_VN' : 'en_US',
       type: 'website',
     },
     twitter: {
@@ -66,6 +67,10 @@ export async function generateMetadata({
   };
 }
 
+// La version vietnamienne du site est commercialisée en mode devis intégral :
+// aucun montant EUR fixe n'est exposé (ni à l'écran, ni dans le balisage), on
+// omet donc `hasOfferCatalog` pour `lang === 'vi'` — même règle que
+// `getProfessionalServiceSchema` dans lib/structured-data.
 const generateServiceJsonLd = (lang: string) => ({
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -81,7 +86,7 @@ const generateServiceJsonLd = (lang: string) => ({
     url: 'https://neuraweb.fr',
   },
   areaServed: 'Worldwide',
-  hasOfferCatalog: {
+  ...(lang === 'vi' ? {} : { hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name:
       lang === 'fr'
@@ -139,7 +144,7 @@ const generateServiceJsonLd = (lang: string) => ({
         },
       },
     ],
-  },
+  } }),
 });
 
 export default async function DeveloppementWebPage({
@@ -153,6 +158,7 @@ export default async function DeveloppementWebPage({
     fr: { home: 'Accueil', page: 'Développement Web' },
     en: { home: 'Home', page: 'Web Development' },
     es: { home: 'Inicio', page: 'Desarrollo Web' },
+    vi: { home: 'Trang chủ', page: 'Thiết kế website' },
   };
   const names = breadcrumbNames[lang as keyof typeof breadcrumbNames] ?? breadcrumbNames.fr;
 
@@ -165,7 +171,7 @@ export default async function DeveloppementWebPage({
     <>
       <JsonLd id="services-schema" data={generateServiceJsonLd(lang)} />
       <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
-      <DeveloppementWebPageClient lang={lang as 'fr' | 'en' | 'es'} />
+      <DeveloppementWebPageClient lang={lang as 'fr' | 'en' | 'es' | 'vi'} />
 
     </>
   );

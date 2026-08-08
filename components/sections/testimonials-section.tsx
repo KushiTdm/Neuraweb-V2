@@ -20,6 +20,7 @@ const SECTION_LABELS: Record<string, { chip: string; title: string; cta: string 
   fr: { chip: 'Témoignages', title: 'Ce que nos clients disent de NeuraWeb', cta: 'Démarrer un projet' },
   en: { chip: 'Testimonials', title: 'What our clients say about NeuraWeb',  cta: 'Start a project'   },
   es: { chip: 'Testimonios',  title: 'Lo que nuestros clientes dicen de NeuraWeb', cta: 'Iniciar un proyecto' },
+  vi: { chip: 'Đánh giá',     title: 'Khách hàng nói gì về NeuraWeb',        cta: 'Bắt đầu dự án'      },
 };
 
 export function TestimonialsSection() {

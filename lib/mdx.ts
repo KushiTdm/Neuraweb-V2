@@ -1,7 +1,7 @@
 // ============================================================
 // MDX BLOG SYSTEM
 // Gestion des articles via fichiers Markdown/MDX
-// Support multilingue (FR, EN, ES)
+// Support multilingue (FR, EN, ES, VI)
 // ============================================================
 
 import fs from 'fs';
@@ -9,7 +9,7 @@ import path from 'path';
 import matter from 'gray-matter';
 
 // ── Types ───────────────────────────────────────────────────────────────────
-export type Language = 'fr' | 'en' | 'es';
+export type Language = 'fr' | 'en' | 'es' | 'vi';
 
 export interface FaqItem {
   question: string;
@@ -67,6 +67,7 @@ const LANGUAGE_FOLDERS: Record<Language, string> = {
   fr: CONTENT_DIR,           // French articles at root
   en: path.join(CONTENT_DIR, 'en'),  // English in /en subfolder
   es: path.join(CONTENT_DIR, 'es'),  // Spanish in /es subfolder
+  vi: path.join(CONTENT_DIR, 'vi'),  // Vietnamese in /vi subfolder
 };
 
 // ── Get all blog post slugs for a specific language ─────────────────────────
@@ -211,7 +212,7 @@ export function getPostBySlugWithFallback(slug: string, preferredLanguage: Langu
 
 // ── Get all posts slugs across all languages ─────────────────────────────────
 export function getAllPostSlugsAllLanguages(): { slug: string; language: Language }[] {
-  const languages: Language[] = ['fr', 'en', 'es'];
+  const languages: Language[] = ['fr', 'en', 'es', 'vi'];
   const allSlugs: { slug: string; language: Language }[] = [];
   
   for (const lang of languages) {

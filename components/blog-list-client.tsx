@@ -26,12 +26,14 @@ interface BlogListClientProps {
   postsFr: BlogPostMeta[];
   postsEn: BlogPostMeta[];
   postsEs: BlogPostMeta[];
+  postsVi: BlogPostMeta[];
   featuredFr: BlogPostMeta[];
   featuredEn: BlogPostMeta[];
   featuredEs: BlogPostMeta[];
+  featuredVi: BlogPostMeta[];
 }
 
-export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featuredEn, featuredEs }: BlogListClientProps) {
+export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr, featuredEn, featuredEs, featuredVi }: BlogListClientProps) {
   const { language } = useLanguage();
   const [mounted, setMounted] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -56,13 +58,13 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
   // Auto-advance featured carousel
   useEffect(() => {
     if (!mounted) return;
-    const featuredPosts = language === 'en' ? featuredEn : language === 'es' ? featuredEs : featuredFr;
+    const featuredPosts = language === 'en' ? featuredEn : language === 'es' ? featuredEs : language === 'vi' ? featuredVi : featuredFr;
     if (featuredPosts.length <= 1) return;
     const timer = setInterval(() => {
       setFeaturedIndex((i) => (i + 1) % featuredPosts.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [mounted, language, featuredFr, featuredEn, featuredEs]);
+  }, [mounted, language, featuredFr, featuredEn, featuredEs, featuredVi]);
 
   useEffect(() => {
     if (!mounted) return;
@@ -91,8 +93,8 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
     trackCTA({ cta_name: 'blog_contact_cta', cta_location: 'blog_page', destination: '/contact', language });
   };
 
-  const allPosts = language === 'en' ? postsEn : language === 'es' ? postsEs : postsFr;
-  const featuredPosts = language === 'en' ? featuredEn : language === 'es' ? featuredEs : featuredFr;
+  const allPosts = language === 'en' ? postsEn : language === 'es' ? postsEs : language === 'vi' ? postsVi : postsFr;
+  const featuredPosts = language === 'en' ? featuredEn : language === 'es' ? featuredEs : language === 'vi' ? featuredVi : featuredFr;
 
   // Sort all posts by date descending to find the latest
   const sortedByRecent = useMemo(
@@ -204,13 +206,34 @@ export function BlogListClient({ postsFr, postsEn, postsEs, featuredFr, featured
       subscribe: 'Suscribirse',
       by: 'por',
     },
+    vi: {
+      title: 'Blog',
+      subtitle: 'Bài viết, hướng dẫn và kinh nghiệm thực tế về website, AI và tự động hóa.',
+      intro: 'Chào mừng bạn đến với blog NeuraWeb — nơi chủ cửa hàng, hộ kinh doanh và doanh nghiệp vừa và nhỏ tại Việt Nam tìm được những kiến thức thực tế về công nghệ web. Mỗi tuần, đội ngũ lập trình viên và chuyên gia AI của chúng tôi chia sẻ hướng dẫn từng bước, phân tích chuyên sâu và các tình huống có thật xoay quanh ba chủ đề chính: thiết kế website với Next.js và React, ứng dụng trí tuệ nhân tạo vào công việc kinh doanh hằng ngày, và tự động hóa quy trình bằng n8n, Make hay Zapier. Dù bạn đang muốn có một trang giới thiệu cửa hàng để khách tìm thấy trên Google, làm mới website doanh nghiệp, triển khai chatbot AI trả lời khách 24/7, giảm phụ thuộc vào các app đặt món, hay hiểu rõ cách làm SEO năm 2026 — bạn đều tìm được câu trả lời áp dụng được ngay. Chúng tôi viết theo hướng kết quả: không nội dung chung chung, chỉ có tình huống cụ thể, con số thật và những việc bạn có thể bắt tay làm ngay.',
+      featuredBadge: 'NỔI BẬT',
+      readArticle: 'Đọc bài viết',
+      searchPlaceholder: 'Tìm bài viết, từ khóa...',
+      dateLabel: 'Ngày đăng',
+      contentType: 'Loại nội dung',
+      reset: 'Đặt lại',
+      newest: 'Mới nhất',
+      oldest: 'Cũ nhất',
+      allTypes: 'Tất cả loại nội dung',
+      allArticles: 'Tất cả bài viết',
+      noResults: 'Không có bài viết nào phù hợp với tìm kiếm của bạn.',
+      newsletter: 'Cập nhật cùng NeuraWeb',
+      newsletterDesc: 'Nhận bài viết và tài liệu mới nhất của chúng tôi qua email.',
+      emailPlaceholder: 'Địa chỉ email của bạn',
+      subscribe: 'Đăng ký',
+      by: 'bởi',
+    },
   };
 
-  const tr = t[language as 'fr' | 'en' | 'es'] || t.fr;
+  const tr = t[language as 'fr' | 'en' | 'es' | 'vi'] || t.fr;
 
   const formatDate = (dateStr: string) =>
     new Date(dateStr).toLocaleDateString(
-      language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : 'fr-FR',
+      language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : language === 'vi' ? 'vi-VN' : 'fr-FR',
       { day: 'numeric', month: 'short', year: 'numeric' }
     );
 

@@ -3,7 +3,7 @@ import { HomePageClient } from '@/components/home-page-client';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { JsonLd } from '@/components/json-ld';
-import { professionalServiceSchema, generateFaqSchema, HOME_FAQ_ITEMS, localBusinessSchema } from '@/lib/structured-data';
+import { getProfessionalServiceSchema, generateFaqSchema, HOME_FAQ_ITEMS, localBusinessSchema } from '@/lib/structured-data';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { generateAISEO } from '@/lib/seo-ai-server';
 
@@ -20,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
   const baseUrl = 'https://neuraweb.fr';
 
   // ✅ CORRIGÉ : chemin de l'image OG (était /og-image.png)
@@ -43,6 +43,7 @@ export async function generateMetadata({
         fr: `${baseUrl}/fr`,
         en: `${baseUrl}/en`,
         es: `${baseUrl}/es`,
+        vi: `${baseUrl}/vi`,
         'x-default': `${baseUrl}/fr`,
       },
     },
@@ -59,7 +60,7 @@ export async function generateMetadata({
           alt: seo.ogTitle,
         },
       ],
-      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : 'en_US',
+      locale: language === 'fr' ? 'fr_FR' : language === 'es' ? 'es_ES' : language === 'vi' ? 'vi_VN' : 'en_US',
       type: 'website',
     },
     twitter: {
@@ -78,11 +79,13 @@ export default async function HomePage({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const language = (lang as 'fr' | 'en' | 'es') || 'fr';
+  const language = (lang as 'fr' | 'en' | 'es' | 'vi') || 'fr';
 
   return (
     <>
-      <JsonLd id="professional-service-schema" data={professionalServiceSchema} />
+      {/* ProfessionalService — lang-aware : la version vi est en mode devis,
+          le catalogue de prix EUR fixes en est retiré. */}
+      <JsonLd id="professional-service-schema" data={getProfessionalServiceSchema(language)} />
       {/* FAQ localisée — même source que la section FAQ visible (HOME_FAQ_ITEMS) */}
       <JsonLd id="home-faq-schema" data={generateFaqSchema(HOME_FAQ_ITEMS[language] ?? HOME_FAQ_ITEMS.fr)} />
       {/* LocalBusiness — porte l'aggregateRating (étoiles SERP). Restreint aux pages

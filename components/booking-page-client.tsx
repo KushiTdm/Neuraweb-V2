@@ -5,6 +5,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { Calendar, Clock, User, Mail, Phone, MessageSquare, Building, CheckCircle, Loader2, ArrowLeft } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
+import { WhatsAppContactButton } from '@/components/whatsapp-contact-button';
 
 function sendGAEvent(event: string, params: Record<string, unknown>) {
   if (typeof window === 'undefined') return;
@@ -20,7 +21,7 @@ interface Slot {
 }
 
 interface BookingPageClientProps {
-  lang: 'fr' | 'en' | 'es';
+  lang: 'fr' | 'en' | 'es' | 'vi';
   preselectedService?: string;
   preselectedPack?: string;
   /** Créneaux disponibles, déjà résolus côté serveur — évite un fetch client au montage. */
@@ -132,7 +133,47 @@ const translations = {
       premium: 'Pack Premium - 7.990€',
       ai: 'Pack IA - Bajo presupuesto'
     }
-  }
+  },
+  // vi — tarification à deux vitesses : seule l'offre d'appel Landing Page Express
+  // affiche un prix ; tous les autres packs passent en mode devis (« Theo báo giá »),
+  // sur le modèle du `ai: 'Pack IA - Sur devis'` déjà utilisé en fr/en/es.
+  vi: {
+    title: 'Đặt lịch hẹn',
+    subtitle: 'Chọn một khung giờ để trao đổi về dự án của bạn',
+    step1: 'Khung giờ',
+    step2: 'Thông tin của bạn',
+    selectDate: 'Chọn ngày',
+    selectTime: 'Chọn giờ',
+    noSlots: 'Không còn khung giờ trống',
+    loading: 'Đang tải khung giờ...',
+    name: 'Họ và tên *',
+    email: 'Email của bạn *',
+    phone: 'Số điện thoại',
+    whatsapp: 'Zalo / WhatsApp (để gọi)',
+    company: 'Doanh nghiệp',
+    service: 'Dịch vụ quan tâm',
+    pack: 'Gói đã chọn',
+    message: 'Lời nhắn (không bắt buộc)',
+    submit: 'Xác nhận lịch hẹn',
+    submitting: 'Đang đặt lịch...',
+    back: 'Quay lại',
+    backToHome: 'Về trang chủ',
+    success: 'Đã xác nhận lịch hẹn!',
+    successMessage: 'Bạn sẽ nhận được email xác nhận. Hẹn gặp lại!',
+    error: 'Có lỗi khi đặt lịch',
+    consentPrefix: 'Tôi đồng ý cho phép sử dụng dữ liệu của mình để xử lý yêu cầu, theo',
+    consentLink: 'chính sách bảo mật',
+    consentSuffix: '.',
+    services: ['Thiết kế website', 'Ứng dụng di động', 'Tích hợp AI', 'Tự động hoá', 'Website nhà hàng', 'Website y tế', 'Tư vấn AI', 'Khác'],
+    packs: {
+      landing: 'Landing Page Express - 1.290.000 VND (Ưu đãi ra mắt)',
+      starter: 'Gói Starter - Theo báo giá',
+      business: 'Gói Business - Theo báo giá',
+      premium: 'Gói Premium - Theo báo giá',
+      ai: 'Gói AI - Theo báo giá'
+    },
+    whatsappPrompt: 'Hoặc nhắn tin trực tiếp cho chúng tôi:',
+  },
 };
 
 export function BookingPageClient({ lang, preselectedService, preselectedPack, initialSlots }: BookingPageClientProps) {
@@ -149,17 +190,17 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
   const [selectedTime, setSelectedTime] = useState('');
   // Mapping des services de l'URL vers les labels affichés
   const serviceMapping: Record<string, Record<string, string>> = {
-    'audit-ia': { fr: 'Audit IA', en: 'AI Audit', es: 'Auditoría IA' },
-    'audit': { fr: 'Audit IA', en: 'AI Audit', es: 'Auditoría IA' },
-    'devis': { fr: 'Développement Web', en: 'Web Development', es: 'Desarrollo Web' },
-    'developpement-web': { fr: 'Développement Web', en: 'Web Development', es: 'Desarrollo Web' },
-    'mobile': { fr: 'Application Mobile', en: 'Mobile App', es: 'Aplicación Móvil' },
-    'integration-ia': { fr: 'Intégration IA', en: 'AI Integration', es: 'Integración IA' },
-    'automatisation': { fr: 'Automatisation', en: 'Automation', es: 'Automatización' },
-    'restaurant': { fr: 'Site Restaurant', en: 'Restaurant Website', es: 'Sitio Restaurante' },
-    'sante': { fr: 'Site Santé', en: 'Healthcare Website', es: 'Sitio Salud' },
-    'appel': { fr: 'Autre', en: 'Other', es: 'Otro' },
-    'renseignement': { fr: 'Autre', en: 'Other', es: 'Otro' },
+    'audit-ia': { fr: 'Audit IA', en: 'AI Audit', es: 'Auditoría IA', vi: 'Tư vấn AI' },
+    'audit': { fr: 'Audit IA', en: 'AI Audit', es: 'Auditoría IA', vi: 'Tư vấn AI' },
+    'devis': { fr: 'Développement Web', en: 'Web Development', es: 'Desarrollo Web', vi: 'Thiết kế website' },
+    'developpement-web': { fr: 'Développement Web', en: 'Web Development', es: 'Desarrollo Web', vi: 'Thiết kế website' },
+    'mobile': { fr: 'Application Mobile', en: 'Mobile App', es: 'Aplicación Móvil', vi: 'Ứng dụng di động' },
+    'integration-ia': { fr: 'Intégration IA', en: 'AI Integration', es: 'Integración IA', vi: 'Tích hợp AI' },
+    'automatisation': { fr: 'Automatisation', en: 'Automation', es: 'Automatización', vi: 'Tự động hoá' },
+    'restaurant': { fr: 'Site Restaurant', en: 'Restaurant Website', es: 'Sitio Restaurante', vi: 'Website nhà hàng' },
+    'sante': { fr: 'Site Santé', en: 'Healthcare Website', es: 'Sitio Salud', vi: 'Website y tế' },
+    'appel': { fr: 'Autre', en: 'Other', es: 'Otro', vi: 'Khác' },
+    'renseignement': { fr: 'Autre', en: 'Other', es: 'Otro', vi: 'Khác' },
   };
 
   const getDisplayService = (service: string): string => {
@@ -232,7 +273,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString(
-      lang === 'fr' ? 'fr-FR' : lang === 'es' ? 'es-ES' : 'en-US',
+      lang === 'fr' ? 'fr-FR' : lang === 'es' ? 'es-ES' : lang === 'vi' ? 'vi-VN' : 'en-US',
       { weekday: 'long', day: 'numeric', month: 'long' }
     );
   };
@@ -324,6 +365,18 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t.title}</h1>
             <p className="text-gray-600 dark:text-gray-300">{t.subtitle}</p>
+
+            {/* Contact WhatsApp (vi uniquement) — au Vietnam beaucoup de prospects
+                préfèrent écrire directement plutôt que de réserver un créneau.
+                Canal de repli en attendant un compte Zalo. Le libellé
+                `whatsappPrompt` n'existe que dans le bloc `vi`, d'où la
+                lecture via `translations.vi` plutôt que via `t` (union de types). */}
+            {lang === 'vi' && (
+              <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <span className="text-sm text-gray-500 dark:text-gray-400">{translations.vi.whatsappPrompt}</span>
+                <WhatsAppContactButton />
+              </div>
+            )}
           </div>
 
           {/* Steps indicator */}
@@ -363,12 +416,12 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                         {uniqueDates.map(date => {
                           const d = new Date(date);
                           const dayName = d.toLocaleDateString(
-                            lang === 'fr' ? 'fr-FR' : lang === 'es' ? 'es-ES' : 'en-US',
+                            lang === 'fr' ? 'fr-FR' : lang === 'es' ? 'es-ES' : lang === 'vi' ? 'vi-VN' : 'en-US',
                             { weekday: 'short' }
                           );
                           const dayNum = d.getDate();
                           const month = d.toLocaleDateString(
-                            lang === 'fr' ? 'fr-FR' : lang === 'es' ? 'es-ES' : 'en-US',
+                            lang === 'fr' ? 'fr-FR' : lang === 'es' ? 'es-ES' : lang === 'vi' ? 'vi-VN' : 'en-US',
                             { month: 'short' }
                           );
                           
@@ -450,14 +503,6 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                   </div>
                 </div>
 
-                {/* Pack présélectionné */}
-                {packLabel && (
-                  <div className="bg-gray-100 dark:bg-gray-800/40 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{t.pack}</p>
-                    <p className="font-semibold text-gray-900 dark:text-white">{packLabel}</p>
-                  </div>
-                )}
-
                 {/* Formulaire */}
                 <div className="grid gap-4">
                   <div>
@@ -538,6 +583,24 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                       <option value="">{t.service}</option>
                       {t.services.map(s => (
                         <option key={s} value={s}>{s}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Sélection du pack — inclut « Landing Page Express » en vi (offre d'appel
+                      à prix fixe), les autres packs restant en mode devis sur cette langue. */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      {t.pack}
+                    </label>
+                    <select
+                      value={formData.pack}
+                      onChange={e => setFormData({...formData, pack: e.target.value})}
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                    >
+                      <option value="">{t.pack}</option>
+                      {Object.entries(t.packs).map(([packId, packName]) => (
+                        <option key={packId} value={packId}>{packName}</option>
                       ))}
                     </select>
                   </div>

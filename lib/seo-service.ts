@@ -16,7 +16,7 @@ export interface SEOTemplate {
 }
 
 export type PageType = 'home' | 'services' | 'developpement-web' | 'contact' | 'portfolio' | 'blog' | 'custom' | 'equipe' | 'booking';
-export type Language = 'fr' | 'en' | 'es';
+export type Language = 'fr' | 'en' | 'es' | 'vi';
 
 export interface PageSEOContext {
   pageType: PageType;
@@ -192,6 +192,57 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
       title: 'Reservar una Llamada — Auditoría Gratis | NeuraWeb',
       description: 'Programa una llamada gratuita con NeuraWeb. Auditoría de tu proyecto web, app móvil o IA. Respuesta en 24h, sin compromiso.',
       keywords: ['reservar llamada agencia web', 'presupuesto gratuito web', 'auditoría IA gratis', 'contacto agencia web París'],
+    },
+  },
+  // ── Vietnamien : marché Hanoï, double positionnement.
+  // Règle prix : seule la Landing Page Express (1.290.000 VND) est chiffrée ;
+  // tout le reste reste en mode devis — ne jamais reproduire ici le motif
+  // "prix EUR fixes" des blocs fr/en/es de `developpement-web`.
+  vi: {
+    home: {
+      title: 'NeuraWeb — Web, AI & Tự động hóa tại Hà Nội',
+      description: 'Đội ngũ web & AI người Pháp tại Hà Nội: thiết kế website Next.js, chatbot AI, tự động hóa n8n. Landing Page Express 1.290.000 VND cho cửa hàng nhỏ.',
+      keywords: ['thiết kế website Hà Nội', 'công ty thiết kế web Hà Nội', 'chatbot AI cho doanh nghiệp', 'tự động hóa quy trình n8n', 'landing page cho cửa hàng nhỏ', 'thiết kế website khách sạn Hà Nội', 'website nhà hàng Hà Nội', 'tích hợp AI vào website', 'Next.js'],
+    },
+    services: {
+      title: 'Dịch vụ — Website, Ứng dụng, AI & Tự động hóa | NeuraWeb',
+      description: 'Thiết kế website Next.js, ứng dụng iOS/Android, chatbot AI và tự động hóa n8n. Có gói Landing Page Express cho cửa hàng nhỏ, báo giá riêng cho doanh nghiệp.',
+      keywords: ['dịch vụ thiết kế website', 'làm ứng dụng di động', 'ứng dụng iOS Android theo yêu cầu', 'tích hợp AI vào website', 'tự động hóa quy trình doanh nghiệp', 'báo giá thiết kế website', 'dịch vụ chatbot AI'],
+    },
+    'developpement-web': {
+      title: 'Thiết kế website theo yêu cầu — Báo giá | NeuraWeb',
+      description: 'Website giới thiệu, website doanh nghiệp và bán hàng trên nền Next.js. Landing Page Express 1.290.000 VND cho cửa hàng nhỏ, dự án lớn hơn báo giá trong 24 giờ.',
+      keywords: ['thiết kế website theo yêu cầu', 'làm website cho cửa hàng', 'báo giá thiết kế website Hà Nội', 'landing page cho hộ kinh doanh', 'website doanh nghiệp Next.js', 'làm lại website cũ', 'thiết kế web chuẩn SEO', 'website bán hàng online', 'công ty thiết kế website Hà Nội'],
+    },
+    contact: {
+      title: 'Liên hệ NeuraWeb — Báo giá miễn phí cho dự án của bạn',
+      description: 'Liên hệ NeuraWeb tại Hà Nội để trao đổi về website, ứng dụng di động hay tích hợp AI. Phản hồi trong 24 giờ, báo giá miễn phí và không ràng buộc.',
+      keywords: ['liên hệ', 'báo giá miễn phí', 'dự án website', 'liên hệ công ty thiết kế web Hà Nội'],
+    },
+    portfolio: {
+      title: 'Dự án NeuraWeb — Website, Ứng dụng & Giải pháp AI',
+      description: 'Xem các dự án NeuraWeb đã thực hiện: website Next.js, ứng dụng iOS/Android và giải pháp AI. Hơn 16 dự án bàn giao, khách hàng đánh giá 5 sao.',
+      keywords: ['dự án đã thực hiện', 'mẫu website', 'dự án website', 'trường hợp khách hàng'],
+    },
+    blog: {
+      title: 'Blog NeuraWeb — Website, AI & Tự động hóa',
+      description: 'Bài viết và hướng dẫn về thiết kế website Next.js, tích hợp AI và tự động hóa n8n. Kiến thức thực tế cho doanh nghiệp và cửa hàng tại Việt Nam.',
+      keywords: ['blog', 'bài viết', 'kinh nghiệm làm website', 'hướng dẫn tự động hóa'],
+    },
+    custom: {
+      title: 'NeuraWeb — Website, AI & Tự động hóa theo yêu cầu',
+      description: 'NeuraWeb xây dựng website, ứng dụng di động và giải pháp AI theo yêu cầu cho doanh nghiệp Việt Nam. Báo giá miễn phí, phản hồi trong vòng 24 giờ.',
+      keywords: ['neuraweb', 'công ty thiết kế web', 'chuyển đổi số'],
+    },
+    equipe: {
+      title: 'Đội ngũ NeuraWeb — Lập trình viên & chuyên gia AI',
+      description: 'Gặp gỡ đội ngũ NeuraWeb: lập trình viên Next.js và chuyên gia AI người Pháp, làm việc tại Hà Nội, bàn giao song ngữ Việt – Anh – Pháp.',
+      keywords: ['đội ngũ công ty thiết kế web', 'lập trình viên Next.js Hà Nội', 'chuyên gia AI tại Việt Nam', 'công ty web Pháp tại Hà Nội'],
+    },
+    booking: {
+      title: 'Đặt lịch tư vấn — Rà soát & báo giá miễn phí | NeuraWeb',
+      description: 'Đặt buổi tư vấn miễn phí với NeuraWeb tại Hà Nội. Rà soát dự án website, ứng dụng di động hoặc AI của bạn. Phản hồi trong 24 giờ, không ràng buộc.',
+      keywords: ['đặt lịch tư vấn website', 'báo giá website miễn phí', 'tư vấn AI miễn phí', 'liên hệ công ty web Hà Nội'],
     },
   },
 };
@@ -427,7 +478,7 @@ export function generatePageMetadata(
     creator: 'NeuraWeb',
     openGraph: {
       type: 'website',
-      locale: context.language === 'fr' ? 'fr_FR' : context.language === 'en' ? 'en_US' : 'es_ES',
+      locale: context.language === 'fr' ? 'fr_FR' : context.language === 'en' ? 'en_US' : context.language === 'vi' ? 'vi_VN' : 'es_ES',
       url: pageUrl,
       siteName: 'NeuraWeb',
       title: customData?.ogTitle || title,
@@ -455,6 +506,7 @@ export function generatePageMetadata(
         fr: `${baseUrl}/fr`,
         en: `${baseUrl}/en`,
         es: `${baseUrl}/es`,
+        vi: `${baseUrl}/vi`,
         'x-default': `${baseUrl}/fr`,
       },
     },
@@ -545,7 +597,7 @@ export function generateMetaTags(
     { name: 'og:description', content: customData?.ogDescription || customData?.description || pageContext.description },
     { name: 'og:type', content: 'website' },
     { name: 'og:site_name', content: 'NeuraWeb' },
-    { name: 'og:locale', content: context.language === 'fr' ? 'fr_FR' : context.language === 'en' ? 'en_US' : 'es_ES' },
+    { name: 'og:locale', content: context.language === 'fr' ? 'fr_FR' : context.language === 'en' ? 'en_US' : context.language === 'vi' ? 'vi_VN' : 'es_ES' },
   );
 
   tags.push(

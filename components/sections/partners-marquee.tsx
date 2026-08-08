@@ -124,6 +124,7 @@ const LABELS: Record<string, { prefix: string; text: string }> = {
   fr: { prefix: 'Nous développons avec les', text: 'meilleures technologies du marché' },
   en: { prefix: 'We build with the',          text: 'best technologies on the market'   },
   es: { prefix: 'Desarrollamos con las',       text: 'mejores tecnologías del mercado'   },
+  vi: { prefix: 'Chúng tôi xây dựng trên nền',  text: 'công nghệ tốt nhất hiện nay'      },
 };
 
 export function PartnersMarquee() {

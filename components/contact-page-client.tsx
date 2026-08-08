@@ -5,6 +5,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
+import { WhatsAppContactButton } from '@/components/whatsapp-contact-button';
 import { Mail, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 export default function ContactPageClient() {
@@ -88,6 +89,26 @@ export default function ContactPageClient() {
                   </a>
                 </div>
               </div>
+
+              {/* ── Contact WhatsApp (vi uniquement) ────────────────────────
+                  Canal de repli en attendant un compte Zalo (le canal de contact
+                  par défaut visé au Vietnam à terme) : on l'expose au même niveau
+                  que l'email sur `/vi/contact`. Libellés inline en vietnamien (et
+                  non dans `locales/vi.ts`) parce que le bloc n'est jamais rendu
+                  dans les 3 autres langues. Le bouton reste inactif tant que le
+                  numéro WhatsApp réel n'est pas renseigné — voir
+                  `components/whatsapp-contact-button.tsx`. */}
+              {language === 'vi' && (
+                <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 shadow-sm">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                    Nhắn tin qua WhatsApp
+                  </h2>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+                    Cách nhanh nhất để trao đổi trực tiếp. Chúng tôi trả lời bằng tiếng Việt, tiếng Anh hoặc tiếng Pháp.
+                  </p>
+                  <WhatsAppContactButton className="w-full sm:w-auto" />
+                </div>
+              )}
 
               <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 shadow-sm">
                 <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">

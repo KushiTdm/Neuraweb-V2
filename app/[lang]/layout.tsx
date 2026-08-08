@@ -69,6 +69,12 @@ const META_BY_LANG: Record<
       'Agencia digital premium especializada en desarrollo web personalizado, integración IA y automatización. Transforma tu visión en soluciones digitales innovadoras.',
     locale: 'es_ES',
   },
+  vi: {
+    title: 'NeuraWeb — Thiết kế Website, AI & Tự động hóa tại Hà Nội',
+    description:
+      'Đội ngũ Pháp tại Hà Nội: thiết kế website, ứng dụng di động, chatbot AI và tự động hóa n8n. Có gói Landing Page Express cho cửa hàng nhỏ, bàn giao song ngữ Việt – Anh – Pháp.',
+    locale: 'vi_VN',
+  },
 };
 
 export async function generateMetadata({
@@ -146,6 +152,7 @@ export async function generateMetadata({
         fr: `${baseUrl}/fr`,
         en: `${baseUrl}/en`,
         es: `${baseUrl}/es`,
+        vi: `${baseUrl}/vi`,
         'x-default': `${baseUrl}/fr`,
       },
     },
@@ -227,7 +234,7 @@ export default async function LangLayout({
       </head>
       <body className={`${inter.className} font-sans`}>
         <a href="#main-content" className="skip-link">
-          {({'fr': 'Aller au contenu principal', 'en': 'Skip to main content', 'es': 'Ir al contenido principal'} as Record<string, string>)[lang] ?? 'Skip to main content'}
+          {({'fr': 'Aller au contenu principal', 'en': 'Skip to main content', 'es': 'Ir al contenido principal', 'vi': 'Chuyển đến nội dung chính'} as Record<string, string>)[lang] ?? 'Skip to main content'}
         </a>
         <ThemeProvider
           attribute="class"

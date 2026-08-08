@@ -42,6 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
           fr: `${BASE_URL}/fr`,
           en: `${BASE_URL}/en`,
           es: `${BASE_URL}/es`,
+          vi: `${BASE_URL}/vi`,
           'x-default': `${BASE_URL}/fr`,
         },
       },
@@ -61,6 +62,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             fr: `${BASE_URL}/fr/${page}`,
             en: `${BASE_URL}/en/${page}`,
             es: `${BASE_URL}/es/${page}`,
+            vi: `${BASE_URL}/vi/${page}`,
             'x-default': `${BASE_URL}/fr/${page}`,
           },
         },
@@ -174,10 +176,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
         fr: `${BASE_URL}/fr/${slug}`,
         en: `${BASE_URL}/en/${slug}`,
         es: `${BASE_URL}/es/${slug}`,
+        vi: `${BASE_URL}/vi/${slug}`,
         'x-default': `${BASE_URL}/fr/${slug}`,
       },
     };
-    (['fr', 'en', 'es'] as const).forEach((lang) => {
+    (['fr', 'en', 'es', 'vi'] as const).forEach((lang) => {
       urls.push({
         url: `${BASE_URL}/${lang}/${slug}`,
         lastModified,
@@ -198,7 +201,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
 
   slugLanguageMap.forEach((languages, slug) => {
-    const post = getPostBySlug(slug, languages[0] as 'fr' | 'en' | 'es');
+    const post = getPostBySlug(slug, languages[0] as 'fr' | 'en' | 'es' | 'vi');
     if (!post) return;
 
     const postDate = new Date(post.date);
@@ -206,12 +209,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Cela signale à Google que ces pages ont au minimum été re-déployées en fév. 2026
     const lastModified = postDate > MIGRATION_DATE ? postDate : MIGRATION_DATE;
 
-    const languageAlternates: Record<string, string> = {
-      'x-default': `${BASE_URL}/fr/blog/${slug}`,
-    };
+    const languageAlternates: Record<string, string> = {};
     languages.forEach((lang) => {
       languageAlternates[lang] = `${BASE_URL}/${lang}/blog/${slug}`;
     });
+    // x-default doit pointer vers une URL qui existe : le FR est la source par
+    // défaut, mais les articles vi-only n'ont pas de version FR — on retombe alors
+    // sur la première langue réellement publiée (sinon hreflang cassé / 404).
+    languageAlternates['x-default'] =
+      languageAlternates.fr ?? languageAlternates[languages[0]];
 
     languages.forEach((lang) => {
       urls.push({

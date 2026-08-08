@@ -46,12 +46,22 @@ export const organizationSchema = {
     telephone: REAL_PHONE,
     contactType: 'customer service',
     email: 'contact@neuraweb.fr',
-    availableLanguage: ['French', 'English', 'Spanish'],
+    availableLanguage: ['French', 'English', 'Spanish', 'Vietnamese'],
   },
+  // Zone d'intervention — signal GEO / citation LLM. Volontairement global
+  // (toutes langues) : une requête « agence web à Hanoï » peut être posée en
+  // français ou en anglais, la citation par un LLM n'est pas filtrée par langue.
+  areaServed: [
+    { '@type': 'Country', name: 'France' },
+    { '@type': 'AdministrativeArea', name: 'Hauts-de-France' },
+    { '@type': 'Country', name: 'Vietnam' },
+    { '@type': 'City', name: 'Hanoï' },
+  ],
   sameAs: [
     'https://www.linkedin.com/company/neuraweb',
     'https://github.com/neuraweb',
     'https://x.com/neurawebtech',
+    'https://www.facebook.com/people/Neuraweb/61587416320627/',
     'https://maps.app.goo.gl/DUkC3mSovCR8cpRz5', // Google Business Profile
   ],
   foundingDate: '2024',
@@ -110,6 +120,9 @@ export const localBusinessSchema = {
     { '@type': 'Country', name: 'France' },
     { '@type': 'Country', name: 'Belgium' },
     { '@type': 'Country', name: 'Switzerland' },
+    // Implantation Hanoï — signal GEO global (cf. organizationSchema)
+    { '@type': 'Country', name: 'Vietnam' },
+    { '@type': 'City', name: 'Hanoï' },
   ],
   aggregateRating: {
     '@type': 'AggregateRating',
@@ -121,6 +134,7 @@ export const localBusinessSchema = {
   sameAs: [
     'https://www.linkedin.com/company/neuraweb',
     'https://x.com/neurawebtech',
+    'https://www.facebook.com/people/Neuraweb/61587416320627/',
     'https://maps.app.goo.gl/DUkC3mSovCR8cpRz5', // Google Business Profile
   ],
   parentOrganization: {
@@ -137,7 +151,7 @@ export const websiteSchema = {
   url: BASE_URL,
   description:
     'Agence digitale premium spécialisée en développement web sur mesure, intégration IA et automatisation.',
-  inLanguage: ['fr-FR', 'en-US', 'es-ES'],
+  inLanguage: ['fr-FR', 'en-US', 'es-ES', 'vi-VN'],
   publisher: {
     '@id': `${BASE_URL}/#organization`,
   },
@@ -171,6 +185,9 @@ export const professionalServiceSchema = {
     { '@type': 'Country', name: 'France' },
     { '@type': 'Country', name: 'Belgium' },
     { '@type': 'Country', name: 'Switzerland' },
+    // Implantation Hanoï — signal GEO global (cf. organizationSchema)
+    { '@type': 'Country', name: 'Vietnam' },
+    { '@type': 'City', name: 'Hanoï' },
   ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
@@ -203,6 +220,23 @@ export const professionalServiceSchema = {
     '@id': `${BASE_URL}/#organization`,
   },
 };
+
+/**
+ * Variante lang-aware du ProfessionalService schema.
+ *
+ * La version vietnamienne du site est commercialisée en mode devis (les prix
+ * EUR fixes des packs ne s'y appliquent pas) : on retire donc entièrement
+ * `hasOfferCatalog` — donc `price` / `priceCurrency` — pour `lang === 'vi'`,
+ * plutôt que d'exposer un tarif inapplicable aux visiteurs et aux crawlers.
+ * Les autres langues reçoivent le schéma inchangé.
+ */
+export function getProfessionalServiceSchema(lang: string): Record<string, unknown> {
+  if (lang === 'vi') {
+    const { hasOfferCatalog: _omitted, ...withoutOffers } = professionalServiceSchema;
+    return withoutOffers;
+  }
+  return professionalServiceSchema;
+}
 
 // ── Service Schema ──────────────────────────────────────────────────────────
 export const serviceSchema = {
@@ -251,7 +285,7 @@ export const serviceSchema = {
 // Source unique : alimente le schéma FAQPage (page.tsx) ET la section FAQ
 // visible (components/sections/faq-section.tsx). Google exige que le contenu
 // balisé soit affiché sur la page — garder les deux synchronisés.
-export const HOME_FAQ_ITEMS: Record<'fr' | 'en' | 'es', Array<{ question: string; answer: string }>> = {
+export const HOME_FAQ_ITEMS: Record<'fr' | 'en' | 'es' | 'vi', Array<{ question: string; answer: string }>> = {
   fr: [
     {
       question: 'Quels sont les délais pour un projet web ?',
@@ -316,6 +350,31 @@ export const HOME_FAQ_ITEMS: Record<'fr' | 'en' | 'es', Array<{ question: string
     {
       question: '¿Ofrecéis automatización con n8n?',
       answer: 'Sí, la automatización con n8n es uno de nuestros servicios estrella. Diseñamos workflows automatizados para tus procesos de negocio: emails, CRM, facturación, redes sociales y mucho más.',
+    },
+  ],
+  // Version vi : rédigée pour le marché vietnamien (Hanoï). Règle prix du
+  // chantier vi — seul le tarif Landing Page Express (1.290.000 VND) est
+  // affiché ; tout le reste reste en mode devis, aucun montant EUR.
+  vi: [
+    {
+      question: 'Làm một website mất bao lâu?',
+      answer: 'Gói Landing Page Express (một trang) thường được bàn giao trong vài ngày làm việc. Một website giới thiệu đầy đủ mất khoảng 2 đến 4 tuần. Các dự án phức tạp hơn — bán hàng online, đặt phòng, tích hợp AI — được ước lượng riêng trong buổi tư vấn 30 phút miễn phí.',
+    },
+    {
+      question: 'NeuraWeb báo giá dịch vụ như thế nào?',
+      answer: 'Chỉ gói Landing Page Express có giá niêm yết: 1.290.000 VND, ưu đãi ra mắt dành cho 30 khách hàng đầu tiên — một trang gọn gàng cho hộ kinh doanh và cửa hàng nhỏ. Mọi dịch vụ khác (website doanh nghiệp, thương mại điện tử, chatbot AI, tự động hóa, ứng dụng di động) đều được báo giá riêng theo phạm vi thực tế của dự án. Báo giá miễn phí và không ràng buộc.',
+    },
+    {
+      question: 'Các bạn có tích hợp AI vào website không?',
+      answer: 'Có. Chúng tôi triển khai chatbot AI trả lời khách 24/7, AI agent tư vấn và sàng lọc khách hàng tiềm năng, hệ thống gợi ý sản phẩm và các quy trình tự động, dựa trên OpenAI (ChatGPT), Anthropic (Claude) hoặc mô hình mã nguồn mở. Chatbot có thể trả lời đồng thời bằng tiếng Việt, tiếng Anh và tiếng Pháp.',
+    },
+    {
+      question: 'NeuraWeb có nhận dự án của cửa hàng nhỏ không?',
+      answer: 'Có. Chúng tôi làm việc với cả hộ kinh doanh và cửa hàng nhỏ — thông qua gói Landing Page Express — lẫn doanh nghiệp, khách sạn và nhà hàng phục vụ khách quốc tế. Đội ngũ người Pháp có mặt tại Hà Nội, bàn giao song ngữ Việt – Anh – Pháp theo tiêu chuẩn kỹ thuật châu Âu.',
+    },
+    {
+      question: 'Các bạn có làm tự động hóa quy trình với n8n không?',
+      answer: 'Có, tự động hóa n8n là một trong những dịch vụ chủ lực của NeuraWeb. Chúng tôi kết nối các công cụ bạn đang dùng và tự động hóa những việc lặp đi lặp lại: tiếp nhận đơn hàng, chăm sóc khách, hóa đơn, báo cáo, đăng bài mạng xã hội. Chi phí được báo giá riêng theo số lượng và độ phức tạp của quy trình.',
     },
   ],
 };

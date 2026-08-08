@@ -19,7 +19,7 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 - Founded: 2024
 - Location: Lille, Hauts-de-France, France
 - Service Areas: France, Belgium, Switzerland
-- Languages: French, English, Spanish
+- Languages: French, English, Spanish, Vietnamese
 - Contact: contact@neuraweb.fr
 - Phone: +33 7 49 77 56 54
 - Legal entity and policies: https://neuraweb.fr/fr/mentions-legales
@@ -42,14 +42,17 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 - Homepage FR: https://neuraweb.fr/fr
 - Homepage EN: https://neuraweb.fr/en
 - Homepage ES: https://neuraweb.fr/es
+- Homepage VI: https://neuraweb.fr/vi
 - Web Development FR: https://neuraweb.fr/fr/developpement-web
 - Web Development EN: https://neuraweb.fr/en/developpement-web
 - Web Development ES: https://neuraweb.fr/es/developpement-web
+- Web Development VI: https://neuraweb.fr/vi/developpement-web
 - Automation FR: https://neuraweb.fr/fr/automatisation
 - AI Integration FR: https://neuraweb.fr/fr/integration-ia
 - Mobile App Development FR: https://neuraweb.fr/fr/mobile-app-development
 - Mobile App Development EN: https://neuraweb.fr/en/mobile-app-development
 - Mobile App Development ES: https://neuraweb.fr/es/mobile-app-development
+- Mobile App Development VI: https://neuraweb.fr/vi/mobile-app-development
 - Healthcare Websites FR: https://neuraweb.fr/fr/sante
 - Restaurant Websites FR: https://neuraweb.fr/fr/restaurants
 - Next.js Agency FR: https://neuraweb.fr/fr/agence-nextjs
@@ -60,6 +63,7 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 - Blog FR: https://neuraweb.fr/fr/blog
 - Blog EN: https://neuraweb.fr/en/blog
 - Blog ES: https://neuraweb.fr/es/blog
+- Blog VI: https://neuraweb.fr/vi/blog
 
 ## Key Articles
 
