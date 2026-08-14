@@ -167,6 +167,28 @@ export const vi: Record<TranslationKey, string> = {
   'portfolio.booking.description': 'Nền tảng đặt lịch hẹn trực tuyến',
   'portfolio.hotel.title': 'Website khách sạn',
   'portfolio.hotel.description': 'Website khách sạn tích hợp hệ thống đặt phòng trực tiếp',
+  // Dự án portfolio hiển thị trên trang chủ (lĩnh vực + mô tả)
+  'portfolio.arthan.sector': 'Khách sạn cao cấp',
+  'portfolio.arthan.desc': 'Website 5 sao song ngữ: giới thiệu chi tiết các suite, nhà hàng fine-dining, spa và kiểm tra phòng trống trực tuyến.',
+  'portfolio.osteo.sector': 'Y tế',
+  'portfolio.osteo.desc': 'Website phòng khám nắn chỉnh xương: bảng giá theo từng nhóm bệnh nhân, đặt lịch hẹn và biểu mẫu tuân thủ GDPR.',
+  'portfolio.tours.sector': 'Du lịch',
+  'portfolio.tours.desc': 'Công ty lữ hành ba ngôn ngữ: danh mục tour theo thời lượng và độ khó, yêu cầu đặt chỗ và trang điểm đến.',
+  'portfolio.shop.sector': 'Thương mại điện tử',
+  'portfolio.shop.desc': 'Cửa hàng trực tuyến hoàn chỉnh: danh mục lọc theo nhóm hàng, trang sản phẩm, giỏ hàng và danh sách yêu thích.',
+  'portfolio.lum.sector': 'Làm đẹp & chăm sóc sức khỏe',
+  'portfolio.lum.desc': 'Website giới thiệu cho salon tại Paris: các liệu trình đặc trưng, cảm nhận khách hàng và đặt lịch trực tuyến.',
+  // Dự án tiêu biểu: bản demo tương tác tại demo.neuraweb.fr
+  'portfolio.suite.badge': 'Dự án tiêu biểu',
+  'portfolio.suite.imageAlt': 'NeuraWeb Connected Suite — hệ thống quản trị của chính quyền và ứng dụng công dân đồng bộ với nhau',
+  'portfolio.suite.desc': 'Bản demo tương tác của chúng tôi: cho chính quyền địa phương, nhà hàng và khách sạn, một hệ thống quản trị nghiệp vụ và một ứng dụng khách hàng dùng chung dữ liệu theo thời gian thực.',
+  'portfolio.suite.feature.backoffice': 'Hệ thống quản trị nghiệp vụ: bảng điều khiển, bản đồ phản ánh, quản lý yêu cầu',
+  'portfolio.suite.feature.mobile': 'Ứng dụng công dân trên di động: phản ánh kèm ảnh, đặt phòng họp, thủ tục trực tuyến',
+  'portfolio.suite.feature.realtime': 'Đồng bộ thời gian thực giữa di động và hệ thống quản trị, kèm chế độ trình chiếu tự động',
+  'portfolio.suite.ctaCollectivite': 'Demo chính quyền',
+  'portfolio.suite.ctaAll': 'Cả 3 lĩnh vực',
+  'portfolio.hostal.sector': 'Lưu trú',
+  'portfolio.hostal.desc': 'Website lưu trú boutique: giới thiệu phòng kèm giá theo đêm và gửi yêu cầu đặt phòng trực tiếp.',
 
   // Testimonials
   'testimonials.title': 'Khách hàng nói gì về chúng tôi',

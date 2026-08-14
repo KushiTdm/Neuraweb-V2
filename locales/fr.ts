@@ -155,6 +155,28 @@ export const fr = {
   'portfolio.booking.description': 'Plateforme de prise de rendez-vous en ligne',
   'portfolio.hotel.title': 'Site Hôtelier',
   'portfolio.hotel.description': 'Site web pour hôtel avec système de réservation',
+  // Réalisations affichées en home (secteur + description par projet)
+  'portfolio.arthan.sector': 'Hôtellerie de luxe',
+  'portfolio.arthan.desc': 'Site 5 étoiles bilingue : suites détaillées, restaurant gastronomique, spa et vérification de disponibilité en ligne.',
+  'portfolio.osteo.sector': 'Santé',
+  'portfolio.osteo.desc': 'Site de cabinet d\'ostéopathie : consultations tarifées par profil patient, prise de rendez-vous et formulaire conforme RGPD.',
+  'portfolio.tours.sector': 'Tourisme',
+  'portfolio.tours.desc': 'Agence de voyage trilingue : catalogue d\'excursions par durée et difficulté, demande de réservation et pages destinations.',
+  'portfolio.shop.sector': 'E-commerce',
+  'portfolio.shop.desc': 'Boutique en ligne complète : catalogue filtrable par catégorie, fiches produits, panier et liste de favoris.',
+  'portfolio.lum.sector': 'Beauté & bien-être',
+  'portfolio.lum.desc': 'Vitrine sensorielle pour un salon parisien : soins signature, témoignages clients et réservation en ligne.',
+  // Réalisation phare : démo interactive demo.neuraweb.fr
+  'portfolio.suite.badge': 'Réalisation phare',
+  'portfolio.suite.imageAlt': 'NeuraWeb Connected Suite — back-office mairie et application citoyenne synchronisés',
+  'portfolio.suite.desc': 'Notre démo interactive : pour la collectivité, le restaurant et l\'hôtel, un back-office métier et une application client qui partagent le même état en temps réel.',
+  'portfolio.suite.feature.backoffice': 'Back-office métier : tableau de bord, cartographie des signalements, gestion des demandes',
+  'portfolio.suite.feature.mobile': 'Application citoyenne mobile : signalement photo, réservation de salle, démarches en ligne',
+  'portfolio.suite.feature.realtime': 'Synchronisation temps réel entre le mobile et le back-office, avec mode présentation mains libres',
+  'portfolio.suite.ctaCollectivite': 'Démo collectivité',
+  'portfolio.suite.ctaAll': 'Les 3 métiers',
+  'portfolio.hostal.sector': 'Hébergement',
+  'portfolio.hostal.desc': 'Site d\'hébergement de charme : présentation des chambres avec tarifs à la nuit et demande de réservation directe.',
 
   // Testimonials
 'testimonials.title': 'Ce que disent nos clients',

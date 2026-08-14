@@ -157,6 +157,28 @@ export const en: Record<TranslationKey, string> = {
   'portfolio.booking.description': 'Online appointment booking platform',
   'portfolio.hotel.title': 'Hotel Website',
   'portfolio.hotel.description': 'Hotel website with booking system',
+  // Portfolio projects shown on the home page (sector + description)
+  'portfolio.arthan.sector': 'Luxury hospitality',
+  'portfolio.arthan.desc': 'Bilingual 5-star website: detailed suites, fine-dining restaurant, spa and online availability check.',
+  'portfolio.osteo.sector': 'Healthcare',
+  'portfolio.osteo.desc': 'Osteopathy practice website: priced consultations per patient profile, appointment booking and GDPR-compliant form.',
+  'portfolio.tours.sector': 'Tourism',
+  'portfolio.tours.desc': 'Trilingual travel agency: tour catalogue by duration and difficulty, booking requests and destination pages.',
+  'portfolio.shop.sector': 'E-commerce',
+  'portfolio.shop.desc': 'Full online store: category-filtered catalogue, product pages, shopping cart and wishlist.',
+  'portfolio.lum.sector': 'Beauty & wellness',
+  'portfolio.lum.desc': 'Sensory showcase for a Paris salon: signature treatments, client testimonials and online booking.',
+  // Flagship project: interactive demo at demo.neuraweb.fr
+  'portfolio.suite.badge': 'Flagship project',
+  'portfolio.suite.imageAlt': 'NeuraWeb Connected Suite — town hall back-office and citizen app in sync',
+  'portfolio.suite.desc': 'Our interactive demo: for local government, restaurants and hotels, a business back-office and a client app sharing the same state in real time.',
+  'portfolio.suite.feature.backoffice': 'Business back-office: dashboard, issue mapping, request management',
+  'portfolio.suite.feature.mobile': 'Citizen mobile app: photo reporting, room booking, online procedures',
+  'portfolio.suite.feature.realtime': 'Real-time sync between mobile and back-office, with hands-free presentation mode',
+  'portfolio.suite.ctaCollectivite': 'Local government demo',
+  'portfolio.suite.ctaAll': 'All 3 sectors',
+  'portfolio.hostal.sector': 'Accommodation',
+  'portfolio.hostal.desc': 'Boutique accommodation website: room showcase with per-night rates and direct booking requests.',
 
   // Testimonials
   // Testimonials

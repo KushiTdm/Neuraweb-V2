@@ -157,6 +157,28 @@ export const es: Record<TranslationKey, string> = {
   'portfolio.booking.description': 'Plataforma de reserva de citas en línea',
   'portfolio.hotel.title': 'Sitio Hotelero',
   'portfolio.hotel.description': 'Sitio web para hotel con sistema de reservas',
+  // Proyectos del portafolio mostrados en la página de inicio (sector + descripción)
+  'portfolio.arthan.sector': 'Hostelería de lujo',
+  'portfolio.arthan.desc': 'Sitio 5 estrellas bilingüe: suites detalladas, restaurante gastronómico, spa y consulta de disponibilidad en línea.',
+  'portfolio.osteo.sector': 'Salud',
+  'portfolio.osteo.desc': 'Sitio de consulta de osteopatía: consultas con tarifas por perfil de paciente, reserva de cita y formulario conforme al RGPD.',
+  'portfolio.tours.sector': 'Turismo',
+  'portfolio.tours.desc': 'Agencia de viajes trilingüe: catálogo de excursiones por duración y dificultad, solicitud de reserva y páginas de destinos.',
+  'portfolio.shop.sector': 'E-commerce',
+  'portfolio.shop.desc': 'Tienda en línea completa: catálogo filtrable por categoría, fichas de producto, carrito y lista de favoritos.',
+  'portfolio.lum.sector': 'Belleza y bienestar',
+  'portfolio.lum.desc': 'Escaparate sensorial para un salón parisino: tratamientos exclusivos, testimonios de clientes y reserva en línea.',
+  // Proyecto destacado: demo interactiva en demo.neuraweb.fr
+  'portfolio.suite.badge': 'Proyecto destacado',
+  'portfolio.suite.imageAlt': 'NeuraWeb Connected Suite — back-office municipal y aplicación ciudadana sincronizados',
+  'portfolio.suite.desc': 'Nuestra demo interactiva: para el ayuntamiento, el restaurante y el hotel, un back-office profesional y una aplicación cliente que comparten el mismo estado en tiempo real.',
+  'portfolio.suite.feature.backoffice': 'Back-office profesional: panel de control, cartografía de incidencias, gestión de solicitudes',
+  'portfolio.suite.feature.mobile': 'Aplicación ciudadana móvil: aviso con foto, reserva de sala, trámites en línea',
+  'portfolio.suite.feature.realtime': 'Sincronización en tiempo real entre el móvil y el back-office, con modo presentación manos libres',
+  'portfolio.suite.ctaCollectivite': 'Demo ayuntamiento',
+  'portfolio.suite.ctaAll': 'Los 3 sectores',
+  'portfolio.hostal.sector': 'Alojamiento',
+  'portfolio.hostal.desc': 'Sitio de alojamiento con encanto: presentación de habitaciones con tarifas por noche y solicitud de reserva directa.',
 
   // Testimonials
   // Testimonials
