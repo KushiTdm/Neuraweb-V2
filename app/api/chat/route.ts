@@ -47,7 +47,7 @@ function logChat(entry: {
 // ============================================================
 // Ancien fournisseur Z.AI — conservé en commentaire si besoin de revenir en arrière
 // const AI_MODEL = "glm-4.5-flash";
-const AI_MODEL = "mistral-small-latest"; // Mistral AI, version gratuite (La Plateforme)
+const AI_MODEL = "ministral-3b-latest"; // Mistral AI, version gratuite (La Plateforme)
 const MAX_MESSAGES_PER_SESSION = 20;
 const MAX_TOKENS = 600;
 const MIN_MESSAGE_INTERVAL = 2000;

@@ -2,11 +2,11 @@
 // lib/mistral-mobile.ts
 // Appel Mistral pour l'app mobile. Utilise une clé DÉDIÉE
 // (MISTRAL_API_KEY_MOBILE) distincte du chatbot du site, pour ne pas
-// consommer le même crédit. Modèle gratuit `mistral-small-latest`.
+// consommer le même crédit. Modèle gratuit `ministral-3b-latest`.
 // ============================================================
 
 const MISTRAL_URL = "https://api.mistral.ai/v1/chat/completions";
-const MODEL = "mistral-small-latest";
+const MODEL = "ministral-3b-latest";
 
 export interface ChatMessage {
   role: "system" | "user" | "assistant";
