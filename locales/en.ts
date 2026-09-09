@@ -180,6 +180,11 @@ export const en: Record<TranslationKey, string> = {
   'portfolio.hostal.sector': 'Accommodation',
   'portfolio.hostal.desc': 'Boutique accommodation website: room showcase with per-night rates and direct booking requests.',
 
+  'portfolio.vietnam.badge': 'Hanoi, Vietnam',
+  'portfolio.vietnam.title': 'Showcase websites for Hanoi businesses',
+  'portfolio.vietnam.desc': 'Fixed-price packages in VND and ready-to-use demos for restaurants, cafés, salons, shops and homestays — hosted on Cloudflare.',
+  'portfolio.vietnam.cta': 'See offers and demos',
+
   // Testimonials
   // Testimonials
   'testimonials.title': 'What our clients say',

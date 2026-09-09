@@ -190,6 +190,11 @@ export const vi: Record<TranslationKey, string> = {
   'portfolio.hostal.sector': 'Lưu trú',
   'portfolio.hostal.desc': 'Website lưu trú boutique: giới thiệu phòng kèm giá theo đêm và gửi yêu cầu đặt phòng trực tiếp.',
 
+  'portfolio.vietnam.badge': 'Hà Nội, Việt Nam',
+  'portfolio.vietnam.title': 'Website giới thiệu cho cửa hàng tại Hà Nội',
+  'portfolio.vietnam.desc': 'Các gói giá cố định bằng VNĐ và bản demo dùng thử ngay cho nhà hàng, quán cà phê, salon, cửa hàng và homestay — vận hành trên Cloudflare.',
+  'portfolio.vietnam.cta': 'Xem bảng giá và demo',
+
   // Testimonials
   'testimonials.title': 'Khách hàng nói gì về chúng tôi',
   'testimonials.subtitle': 'Phản hồi thật từ những khách hàng đã đồng hành cùng NeuraWeb',

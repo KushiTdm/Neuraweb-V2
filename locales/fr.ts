@@ -178,6 +178,11 @@ export const fr = {
   'portfolio.hostal.sector': 'Hébergement',
   'portfolio.hostal.desc': 'Site d\'hébergement de charme : présentation des chambres avec tarifs à la nuit et demande de réservation directe.',
 
+  'portfolio.vietnam.badge': 'Hanoï, Vietnam',
+  'portfolio.vietnam.title': 'Sites vitrines pour commerces à Hanoï',
+  'portfolio.vietnam.desc': 'Packs à prix fixe en đồng et démos prêtes à l\'emploi pour restaurants, cafés, salons, boutiques et homestays — hébergés sur Cloudflare.',
+  'portfolio.vietnam.cta': 'Voir les offres et démos',
+
   // Testimonials
 'testimonials.title': 'Ce que disent nos clients',
 'testimonials.subtitle': 'Découvrez les retours d\'expérience de nos clients satisfaits',

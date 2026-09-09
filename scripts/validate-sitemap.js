@@ -32,6 +32,7 @@ const excludedRoutes = [
 
 const errors = [];
 const warnings = [];
+const notes = [];
 
 function fail(message) {
   errors.push(message);
@@ -39,6 +40,11 @@ function fail(message) {
 
 function warn(message) {
   warnings.push(message);
+}
+
+// Info bénigne (situation attendue et gérée) — n'indique pas un problème.
+function note(message) {
+  notes.push(message);
 }
 
 function routeFromPageFile(filePath) {
@@ -173,7 +179,10 @@ function validateBlogPosts() {
 
   for (const [slug, languages] of [...grouped.entries()].sort()) {
     if (!languages.includes('fr')) {
-      warn(`${slug}: no French source exists, so x-default would need a non-FR canonical.`);
+      // Pas de source FR : le x-default retombe sur la première langue publiée.
+      // Géré dans app/[lang]/blog/[slug]/page.tsx et app/sitemap.ts — aucun lien
+      // cassé. Simple info : l'article est mono-langue (à traduire un jour si besoin).
+      note(`${slug}: article ${languages.join('/')}-only (pas de source FR) — x-default → /${languages[0]}/blog/${slug}, OK.`);
     }
   }
 
@@ -211,6 +220,7 @@ if (errors.length > 0) {
 }
 
 for (const message of warnings) console.warn(`Warning: ${message}`);
+for (const message of notes) console.log(`Note: ${message}`);
 
 console.log(`Sitemap validation passed for ${BASE_URL}.`);
 console.log(`Expected dynamic sitemap URLs: ${expectedUrlCount}`);

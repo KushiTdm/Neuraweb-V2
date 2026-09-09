@@ -2,9 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ArrowUpRight, Smartphone, Monitor, Radio } from 'lucide-react';
+import { ArrowUpRight, Smartphone, Monitor, Radio, MapPin } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
-import { DEMO_URL } from '@/lib/site-config';
+import { DEMO_URL, HANOI_OFFERS_URL } from '@/lib/site-config';
 import type { TranslationKey } from '@/locales';
 
 interface Project {
@@ -75,7 +75,7 @@ const portfolio: Project[] = [
 ];
 
 export function PortfolioSection() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   return (
     <section
@@ -245,6 +245,37 @@ export function PortfolioSection() {
             </li>
           ))}
         </ul>
+
+        {/* ── Bandeau offres Vietnam (vi uniquement) ──────────────────────
+            Projet distinct (monorepo Hanoi, Cloudflare Workers) : packs à prix
+            fixe en đồng + démos par métier pour Hanoï. N'est pas une réalisation
+            NeuraWeb parmi d'autres, d'où l'encart séparé plutôt qu'une carte
+            supplémentaire dans la grille ci-dessus. */}
+        {language === 'vi' && (
+          <a
+            href={HANOI_OFFERS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-10 flex flex-col items-start gap-5 rounded-2xl border border-emerald-300/60 bg-emerald-50/60 p-6 transition-colors hover:border-emerald-400 sm:flex-row sm:items-center sm:justify-between md:mt-14 md:p-8 dark:border-emerald-400/20 dark:bg-emerald-400/5 dark:hover:border-emerald-400/40"
+          >
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">
+                <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+                {t('portfolio.vietnam.badge')}
+              </span>
+              <h3 className="mt-3 text-xl font-bold text-gray-900 md:text-2xl dark:text-white">
+                {t('portfolio.vietnam.title')}
+              </h3>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-gray-700 md:text-base dark:text-neutral-300">
+                {t('portfolio.vietnam.desc')}
+              </p>
+            </div>
+            <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors group-hover:bg-emerald-500">
+              {t('portfolio.vietnam.cta')}
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </span>
+          </a>
+        )}
       </div>
     </section>
   );

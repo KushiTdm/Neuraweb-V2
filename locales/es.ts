@@ -180,6 +180,11 @@ export const es: Record<TranslationKey, string> = {
   'portfolio.hostal.sector': 'Alojamiento',
   'portfolio.hostal.desc': 'Sitio de alojamiento con encanto: presentación de habitaciones con tarifas por noche y solicitud de reserva directa.',
 
+  'portfolio.vietnam.badge': 'Hanói, Vietnam',
+  'portfolio.vietnam.title': 'Sitios vitrina para comercios de Hanói',
+  'portfolio.vietnam.desc': 'Packs a precio fijo en VND y demos listas para usar para restaurantes, cafés, salones, tiendas y homestays — alojados en Cloudflare.',
+  'portfolio.vietnam.cta': 'Ver ofertas y demos',
+
   // Testimonials
   // Testimonials
   'testimonials.title': 'Lo que dicen nuestros clientes',
