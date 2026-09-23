@@ -6,6 +6,12 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
   },
+  // La route de backfill social lit les .mdx de content/blog/ au runtime
+  // (lib/mdx.ts) : on force leur inclusion dans le bundle serverless au lieu
+  // de compter sur le tracing automatique du process.cwd().
+  outputFileTracingIncludes: {
+    '/api/mobile/social/backfill': ['./content/blog/**/*'],
+  },
   experimental: {
     optimizePackageImports: [
       'lucide-react',

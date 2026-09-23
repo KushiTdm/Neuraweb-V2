@@ -1,0 +1,406 @@
+// ============================================================
+// lib/social-generation.ts
+// Générations IA (Mistral) de l'app mobile — portage des anciens workflows
+// n8n `Generation_Tweets_IA`, `Edition_IA_v2` et `Backfill_contenu_social_v2`,
+// plus la génération de prompts visuels (Gemini / ChatGPT).
+//
+// Aucune écriture en base ici : les fonctions renvoient des propositions,
+// les routes décident quoi persister.
+// ============================================================
+
+import { mistralChat } from '@/lib/mistral-mobile';
+import { NEURAWEB_BRAND } from '@/lib/neuraweb-context';
+import { ApiError } from '@/lib/mobile-api';
+import {
+  CONTENT_MODEL,
+  TWEET_MAX,
+  TWEET_TARGET,
+  parseLooseJson,
+  stripQuotes,
+  tweetLength,
+} from '@/lib/social-text';
+
+// ── Types ───────────────────────────────────────────────────
+
+export interface TweetProposal {
+  contenu: string;
+  sujet: string;
+  angle: string;
+  hashtags: string[];
+}
+
+interface VeilleRow {
+  date_veille: string;
+  grok_brut?: unknown;
+  gemini_brut?: unknown;
+  perplexity_brut?: unknown;
+  reddit_brut?: unknown;
+}
+
+// ── Tweets depuis la veille ─────────────────────────────────
+
+/**
+ * Condense chaque source (schémas différents et verbeux) en une ligne par
+ * sujet : titre + angle. Divise le prompt par ~10 par rapport au JSON brut.
+ */
+function condenseVeille(items: unknown): string {
+  if (items == null) return '';
+  if (!Array.isArray(items)) return JSON.stringify(items).slice(0, 1000);
+  return items
+    .slice(0, 6)
+    .map((raw, i) => {
+      if (typeof raw === 'string') return `${i + 1}. ${raw.slice(0, 200)}`;
+      const it = (raw ?? {}) as Record<string, unknown>;
+      const str = (v: unknown) => (typeof v === 'string' ? v : '');
+      const title = str(it.titre_sujet) || str(it.sujet) || str(it.requete_exacte) || str(it.title);
+      const detail =
+        str(it.angle_agence_ia_france) ||
+        str(it.exemple_angle_neuraweb) ||
+        str(it.opportunite) ||
+        str(it.snippet_ideal) ||
+        str(it.pertinence_aujourd_hui);
+      const line = `${title}${detail ? ' — ' + detail : ''}`.trim().slice(0, 220);
+      return `${i + 1}. ${line || JSON.stringify(it).slice(0, 200)}`;
+    })
+    .join('\n');
+}
+
+function shapeTweets(list: unknown[]): TweetProposal[] {
+  const contentOf = (t: Record<string, unknown>) =>
+    t.contenu ?? t.tweet ?? t.texte ?? t.text ?? t.content ?? t.message ?? '';
+  return list
+    .map((raw) => {
+      const t = (raw ?? {}) as Record<string, unknown>;
+      return {
+        contenu: String(contentOf(t)).trim(),
+        sujet: String(t.sujet ?? t.sujet_tweet ?? '').trim(),
+        angle: String(t.angle ?? '').trim(),
+        hashtags: Array.isArray(t.hashtags)
+          ? t.hashtags.map((h) => String(h).trim()).filter(Boolean)
+          : [],
+      };
+    })
+    .filter((t) => t.contenu);
+}
+
+/** Tolère les variations de schéma que Mistral peut produire malgré la consigne. */
+function extractTweetList(parsed: unknown): unknown[] {
+  if (Array.isArray(parsed)) return parsed;
+  const p = (parsed ?? {}) as { tweets?: unknown; result?: { tweets?: unknown } };
+  if (Array.isArray(p.tweets)) return p.tweets;
+  const nested = p.result?.tweets;
+  if (Array.isArray(nested)) return nested;
+  return [];
+}
+
+async function shortenTweetProposals(tweets: TweetProposal[]): Promise<TweetProposal[]> {
+  const raw = await mistralChat(
+    [
+      {
+        role: 'user',
+        content:
+          `Réécris ces tweets pour que CHACUN fasse ${TWEET_TARGET} caractères maximum, sans perdre le message ni le ton, ` +
+          `en gardant le même nombre de tweets, le même ordre, et les mêmes champs sujet/angle/hashtags. ` +
+          `Tweets actuels (JSON) : ${JSON.stringify(tweets)}. ` +
+          `Réponds STRICTEMENT en JSON : {"tweets":[{"contenu":"...","sujet":"...","angle":"...","hashtags":["..."]}]}`,
+      },
+    ],
+    { model: CONTENT_MODEL, temperature: 0.4, json: true, maxTokens: 1800 },
+  );
+  return shapeTweets(extractTweetList(parseLooseJson(raw, 'correction')));
+}
+
+/**
+ * Propose 5 tweets ≤ 260 car. depuis la veille la plus récente ≤ `today`.
+ * Contrat métier : ce qui est collé un jour J sert à la génération de J+1
+ * (voir `veilleTargetDate()` côté app) → on lit `date_veille <= aujourd'hui`,
+ * avec repli sur une veille plus ancienne (`isStale`).
+ */
+export async function generateTweetsFromVeille(
+  row: VeilleRow | undefined,
+  today: string,
+): Promise<{ tweets: TweetProposal[]; veilleDate: string; isStale: boolean }> {
+  if (!row) {
+    throw new ApiError(
+      "Aucune veille disponible (ni aujourd'hui ni avant) — colle-la depuis l'app (Social · X · Veille) avant de générer des tweets.",
+      404,
+    );
+  }
+  const isStale = row.date_veille !== today;
+
+  const sources: [string, unknown][] = [
+    ['grok', row.grok_brut],
+    ['gemini', row.gemini_brut],
+    ['perplexity', row.perplexity_brut],
+    ['reddit', row.reddit_brut],
+  ];
+  const present = sources.filter(([, v]) => v != null);
+  if (present.length === 0) {
+    throw new ApiError(
+      `La veille du ${row.date_veille} existe mais aucune source (Grok/Gemini/Perplexity/Reddit) n'est renseignée.`,
+      404,
+    );
+  }
+
+  const bloc = present.map(([name, v]) => `--- ${name} ---\n${condenseVeille(v)}`).join('\n\n');
+
+  const prompt =
+    `Tu es responsable des réseaux sociaux chez NeuraWeb, agence IA française pour PME (automatisation, sites web, agents IA). ` +
+    `À partir de la veille du jour ci-dessous (plusieurs sources, une ligne = un sujet), rédige 5 tweets COURTS et autonomes pour X, en français.\n\n` +
+    `RÈGLES STRICTES :\n` +
+    `- Chaque tweet fait ${TWEET_TARGET} caractères MAXIMUM (limite dure du compte gratuit : ${TWEET_MAX}).\n` +
+    `- Un tweet = une idée complète, jamais de thread, jamais de "1/5".\n` +
+    `- Ton direct, concret, orienté PME françaises. Pas de jargon creux, pas d'emoji en excès (0 ou 1 max).\n` +
+    `- Varie les angles entre les 5 tweets (pas 5 fois le même sujet).\n` +
+    `- hashtags : 0 à 2 par tweet, pertinents, sans les inventer si aucun n'est naturel.\n\n` +
+    (isStale
+      ? `Note : cette veille date du ${row.date_veille} (pas d'aujourd'hui) — reste factuel, évite les tournures "aujourd'hui"/"ce matin".\n\n`
+      : '') +
+    `=== VEILLE (condensée) ===\n${bloc}\n=== FIN VEILLE ===\n\n` +
+    `Réponds STRICTEMENT avec ce JSON (rien d'autre, pas de markdown, pas de \`\`\`) :\n` +
+    `{"tweets":[{"contenu":"...","sujet":"...","angle":"...","hashtags":["..."]}]}`;
+
+  const raw = await mistralChat([{ role: 'user', content: prompt }], {
+    model: CONTENT_MODEL,
+    temperature: 0.8,
+    json: true,
+    maxTokens: 1800,
+  });
+  if (!raw) throw new ApiError("Mistral n'a renvoyé aucun contenu.", 502);
+
+  let tweets = shapeTweets(extractTweetList(parseLooseJson(raw, 'Mistral')));
+  if (tweets.length === 0) {
+    throw new ApiError(`Mistral n'a proposé aucun tweet exploitable — réponse : ${raw.slice(0, 200)}`, 502);
+  }
+
+  if (tweets.some((t) => tweetLength(t.contenu) > 275)) {
+    tweets = await shortenTweetProposals(tweets);
+  }
+  // Ceux qui dépassent encore après correction sont écartés plutôt que de
+  // faire échouer toute la génération (la publication est manuelle de toute façon).
+  tweets = tweets.filter((t) => tweetLength(t.contenu) <= TWEET_MAX);
+  if (tweets.length === 0) {
+    throw new ApiError('Tous les tweets dépassent 280 caractères après correction — relance la génération.', 502);
+  }
+
+  return { tweets, veilleDate: row.date_veille, isStale };
+}
+
+// ── Édition IA d'un texte ───────────────────────────────────
+
+export interface RefineInput {
+  platform: string;
+  field: string;
+  lang: string;
+  current: string;
+  instruction: string;
+  title: string;
+  excerpt: string;
+}
+
+const LANG_LABELS: Record<string, string> = { fr: 'français', en: 'English', es: 'español' };
+
+function refineRules(platform: string, field: string): string {
+  if (platform === 'x') {
+    return `Il s'agit d'un tweet (élément d'un thread X). LIMITE ABSOLUE : ${TWEET_MAX} caractères, vise ${TWEET_TARGET} maximum (une URL compte pour 23 caractères). Conserve les URLs présentes. 2 hashtags maximum. Ton direct et percutant.`;
+  }
+  if (platform === 'linkedin') {
+    return field === 'hook'
+      ? `Il s'agit de l'accroche d'un post LinkedIn : 1 à 2 phrases percutantes.`
+      : `Il s'agit d'un post LinkedIn : 300 à 500 mots, ton expert, structure aérée, question d'ouverture, CTA final.`;
+  }
+  return field === 'hook'
+    ? `Il s'agit de l'accroche d'un post Facebook : 1 phrase courte et percutante.`
+    : `Il s'agit d'un post Facebook : 120 à 180 mots, ton professionnel accessible PME, CTA clair, 4 hashtags maximum.`;
+}
+
+/** Réécrit `current` selon `instruction` ; pour un tweet, garantit ≤ 280 (auto-raccourcissement). */
+export async function refineText(input: RefineInput): Promise<string> {
+  const platform = input.platform.toLowerCase();
+  const field = input.field.toLowerCase();
+  const langLabel = LANG_LABELS[input.lang.toLowerCase()] ?? 'français';
+
+  const prompt =
+    `Tu es responsable marketing chez NeuraWeb (agence web + IA pour PME françaises).\n` +
+    `Révise le texte ci-dessous en ${langLabel}, selon l'instruction de l'utilisateur.\n` +
+    `${refineRules(platform, field)}\n\n` +
+    (input.title ? `Contexte — sujet : ${input.title}\n` : '') +
+    (input.excerpt ? `Contexte additionnel : ${input.excerpt}\n` : '') +
+    `\nTEXTE ACTUEL :\n${input.current}\n\n` +
+    `INSTRUCTION : ${input.instruction}\n\n` +
+    `Réponds UNIQUEMENT avec le texte révisé, sans guillemets, sans préambule, sans commentaire.`;
+
+  const raw = await mistralChat([{ role: 'user', content: prompt }], {
+    model: CONTENT_MODEL,
+    temperature: 0.6,
+    maxTokens: 1400,
+  });
+  let revised = stripQuotes(raw);
+  if (!revised) throw new ApiError("Le service IA n'a renvoyé aucun texte.", 502);
+
+  if (platform === 'x' && tweetLength(revised) > TWEET_MAX) {
+    const shorter = stripQuotes(
+      await mistralChat(
+        [
+          {
+            role: 'user',
+            content: `Raccourcis ce tweet à ${TWEET_TARGET} caractères maximum (une URL compte pour 23 caractères), sans perdre le message ni les URLs. Réponds uniquement avec le tweet, sans guillemets : ${revised}`,
+          },
+        ],
+        { model: CONTENT_MODEL, temperature: 0.4, maxTokens: 400 },
+      ),
+    );
+    if (!shorter || tweetLength(shorter) > TWEET_MAX) {
+      throw new ApiError('Tweet toujours > 280 caractères après correction — reformule manuellement.', 422);
+    }
+    revised = shorter;
+  }
+  return revised;
+}
+
+// ── Prompt visuel (Gemini / ChatGPT) ────────────────────────
+
+/**
+ * Prompt prêt à coller dans Gemini ou ChatGPT pour générer le visuel d'un
+ * post. L'app n'appelle jamais de générateur d'image : l'humain génère
+ * l'image lui-même puis l'ajoute au post (upload dans l'app ou à la main).
+ */
+export async function generateImagePrompt(input: {
+  text: string;
+  sujet?: string;
+  platform?: string;
+}): Promise<string> {
+  const platform = input.platform?.trim() || 'Facebook';
+  // Format d'image conseillé par plateforme : X affiche en 16:9, Facebook en 1,91:1.
+  const format =
+    platform.toLowerCase() === 'x'
+      ? 'paysage 1200×675 (ratio 16:9)'
+      : 'paysage 1200×630 (ratio 1,91:1)';
+  const system =
+    `Tu écris des prompts pour des générateurs d'images IA (Gemini, ChatGPT). ` +
+    `On te donne le texte d'un post ${platform} de l'agence NeuraWeb (pour un thread : l'ensemble du thread, ` +
+    `le visuel accompagne le premier tweet) ; tu produis UN SEUL prompt, prêt à coller, qui décrit un visuel d'accompagnement.\n\n` +
+    `RÈGLES :\n` +
+    `- Rédige le prompt en français, en 60 à 110 mots, en un seul paragraphe (pas de liste, pas de titre).\n` +
+    `- Décris : le sujet/la scène principale, la composition, le style, l'ambiance, la lumière.\n` +
+    `- Aucun texte, logo, lettre ni chiffre dans l'image (les générateurs les rendent mal) : précise-le à la fin.\n` +
+    `- Format ${format}, sujet centré, marges de sécurité sur les bords : indique-le dans le prompt.\n` +
+    `- Identité visuelle NeuraWeb : fond sombre quasi noir (#050510), dégradés indigo (#6366f1), violet (#8b5cf6) et cyan (#22d3ee), ` +
+    `petites touches de rose (#f43f5e) ; ambiance studio de motion design / interface de dashboard SaaS, moderne et épurée.\n` +
+    `- Le visuel doit illustrer l'idée du post (concret, PME), pas une image générique de robot ou de cerveau.\n` +
+    `Réponds UNIQUEMENT avec le prompt, sans guillemets ni commentaire.\n\n` +
+    `━━━ MARQUE ━━━\n${NEURAWEB_BRAND}`;
+
+  const user = `${input.sujet ? `Sujet : ${input.sujet}\n\n` : ''}Texte du post :\n${input.text.slice(0, 3000)}`;
+  const raw = await mistralChat(
+    [
+      { role: 'system', content: system },
+      { role: 'user', content: user },
+    ],
+    { model: CONTENT_MODEL, temperature: 0.7, maxTokens: 500 },
+  );
+  const prompt = stripQuotes(raw);
+  if (!prompt) throw new ApiError("Le service IA n'a renvoyé aucun prompt.", 502);
+  return prompt;
+}
+
+// ── Posts d'un article de blog (FB + LinkedIn + thread X) ───
+
+export interface ArticlePosts {
+  facebook_hook: string;
+  facebook_post: string;
+  linkedin_hook: string;
+  linkedin_post: string;
+  x_thread: string[];
+}
+
+/** Retire imports MDX et balises pour ne garder que le texte de l'article. */
+export function cleanArticleBody(body: string): string {
+  return body
+    .replace(/import\s+.*?from\s+['"].*?['"];?/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\n{2,}/g, '\n')
+    .trim()
+    .substring(0, 12000);
+}
+
+async function shortenThread(tweets: string[]): Promise<string[]> {
+  const raw = await mistralChat(
+    [
+      {
+        role: 'user',
+        content:
+          `Réécris ces tweets pour que CHACUN fasse ${TWEET_TARGET} caractères maximum (une URL compte pour 23 caractères), ` +
+          `sans perdre le message, le lien ni le ton, en gardant le même nombre de tweets et le même ordre. ` +
+          `Tweets actuels (JSON) : ${JSON.stringify(tweets)}. Réponds STRICTEMENT en JSON : {"tweets":["..."]}`,
+      },
+    ],
+    { model: CONTENT_MODEL, temperature: 0.4, json: true, maxTokens: 1500 },
+  );
+  const fixed = parseLooseJson<{ tweets?: unknown }>(raw, 'correction');
+  return Array.isArray(fixed.tweets) ? fixed.tweets.map((t) => String(t).trim()).filter(Boolean) : [];
+}
+
+/**
+ * Génère l'accroche + post Facebook, l'accroche + post LinkedIn et un thread X
+ * (3 à 5 tweets, dernier tweet = CTA + lien) à partir d'un article.
+ */
+export async function generateArticlePosts(article: {
+  slug: string;
+  lang: 'fr' | 'en' | 'es';
+  title: string;
+  excerpt: string;
+  body: string;
+}): Promise<{ posts: ArticlePosts; articleUrl: string }> {
+  const langLabel = LANG_LABELS[article.lang] ?? 'français';
+  // Domaine canonique : neuraweb.fr (migration juillet 2026).
+  const articleUrl = `https://neuraweb.fr/${article.lang}/blog/${article.slug}`;
+
+  const prompt =
+    `Tu es responsable marketing chez NeuraWeb (agence web + IA / automatisation pour PME).\n` +
+    `À partir de l'article ci-dessous, crée des publications pour Facebook, LinkedIn et un thread X (Twitter).\n` +
+    `IMPORTANT : rédige TOUT le contenu en ${langLabel} (la langue de l'article).\n\n` +
+    `=== ARTICLE ===\nTitre : ${article.title}\nRésumé : ${article.excerpt}\nURL : ${articleUrl}\nContenu :\n${cleanArticleBody(article.body)}\n=== FIN ===\n\n` +
+    `Règles Facebook : 120-180 mots, ton professionnel et accessible aux PME, un CTA clair, maximum 4 hashtags.\n` +
+    `Règles LinkedIn : 300-500 mots, ton expert, structure aérée, une question d'ouverture, un CTA final.\n` +
+    `Règles X (thread) : 3 à 5 tweets. Tweet 1 = accroche forte sans lien. Dernier tweet = CTA + lien vers l'article : ${articleUrl}. ` +
+    `CHAQUE tweet fait ${TWEET_TARGET} caractères MAXIMUM (une URL compte pour 23 caractères) — contrainte absolue. 2 hashtags maximum sur tout le thread.\n` +
+    `Le champ "hook" est une première phrase d'accroche courte et percutante.\n\n` +
+    `Réponds avec un JSON STRICTEMENT conforme à ce schéma :\n` +
+    `{"facebook":{"hook":"","post":""},"linkedin":{"hook":"","post":""},"x_thread":["",""]}`;
+
+  const raw = await mistralChat([{ role: 'user', content: prompt }], {
+    model: CONTENT_MODEL,
+    temperature: 0.7,
+    json: true,
+    maxTokens: 3500,
+  });
+  const social = parseLooseJson<{
+    facebook?: { hook?: string; post?: string };
+    linkedin?: { hook?: string; post?: string };
+    x_thread?: unknown;
+  }>(raw, 'Mistral');
+
+  let tweets = Array.isArray(social.x_thread)
+    ? social.x_thread.map((t) => String(t).trim()).filter(Boolean)
+    : [];
+  if (tweets.length === 0) throw new ApiError('x_thread manquant dans la réponse Mistral.', 502);
+
+  if (tweets.some((t) => tweetLength(t) > 275)) {
+    tweets = await shortenThread(tweets);
+    if (tweets.length === 0 || tweets.some((t) => tweetLength(t) > TWEET_MAX)) {
+      throw new ApiError(`Thread toujours > 280 caractères après correction (${article.slug}).`, 502);
+    }
+  }
+
+  return {
+    articleUrl,
+    posts: {
+      facebook_hook: social.facebook?.hook ?? '',
+      facebook_post: social.facebook?.post ?? '',
+      linkedin_hook: social.linkedin?.hook ?? '',
+      linkedin_post: social.linkedin?.post ?? '',
+      x_thread: tweets,
+    },
+  };
+}

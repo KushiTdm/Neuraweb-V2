@@ -27,7 +27,14 @@ export class MistralError extends Error {
  */
 export async function mistralChat(
   messages: ChatMessage[],
-  opts: { maxTokens?: number; temperature?: number } = {},
+  opts: {
+    maxTokens?: number;
+    temperature?: number;
+    /** Modèle Mistral (défaut : `ministral-3b-latest`). */
+    model?: string;
+    /** Force une réponse JSON valide (`response_format: json_object`). */
+    json?: boolean;
+  } = {},
 ): Promise<string> {
   const apiKey = process.env.MISTRAL_API_KEY_MOBILE;
   if (!apiKey) throw new MistralError("MISTRAL_API_KEY_MOBILE non configurée.", 503);
@@ -36,11 +43,12 @@ export async function mistralChat(
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
     body: JSON.stringify({
-      model: MODEL,
+      model: opts.model ?? MODEL,
       messages,
       max_tokens: opts.maxTokens ?? 800,
       temperature: opts.temperature ?? 0.6,
       stream: false,
+      ...(opts.json ? { response_format: { type: "json_object" } } : {}),
     }),
   });
 
