@@ -39,29 +39,44 @@ export async function mistralChat(
   const apiKey = process.env.MISTRAL_API_KEY_MOBILE;
   if (!apiKey) throw new MistralError("MISTRAL_API_KEY_MOBILE non configurée.", 503);
 
-  const res = await fetch(MISTRAL_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
-    body: JSON.stringify({
-      model: opts.model ?? MODEL,
-      messages,
-      max_tokens: opts.maxTokens ?? 800,
-      temperature: opts.temperature ?? 0.6,
-      stream: false,
-      ...(opts.json ? { response_format: { type: "json_object" } } : {}),
-    }),
-  });
+  // Un seul nouvel essai : le palier gratuit renvoie de temps en temps un 429
+  // ponctuel (limite par seconde) ou une génération interrompue en cours de route
+  // (`finish_reason: "error"`, sortie tronquée) qui passent au second appel. Reste
+  // sous le maxDuration des routes (30-60 s).
+  const MAX_ATTEMPTS = 2;
+  let lastError = new MistralError("Erreur de l'IA Mistral.", 502);
 
-  if (!res.ok) {
-    const detail = await res.text().catch(() => "");
-    console.error("[mistral-mobile] API error", res.status, detail.slice(0, 300));
-    const status = res.status === 429 ? 429 : 502;
-    throw new MistralError(
-      res.status === 429 ? "Quota Mistral atteint, réessaie plus tard." : "Erreur de l'IA Mistral.",
-      status,
-    );
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    const res = await fetch(MISTRAL_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
+      body: JSON.stringify({
+        model: opts.model ?? MODEL,
+        messages,
+        max_tokens: opts.maxTokens ?? 800,
+        temperature: opts.temperature ?? 0.6,
+        stream: false,
+        ...(opts.json ? { response_format: { type: "json_object" } } : {}),
+      }),
+    });
+
+    if (res.ok) {
+      const json = await res.json();
+      const choice = json?.choices?.[0];
+      if (choice?.finish_reason !== "error") return choice?.message?.content?.trim() || "";
+      console.error("[mistral-mobile] génération interrompue (finish_reason=error), tentative", attempt);
+      lastError = new MistralError("Génération interrompue côté Mistral — réessaie.", 502);
+    } else {
+      const detail = await res.text().catch(() => "");
+      console.error("[mistral-mobile] API error", res.status, detail.slice(0, 300));
+      lastError = new MistralError(
+        res.status === 429 ? "Quota Mistral atteint, réessaie plus tard." : "Erreur de l'IA Mistral.",
+        res.status === 429 ? 429 : 502,
+      );
+      if (res.status !== 429 && res.status < 500) throw lastError;
+    }
+
+    if (attempt < MAX_ATTEMPTS) await new Promise((r) => setTimeout(r, 1200));
   }
-
-  const json = await res.json();
-  return json?.choices?.[0]?.message?.content?.trim() || "";
+  throw lastError;
 }

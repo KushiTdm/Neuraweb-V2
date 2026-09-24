@@ -3,8 +3,14 @@
 // Helpers texte partagés par les routes sociales de l'app mobile.
 // ============================================================
 
-/** Modèle Mistral utilisé pour rédiger (gratuit, plus fiable en JSON que ministral-3b). */
-export const CONTENT_MODEL = 'mistral-small-latest';
+/**
+ * Modèle Mistral utilisé pour rédiger. Par défaut `ministral-3b-latest`, comme le
+ * reste de l'app : `mistral-small-latest` renvoie 429 (« Rate limit exceeded »)
+ * sur la clé gratuite — c'est pour ça que le chatbot et la route mobile avaient
+ * été basculés dessus le 2026-09-09. Surchargeable via `MISTRAL_MODEL_CONTENT`
+ * (ex. `mistral-small-latest` si le quota le permet, pour une meilleure rédaction).
+ */
+export const CONTENT_MODEL = process.env.MISTRAL_MODEL_CONTENT || 'ministral-3b-latest';
 
 /** Limite dure d'un tweet (compte gratuit). */
 export const TWEET_MAX = 280;
@@ -41,6 +47,20 @@ export function stripFences(text: string): string {
 export function stripQuotes(text: string): string {
   const t = stripFences(text);
   return /^".*"$/s.test(t) ? t.slice(1, -1).trim() : t;
+}
+
+/**
+ * Retire le markdown d'emphase que les petits modèles ajoutent malgré la consigne
+ * (**gras**, *italique*, `code`, titres `# `) : les textes sont collés tels quels
+ * dans X / Facebook / Gemini. Les hashtags (`#mot`, sans espace) sont conservés.
+ */
+export function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/gs, '$1')
+    .replace(/(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])/gs, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .trim();
 }
 
 /** Parse un JSON renvoyé par un LLM ; l'erreur embarque un extrait pour le diagnostic. */

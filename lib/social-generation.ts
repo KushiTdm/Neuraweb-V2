@@ -16,9 +16,19 @@ import {
   TWEET_MAX,
   TWEET_TARGET,
   parseLooseJson,
+  stripMarkdown,
   stripQuotes,
   tweetLength,
 } from '@/lib/social-text';
+
+/** JSON de l'IA illisible → erreur 502 explicite (au lieu d'un « Erreur serveur » générique). */
+function parseJson<T = unknown>(raw: string, label: string): T {
+  try {
+    return parseLooseJson<T>(raw, label);
+  } catch {
+    throw new ApiError("Réponse de l'IA illisible (JSON invalide) — réessaie.", 502);
+  }
+}
 
 // ── Types ───────────────────────────────────────────────────
 
@@ -107,7 +117,7 @@ async function shortenTweetProposals(tweets: TweetProposal[]): Promise<TweetProp
     ],
     { model: CONTENT_MODEL, temperature: 0.4, json: true, maxTokens: 1800 },
   );
-  return shapeTweets(extractTweetList(parseLooseJson(raw, 'correction')));
+  return shapeTweets(extractTweetList(parseJson(raw, 'correction')));
 }
 
 /**
@@ -152,7 +162,8 @@ export async function generateTweetsFromVeille(
     `- Un tweet = une idée complète, jamais de thread, jamais de "1/5".\n` +
     `- Ton direct, concret, orienté PME françaises. Pas de jargon creux, pas d'emoji en excès (0 ou 1 max).\n` +
     `- Varie les angles entre les 5 tweets (pas 5 fois le même sujet).\n` +
-    `- hashtags : 0 à 2 par tweet, pertinents, sans les inventer si aucun n'est naturel.\n\n` +
+    `- hashtags : 0 à 2 par tweet, pertinents, sans les inventer si aucun n'est naturel.\n` +
+    `- N'invente AUCUN chiffre, pourcentage, montant, nom ni fait qui ne figure pas dans la veille.\n\n` +
     (isStale
       ? `Note : cette veille date du ${row.date_veille} (pas d'aujourd'hui) — reste factuel, évite les tournures "aujourd'hui"/"ce matin".\n\n`
       : '') +
@@ -168,7 +179,7 @@ export async function generateTweetsFromVeille(
   });
   if (!raw) throw new ApiError("Mistral n'a renvoyé aucun contenu.", 502);
 
-  let tweets = shapeTweets(extractTweetList(parseLooseJson(raw, 'Mistral')));
+  let tweets = shapeTweets(extractTweetList(parseJson(raw, 'Mistral')));
   if (tweets.length === 0) {
     throw new ApiError(`Mistral n'a proposé aucun tweet exploitable — réponse : ${raw.slice(0, 200)}`, 502);
   }
@@ -228,6 +239,8 @@ export async function refineText(input: RefineInput): Promise<string> {
     (input.excerpt ? `Contexte additionnel : ${input.excerpt}\n` : '') +
     `\nTEXTE ACTUEL :\n${input.current}\n\n` +
     `INSTRUCTION : ${input.instruction}\n\n` +
+    `Texte brut uniquement : pas de markdown (pas de **gras**, pas de titres). N'invente aucun chiffre, nom ni fait absent du texte d'origine, ` +
+    `et ne change pas le sens au-delà de l'instruction.\n` +
     `Réponds UNIQUEMENT avec le texte révisé, sans guillemets, sans préambule, sans commentaire.`;
 
   const raw = await mistralChat([{ role: 'user', content: prompt }], {
@@ -235,7 +248,7 @@ export async function refineText(input: RefineInput): Promise<string> {
     temperature: 0.6,
     maxTokens: 1400,
   });
-  let revised = stripQuotes(raw);
+  let revised = stripMarkdown(stripQuotes(raw));
   if (!revised) throw new ApiError("Le service IA n'a renvoyé aucun texte.", 502);
 
   if (platform === 'x' && tweetLength(revised) > TWEET_MAX) {
@@ -281,13 +294,14 @@ export async function generateImagePrompt(input: {
     `On te donne le texte d'un post ${platform} de l'agence NeuraWeb (pour un thread : l'ensemble du thread, ` +
     `le visuel accompagne le premier tweet) ; tu produis UN SEUL prompt, prêt à coller, qui décrit un visuel d'accompagnement.\n\n` +
     `RÈGLES :\n` +
-    `- Rédige le prompt en français, en 60 à 110 mots, en un seul paragraphe (pas de liste, pas de titre).\n` +
+    `- Rédige le prompt en français, 100 mots MAXIMUM (idéalement 70 à 90), en un seul paragraphe (pas de liste, pas de titre).\n` +
     `- Décris : le sujet/la scène principale, la composition, le style, l'ambiance, la lumière.\n` +
-    `- Aucun texte, logo, lettre ni chiffre dans l'image (les générateurs les rendent mal) : précise-le à la fin.\n` +
+    `- Aucun texte, logo, lettre ni chiffre dans l'image (les générateurs les rendent mal) : ne décris donc aucun libellé, statut ni chiffre affiché à l'écran, et précise-le à la fin.\n` +
     `- Format ${format}, sujet centré, marges de sécurité sur les bords : indique-le dans le prompt.\n` +
     `- Identité visuelle NeuraWeb : fond sombre quasi noir (#050510), dégradés indigo (#6366f1), violet (#8b5cf6) et cyan (#22d3ee), ` +
     `petites touches de rose (#f43f5e) ; ambiance studio de motion design / interface de dashboard SaaS, moderne et épurée.\n` +
     `- Le visuel doit illustrer l'idée du post (concret, PME), pas une image générique de robot ou de cerveau.\n` +
+    `Texte brut : pas de markdown (pas d'astérisques), pas d'emojis, pas de guillemets autour de mots à afficher.\n` +
     `Réponds UNIQUEMENT avec le prompt, sans guillemets ni commentaire.\n\n` +
     `━━━ MARQUE ━━━\n${NEURAWEB_BRAND}`;
 
@@ -299,7 +313,7 @@ export async function generateImagePrompt(input: {
     ],
     { model: CONTENT_MODEL, temperature: 0.7, maxTokens: 500 },
   );
-  const prompt = stripQuotes(raw);
+  const prompt = stripMarkdown(stripQuotes(raw));
   if (!prompt) throw new ApiError("Le service IA n'a renvoyé aucun prompt.", 502);
   return prompt;
 }
@@ -324,6 +338,41 @@ export function cleanArticleBody(body: string): string {
     .substring(0, 12000);
 }
 
+/**
+ * Extrait les tweets d'un thread quel que soit le format renvoyé par le modèle :
+ * chaînes, ou objets `{ tweet | texte | text | contenu | content | message }`
+ * (les petits modèles dévient du schéma demandé — sans ça, `String(objet)`
+ * écrivait « [object Object] » en base).
+ */
+function threadItems(raw: unknown): string[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .map((t) => {
+      if (typeof t === 'string') return t.trim();
+      if (t && typeof t === 'object') {
+        const o = t as Record<string, unknown>;
+        const v = o.tweet ?? o.texte ?? o.text ?? o.contenu ?? o.content ?? o.message;
+        return typeof v === 'string' ? v.trim() : '';
+      }
+      return '';
+    })
+    .filter(Boolean);
+}
+
+/**
+ * Garantit le lien de l'article dans le thread (le dernier tweet doit porter le
+ * CTA + lien) : ajouté en fin de dernier tweet si le modèle l'a oublié, ou
+ * remplacé par un CTA court si le tweet est déjà trop long pour l'accueillir.
+ */
+function ensureArticleLink(tweets: string[], url: string): string[] {
+  if (tweets.some((t) => t.includes(url))) return tweets;
+  const out = [...tweets];
+  const last = out[out.length - 1];
+  const withLink = `${last} ${url}`;
+  out[out.length - 1] = tweetLength(withLink) <= TWEET_MAX ? withLink : `Lire l'article : ${url}`;
+  return out;
+}
+
 async function shortenThread(tweets: string[]): Promise<string[]> {
   const raw = await mistralChat(
     [
@@ -337,8 +386,8 @@ async function shortenThread(tweets: string[]): Promise<string[]> {
     ],
     { model: CONTENT_MODEL, temperature: 0.4, json: true, maxTokens: 1500 },
   );
-  const fixed = parseLooseJson<{ tweets?: unknown }>(raw, 'correction');
-  return Array.isArray(fixed.tweets) ? fixed.tweets.map((t) => String(t).trim()).filter(Boolean) : [];
+  const fixed = parseJson<{ tweets?: unknown }>(raw, 'correction');
+  return threadItems(fixed.tweets);
 }
 
 /**
@@ -361,7 +410,8 @@ export async function generateArticlePosts(article: {
     `À partir de l'article ci-dessous, crée des publications pour Facebook, LinkedIn et un thread X (Twitter).\n` +
     `IMPORTANT : rédige TOUT le contenu en ${langLabel} (la langue de l'article).\n\n` +
     `=== ARTICLE ===\nTitre : ${article.title}\nRésumé : ${article.excerpt}\nURL : ${articleUrl}\nContenu :\n${cleanArticleBody(article.body)}\n=== FIN ===\n\n` +
-    `Règles Facebook : 120-180 mots, ton professionnel et accessible aux PME, un CTA clair, maximum 4 hashtags.\n` +
+    `Ne cite que des chiffres et faits présents dans l'article. Texte brut, sans markdown.\n` +
+    `Règles Facebook : 120-180 mots (compte-les, ni moins de 120), ton professionnel et accessible aux PME, un CTA clair, maximum 4 hashtags.\n` +
     `Règles LinkedIn : 300-500 mots, ton expert, structure aérée, une question d'ouverture, un CTA final.\n` +
     `Règles X (thread) : 3 à 5 tweets. Tweet 1 = accroche forte sans lien. Dernier tweet = CTA + lien vers l'article : ${articleUrl}. ` +
     `CHAQUE tweet fait ${TWEET_TARGET} caractères MAXIMUM (une URL compte pour 23 caractères) — contrainte absolue. 2 hashtags maximum sur tout le thread.\n` +
@@ -369,38 +419,77 @@ export async function generateArticlePosts(article: {
     `Réponds avec un JSON STRICTEMENT conforme à ce schéma :\n` +
     `{"facebook":{"hook":"","post":""},"linkedin":{"hook":"","post":""},"x_thread":["",""]}`;
 
+  // Le petit modèle gratuit respecte mal les longueurs demandées (Facebook à 44 mots
+  // au lieu de 120-180, LinkedIn à 22 au lieu de 300-500, selon les essais) : on
+  // relance jusqu'à 3 fois si les textes sont nettement trop courts et on garde le
+  // meilleur essai. Budget de temps borné (routes limitées à 60 s).
+  const started = Date.now();
+  let best: ArticlePosts | null = null;
+  let bestScore = -1;
+  let lastError: unknown = null;
+  for (let attempt = 1; attempt <= ARTICLE_MAX_ATTEMPTS; attempt++) {
+    try {
+      const posts = await generateArticlePostsOnce(prompt, article.slug, articleUrl);
+      const fb = wordCount(posts.facebook_post);
+      const li = wordCount(posts.linkedin_post);
+      const score = Math.min(fb, 120) + Math.min(li, 300);
+      if (score > bestScore) {
+        best = posts;
+        bestScore = score;
+      }
+      if (fb >= ARTICLE_MIN_FB_WORDS && li >= ARTICLE_MIN_LI_WORDS) break;
+    } catch (e) {
+      lastError = e;
+    }
+    if (Date.now() - started > 35_000) break;
+  }
+  if (!best) throw lastError instanceof Error ? lastError : new ApiError('Génération impossible pour cet article.', 502);
+  return { posts: best, articleUrl };
+}
+
+const ARTICLE_MAX_ATTEMPTS = 3;
+/** Seuils de relance (un peu sous les cibles 120-180 / 300-500 mots). */
+const ARTICLE_MIN_FB_WORDS = 100;
+const ARTICLE_MIN_LI_WORDS = 250;
+
+function wordCount(text: string): number {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+/** Une génération complète (FB + LinkedIn + thread X validé) ; lève ApiError si inexploitable. */
+async function generateArticlePostsOnce(prompt: string, slug: string, articleUrl: string): Promise<ArticlePosts> {
   const raw = await mistralChat([{ role: 'user', content: prompt }], {
     model: CONTENT_MODEL,
     temperature: 0.7,
     json: true,
     maxTokens: 3500,
   });
-  const social = parseLooseJson<{
+  const social = parseJson<{
     facebook?: { hook?: string; post?: string };
     linkedin?: { hook?: string; post?: string };
     x_thread?: unknown;
   }>(raw, 'Mistral');
 
-  let tweets = Array.isArray(social.x_thread)
-    ? social.x_thread.map((t) => String(t).trim()).filter(Boolean)
-    : [];
-  if (tweets.length === 0) throw new ApiError('x_thread manquant dans la réponse Mistral.', 502);
+  let tweets = threadItems(social.x_thread);
+  if (tweets.length === 0) throw new ApiError('x_thread manquant ou illisible dans la réponse Mistral.', 502);
 
   if (tweets.some((t) => tweetLength(t) > 275)) {
     tweets = await shortenThread(tweets);
     if (tweets.length === 0 || tweets.some((t) => tweetLength(t) > TWEET_MAX)) {
-      throw new ApiError(`Thread toujours > 280 caractères après correction (${article.slug}).`, 502);
+      throw new ApiError(`Thread toujours > 280 caractères après correction (${slug}).`, 502);
     }
   }
 
+  tweets = ensureArticleLink(tweets, articleUrl);
+  if (tweets.some((t) => tweetLength(t) > TWEET_MAX)) {
+    throw new ApiError(`Thread toujours > 280 caractères après ajout du lien (${slug}).`, 502);
+  }
+
   return {
-    articleUrl,
-    posts: {
-      facebook_hook: social.facebook?.hook ?? '',
-      facebook_post: social.facebook?.post ?? '',
-      linkedin_hook: social.linkedin?.hook ?? '',
-      linkedin_post: social.linkedin?.post ?? '',
-      x_thread: tweets,
-    },
+    facebook_hook: stripMarkdown(social.facebook?.hook ?? ''),
+    facebook_post: stripMarkdown(social.facebook?.post ?? ''),
+    linkedin_hook: stripMarkdown(social.linkedin?.hook ?? ''),
+    linkedin_post: stripMarkdown(social.linkedin?.post ?? ''),
+    x_thread: tweets,
   };
 }
