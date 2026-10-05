@@ -11,12 +11,17 @@
 // 2. Commentaires de 1er niveau sans réponse de la Page, postés il y a
 //    plus d'1 h et moins de 72 h.
 // 3. Ceux déjà signalés (table editorial.campagne_alertes) sont ignorés.
-// 4. Une seule notification groupée via ntfy (app gratuite Android / iOS).
+// 4. Une seule notification groupée : push Firebase dans l'app (si
+//    FIREBASE_SERVICE_ACCOUNT_JSON est configuré), sinon ntfy.
+// 5. Même passage : nouveaux e-mails de la boîte contact → push (l'UID du
+//    dernier e-mail vu est gardé dans editorial.push_state).
 //
 // Heures calmes : de 22h30 à 7h (heure de Hanoi), rien n'est envoyé ; les
 // commentaires restent en attente et partent au premier passage après 7h.
 //
-// Variables (Vercel) : CRON_SECRET, NTFY_TOPIC, [NTFY_SERVER], [NTFY_TOKEN].
+// Variables (Vercel) : CRON_SECRET, FIREBASE_SERVICE_ACCOUNT_JSON ; ntfy en
+// secours : NTFY_TOPIC, [NTFY_SERVER], [NTFY_TOKEN].
+// Test : GET ?test=1 envoie une notification d'essai.
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -24,6 +29,8 @@ import { editorialDb } from '@/lib/mobile-api';
 import { facebookPageConfig } from '@/lib/facebook-graph';
 import { fetchComments, type CampagneComment } from '@/lib/campagne-facebook';
 import { loadActiveCampagnes } from '@/lib/campagne-db';
+import { pushConfigured, sendPush } from '@/lib/push';
+import { listEmails } from '@/lib/email-imap';
 
 export const maxDuration = 60;
 export const dynamic = 'force-dynamic';
@@ -72,12 +79,69 @@ async function sendNtfy(input: { title: string; message: string; click?: string 
   if (!res.ok) throw new Error(`ntfy a refusé la notification (HTTP ${res.status}).`);
 }
 
+/** Push Firebase si configuré, sinon ntfy. Lève une erreur si rien n'est parti. */
+async function notify(input: { title: string; message: string; click?: string | null; channel: string; tag?: string }) {
+  if (pushConfigured()) {
+    const r = await sendPush({ title: input.title, body: input.message, channel: input.channel, tag: input.tag, data: { url: input.click } });
+    if (r.envoyes === 0) throw new Error(r.erreurs[0] ?? 'Aucun appareil joignable.');
+    return;
+  }
+  await sendNtfy(input);
+}
+
+/**
+ * Nouveaux e-mails de la boîte contact depuis le dernier passage.
+ * Au tout premier passage on ne notifie rien : on mémorise seulement le point de départ.
+ */
+async function checkEmails(): Promise<{ nouveaux: number; erreur?: string }> {
+  try {
+    const db = editorialDb();
+    const emails = await listEmails(15);
+    if (emails.length === 0) return { nouveaux: 0 };
+    const maxUid = Math.max(...emails.map((e) => e.uid));
+    const { data: state } = await db.from('push_state').select('value').eq('key', 'dernier_email_uid').maybeSingle();
+    const last = state ? Number((state.value as { uid?: number }).uid ?? -1) : -1;
+    const fresh = last >= 0 ? emails.filter((e) => e.uid > last) : [];
+    if (fresh.length > 0) {
+      const first = fresh[0];
+      await notify({
+        title: fresh.length === 1 ? `Nouvel e-mail — ${first.fromName || first.from}` : `${fresh.length} nouveaux e-mails`,
+        message: fresh.length === 1 ? first.subject : fresh.slice(0, 3).map((e) => `${e.fromName || e.from} : ${e.subject}`).join('\n'),
+        channel: 'cockpit',
+        tag: `mail-${first.uid}`,
+      });
+    }
+    if (maxUid !== last) {
+      await db.from('push_state').upsert({ key: 'dernier_email_uid', value: { uid: maxUid }, updated_at: new Date().toISOString() }, { onConflict: 'key' });
+    }
+    return { nouveaux: fresh.length };
+  } catch (e) {
+    return { nouveaux: 0, erreur: e instanceof Error ? e.message : String(e) };
+  }
+}
+
 async function handle(req: NextRequest) {
   if (!authorized(req)) return NextResponse.json({ error: 'Non autorisé.' }, { status: 401 });
+
+  if (req.nextUrl.searchParams.get('test') === '1') {
+    try {
+      await notify({ title: 'Notification de test', message: 'Les alertes du cockpit fonctionnent, app fermée comprise. ✅', channel: 'cockpit' });
+      return NextResponse.json({ ok: true, test: true, via: pushConfigured() ? 'firebase' : 'ntfy' });
+    } catch (e) {
+      return NextResponse.json({ error: e instanceof Error ? e.message : String(e) }, { status: 502 });
+    }
+  }
 
   const now = Date.now();
   if (isQuietHours(new Date(now))) return NextResponse.json({ ok: true, skipped: 'heures calmes' });
 
+  const emails = await checkEmails();
+  const res = await commentAlerts(now);
+  const body = (await res.json()) as Record<string, unknown>;
+  return NextResponse.json({ ...body, emails }, { status: res.status });
+}
+
+async function commentAlerts(now: number): Promise<NextResponse> {
   const db = editorialDb();
   const campagnes = await loadActiveCampagnes();
   const since = new Date(now - PUBLICATION_WINDOW_DAYS * 86_400_000).toISOString();
@@ -133,10 +197,11 @@ async function handle(req: NextRequest) {
   const lines = fresh.slice(0, 3).map((f) => `« ${excerpt(f.comment.message)} » sur ${excerpt(f.titre, 40)}`);
   if (fresh.length > 3) lines.push(`… et ${fresh.length - 3} autre(s).`);
   try {
-    await sendNtfy({
+    await notify({
       title: `${fresh.length} commentaire${fresh.length > 1 ? 's' : ''} sans réponse depuis plus d'1 h`,
       message: lines.join('\n'),
       click: fresh[0].comment.permalink,
+      channel: 'campagne',
     });
   } catch (e) {
     return NextResponse.json({ error: e instanceof Error ? e.message : String(e), erreurs: errors }, { status: 502 });
