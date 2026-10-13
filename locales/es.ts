@@ -78,7 +78,7 @@ export const es: Record<TranslationKey, string> = {
   'hero.main.title': 'Desarrollo Web y',
   'hero.title.highlight': 'Aplicaciones Móviles',
   'hero.title.end': 'a medida',
-  'hero.subtitle': 'Desarrollo web personalizado, apps móviles, integración IA y automatización n8n para startups y pymes. Basados en Francia, clientes en toda Europa.',
+  'hero.subtitle': "Desarrollo web, apps móviles, integración IA y automatización n8n para pymes y comercios. Con sede en Lille, clientes en toda Europa.",
   'hero.cta.start': 'Iniciar un proyecto',
   'hero.cta.services': 'Nuestros servicios',
   'hero.scroll.discover': 'Descubrir',
@@ -88,19 +88,19 @@ export const es: Record<TranslationKey, string> = {
 
   // Services Section
   'services.section.title': 'Nuestros Servicios',
-  'services.section.subtitle': 'Soluciones personalizadas para transformar tu presencia digital y automatizar tus procesos empresariales',
+  'services.section.subtitle': "Sitio web, app móvil, automatización o agente de IA: presupuesto claro, un único interlocutor, entrega con seguimiento.",
   'services.web.title': 'Desarrollo Web',
-  'services.web.desc': 'Sitios web y aplicaciones modernas, eficientes y escalables construidas con las últimas tecnologías.',
+  'services.web.desc': "Sitios escaparate, sitios de reservas y tiendas online con Next.js, rápidos y bien posicionados.",
   'services.mobile.title': 'Apps Móviles',
   'services.mobile.desc': 'Apps iOS y Android a medida: React Native, Flutter, Swift, Kotlin. MVP en 6 semanas.',
   'services.automation.title': 'Automatización',
-  'services.automation.desc': 'Optimiza tus procesos empresariales con soluciones de automatización inteligentes que te ahorran tiempo.',
+  'services.automation.desc': "Presupuestos, recordatorios y tareas repetitivas pasan a flujos n8n. Varias horas ahorradas cada semana.",
   'services.ai.title': 'Integración IA',
-  'services.ai.desc': 'Aprovecha el poder de la inteligencia artificial para mejorar tus servicios y tomar mejores decisiones.',
+  'services.ai.desc': "Un chatbot que responde a tus clientes, un agente que clasifica tus emails o facturas: IA donde realmente sirve.",
 
   // About Section
   'about.title': 'Sobre NeuraWeb',
-  'about.description': 'Somos un equipo apasionado de desarrolladores y expertos en IA dedicados a transformar tus ideas en soluciones digitales innovadoras. Nuestro enfoque combina experiencia técnica, creatividad y compromiso para entregar proyectos que superan tus expectativas.',
+  'about.description': "NeuraWeb es una pequeña agencia con sede en Lille, fundada por Nacer, desarrollador. Con Sandra (comunicación y marketing) y Arthur (IA y automatización), hablas directamente con el equipo que construye tu sitio, tu app o tus automatizaciones, desde el presupuesto hasta el mantenimiento.",
   'about.image.alt': 'Equipo NeuraWeb colaborando',
   'about.badge': '¿Quiénes somos?',
   'about.stat.satisfaction': 'Satisfacción del cliente',
@@ -131,7 +131,7 @@ export const es: Record<TranslationKey, string> = {
   // Portfolio Section
   'portfolio.section.title.start': 'Nuestros',
   'portfolio.section.title.highlight': 'Proyectos',
-  'portfolio.section.subtitle': 'Descubre nuestros proyectos más recientes e innovadores',
+  'portfolio.section.subtitle': "Algunos proyectos recientes: sitios web, demos interactivas y apps.",
   'portfolio.carousel.label': 'Carrusel de proyectos del portafolio',
   'portfolio.card.clickToView': 'Haz clic para ver',
   'portfolio.nav.previous': 'Proyecto anterior',
@@ -229,7 +229,7 @@ export const es: Record<TranslationKey, string> = {
   'cta.bookSlot': 'Reservar una cita',
 
   // Footer
-  'footer.company.description': 'Soluciones web innovadoras y automatización inteligente para tu empresa.',
+  'footer.company.description': "Agencia web en Lille: sitios Next.js, apps móviles, automatización n8n e integración de IA.",
   'footer.links.title': 'Enlaces rápidos',
   'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. Todos los derechos reservados.`,
   'footer.legal.legalNotice': 'Aviso Legal',
@@ -388,7 +388,7 @@ export const es: Record<TranslationKey, string> = {
 
   // SEO Dynamic
   'seo.home.title': 'NeuraWeb — Agencia Web, IA & Automatización',
-  'seo.home.description': 'Agencia digital premium especializada en desarrollo web personalizado, integración IA y automatización. Transforma tu visión en soluciones digitales innovadoras.',
+  'seo.home.description': "Agencia web en Lille: sitios Next.js, apps móviles, automatización n8n y agentes de IA para pymes, hoteles y restaurantes. Presupuesto gratis en 24 h.",
   'seo.services.title': 'Servicios - Soluciones Web a Medida | NeuraWeb',
   'seo.services.description': 'Descubre nuestros servicios de desarrollo web, integración IA y automatización. Paquetes adaptados a tus necesidades. Presupuesto gratis.',
   'seo.contact.title': 'Contacto - Hablemos de tu proyecto | NeuraWeb',
@@ -713,7 +713,7 @@ export const es: Record<TranslationKey, string> = {
   'equipe.members.sandra.role': 'Comunicación & Marketing',
   'equipe.members.sandra.bio': 'Experta en comunicación digital y estrategia de marketing. Transforma ideas en campañas impactantes y desarrolla la presencia de marca de nuestros clientes.',
   'equipe.members.arthur.role': 'Desarrollador IA & Automatización',
-  'equipe.members.arthur.bio': 'Ingeniero especializado en inteligencia artificial y automatización. Diseña soluciones IA innovadoras y flujos de trabajo automatizados a medida.',
+  'equipe.members.arthur.bio': "Ingeniero especializado en IA y automatización. Crea flujos n8n, chatbots y agentes de IA adaptados a cada empresa.",
   'equipe.values.title': 'Nuestros valores',
   'equipe.values.speed.title': 'Rapidez',
   'equipe.values.speed.desc': 'MVPs en 4-6 semanas. No perdemos tiempo, entregamos.',

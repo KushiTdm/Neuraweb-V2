@@ -655,7 +655,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
             affiché et devis dans une même grille diluerait le positionnement
             premium. Voir LANDING_OFFER plus haut. */}
         {language === 'vi' && (
-          <div className="mb-14 md:mb-20 rounded-3xl p-[1.5px] bg-gradient-to-r from-emerald-400/70 via-cyan-400/40 to-emerald-400/70">
+          <div className="mb-14 md:mb-20 rounded-3xl p-[1.5px] bg-emerald-400">
             <div className="rounded-3xl bg-[#050510] p-6 sm:p-8 lg:p-10">
               <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
                 {/* Colonne offre */}

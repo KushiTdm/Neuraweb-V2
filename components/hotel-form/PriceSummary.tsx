@@ -31,7 +31,7 @@ export function PriceSummary() {
       </div>
       <div className="flex justify-between items-baseline pt-4 mt-2 border-t-2 border-indigo-500/30">
         <span className="font-bold text-base" style={{ fontFamily: 'Syne, sans-serif' }}>{t('hotelForm.summary.total')}</span>
-        <span className="font-extrabold text-3xl" style={{ fontFamily: 'Syne, sans-serif', background: 'linear-gradient(135deg,#818cf8,#c084fc,#67e8f9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+        <span className="font-extrabold text-3xl" style={{ fontFamily: 'Syne, sans-serif', color: '#a5b4fc' }}>
           ${totalOneTime.toLocaleString()}
         </span>
       </div>

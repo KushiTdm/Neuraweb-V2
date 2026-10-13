@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ArrowRight, ChevronDown } from 'lucide-react';
-import { useTheme } from '@/components/theme-provider';
 import { useTranslation } from '@/hooks/use-translation';
 import { LanguageSelector } from '@/components/language-selector';
 import { LocalizedLink } from '@/components/localized-link';
@@ -17,7 +16,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const lastScrollY = useRef(0);
-  const { isDark } = useTheme();
+  const isDark = false; // le contenu du site est toujours clair : header clair en permanence
   const { t } = useTranslation();
   const pathname = usePathname();
 
@@ -59,8 +58,8 @@ export function Header() {
           transition-[transform,background-color,border-color,box-shadow] duration-500 ease-in-out
           ${isHidden && !isMenuOpen ? '-translate-y-full' : 'translate-y-0'}
           ${isScrolled
-            ? 'bg-white/75 dark:bg-[rgba(7,15,38,0.82)] border-white/25 dark:border-white/[0.07] shadow-[0_1px_20px_rgba(0,0,0,0.06)]'
-            : 'bg-white/10 dark:bg-navy-950/10 border-white/[0.08] dark:border-white/[0.04]'
+            ? 'bg-white/75 border-white/25 shadow-[0_1px_20px_rgba(0,0,0,0.06)]'
+            : 'bg-white border-navy-900/10'
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,13 +83,13 @@ export function Header() {
                 href="/"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/')
-                    ? 'text-white'
-                    : 'text-navy-900 dark:text-gray-300 hover:text-white dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
+                    ? 'text-navy-900'
+                    : 'text-navy-900 hover:text-navy-900 hover:bg-frost/60'
                 }`}
               >
                 {t('nav.home')}
                 {isActive('/') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-white" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navy-900" />
                 )}
               </LocalizedLink>
 
@@ -100,8 +99,8 @@ export function Header() {
                   href="/developpement-web"
                   className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 inline-flex items-center gap-1 ${
                     isActive('/developpement-web')
-                      ? 'text-white'
-                      : 'text-navy-900 dark:text-gray-300 hover:text-white dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
+                      ? 'text-navy-900'
+                      : 'text-navy-900 hover:text-navy-900 hover:bg-frost/60'
                   }`}
                   aria-haspopup="menu"
                 >
@@ -111,7 +110,7 @@ export function Header() {
                     className="transition-transform duration-200 group-hover:rotate-180"
                   />
                   {isActive('/developpement-web') && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-white" />
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navy-900" />
                   )}
                 </LocalizedLink>
 
@@ -126,51 +125,51 @@ export function Header() {
                     focus-within:opacity-100 focus-within:visible focus-within:translate-y-0
                     transition-all duration-200 origin-top-left z-50"
                 >
-                  <div className="rounded-xl border border-gray-200/80 dark:border-white/10 bg-white/95 dark:bg-[#0a0a1a]/95 backdrop-blur-md shadow-xl shadow-black/5 dark:shadow-black/40 p-2">
+                  <div className="rounded-xl border border-gray-200/80 bg-white/95 backdrop-blur-md shadow-xl shadow-black/5 p-2">
                     {/* Développement web + ses verticales sectorielles */}
                     <LocalizedLink
                       href="/developpement-web"
                       className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
-                        text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
-                        hover:bg-gray-50 dark:hover:bg-white/5"
+                        text-gray-700 hover:text-gray-900
+                        hover:bg-gray-50"
                     >
                       <span className="block font-medium">{t('nav.dropdown.web.label')}</span>
-                      <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.web.desc')}</span>
+                      <span className="block text-xs text-gray-500">{t('nav.dropdown.web.desc')}</span>
                     </LocalizedLink>
 
-                    <div className="my-1 border-t border-gray-100 dark:border-white/5" />
+                    <div className="my-1 border-t border-gray-100" />
 
                     <LocalizedLink
                       href="/mobile-app-development"
                       className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
-                        text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
-                        hover:bg-gray-50 dark:hover:bg-white/5"
+                        text-gray-700 hover:text-gray-900
+                        hover:bg-gray-50"
                     >
                       <span className="block font-medium">{t('nav.dropdown.mobile.label')}</span>
-                      <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.mobile.desc')}</span>
+                      <span className="block text-xs text-gray-500">{t('nav.dropdown.mobile.desc')}</span>
                     </LocalizedLink>
 
                     <LocalizedLink
                       href="/automatisation"
                       className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
-                        text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
-                        hover:bg-gray-50 dark:hover:bg-white/5"
+                        text-gray-700 hover:text-gray-900
+                        hover:bg-gray-50"
                     >
                       <span className="block font-medium">{t('nav.dropdown.automation.label')}</span>
-                      <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.automation.desc')}</span>
+                      <span className="block text-xs text-gray-500">{t('nav.dropdown.automation.desc')}</span>
                     </LocalizedLink>
 
                     <LocalizedLink
                       href="/integration-ia"
                       className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
-                        text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
-                        hover:bg-gray-50 dark:hover:bg-white/5"
+                        text-gray-700 hover:text-gray-900
+                        hover:bg-gray-50"
                     >
                       <span className="block font-medium">{t('nav.dropdown.ai.label')}</span>
-                      <span className="block text-xs text-gray-500 dark:text-gray-500">{t('nav.dropdown.ai.desc')}</span>
+                      <span className="block text-xs text-gray-500">{t('nav.dropdown.ai.desc')}</span>
                     </LocalizedLink>
 
-                    <div className="my-1 border-t border-gray-100 dark:border-white/5" />
+                    <div className="my-1 border-t border-gray-100" />
 
                     {/* Démo interactive — sous-domaine externe (web + mobile connectés) */}
                     <a
@@ -178,13 +177,13 @@ export function Header() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors
-                        text-indigo-700 dark:text-sky-300 hover:bg-indigo-50 dark:hover:bg-white/5"
+                        text-indigo-700 hover:bg-indigo-50"
                     >
                       <span className="flex items-center gap-1.5 font-medium">
                         Démo interactive
                         <ArrowRight size={13} className="-rotate-45" />
                       </span>
-                      <span className="block text-xs text-gray-500 dark:text-gray-500">Web + mobile connectés en temps réel</span>
+                      <span className="block text-xs text-gray-500">Web + mobile connectés en temps réel</span>
                     </a>
                   </div>
                 </div>
@@ -194,13 +193,13 @@ export function Header() {
                 href="/blog"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/blog')
-                    ? 'text-white'
-                    : 'text-navy-900 dark:text-gray-300 hover:text-white dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
+                    ? 'text-navy-900'
+                    : 'text-navy-900 hover:text-navy-900 hover:bg-frost/60'
                 }`}
               >
                 {t('nav.blog')}
                 {isActive('/blog') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-white" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navy-900" />
                 )}
               </LocalizedLink>
 
@@ -208,13 +207,13 @@ export function Header() {
                 href="/equipe"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/equipe')
-                    ? 'text-white'
-                    : 'text-navy-900 dark:text-gray-300 hover:text-white dark:hover:text-white hover:bg-frost/60 dark:hover:bg-white/5'
+                    ? 'text-navy-900'
+                    : 'text-navy-900 hover:text-navy-900 hover:bg-frost/60'
                 }`}
               >
                 {t('nav.team')}
                 {isActive('/equipe') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-white" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navy-900" />
                 )}
               </LocalizedLink>
             </nav>
@@ -258,14 +257,14 @@ export function Header() {
                 <span
                   className="block w-[18px] h-[1.5px] bg-current rounded-full transition-all duration-300 origin-center"
                   style={{
-                    color: isScrolled ? (isDark ? '#fff' : '#0E1B3D') : '#fff',
+                    color: isDark ? '#fff' : '#0E1B3D',
                     transform: isMenuOpen ? 'translateY(6.5px) rotate(45deg)' : 'none',
                   }}
                 />
                 <span
                   className="block w-[18px] h-[1.5px] bg-current rounded-full transition-all duration-300"
                   style={{
-                    color: isScrolled ? (isDark ? '#fff' : '#0E1B3D') : '#fff',
+                    color: isDark ? '#fff' : '#0E1B3D',
                     opacity: isMenuOpen ? 0 : 1,
                     transform: isMenuOpen ? 'scaleX(0)' : 'none',
                   }}
@@ -273,7 +272,7 @@ export function Header() {
                 <span
                   className="block w-[18px] h-[1.5px] bg-current rounded-full transition-all duration-300 origin-center"
                   style={{
-                    color: isScrolled ? (isDark ? '#fff' : '#0E1B3D') : '#fff',
+                    color: isDark ? '#fff' : '#0E1B3D',
                     transform: isMenuOpen ? 'translateY(-6.5px) rotate(-45deg)' : 'none',
                   }}
                 />

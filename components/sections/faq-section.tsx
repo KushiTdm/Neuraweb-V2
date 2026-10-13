@@ -55,7 +55,7 @@ export function FAQSection() {
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
             <span className="text-navy-900">{labels.title1} </span>
-            <span style={{ background: 'linear-gradient(135deg,#4f46e5,#7c3aed,#0891b2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <span style={{ color: '#1E3A6B' }}>
               {labels.title2}
             </span>
           </h2>

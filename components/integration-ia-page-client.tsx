@@ -621,7 +621,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
             </div>
             <h1 className="animate-on-scroll fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               {c.hero.h1}{' '}
-              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">{c.hero.h1highlight}</span>
+              <span className="text-white">{c.hero.h1highlight}</span>
             </h1>
             <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{c.hero.p}</p>
             <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center mb-16">
@@ -635,7 +635,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
             <div className="animate-on-scroll fade-up delay-400">
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-3 max-w-3xl mx-auto" gridGap="gap-6">
               {c.stats.map((stat, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 h-full">
+                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
                   <div className="text-3xl font-bold mb-1 text-white">{STATS_VALUES[i]}</div>
                   <div className="text-sm text-slate-400">{stat.label}</div>
                 </div>

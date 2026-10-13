@@ -37,7 +37,7 @@ export function PriceWidget() {
           </div>
           <div className="flex justify-between items-baseline pt-2.5 border-t border-indigo-500/25">
             <span className="text-sm font-bold text-white">{t('hotelForm.widget.total')}</span>
-            <span className="font-extrabold text-xl" style={{ fontFamily: 'Syne, sans-serif', background: 'linear-gradient(135deg,#818cf8,#c084fc,#67e8f9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <span className="font-extrabold text-xl" style={{ fontFamily: 'Syne, sans-serif', color: '#a5b4fc' }}>
               ${totalOneTime.toLocaleString()}
             </span>
           </div>

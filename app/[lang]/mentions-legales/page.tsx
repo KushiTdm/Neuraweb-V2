@@ -437,7 +437,7 @@ export default async function MentionsLegalesPage({
           </LocalizedLink>
 
           {/* Title */}
-          <h1 className="text-4xl font-bold mb-8 bg-gradient-to-r from-primary via-violet-500 to-primary bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold mb-8 text-navy-700 dark:text-sky-400">
             {content.title}
           </h1>
 

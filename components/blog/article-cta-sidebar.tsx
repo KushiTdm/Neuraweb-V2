@@ -84,7 +84,7 @@ export function ArticleCTASidebar({
           />
 
           <div className="relative flex items-center gap-2 mb-3">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm">
+            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/20 ">
               <Calendar className="w-4 h-4 text-white" aria-hidden="true" />
             </div>
             <span className="text-[11px] font-semibold uppercase tracking-wider text-white/90">
@@ -140,7 +140,7 @@ export function ArticleCTAMobile({
         }}
       >
         <div className="flex items-center gap-2 mb-3">
-          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm">
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/20 ">
             <Calendar className="w-4 h-4 text-white" aria-hidden="true" />
           </div>
           <span className="text-[11px] font-semibold uppercase tracking-wider text-white/90">

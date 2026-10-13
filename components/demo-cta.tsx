@@ -95,7 +95,7 @@ export function DemoCTA({
 
             <h2 className="mt-4 font-display text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-white">
               {copy.title}{' '}
-              <span className="bg-gradient-to-r from-sky-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="text-sky-400">
                 {copy.highlight}
               </span>
             </h2>

@@ -984,3 +984,11 @@ img:not([alt]) {
   transform-origin: left;
   animation: progress-fill linear forwards;
 }
+
+/* Anti-"généré par IA" : plus de fade-in / slide au scroll. Le contenu est visible d'emblée
+   (utile aussi aux crawlers et aux utilisateurs avec JS lent). */
+.fade-up, .fade-left, .fade-right, .scale-up, .animate-on-scroll {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}

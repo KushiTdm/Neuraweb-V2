@@ -337,7 +337,7 @@ export default async function AgenceWebLillePage({
       <main id="main-content" className="bg-white text-slate-800 overflow-x-hidden">
 
         {/* ── HERO ────────────────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-violet-50 pt-24 pb-12 md:pt-32 md:pb-28">
+        <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-navy-900">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(99,102,241,0.10),transparent_60%)] pointer-events-none" />
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-violet-200/30 rounded-full blur-3xl pointer-events-none" />
@@ -352,14 +352,14 @@ export default async function AgenceWebLillePage({
 
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-7">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur border border-indigo-200 text-indigo-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-indigo-200 text-indigo-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
                   <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   Agence web basée à Lille, Hauts-de-France
                 </div>
 
                 <h1 className="font-display text-[2rem] leading-[1.1] sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
                   Agence web à Lille —{' '}
-                  <span className="bg-gradient-to-r from-indigo-600 via-violet-500 to-cyan-500 bg-clip-text text-transparent">
+                  <span className="text-navy-700 dark:text-sky-400">
                     Sites Next.js & IA
                   </span>{' '}
                   pour votre PME
@@ -376,7 +376,7 @@ export default async function AgenceWebLillePage({
                   <Button
                     asChild
                     size="lg"
-                    className="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white shadow-lg shadow-indigo-600/20 h-12 px-6 sm:px-8"
+                    className="text-white shadow-lg shadow-indigo-600/20 h-12 px-6 sm:px-8 bg-navy-900 hover:bg-navy-800"
                   >
                     <LocalizedLink href="/booking">
                       <Sparkles className="mr-2 w-4 h-4" />
@@ -415,7 +415,7 @@ export default async function AgenceWebLillePage({
               {/* Carte stats hero */}
               <div className="lg:col-span-5">
                 <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-indigo-600/15 border border-slate-200/60 bg-white p-6 sm:p-8">
-                  <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-indigo-100 to-violet-100 rounded-full blur-2xl opacity-60 pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-2xl opacity-60 pointer-events-none bg-navy-900" />
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
                     Marché digital Hauts-de-France
                   </p>
@@ -561,7 +561,7 @@ export default async function AgenceWebLillePage({
         </section>
 
         {/* ── NOS PACKS ──────────────────────────────────────────────────────── */}
-        <section id="packs" className="py-14 md:py-28 bg-gradient-to-br from-indigo-50 via-white to-violet-50">
+        <section id="packs" className="py-14 md:py-28 bg-navy-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
               <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
@@ -609,7 +609,7 @@ export default async function AgenceWebLillePage({
                   <Button
                     asChild
                     className={pack.featured
-                      ? 'bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white w-full'
+                      ? 'text-white w-full bg-navy-900 hover:bg-navy-800'
                       : 'w-full'
                     }
                     variant={pack.featured ? 'default' : 'outline'}
@@ -701,12 +701,12 @@ export default async function AgenceWebLillePage({
         </section>
 
         {/* ── CTA FINAL ──────────────────────────────────────────────────────── */}
-        <section className="relative py-14 md:py-28 overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-cyan-600 text-white">
+        <section className="relative py-14 md:py-28 overflow-hidden text-white bg-navy-900">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)] pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 backdrop-blur text-white text-xs sm:text-sm font-medium mb-5 md:mb-6">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 text-white text-xs sm:text-sm font-medium mb-5 md:mb-6">
               <MapPin className="w-3.5 h-3.5" />
               Votre projet à Lille mérite le meilleur
             </span>

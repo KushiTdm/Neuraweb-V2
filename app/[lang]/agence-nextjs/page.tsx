@@ -331,7 +331,7 @@ export default async function AgenceNextjsPage({
       <main id="main-content" className="bg-white text-slate-800 overflow-x-hidden">
 
         {/* ── HERO ────────────────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-cyan-50 pt-24 pb-12 md:pt-32 md:pb-28">
+        <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-slate-50">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(6,182,212,0.10),transparent_60%)] pointer-events-none" />
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl pointer-events-none" />
@@ -345,14 +345,14 @@ export default async function AgenceNextjsPage({
 
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-7">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur border border-cyan-200 text-cyan-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-cyan-200 text-cyan-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
                   <Gauge className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   Next.js, React &amp; TypeScript
                 </div>
 
                 <h1 className="font-display text-[2rem] leading-[1.1] sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
                   Agence{' '}
-                  <span className="bg-gradient-to-r from-indigo-600 via-violet-500 to-cyan-500 bg-clip-text text-transparent">
+                  <span className="text-navy-700 dark:text-sky-400">
                     Next.js
                   </span>{' '}
                   — des sites que Google et les IA adorent
@@ -368,7 +368,7 @@ export default async function AgenceNextjsPage({
                   <Button
                     asChild
                     size="lg"
-                    className="bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 text-white shadow-lg shadow-cyan-600/20 h-12 px-6 sm:px-8"
+                    className="text-white shadow-lg shadow-cyan-600/20 h-12 px-6 sm:px-8 bg-navy-900 hover:bg-navy-800"
                   >
                     <LocalizedLink href="/booking">
                       <Sparkles className="mr-2 w-4 h-4" />
@@ -406,7 +406,7 @@ export default async function AgenceNextjsPage({
               {/* Carte réponse directe (optimisée extraction IA) */}
               <div className="lg:col-span-5">
                 <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-cyan-600/15 border border-slate-200/60 bg-white p-6 sm:p-8">
-                  <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-cyan-100 to-indigo-100 rounded-full blur-2xl opacity-60 pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-2xl opacity-60 pointer-events-none bg-navy-900" />
                   <p className="relative text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
                     En résumé
                   </p>
@@ -541,7 +541,7 @@ export default async function AgenceNextjsPage({
                   key={title}
                   className="flex gap-4 rounded-xl border border-slate-200 bg-slate-50 p-5 sm:p-6"
                 >
-                  <div className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-600 to-cyan-600 text-white">
+                  <div className="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-lg text-white bg-navy-900">
                     <Icon className="w-5 h-5" />
                   </div>
                   <div>
@@ -615,12 +615,12 @@ export default async function AgenceNextjsPage({
         </section>
 
         {/* ── CTA FINAL ──────────────────────────────────────────────────────── */}
-        <section className="relative py-14 md:py-28 overflow-hidden bg-gradient-to-br from-indigo-600 via-violet-600 to-cyan-600 text-white">
+        <section className="relative py-14 md:py-28 overflow-hidden text-white bg-navy-900">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)] pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 backdrop-blur text-white text-xs sm:text-sm font-medium mb-5 md:mb-6">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 text-white text-xs sm:text-sm font-medium mb-5 md:mb-6">
               <Gauge className="w-3.5 h-3.5" />
               Site actuel trop lent ? On mesure, on vous dit
             </span>

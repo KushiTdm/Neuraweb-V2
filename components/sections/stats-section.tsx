@@ -71,27 +71,9 @@ const STAT_COLORS = {
   cyan: { gradient: 'linear-gradient(90deg, #e5e7eb, #ffffff)', icon: '#e5e7eb' },
 };
 
-function useCountUp(target: number, started: boolean, duration = 1800) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!started) return;
-    const isDecimal = target % 1 !== 0;
-    let start: number | null = null;
-    const step = (ts: number) => {
-      if (start === null) start = ts;
-      const pct = Math.min((ts - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - pct, 3);
-      const current = isDecimal
-        ? Math.round(target * ease * 10) / 10
-        : Math.floor(target * ease);
-      setCount(current);
-      if (pct < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [started, target, duration]);
-
-  return count;
+// Valeur finale rendue directement : l'ancien compteur partait de 0 et exposait "0+" au HTML serveur / aux crawlers.
+function useCountUp(target: number, _started: boolean) {
+  return target;
 }
 
 function StatCard({
@@ -116,12 +98,7 @@ function StatCard({
   const displayValue = isDecimal ? count.toFixed(1) : count;
   const colorConfig = STAT_COLORS[color];
 
-  const numberStyle = {
-    background: colorConfig.gradient,
-    WebkitBackgroundClip: 'text' as const,
-    WebkitTextFillColor: 'transparent' as const,
-    backgroundClip: 'text' as const,
-  };
+  const numberStyle = { color: '#ffffff' };
 
   return (
     <div

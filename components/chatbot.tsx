@@ -600,7 +600,7 @@ export default function Chatbot() {
         <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl overflow-hidden">
 
           {/* Header */}
-          <div className="bg-gradient-to-r from-navy-900 to-navy-800 px-4 py-3">
+          <div className="px-4 py-3 bg-navy-900">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" aria-hidden="true">
                 <RobotIcon className="w-5 h-5 text-white" />
@@ -629,7 +629,7 @@ export default function Chatbot() {
                 <div className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                      msg.role === 'user' ? 'bg-gray-600' : 'bg-gradient-to-r from-navy-800 to-navy-700'
+                      msg.role === 'user' ? 'bg-gray-600' : 'bg-navy-800'
                     }`}
                     aria-hidden="true"
                   >
@@ -728,7 +728,7 @@ export default function Chatbot() {
                       onClick={submitBooking}
                       disabled={!bookingForm.name || !bookingForm.email || isSubmittingBooking}
                       aria-label={language === 'fr' ? 'Confirmer le rendez-vous' : language === 'vi' ? 'Xác nhận lịch hẹn' : 'Confirm booking'}
-                      className="w-full py-2 bg-gradient-to-r from-navy-900 to-navy-800 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full py-2 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 bg-navy-900"
                     >
                       {isSubmittingBooking ? (
                         <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />{language === 'fr' ? 'Réservation...' : language === 'vi' ? 'Đang đặt lịch...' : 'Booking...'}</>
@@ -743,7 +743,7 @@ export default function Chatbot() {
 
             {isLoading && (
               <div className="flex gap-3" role="status" aria-label={language === 'fr' ? 'En cours de réponse…' : language === 'vi' ? 'Đang trả lời…' : 'Typing…'}>
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-navy-800 to-navy-700 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-navy-800" aria-hidden="true">
                   <RobotIcon className="w-4 h-4 text-white" />
                 </div>
                 <div className="bg-gray-800 border border-gray-700 px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1" aria-hidden="true">
@@ -790,7 +790,7 @@ export default function Chatbot() {
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
                   aria-label={sendLabel}
-                  className="px-4 py-2 bg-gradient-to-r from-navy-900 to-navy-800 text-white rounded-xl hover:from-navy-800 hover:to-navy-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed bg-navy-900 hover:bg-navy-800"
                 >
                   <Send className="w-4 h-4" aria-hidden="true" />
                 </button>

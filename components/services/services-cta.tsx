@@ -200,12 +200,12 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
           {titleWords === 7 ? (
             <>
               <span className="word inline-block mr-4">{t('servicePage.cta.title.word6')}</span>
-              <span className="word inline-block bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
+              <span className="word inline-block text-white">
                 {t('servicePage.cta.title.word7')}
               </span>
             </>
           ) : (
-            <span className="word inline-block bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
+            <span className="word inline-block text-white">
               {t('servicePage.cta.title.word6')}
             </span>
           )}

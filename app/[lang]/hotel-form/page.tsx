@@ -102,7 +102,7 @@ export default async function HotelFormPage({
             <h1 className="font-extrabold tracking-tight leading-tight mb-3"
               style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(2rem,5vw,3rem)' }}>
               {t('hotelForm.page.titleStart')}{' '}
-              <span style={{ background: 'linear-gradient(135deg,#818cf8,#c084fc,#67e8f9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <span style={{ color: '#a5b4fc' }}>
                 {t('hotelForm.page.titleHighlight')}
               </span>
               <br />{t('hotelForm.page.titleEnd')}

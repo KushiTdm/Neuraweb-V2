@@ -2,38 +2,19 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Code, Bot, Brain, Smartphone, ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
 import { CardsCarousel } from '@/components/ui/cards-carousel';
 
 const SECTION_LABELS: Record<string, { chip: string; title1: string; title2: string; cta: string }> = {
-  fr: { chip: 'NOS SERVICES', title1: 'Des solutions digitales', title2: 'pour scaler votre business', cta: 'Voir tous nos services' },
-  en: { chip: 'OUR SERVICES',  title1: 'Digital solutions',       title2: 'to scale your business',    cta: 'View all services'      },
-  es: { chip: 'NUESTROS SERVICIOS', title1: 'Soluciones digitales', title2: 'para escalar tu negocio', cta: 'Ver todos los servicios' },
-  vi: { chip: 'DỊCH VỤ CỦA CHÚNG TÔI', title1: 'Giải pháp số', title2: 'giúp việc kinh doanh của bạn đi xa hơn', cta: 'Xem tất cả dịch vụ' },
+  fr: { chip: 'NOS SERVICES', title1: 'Ce que nous construisons', title2: 'pour les PME et commerces locaux', cta: 'Voir tous nos services' },
+  en: { chip: 'OUR SERVICES',  title1: 'What we build',       title2: 'for small and local businesses',    cta: 'View all services'      },
+  es: { chip: 'NUESTROS SERVICIOS', title1: 'Lo que construimos', title2: 'para pymes y comercios locales', cta: 'Ver todos los servicios' },
+  vi: { chip: 'DỊCH VỤ CỦA CHÚNG TÔI', title1: 'Những gì chúng tôi xây dựng', title2: 'cho doanh nghiệp nhỏ và cửa hàng địa phương', cta: 'Xem tất cả dịch vụ' },
 };
 
 // SVG constellation pour la carte IA
-function ConstellationSVG() {
-  return (
-    <svg className="absolute inset-0 w-full h-full opacity-25" viewBox="0 0 200 300" fill="none" aria-hidden>
-      {([[30,40],[80,25],[150,50],[170,120],[120,160],[60,200],[20,260],[100,240],[160,280],[140,80]] as [number,number][]).map(([cx,cy],i) => (
-        <circle key={i} cx={cx} cy={cy} r="2.5" fill="#ffffff" />
-      ))}
-      <line x1="30" y1="40" x2="80" y2="25" stroke="#ffffff" strokeWidth="0.5"/>
-      <line x1="80" y1="25" x2="150" y2="50" stroke="#ffffff" strokeWidth="0.5"/>
-      <line x1="150" y1="50" x2="170" y2="120" stroke="#ffffff" strokeWidth="0.5"/>
-      <line x1="170" y1="120" x2="120" y2="160" stroke="#ffffff" strokeWidth="0.5"/>
-      <line x1="120" y1="160" x2="60" y2="200" stroke="#e5e7eb" strokeWidth="0.5"/>
-      <line x1="60" y1="200" x2="20" y2="260" stroke="#ffffff" strokeWidth="0.5"/>
-      <line x1="60" y1="200" x2="100" y2="240" stroke="#e5e7eb" strokeWidth="0.5"/>
-      <line x1="100" y1="240" x2="160" y2="280" stroke="#e5e7eb" strokeWidth="0.5"/>
-      <line x1="140" y1="80" x2="150" y2="50" stroke="#ffffff" strokeWidth="0.5"/>
-      <line x1="140" y1="80" x2="170" y2="120" stroke="#e5e7eb" strokeWidth="0.5"/>
-    </svg>
-  );
-}
 
 export function ServicesSection() {
   const { language, t } = useTranslation();
@@ -46,14 +27,10 @@ export function ServicesSection() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
           <div>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest bg-frost text-navy-900 border border-white/20 mb-5">
-              <span className="w-1.5 h-1.5 rounded-full bg-white" />
-              {labels.chip}
-            </span>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-xl">
               <span className="text-navy-900">{labels.title1}</span>
               <br />
-              <span style={{ background: 'linear-gradient(135deg,#4f46e5,#7c3aed,#0891b2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+              <span style={{ color: '#1E3A6B' }}>
                 {labels.title2}
               </span>
             </h2>
@@ -91,12 +68,8 @@ export function ServicesSection() {
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.92) 0%, rgba(7,15,38,0.5) 45%, transparent 75%)' }} />
             </div>
             {/* Label numéro */}
-            <span className="absolute top-5 left-5 z-10 text-4xl font-bold text-white/40 font-mono">01</span>
             {/* Texte en bas */}
             <div className="absolute bottom-0 left-0 right-0 p-8 z-10">
-              <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm mb-4">
-                <Code className="w-5 h-5 text-white" />
-              </div>
               <h3 className="font-display text-2xl lg:text-3xl font-bold text-white mb-2">
                 {t('services.web.title')}
               </h3>
@@ -112,26 +85,21 @@ export function ServicesSection() {
           {/* Carte 2 — Applications Mobiles — col 8-12 / row 1 */}
           <LocalizedLink href="/mobile-app-development" className="relative col-span-5 rounded-3xl overflow-hidden bg-frost group">
             <Image
-              src="/assets/services/developement_mobile.webp"
-              alt="Interface mobile moderne"
+              src="/assets/services/nw_card_mobile_app.webp"
+              alt="Une main tient un smartphone affichant une application de réservation dans un commerce"
               fill sizes="(max-width:1280px) 42vw, 540px"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
-              style={{ opacity: 0.75 }}
               loading="lazy"
             />
             {/* Overlay pour lisibilité */}
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(232,244,253,0.1) 0%, rgba(232,244,253,0.6) 55%, rgba(232,244,253,0.88) 100%)' }} />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0) 30%, rgba(250,250,247,0.92) 70%, rgba(250,250,247,0.98) 100%)' }} />
             {/* Badge */}
             <div className="absolute top-5 right-5 z-10">
               <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold text-navy-900" style={{ background: '#ffffff' }}>
                 MVP 6 sem.
               </span>
             </div>
-            <span className="absolute top-5 left-5 z-10 text-4xl font-bold text-navy-900/20 font-mono">02</span>
-            <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-              <div className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-white/80 backdrop-blur-sm mb-3">
-                <Smartphone className="w-4 h-4 text-navy-900" />
-              </div>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
               <h3 className="font-display text-xl font-bold text-navy-900 mb-1.5">
                 {t('services.mobile.title')}
               </h3>
@@ -146,13 +114,16 @@ export function ServicesSection() {
 
           {/* Carte 3 — Intégration IA — col 8-10 / row 2 */}
           <LocalizedLink href="/integration-ia" className="relative col-span-3 rounded-3xl overflow-hidden group" style={{ background: '#0E1B3D' }}>
-            <ConstellationSVG />
-            <div className="relative z-10 p-6 h-full flex flex-col">
-              <span className="text-4xl font-bold font-mono text-white/30 mb-auto">03</span>
+            <Image
+              src="/assets/services/nw_card_ia_integration.webp"
+              alt="Bureau d'un dirigeant de PME avec un ordinateur portable et un carnet de notes"
+              fill sizes="(max-width:1280px) 25vw, 320px"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(14,27,61,0.95) 0%, rgba(14,27,61,0.75) 45%, rgba(14,27,61,0.35) 100%)' }} />
+            <div className="relative z-10 p-6 h-full flex flex-col justify-end">
               <div>
-                <div className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-white/10 mb-3">
-                  <Brain className="w-4 h-4 text-white" />
-                </div>
                 <h3 className="font-display text-lg font-bold text-white mb-1 leading-tight">
                   {t('services.ai.title')}
                 </h3>
@@ -177,18 +148,7 @@ export function ServicesSection() {
               loading="lazy"
             />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.88) 0%, rgba(7,15,38,0.35) 55%, transparent 100%)' }} />
-            {/* Badge accent */}
-            <div className="absolute top-4 left-4 right-4 z-10 flex justify-end">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ background: '#0E1B3D' }}>
-                <Sparkles className="w-2.5 h-2.5" />
-                −4h/sem
-              </span>
-            </div>
             <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-              <span className="text-2xl font-bold font-mono text-white/30 block mb-1">04</span>
-              <div className="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white/10 mb-2">
-                <Bot className="w-3.5 h-3.5 text-white" />
-              </div>
               <h3 className="font-display text-sm font-bold text-white leading-tight mb-1">
                 {t('services.automation.title')}
               </h3>
@@ -207,9 +167,7 @@ export function ServicesSection() {
               <Image src="/assets/services/development_web-macbook.webp" alt="Développement Web" fill sizes="85vw" className="object-cover" loading="lazy" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.95) 0%, rgba(7,15,38,0.4) 60%, transparent 100%)' }} />
               <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: '#ffffff' }} />
-              <span className="absolute top-5 left-5 text-3xl font-bold text-white/40 font-mono">01</span>
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <Code className="w-6 h-6 text-white mb-3" />
                 <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.web.title')}</h3>
                 <p className="text-sm text-white/70">{t('services.web.desc')}</p>
                 <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
@@ -220,16 +178,14 @@ export function ServicesSection() {
 
             {/* Carte 2 — Mobile */}
             <LocalizedLink href="/mobile-app-development" className="relative rounded-3xl overflow-hidden bg-frost group block h-[340px]">
-              <Image src="/assets/services/developement_mobile.webp" alt="Apps Mobiles" fill sizes="85vw" className="object-cover" style={{ opacity: 0.75 }} loading="lazy" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(232,244,253,0.1) 0%, rgba(232,244,253,0.78) 65%)' }} />
+              <Image src="/assets/services/nw_card_mobile_app.webp" alt="Application mobile de réservation sur smartphone" fill sizes="85vw" className="object-cover" loading="lazy" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0) 30%, rgba(250,250,247,0.96) 70%)' }} />
               <div className="absolute top-5 right-5 z-10">
                 <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold text-navy-900" style={{ background: '#ffffff' }}>
                   MVP 6 sem.
                 </span>
               </div>
-              <span className="absolute top-5 left-5 z-10 text-3xl font-bold text-navy-900/20 font-mono">02</span>
               <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                <Smartphone className="w-6 h-6 text-white mb-3" />
                 <h3 className="font-display text-2xl font-bold text-navy-900 mb-2">{t('services.mobile.title')}</h3>
                 <p className="text-sm text-slate-700 leading-relaxed">{t('services.mobile.desc')}</p>
                 <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy-900">
@@ -240,10 +196,9 @@ export function ServicesSection() {
 
             {/* Carte 3 — IA */}
             <LocalizedLink href="/integration-ia" className="relative rounded-3xl overflow-hidden group block h-[340px]" style={{ background: '#0E1B3D' }}>
-              <ConstellationSVG />
-              <span className="absolute top-5 left-5 text-3xl font-bold text-white/30 font-mono">03</span>
+              <Image src="/assets/services/nw_card_ia_integration.webp" alt="Bureau d'un dirigeant de PME avec ordinateur portable et carnet de notes" fill sizes="85vw" className="object-cover" loading="lazy" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(14,27,61,0.96) 0%, rgba(14,27,61,0.55) 100%)' }} />
               <div className="relative z-10 p-6 h-full flex flex-col justify-end">
-                <Brain className="w-6 h-6 text-white mb-3" />
                 <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.ai.title')}</h3>
                 <p className="text-sm leading-relaxed text-slate-400">{t('services.ai.desc')}</p>
                 <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
@@ -256,14 +211,7 @@ export function ServicesSection() {
             <LocalizedLink href="/automatisation" className="relative rounded-3xl overflow-hidden group block h-[340px]" style={{ background: '#070F26' }}>
               <Image src="/assets/services/automation_n8n.webp" alt="Automatisation" fill sizes="85vw" className="object-cover" style={{ opacity: 0.65 }} loading="lazy" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.88) 0%, transparent 60%)' }} />
-              <div className="absolute top-4 right-4">
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold text-white" style={{ background: '#0E1B3D' }}>
-                  <Sparkles className="w-3 h-3" />−4h/sem
-                </span>
-              </div>
-              <span className="absolute top-5 left-5 text-3xl font-bold text-white/30 font-mono">04</span>
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <Bot className="w-6 h-6 text-white mb-3" />
                 <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.automation.title')}</h3>
                 <p className="text-sm text-white/70">{t('services.automation.desc')}</p>
                 <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">

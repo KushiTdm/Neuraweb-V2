@@ -6,7 +6,6 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
-import { WavyBackground } from '@/components/ui/wavy-background';
 import type { TranslationKey } from '@/locales/fr';
 
 const getTeamData = (t: (key: TranslationKey) => string) => [
@@ -44,25 +43,19 @@ export function EquipePageClient() {
     <>
       <Header />
       <main id="main-content" className="min-h-screen pt-24">
-        <WavyBackground
-          containerClassName="relative py-24 sm:py-36 px-4 overflow-hidden"
-          backgroundFill="#070F26"
-          blur={12}
-          speed="slow"
-          waveOpacity={0.45}
-          waveWidth={55}
-          className="max-w-4xl mx-auto text-center"
-        >
+        <div className="relative py-24 sm:py-36 px-4 overflow-hidden bg-navy-950">
+          <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
             {t('equipe.hero.title')}{' '}
-            <span className="bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
+            <span className="text-gray-900 dark:text-white">
               NeuraWeb
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto">
             {t('equipe.hero.subtitle')}
           </p>
-        </WavyBackground>
+          </div>
+        </div>
 
         <section className="py-12 px-4" style={{ background: '#F7FAFD' }}>
           <div className="max-w-6xl mx-auto">
@@ -120,7 +113,7 @@ export function EquipePageClient() {
                 <p className="text-slate-400">{t('equipe.values.speed.desc')}</p>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center bg-emerald-400">
                   <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">{t('equipe.values.quality.title')}</h3>

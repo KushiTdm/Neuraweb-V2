@@ -33,8 +33,12 @@ export function proxy(request: NextRequest) {
     const preferredLanguage = detectLanguage(acceptLanguage);
     const url = request.nextUrl.clone();
     url.pathname = `/${preferredLanguage}`;
-    // Rewrite (pas redirect) → URL reste "/" côté navigateur, élimine la chaîne de redirection (+750ms mobile)
-    return NextResponse.rewrite(url);
+    // 308 (et non rewrite) : un rewrite servait un doublon 200 de /fr sur "/" — Google y rattachait
+    // ses impressions (canonical /fr ignoré : "Alternate page with proper canonical tag").
+    // Googlebot n'envoie pas d'Accept-Language → /fr.
+    const res = NextResponse.redirect(url, 308);
+    res.headers.set('Vary', 'Accept-Language');
+    return res;
   }
 
   const url = request.nextUrl.clone();

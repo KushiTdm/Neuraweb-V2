@@ -78,7 +78,7 @@ export const en: Record<TranslationKey, string> = {
   'hero.main.title': 'Custom Web &',
   'hero.title.highlight': 'Mobile App Development',
   'hero.title.end': 'Agency',
-  'hero.subtitle': 'Custom web development, mobile apps, AI integration and n8n automation for startups and SMBs. Based in France, serving clients worldwide.',
+  'hero.subtitle': "Web development, mobile apps, AI integration and n8n automation for small businesses. Based in Lille, France, serving clients across Europe.",
   'hero.cta.start': 'Start a project',
   'hero.cta.services': 'Our services',
   'hero.scroll.discover': 'Discover',
@@ -88,19 +88,19 @@ export const en: Record<TranslationKey, string> = {
 
   // Services Section
   'services.section.title': 'Our Services',
-  'services.section.subtitle': 'Tailored solutions to transform your digital presence and automate your business processes',
+  'services.section.subtitle': "Website, mobile app, automation or AI agent: a clear quote, one point of contact, tracked delivery.",
   'services.web.title': 'Web Development',
-  'services.web.desc': 'Modern, performant and scalable websites and applications built with the latest technologies.',
+  'services.web.desc': "Showcase sites, booking sites and e-commerce built with Next.js, fast and search-friendly.",
   'services.mobile.title': 'Mobile Apps',
   'services.mobile.desc': 'Custom iOS and Android apps: React Native, Flutter, Swift, Kotlin. MVP in 6 weeks.',
   'services.automation.title': 'Automation',
-  'services.automation.desc': 'Optimize your business processes with intelligent automation solutions that save you time.',
+  'services.automation.desc': "Quotes, reminders and repetitive data entry move into n8n workflows. A few hours saved every week.",
   'services.ai.title': 'AI Integration',
-  'services.ai.desc': 'Harness the power of artificial intelligence to improve your services and make better decisions.',
+  'services.ai.desc': "A chatbot that answers your customers, an agent that sorts your emails or invoices: AI where it actually helps.",
 
   // About Section
   'about.title': 'About NeuraWeb',
-  'about.description': 'We are a passionate team of developers and AI experts dedicated to transforming your ideas into innovative digital solutions. Our approach combines technical expertise, creativity and commitment to deliver projects that exceed your expectations.',
+  'about.description': "NeuraWeb is a small agency based in Lille, France, founded by Nacer, a developer. With Sandra (communication and marketing) and Arthur (AI and automation), you talk directly to the team that builds your website, app or automations, from quote to maintenance.",
   'about.image.alt': 'NeuraWeb team collaborating',
   'about.badge': 'Who are we?',
   'about.stat.satisfaction': 'Client satisfaction',
@@ -131,7 +131,7 @@ export const en: Record<TranslationKey, string> = {
   // Portfolio Section
   'portfolio.section.title.start': 'Our',
   'portfolio.section.title.highlight': 'Projects',
-  'portfolio.section.subtitle': 'Discover our most recent and innovative projects',
+  'portfolio.section.subtitle': "A few recent projects: websites, interactive demos and apps.",
   'portfolio.carousel.label': 'Portfolio projects carousel',
   'portfolio.card.clickToView': 'Click to view',
   'portfolio.nav.previous': 'Previous project',
@@ -229,7 +229,7 @@ export const en: Record<TranslationKey, string> = {
   'cta.bookSlot': 'Book a slot',
 
   // Footer
-  'footer.company.description': 'Innovative web solutions and intelligent automation for your business.',
+  'footer.company.description': "Web agency in Lille, France: Next.js websites, mobile apps, n8n automation and AI integration.",
   'footer.links.title': 'Quick Links',
   'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. All rights reserved.`,
   'footer.legal.legalNotice': 'Legal Notice',
@@ -388,7 +388,7 @@ export const en: Record<TranslationKey, string> = {
 
   // SEO Dynamic
   'seo.home.title': 'NeuraWeb — Web Agency, AI & Automation',
-  'seo.home.description': 'Premium digital agency specialized in custom web development, AI integration and automation. Transform your vision into innovative digital solutions.',
+  'seo.home.description': "Web agency in Lille, France: Next.js websites, mobile apps, n8n automation and AI agents for small businesses, hotels and restaurants. Free quote within 24 h.",
   'seo.services.title': 'Services - Custom Web Solutions | NeuraWeb',
   'seo.services.description': 'Discover our web development, AI integration and automation services. Packages tailored to your needs. Free quote.',
   'seo.contact.title': 'Contact - Let\'s talk about your project | NeuraWeb',
@@ -713,7 +713,7 @@ export const en: Record<TranslationKey, string> = {
   'equipe.members.sandra.role': 'Communication & Marketing',
   'equipe.members.sandra.bio': 'Expert in digital communication and marketing strategy. She transforms ideas into impactful campaigns and develops brand presence for our clients.',
   'equipe.members.arthur.role': 'AI & Automation Developer',
-  'equipe.members.arthur.bio': 'Engineer specialized in artificial intelligence and automation. He designs innovative AI solutions and custom automated workflows.',
+  'equipe.members.arthur.bio': "Engineer specialised in AI and automation. He builds n8n workflows, chatbots and AI agents tailored to each business.",
   'equipe.values.title': 'Our values',
   'equipe.values.speed.title': 'Speed',
   'equipe.values.speed.desc': 'MVPs in 4-6 weeks. We don\'t drag on, we deliver.',

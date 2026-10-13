@@ -323,7 +323,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
 
           {/* Author & Date */}
           <div className="flex items-center gap-4 pt-6 border-t border-gray-100 dark:border-gray-800">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gray-700">
               <span className="text-white font-bold text-lg">N</span>
             </div>
             <div>

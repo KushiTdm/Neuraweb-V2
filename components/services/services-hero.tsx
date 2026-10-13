@@ -114,7 +114,7 @@ export function ServicesHero() {
   // Les animations GSAP s'activent après hydratation sans impact SEO.
   if (!mounted) {
     return (
-      <section className="relative h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600">
+      <section className="relative h-screen flex items-center justify-center bg-navy-900">
         <div className="relative z-10 text-center px-6 max-w-5xl">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 leading-tight">
             {ssrContent.title}

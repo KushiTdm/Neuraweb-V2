@@ -373,7 +373,7 @@ export function MobileAppDevClient({ lang }: Props) {
             </div>
             <h1 className="animate-on-scroll fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
               {c.hero.h1}{' '}
-              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              <span className="text-white">
                 {c.hero.highlight}
               </span>
             </h1>

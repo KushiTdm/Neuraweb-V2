@@ -726,21 +726,21 @@ function HeroSection({
   onScrollToPacks: () => void;
 }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-cyan-50 via-white to-emerald-50 pt-28 pb-20 md:pt-32 md:pb-28">
+    <section className="relative overflow-hidden pt-28 pb-20 md:pt-32 md:pb-28 bg-navy-900">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(20,184,166,0.10),transparent_60%)] pointer-events-none" />
       <div className="absolute -top-32 -right-32 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-emerald-200/30 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-7" data-reveal>
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur border border-teal-200 text-teal-700 text-sm font-medium mb-6">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-teal-200 text-teal-700 text-sm font-medium mb-6">
             <Stethoscope className="w-4 h-4" />
             Spécialiste santé & paramédical
           </span>
 
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-slate-900">
             Votre cabinet mérite un site à la{' '}
-            <span className="bg-gradient-to-r from-teal-600 via-cyan-600 to-emerald-500 bg-clip-text text-transparent">
+            <span className="text-navy-700 dark:text-sky-400">
               hauteur de votre expertise
             </span>
           </h1>
@@ -755,7 +755,7 @@ function HeroSection({
             <Button
               onClick={onScrollToPacks}
               size="lg"
-              className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white shadow-lg shadow-teal-600/20 h-12 px-8"
+              className="text-white shadow-lg shadow-teal-600/20 h-12 px-8 bg-teal-600 hover:bg-teal-700"
             >
               Voir les forfaits
               <ArrowRight className="ml-2 w-4 h-4" />
@@ -949,7 +949,7 @@ function SimulatorSection({
   const recommendedPack = result ? PACKS.find((p) => p.id === result) : null;
 
   return (
-    <section className="py-20 md:py-24 bg-gradient-to-br from-teal-50 via-cyan-50 to-white">
+    <section className="py-20 md:py-24 bg-teal-50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
         <div className="text-center mb-10">
           <span className="inline-block px-4 py-1.5 rounded-full bg-teal-100 text-teal-700 text-sm font-semibold mb-4">
@@ -1823,7 +1823,7 @@ function ExampleSiteSection() {
               rel="noopener noreferrer"
               className="block group relative"
             >
-              <div className="absolute inset-0 bg-gradient-to-tr from-teal-500/30 to-cyan-500/30 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition-opacity" />
+              <div className="absolute inset-0 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition-opacity bg-teal-500" />
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 group-hover:scale-[1.02] transition-transform duration-500">
                 <Image
                   src="/assets/site_osteo.png"
@@ -2006,8 +2006,8 @@ function ProcessTimeline() {
         {/* Timeline */}
         <div className="relative">
           {/* Ligne verticale */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-gradient-to-b from-teal-200 via-cyan-200 to-emerald-200" />
-          <div className="md:hidden absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-teal-200 via-cyan-200 to-emerald-200" />
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-teal-200" />
+          <div className="md:hidden absolute left-8 top-0 bottom-0 w-px bg-teal-200" />
 
           <div className="space-y-20 md:space-y-32">
             {PROCESSUS.map((step, idx) => {
@@ -2191,7 +2191,7 @@ function GuaranteesSection() {
 
 function FinalCTA({ onOpenQuote }: { onOpenQuote: () => void }) {
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden bg-gradient-to-br from-teal-700 via-cyan-600 to-emerald-500 text-white">
+    <section className="relative py-20 md:py-28 overflow-hidden text-white bg-teal-700">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)] pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -2469,7 +2469,7 @@ function QuoteModal({
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white h-11 shadow-md shadow-teal-600/20"
+                className="w-full text-white h-11 shadow-md shadow-teal-600/20 bg-teal-600 hover:bg-teal-700"
               >
                 {isSubmitting ? 'Envoi en cours…' : 'Envoyer ma demande'}
               </Button>

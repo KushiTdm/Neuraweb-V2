@@ -17,7 +17,7 @@ export function SuccessScreen() {
       </div>
       <h2 className="font-extrabold text-2xl mb-3" style={{ fontFamily: 'Syne, sans-serif' }}>
         {t('hotelForm.success.title')}{' '}
-        <span style={{ background: 'linear-gradient(135deg,#818cf8,#c084fc,#67e8f9)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+        <span style={{ color: '#a5b4fc' }}>
           {t('hotelForm.success.titleHighlight')}
         </span>
       </h2>

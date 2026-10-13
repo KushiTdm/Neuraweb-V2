@@ -350,21 +350,21 @@ export function RestaurantsPageClient() {
 
 function Hero({ onScrollToFormules }: { onScrollToFormules: () => void }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-white to-rose-50 pt-24 pb-12 md:pt-32 md:pb-28">
+    <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-amber-50">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(244,114,182,0.10),transparent_60%)] pointer-events-none" />
       <div className="absolute -top-32 -right-32 w-96 h-96 bg-amber-200/30 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-rose-200/30 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         <div className="lg:col-span-7" data-reveal>
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 backdrop-blur border border-amber-200 text-amber-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
+          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-amber-200 text-amber-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
             <UtensilsCrossed className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             Sites web pour restaurants
           </span>
 
           <h1 className="font-display text-[2rem] leading-[1.1] sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
             Votre restaurant mérite mieux que{' '}
-            <span className="bg-gradient-to-r from-amber-600 via-orange-500 to-rose-500 bg-clip-text text-transparent">
+            <span className="text-navy-700 dark:text-sky-400">
               30 % de commission
             </span>
           </h1>
@@ -380,7 +380,7 @@ function Hero({ onScrollToFormules }: { onScrollToFormules: () => void }) {
             <Button
               onClick={onScrollToFormules}
               size="lg"
-              className="bg-gradient-to-r from-amber-600 to-rose-500 hover:from-amber-700 hover:to-rose-600 text-white shadow-lg shadow-amber-600/20 h-12 px-6 sm:px-8"
+              className="text-white shadow-lg shadow-amber-600/20 h-12 px-6 sm:px-8 bg-amber-600 hover:bg-amber-700"
             >
               Voir les formules
               <ArrowRight className="ml-2 w-4 h-4" />
@@ -528,7 +528,7 @@ function Formules() {
     <div
       key="cta"
       data-reveal
-      className="flex flex-col justify-center rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-rose-50 p-5 sm:p-6 text-center h-full"
+      className="flex flex-col justify-center rounded-2xl border border-amber-200 p-5 sm:p-6 text-center h-full bg-amber-50"
     >
       <Sparkles className="w-7 h-7 sm:w-8 sm:h-8 text-amber-600 mx-auto mb-3" />
       <h3 className="font-display text-lg font-bold text-slate-900 mb-2">
@@ -539,7 +539,7 @@ function Formules() {
       </p>
       <Button
         asChild
-        className="bg-gradient-to-r from-amber-600 to-rose-500 hover:from-amber-700 hover:to-rose-600 text-white w-full"
+        className="text-white w-full bg-amber-600 hover:bg-amber-700"
       >
         <LocalizedLink href="/booking">Échanger avec nous</LocalizedLink>
       </Button>
@@ -603,7 +603,7 @@ function Demos() {
   ));
 
   return (
-    <section className="py-14 md:py-28 bg-gradient-to-br from-rose-50 via-amber-50 to-white">
+    <section className="py-14 md:py-28 bg-rose-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14" data-reveal>
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-rose-200 text-rose-700 text-xs sm:text-sm font-medium mb-4 md:mb-5">
@@ -760,7 +760,7 @@ function BlogTeaser() {
 
 function FinalCTA() {
   return (
-    <section className="relative py-14 md:py-28 overflow-hidden bg-gradient-to-br from-amber-600 via-orange-500 to-rose-500 text-white">
+    <section className="relative py-14 md:py-28 overflow-hidden text-white bg-amber-600">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)] pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 

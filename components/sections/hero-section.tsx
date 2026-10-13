@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
 
@@ -10,366 +9,112 @@ interface HeroSectionProps {
   onScrollToNext?: () => void;
 }
 
-interface Slide {
-  title: Record<string, string>;
-  titleHighlight: Record<string, string>;
-  subtitle: Record<string, string>;
-  image: string;
-  showKpi?: boolean;
-}
-
-const SLIDES: Slide[] = [
-  {
-    title:          { fr: 'Automatisation',       en: 'Intelligent',    es: 'Automatización',    vi: 'Tự động hoá' },
-    titleHighlight: { fr: 'Intelligente',          en: 'Automation',     es: 'Inteligente',       vi: 'thông minh' },
-    subtitle: {
-      fr: 'Workflows n8n, intégration API, productivité multipliée — libérez votre équipe des tâches répétitives.',
-      en: 'n8n workflows, API integration, multiplied productivity — free your team from repetitive tasks.',
-      es: 'Flujos n8n, integración API, productividad multiplicada — libera tu equipo de tareas repetitivas.',
-      vi: 'Quy trình n8n, AI agent, kết nối Zalo OA và CRM — giải phóng đội ngũ của bạn khỏi những tác vụ lặp lại mỗi ngày.',
-    },
-    image: '/assets/services/automation_n8n.webp',
-    showKpi: true,
+// Hero fixe : une promesse, une preuve, deux actions. Le H1 porte les mots-clés
+// ciblés (agence web, IA, Lille) — ne pas le réduire à un slogan sans mot-clé.
+const COPY: Record<string, {
+  kicker: string;
+  title: string;
+  subtitle: string;
+  proof: string[];
+  cta: string;
+  ctaSecondary: string;
+  alt: string;
+}> = {
+  fr: {
+    kicker: 'Agence web à Lille',
+    title: 'Sites web, applications et automatisations pour les PME',
+    subtitle:
+      'Nous créons votre site Next.js, votre application mobile ou vos workflows n8n et agents IA. Hôtels, restaurants, cabinets de santé, collectivités : vous échangez directement avec l\'équipe qui fait le travail.',
+    proof: ['Devis gratuit sous 24 h', 'Packs web dès 1 490 €', 'Basés à Lille, clients dans toute la France'],
+    cta: 'Demander un devis',
+    ctaSecondary: 'Voir les tarifs',
+    alt: 'Un développeur travaille sur son ordinateur portable à la table d\'un café près d\'une fenêtre à persiennes',
   },
-  {
-    title:          { fr: 'Agence Web,',           en: 'Web Agency,',    es: 'Agencia Web,',      vi: 'Landing Page Express,' },
-    titleHighlight: { fr: 'IA & Mobile',            en: 'AI & Mobile',    es: 'IA & Móvil',        vi: 'trọn gói 1.290.000đ' },
-    subtitle: {
-      fr: 'Développement web sur mesure, intégration IA et applications mobiles pour propulser votre entreprise.',
-      en: 'Custom web development, AI integration and mobile apps to propel your business forward.',
-      es: 'Desarrollo web a medida, integración IA y apps móviles para impulsar tu empresa.',
-      vi: 'Ưu đãi ra mắt cho 30 khách hàng đầu tiên: một trang web đầy đủ thông tin, hình ảnh và nút Zalo, lên sóng trong vài ngày.',
-    },
-    image: '/assets/services/development_web-macbook.webp',
-    showKpi: false,
+  en: {
+    kicker: 'Web agency in Lille, France',
+    title: 'Websites, apps and automations for small businesses',
+    subtitle:
+      'We build your Next.js website, mobile app, n8n workflows and AI agents. Hotels, restaurants, health practices, local authorities: you talk directly to the team that does the work.',
+    proof: ['Free quote within 24 h', 'Web packs from €1,490', 'Based in Lille, clients across France'],
+    cta: 'Get a quote',
+    ctaSecondary: 'See pricing',
+    alt: 'A developer working on a laptop at a café table by a shuttered window',
   },
-  {
-    title:          { fr: 'Intégration IA',        en: 'AI Integration',  es: 'Integración IA',   vi: 'Chuyên môn AI' },
-    titleHighlight: { fr: 'de Pointe',              en: 'Cutting-Edge',    es: 'de Vanguardia',    vi: 'từ mạng lưới Pháp' },
-    subtitle: {
-      fr: 'ChatGPT, LLM et agents IA intégrés directement dans vos produits et processus métier.',
-      en: 'ChatGPT, LLM and AI agents integrated directly into your products and business processes.',
-      es: 'ChatGPT, LLM y agentes IA integrados directamente en tus productos y procesos de negocio.',
-      vi: 'Chatbot RAG, trợ lý AI, tích hợp Claude / Mistral / GPT vào website và quy trình của bạn — kinh nghiệm triển khai cho doanh nghiệp Pháp, nay có mặt tại Hà Nội.',
-    },
-    image: '/assets/services/ia_integration.webp',
-    showKpi: false,
+  es: {
+    kicker: 'Agencia web en Lille, Francia',
+    title: 'Sitios web, apps y automatizaciones para pymes',
+    subtitle:
+      'Creamos tu sitio Next.js, tu aplicación móvil, flujos n8n y agentes de IA. Hoteles, restaurantes, consultas de salud, administraciones: hablas directamente con el equipo que hace el trabajo.',
+    proof: ['Presupuesto gratis en 24 h', 'Packs web desde 1.490 €', 'Con sede en Lille, clientes en toda Francia'],
+    cta: 'Pedir presupuesto',
+    ctaSecondary: 'Ver precios',
+    alt: 'Un desarrollador trabaja con su portátil en la mesa de un café junto a una ventana con persianas',
   },
-  {
-    title:          { fr: 'Solutions Mobiles',     en: 'Mobile Solutions', es: 'Soluciones Móviles', vi: 'Ứng dụng di động' },
-    titleHighlight: { fr: 'iOS & Android',          en: 'iOS & Android',    es: 'iOS & Android',      vi: 'iOS & Android' },
-    subtitle: {
-      fr: 'React Native, Flutter — MVP livré en 6 semaines, prêt pour le marché.',
-      en: 'React Native, Flutter — MVP delivered in 6 weeks, market-ready.',
-      es: 'React Native, Flutter — MVP entregado en 6 semanas, listo para el mercado.',
-      vi: 'React Native, Flutter — MVP bàn giao trong 6 tuần, sẵn sàng ra thị trường. Làm việc song ngữ Việt – Pháp – Anh.',
-    },
-    image: '/assets/services/developement_mobile.webp',
-    showKpi: false,
+  vi: {
+    kicker: 'Agency web tại Lille, Pháp',
+    title: 'Website, ứng dụng và tự động hoá cho doanh nghiệp nhỏ',
+    subtitle:
+      'Chúng tôi xây dựng website Next.js, ứng dụng di động, quy trình n8n và AI agent. Khách sạn, nhà hàng, phòng khám, cơ quan địa phương: bạn làm việc trực tiếp với đội ngũ thực hiện dự án.',
+    proof: ['Báo giá miễn phí trong 24 giờ', 'Gói web từ 1.490 €', 'Trụ sở tại Lille, khách hàng khắp nước Pháp'],
+    cta: 'Nhận báo giá',
+    ctaSecondary: 'Xem bảng giá',
+    alt: 'Một lập trình viên làm việc trên laptop tại bàn quán cà phê cạnh cửa sổ có chớp',
   },
-];
-
-const KPI_ITEMS: Record<string, { label: string; value: string }[]> = {
-  fr: [
-    { label: 'API connectées',   value: '12'      },
-    { label: 'Workflows actifs', value: '47'      },
-    { label: 'Gain de temps',    value: '−4h/sem' },
-  ],
-  en: [
-    { label: 'Connected APIs',   value: '12'      },
-    { label: 'Active workflows', value: '47'      },
-    { label: 'Time saved',       value: '−4h/wk'  },
-  ],
-  es: [
-    { label: 'APIs conectadas',    value: '12'      },
-    { label: 'Workflows activos',  value: '47'      },
-    { label: 'Tiempo ahorrado',    value: '−4h/sem' },
-  ],
-  vi: [
-    { label: 'API đã kết nối',       value: '12'      },
-    { label: 'Workflow đang chạy',   value: '47'      },
-    { label: 'Thời gian tiết kiệm',  value: '−4h/tuần' },
-  ],
 };
 
-const SLIDE_DURATION = 5500;
-
 export function HeroSection({ onScrollToNext }: HeroSectionProps) {
-  const [mounted,     setMounted]     = useState(false);
-  const [heroVisible, setHeroVisible] = useState(false);
-  const [kpiVisible,  setKpiVisible]  = useState(false);
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [nextSlide,   setNextSlide]   = useState<number | null>(null);
-  const [animating,   setAnimating]   = useState(false);
-  const [progress,    setProgress]    = useState(0);
+  const { language } = useTranslation();
+  const c = COPY[language as string] ?? COPY.fr;
 
-  const { language, t } = useTranslation();
-  const lang = (language as string) in SLIDES[0].title ? (language as string) : 'fr';
-
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // ── Montage : afficher directement le hero ────────────────────────────────
-  useEffect(() => {
-    setMounted(true);
-    const t1 = setTimeout(() => {
-      setHeroVisible(true);
-      const t2 = setTimeout(() => setKpiVisible(true), 600);
-      return () => clearTimeout(t2);
-    }, 80);
-    return () => clearTimeout(t1);
-  }, []);
-
-  // ── Navigation entre slides ───────────────────────────────────────────────
-  const clearTimers = useCallback(() => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    if (progressRef.current) clearInterval(progressRef.current);
-  }, []);
-
-  const goToSlide = useCallback((index: number) => {
-    if (animating || index === activeSlide) return;
-    setAnimating(true);
-    setNextSlide(index);
-    setProgress(0);
-    setTimeout(() => {
-      setActiveSlide(index);
-      setNextSlide(null);
-      setAnimating(false);
-    }, 700);
-  }, [animating, activeSlide]);
-
-  const next = useCallback(() => goToSlide((activeSlide + 1) % SLIDES.length), [activeSlide, goToSlide]);
-  const prev = useCallback(() => goToSlide((activeSlide - 1 + SLIDES.length) % SLIDES.length), [activeSlide, goToSlide]);
-
-  const startAutoplay = useCallback(() => {
-    clearTimers();
-    setProgress(0);
-    const step = 50;
-    let elapsed = 0;
-    progressRef.current = setInterval(() => {
-      elapsed += step;
-      setProgress(Math.min((elapsed / SLIDE_DURATION) * 100, 100));
-      if (elapsed >= SLIDE_DURATION) {
-        clearTimers();
-        setActiveSlide((prev) => {
-          const nextIdx = (prev + 1) % SLIDES.length;
-          setNextSlide(nextIdx);
-          setAnimating(true);
-          setTimeout(() => { setActiveSlide(nextIdx); setNextSlide(null); setAnimating(false); }, 700);
-          return prev;
-        });
-        elapsed = 0;
-      }
-    }, step);
-  }, [clearTimers]);
-
-  useEffect(() => {
-    if (heroVisible) startAutoplay();
-    return clearTimers;
-  }, [heroVisible, startAutoplay, clearTimers, activeSlide]);
-
-  const currentSlide = SLIDES[activeSlide]!;
-
-  // ── SSR skeleton ──────────────────────────────────────────────────────────
-  if (!mounted) {
-    return (
-      <section className="relative w-full min-h-screen overflow-hidden" style={{ background: '#070F26' }}>
-        <div className="absolute inset-0">
-          <Image src={SLIDES[0].image} alt="" fill sizes="100vw" className="object-cover" priority aria-hidden />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg,rgba(7,15,38,.88) 0%,rgba(7,15,38,.6) 55%,rgba(7,15,38,.95) 100%)' }} />
-        </div>
-        <div className="relative z-10 flex items-center min-h-screen max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="max-w-2xl pt-28 pb-20">
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-white/70 mb-6">{t('hero.tagline')}</p>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[5rem] font-bold text-white leading-tight mb-6">
-              {SLIDES[0].title[lang]}{' '}
-              <span style={{ background: 'linear-gradient(90deg,#ffffff,#e5e7eb)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-                {SLIDES[0].titleHighlight[lang]}
-              </span>
-            </h1>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  // ── Hero slides ───────────────────────────────────────────────────────────
   return (
-    <section className="relative w-full min-h-screen overflow-hidden" style={{ background: '#070F26' }} aria-label="Hero NeuraWeb">
-      {/* Overlay de fondu au reveal */}
-      <div
-        aria-hidden
-        className="absolute inset-0 z-40 pointer-events-none transition-opacity duration-700"
-        style={{ background: '#070F26', opacity: heroVisible ? 0 : 1 }}
-      />
+    <section className="relative w-full overflow-hidden bg-navy-950" aria-label="NeuraWeb">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-16 lg:pt-36 lg:pb-20 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        <div className="lg:col-span-7">
+          <p className="text-sm font-semibold text-sky-400 mb-5">{c.kicker}</p>
 
-      {/* Slides photos */}
-      {SLIDES.map((slide, i) => {
-        const isActiveSlide = i === activeSlide;
-        const isNextSlide   = i === nextSlide;
-        return (
-          <div
-            key={i}
-            aria-hidden={!isActiveSlide}
-            className="absolute inset-0 transition-opacity duration-700"
-            style={{ opacity: isActiveSlide || isNextSlide ? 1 : 0, zIndex: isNextSlide ? 2 : isActiveSlide ? 1 : 0 }}
-          >
-            <Image
-              src={slide.image}
-              alt={slide.title[lang] ?? ''}
-              fill
-              sizes="100vw"
-              className={`object-cover ${isActiveSlide && !animating ? 'ken-burns' : ''}`}
-              priority={i === 0}
-              aria-hidden
-            />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg,rgba(7,15,38,.88) 0%,rgba(7,15,38,.6) 55%,rgba(7,15,38,.95) 100%)' }} />
-          </div>
-        );
-      })}
-
-      {/* Contenu texte */}
-      <div className="relative z-10 flex items-center min-h-screen max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="w-full lg:w-[55%] pt-28 pb-20">
-          <p
-            className="text-xs font-semibold uppercase tracking-[0.1em] text-white/70 mb-6"
-            style={{ opacity: heroVisible ? 1 : 0, transition: 'opacity 0.6s ease' }}
-          >
-            {t('hero.tagline')}
-          </p>
-
-          <h1
-            key={`title-${activeSlide}`}
-            className="font-display font-bold text-white leading-tight mb-6"
-            style={{ fontSize: 'clamp(2.5rem,6vw,5rem)', letterSpacing: '-0.02em', opacity: heroVisible ? 1 : 0, animation: heroVisible ? 'fadeInUp 0.7s ease forwards' : 'none' }}
-          >
-            {currentSlide.title[lang]}{' '}
-            <span style={{ background: 'linear-gradient(90deg,#ffffff,#e5e7eb)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              {currentSlide.titleHighlight[lang]}
-            </span>
+          <h1 className="font-display font-bold text-white leading-[1.08] mb-6 text-4xl sm:text-5xl xl:text-6xl tracking-tight">
+            {c.title}
           </h1>
 
-          <p
-            key={`sub-${activeSlide}`}
-            className="text-lg leading-relaxed mb-10 max-w-[520px]"
-            style={{ color: 'rgba(232,244,253,.75)', animation: heroVisible ? 'fadeInUp 0.7s 0.15s ease forwards' : 'none', opacity: 0 }}
-          >
-            {currentSlide.subtitle[lang]}
-          </p>
+          <p className="text-lg leading-relaxed text-slate-300 mb-8 max-w-xl">{c.subtitle}</p>
 
-          <div className="flex flex-wrap items-center gap-4" style={{ opacity: heroVisible ? 1 : 0, transition: 'opacity 0.9s 0.5s ease' }}>
+          <div className="flex flex-wrap items-center gap-3 mb-8">
             <LocalizedLink
-              href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold text-gray-900 transition-all duration-300 hover:opacity-90 hover:-translate-y-0.5"
-              style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,.2)' }}
+              href="/booking"
+              className="inline-flex items-center px-7 py-3.5 rounded-lg text-sm font-semibold text-navy-950 bg-white hover:bg-slate-100 transition-colors"
             >
-              {t('hero.cta.start')}
+              {c.cta}
             </LocalizedLink>
             <LocalizedLink
               href="/services"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold text-white border transition-all duration-300 hover:bg-white/10"
-              style={{ borderColor: 'rgba(255,255,255,.2)' }}
+              className="inline-flex items-center px-7 py-3.5 rounded-lg text-sm font-semibold text-white border border-white/30 hover:border-white transition-colors"
             >
-              {t('hero.cta.services')}
+              {c.ctaSecondary}
             </LocalizedLink>
           </div>
+
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-400">
+            {c.proof.map((p) => (
+              <li key={p}>{p}</li>
+            ))}
+          </ul>
         </div>
 
-        {/* KPI flottant — uniquement sur le slide Automatisation, desktop seulement */}
-        {currentSlide.showKpi && (
-          <div
-            className="hidden lg:flex absolute right-12 xl:right-20 top-1/2 -translate-y-1/2 flex-col gap-3 w-52"
-            style={{ opacity: kpiVisible ? 1 : 0, transform: kpiVisible ? 'translateX(0) translateY(-50%)' : 'translateX(24px) translateY(-50%)', transition: 'opacity 0.8s ease,transform 0.8s ease' }}
-          >
-            {(KPI_ITEMS[lang] || KPI_ITEMS.fr).map((kpi, i) => (
-              <div key={i} className="rounded-2xl px-5 py-4 flex flex-col gap-1" style={{ background: 'rgba(255,255,255,.05)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,.1)' }}>
-                <span className="text-2xl font-bold text-white">{kpi.value}</span>
-                <span className="text-xs" style={{ color: 'rgba(232,244,253,.6)' }}>{kpi.label}</span>
-              </div>
-            ))}
+        <div className="lg:col-span-5">
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/10">
+            <Image
+              src="/assets/services/nw_hero_accueil.webp"
+              alt={c.alt}
+              fill
+              sizes="(max-width:1024px) 100vw, 40vw"
+              className="object-cover"
+              priority
+            />
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Flèches de navigation — masquées sur xs */}
-      {heroVisible && (
-        <div className="hidden sm:flex absolute bottom-8 right-6 sm:right-8 z-20 items-center gap-3">
-          <button
-            onClick={() => { clearTimers(); prev(); startAutoplay(); }}
-            className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-all duration-200"
-            aria-label="Slide précédent"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={() => { clearTimers(); next(); startAutoplay(); }}
-            className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/50 transition-all duration-200"
-            aria-label="Slide suivant"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-        </div>
-      )}
-
-      {/* Indicateurs de slides — fines barres minimalistes */}
-      {heroVisible && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5">
-          {SLIDES.map((_, i) => (
-            <div
-              key={i}
-              role="tab"
-              tabIndex={0}
-              onClick={() => { clearTimers(); goToSlide(i); startAutoplay(); }}
-              onKeyDown={(e) => e.key === 'Enter' && goToSlide(i)}
-              aria-label={`Aller au slide ${i + 1}`}
-              aria-selected={i === activeSlide}
-              className="cursor-pointer relative overflow-hidden"
-              style={{
-                width: i === activeSlide ? '22px' : '5px',
-                height: '3px',
-                borderRadius: '2px',
-                background: i === activeSlide ? 'rgba(93,184,240,.35)' : 'rgba(255,255,255,.22)',
-                transition: 'width 0.3s ease, background 0.3s ease',
-                flexShrink: 0,
-              }}
-            >
-              {i === activeSlide && (
-                <span
-                  className="absolute inset-y-0 left-0 slide-progress"
-                  style={{ background: '#ffffff', animationDuration: `${SLIDE_DURATION}ms`, width: '100%' }}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Barre de progression (desktop) */}
-      {heroVisible && (
-        <div className="absolute top-0 left-0 right-0 h-0.5 bg-white/10 z-20">
-          <div className="h-full transition-none" style={{ width: `${progress}%`, background: '#ffffff' }} />
-        </div>
-      )}
-
-      {/* Scroll indicator — masqué sur xs */}
-      {heroVisible && onScrollToNext && (
-        <button
-          onClick={onScrollToNext}
-          className="hidden sm:flex absolute bottom-8 left-6 sm:left-8 z-20 flex-col items-center gap-2 hover:opacity-80 transition-opacity duration-200"
-          style={{ color: 'rgba(255,255,255,.4)' }}
-          aria-label="Défiler vers le bas"
-        >
-          <span className="text-xs tracking-widest uppercase font-medium">Scroll</span>
-          <span className="w-px h-8 bg-white/30 animate-pulse" />
-        </button>
-      )}
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+      {onScrollToNext && <span className="sr-only" />}
     </section>
   );
 }

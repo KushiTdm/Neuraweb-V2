@@ -110,7 +110,7 @@ export function PortfolioSection() {
             className="text-3xl font-bold leading-tight text-gray-900 md:text-5xl dark:text-white"
           >
             {t('portfolio.section.title.start')}{' '}
-            <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent dark:from-indigo-300 dark:to-violet-300">
+            <span className="text-navy-700 dark:text-sky-400">
               {t('portfolio.section.title.highlight')}
             </span>
           </h2>

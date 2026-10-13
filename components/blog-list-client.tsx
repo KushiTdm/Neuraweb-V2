@@ -266,7 +266,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             {tr.title}{' '}
-            <span className="bg-gradient-to-r from-gray-200 via-white to-gray-300 bg-clip-text text-transparent">
+            <span className="text-white">
               NeuraWeb
             </span>
           </h1>
@@ -442,7 +442,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
                         {post.excerpt}
                       </p>
                       <div className="flex items-center gap-2 mt-auto">
-                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center flex-shrink-0">
+                        <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-700">
                           <span className="text-white text-xs font-bold">N</span>
                         </div>
                         <span className="text-xs text-gray-500 dark:text-gray-400 truncate">{post.author}</span>
@@ -574,7 +574,7 @@ function HeroCard({ post, tr, formatDate, categoryColors }: HeroCardProps) {
           {post.excerpt}
         </p>
         <div className="flex items-center gap-2 mb-6 text-sm text-gray-500 dark:text-gray-400">
-          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+          <div className="w-7 h-7 rounded-full flex items-center justify-center bg-gray-700">
             <span className="text-white text-xs font-bold">N</span>
           </div>
           <span>{post.author}</span>
