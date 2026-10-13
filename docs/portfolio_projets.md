@@ -22,16 +22,19 @@ Démo interactive maison, mise en avant en pleine largeur au-dessus de la grille
 
 ## Réalisations clientes
 
-| Projet | Secteur | Lien |
-|---|---|---|
-| Arthan Boutique Hotel | Hôtellerie de luxe | https://arthan-hotel.netlify.app |
-| OstéoParis | Santé | https://neuraweb-sante.netlify.app |
-| Sin Fronteras Tours | Tourisme | https://traveltour-agency.netlify.app |
-| Minimal Store | E-commerce | https://neuraweb-ecommerce.netlify.app |
-| Lūm | Beauté & bien-être | https://lum-paris.netlify.app |
-| Hostal Paradis | Hébergement | https://hostal-paradis.netlify.app |
+| Projet | Secteur | Lien | Stack |
+|---|---|---|---|
+| Maison Éclat | Hôtellerie de luxe | https://maison-eclat.san3neb.workers.dev | React 18, Vite, Tailwind, Supabase |
+| L'Orée | Spa & bien-être | https://loree-spa.san3neb.workers.dev | Next.js 15, React 19, GSAP |
+| The Box CrossFit | Sport & fitness | https://project-crossfit.san3neb.workers.dev | React 18, Vite, Tailwind, Supabase |
+| UrbX | E-commerce mobilité | https://urbx.san3neb.workers.dev | React 18, Vite, GSAP, Supabase |
+| Le Jardin d'Or | Restaurant (1 modèle sur 7, voir `/restaurants`) | https://restaurants-jardindor.vercel.app | — |
+| OstéoParis | Santé | https://neuraweb-sante.netlify.app | Vite + React |
+| Sin Fronteras Tours | Tourisme | https://traveltour-agency.netlify.app | Vite + React |
+| Minimal Store | E-commerce | https://neuraweb-ecommerce.netlify.app | Vite + React |
 
-Stack commune de ces démos : **Vite + React + TypeScript + Tailwind CSS**, déployées sur Netlify.
+Remplacés en octobre 2026 : Arthan Boutique Hotel et Hostal Paradis (→ Maison Éclat), Lūm (→ L'Orée).
+Captures 1280×800 dans `public/assets/portfolio/`. Présentation : carrousel automatique (motion, pause au survol/focus, rail manuel si `prefers-reduced-motion`).
 
 ## Retirés
 
