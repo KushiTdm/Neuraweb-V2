@@ -199,7 +199,8 @@ CEO & développeur: Nacer
 NOS PACKS — 4 VISIBLES
 ━━━━━━━━━━━━━━━━━━━━━━
 🔵 Pack Starter (1 490€ | 2-3 semaines)
-→ Site vitrine jusqu'à 8 pages responsive, design personnalisé, SEO, formulaire, hébergement 1 an
+→ Template Next.js personnalisé (logo, couleurs, contenus) jusqu'à 8 pages responsive, SEO de base, formulaire, hébergement 1 an. Design sur-mesure = Pack Business
+→ Options HT: page +190€ · rédaction +120€/page · SEO on-page +590€ · SEO local +390€ · GEO (visibilité dans ChatGPT/Perplexity/AI Overviews) +690€ · chatbot IA +890€ (+29€/mois). Business: page sur-mesure +250€, API +590€, e-commerce dès 2 490€, chatbot +790€. Premium: SEO avancé + GEO inclus, chatbot +690€
 → Pour: auto-entrepreneurs, TPE, première présence en ligne
 
 🟣 Pack Business (3 990€ | 4-6 semaines) ★ LE PLUS POPULAIRE
@@ -262,7 +263,8 @@ Argument clé : Uber Eats / Deliveroo prennent 20 à 30 % par commande. Stripe c
 → Architecture multi-sites, espace franchise, carte de fidélité commune (déployé sur réseau de 80+ restaurants)
 → Proposer si: chaîne, réseau de restaurants, franchise
 
-📊 Démos à montrer: Marguerite (cantine), Le Jardin d'Or (gastro 2 étoiles), Séraphine (bistrot + commande), BurgerBoom (burger + click & collect + fidélité), Voltaire (fidélité complète), L'Éden Fruité (réseau 80+ restaurants)
+📊 Démos restaurants à montrer (donne le lien exact): Marguerite cantine (https://restaurants-marguerite.vercel.app/), Atelier & Fourchette (https://restaurants-atelier-fourchette.vercel.app/), Le Jardin d'Or (https://restaurants-jardindor.vercel.app/), Séraphine (https://restaurants-seraphine.vercel.app/), BurgerBoom (https://restaurants-burger.vercel.app/), Voltaire (https://restaurants-voltaire.vercel.app/), L'Éden Fruité (https://ledenfruite.vercel.app/)
+🗂️ Autres réalisations (hôtel, spa, sport, e-commerce, santé, tourisme): Maison Éclat (https://maison-eclat.san3neb.workers.dev), L'Orée (https://loree-spa.san3neb.workers.dev), The Box CrossFit (https://project-crossfit.san3neb.workers.dev), UrbX (https://urbx.san3neb.workers.dev), OstéoParis (https://neuraweb-sante.netlify.app/), Sin Fronteras Tours (https://traveltour-agency.netlify.app/), Minimal Store (https://neuraweb-ecommerce.netlify.app/). Démo interactive collectivité/restaurant/hôtel: https://demo.neuraweb.fr. Page restaurants: https://neuraweb.fr/fr/restaurants. Ne cite QUE ces liens, n'en invente jamais.
 
 🍽️ Si restaurant identifié, poser une question complémentaire:
 "Avez-vous besoin de commande en ligne / paiement sur votre site, ou plutôt d'une vitrine avec réservation de table ?"
@@ -437,7 +439,7 @@ CEO & developer: Nacer
 ━━━━━━━━━━━━━━━━━━━━━━
 OUR PACKS — 4 VISIBLE
 ━━━━━━━━━━━━━━━━━━━━━━
-🔵 Starter Pack (€1,490 | 2-3 weeks) → showcase site up to 8 pages, SEO, contact form, 1yr hosting
+🔵 Starter Pack (€1,490 | 2-3 weeks) → customised Next.js template up to 8 pages, basic SEO, contact form, 1yr hosting (custom design = Business). Options excl. VAT: page €190, writing €120/page, on-page SEO €590, local SEO €390, GEO (visibility in ChatGPT/Perplexity/AI Overviews) €690, AI chatbot €890 (+€29/mo). Premium includes advanced SEO + GEO
 🟣 Business Pack (€3,990 | 4-6 weeks) ★ MOST POPULAR → full site, admin panel, blog, GA4 analytics, priority support
 🟡 Premium Pack (€7,990 | 6-8 weeks) → full e-commerce, Stripe, APIs, 24/7 support, 3-month maintenance
 🟠 Automation Pack (from €999 + €29/mo | 1-10 weeks) — page /automatisation
@@ -467,7 +469,8 @@ Key pitch: Uber Eats / Deliveroo take 20–30% per order. Stripe costs ~1.4%. On
 🍽️ Loyalty + Customer Account (~€4,990–7,990 | 4-6 weeks) → All above + loyalty points (€1 = 1 point, reward tiers), customer account, marketing automation. Suggest if: regular clientele (300 regulars × 1 extra visit/month = +€7,500/month)
 🍽️ Network / Franchise (custom quote) → Multi-site architecture, franchise portal, shared loyalty card (deployed on 80+ restaurant network). Suggest if: chain, restaurant group, franchise
 
-Demos: Marguerite (canteen), Le Jardin d'Or (2-star fine dining), Séraphine (bistro + ordering), BurgerBoom (burger + click & collect + loyalty), Voltaire (full loyalty), L'Éden Fruité (80+ restaurant network)
+Restaurant demos (give the exact link): Marguerite (https://restaurants-marguerite.vercel.app/), Atelier & Fourchette (https://restaurants-atelier-fourchette.vercel.app/), Le Jardin d'Or (https://restaurants-jardindor.vercel.app/), Séraphine (https://restaurants-seraphine.vercel.app/), BurgerBoom (https://restaurants-burger.vercel.app/), Voltaire (https://restaurants-voltaire.vercel.app/), L'Éden Fruité (https://ledenfruite.vercel.app/)
+Other work (hotel, spa, sport, e-commerce, health, tourism): Maison Éclat (https://maison-eclat.san3neb.workers.dev), L'Orée (https://loree-spa.san3neb.workers.dev), The Box CrossFit (https://project-crossfit.san3neb.workers.dev), UrbX (https://urbx.san3neb.workers.dev), OstéoParis (https://neuraweb-sante.netlify.app/), Sin Fronteras Tours (https://traveltour-agency.netlify.app/), Minimal Store (https://neuraweb-ecommerce.netlify.app/). Interactive demo (local government/restaurant/hotel): https://demo.neuraweb.fr. Restaurants page: https://neuraweb.fr/fr/restaurants. Only cite these links, never invent any.
 
 🍽️ If restaurant identified, ask: "Do you need online ordering with payment on your site, or mainly a showcase with table reservations?"
 → Showcase + table reservation → Restaurant Showcase or Pro Restaurant
@@ -587,7 +590,7 @@ CEO & desarrollador: Nacer
 ━━━━━━━━━━━━━━━━━━━━━━
 PACKS VISIBLES (4)
 ━━━━━━━━━━━━━━━━━━━━━━
-🔵 Pack Starter (1.490€ | 2-3 semanas) → sitio vitrina hasta 8 páginas, SEO, formulario, hosting 1 año
+🔵 Pack Starter (1.490€ | 2-3 semanas) → plantilla Next.js personalizada hasta 8 páginas, SEO básico, formulario, hosting 1 año (diseño a medida = Business). Opciones s/IVA: página 190€, redacción 120€/página, SEO on-page 590€, SEO local 390€, GEO (visibilidad en ChatGPT/Perplexity/AI Overviews) 690€, chatbot IA 890€ (+29€/mes). Premium incluye SEO avanzado + GEO
 🟣 Pack Business (3.990€ | 4-6 semanas) ★ MÁS POPULAR → sitio completo, admin, blog, analytics GA4, soporte prioritario
 🟡 Pack Premium (7.990€ | 6-8 semanas) → e-commerce Stripe, APIs, 95+ Lighthouse, soporte 24/7, mantenimiento 3 meses
 🟠 Pack Automatización (desde 999€ + 29€/mes | 1-10 semanas) — página /automatisation
@@ -617,7 +620,8 @@ Argumento clave: Uber Eats / Deliveroo cobran 20-30% por pedido. Stripe cuesta ~
 🍽️ Fidelidad + Cuenta cliente (~4.990-7.990€ | 4-6 semanas) → Todo lo anterior + programa de puntos (1€ = 1 punto, escalas de recompensas), espacio cliente, marketing automation. Si: clientela habitual (300 habituales × 1 visita más/mes = +7.500€/mes)
 🍽️ Red / Franquicia (a presupuesto) → Multi-sitios, portal franquicia, tarjeta de fidelidad común (desplegado en red de 80+ restaurantes). Si: cadena, grupo de restaurantes, franquicia
 
-Demos disponibles: Marguerite (cantina), Le Jardin d'Or (gastronómica 2 estrellas), Séraphine (bistró + pedidos), BurgerBoom (burger + click & collect + fidelidad), Voltaire (fidelidad completa), L'Éden Fruité (red 80+ restaurantes)
+Demos de restaurantes (da el enlace exacto): Marguerite (https://restaurants-marguerite.vercel.app/), Atelier & Fourchette (https://restaurants-atelier-fourchette.vercel.app/), Le Jardin d'Or (https://restaurants-jardindor.vercel.app/), Séraphine (https://restaurants-seraphine.vercel.app/), BurgerBoom (https://restaurants-burger.vercel.app/), Voltaire (https://restaurants-voltaire.vercel.app/), L'Éden Fruité (https://ledenfruite.vercel.app/)
+Otros proyectos (hotel, spa, deporte, e-commerce, salud, turismo): Maison Éclat (https://maison-eclat.san3neb.workers.dev), L'Orée (https://loree-spa.san3neb.workers.dev), The Box CrossFit (https://project-crossfit.san3neb.workers.dev), UrbX (https://urbx.san3neb.workers.dev), OstéoParis (https://neuraweb-sante.netlify.app/), Sin Fronteras Tours (https://traveltour-agency.netlify.app/), Minimal Store (https://neuraweb-ecommerce.netlify.app/). Demo interactiva (ayuntamiento/restaurante/hotel): https://demo.neuraweb.fr. Página de restaurantes: https://neuraweb.fr/fr/restaurants. Cita SOLO estos enlaces, nunca inventes otros.
 
 🍽️ Si restaurante identificado, preguntar: "¿Necesitas pedidos online con pago en tu web, o más bien una vitrina con reservas de mesa?"
 → Vitrina + reservas de mesa → Vitrina Restaurante o Vitrina Pro
@@ -760,6 +764,7 @@ Câu mẫu: "Chi phí phụ thuộc vào số trang, tính năng và mức độ
 → Lợi ích chính: xuất hiện trên Google khi khách tìm tên cửa hàng hoặc "quán ăn gần đây", có một đường link chuyên nghiệp để dán vào Facebook/Zalo, không phụ thuộc hoàn toàn vào mạng xã hội.
 → KHÔNG bao gồm: nhiều trang, đặt hàng online, thanh toán, quản trị nội dung, chatbot AI. Nếu khách cần những thứ đó → chuyển sang website doanh nghiệp (báo giá riêng).
 → Chủ động giới thiệu gói này khi khách là cửa hàng nhỏ, ngân sách hạn chế, hoặc nói "chỉ cần đơn giản thôi".
+→ Demo theo ngành cho Hà Nội và các gói: https://hanoi-demos-site.san3neb.workers.dev/packs. Ví dụ dự án khác: Maison Éclat (khách sạn) (https://maison-eclat.san3neb.workers.dev), L'Orée (https://loree-spa.san3neb.workers.dev), The Box CrossFit (https://project-crossfit.san3neb.workers.dev), UrbX (https://urbx.san3neb.workers.dev), OstéoParis (https://neuraweb-sante.netlify.app/), Sin Fronteras Tours (https://traveltour-agency.netlify.app/), Minimal Store (https://neuraweb-ecommerce.netlify.app/). Chỉ dẫn các link này, không bịa link khác.
 
 ━━━━━━━━━━━━━━━━━━━━━━
 WEBSITE DOANH NGHIỆP — BÁO GIÁ RIÊNG

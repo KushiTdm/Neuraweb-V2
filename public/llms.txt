@@ -27,7 +27,7 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 
 ## Pricing
 
-- Starter Pack: from 1,490 EUR (Responsive showcase site up to 8 pages, with SEO)
+- Starter Pack: from 1,490 EUR (Customised Next.js template, up to 8 pages, basic SEO; options: on-page SEO 590 EUR, local SEO 390 EUR, GEO 690 EUR, AI chatbot 890 EUR + 29 EUR/month)
 - Business Pack: from 3,990 EUR (Site up to 20 pages with admin, blog, analytics)
 - Premium Pack: from 7,990 EUR (Unlimited pages, e-commerce, third-party APIs, 24/7 support)
 - Automation Pack: from 999 EUR + 29 EUR/month (n8n/Make workflows, up to 5,999 EUR for full automation with AI agents)
