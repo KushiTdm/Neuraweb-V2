@@ -27,6 +27,34 @@ interface ChatResponse {
   showBookingDates?: boolean
 }
 
+// Rendu Markdown minimal et sûr (aucun HTML injecté) : **gras**, *italique*, listes « - » / « • ».
+function renderInline(text: string): React.ReactNode[] {
+  return text.split(/(\*\*[^*]+\*\*|\*[^*\s][^*]*\*)/g).filter(Boolean).map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) return <strong key={i}>{part.slice(2, -2)}</strong>
+    if (part.startsWith('*') && part.endsWith('*') && part.length > 2) return <em key={i}>{part.slice(1, -1)}</em>
+    return part
+  })
+}
+
+function MessageContent({ content }: { content: string }) {
+  return (
+    <div className="text-sm leading-relaxed space-y-1">
+      {content.split('\n').map((line, i) => {
+        const bullet = line.match(/^\s*[-•]\s+(.*)$/)
+        if (bullet) {
+          return (
+            <div key={i} className="flex gap-2 pl-1">
+              <span aria-hidden="true">•</span>
+              <span>{renderInline(bullet[1])}</span>
+            </div>
+          )
+        }
+        return line.trim() === '' ? <div key={i} className="h-1" /> : <p key={i}>{renderInline(line)}</p>
+      })}
+    </div>
+  )
+}
+
 const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <rect x="4" y="8" width="16" height="12" rx="2"/>
@@ -643,7 +671,7 @@ export default function Chatbot() {
                       ? 'bg-gray-600 text-white rounded-br-sm'
                       : 'bg-gray-800 text-gray-100 rounded-bl-sm border border-gray-700'
                   }`}>
-                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+                    <MessageContent content={msg.content} />
                   </div>
                 </div>
 

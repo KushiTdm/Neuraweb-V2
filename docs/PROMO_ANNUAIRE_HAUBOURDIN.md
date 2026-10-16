@@ -21,7 +21,7 @@
 | Friteries | 3 |
 | Artisans du bâtiment | 1 |
 
-**98/100 fiches sont `unclaimed`** (non revendiquées) → signal de maturité digitale très faible, cohérent avec le ciblage du Pack Starter ("petits commerces, indépendants, présence en ligne basique" — voir `COMPLETE_OFFERINGS.md`). Exclure du ciblage les enseignes/agences nationales déjà présentes dans la liste (Lidl, Aldi, Picard, Allianz, Banque Populaire, Caisse d'Épargne, Crédit Agricole, Crédit Mutuel) : elles ont leur propre digital, l'offre ne les concerne pas.
+**98/100 fiches sont `unclaimed`** (non revendiquées) → signal de maturité digitale très faible, cohérent avec le ciblage du Pack Starter ("petits commerces, indépendants, présence en ligne basique" — voir `pack2026.md`). Exclure du ciblage les enseignes/agences nationales déjà présentes dans la liste (Lidl, Aldi, Picard, Allianz, Banque Populaire, Caisse d'Épargne, Crédit Agricole, Crédit Mutuel) : elles ont leur propre digital, l'offre ne les concerne pas.
 
 ## Offre
 
