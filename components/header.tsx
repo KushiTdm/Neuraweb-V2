@@ -182,6 +182,50 @@ export function Header() {
                 </div>
               </div>
 
+              {/* Secteurs — entrée distincte des services (pour qui, pas ce qu'on fait) */}
+              <div className="relative group">
+                <button
+                  type="button"
+                  className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 inline-flex items-center gap-1 ${
+                    ['/sante', '/restaurants', '/collectivites'].some((h) => isActive(h))
+                      ? 'text-navfg'
+                      : 'text-navfg hover:text-navfg hover:bg-navfg/10'
+                  }`}
+                  aria-haspopup="menu"
+                >
+                  {t('nav.sectors')}
+                  <ChevronDown size={14} className="transition-transform duration-200 group-hover:rotate-180" />
+                  {['/sante', '/restaurants', '/collectivites'].some((h) => isActive(h)) && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navfg" />
+                  )}
+                </button>
+                <div className="absolute left-0 right-0 top-full h-2" aria-hidden />
+                <div
+                  role="menu"
+                  className="absolute top-full left-0 mt-2 w-72 opacity-0 invisible translate-y-1
+                    group-hover:opacity-100 group-hover:visible group-hover:translate-y-0
+                    focus-within:opacity-100 focus-within:visible focus-within:translate-y-0
+                    transition-all duration-200 origin-top-left z-50"
+                >
+                  <div className="rounded-xl border border-gray-200/80 bg-white/95 backdrop-blur-md shadow-xl shadow-black/5 p-2">
+                    {[
+                      { href: '/sante', key: 'sante' },
+                      { href: '/restaurants', key: 'restaurants' },
+                      { href: '/collectivites', key: 'collectivites' },
+                    ].map(({ href, key }) => (
+                      <LocalizedLink
+                        key={key}
+                        href={href}
+                        className="flex flex-col px-3 py-2.5 rounded-lg text-sm transition-colors text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      >
+                        <span className="block font-medium">{t(`nav.dropdown.${key}.label` as any)}</span>
+                        <span className="block text-xs text-gray-500">{t(`nav.dropdown.${key}.desc` as any)}</span>
+                      </LocalizedLink>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               <LocalizedLink
                 href="/blog"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
@@ -286,6 +330,9 @@ export function Header() {
             { label: t('nav.dropdown.web.label'), href: '/developpement-web' },
             { label: 'Mobile',          href: '/mobile-app-development' },
             { label: 'IA',              href: '/integration-ia'        },
+            { label: `${t('nav.sectors')} · ${t('nav.dropdown.sante.label')}`,         href: '/sante'         },
+            { label: `${t('nav.sectors')} · ${t('nav.dropdown.restaurants.label')}`,   href: '/restaurants'   },
+            { label: `${t('nav.sectors')} · ${t('nav.dropdown.collectivites.label')}`, href: '/collectivites' },
             { label: 'Démo',            href: DEMO_URL, external: true, ariaLabel: 'Démo interactive web + mobile' },
             { label: t('nav.blog'),     href: '/blog',                 ariaLabel: t('nav.blog')     },
             { label: t('nav.team'),     href: '/equipe',               ariaLabel: t('nav.team')     },

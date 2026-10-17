@@ -69,10 +69,11 @@ export function Footer() {
     { href: '/agence-web-paris', label: 'Agence web Paris' },
   ];
 
-  // Pages sectorielles — retirées de la navbar, déplacées ici
+  // Secteurs : colonne distincte des services (voir docs/brand/IA_SERVICES_SECTEURS.md)
   const sectorPages = [
-    { href: '/restaurants', label: t('nav.dropdown.restaurants.label') },
-    { href: '/sante',       label: t('nav.dropdown.sante.label')       },
+    { href: '/sante',         label: t('nav.dropdown.sante.label')         },
+    { href: '/restaurants',   label: t('nav.dropdown.restaurants.label')   },
+    { href: '/collectivites', label: t('nav.dropdown.collectivites.label') },
   ];
 
   // Doit rester aligné avec `sameAs` dans lib/structured-data.ts.
@@ -127,30 +128,26 @@ export function Footer() {
           contact@neuraweb.fr
         </a>
 
-        {/* Pages locales + sectorielles */}
-        <div className="flex flex-wrap gap-x-3 gap-y-1 mb-4">
-          {[...localPages, ...sectorPages].map((link) => (
-            <LocalizedLink
-              key={link.href}
-              href={link.href}
-              className="text-xs text-footfg/85 hover:text-footfg transition-colors"
-            >
-              {link.label}
-            </LocalizedLink>
-          ))}
+        {/* Secteurs puis agences locales */}
+        <div className="mb-4">
+          <p className="text-[10px] uppercase tracking-wider text-footfg/85 mb-1.5">{t('footer.sectors')}</p>
+          <div className="flex flex-wrap gap-x-3 gap-y-1">
+            {sectorPages.map((link) => (
+              <LocalizedLink key={link.href} href={link.href} className="text-xs text-footfg/85 hover:text-footfg transition-colors">
+                {link.label}
+              </LocalizedLink>
+            ))}
+          </div>
         </div>
-
-        {/* Secteur public — partie à part (marchés publics ≠ autres secteurs) */}
         <div className="mb-5">
-          <p className="text-[10px] uppercase tracking-wider text-footfg/85 mb-1.5">
-            Secteur public
-          </p>
-          <LocalizedLink
-            href="/collectivites"
-            className="text-xs text-footfg/85 hover:text-footfg transition-colors"
-          >
-            Collectivités &amp; mairies
-          </LocalizedLink>
+          <p className="text-[10px] uppercase tracking-wider text-footfg/85 mb-1.5">{t('footer.agencies')}</p>
+          <div className="flex flex-wrap gap-x-3 gap-y-1">
+            {localPages.map((link) => (
+              <LocalizedLink key={link.href} href={link.href} className="text-xs text-footfg/85 hover:text-footfg transition-colors">
+                {link.label}
+              </LocalizedLink>
+            ))}
+          </div>
         </div>
 
         {/* Newsletter */}
@@ -272,9 +269,9 @@ export function Footer() {
               ))}
             </ul>
 
-            <h3 className="text-footfg text-sm font-semibold mt-6 mb-3">Agences & secteurs</h3>
+            <h3 className="text-footfg text-sm font-semibold mt-6 mb-3">{t('footer.sectors')}</h3>
             <ul className="space-y-2">
-              {[...localPages, ...sectorPages].map((link) => (
+              {sectorPages.map((link) => (
                 <li key={link.href}>
                   <LocalizedLink
                     href={link.href}
@@ -287,18 +284,19 @@ export function Footer() {
               ))}
             </ul>
 
-            {/* Secteur public — partie à part (marchés publics ≠ autres secteurs) */}
-            <h3 className="text-footfg text-sm font-semibold mt-6 mb-3">Secteur public</h3>
+            <h3 className="text-footfg text-sm font-semibold mt-6 mb-3">{t('footer.agencies')}</h3>
             <ul className="space-y-2">
-              <li>
-                <LocalizedLink
-                  href="/collectivites"
-                  className="text-sm text-footfg/85 hover:text-footfg transition-colors duration-200 flex items-center gap-1.5 group"
-                >
-                  <span className="w-1 h-1 rounded-full bg-footfg/100 group-hover:bg-footfg transition-colors" />
-                  Collectivités &amp; mairies
-                </LocalizedLink>
-              </li>
+              {localPages.map((link) => (
+                <li key={link.href}>
+                  <LocalizedLink
+                    href={link.href}
+                    className="text-sm text-footfg/85 hover:text-footfg transition-colors duration-200 flex items-center gap-1.5 group"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-footfg/100 group-hover:bg-footfg transition-colors" />
+                    {link.label}
+                  </LocalizedLink>
+                </li>
+              ))}
             </ul>
           </div>
 

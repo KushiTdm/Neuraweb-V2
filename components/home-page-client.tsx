@@ -28,6 +28,10 @@ const ServicesSection = dynamic(
   () => import('@/components/sections/services-section').then((mod) => ({ default: mod.ServicesSection })),
   { loading: () => <SectionSkeleton /> }
 );
+const SectorsSection = dynamic(
+  () => import('@/components/sections/sectors-section').then((mod) => ({ default: mod.SectorsSection })),
+  { loading: () => <SectionSkeleton /> }
+);
 const AboutSection = dynamic(
   () => import('@/components/sections/about-section').then((mod) => ({ default: mod.AboutSection })),
   { loading: () => <SectionSkeleton /> }
@@ -96,6 +100,9 @@ export function HomePageClient() {
       <div ref={servicesRef}>
         <ServicesSection />
       </div>
+
+      {/* 3b. Secteurs — « Pour votre métier » : distinct des services */}
+      <SectorsSection />
 
       {/* 4. Stats — chiffres métalliques chrome, count-up */}
       <StatsSection />

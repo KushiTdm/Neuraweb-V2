@@ -10,7 +10,7 @@ export const PAGE_THEMES = {
   automatisation: { bg: '#9A0002', fg: '#EFE6DE' }, // paire « Cherry Cola / Cream Vanilla »
   chatbot: { bg: '#1A1A1A', fg: '#FFFFFF', accent: '#39FF14' }, // paire « Neon Venom / Graphite »
   sante: { bg: '#004643', fg: '#FAFAFA' },
-  restaurants: { bg: '#523D2C', fg: '#F3EFE6' }, // ⚠ proche de vietnam (brun) : à revoir
+  restaurants: { bg: '#31372B', fg: '#FBF7EC' }, // Black Olive / Floral White (distinct du brun de Vietnam)
   collectivites: { bg: '#534739', fg: '#EBE9DD' },
   vietnam: { bg: '#4B2E21', fg: '#F2E6B3' }, // paire « Cookie Crumble / Whipped Butter »
 } as const satisfies Record<string, { bg: string; fg: string; accent?: string }>;
