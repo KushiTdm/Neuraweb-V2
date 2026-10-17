@@ -27,6 +27,7 @@ const excludedRoutes = [
   '/[lang]/admin/hotel-tokens',
   '/[lang]/hotel-form',
   '/[lang]/blog/[slug]',
+  '/[lang]/[...slug]', // catch-all → 404 personnalisée
   '/[lang]/services', // redirect-only page → /:lang/developpement-web
   '/',
 ];
