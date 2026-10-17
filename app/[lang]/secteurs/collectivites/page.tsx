@@ -5,7 +5,7 @@ import { CollectivitesPageClient } from '@/components/collectivites-page-client'
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
 const BASE_URL = 'https://neuraweb.fr';
-const PAGE_PATH = '/fr/collectivites';
+const PAGE_PATH = '/fr/secteurs/collectivites';
 
 // Page FR uniquement — canal de conversion B2G (marchés publics), non traduit (ISR 1h)
 export const revalidate = 3600;
@@ -169,7 +169,7 @@ export default async function CollectivitesPage({
 }) {
   const { lang } = await params;
   if (lang !== 'fr') {
-    permanentRedirect('/fr/collectivites');
+    permanentRedirect('/fr/secteurs/collectivites');
   }
 
   const breadcrumbData = generateBreadcrumbSchema([

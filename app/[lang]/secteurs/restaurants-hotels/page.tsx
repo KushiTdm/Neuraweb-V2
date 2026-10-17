@@ -5,7 +5,7 @@ import { RestaurantsPageClient } from '@/components/restaurants-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
 const BASE_URL = 'https://neuraweb.fr';
-const PAGE_PATH = '/fr/restaurants';
+const PAGE_PATH = '/fr/secteurs/restaurants-hotels';
 
 // Page FR uniquement — canal de conversion vertical, non traduit (ISR 1h)
 export const revalidate = 3600;
@@ -180,7 +180,7 @@ export default async function RestaurantsPage({
 }) {
   const { lang } = await params;
   if (lang !== 'fr') {
-    permanentRedirect('/fr/restaurants');
+    permanentRedirect('/fr/secteurs/restaurants-hotels');
   }
 
   const breadcrumbData = generateBreadcrumbSchema([

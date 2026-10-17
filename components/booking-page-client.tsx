@@ -60,7 +60,7 @@ const translations = {
     packs: {
       starter: 'Pack Starter - 1 490€',
       business: 'Pack Business - 3 990€',
-      premium: 'Pack Premium - 7 990€',
+      premium: 'Pack Premium - Sur mesure (devis)',
       ai: 'Pack IA - Sur devis'
     }
   },
@@ -95,7 +95,7 @@ const translations = {
     packs: {
       starter: 'Starter Pack - €1,490',
       business: 'Business Pack - €3,990',
-      premium: 'Premium Pack - €7,990',
+      premium: 'Premium Pack - Tailor-made (quote)',
       ai: 'AI Pack - On quote'
     }
   },
@@ -130,7 +130,7 @@ const translations = {
     packs: {
       starter: 'Pack Starter - 1.490€',
       business: 'Pack Business - 3.990€',
-      premium: 'Pack Premium - 7.990€',
+      premium: 'Pack Premium - A medida (presupuesto)',
       ai: 'Pack IA - Bajo presupuesto'
     }
   },

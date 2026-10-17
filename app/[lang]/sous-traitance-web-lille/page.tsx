@@ -166,13 +166,8 @@ const serviceSchema = {
       },
       {
         '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: 'Plateforme digitale et intégration IA en marque blanche' },
-        priceSpecification: {
-          '@type': 'PriceSpecification',
-          price: '7990',
-          priceCurrency: 'EUR',
-          valueAddedTaxIncluded: false,
-        },
+        // Sur mesure : aucun prix publié, chiffrage sur devis
+        itemOffered: { '@type': 'Service', name: 'Plateforme digitale et intégration IA en marque blanche (sur devis)' },
       },
     ],
   },
@@ -192,7 +187,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: 'Quels sont vos tarifs de sous-traitance pour une agence ?',
-    a: "Nous travaillons principalement au forfait, sur la base de nos packs : à partir de 1 490 € HT pour un site vitrine jusqu'à 8 pages, 3 990 € HT pour un site ou une application jusqu'à 20 pages avec fonctions avancées, et 7 990 € HT pour une plateforme sur mesure avec IA et automatisation. Un tarif partenaire dégressif s'applique à partir du troisième projet confié dans l'année. Les missions en régie ou les reprises de projet font l'objet d'un devis spécifique.",
+    a: "Nous travaillons principalement au forfait, sur la base de nos packs : à partir de 1 490 € HT pour un site vitrine jusqu'à 8 pages et 3 990 € HT pour un site ou une application jusqu'à 20 pages avec fonctions avancées, sur des maquettes déjà déterminées. Une plateforme entièrement sur mesure avec IA et automatisation est chiffrée sur devis. Un tarif partenaire dégressif s'applique à partir du troisième projet confié dans l'année. Les missions en régie ou les reprises de projet font l'objet d'un devis spécifique.",
   },
   {
     q: 'Quelles technologies prenez-vous en charge ?',
@@ -608,9 +603,9 @@ export default async function SousTraitanceWebLillePage({
 
             <div className="rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
               {[
-                { name: 'Site vitrine', scope: "Jusqu'à 8 pages, design sur mesure, SEO de base", price: '1 490 € HT' },
-                { name: 'Site ou application avancée', scope: "Jusqu'à 20 pages, blog, chatbot IA, intégrations métier", price: '3 990 € HT' },
-                { name: 'Plateforme sur mesure', scope: 'Application web, IA et automatisation, multi-langue, API tierces', price: '7 990 € HT' },
+                { name: 'Site vitrine', scope: "Jusqu'à 8 pages sur maquettes prédéfinies, SEO de base", price: '1 490 € HT' },
+                { name: 'Site ou application avancée', scope: "Jusqu'à 20 pages sur maquettes prédéfinies, blog, chatbot IA, intégrations métier", price: '3 990 € HT' },
+                { name: 'Plateforme sur mesure', scope: 'Design sur mesure, application web, IA et automatisation, multi-langue, API tierces', price: 'Sur devis' },
                 { name: 'Audit ou reprise de projet', scope: 'Diagnostic technique écrit, estimation de reprise', price: 'Sur devis' },
                 { name: 'Renfort en régie', scope: 'Développeur intégré à votre équipe, durée définie', price: 'Sur devis' },
               ].map((row, idx) => (

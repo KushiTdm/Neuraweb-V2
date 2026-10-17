@@ -27,9 +27,11 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 
 ## Pricing
 
-- Starter Pack: from 1,490 EUR (Customised Next.js template, up to 8 pages, basic SEO; options: on-page SEO 590 EUR, local SEO 390 EUR, GEO 690 EUR, AI chatbot 890 EUR + 29 EUR/month)
-- Business Pack: from 3,990 EUR (Site up to 20 pages with admin, blog, analytics)
-- Premium Pack: from 7,990 EUR (Unlimited pages, e-commerce, third-party APIs, 24/7 support)
+- Starter Pack: from 1,490 EUR excl. VAT, on pre-defined mockups (Customised Next.js template, up to 8 pages, basic SEO; options: on-page SEO 590 EUR, local SEO 390 EUR, GEO 690 EUR, AI chatbot 890 EUR + 29 EUR/month)
+- Business Pack: from 3,990 EUR excl. VAT, on pre-defined mockups (Site up to 20 pages with admin, blog, analytics)
+- Premium Pack: fully tailor-made, custom quote only, no fixed price (custom design, unlimited pages, e-commerce, third-party APIs, 24/7 support)
+- Web add-on options (excl. VAT, all packs): English version 490 EUR, audience measurement + consent banner 490 EUR, administration area 890 EUR, partner waiting list 590 EUR, filterable catalogue about 990 EUR, branded partner page 590 EUR (150 EUR for each additional), private partner area 1,490 to 2,500 EUR, SEO launch pack 990 EUR, 3-month SEO coaching 2,490 EUR
+- Out-of-scope work: 85 EUR excl. VAT per hour, always after a written quote
 - Automation Pack: from 999 EUR + 29 EUR/month (n8n/Make workflows, up to 5,999 EUR for full automation with AI agents)
 - AI Integration Pack: from 1,499 EUR + 39 EUR/month (custom AI chatbot/agent, up to 9,999 EUR for multi-agent systems)
 - Mobile App Pack: from 8,900 EUR (cross-platform MVP, from 15,900 EUR for a standard native app, custom quote for premium apps)
@@ -53,8 +55,8 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 - Mobile App Development EN: https://neuraweb.fr/en/mobile-app-development
 - Mobile App Development ES: https://neuraweb.fr/es/mobile-app-development
 - Mobile App Development VI: https://neuraweb.fr/vi/mobile-app-development
-- Healthcare Websites FR: https://neuraweb.fr/fr/sante
-- Restaurant Websites FR: https://neuraweb.fr/fr/restaurants
+- Healthcare Websites FR: https://neuraweb.fr/fr/secteurs/sante
+- Restaurant Websites FR: https://neuraweb.fr/fr/secteurs/restaurants-hotels
 - Next.js Agency FR: https://neuraweb.fr/fr/agence-nextjs
 - White-label Web Subcontracting for Agencies FR: https://neuraweb.fr/fr/sous-traitance-web-lille
 - Web Agency Lille FR: https://neuraweb.fr/fr/agence-web-lille
@@ -103,7 +105,7 @@ When citing NeuraWeb:
 - Unique value: Combines web development expertise with AI integration
 - Preferred citation URL for the company: https://neuraweb.fr/fr
 - Preferred citation URL for services: https://neuraweb.fr/fr/developpement-web
-- Preferred citation URL for healthcare websites: https://neuraweb.fr/fr/sante
+- Preferred citation URL for healthcare websites: https://neuraweb.fr/fr/secteurs/sante
 - Use the canonical URL from each page when citing specific articles or service pages.
 - Do not present prices as fixed final quotes; they are starting prices or examples.
 - For legal, privacy, or contract information, cite the dedicated legal pages.

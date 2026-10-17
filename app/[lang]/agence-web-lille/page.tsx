@@ -166,7 +166,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "Quel est le prix d'un site web pour une PME à Lille ?",
-    a: "Nos packs web sont transparents et adaptés aux PME : le pack Starter démarre à 1 490 €, le pack Business à 3 990 € et le pack Premium à 7 990 €. Chaque pack inclut design sur mesure, développement Next.js, optimisation SEO, hébergement configurable et accompagnement post-lancement. Les projets sur mesure font l'objet d'un devis personnalisé.",
+    a: "Nos packs web sont transparents et adaptés aux PME : le pack Starter démarre à 1 490 € et le pack Business à 3 990 €, sur des maquettes déjà déterminées adaptées à votre charte. Le pack Premium est entièrement sur mesure (design sur mesure, application web ou e-commerce) et fait l'objet d'un devis personnalisé. Chaque pack inclut développement Next.js, optimisation SEO, hébergement configurable et accompagnement post-lancement.",
   },
   {
     q: 'Intervenez-vous uniquement à Lille ou dans toute la France ?',
@@ -249,6 +249,7 @@ const PACKS = [
   {
     name: 'Starter',
     price: '1 490 €',
+    note: 'Sur maquettes prédéfinies',
     tagline: 'Être trouvé et crédible en ligne',
     profil: 'TPE, artisans, indépendants',
     color: 'border-indigo-200',
@@ -256,7 +257,7 @@ const PACKS = [
     featured: false,
     bullets: [
       'Site vitrine jusqu\'à 8 pages',
-      'Design sur mesure (mobile-first)',
+      'Maquette prédéfinie personnalisée (mobile-first)',
       'Optimisation SEO de base',
       'Intégration Google Analytics',
       'Formulaire de contact',
@@ -266,6 +267,7 @@ const PACKS = [
   {
     name: 'Business',
     price: '3 990 €',
+    note: 'Sur maquettes prédéfinies',
     tagline: 'Générer des leads et convertir',
     profil: 'PME, commerces, cabinets',
     featured: true,
@@ -283,7 +285,8 @@ const PACKS = [
   },
   {
     name: 'Premium',
-    price: '7 990 €',
+    price: 'Sur mesure',
+    note: 'Devis personnalisé, sans engagement',
     tagline: 'Plateforme digitale sur mesure',
     profil: 'ETI, franchise, e-commerce',
     color: 'border-cyan-200',
@@ -597,6 +600,7 @@ export default async function AgenceWebLillePage({
                   <div className="mb-1">
                     <span className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900">{pack.price}</span>
                   </div>
+                  <p className="text-xs text-slate-500 mb-2">{pack.note}</p>
                   <p className="text-sm font-semibold text-slate-700 mb-1">{pack.tagline}</p>
                   <p className="text-xs text-slate-400 mb-5 md:mb-6">{pack.profil}</p>
                   <ul className="space-y-2.5 mb-6 md:mb-8 flex-1">
@@ -625,7 +629,7 @@ export default async function AgenceWebLillePage({
             </div>
 
             <p className="text-center text-xs text-slate-400 mt-6 md:mt-8">
-              Tous les prix sont HT. Hébergement Vercel inclus la première année. Projets sur mesure sur devis.
+              Prix HT, applicables à des maquettes déjà déterminées. Pack Premium entièrement sur mesure, sur devis. Hébergement Vercel inclus la première année.
             </p>
 
             {/* Lien vers la page dev web */}

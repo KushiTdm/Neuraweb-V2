@@ -187,7 +187,7 @@ export function Header() {
                 <button
                   type="button"
                   className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 inline-flex items-center gap-1 ${
-                    ['/sante', '/restaurants', '/collectivites'].some((h) => isActive(h))
+                    ['/secteurs/sante', '/secteurs/restaurants-hotels', '/secteurs/collectivites'].some((h) => isActive(h))
                       ? 'text-navfg'
                       : 'text-navfg hover:text-navfg hover:bg-navfg/10'
                   }`}
@@ -195,7 +195,7 @@ export function Header() {
                 >
                   {t('nav.sectors')}
                   <ChevronDown size={14} className="transition-transform duration-200 group-hover:rotate-180" />
-                  {['/sante', '/restaurants', '/collectivites'].some((h) => isActive(h)) && (
+                  {['/secteurs/sante', '/secteurs/restaurants-hotels', '/secteurs/collectivites'].some((h) => isActive(h)) && (
                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navfg" />
                   )}
                 </button>
@@ -209,9 +209,9 @@ export function Header() {
                 >
                   <div className="rounded-xl border border-gray-200/80 bg-white/95 backdrop-blur-md shadow-xl shadow-black/5 p-2">
                     {[
-                      { href: '/sante', key: 'sante' },
-                      { href: '/restaurants', key: 'restaurants' },
-                      { href: '/collectivites', key: 'collectivites' },
+                      { href: '/secteurs/sante', key: 'sante' },
+                      { href: '/secteurs/restaurants-hotels', key: 'restaurants' },
+                      { href: '/secteurs/collectivites', key: 'collectivites' },
                     ].map(({ href, key }) => (
                       <LocalizedLink
                         key={key}
@@ -330,9 +330,9 @@ export function Header() {
             { label: t('nav.dropdown.web.label'), href: '/developpement-web' },
             { label: 'Mobile',          href: '/mobile-app-development' },
             { label: 'IA',              href: '/integration-ia'        },
-            { label: `${t('nav.sectors')} · ${t('nav.dropdown.sante.label')}`,         href: '/sante'         },
-            { label: `${t('nav.sectors')} · ${t('nav.dropdown.restaurants.label')}`,   href: '/restaurants'   },
-            { label: `${t('nav.sectors')} · ${t('nav.dropdown.collectivites.label')}`, href: '/collectivites' },
+            { label: `${t('nav.sectors')} · ${t('nav.dropdown.sante.label')}`,         href: '/secteurs/sante'         },
+            { label: `${t('nav.sectors')} · ${t('nav.dropdown.restaurants.label')}`,   href: '/secteurs/restaurants-hotels'   },
+            { label: `${t('nav.sectors')} · ${t('nav.dropdown.collectivites.label')}`, href: '/secteurs/collectivites' },
             { label: 'Démo',            href: DEMO_URL, external: true, ariaLabel: 'Démo interactive web + mobile' },
             { label: t('nav.blog'),     href: '/blog',                 ariaLabel: t('nav.blog')     },
             { label: t('nav.team'),     href: '/equipe',               ariaLabel: t('nav.team')     },

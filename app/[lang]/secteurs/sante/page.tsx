@@ -5,7 +5,7 @@ import { SantePageClient } from '@/components/sante-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
 const BASE_URL = 'https://neuraweb.fr';
-const PAGE_PATH = '/fr/sante';
+const PAGE_PATH = '/fr/secteurs/sante';
 
 // Page FR uniquement — généreration statique 24h
 export const revalidate = 3600;
@@ -265,7 +265,7 @@ export default async function SantePage({
 }) {
   const { lang } = await params;
   if (lang !== 'fr') {
-    permanentRedirect('/fr/sante');
+    permanentRedirect('/fr/secteurs/sante');
   }
 
   const breadcrumbData = generateBreadcrumbSchema([

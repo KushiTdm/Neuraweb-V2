@@ -277,7 +277,7 @@ export function PortfolioSection() {
                 className="w-[85vw] shrink-0 pl-4 sm:w-[24rem] md:pl-0 md:pr-6"
               >
                 <LocalizedLink
-                  href="/restaurants"
+                  href="/secteurs/restaurants-hotels"
                   tabIndex={copy === 1 ? -1 : undefined}
                   className="group flex h-full min-h-[18rem] flex-col items-start justify-center rounded-2xl border border-dashed border-chypre/40 bg-chypre/5 p-6 transition-colors hover:border-chypre hover:bg-chypre/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
                 >

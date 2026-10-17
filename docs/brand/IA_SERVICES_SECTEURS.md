@@ -15,8 +15,11 @@ Source : recherche croisée de 5 IA (Gemini, ChatGPT, Perplexity, DeepSeek, Kimi
 - **Footer** : colonne « Secteurs » (3 liens) distincte de « Services » et d'« Agences » (Lille, Paris). Le bloc « Secteur public » à part est supprimé.
 - **Textes** : clés `nav.sectors`, `sectors.*`, `footer.sectors` en FR/EN/ES/VI (« Industries » en anglais).
 
-## Recommandé, NON appliqué (décision requise)
-1. **URLs** `/fr/secteurs/sante`, `/fr/secteurs/restaurants-hotels`, `/fr/secteurs/collectivites` + hub `/fr/secteurs` ; **301 directes** depuis `/fr/sante`, `/fr/restaurants`, `/fr/collectivites` (pas de chaîne), liens internes, sitemap et hreflang mis à jour. Les 5 IA convergent. Points de vigilance :
+## Appliqué le 18 oct. 2026 : migration des URL
+Pages déplacées vers `/fr/secteurs/sante`, `/fr/secteurs/restaurants-hotels`, `/fr/secteurs/collectivites` + hub `/{lang}/secteurs` (4 langues). Anciennes URL (`/{fr,en,es,vi}/{sante,restaurants,collectivites}`) → redirection **permanente directe** (statut 308, équivalent du 301) vers la nouvelle URL FR, définie dans `next.config.js`. Sitemap, canoniques, liens internes, articles de blog, `llms.txt`, chatbot et `scripts/validate-sitemap.js` mis à jour.
+
+## Recommandé, reste à faire
+1. ~~URLs~~ (fait) `/fr/secteurs/sante`, `/fr/secteurs/restaurants-hotels`, `/fr/secteurs/collectivites` + hub `/fr/secteurs` ; **301 directes** depuis `/fr/sante`, `/fr/restaurants`, `/fr/collectivites` (pas de chaîne), liens internes, sitemap et hreflang mis à jour. Les 5 IA convergent. Points de vigilance :
    - ces pages sont aujourd'hui **FR uniquement** (`/en` et `/es` redirigent vers `/fr`, voir CLAUDE.md) : les slugs traduits proposés par une IA (`/en/sectors/healthcare`, `/vi/linh-vuc/y-te`) ne s'appliquent pas tant qu'il n'y a pas de versions traduites ;
    - le gain SEO est théorique (peu de trafic actuel, cf. `npm run analyze:keywords`) : migrer maintenant coûte peu, plus tard davantage.
 2. **Hub `/secteurs`** : page maillante qui explique « services × secteur ».

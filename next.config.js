@@ -63,20 +63,19 @@ const nextConfig = {
       { source: '/en/team',   destination: '/en/equipe',  permanent: true },
       { source: '/es/equipo', destination: '/es/equipe',  permanent: true },
 
-      // Page Santé — FR uniquement, on redirige les autres langues
-      { source: '/en/sante', destination: '/fr/sante', permanent: true },
-      { source: '/es/sante', destination: '/fr/sante', permanent: true },
-      { source: '/vi/sante', destination: '/fr/sante', permanent: true },
-
-      // Page Restaurants — FR uniquement, on redirige les autres langues
-      { source: '/en/restaurants', destination: '/fr/restaurants', permanent: true },
-      { source: '/es/restaurants', destination: '/fr/restaurants', permanent: true },
-      { source: '/vi/restaurants', destination: '/fr/restaurants', permanent: true },
-
-      // Page Collectivités — FR uniquement, on redirige les autres langues
-      { source: '/en/collectivites', destination: '/fr/collectivites', permanent: true },
-      { source: '/es/collectivites', destination: '/fr/collectivites', permanent: true },
-      { source: '/vi/collectivites', destination: '/fr/collectivites', permanent: true },
+      // Secteurs (migration oct. 2026) : /<lang>/{sante,restaurants,collectivites} → /fr/secteurs/<slug>
+      // FR uniquement : les autres langues pointent directement sur la version FR (une seule redirection, pas de chaîne).
+      ...[
+        ['sante', 'sante'],
+        ['restaurants', 'restaurants-hotels'],
+        ['collectivites', 'collectivites'],
+      ].flatMap(([oldSlug, slug]) =>
+        ['fr', 'en', 'es', 'vi'].map((l) => ({
+          source: `/${l}/${oldSlug}`,
+          destination: `/fr/secteurs/${slug}`,
+          permanent: true,
+        })),
+      ),
 
       // Slugs de blog incorrects détectés par Google Search Console ("Détectée, non indexée")
       // Ces URLs ont été crawlées mais retournaient 404 — on les redirige vers les vrais slugs

@@ -73,7 +73,7 @@ LIVRABLE
 ## Prompt 1 — Automatisation & IA appliquée ⭐ priorité
 
 > C'est le manque le plus coûteux : NeuraWeb vend de l'automatisation n8n, de l'intégration IA
-> et un pack Premium à 7 990 €, et la page d'accueil affiche « 12 API connectées / 47 workflows
+> et un pack Premium sur mesure, et la page d'accueil affiche « 12 API connectées / 47 workflows
 > actifs / −4h par semaine » — sans aucune preuve visuelle derrière.
 
 ```
@@ -277,7 +277,7 @@ pas un portail d'annonces.
 
 ## Prompt 5 — Dashboard SaaS métier
 
-> Justifie le pack Premium à 7 990 € : c'est la démo qui montre que NeuraWeb ne fait pas
+> Justifie le pack Premium (sur mesure) : c'est la démo qui montre que NeuraWeb ne fait pas
 > que des vitrines, mais aussi des applications métier.
 
 ```

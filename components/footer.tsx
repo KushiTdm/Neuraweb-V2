@@ -71,9 +71,9 @@ export function Footer() {
 
   // Secteurs : colonne distincte des services (voir docs/brand/IA_SERVICES_SECTEURS.md)
   const sectorPages = [
-    { href: '/sante',         label: t('nav.dropdown.sante.label')         },
-    { href: '/restaurants',   label: t('nav.dropdown.restaurants.label')   },
-    { href: '/collectivites', label: t('nav.dropdown.collectivites.label') },
+    { href: '/secteurs/sante', label: t('nav.dropdown.sante.label')         },
+    { href: '/secteurs/restaurants-hotels', label: t('nav.dropdown.restaurants.label')   },
+    { href: '/secteurs/collectivites', label: t('nav.dropdown.collectivites.label') },
   ];
 
 

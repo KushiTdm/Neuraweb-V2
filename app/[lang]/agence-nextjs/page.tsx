@@ -161,13 +161,8 @@ const serviceSchema = {
       },
       {
         '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: 'Application web Next.js sur mesure' },
-        priceSpecification: {
-          '@type': 'PriceSpecification',
-          price: '7990',
-          priceCurrency: 'EUR',
-          valueAddedTaxIncluded: false,
-        },
+        // Sur mesure : aucun prix publié, chiffrage sur devis
+        itemOffered: { '@type': 'Service', name: 'Application web Next.js sur mesure (sur devis)' },
       },
     ],
   },
@@ -187,7 +182,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "Combien coûte la création d'un site Next.js par une agence ?",
-    a: "Chez NeuraWeb, un site vitrine Next.js jusqu'à 8 pages démarre à 1 490 € HT. Un site plus complet jusqu'à 20 pages, avec blog, SEO avancé et chatbot IA, est à 3 990 € HT. Une application web sur mesure avec IA, automatisation et multi-langue est à 7 990 € HT. Sur le marché français, les agences Next.js facturent généralement entre 50 et 150 € de l'heure en régie ; nous privilégions le forfait pour éviter les dérives de budget.",
+    a: "Chez NeuraWeb, un site vitrine Next.js jusqu'à 8 pages démarre à 1 490 € HT. Un site plus complet jusqu'à 20 pages, avec blog, SEO avancé et chatbot IA, est à 3 990 € HT. Ces deux prix s'appliquent à des maquettes déjà déterminées, adaptées à votre charte. Une application web entièrement sur mesure (design sur mesure, IA, automatisation, multi-langue) est chiffrée sur devis. Sur le marché français, les agences Next.js facturent généralement entre 50 et 150 € de l'heure en régie ; nous privilégions le forfait pour éviter les dérives de budget.",
   },
   {
     q: 'Combien de temps faut-il pour développer un site avec Next.js ?',

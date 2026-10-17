@@ -66,7 +66,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     'developpement-web': {
       title: 'Développement Web Sur Mesure — Packs & Tarifs | NeuraWeb',
-      description: 'Agence web Next.js : sites vitrine, sites pro et e-commerce sur mesure. Packs Starter à 1 490€, Business à 3 990€, Premium à 7 990€. Devis gratuit sous 24h.',
+      description: 'Agence web Next.js : Starter dès 1 490€, Business dès 3 990€ sur maquettes prédéfinies, Premium sur mesure sur devis. Devis gratuit sous 24h.',
       keywords: ['développement web sur mesure', 'création site web professionnel', 'agence web Next.js', 'site vitrine entreprise', 'e-commerce sur mesure', 'tarifs site web 2026', 'devis site web gratuit', 'agence web Paris', 'refonte site web'],
     },
     contact: {
@@ -113,7 +113,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     'developpement-web': {
       title: 'Custom Web Development — Packages & Pricing | NeuraWeb',
-      description: 'Next.js web agency: showcase sites, professional websites and e-commerce built to order. Starter from €1,490, Business from €3,990, Premium from €7,990. Free quote in 24h.',
+      description: 'Next.js web agency: Starter from €1,490, Business from €3,990 on pre-defined mockups, Premium fully tailor-made on quote. Free quote in 24h.',
       keywords: ['custom web development', 'professional website creation', 'Next.js web agency', 'business website design', 'custom e-commerce development', 'web development pricing 2026', 'free website quote', 'web development agency France'],
     },
     contact: {
@@ -160,7 +160,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     'developpement-web': {
       title: 'Desarrollo Web a Medida — Paquetes y Precios | NeuraWeb',
-      description: 'Agencia web Next.js: sitios vitrina, webs profesionales y e-commerce a medida. Starter desde 1.490€, Business desde 3.990€, Premium desde 7.990€. Presupuesto gratis en 24h.',
+      description: 'Agencia web Next.js: Starter desde 1.490€, Business desde 3.990€ sobre maquetas predefinidas, Premium a medida. Presupuesto gratis en 24h.',
       keywords: ['desarrollo web a medida', 'creación web profesional', 'agencia web Next.js', 'diseño web empresa', 'e-commerce personalizado', 'precios web 2026', 'presupuesto web gratis', 'agencia web Francia'],
     },
     contact: {
@@ -411,12 +411,7 @@ export function generateJsonLd(
           itemOffered: {
             '@type': 'Service',
             name: 'Pack Premium',
-            description: 'Solution premium pour projets ambitieux',
-            offers: {
-              '@type': 'Offer',
-              price: '7990',
-              priceCurrency: 'EUR',
-            },
+            description: 'Solution entièrement sur mesure, sur devis, pour projets ambitieux',
           },
         },
       ],

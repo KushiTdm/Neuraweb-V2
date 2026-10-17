@@ -7,7 +7,7 @@
 // l'aide à PILOTER l'agence (RDV, leads, contenu, visibilité), avec un
 // snapshot d'activité réel injecté à l'exécution.
 //
-// Source de vérité prix : Starter 1 490 € / Business 3 990 € / Premium 7 990 €.
+// Source de vérité prix : Starter 1 490 € / Business 3 990 € (sur maquettes prédéfinies) / Premium sur mesure (devis).
 // ============================================================
 
 /** Faits de marque réutilisables (identité, offre, prix). */
@@ -16,7 +16,8 @@ SIRET 991 296 047 00020 (micro-entreprise). Contact : contact@neuraweb.fr · htt
 Équipe : Nacer (fondateur, dev full-stack React/Next.js/LLM), Sandra (communication & marketing), Arthur (IA & automatisation).
 
 Offre & prix de référence :
-- Packs web : Starter 1 490 € · Business 3 990 € (le plus populaire) · Premium 7 990 €.
+- Packs web : Starter 1 490 € · Business 3 990 € (le plus populaire), prix sur maquettes prédéfinies · Premium sur mesure (devis, pas de prix fixe).
+- Options web (HT, tous packs) : version anglaise 490 € · mesure d'audience + consentement 490 € · espace d'administration 890 € · liste d'attente partenaires 590 € · catalogue filtrable ~990 € · page de marque habillée 590 € (150 € la suivante) · espace partenaires privé 1 490–2 500 € · SEO pack de lancement 990 € · SEO accompagnement 3 mois 2 490 € · hors périmètre 85 €/h après devis écrit.
 - Pack Automatisation (n8n/Make) : 999 € – 5 999 € + 29 – 149 €/mois.
 - Pack Intégration IA (chatbots & agents) : 1 499 € – 9 999 € + 39 – 189 €/mois.
 - Pack Mobile (React Native / natif) : à partir de 8 900 €.

@@ -142,9 +142,9 @@ export default function Chatbot() {
       const packId = event.detail?.pack
       if (packId) {
         const packNames: Record<string, Record<string, string>> = {
-          fr: { starter: 'Starter (1 490€)', business: 'Business (3 990€)', premium: 'Premium (7 990€)', ai: 'Pack IA (sur devis)' },
-          en: { starter: 'Starter (€1,490)', business: 'Business (€3,990)', premium: 'Premium (€7,990)', ai: 'AI Pack (custom)' },
-          es: { starter: 'Starter (1.490€)', business: 'Business (3.990€)', premium: 'Premium (7.990€)', ai: 'Pack IA (a presupuesto)' },
+          fr: { starter: 'Starter (1 490€)', business: 'Business (3 990€)', premium: 'Premium (sur mesure)', ai: 'Pack IA (sur devis)' },
+          en: { starter: 'Starter (€1,490)', business: 'Business (€3,990)', premium: 'Premium (tailor-made)', ai: 'AI Pack (custom)' },
+          es: { starter: 'Starter (1.490€)', business: 'Business (3.990€)', premium: 'Premium (a medida)', ai: 'Pack IA (a presupuesto)' },
           // vi : aucun prix EUR fixe (règle du site) — seule l'offre Landing Page
           // Express a un prix affiché, tout le reste est en mode devis.
           vi: { landing: 'Landing Page Express (1.290.000 VND)', starter: 'Starter (Theo báo giá)', business: 'Business (Theo báo giá)', premium: 'Premium (Theo báo giá)', ai: 'Gói AI (Theo báo giá)' },

@@ -11,9 +11,9 @@ import { PAGE_THEMES } from '@/lib/page-themes';
 // (les services = ce que l'on fait ; les secteurs = pour qui). Chaque carte porte la paire de
 // couleurs de sa page et une étiquette « Secteur ». Voir docs/brand/IA_SERVICES_SECTEURS.md.
 const SECTORS = [
-  { key: 'sante', href: '/sante', theme: PAGE_THEMES.sante, image: '/assets/redesign/pages/sante-hero.webp' },
-  { key: 'restaurants', href: '/restaurants', theme: PAGE_THEMES.restaurants, image: '/assets/redesign/pages/restaurants-hero.webp' },
-  { key: 'collectivites', href: '/collectivites', theme: PAGE_THEMES.collectivites, image: '/assets/redesign/pages/collectivites-hero.webp' },
+  { key: 'sante', href: '/secteurs/sante', theme: PAGE_THEMES.sante, image: '/assets/redesign/pages/sante-hero.webp' },
+  { key: 'restaurants', href: '/secteurs/restaurants-hotels', theme: PAGE_THEMES.restaurants, image: '/assets/redesign/pages/restaurants-hero.webp' },
+  { key: 'collectivites', href: '/secteurs/collectivites', theme: PAGE_THEMES.collectivites, image: '/assets/redesign/pages/collectivites-hero.webp' },
 ] as const;
 
 const ALTS: Record<string, Record<string, string>> = {

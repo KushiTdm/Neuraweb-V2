@@ -21,7 +21,7 @@
 | Typographie | Inter + Inter Tight + JetBrains Mono | Inter = police par défaut de milliers de sites → faible distinctivité |
 | Positionnement hero | « Agence web à Lille — sites, apps, automatisations pour les PME » | Contredit la réalité (équipe nomade au Vietnam) et le territoire Lille/Paris est saturé |
 | Langues | FR, EN, ES, **VI** (4 locales) | Atout rare, sous-exploité en message |
-| Prix | Packs affichés 1 490 / 3 990 / 7 990 €, add-ons à 75 €/h, paiement 40/30/30 | **Le meilleur différenciateur** (voir §2) |
+| Prix | Packs affichés 1 490 / 3 990 € (maquettes prédéfinies) + Premium sur mesure (devis), add-ons à la carte, 85 €/h hors périmètre, paiement 40/30/30 | **Le meilleur différenciateur** (voir §2) |
 | Preuves | 30 articles de blog, démo « Connected Suite », schémas FAQ, chatbot | Portfolio = surtout sites démo/concepts : ❓ lesquels sont de vrais clients ? |
 | Réseaux (schema) | LinkedIn, GitHub, X, Facebook, Google Business | Incohérence de handle (`neuraweb` / `neurawebtech`), avatars à unifier |
 

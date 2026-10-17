@@ -128,6 +128,11 @@ const PRICING_TRANSLATIONS = {
     chatbot: 'Chatbot IA',
     chatbotDesc: 'Réponses immédiates',
     highlight: 'Sur mesure',
+    // Starter / Business : prix sur maquettes prédéfinies ; Premium : sur mesure, sans prix affiché
+    mockupNote: 'Sur maquettes prédéfinies',
+    mockupDetail: "Le prix de ce pack s'applique à des maquettes déjà déterminées (structure et design de base définis à l'avance, adaptés à votre charte). Tout design sur mesure fait l'objet d'un devis : c'est le Pack Premium.",
+    customNote: 'Devis personnalisé, sans engagement',
+    customDetail: 'Pack entièrement sur mesure : design, périmètre, fonctionnalités et prix sont définis ensemble dans un devis personnalisé, gratuit et sans engagement.',
     crossLinksTitle: 'Pour aller plus loin',
     crossLinkArticle: 'Article',
     crossLinkService: 'Service',
@@ -138,8 +143,8 @@ const PRICING_TRANSLATIONS = {
       subtitle: 'Des scénarios concrets, avec le pack adapté et le résultat mesurable que vous pouvez en attendre.',
       items: [
         { sector: 'Artisan / Indépendant local', context: 'Aucune présence en ligne, devis demandés par téléphone, invisible sur Google.', solution: 'Vitrine 8 pages responsive + SEO technique + fiche Google Business + formulaire de contact.', result: 'Visible sur Google Maps · +15 à 20 contacts qualifiés/mois · ROI souvent < 2 mois', pack: 'Pack Starter' },
-        { sector: 'PME / Commerce local', context: 'Vieux site non responsive, 40% d\'abandons sur mobile, aucun contenu pour le référencement.', solution: 'Refonte design Figma sur-mesure + blog CMS + espace client + analytics avancés + SEO on-page.', result: '+35% de trafic organique · −8h/semaine de support · image professionnelle restaurée', pack: 'Pack Business' },
-        { sector: 'Startup / Scale-up', context: 'Site vitrine limité, besoin d\'e-commerce, d\'intégrations et de performance pour scaler.', solution: 'Pages illimitées + e-commerce + intégrations API + A/B testing + Core Web Vitals 90+.', result: '+25% de conversion (A/B testing) · site rapide qui soutient la croissance et le SEO', pack: 'Pack Premium' },
+        { sector: 'PME / Commerce local', context: 'Vieux site non responsive, 40% d\'abandons sur mobile, aucun contenu pour le référencement.', solution: 'Refonte sur maquettes prédéfinies adaptées à votre charte + blog CMS + espace client + analytics avancés + SEO on-page.', result: '+35% de trafic organique · −8h/semaine de support · image professionnelle restaurée', pack: 'Pack Business' },
+        { sector: 'Startup / Scale-up', context: 'Site vitrine limité, besoin d\'e-commerce, d\'intégrations et de performance pour scaler.', solution: 'Design sur mesure + e-commerce + intégrations API + A/B testing + Core Web Vitals 90+.', result: '+25% de conversion (A/B testing) · site rapide qui soutient la croissance et le SEO', pack: 'Pack Premium' },
       ],
     },
     packs: {
@@ -165,7 +170,7 @@ const PRICING_TRANSLATIONS = {
         description: 'Pour les PME et startups qui veulent un site professionnel complet, avec blog, espace client et outils de conversion.',
         features: [
           { icon: 'Globe', text: 'Site jusqu\'à 20 pages' },
-          { icon: 'Code', text: 'Design sur-mesure Figma' },
+          { icon: 'Code', text: 'Maquettes prédéfinies validées sur Figma' },
           { icon: 'Users', text: 'Espace client intégré' },
           { icon: 'MessageSquare', text: 'Blog + CMS léger' },
           { icon: 'TrendingUp', text: 'Analytics avancés' },
@@ -179,8 +184,9 @@ const PRICING_TRANSLATIONS = {
       premium: {
         title: 'Pack Premium',
         subtitle: 'Solution complète & évolutive',
-        description: 'Pour les entreprises ambitieuses : e-commerce, intégrations API tierces, sécurité renforcée et performance maximale.',
+        description: 'Pour les entreprises ambitieuses : projet entièrement sur mesure avec e-commerce, intégrations API tierces, sécurité renforcée et performance maximale.',
         features: [
+          { icon: 'Code', text: 'Design et fonctionnalités sur mesure' },
           { icon: 'Globe', text: 'Pages illimitées' },
           { icon: 'ShoppingCart', text: 'E-commerce complet' },
           { icon: 'Settings', text: 'Intégrations API tierces' },
@@ -191,8 +197,8 @@ const PRICING_TRANSLATIONS = {
           { icon: 'Search', text: 'SEO technique avancé + GEO (IA)' },
         ],
         support: 'Support dédié 24/7',
-        price: '7 990€',
-        delay: '6–8 semaines',
+        price: 'Sur mesure',
+        delay: '6 semaines et plus',
       },
     },
   },
@@ -207,6 +213,10 @@ const PRICING_TRANSLATIONS = {
     chatbot: 'AI Chatbot',
     chatbotDesc: 'Immediate answers',
     highlight: 'Custom-made',
+    mockupNote: 'On pre-defined mockups',
+    mockupDetail: 'The price of this pack applies to pre-defined mockups (base structure and design set in advance, adapted to your brand). Any custom design is quoted separately: that is the Premium Pack.',
+    customNote: 'Personalised quote, no commitment',
+    customDetail: 'Fully tailor-made pack: design, scope, features and price are defined together in a personalised quote, free and with no commitment.',
     crossLinksTitle: 'Go further',
     crossLinkArticle: 'Article',
     crossLinkService: 'Service',
@@ -217,8 +227,8 @@ const PRICING_TRANSLATIONS = {
       subtitle: 'Concrete scenarios, with the right pack and the measurable result you can expect.',
       items: [
         { sector: 'Local tradesperson / Freelancer', context: 'No online presence, quotes requested by phone, invisible on Google.', solution: '8-page responsive showcase site + technical SEO + Google Business profile + contact form.', result: 'Visible on Google Maps · +15 to 20 qualified contacts/month · ROI often < 2 months', pack: 'Starter Pack' },
-        { sector: 'SMB / Local business', context: 'Old non-responsive site, 40% mobile drop-off, no content for search ranking.', solution: 'Custom Figma redesign + CMS blog + client area + advanced analytics + on-page SEO.', result: '+35% organic traffic · −8h/week of support · professional image restored', pack: 'Business Pack' },
-        { sector: 'Startup / Scale-up', context: 'Limited showcase site, needs e-commerce, integrations and performance to scale.', solution: 'Unlimited pages + e-commerce + API integrations + A/B testing + Core Web Vitals 90+.', result: '+25% conversion (A/B testing) · fast site that supports growth and SEO', pack: 'Premium Pack' },
+        { sector: 'SMB / Local business', context: 'Old non-responsive site, 40% mobile drop-off, no content for search ranking.', solution: 'Redesign on pre-defined mockups adapted to your brand + CMS blog + client area + advanced analytics + on-page SEO.', result: '+35% organic traffic · −8h/week of support · professional image restored', pack: 'Business Pack' },
+        { sector: 'Startup / Scale-up', context: 'Limited showcase site, needs e-commerce, integrations and performance to scale.', solution: 'Tailor-made design + e-commerce + API integrations + A/B testing + Core Web Vitals 90+.', result: '+25% conversion (A/B testing) · fast site that supports growth and SEO', pack: 'Premium Pack' },
       ],
     },
     packs: {
@@ -244,7 +254,7 @@ const PRICING_TRANSLATIONS = {
         description: 'For SMBs and startups that want a complete professional site with blog, client area and conversion tools.',
         features: [
           { icon: 'Globe', text: 'Site up to 20 pages' },
-          { icon: 'Code', text: 'Custom Figma design' },
+          { icon: 'Code', text: 'Pre-defined mockups validated on Figma' },
           { icon: 'Users', text: 'Integrated client area' },
           { icon: 'MessageSquare', text: 'Blog + light CMS' },
           { icon: 'TrendingUp', text: 'Advanced analytics' },
@@ -258,8 +268,9 @@ const PRICING_TRANSLATIONS = {
       premium: {
         title: 'Premium Pack',
         subtitle: 'Complete & scalable solution',
-        description: 'For ambitious companies: e-commerce, third-party API integrations, enhanced security and maximum performance.',
+        description: 'For ambitious companies: a fully tailor-made project with e-commerce, third-party API integrations, enhanced security and maximum performance.',
         features: [
+          { icon: 'Code', text: 'Tailor-made design and features' },
           { icon: 'Globe', text: 'Unlimited pages' },
           { icon: 'ShoppingCart', text: 'Full e-commerce' },
           { icon: 'Settings', text: 'Third-party API integrations' },
@@ -270,8 +281,8 @@ const PRICING_TRANSLATIONS = {
           { icon: 'Search', text: 'Advanced technical SEO + GEO (AI)' },
         ],
         support: 'Dedicated 24/7 support',
-        price: '€7,990',
-        delay: '6–8 weeks',
+        price: 'Tailor-made',
+        delay: '6 weeks and more',
       },
     },
   },
@@ -286,6 +297,10 @@ const PRICING_TRANSLATIONS = {
     chatbot: 'Chatbot IA',
     chatbotDesc: 'Respuestas inmediatas',
     highlight: 'A medida',
+    mockupNote: 'Sobre maquetas predefinidas',
+    mockupDetail: 'El precio de este pack se aplica a maquetas ya determinadas (estructura y diseño base definidos de antemano, adaptados a tu identidad). Cualquier diseño a medida se presupuesta aparte: es el Pack Premium.',
+    customNote: 'Presupuesto personalizado, sin compromiso',
+    customDetail: 'Pack totalmente a medida: diseño, alcance, funcionalidades y precio se definen juntos en un presupuesto personalizado, gratuito y sin compromiso.',
     crossLinksTitle: 'Para ir más lejos',
     crossLinkArticle: 'Artículo',
     crossLinkService: 'Servicio',
@@ -296,8 +311,8 @@ const PRICING_TRANSLATIONS = {
       subtitle: 'Escenarios concretos, con el pack adecuado y el resultado medible que puedes esperar.',
       items: [
         { sector: 'Autónomo / Profesional local', context: 'Sin presencia online, presupuestos pedidos por teléfono, invisible en Google.', solution: 'Web vitrina de 8 páginas responsive + SEO técnico + ficha Google Business + formulario de contacto.', result: 'Visible en Google Maps · +15 a 20 contactos cualificados/mes · ROI a menudo < 2 meses', pack: 'Pack Starter' },
-        { sector: 'Pyme / Comercio local', context: 'Web antigua no responsive, 40% de abandonos en móvil, sin contenido para posicionar.', solution: 'Rediseño Figma a medida + blog CMS + área de cliente + analytics avanzados + SEO on-page.', result: '+35% de tráfico orgánico · −8h/semana de soporte · imagen profesional recuperada', pack: 'Pack Business' },
-        { sector: 'Startup / Scale-up', context: 'Web vitrina limitada, necesita e-commerce, integraciones y rendimiento para escalar.', solution: 'Páginas ilimitadas + e-commerce + integraciones API + A/B testing + Core Web Vitals 90+.', result: '+25% de conversión (A/B testing) · web rápida que impulsa el crecimiento y el SEO', pack: 'Pack Premium' },
+        { sector: 'Pyme / Comercio local', context: 'Web antigua no responsive, 40% de abandonos en móvil, sin contenido para posicionar.', solution: 'Rediseño sobre maquetas predefinidas adaptadas a tu identidad + blog CMS + área de cliente + analytics avanzados + SEO on-page.', result: '+35% de tráfico orgánico · −8h/semana de soporte · imagen profesional recuperada', pack: 'Pack Business' },
+        { sector: 'Startup / Scale-up', context: 'Web vitrina limitada, necesita e-commerce, integraciones y rendimiento para escalar.', solution: 'Diseño a medida + e-commerce + integraciones API + A/B testing + Core Web Vitals 90+.', result: '+25% de conversión (A/B testing) · web rápida que impulsa el crecimiento y el SEO', pack: 'Pack Premium' },
       ],
     },
     packs: {
@@ -323,7 +338,7 @@ const PRICING_TRANSLATIONS = {
         description: 'Para pymes y startups que quieren un sitio profesional completo con blog, área de clientes y herramientas de conversión.',
         features: [
           { icon: 'Globe', text: 'Sitio hasta 20 páginas' },
-          { icon: 'Code', text: 'Diseño personalizado Figma' },
+          { icon: 'Code', text: 'Maquetas predefinidas validadas en Figma' },
           { icon: 'Users', text: 'Área de cliente integrada' },
           { icon: 'MessageSquare', text: 'Blog + CMS ligero' },
           { icon: 'TrendingUp', text: 'Analytics avanzados' },
@@ -337,8 +352,9 @@ const PRICING_TRANSLATIONS = {
       premium: {
         title: 'Pack Premium',
         subtitle: 'Solución completa y escalable',
-        description: 'Para empresas ambiciosas: e-commerce, integraciones API externas, seguridad reforzada y rendimiento máximo.',
+        description: 'Para empresas ambiciosas: un proyecto totalmente a medida con e-commerce, integraciones API externas, seguridad reforzada y rendimiento máximo.',
         features: [
+          { icon: 'Code', text: 'Diseño y funcionalidades a medida' },
           { icon: 'Globe', text: 'Páginas ilimitadas' },
           { icon: 'ShoppingCart', text: 'E-commerce completo' },
           { icon: 'Settings', text: 'Integraciones API externas' },
@@ -349,8 +365,8 @@ const PRICING_TRANSLATIONS = {
           { icon: 'Search', text: 'SEO técnico avanzado + GEO (IA)' },
         ],
         support: 'Soporte dedicado 24/7',
-        price: '7.990€',
-        delay: '6–8 semanas',
+        price: 'A medida',
+        delay: '6 semanas o más',
       },
     },
   },
@@ -368,6 +384,10 @@ const PRICING_TRANSLATIONS = {
     chatbot: 'Chatbot AI',
     chatbotDesc: 'Trả lời ngay lập tức',
     highlight: 'Theo yêu cầu',
+    mockupNote: 'Theo mẫu thiết kế xác định trước',
+    mockupDetail: 'Báo giá của gói này dựa trên các bản thiết kế mẫu (maquette) đã xác định trước — cấu trúc và thiết kế cơ bản được định sẵn, điều chỉnh theo nhận diện thương hiệu của bạn. Mọi thiết kế riêng đều được báo giá riêng: đó là gói Premium.',
+    customNote: 'Báo giá riêng, không ràng buộc',
+    customDetail: 'Gói hoàn toàn theo yêu cầu riêng: thiết kế, phạm vi, tính năng và chi phí được xác định cùng bạn trong một báo giá riêng, miễn phí và không ràng buộc.',
     crossLinksTitle: 'Tìm hiểu thêm',
     crossLinkArticle: 'Bài viết',
     crossLinkService: 'Dịch vụ',
@@ -405,7 +425,7 @@ const PRICING_TRANSLATIONS = {
         description: 'Dành cho doanh nghiệp SME và startup cần một website hoàn chỉnh, có blog, khu vực khách hàng và công cụ chuyển đổi.',
         features: [
           { icon: 'Globe', text: 'Website tối đa 20 trang' },
-          { icon: 'Code', text: 'Thiết kế riêng trên Figma' },
+          { icon: 'Code', text: 'Bản thiết kế mẫu xác định trước, duyệt trên Figma' },
           { icon: 'Users', text: 'Khu vực khách hàng tích hợp' },
           { icon: 'MessageSquare', text: 'Blog + CMS gọn nhẹ' },
           { icon: 'TrendingUp', text: 'Analytics nâng cao' },
@@ -419,8 +439,9 @@ const PRICING_TRANSLATIONS = {
       premium: {
         title: 'Gói Premium',
         subtitle: 'Giải pháp toàn diện & mở rộng được',
-        description: 'Dành cho doanh nghiệp tham vọng: thương mại điện tử, tích hợp API bên thứ ba, bảo mật nâng cao và hiệu năng tối đa.',
+        description: 'Dành cho doanh nghiệp tham vọng: dự án hoàn toàn theo yêu cầu riêng với thương mại điện tử, tích hợp API bên thứ ba, bảo mật nâng cao và hiệu năng tối đa.',
         features: [
+          { icon: 'Code', text: 'Thiết kế và tính năng theo yêu cầu riêng' },
           { icon: 'Globe', text: 'Số trang không giới hạn' },
           { icon: 'ShoppingCart', text: 'Thương mại điện tử đầy đủ' },
           { icon: 'Settings', text: 'Tích hợp API bên thứ ba' },
@@ -432,7 +453,7 @@ const PRICING_TRANSLATIONS = {
         ],
         support: 'Hỗ trợ riêng 24/7',
         price: 'Theo báo giá',
-        delay: '6–8 tuần',
+        delay: 'Từ 6 tuần',
       },
     },
   },
@@ -558,8 +579,11 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">{packData?.title}</h3>
                     <p className="text-white/60 text-sm mb-4">{packData?.subtitle}</p>
-                    <div className="flex items-baseline gap-2 mb-6">
-                      <span className="text-2xl sm:text-3xl font-bold text-white whitespace-nowrap leading-none">{packData?.price}</span>
+                    <div className="mb-6">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-2xl sm:text-3xl font-bold text-white whitespace-nowrap leading-none">{packData?.price}</span>
+                      </div>
+                      <p className="text-white/50 text-xs mt-1">{pack.id === 'premium' ? t.customNote : t.mockupNote}</p>
                     </div>
                     <ul className="space-y-3 mb-6">
                       {packData?.features?.map((feature, i) => (
@@ -608,9 +632,12 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
           </div>
           <h3 className="text-xl font-bold text-white mb-2">{packData?.title}</h3>
           <p className="text-white/60 text-sm mb-4">{packData?.subtitle}</p>
-          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-6">
-            <span className="text-2xl sm:text-3xl font-bold text-white whitespace-nowrap leading-none">{packData?.price}</span>
-            <span className="text-white/50 text-xs whitespace-nowrap">{t.vat}</span>
+          <div className="mb-6">
+            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+              <span className="text-2xl sm:text-3xl font-bold text-white whitespace-nowrap leading-none">{packData?.price}</span>
+              {pack.id !== 'premium' && <span className="text-white/50 text-xs whitespace-nowrap">{t.vat}</span>}
+            </div>
+            <p className="text-white/50 text-xs mt-1">{pack.id === 'premium' ? t.customNote : t.mockupNote}</p>
           </div>
           <ul className="space-y-3 mb-6">
             {packData?.features?.slice(0, 4).map((feature, i) => {
@@ -636,7 +663,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
             onClick={(e) => { e.stopPropagation(); handleChoosePack(pack.id); }}
             className={`w-full py-2.5 sm:py-3 px-4 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 hover:shadow-lg hover:scale-[1.02] ${pack.popular ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-white/10 border border-white/30 text-white hover:bg-white/20'}`}
           >
-            {t.choosePack}
+            {pack.id === 'premium' ? t.cta : t.choosePack}
           </button>
         </div>
       </div>
@@ -763,9 +790,12 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
               <h3 className="text-2xl font-bold text-white mb-2">{currentPack.title}</h3>
               <p className="text-white/60 mb-6">{currentPack.description}</p>
 
-              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 mb-6">
-                <span className="text-3xl sm:text-4xl font-bold text-white whitespace-nowrap leading-none">{currentPack.price}</span>
-                <span className="text-white/40 text-xs whitespace-nowrap">{t.vat}</span>
+              <div className="mb-6">
+                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                  <span className="text-3xl sm:text-4xl font-bold text-white whitespace-nowrap leading-none">{currentPack.price}</span>
+                  {modalPack !== 'premium' && <span className="text-white/40 text-xs whitespace-nowrap">{t.vat}</span>}
+                </div>
+                <p className="text-white/50 text-xs mt-2 leading-relaxed">{modalPack === 'premium' ? t.customDetail : t.mockupDetail}</p>
               </div>
 
               <ul className="space-y-4 mb-6">
@@ -793,7 +823,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
                 onClick={() => handleChoosePack(modalPack)}
                 className={`w-full py-3.5 sm:py-4 px-6 rounded-xl font-bold text-base sm:text-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02] mb-6 ${packs.find(p => p.id === modalPack)?.popular ? 'bg-white text-gray-900 hover:bg-gray-100' : 'bg-white/10 border border-white/30 text-white hover:bg-white/20'}`}
               >
-                {t.choosePack}
+                {modalPack === 'premium' ? t.cta : t.choosePack}
               </button>
 
               {/* Liens croisés dans le modal */}
