@@ -3,6 +3,7 @@ import { permanentRedirect } from 'next/navigation';
 import { JsonLd } from '@/components/json-ld';
 import { CollectivitesPageClient } from '@/components/collectivites-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
+import { sectorAudience, sectorBreadcrumb, SECTOR_AREA_SERVED } from '@/lib/sector-schema';
 
 const BASE_URL = 'https://neuraweb.fr';
 const PAGE_PATH = '/fr/secteurs/collectivites';
@@ -102,7 +103,8 @@ const professionalServiceSchema = {
     addressRegion: 'Hauts-de-France',
     postalCode: '59000',
   },
-  areaServed: { '@type': 'Country', name: 'France' },
+  areaServed: SECTOR_AREA_SERVED,
+  ...sectorAudience('Collectivités et secteur public', 'Mairies, intercommunalités, CCAS, offices de tourisme'),
   serviceType: [
     'Création et refonte de site internet de collectivité',
     'Mise en conformité accessibilité RGAA',
@@ -172,10 +174,7 @@ export default async function CollectivitesPage({
     permanentRedirect('/fr/secteurs/collectivites');
   }
 
-  const breadcrumbData = generateBreadcrumbSchema([
-    { name: 'Accueil', url: '/fr' },
-    { name: 'Collectivités & secteur public', url: PAGE_PATH },
-  ]);
+  const breadcrumbData = generateBreadcrumbSchema(sectorBreadcrumb('Collectivités & secteur public', PAGE_PATH));
 
   return (
     <>

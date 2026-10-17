@@ -3,6 +3,7 @@ import { permanentRedirect } from 'next/navigation';
 import { JsonLd } from '@/components/json-ld';
 import { SantePageClient } from '@/components/sante-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
+import { sectorAudience, sectorBreadcrumb, SECTOR_AREA_SERVED } from '@/lib/sector-schema';
 
 const BASE_URL = 'https://neuraweb.fr';
 const PAGE_PATH = '/fr/secteurs/sante';
@@ -104,10 +105,8 @@ const medicalBusinessSchema = {
     addressLocality: 'Lille',
     addressRegion: 'Hauts-de-France',
   },
-  areaServed: {
-    '@type': 'Country',
-    name: 'France',
-  },
+  areaServed: SECTOR_AREA_SERVED,
+  ...sectorAudience('Professionnels de santé', 'Ostéopathes, kinésithérapeutes, infirmiers libéraux, sages-femmes, médecins'),
   serviceType: [
     'Création de site internet pour professionnels de santé',
     'Hébergement HDS',
@@ -268,10 +267,7 @@ export default async function SantePage({
     permanentRedirect('/fr/secteurs/sante');
   }
 
-  const breadcrumbData = generateBreadcrumbSchema([
-    { name: 'Accueil', url: '/fr' },
-    { name: 'Santé & Paramédical', url: PAGE_PATH },
-  ]);
+  const breadcrumbData = generateBreadcrumbSchema(sectorBreadcrumb('Santé & Paramédical', PAGE_PATH));
 
   return (
     <>

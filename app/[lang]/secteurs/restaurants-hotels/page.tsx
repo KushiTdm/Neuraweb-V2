@@ -3,6 +3,7 @@ import { permanentRedirect } from 'next/navigation';
 import { JsonLd } from '@/components/json-ld';
 import { RestaurantsPageClient } from '@/components/restaurants-page-client';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
+import { sectorAudience, sectorBreadcrumb, SECTOR_AREA_SERVED } from '@/lib/sector-schema';
 
 const BASE_URL = 'https://neuraweb.fr';
 const PAGE_PATH = '/fr/secteurs/restaurants-hotels';
@@ -102,7 +103,8 @@ const professionalServiceSchema = {
     addressRegion: 'Hauts-de-France',
     postalCode: '59000',
   },
-  areaServed: { '@type': 'Country', name: 'France' },
+  areaServed: SECTOR_AREA_SERVED,
+  ...sectorAudience('Restaurateurs et hôteliers', 'Restaurants, brasseries, cafés, food trucks, hôtels et chambres d’hôtes'),
   serviceType: [
     'Création de site internet pour restaurant',
     'Réservation en ligne',
@@ -183,10 +185,7 @@ export default async function RestaurantsPage({
     permanentRedirect('/fr/secteurs/restaurants-hotels');
   }
 
-  const breadcrumbData = generateBreadcrumbSchema([
-    { name: 'Accueil', url: '/fr' },
-    { name: 'Sites web pour restaurants', url: PAGE_PATH },
-  ]);
+  const breadcrumbData = generateBreadcrumbSchema(sectorBreadcrumb('Restaurants & hôtels', PAGE_PATH));
 
   return (
     <>

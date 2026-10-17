@@ -27,6 +27,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { SectorTag } from '@/components/sector-tag';
 import { LocalizedLink } from '@/components/localized-link';
 import { DemoCTA } from '@/components/demo-cta';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
@@ -359,6 +360,7 @@ function Hero({ onScrollToFormules }: { onScrollToFormules: () => void }) {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         <div className="lg:col-span-7" data-reveal>
+          <SectorTag />
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-amber-200 text-amber-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
             <UtensilsCrossed className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             Sites web pour restaurants

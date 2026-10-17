@@ -38,6 +38,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { SectorTag } from '@/components/sector-tag';
 import {
   Dialog,
   DialogContent,
@@ -735,6 +736,7 @@ function HeroSection({
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-7" data-reveal>
+          <SectorTag />
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-teal-200 text-teal-700 text-sm font-medium mb-6">
             <Stethoscope className="w-4 h-4" />
             Spécialiste santé & paramédical
