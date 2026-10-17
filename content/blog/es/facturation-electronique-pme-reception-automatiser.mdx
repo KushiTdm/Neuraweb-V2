@@ -1,0 +1,159 @@
+---
+title: "Facturación electrónica en Francia: automatizar la recepción"
+seoTitle: "Facturación electrónica Francia 2026: qué hacer antes de 2027"
+excerpt: "La recepción es obligatoria desde el 1 de septiembre de 2026 y no habrá sanciones antes de fin de año: cómo automatizarla con n8n, con controles, desde 999 €."
+date: "2026-10-17"
+category: "Automatización"
+author: "NeuraWeb"
+image: "/assets/blog/facturation-electronique-pme-reception-automatiser.webp"
+tags:
+  - "Facturación electrónica"
+  - "Automatización"
+  - "n8n"
+  - "Pyme"
+  - "Cumplimiento"
+featured: false
+faq:
+  - question: "¿Me afecta la facturación electrónica si solo facturo a particulares?"
+    answer: "Sí, en la recepción. Si su empresa está sujeta al IVA, incluso en régimen de franquicia en base (franchise en base), debe poder recibir las facturas electrónicas de sus proveedores desde el 1 de septiembre de 2026. Sus ventas a particulares no son facturas electrónicas: dependen, en lo esencial, del e-reporting, cuyo despliegue para las pymes está previsto en septiembre de 2027. Si su actividad está exenta de IVA (sanidad, por ejemplo), pida a su asesor contable que verifique su situación."
+  - question: "¿Un PDF enviado por correo electrónico sigue siendo una factura válida?"
+    answer: "Un simple PDF adjunto a un correo no es una factura electrónica conforme. Para las facturas que usted emite, la obligación de emitir a través de una plataforma acreditada solo se aplica a las pymes y microempresas a partir del 1 de septiembre de 2027. Para las que recibe, las grandes empresas y las empresas de tamaño intermedio (ETI) deben emitir ya en formato electrónico desde el 1 de septiembre de 2026: sus facturas llegan por la plataforma, no por correo."
+  - question: "¿Qué sanciones corre una pyme y a partir de cuándo?"
+    answer: "El Ministerio de Economía francés (Bercy) ha anunciado que no se impondrá ninguna sanción antes de finales de 2026. Después, no emitir una factura electrónica cuesta 50 € por factura (tope de 15.000 € al año) y una transmisión de e-reporting omitida cuesta 500 € (tope de 15.000 € al año). Según service-public.fr, una empresa que no recibe sus facturas a través de una plataforma acreditada recibe un requerimiento con un plazo de 3 meses y después una multa de 500 €, luego de 1.000 €, y 1.000 € adicionales por cada periodo de 3 meses de incumplimiento."
+  - question: "¿Hay que cambiar de software de facturación para cumplir?"
+    answer: "No necesariamente. Hay que estar conectado a una plataforma acreditada, ya sea mediante su software actual si ofrece una, o mediante una plataforma distinta. Pregunte a su proveedor qué plataforma ha designado, cómo recuperar las facturas recibidas (API, notificación o exportación) y qué estados del ciclo de vida gestiona."
+  - question: "¿Qué se puede automatizar sin riesgo jurídico?"
+    answer: "La recuperación de las facturas recibidas, la lectura de los campos del archivo, los controles que señalan anomalías (proveedor conocido, duplicado, IBAN, coherencia de los importes), la clasificación, el archivo y la notificación del validador. La elección de la plataforma, el tratamiento del IVA y la validación contable corresponden a su asesor contable: NeuraWeb conecta sus herramientas, no da asesoramiento fiscal."
+---
+
+El 4 de octubre de 2026, **una de cada cuatro empresas francesas que declaran IVA seguía sin haber designado una plataforma para recibir sus facturas electrónicas**, aunque esa recepción es obligatoria para todas desde el 1 de septiembre ([comunicado del Ministerio de Economía francés del 9 de octubre de 2026](https://presse.economie.gouv.fr/facturation-electronique-le-premier-comite-dresse-le-bilan-du-deploiement-et-engage-la-preparation-de-2027/), en francés).
+
+**La respuesta corta:** desde el 1 de septiembre de 2026, toda empresa sujeta al IVA en Francia debe poder recibir facturas electrónicas a través de una plataforma acreditada (*plateforme agréée*, PA). La obligación de emitir solo se aplica a las pymes y microempresas a partir del 1 de septiembre de 2027. El Ministerio ha anunciado que no se impondrá ninguna sanción antes de finales de 2026: es la ventana para construir un circuito de recepción limpio, y no solo para «estar conectado».
+
+Para un restaurador, un hotelero o un artesano, el tema no es la factura que se emite, sino la que se recibe. Sus mayores proveedores (energía, telecomunicaciones, centrales de compra, aseguradoras), cuando son de gran tamaño, deben emitir ya en formato electrónico: sus facturas ya no llegan por correo. Aquí está lo que cambia, cómo es una factura conforme, cómo automatizar la recepción con n8n, con qué presupuesto y a partir de qué volumen no tiene ningún sentido.
+
+> **À retenir — Key Takeaways**
+>
+> - **Plazos**: recepción obligatoria para todas las empresas sujetas al IVA desde el 1 de septiembre de 2026; emisión obligatoria para pymes y microempresas el 1 de septiembre de 2027
+> - **Adopción a 4 de octubre de 2026**: el 75 % de las empresas que declaran IVA había designado una plataforma de recepción, con más de 20 millones de facturas intercambiadas por más de 70.000 millones de euros
+> - **Tolerancia**: ninguna sanción antes de finales de 2026 (Ministerio de Economía francés, 9 de octubre de 2026)
+> - **Sanciones después**: 50 € por factura no emitida y 500 € por transmisión de e-reporting omitida, con un tope de 15.000 € al año cada una
+> - **Formato conforme**: Factur-X (PDF/A-3 + XML), UBL o CII; un simple PDF adjunto a un correo no es una factura electrónica
+> - **Presupuesto de automatización**: desde 999 € sin IVA (pack Starter, 1 flujo) + n8n a unos 20 €/mes; controles ampliados y supervisión continua a partir del pack Business (2.999 € sin IVA)
+> - **Umbral de rentabilidad**: unas 80 facturas de proveedores al mes para amortizar el pack en aproximadamente un año (hipótesis detalladas más abajo)
+> - **Casos no adecuados**: menos de 30 facturas de proveedores al mes, o software de contabilidad ya conectado a una plataforma que clasifica y notifica por sí sola
+
+## ¿Quién está afectado por la facturación electrónica en Francia y desde cuándo?
+
+| Obligación | Quién | Fecha |
+|---|---|---|
+| Recepción | Todas las empresas establecidas en Francia y sujetas al IVA, incluidas las de franquicia en base | 1 de septiembre de 2026 |
+| Emisión | Grandes empresas y empresas de tamaño intermedio (ETI) | 1 de septiembre de 2026 |
+| Emisión | Pymes y microempresas | 1 de septiembre de 2027 |
+
+Fuentes: [service-public.fr](https://entreprendre.service-public.gouv.fr/vosdroits/F23208), página verificada el 7 de agosto de 2026, y la [ficha de la DGFiP sobre la emisión de facturas electrónicas](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/fiches_reforme/fiche-e-invoicing.pdf) (versión de septiembre de 2025), que precisa que el sistema cubre las operaciones entre sujetos pasivos de IVA establecidos en Francia, incluidos los de franquicia en base. Las entidades públicas también deben poder recibir desde el 1 de septiembre de 2026 ([AIFE](https://aife.economie.gouv.fr/nos-applications/facturation-electronique-b2b/)).
+
+El comité de seguimiento del 8 de octubre de 2026 da la medida del despliegue: el 75 % de las empresas que declaran IVA había designado una plataforma de recepción a 4 de octubre, con más de 20 millones de facturas intercambiadas por más de 70.000 millones de euros. Una cuarta parte de las empresas no había dado todavía ese paso. El mismo comunicado es explícito: «ninguna sanción para ninguna empresa se pronunciará antes de finales de 2026» (« aucune sanction pour aucune entreprise ne sera prononcée avant la fin de l'année 2026 »). El comité volverá a reunirse antes de fin de año para seguir la preparación de septiembre de 2027.
+
+## ¿Qué cambia para un restaurador, un hotelero o un artesano?
+
+Una regla simple: **sus compras a proveedores sujetos al IVA son facturas electrónicas que hay que recibir; sus ventas a particulares dependen, en lo esencial, del e-reporting.**
+
+- **Restaurante u hotel**: sus compras (alimentación, bebidas, energía, ropa de cama, mantenimiento) son facturas que hay que recibir. Sus ventas a clientes particulares no son facturas electrónicas. Sus ventas a empresas (seminarios, grupos, agencias) deberán emitirse a través de una plataforma a partir de septiembre de 2027.
+- **Artesano o construcción**: las facturas de sus proveedores de materiales hay que recibirlas desde ahora; sus propias facturas a empresas pasan por una plataforma a partir de septiembre de 2027.
+- **Consulta sanitaria independiente**: las operaciones exentas según los artículos 261 a 261 E del Código General Tributario francés (sector médico, en particular) quedan excluidas de la facturación electrónica, pero sus compras a proveedores sujetos al IVA sí pueden entrar en el ámbito. Pida a su asesor contable que verifique su situación antes de invertir.
+
+## ¿Cómo es una factura electrónica conforme?
+
+No es un PDF, es un archivo cuyos datos son legibles por una máquina, transmitido por una plataforma acreditada.
+
+| Término | Qué es |
+|---|---|
+| Factur-X | PDF/A-3 legible por una persona, con un XML (sintaxis CII) incrustado. Varios perfiles, de Minimum a Extended |
+| UBL y CII | Dos formatos XML puros, también aceptados |
+| Plataforma acreditada (PA) | Operador registrado que emite, recibe y transmite sus facturas |
+| Portal público de facturación (PPF) | Directorio de empresas y punto de transmisión de datos a la administración tributaria: no es una plataforma de facturación |
+| Estados del ciclo de vida | Cuatro obligatorios, alimentados por la plataforma (depositada, rechazada, denegada, cobrada); otros, opcionales, completan el seguimiento |
+| Norma AFNOR XP Z12-013 | Define las API que conectan los sistemas de información de las empresas con las plataformas acreditadas |
+
+Fuentes: [especificaciones externas v3.2 del 30 de abril de 2026](https://www.impots.gouv.fr/specifications-externes-b2b) (norma XP Z12-013), [ficha de la DGFiP](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/fiches_reforme/fiche-e-invoicing.pdf) (estados) y [AIFE](https://aife.economie.gouv.fr/nos-applications/facturation-electronique-b2b/) (PPF).
+
+Consecuencia directa para la automatización: **un archivo Factur-X o UBL se lee por programación.** El SIREN, el número de factura, los importes, el IVA y el IBAN son campos, no texto que adivinar. No hace falta IA para leer un archivo estructurado ni para los controles, que se basan en reglas de negocio. Las facturas PDF clásicas que algunos proveedores seguirán enviando hasta 2027 sí requieren una extracción adaptada (OCR, posiblemente IA).
+
+## ¿Cómo automatizar la recepción de facturas con n8n?
+
+El principio: la plataforma recibe, [n8n](/es/blog/automatisation-n8n-guide) controla y clasifica, y usted solo valida las excepciones. El circuito básico tiene siete pasos y tres herramientas (plataforma, herramienta de contabilidad o Drive, mensajería):
+
+```text
+1. Disparador    : nueva factura recibida en la plataforma (API, notificación o consulta programada)
+2. Recuperación  : archivo Factur-X o UBL + estado del ciclo de vida
+3. Lectura       : extracción de campos XML (SIREN, n.º de factura, importes, IVA, IBAN), sin IA
+4. Controles     : ¿proveedor conocido? ¿duplicado? ¿IBAN sin cambios? ¿total = suma de líneas?
+5. Clasificación : asiento en la herramienta de contabilidad (o Drive) + archivo del original
+6. Notificación  : mensaje al validador (Slack o correo) con el enlace a la factura
+7. Estado        : actualización del estado en la plataforma (rechazo, estados opcionales) si lo expone y lo permite
+```
+
+**Una reserva importante.** Cada plataforma expone sus propios accesos. La norma XP Z12-013 define API de interconexión, pero no garantiza que cada plataforma las abra a sus clientes: API, notificaciones, derechos de acceso y actualización de estados dependen de la plataforma y del plan elegidos, y algunas se limitan a una simple exportación. Confirmar este punto con sus cinco últimas facturas recibidas es el primer entregable de nuestra auditoría, antes de cualquier presupuesto. En cuanto a los datos, n8n puede alojarse en Europa (OVH, Scaleway o n8n Cloud región UE), como en nuestra [guía para reclamar facturas impagadas](/es/blog/agent-ia-relance-factures-pme).
+
+## ¿Qué ocurre cuando el flujo encuentra un problema?
+
+Un flujo sin gestión de errores no es un flujo, es una apuesta. Estos son los seis incidentes previstos en el circuito:
+
+| Incidente | Reacción del flujo | Quién interviene |
+|---|---|---|
+| Duplicado (mismo proveedor, mismo número) | Bloqueo, sin asiento, registro en el diario | Nadie, salvo disputa |
+| Proveedor desconocido (SIREN ausente de su lista) | Cuarentena + alerta | Usted valida o rechaza |
+| IBAN distinto del conocido | Bloqueo del pago + alerta | Llamada al proveedor a un número que ya tenía |
+| Total distinto de la suma de las líneas | Cuarentena | Su asesor contable |
+| Plataforma no disponible | Reintentos espaciados y después alerta | Usted o el integrador |
+| Archivo ilegible o formato inesperado | Cuarentena, archivo original conservado | Integrador |
+
+Estos controles señalan anomalías: no garantizan la ausencia de fraude ni validan jurídicamente la factura. El pack Starter cubre el circuito nominal; la cuarentena, las alertas y la supervisión continua corresponden al pack Business, que incluye la monitorización.
+
+## ¿Cuánto cuesta automatizar la recepción?
+
+| Concepto | Importe |
+|---|---|
+| Plataforma acreditada | Variable: varios proveedores la incluyen en su suscripción, a verificar (volúmenes, opciones) |
+| n8n | Unos 20 €/mes en Cloud, o de 5 a 12 €/mes en un VPS europeo |
+| Pack Starter de Automatización (1 flujo de hasta 8 pasos, 3 herramientas como máximo) | 999 € sin IVA + 29 €/mes de mantenimiento |
+| Pack Business de Automatización (3 a 5 flujos: recepción, controles ampliados, reclamación de impagados, monitorización) | 2.999 € sin IVA + 79 €/mes |
+
+**Escenario ilustrativo** (hipótesis que debe sustituir por sus propias cifras): un hotel independiente recibe 120 facturas de proveedores al mes. Tratamiento manual: 5 minutos por factura (abrir, renombrar, clasificar, introducir, hacer validar). Tras la automatización: 1 minuto de validación. Coste horario cargado: 25 €.
+
+- Tiempo ahorrado: 120 × 4 minutos = 8 horas al mes, es decir, 200 € al mes
+- Coste recurrente: unos 49 € al mes (n8n Cloud + mantenimiento)
+- Ganancia neta: unos 151 € al mes, es decir, **un pack Starter amortizado en 7 meses**
+
+Con 40 facturas al mes, el mismo cálculo da una ganancia neta de unos 18 € al mes: no invierta, active simplemente la recepción en el software conectado a su plataforma. El umbral práctico se sitúa en torno a **80 facturas al mes** para amortizar el pack en aproximadamente un año, sin contar el tiempo de gestión de las excepciones. Más allá del tiempo, ganará duplicados evitados, IBAN sospechosos señalados y una factura encontrada en diez segundos durante una inspección.
+
+## ¿Qué errores evitar antes del fin de la tolerancia?
+
+1. **Esperar a septiembre de 2027.** La recepción ya es obligatoria y sus proveedores de gran tamaño ya emiten en formato electrónico.
+2. **Creer que basta con un PDF por correo.** Para sus facturas emitidas, la obligación todavía no se aplica a las pymes antes de septiembre de 2027; para las que recibe de grandes empresas, el PDF libre ya no es la regla.
+3. **Confundir el PPF con una plataforma.** El PPF es un directorio: hay que designar una plataforma acreditada, que puede ser la de su proveedor de contabilidad.
+4. **Automatizar sin controles.** Todo cambio de IBAN debe desencadenar una llamada al proveedor a un número que ya tenía, nunca un simple correo de confirmación.
+5. **Olvidar el archivo.** Los documentos contables se conservan 10 años (artículo L123-22 del Código de Comercio francés), en condiciones que garanticen su integridad y legibilidad: archive el archivo original, no solo su versión legible, y no en una carpeta compartida sin control de acceso.
+6. **Reducir el RGPD al alojamiento.** La UE es un buen punto de partida, pero también hacen falta un contrato de encargado del tratamiento, accesos restringidos, plazos de conservación definidos y la inscripción en el registro de actividades de tratamiento (artículo 30).
+7. **Prescindir de su asesor contable.** Este artículo es información general, no asesoramiento fiscal: haga validar su circuito.
+
+## ¿Por dónde empezar esta semana?
+
+1. **Pregunte a su proveedor de software**: ¿qué plataforma acreditada he designado y cómo recupero las facturas recibidas (API, notificación, exportación)?
+2. **Revise sus cinco últimas facturas de proveedores**: ¿cuántas llegan ya en formato electrónico?
+3. **Cuente su volumen mensual**: por debajo de 30, quédese con la herramienta de su plataforma; en torno a 80 y más, la automatización se rentabiliza en aproximadamente un año.
+4. **Haga la lista de sus controles**: proveedores conocidos, IBAN, duplicados, umbrales de validación.
+5. **Designe quién valida qué**, con un suplente.
+
+---
+
+## Saber más
+
+- [Agente IA para reclamar facturas impagadas en pymes: guía n8n + Claude](/es/blog/agent-ia-relance-factures-pme): una vez controlada la recepción, automatice la reclamación de sus propios impagados
+- [Guía completa n8n: automatizar sin programar](/es/blog/automatisation-n8n-guide): instalar n8n y construir sus primeros flujos
+- [Automatización IA para pymes: precios reales 2026](/es/blog/automatisation-ia-pme-prix-2026): cuadro completo de costes según su volumen
+- [Automatización de procesos de negocio: ¿qué ROI buscar?](/es/blog/automatisation-processus-roi): marco de priorización de sus primeras automatizaciones
+- [Nuestro servicio de Automatización](/es/automatisation): packs n8n y Make, auditoría gratuita incluida
+
+> 💡 **NeuraWeb conecta su plataforma acreditada con sus herramientas.** No somos ni una plataforma acreditada ni una asesoría contable: verificamos qué permite automatizar su plataforma y después construimos el circuito. Traiga sus cinco últimas facturas de proveedores a la auditoría gratuita de 30 minutos, sin compromiso. [Reservar mi auditoría gratuita →](/es/contact)

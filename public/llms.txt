@@ -74,6 +74,7 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 - Google AI Mode and SEO in 2026 (FR): https://neuraweb.fr/fr/blog/google-ai-mode-seo-2026
 - AI sales agent for SMBs with n8n + Claude (FR): https://neuraweb.fr/fr/blog/agent-ia-commercial-pme
 - Data quality audit before an AI project: method, pricing, checklist (FR): https://neuraweb.fr/fr/blog/audit-qualite-donnees-projet-ia
+- French e-invoicing for SMBs: automating invoice reception with n8n, deadlines, penalties, costs (FR): https://neuraweb.fr/fr/blog/facturation-electronique-pme-reception-automatiser
 - All articles also exist in EN (/en/blog/...) and ES (/es/blog/...) with the same slug.
 
 ## High-Value Topics

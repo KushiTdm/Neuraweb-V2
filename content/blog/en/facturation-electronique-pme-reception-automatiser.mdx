@@ -1,0 +1,159 @@
+---
+title: "E-invoicing in France for SMBs: automate reception"
+seoTitle: "France e-invoicing 2026 for SMBs: what to do before 2027"
+excerpt: "Receiving e-invoices has been mandatory since 1 September 2026, with no penalties before year-end: how to automate it with n8n, safeguards included, from €999."
+date: "2026-10-17"
+category: "Automation"
+author: "NeuraWeb"
+image: "/assets/blog/facturation-electronique-pme-reception-automatiser.webp"
+tags:
+  - "E-invoicing"
+  - "Automation"
+  - "n8n"
+  - "SMB"
+  - "Compliance"
+featured: false
+faq:
+  - question: "Am I affected by e-invoicing if I only invoice individual customers?"
+    answer: "Yes, for reception. If your business is subject to VAT, including under the franchise en base (small-business exemption), you must be able to receive your suppliers' electronic invoices since 1 September 2026. Your sales to individuals are not electronic invoices: they mostly fall under e-reporting, whose ramp-up for SMBs is expected in September 2027. If your activity is VAT-exempt (healthcare, for example), have your accountant check your situation."
+  - question: "Is a PDF sent by e-mail still a valid invoice?"
+    answer: "A simple PDF attached to an e-mail is not a compliant electronic invoice. For the invoices you issue, the obligation to issue through an approved platform only applies to SMBs and micro-businesses from 1 September 2027. For the ones you receive, large companies and mid-sized companies (ETI) have had to issue in electronic format since 1 September 2026: their invoices arrive through the platform, not by e-mail."
+  - question: "What penalties does an SMB face, and from when?"
+    answer: "The French Ministry of Economy (Bercy) announced that no penalty will be imposed before the end of 2026. Afterwards, failing to issue an electronic invoice costs €50 per invoice (capped at €15,000 per year) and a missing e-reporting transmission costs €500 (capped at €15,000 per year). According to service-public.fr, a company that does not receive its invoices through an approved platform is given formal notice with a 3-month deadline, then faces a €500 fine, then €1,000, then a further €1,000 for each additional 3-month period of non-compliance."
+  - question: "Do I need to change my invoicing software to comply?"
+    answer: "Not necessarily. You need to be connected to an approved platform, either through your current software if it offers one, or through a separate platform. Ask your software vendor which platform you have designated, how to retrieve received invoices (API, notification or export) and which lifecycle statuses are handled."
+  - question: "What can be automated without legal risk?"
+    answer: "Retrieving received invoices, reading the file's fields, checks that flag anomalies (known supplier, duplicate, IBAN, consistency of amounts), filing, archiving and notifying the approver. The choice of platform, VAT treatment and accounting validation remain your accountant's job: NeuraWeb connects your tools, it does not give tax advice."
+---
+
+On 4 October 2026, **one in four VAT-reporting companies in France had still not designated a platform to receive their electronic invoices**, even though reception has been mandatory for all of them since 1 September ([French Ministry of Economy press release, 9 October 2026](https://presse.economie.gouv.fr/facturation-electronique-le-premier-comite-dresse-le-bilan-du-deploiement-et-engage-la-preparation-de-2027/), in French).
+
+**The short answer:** since 1 September 2026, every company subject to VAT in France must be able to receive electronic invoices through an approved platform (*plateforme agréée*, PA). The obligation to issue only applies to SMBs and micro-businesses from 1 September 2027. The Ministry announced that no penalty would be imposed before the end of 2026: that is the window to build a clean reception process, not just to "be connected".
+
+For a restaurant owner, a hotelier or a tradesperson, the issue is not the invoice you send, it is the one you receive. Your biggest suppliers (energy, telecoms, purchasing groups, insurers), when they are large, must already issue electronically: their invoices no longer arrive by e-mail. Here is what changes, what a compliant invoice looks like, how to automate reception with n8n, for what budget, and from what volume it makes no sense.
+
+> **À retenir — Key Takeaways**
+>
+> - **Deadlines**: reception mandatory for all VAT-registered companies since 1 September 2026; issuing mandatory for SMBs and micro-businesses on 1 September 2027
+> - **Adoption on 4 October 2026**: 75% of VAT-reporting companies had designated a reception platform, with over 20 million invoices exchanged worth over €70 billion
+> - **Grace period**: no penalty imposed before the end of 2026 (French Ministry of Economy, 9 October 2026)
+> - **Penalties afterwards**: €50 per invoice not issued and €500 per missing e-reporting transmission, each capped at €15,000 per year
+> - **Compliant format**: Factur-X (PDF/A-3 + XML), UBL or CII; a simple PDF attached to an e-mail is not an electronic invoice
+> - **Automation budget**: from €999 excl. VAT (Starter pack, 1 workflow) + n8n at about €20/month; extended checks and continuous monitoring from the Business pack (€2,999 excl. VAT)
+> - **Break-even point**: about 80 supplier invoices per month to pay back the pack in roughly a year (assumptions detailed below)
+> - **Not suitable if**: fewer than 30 supplier invoices per month, or your accounting software is already connected to a platform that files and notifies on its own
+
+## Who is affected by e-invoicing in France, and since when?
+
+| Obligation | Who | Date |
+|---|---|---|
+| Reception | All companies established in France and subject to VAT, including those under the franchise en base | 1 September 2026 |
+| Issuing | Large companies and mid-sized companies (ETI) | 1 September 2026 |
+| Issuing | SMBs and micro-businesses | 1 September 2027 |
+
+Sources: [service-public.fr](https://entreprendre.service-public.gouv.fr/vosdroits/F23208), page verified on 7 August 2026, and the [DGFiP factsheet on issuing electronic invoices](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/fiches_reforme/fiche-e-invoicing.pdf) (September 2025 version), which specifies that the scheme covers transactions between VAT-registered businesses established in France, including those under the franchise en base. Public bodies must also be able to receive since 1 September 2026 ([AIFE](https://aife.economie.gouv.fr/nos-applications/facturation-electronique-b2b/)).
+
+The 8 October 2026 monitoring committee gives the measure of the rollout: 75% of VAT-reporting companies had designated a reception platform by 4 October, with over 20 million invoices exchanged worth over €70 billion. A quarter of companies had therefore not yet taken that step. The same press release is explicit: "no penalty will be imposed on any company before the end of 2026" (« aucune sanction pour aucune entreprise ne sera prononcée avant la fin de l'année 2026 »). The committee will meet again before year-end to track preparation for September 2027.
+
+## What does this change for a restaurant owner, a hotelier or a tradesperson?
+
+A simple rule: **your purchases from VAT-registered suppliers are electronic invoices to receive; your sales to individuals mostly fall under e-reporting.**
+
+- **Restaurant or hotel**: your purchases (food, drinks, energy, linen, maintenance) are invoices to receive. Your sales to individual customers are not electronic invoices. Your sales to businesses (seminars, groups, agencies) will have to be issued through a platform from September 2027.
+- **Tradesperson or construction**: your material suppliers' invoices are to be received now; your own invoices to businesses go through a platform from September 2027.
+- **Independent healthcare practice**: operations exempt under articles 261 to 261 E of the French General Tax Code (the medical sector in particular) are excluded from e-invoicing, but your purchases from VAT-registered suppliers may still fall within scope. Have your accountant check your situation before investing.
+
+## What does a compliant electronic invoice look like?
+
+It is not a PDF, it is a file whose data is machine-readable, transmitted through an approved platform.
+
+| Term | What it is |
+|---|---|
+| Factur-X | Human-readable PDF/A-3 with an embedded XML (CII syntax). Several profiles, from Minimum to Extended |
+| UBL and CII | Two pure XML formats, also accepted |
+| Approved platform (PA) | Registered operator that issues, receives and transmits your invoices |
+| Public invoicing portal (PPF) | Directory of companies and transmission point for data sent to the tax authority: it is not an invoicing platform |
+| Lifecycle statuses | Four mandatory ones, fed by the platform (deposited, rejected, refused, cashed); others, optional, complete the tracking |
+| AFNOR XP Z12-013 standard | Defines the APIs that connect company information systems to approved platforms |
+
+Sources: [external specifications v3.2 of 30 April 2026](https://www.impots.gouv.fr/specifications-externes-b2b) (XP Z12-013 standard), [DGFiP factsheet](https://www.impots.gouv.fr/sites/default/files/media/1_metier/2_professionnel/EV/2_gestion/290_facturation_electronique/fiches_reforme/fiche-e-invoicing.pdf) (statuses) and [AIFE](https://aife.economie.gouv.fr/nos-applications/facturation-electronique-b2b/) (PPF).
+
+Direct consequence for automation: **a Factur-X or UBL file can be read programmatically.** The SIREN number, invoice number, amounts, VAT and IBAN are fields, not text to guess. No AI is needed to read a structured file, nor for the checks, which rely on business rules. Classic PDF invoices that some suppliers will keep sending until 2027 do require suitable extraction (OCR, possibly AI).
+
+## How do you automate invoice reception with n8n?
+
+The principle: the platform receives, [n8n](/en/blog/automatisation-n8n-guide) checks and files, and you only approve the exceptions. The basic flow takes seven steps and three tools (platform, accounting tool or Drive, messaging):
+
+```text
+1. Trigger      : new invoice received on the platform (API, notification or scheduled pull)
+2. Retrieval    : Factur-X or UBL file + lifecycle status
+3. Reading      : extraction of XML fields (SIREN, invoice no., amounts, VAT, IBAN), no AI
+4. Checks       : known supplier? duplicate? IBAN unchanged? total = sum of lines?
+5. Filing       : entry in the accounting tool (or Drive) + archiving of the original file
+6. Notification : message to the approver (Slack or e-mail) with a link to the invoice
+7. Status       : status update on the platform (refusal, optional statuses) if it exposes and allows it
+```
+
+**An important caveat.** Each platform exposes its own access. The XP Z12-013 standard defines interconnection APIs, but it does not guarantee that every platform opens them to its customers: APIs, notifications, access rights and status updates depend on the platform and plan chosen, and some are limited to a simple export. Confirming this on your last five received invoices is the first deliverable of our audit, before any quote. On the data side, n8n can be hosted in Europe (OVH, Scaleway or n8n Cloud EU region), as in our [guide to chasing unpaid invoices](/en/blog/agent-ia-relance-factures-pme).
+
+## What happens when the workflow hits a problem?
+
+A workflow without error handling is not a workflow, it is a gamble. Here are the six incidents built into the flow:
+
+| Incident | Workflow reaction | Who steps in |
+|---|---|---|
+| Duplicate (same supplier, same number) | Blocked, no entry, logged | Nobody, unless disputed |
+| Unknown supplier (SIREN not in your list) | Quarantine + alert | You approve or refuse |
+| IBAN different from the known one | Payment blocked + alert | Call the supplier on a number you already had |
+| Total different from the sum of lines | Quarantine | Your accountant |
+| Platform unavailable | Spaced retries, then alert | You or the integrator |
+| Unreadable file or unexpected format | Quarantine, original file kept | Integrator |
+
+These checks flag anomalies: they do not guarantee the absence of fraud and do not legally validate the invoice. The Starter pack covers the nominal flow; quarantine, alerts and continuous monitoring belong to the Business pack, which includes monitoring.
+
+## How much does automating reception cost?
+
+| Item | Amount |
+|---|---|
+| Approved platform | Variable: several vendors include it in their subscription, to be checked (volumes, options) |
+| n8n | About €20/month on Cloud, or €5 to €12/month on a European VPS |
+| Starter Automation pack (1 workflow of up to 8 steps, 3 tools maximum) | €999 excl. VAT + €29/month maintenance |
+| Business Automation pack (3 to 5 workflows: reception, extended checks, unpaid-invoice chasing, monitoring) | €2,999 excl. VAT + €79/month |
+
+**Illustrative scenario** (assumptions to replace with your own figures): an independent hotel receives 120 supplier invoices per month. Manual handling: 5 minutes per invoice (open, rename, file, key in, get approved). After automation: 1 minute of approval. Loaded hourly cost: €25.
+
+- Time saved: 120 × 4 minutes = 8 hours per month, i.e. €200 per month
+- Recurring cost: about €49 per month (n8n Cloud + maintenance)
+- Net gain: about €151 per month, so **a Starter pack paid back in 7 months**
+
+With 40 invoices per month, the same calculation gives a net gain of about €18 per month: do not invest, simply activate reception in the software connected to your platform. The practical threshold is around **80 invoices per month** to pay back the pack in roughly a year, excluding the time spent handling exceptions. Beyond time, you gain avoided duplicates, suspicious IBANs flagged and an invoice found in ten seconds during an audit.
+
+## What mistakes should you avoid before the grace period ends?
+
+1. **Waiting for September 2027.** Reception is already mandatory and your large suppliers already issue electronically.
+2. **Believing a PDF by e-mail is enough.** For your issued invoices, the obligation does not yet apply to SMBs before September 2027; for the ones you receive from large companies, the free-form PDF is already no longer the rule.
+3. **Confusing the PPF with a platform.** The PPF is a directory: you must designate an approved platform, which can be your accounting vendor's.
+4. **Automating without checks.** Any IBAN change must trigger a call to the supplier on a number you already had, never a simple confirmation e-mail.
+5. **Forgetting archiving.** Accounting records must be kept for 10 years (article L123-22 of the French Commercial Code), in conditions that guarantee their integrity and readability: archive the original file, not just its readable version, and not in a shared folder with no access control.
+6. **Reducing GDPR to hosting.** The EU is a good starting point, but you also need a processing agreement, restricted access, defined retention periods and an entry in the record of processing activities (article 30).
+7. **Skipping your accountant.** This article is general information, not tax advice: have your process validated.
+
+## Where to start this week?
+
+1. **Ask your software vendor**: which approved platform have I designated, and how do I retrieve received invoices (API, notification, export)?
+2. **Review your last five supplier invoices**: how many already arrive in electronic format?
+3. **Count your monthly volume**: below 30, stay on your platform's tool; around 80 and above, automation pays for itself in roughly a year.
+4. **List your checks**: known suppliers, IBANs, duplicates, approval thresholds.
+5. **Decide who approves what**, with a deputy.
+
+---
+
+## Learn more
+
+- [Invoice chasing AI agent for SMBs: n8n + Claude guide](/en/blog/agent-ia-relance-factures-pme): once reception is under control, automate chasing your own unpaid invoices
+- [Complete n8n guide: automate without coding](/en/blog/automatisation-n8n-guide): install n8n and build your first workflows
+- [AI automation for SMBs: real prices 2026](/en/blog/automatisation-ia-pme-prix-2026): full cost breakdown by volume
+- [Business process automation: what ROI to aim for?](/en/blog/automatisation-processus-roi): prioritisation framework for your first automations
+- [Our Automation Service](/en/automatisation): n8n and Make packages, free audit included
+
+> 💡 **NeuraWeb connects your approved platform to your tools.** We are neither an approved platform nor an accounting firm: we check what your platform allows you to automate, then we build the flow. Bring your last five supplier invoices to the free 30-minute audit, no commitment. [Book my free audit →](/en/contact)
