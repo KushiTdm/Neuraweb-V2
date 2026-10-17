@@ -44,11 +44,11 @@ export function EquipePageClient() {
       <div className="theme-collectivites">
       <Header />
       <main id="main-content" className="min-h-screen pt-24">
-        <div className="relative py-24 sm:py-36 px-4 overflow-hidden bg-navy-950">
+        <div className="relative py-24 sm:py-36 px-4 overflow-hidden bg-navy-950 ctx-dark">
           <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
             {t('equipe.hero.title')}{' '}
-            <span className="text-gray-900 dark:text-white">
+            <span className="text-white">
               NeuraWeb
             </span>
           </h1>
@@ -58,7 +58,7 @@ export function EquipePageClient() {
           </div>
         </div>
 
-        <section className="py-12 px-4" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section className="py-12 px-4 ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-6xl mx-auto">
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
               {team.map((member) => (
@@ -102,7 +102,7 @@ export function EquipePageClient() {
           </div>
         </section>
 
-        <section className="py-16 px-4" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-16 px-4 ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-white text-center mb-12">{t('equipe.values.title')}</h2>
             <div className="grid sm:grid-cols-3 gap-8">
@@ -131,7 +131,7 @@ export function EquipePageClient() {
           </div>
         </section>
 
-        <section className="py-16 px-4" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section className="py-16 px-4 ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-navy-900 mb-4">{t('equipe.cta.title')}</h2>
             <p className="text-slate-600 mb-8">{t('equipe.cta.desc')}</p>

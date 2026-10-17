@@ -69,7 +69,7 @@ export default function HotelTokensAdminPage() {
           </div>
 
           {/* Formulaire */}
-          <div className="rounded-[20px] border border-white/8 p-8 backdrop-blur-md"
+          <div className="rounded-[20px] border border-white/10 p-8 backdrop-blur-md"
             style={{ background: 'rgba(255,255,255,0.025)' }}>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>

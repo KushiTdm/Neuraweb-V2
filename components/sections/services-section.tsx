@@ -108,7 +108,7 @@ export function ServicesSection() {
   const auto = { href: '/automatisation', image: '/assets/redesign/service-automatisation-flux.webp', alt: alt.automation, title: t('services.automation.title'), desc: t('services.automation.desc'), learn };
 
   return (
-    <section className="bg-creme py-24 lg:py-32">
+    <section className="bg-creme py-24 lg:py-32 sec-screen">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>

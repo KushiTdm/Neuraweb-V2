@@ -590,7 +590,7 @@ export default async function ConditionsUtilisationPage({
           {/* Content */}
           <div className="space-y-6">
             {content.sections.map((section, index) => (
-              <section key={index} className="bg-card rounded-2xl p-6 border border-border/50">
+              <section key={index} className="bg-card rounded-2xl p-6 border border-border/50 ctx-light">
                 <h2 className="text-xl font-semibold mb-4 text-foreground">
                   {section.title}
                 </h2>

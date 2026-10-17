@@ -18,7 +18,7 @@ export function ProgressBar() {
   ];
   
   return (
-    <div className="flex items-center bg-white/4 border border-white/8 rounded-full p-1 max-w-2xl mx-auto mb-10">
+    <div className="flex items-center bg-white/4 border border-white/10 rounded-full p-1 max-w-2xl mx-auto mb-10">
       {STEPS.map((s, i) => (
         <div key={i} className={`flex-1 text-center py-2 rounded-full text-[0.68rem] font-semibold transition-all duration-300
           ${i === step

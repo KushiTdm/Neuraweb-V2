@@ -101,7 +101,7 @@ export function PortfolioSection() {
     <section
       id="portfolio"
       aria-labelledby="portfolio-heading"
-      className="bg-chypre-20 py-20 md:py-28"
+      className="bg-chypre-20 py-20 md:py-28 sec-screen"
     >
       <div className="mx-auto max-w-7xl px-4">
         <header className="mb-10 max-w-2xl md:mb-14">

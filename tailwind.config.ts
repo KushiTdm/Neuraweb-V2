@@ -18,6 +18,8 @@ const config: Config = {
       '2xl': '1536px',
     },
     extend: {
+      // Paliers d'opacité absents de Tailwind 3.3 (utilisés dans le code : /15 /35 /45 /55 /65 /85)
+      opacity: { 15: '0.15', 35: '0.35', 45: '0.45', 55: '0.55', 65: '0.65', 85: '0.85' },
       // ── Fonts premium ──────────────────────────────────────
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
@@ -252,6 +254,7 @@ const config: Config = {
 // recalculée dans `.theme-<nom>` (app/[lang]/themes.css).
 {
   const ext = (config.theme as any).extend.colors as Record<string, any>;
+  const txt = ((config.theme as any).extend.textColor ??= {}) as Record<string, any>;
   for (const token of themeTokens as string[]) {
     const value = `rgb(var(--c-${token}) / <alpha-value>)`;
     const i = token.lastIndexOf('-');
@@ -259,6 +262,9 @@ const config: Config = {
     const palette = token.slice(0, i);
     const shade = token.slice(i + 1);
     ext[palette] = { ...(typeof ext[palette] === 'object' ? ext[palette] : {}), [shade]: value };
+    // Texte : variables contextuelles --t-* (clair/sombre) au lieu des --c-* (fonds, bordures)
+    const tv = `rgb(var(--t-${token}) / <alpha-value>)`;
+    if (i === -1) { txt[token] = tv; } else { txt[palette] = { ...(typeof txt[palette] === 'object' ? txt[palette] : {}), [shade]: tv }; }
   }
 }
 

@@ -23,7 +23,7 @@ export function NavRow({ stepNum, totalSteps = 6, onPrev, onNext, isLast, onSubm
     <div className="flex items-center justify-between mt-8 gap-3">
       {onPrev ? (
         <button type="button" onClick={onPrev}
-          className="flex items-center gap-2 px-5 py-3 bg-white/4 border border-white/8 rounded-xl text-slate-400 text-sm font-medium hover:border-indigo-500/30 hover:text-white transition-all">
+          className="flex items-center gap-2 px-5 py-3 bg-white/4 border border-white/10 rounded-xl text-slate-400 text-sm font-medium hover:border-indigo-500/30 hover:text-white transition-all">
           {t('hotelForm.nav.back')}
         </button>
       ) : <span />}

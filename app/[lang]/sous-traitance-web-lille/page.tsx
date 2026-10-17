@@ -363,10 +363,10 @@ export default async function SousTraitanceWebLillePage({
 
       <div className="theme-accueil">
       <Header />
-      <main id="main-content" className="bg-white text-slate-800 overflow-x-hidden">
+      <main id="main-content" className="bg-white text-slate-800 overflow-x-hidden ctx-light">
 
         {/* ── HERO ────────────────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-slate-50">
+        <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-slate-50 ctx-light">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-indigo-500) / 0.10),transparent_60%)] pointer-events-none" />
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-violet-200/30 rounded-full blur-3xl pointer-events-none" />
@@ -414,7 +414,7 @@ export default async function SousTraitanceWebLillePage({
                     asChild
                     variant="outline"
                     size="lg"
-                    className="bg-white border-indigo-300 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-800 h-12 px-6 sm:px-8"
+                    className="bg-white border-indigo-300 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-800 h-12 px-6 sm:px-8 ctx-light"
                   >
                     <LocalizedLink href="/developpement-web">
                       Voir nos compétences
@@ -440,7 +440,7 @@ export default async function SousTraitanceWebLillePage({
 
               {/* Carte réponse directe (optimisée extraction IA) */}
               <div className="lg:col-span-5">
-                <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-indigo-600/15 border border-slate-200/60 bg-white p-6 sm:p-8">
+                <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-indigo-600/15 border border-slate-200/60 bg-white p-6 sm:p-8 ctx-light">
                   <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-2xl opacity-60 pointer-events-none bg-navy-900" />
                   <p className="relative text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
                     En résumé
@@ -473,7 +473,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── PAIN POINTS ─────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-20 bg-white">
+        <section className="py-12 md:py-20 bg-white ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -501,7 +501,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── SERVICES ────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-slate-50">
+        <section className="py-12 md:py-24 bg-slate-50 ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -519,7 +519,7 @@ export default async function SousTraitanceWebLillePage({
               {SERVICES.map(({ icon: Icon, title, desc, color }) => (
                 <div
                   key={title}
-                  className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow"
+                  className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow ctx-light"
                 >
                   <div className={`inline-flex items-center justify-center w-10 h-10 rounded-lg mb-4 ${color}`}>
                     <Icon className="w-5 h-5" />
@@ -533,7 +533,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── GARANTIES MARQUE BLANCHE ────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-white">
+        <section className="py-12 md:py-24 bg-white ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -566,7 +566,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── PROCESS ─────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-slate-50">
+        <section className="py-12 md:py-24 bg-slate-50 ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -580,7 +580,7 @@ export default async function SousTraitanceWebLillePage({
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {PROCESS.map((p) => (
-                <div key={p.step} className="relative rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
+                <div key={p.step} className="relative rounded-xl border border-slate-200 bg-white p-5 sm:p-6 ctx-light">
                   <span className="text-3xl font-extrabold text-indigo-100 absolute top-4 right-4 select-none">
                     {p.step}
                   </span>
@@ -593,7 +593,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── TARIFS ──────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-white">
+        <section className="py-12 md:py-24 bg-white ctx-light">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -646,7 +646,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── LIENS INTERNES ───────────────────────────────────────────────── */}
-        <section className="py-10 md:py-14 bg-white border-y border-slate-100">
+        <section className="py-10 md:py-14 bg-white border-y border-slate-100 ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4 md:mb-6">
               Aller plus loin
@@ -675,7 +675,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── FAQ ─────────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-slate-50">
+        <section className="py-12 md:py-24 bg-slate-50 ctx-light">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 md:mb-10">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -691,7 +691,7 @@ export default async function SousTraitanceWebLillePage({
                 <AccordionItem
                   key={idx}
                   value={`faq-${idx}`}
-                  className="border border-slate-200 rounded-lg mb-2 overflow-hidden bg-white shadow-sm data-[state=open]:shadow-md"
+                  className="border border-slate-200 rounded-lg mb-2 overflow-hidden bg-white shadow-sm data-[state=open]:shadow-md ctx-light"
                 >
                   <AccordionTrigger className="px-4 py-3 hover:no-underline text-left font-semibold text-slate-900 text-base">
                     {item.q}
@@ -728,7 +728,7 @@ export default async function SousTraitanceWebLillePage({
               <Button
                 asChild
                 size="lg"
-                className="bg-white hover:bg-slate-50 text-indigo-700 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold shadow-2xl shadow-indigo-900/30 w-full sm:w-auto"
+                className="bg-white hover:bg-slate-50 text-indigo-700 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold shadow-2xl shadow-indigo-900/30 w-full sm:w-auto ctx-light"
               >
                 <LocalizedLink href="/booking">
                   <Sparkles className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
@@ -739,7 +739,7 @@ export default async function SousTraitanceWebLillePage({
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-white/40 text-white hover:bg-white/10 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base w-full sm:w-auto"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base w-full sm:w-auto"
               >
                 <LocalizedLink href="/contact">
                   Nous contacter

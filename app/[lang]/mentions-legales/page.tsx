@@ -445,7 +445,7 @@ export default async function MentionsLegalesPage({
           {/* Content */}
           <div className="prose prose-gray dark:prose-invert max-w-none space-y-8">
             {Object.values(content.sections).map((section, index) => (
-              <section key={index} className="bg-card rounded-2xl p-6 border border-border/50">
+              <section key={index} className="bg-card rounded-2xl p-6 border border-border/50 ctx-light">
                 <h2 className="text-xl font-semibold mb-4 text-foreground">
                   {section.title}
                 </h2>
@@ -461,7 +461,7 @@ export default async function MentionsLegalesPage({
                         <LocalizedLink
                           key={i}
                           href={part}
-                          className="text-primary hover:underline"
+                          className="text-navy-700 underline hover:no-underline"
                         >
                           {linkText}
                         </LocalizedLink>

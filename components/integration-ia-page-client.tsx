@@ -29,7 +29,7 @@ import {
 } from 'lucide-react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { HeroVisual } from '@/components/hero-visual';
+import { ServiceHero } from '@/components/service-hero';
 import { LocalizedLink } from '@/components/localized-link';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
@@ -613,48 +613,20 @@ export function IntegrationIAPageClient({ lang }: Props) {
       <main ref={containerRef} id="main-content" className="min-h-screen">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: 'rgb(var(--c-navy-950))' }}>
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(var(--c-white) / 0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-          <div data-parallax="-50" className="absolute top-0 left-1/2 -ml-[400px] w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-          <div data-parallax="80" className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
-              <Brain size={14} /><span>{c.hero.badge}</span>
-            </div>
-            <h1 className="animate-on-scroll fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              {c.hero.h1}{' '}
-              <span className="text-white">{c.hero.h1highlight}</span>
-            </h1>
-            <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{c.hero.p}</p>
-            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90" style={{ background: 'rgb(var(--c-white))', boxShadow: '0 4px 20px rgb(var(--c-white) / 0.2)' }}>
-                <Brain size={18} />{c.hero.ctaAudit}<ArrowRight size={16} />
-              </LocalizedLink>
-              <a href="#pricing" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white border border-white/20 hover:border-white/40 hover:bg-white/5 transition-all duration-300">
-                {c.hero.ctaPricing}<ChevronDown size={16} />
-              </a>
-            </div>
-            <div className="animate-on-scroll fade-up delay-400 mx-auto mb-14 max-w-3xl">
-              <HeroVisual
-                src="/assets/redesign/pages/chatbot-hero.webp"
-                alts={{"fr": "Illustration d'une bulle de discussion qui respire, entourée d'ondes, avec une bulle de réponse en cours d'écriture", "en": "Illustration of a breathing chat bubble surrounded by ripples, with a reply bubble being typed", "es": "Ilustración de una burbuja de chat que respira, rodeada de ondas, con una burbuja de respuesta escribiéndose", "vi": "Minh họa bong bóng trò chuyện như đang thở, bao quanh bởi các sóng, kèm bong bóng trả lời đang gõ"}}
-              />
-            </div>
-            <div className="animate-on-scroll fade-up delay-400">
-            <ResponsiveCards breakpoint="sm" gridClass="grid-cols-3 max-w-3xl mx-auto" gridGap="gap-6">
-              {c.stats.map((stat, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
-                  <div className="text-3xl font-bold mb-1 text-white">{STATS_VALUES[i]}</div>
-                  <div className="text-sm text-slate-400">{stat.label}</div>
-                </div>
-              ))}
-            </ResponsiveCards>
-            </div>
-          </div>
-        </section>
+        <ServiceHero
+          badgeIcon={<Brain size={14} aria-hidden="true" />}
+          badge={c.hero.badge}
+          h1={c.hero.h1}
+          highlight={c.hero.h1highlight}
+          subtitle={c.hero.p}
+          primary={{ href: '/contact', label: c.hero.ctaAudit, icon: <Brain size={18} aria-hidden="true" /> }}
+          secondary={{ href: '#pricing', label: c.hero.ctaPricing }}
+          stats={c.stats.map((stat, i) => ({ value: String(STATS_VALUES[i]), label: stat.label }))}
+          visual={{ src: "/assets/redesign/pages/chatbot-hero.webp", alts: {"fr": "Illustration d'une bulle de discussion qui respire, entourée d'ondes, avec une bulle de réponse en cours d'écriture", "en": "Illustration of a breathing chat bubble surrounded by ripples, with a reply bubble being typed", "es": "Ilustración de una burbuja de chat que respira, rodeada de ondas, con una burbuja de respuesta escribiéndose", "vi": "Minh họa bong bóng trò chuyện như đang thở, bao quanh bởi các sóng, kèm bong bóng trả lời đang gõ"} }}
+        />
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.problems.h2}</h2>
@@ -680,7 +652,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
-        <section className="py-20 sec-pat sec-waves sec-dark-base">
+        <section className="py-20 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.services.h2}</h2>
@@ -720,7 +692,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── MODÈLES IA ────────────────────────────────────────────────── */}
-        <section className="py-14 border-y border-slate-200 sec-tint">
+        <section className="py-14 border-y border-slate-200 sec-tint ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="animate-on-scroll fade-up text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.models.label}</p>
             <div className="animate-on-scroll fade-up delay-100 grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -736,7 +708,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── CAS D'USAGE ───────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-20 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.useCases.h2}</h2>
@@ -764,7 +736,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-20" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section id="pricing" className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.packs.h2}</h2>
@@ -881,7 +853,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
-        <section className="py-20 sec-pat sec-dots sec-dark-base">
+        <section className="py-20 sec-pat sec-dots sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.testimonials.h2}</h2>
@@ -907,7 +879,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
-        <section className="py-20 sec-tint">
+        <section className="py-20 sec-tint sec-screen ctx-light">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-navy-900 mb-4">{c.faq.h2}</h2>
@@ -936,7 +908,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
-        <section className="py-24" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-24 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />{c.cta.badge}

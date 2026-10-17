@@ -64,7 +64,7 @@ export function PromiseSection() {
   const c = COPY[language as string] ?? COPY.fr;
 
   return (
-    <section className="bg-chypre-20 py-20 lg:py-28" aria-labelledby="promise-heading">
+    <section className="bg-chypre-20 py-20 lg:py-28 sec-screen" aria-labelledby="promise-heading">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 max-w-3xl">
           <span className="mb-4 inline-flex rounded-full bg-chypre px-4 py-1.5 text-xs font-semibold tracking-widest text-creme">{c.chip}</span>

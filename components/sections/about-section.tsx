@@ -44,7 +44,7 @@ export function AboutSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-creme py-12 sm:py-24 lg:py-32">
+    <section ref={sectionRef} className="relative overflow-hidden bg-creme py-12 sm:py-24 lg:py-32 sec-screen">
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-center gap-8 sm:gap-14 lg:grid-cols-[52%_48%] xl:gap-20">
           <div

@@ -80,7 +80,7 @@ export function Step5Content() {
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-sm transition-all
                   ${isSelected
                     ? 'border-indigo-500/50 bg-indigo-500/10 text-indigo-300'
-                    : 'border-white/8 bg-white/4 text-slate-300 hover:border-indigo-500/40'}`}>
+                    : 'border-white/10 bg-white/4 text-slate-300 hover:border-indigo-500/40'}`}>
                 <span className={`w-4 h-4 rounded flex items-center justify-center flex-shrink-0 border transition-all ${isSelected ? 'bg-indigo-500 border-indigo-500' : 'border-slate-600'}`}>
                   {isSelected && <span className="text-white text-[9px] font-bold">✓</span>}
                 </span>
@@ -128,7 +128,7 @@ export function Step5Content() {
             return (
               <button key={item.value} type="button" onClick={() => toggleReseau(item.value)}
                 className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-sm transition-all
-                  ${checked ? 'border-indigo-500/50 bg-indigo-500/10 text-indigo-300' : 'border-white/8 bg-white/4 text-slate-300 hover:border-indigo-500/40'}`}>
+                  ${checked ? 'border-indigo-500/50 bg-indigo-500/10 text-indigo-300' : 'border-white/10 bg-white/4 text-slate-300 hover:border-indigo-500/40'}`}>
                 <span className={`w-4 h-4 rounded flex items-center justify-center flex-shrink-0 border ${checked ? 'bg-indigo-500 border-indigo-500' : 'border-slate-600'}`}>
                   {checked && <span className="text-white text-[9px] font-bold">✓</span>}
                 </span>

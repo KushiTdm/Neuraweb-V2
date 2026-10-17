@@ -9,7 +9,7 @@ export function SuccessScreen() {
   const { t } = useHotelForm();
   
   return (
-    <div className="rounded-[20px] border border-white/8 p-12 text-center backdrop-blur-md"
+    <div className="rounded-[20px] border border-white/10 p-12 text-center backdrop-blur-md"
       style={{ background: 'rgba(255,255,255,0.025)' }}>
       <div className="w-20 h-20 rounded-full flex items-center justify-center text-3xl mx-auto mb-6"
         style={{ background: 'linear-gradient(135deg,rgba(99,102,241,0.2),rgba(139,92,246,0.2))', border: '2px solid rgba(99,102,241,0.4)' }}>

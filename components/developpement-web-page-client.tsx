@@ -22,7 +22,7 @@ import {
 } from 'lucide-react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
-import { HeroVisual } from '@/components/hero-visual';
+import { ServiceHero } from '@/components/service-hero';
 import { LocalizedLink } from '@/components/localized-link';
 import { DemoCTA } from '@/components/demo-cta';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
@@ -157,7 +157,7 @@ const CONTENT: Record<Lang, {
       items: [
         { quote: "Notre nouveau site charge en moins d'une seconde et on est enfin visibles sur Google. En 2 mois, le nombre de demandes de devis a doublé.", name: 'Julien P.', role: 'Gérant', company: 'Artisan, Lille', initials: 'JP', color: 'bg-white/10 text-white' },
         { quote: "La refonte a complètement changé notre image. Le design est superbe, l'espace client adoré par nos équipes. Le trafic organique a bondi de 40 %.", name: 'Camille R.', role: 'Directrice marketing', company: 'PME B2B, Lyon', initials: 'CR', color: 'bg-white/10 text-white' },
-        { quote: "Boutique e-commerce livrée en 6 semaines, paiement Stripe nickel, site ultra rapide. Notre taux de conversion a pris 25 % grâce à l'A/B testing.", name: 'Sofia M.', role: 'Fondatrice', company: 'E-commerce, Bordeaux', initials: 'SM', color: 'bg-emerald-400/20 text-emerald-400' },
+        { quote: "Boutique e-commerce livrée en 6 semaines, paiement Stripe nickel, site ultra rapide. Notre taux de conversion a pris 25 % grâce à l'A/B testing.", name: 'Sofia M.', role: 'Fondatrice', company: 'E-commerce, Bordeaux', initials: 'SM', color: 'bg-white/10 text-white' },
       ],
     },
     faq: {
@@ -283,7 +283,7 @@ const CONTENT: Record<Lang, {
       items: [
         { quote: "Our new site loads in under a second and we're finally visible on Google. Within 2 months, quote requests doubled.", name: 'Julien P.', role: 'Owner', company: 'Tradesperson, Lille', initials: 'JP', color: 'bg-white/10 text-white' },
         { quote: "The redesign completely changed our image. The design is gorgeous, the client area loved by our teams. Organic traffic jumped 40%.", name: 'Camille R.', role: 'Marketing Director', company: 'B2B SMB, Lyon', initials: 'CR', color: 'bg-white/10 text-white' },
-        { quote: "E-commerce store delivered in 6 weeks, flawless Stripe payment, ultra-fast site. Our conversion rate gained 25% thanks to A/B testing.", name: 'Sofia M.', role: 'Founder', company: 'E-commerce, Bordeaux', initials: 'SM', color: 'bg-emerald-400/20 text-emerald-400' },
+        { quote: "E-commerce store delivered in 6 weeks, flawless Stripe payment, ultra-fast site. Our conversion rate gained 25% thanks to A/B testing.", name: 'Sofia M.', role: 'Founder', company: 'E-commerce, Bordeaux', initials: 'SM', color: 'bg-white/10 text-white' },
       ],
     },
     faq: {
@@ -409,7 +409,7 @@ const CONTENT: Record<Lang, {
       items: [
         { quote: "Nuestra nueva web carga en menos de un segundo y por fin somos visibles en Google. En 2 meses, las solicitudes de presupuesto se duplicaron.", name: 'Julien P.', role: 'Gerente', company: 'Autónomo, Lille', initials: 'JP', color: 'bg-white/10 text-white' },
         { quote: "El rediseño cambió por completo nuestra imagen. El diseño es precioso, el área de cliente encantó a nuestros equipos. El tráfico orgánico subió un 40 %.", name: 'Camille R.', role: 'Directora de marketing', company: 'Pyme B2B, Lyon', initials: 'CR', color: 'bg-white/10 text-white' },
-        { quote: "Tienda e-commerce entregada en 6 semanas, pago Stripe impecable, web ultrarrápida. Nuestra tasa de conversión ganó un 25 % gracias al A/B testing.", name: 'Sofia M.', role: 'Fundadora', company: 'E-commerce, Burdeos', initials: 'SM', color: 'bg-emerald-400/20 text-emerald-400' },
+        { quote: "Tienda e-commerce entregada en 6 semanas, pago Stripe impecable, web ultrarrápida. Nuestra tasa de conversión ganó un 25 % gracias al A/B testing.", name: 'Sofia M.', role: 'Fundadora', company: 'E-commerce, Burdeos', initials: 'SM', color: 'bg-white/10 text-white' },
       ],
     },
     faq: {
@@ -538,7 +538,7 @@ const CONTENT: Record<Lang, {
       items: [
         { quote: 'Website mới tải trong chưa đến một giây và chúng tôi cuối cùng cũng xuất hiện trên Google. Sau 2 tháng, số yêu cầu báo giá tăng gấp đôi.', name: 'Julien P.', role: 'Chủ doanh nghiệp', company: 'Đơn vị thi công, Lille (Pháp)', initials: 'JP', color: 'bg-white/10 text-white' },
         { quote: 'Việc làm lại website đã thay đổi hoàn toàn hình ảnh của chúng tôi. Thiết kế rất đẹp, khu vực khách hàng được cả đội yêu thích. Lượng truy cập tự nhiên tăng 40%.', name: 'Camille R.', role: 'Giám đốc marketing', company: 'Doanh nghiệp B2B, Lyon (Pháp)', initials: 'CR', color: 'bg-white/10 text-white' },
-        { quote: 'Cửa hàng trực tuyến bàn giao sau 6 tuần, thanh toán chạy mượt, website rất nhanh. Tỷ lệ chuyển đổi tăng 25% nhờ A/B testing.', name: 'Sofia M.', role: 'Nhà sáng lập', company: 'Thương mại điện tử, Bordeaux (Pháp)', initials: 'SM', color: 'bg-emerald-400/20 text-emerald-400' },
+        { quote: 'Cửa hàng trực tuyến bàn giao sau 6 tuần, thanh toán chạy mượt, website rất nhanh. Tỷ lệ chuyển đổi tăng 25% nhờ A/B testing.', name: 'Sofia M.', role: 'Nhà sáng lập', company: 'Thương mại điện tử, Bordeaux (Pháp)', initials: 'SM', color: 'bg-white/10 text-white' },
       ],
     },
     faq: {
@@ -630,50 +630,20 @@ export function DeveloppementWebPageClient({ lang }: Props) {
       <main ref={containerRef} id="main-content" className="min-h-screen">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: 'rgb(var(--c-navy-950))' }}>
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(var(--c-white) / 0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-          <div data-parallax="-50" className="absolute top-0 left-1/2 -ml-[400px] w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-          <div data-parallax="80" className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
-              <Code size={14} />
-              <span>{c.hero.badge}</span>
-            </div>
-            <h1 className="animate-on-scroll fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              {c.hero.h1}{' '}
-              <span className="text-white">{c.hero.h1highlight}</span>
-            </h1>
-            <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{c.hero.p}</p>
-            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90" style={{ background: 'rgb(var(--c-white))', boxShadow: '0 4px 20px rgb(var(--c-white) / 0.2)' }}>
-                <Code size={18} />{c.hero.ctaAudit}<ArrowRight size={16} />
-              </LocalizedLink>
-              <a href="#pricing" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white border border-white/20 hover:border-white/40 hover:bg-white/5 transition-all duration-300">
-                {c.hero.ctaPricing}<ChevronDown size={16} />
-              </a>
-            </div>
-            <div className="animate-on-scroll fade-up delay-400 mx-auto mb-14 max-w-3xl">
-              <HeroVisual
-                src="/assets/redesign/pages/dev-web-hero.webp"
-                alts={{"fr": "Illustration d'une fenêtre de navigateur dont les blocs de contenu s'assemblent, avec un curseur qui clique sur un bouton", "en": "Illustration of a browser window whose content blocks snap together, with a cursor clicking a button", "es": "Ilustración de una ventana de navegador cuyos bloques de contenido se ensamblan, con un cursor que hace clic en un botón", "vi": "Minh họa cửa sổ trình duyệt với các khối nội dung đang ghép lại và con trỏ nhấp vào một nút"}}
-              />
-            </div>
-            <div className="animate-on-scroll fade-up delay-400">
-            <ResponsiveCards breakpoint="sm" gridClass="grid-cols-3 max-w-3xl mx-auto" gridGap="gap-6">
-              {c.stats.map((stat, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
-                  <div className="text-3xl font-bold mb-1 text-white">{STATS_VALUES[i]}</div>
-                  <div className="text-sm text-slate-400">{stat.label}</div>
-                </div>
-              ))}
-            </ResponsiveCards>
-            </div>
-          </div>
-        </section>
+        <ServiceHero
+          badgeIcon={<Code size={14} aria-hidden="true" />}
+          badge={c.hero.badge}
+          h1={c.hero.h1}
+          highlight={c.hero.h1highlight}
+          subtitle={c.hero.p}
+          primary={{ href: '/contact', label: c.hero.ctaAudit, icon: <Code size={18} aria-hidden="true" /> }}
+          secondary={{ href: '#pricing', label: c.hero.ctaPricing }}
+          stats={c.stats.map((stat, i) => ({ value: String(STATS_VALUES[i]), label: stat.label }))}
+          visual={{ src: "/assets/redesign/pages/dev-web-hero.webp", alts: {"fr": "Illustration d'une fenêtre de navigateur dont les blocs de contenu s'assemblent, avec un curseur qui clique sur un bouton", "en": "Illustration of a browser window whose content blocks snap together, with a cursor clicking a button", "es": "Ilustración de una ventana de navegador cuyos bloques de contenido se ensamblan, con un cursor que hace clic en un botón", "vi": "Minh họa cửa sổ trình duyệt với các khối nội dung đang ghép lại và con trỏ nhấp vào một nút"} }}
+        />
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.problems.h2}</h2>
@@ -701,7 +671,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
-        <section className="py-20 sec-pat sec-waves sec-dark-base">
+        <section className="py-20 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.services.h2}</h2>
@@ -743,7 +713,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── OUTILS ────────────────────────────────────────────────────── */}
-        <section className="py-14 border-y border-slate-200 sec-tint">
+        <section className="py-14 border-y border-slate-200 sec-tint ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="animate-on-scroll fade-up text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.tools.label}</p>
             <div className="animate-on-scroll fade-up delay-100 flex flex-wrap justify-center gap-3">
@@ -758,7 +728,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── CAS D'USAGE ───────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-20 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.useCases.h2}</h2>
@@ -784,7 +754,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-20 sec-flip sec-flip-light">
+        <section id="pricing" className="py-20 sec-flip sec-flip-light sec-screen ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.packs.h2}</h2>
@@ -890,7 +860,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── SEO / GEO : niveaux et contenus ───────────────────────────── */}
-        <section id="seo-geo" className="py-20 sec-pat sec-dots sec-dark-base">
+        <section id="seo-geo" className="py-20 sec-pat sec-dots sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.seo.h2}</h2>
@@ -918,7 +888,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── PROCESSUS ─────────────────────────────────────────────────── */}
-        <section className="py-20 sec-tint">
+        <section className="py-20 sec-tint sec-screen ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.process.h2}</h2>
@@ -943,7 +913,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
-        <section className="py-20 sec-pat sec-waves sec-dark-base">
+        <section className="py-20 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.testimonials.h2}</h2>
@@ -969,7 +939,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-navy-900 mb-4">{c.faq.h2}</h2>
@@ -998,7 +968,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
-        <section className="py-24" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-24 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />{c.cta.badge}

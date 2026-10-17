@@ -67,8 +67,8 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
   const c = COPY[language as string] ?? COPY.fr;
 
   return (
-    <section className="relative w-full overflow-hidden bg-chypre" aria-label="NeuraWeb">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-16 lg:pt-36 lg:pb-20 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+    <section className="relative flex min-h-[100svh] w-full items-center overflow-hidden bg-chypre" aria-label="NeuraWeb">
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-16 lg:pt-36 lg:pb-20 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         <div className="lg:col-span-7">
           <p className="text-sm font-semibold text-creme/70 mb-5">{c.kicker}</p>
 

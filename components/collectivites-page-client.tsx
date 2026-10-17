@@ -367,7 +367,7 @@ export function CollectivitesPageClient() {
 
 function Hero({ onScrollToBriques }: { onScrollToBriques: () => void }) {
   return (
-    <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-navy-900">
+    <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 sec-tint ctx-light">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(56,189,248,0.10),transparent_60%)] pointer-events-none" />
       <div data-parallax="40" className="absolute -top-32 -right-32 w-72 h-72 sm:w-96 sm:h-96 bg-indigo-200/30 rounded-full blur-3xl pointer-events-none" />
       <div data-parallax="-40" className="absolute -bottom-32 -left-32 w-72 h-72 sm:w-96 sm:h-96 bg-cyan-200/30 rounded-full blur-3xl pointer-events-none" />
@@ -482,7 +482,7 @@ function Problem() {
     { value: '24h/24', label: 'de services en ligne attendus par les administrés' },
   ];
   return (
-    <section className="bg-slate-50 py-10 md:py-16 border-y border-slate-200">
+    <section className="bg-slate-50 py-10 md:py-16 border-y border-slate-200 ctx-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           data-reveal-group
@@ -560,7 +560,7 @@ function Briques() {
     <div
       key="cta"
       data-reveal
-      className="flex flex-col justify-center rounded-2xl border border-indigo-200 p-5 sm:p-6 text-center h-full bg-navy-900"
+      className="flex flex-col justify-center rounded-2xl border border-indigo-200 p-5 sm:p-6 text-center h-full sec-tint"
     >
       <Sparkles className="w-7 h-7 sm:w-8 sm:h-8 text-indigo-600 mx-auto mb-3" />
       <h3 className="font-display text-lg font-bold text-slate-900 mb-2">
@@ -579,7 +579,7 @@ function Briques() {
   );
 
   return (
-    <section id="briques" className="py-14 md:py-28 sec-tint">
+    <section id="briques" className="py-14 md:py-28 sec-screen ctx-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14" data-reveal>
           <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
@@ -609,7 +609,7 @@ function Briques() {
 
 function Conformite() {
   return (
-    <section className="py-14 md:py-28 sec-pat sec-waves sec-dark-base">
+    <section className="py-14 md:py-28 sec-pat sec-pat-light sec-waves sec-tint sec-screen ctx-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14" data-reveal>
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-indigo-200 text-indigo-700 text-xs sm:text-sm font-medium mb-4 md:mb-5">
@@ -681,7 +681,7 @@ function UseCases() {
   });
 
   return (
-    <section className="py-14 md:py-28 bg-white">
+    <section className="py-14 md:py-28 bg-white sec-screen ctx-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14" data-reveal>
           <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
@@ -737,7 +737,7 @@ function Process() {
   ];
 
   return (
-    <section className="py-14 md:py-28 border-y border-slate-200 sec-flip sec-pat sec-dots">
+    <section className="py-14 md:py-28 border-y border-slate-200 sec-flip sec-pat sec-dots ctx-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14" data-reveal>
           <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
@@ -757,7 +757,7 @@ function Process() {
                 data-reveal
                 className="relative flex flex-col rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm h-full"
               >
-                <span className="absolute top-4 right-5 font-display text-3xl font-extrabold text-slate-100">
+                <span aria-hidden="true" className="absolute top-4 right-5 font-display text-3xl font-extrabold text-slate-100">
                   {s.step}
                 </span>
                 <div className="w-11 h-11 rounded-xl bg-indigo-50 flex items-center justify-center mb-4">
@@ -778,7 +778,7 @@ function Process() {
 
 function Faq() {
   return (
-    <section className="py-12 md:py-24 sec-tint">
+    <section className="py-12 md:py-24 sec-tint sec-screen ctx-light">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 md:mb-10" data-reveal>
           <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -814,7 +814,7 @@ function Faq() {
 
 function FinalCTA() {
   return (
-    <section className="relative py-14 md:py-28 overflow-hidden text-white bg-navy-900">
+    <section className="relative py-14 md:py-28 overflow-hidden text-white bg-navy-900 sec-screen ctx-dark">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-white) / 0.15),transparent_60%)] pointer-events-none" />
       <div data-parallax="-35" className="absolute -bottom-32 -left-32 w-72 h-72 sm:w-96 sm:h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 

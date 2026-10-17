@@ -114,7 +114,7 @@ export function StatsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-chypre py-20 sm:py-24 lg:py-32">
+    <section ref={sectionRef} className="relative overflow-hidden bg-chypre py-20 sm:py-24 lg:py-32 sec-screen">
       <Image
         src="/assets/redesign/motif-vagues.webp"
         alt=""

@@ -266,7 +266,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             {tr.title}{' '}
-            <span className="text-white">
+            <span>
               NeuraWeb
             </span>
           </h1>
@@ -517,7 +517,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
       {/* ─── Newsletter Banner ─── */}
       <section className="px-4 pb-16">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-center gap-6 bg-gray-900 dark:bg-gray-800/50 rounded-2xl px-8 py-7 border border-gray-700">
+          <div className="flex flex-col sm:flex-row items-center gap-6 bg-gray-900 ctx-dark rounded-2xl px-8 py-7 border border-gray-700">
             {/* Icon */}
             <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

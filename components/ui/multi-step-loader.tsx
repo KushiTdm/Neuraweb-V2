@@ -64,7 +64,7 @@ export function MultiStepLoader({
     <div className="space-y-3.5">
       {steps.map((step, index) => {
         const distance = Math.abs(index - current);
-        const opacity = active ? Math.max(1 - distance * 0.15, 0.55) : 1;
+        const opacity = active ? Math.max(1 - distance * 0.08, 0.82) : 1;
         const isActive = active && index === current;
         const isDone = active && index < current;
 
@@ -95,7 +95,7 @@ export function MultiStepLoader({
             <span
               className="text-sm leading-snug transition-all duration-300"
               style={{
-                color: isActive ? '#004643' : 'rgba(0,70,67,0.7)',
+                color: isActive ? '#004643' : 'rgba(0,70,67,0.9)',
                 fontWeight: isActive ? '600' : '500',
               }}
             >

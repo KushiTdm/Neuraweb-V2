@@ -109,7 +109,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-footfg/80 hover:text-footfg transition-colors"
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-footfg/85 hover:text-footfg transition-colors"
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
               >
                 <Icon size={14} />
@@ -121,7 +121,7 @@ export function Footer() {
         {/* Email */}
         <a
           href="mailto:contact@neuraweb.fr"
-          className="inline-flex items-center gap-2 text-xs text-footfg/80 hover:text-footfg transition-colors mb-5"
+          className="inline-flex items-center gap-2 text-xs text-footfg/85 hover:text-footfg transition-colors mb-5"
         >
           <Mail size={12} className="text-footfg" />
           contact@neuraweb.fr
@@ -133,7 +133,7 @@ export function Footer() {
             <LocalizedLink
               key={link.href}
               href={link.href}
-              className="text-xs text-footfg/80 hover:text-footfg transition-colors"
+              className="text-xs text-footfg/85 hover:text-footfg transition-colors"
             >
               {link.label}
             </LocalizedLink>
@@ -142,12 +142,12 @@ export function Footer() {
 
         {/* Secteur public — partie à part (marchés publics ≠ autres secteurs) */}
         <div className="mb-5">
-          <p className="text-[10px] uppercase tracking-wider text-footfg/70 mb-1.5">
+          <p className="text-[10px] uppercase tracking-wider text-footfg/85 mb-1.5">
             Secteur public
           </p>
           <LocalizedLink
             href="/collectivites"
-            className="text-xs text-footfg/80 hover:text-footfg transition-colors"
+            className="text-xs text-footfg/85 hover:text-footfg transition-colors"
           >
             Collectivités &amp; mairies
           </LocalizedLink>
@@ -155,7 +155,7 @@ export function Footer() {
 
         {/* Newsletter */}
         <div className="mb-5">
-          <p className="text-xs text-footfg/70 mb-2.5">
+          <p className="text-xs text-footfg/85 mb-2.5">
             {t('footer.newsletter.tagline')}
           </p>
           <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
@@ -177,7 +177,7 @@ export function Footer() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={t('footer.newsletter.placeholder')}
-              className="flex-1 min-w-0 px-3 py-2.5 rounded-xl text-xs bg-footfg/10 border border-footfg/25 text-footfg placeholder:text-footfg/70 focus:outline-none focus:border-footfg/150 transition-colors disabled:opacity-60"
+              className="flex-1 min-w-0 px-3 py-2.5 rounded-xl text-xs bg-footfg/10 border border-footfg/25 text-footfg placeholder:text-footfg/85 focus:outline-none focus:border-footfg/150 transition-colors disabled:opacity-60"
             />
             <button
               type="submit"
@@ -201,13 +201,13 @@ export function Footer() {
         <div className="h-px mb-4" style={{ background: 'rgba(255,255,255,0.06)' }} />
 
         {/* Copyright + Legal */}
-        <p className="text-[10px] text-footfg/70 mb-2">{t('footer.copyright')}</p>
+        <p className="text-[10px] text-footfg/85 mb-2">{t('footer.copyright')}</p>
         <div className="flex flex-wrap gap-x-3 gap-y-1">
           {legalLinks.map((link, i) => (
             <React.Fragment key={link.href}>
               <LocalizedLink
                 href={link.href}
-                className="text-[10px] text-footfg/70 hover:text-footfg transition-colors"
+                className="text-[10px] text-footfg/85 hover:text-footfg transition-colors"
               >
                 {link.label}
               </LocalizedLink>
@@ -220,7 +220,7 @@ export function Footer() {
           <button
             type="button"
             onClick={openPreferences}
-            className="text-[10px] text-footfg/70 hover:text-footfg transition-colors"
+            className="text-[10px] text-footfg/85 hover:text-footfg transition-colors"
           >
             {t('cookies.manage')}
           </button>
@@ -238,15 +238,15 @@ export function Footer() {
             <LocalizedLink href="/" className="inline-block mb-5">
               <NeuraWebLogo height={30} className="w-auto text-footfg opacity-90 hover:opacity-100 transition-opacity" />
             </LocalizedLink>
-            <p className="text-footfg/80 text-sm leading-relaxed mb-6">
+            <p className="text-footfg/85 text-sm leading-relaxed mb-6">
               {t('footer.company.description')}
             </p>
             <a
               href="mailto:contact@neuraweb.fr"
-              className="inline-flex items-center gap-2 text-sm text-footfg/80 hover:text-footfg transition-colors duration-200 group"
+              className="inline-flex items-center gap-2 text-sm text-footfg/85 hover:text-footfg transition-colors duration-200 group"
             >
               <div className="w-8 h-8 rounded-lg bg-footfg/10 border border-footfg/25 flex items-center justify-center group-hover:border-footfg/60 transition-colors">
-                <Mail size={14} className="text-footfg/80 group-hover:text-footfg transition-colors" />
+                <Mail size={14} className="text-footfg/85 group-hover:text-footfg transition-colors" />
               </div>
               contact@neuraweb.fr
             </a>
@@ -263,7 +263,7 @@ export function Footer() {
                 <li key={service.label}>
                   <LocalizedLink
                     href={service.href}
-                    className="text-sm text-footfg/80 hover:text-footfg transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-sm text-footfg/85 hover:text-footfg transition-colors duration-200 flex items-center gap-1.5 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-footfg/100 group-hover:bg-footfg transition-colors" />
                     {service.label}
@@ -278,7 +278,7 @@ export function Footer() {
                 <li key={link.href}>
                   <LocalizedLink
                     href={link.href}
-                    className="text-sm text-footfg/80 hover:text-footfg transition-colors duration-200 flex items-center gap-1.5 group"
+                    className="text-sm text-footfg/85 hover:text-footfg transition-colors duration-200 flex items-center gap-1.5 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-footfg/100 group-hover:bg-footfg transition-colors" />
                     {link.label}
@@ -293,7 +293,7 @@ export function Footer() {
               <li>
                 <LocalizedLink
                   href="/collectivites"
-                  className="text-sm text-footfg/80 hover:text-footfg transition-colors duration-200 flex items-center gap-1.5 group"
+                  className="text-sm text-footfg/85 hover:text-footfg transition-colors duration-200 flex items-center gap-1.5 group"
                 >
                   <span className="w-1 h-1 rounded-full bg-footfg/100 group-hover:bg-footfg transition-colors" />
                   Collectivités &amp; mairies
@@ -305,7 +305,7 @@ export function Footer() {
           {/* Col 3 : Newsletter + Socials */}
           <div>
             <h3 className="text-footfg text-sm font-semibold mb-5">Newsletter</h3>
-            <p className="text-footfg/80 text-xs mb-4 leading-relaxed">
+            <p className="text-footfg/85 text-xs mb-4 leading-relaxed">
               {t('footer.newsletter.description')}
             </p>
             <form onSubmit={handleNewsletterSubmit} className="flex gap-2 mb-2">
@@ -327,7 +327,7 @@ export function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t('footer.newsletter.placeholder')}
-                className="flex-1 min-w-0 px-3 py-2 rounded-xl text-sm bg-footfg/10 border border-footfg/25 text-footfg placeholder:text-footfg/70 focus:outline-none focus:border-footfg/60 transition-colors disabled:opacity-60"
+                className="flex-1 min-w-0 px-3 py-2 rounded-xl text-sm bg-footfg/10 border border-footfg/25 text-footfg placeholder:text-footfg/85 focus:outline-none focus:border-footfg/60 transition-colors disabled:opacity-60"
               />
               <button
                 type="submit"
@@ -354,7 +354,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 rounded-lg bg-footfg/10 border border-footfg/15 flex items-center justify-center text-footfg/80 hover:text-footfg hover:border-footfg/50 transition-all duration-200"
+                  className="w-9 h-9 rounded-lg bg-footfg/10 border border-footfg/15 flex items-center justify-center text-footfg/85 hover:text-footfg hover:border-footfg/50 transition-all duration-200"
                 >
                   <Icon size={15} />
                 </a>
@@ -368,14 +368,14 @@ export function Footer() {
 
         {/* Legal + Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-footfg/80/60">{t('footer.copyright')}</p>
+          <p className="text-xs text-footfg/85">{t('footer.copyright')}</p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs">
             {legalLinks.map((link, index) => (
               <React.Fragment key={link.href}>
                 <LocalizedLink
                   href={link.href}
-                  className="text-footfg/80/60 hover:text-footfg transition-colors"
+                  className="text-footfg/85 hover:text-footfg transition-colors"
                 >
                   {link.label}
                 </LocalizedLink>
@@ -388,13 +388,13 @@ export function Footer() {
             <button
               type="button"
               onClick={openPreferences}
-              className="text-footfg/80/60 hover:text-footfg transition-colors"
+              className="text-footfg/85 hover:text-footfg transition-colors"
             >
               {t('cookies.manage')}
             </button>
           </div>
 
-          <div className="flex items-center gap-1.5 text-xs text-footfg/70">
+          <div className="flex items-center gap-1.5 text-xs text-footfg/85">
             <span>Crafted with</span>
             <span className="text-footfg">♥</span>
             <span>by NeuraWeb</span>

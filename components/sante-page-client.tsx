@@ -728,7 +728,7 @@ function HeroSection({
   onScrollToPacks: () => void;
 }) {
   return (
-    <section className="relative overflow-hidden pt-28 pb-20 md:pt-32 md:pb-28 bg-navy-900">
+    <section className="relative overflow-hidden pt-28 pb-20 md:pt-32 md:pb-28 sec-tint ctx-light">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(20,184,166,0.10),transparent_60%)] pointer-events-none" />
       <div className="absolute -top-32 -right-32 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-emerald-200/30 rounded-full blur-3xl pointer-events-none" />
@@ -823,7 +823,7 @@ function HeroSection({
 
 function TrustBar() {
   return (
-    <section className="bg-slate-50 py-12 border-y border-slate-200">
+    <section className="bg-slate-50 py-12 border-y border-slate-200 ctx-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
         <p className="text-center text-sm font-semibold uppercase tracking-wider text-slate-500 mb-8">
           Conçu pour les professionnels de santé
@@ -866,7 +866,7 @@ function TrustBar() {
 
 function ProblemSolutionSection() {
   return (
-    <section className="py-20 md:py-28">
+    <section className="py-20 md:py-28 sec-screen ctx-light">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16" data-reveal>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
@@ -951,7 +951,7 @@ function SimulatorSection({
   const recommendedPack = result ? PACKS.find((p) => p.id === result) : null;
 
   return (
-    <section className="py-20 md:py-24 sec-tint">
+    <section className="py-20 md:py-24 sec-tint sec-screen ctx-light">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
         <div className="text-center mb-10">
           <span className="inline-block px-4 py-1.5 rounded-full bg-teal-100 text-teal-700 text-sm font-semibold mb-4">
@@ -1158,7 +1158,7 @@ const USE_CASES = [
 
 function UseCasesSection() {
   return (
-    <section className="py-20 md:py-28 sec-flip sec-pat sec-waves">
+    <section className="py-20 md:py-28 sec-flip sec-pat sec-waves sec-screen ctx-dark">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16" data-reveal>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
@@ -1217,7 +1217,7 @@ function PacksSection({
   const [detailsPack, setDetailsPack] = useState<Pack | null>(null);
 
   return (
-    <section id="packs" className="py-16 md:py-28 bg-white">
+    <section id="packs" className="py-16 md:py-28 bg-white sec-screen ctx-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 md:mb-14" data-reveal>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
@@ -1779,7 +1779,7 @@ function PackDetails({ pack }: { pack: Pack }) {
 
 function ExampleSiteSection() {
   return (
-    <section className="py-20 md:py-28 sec-tint">
+    <section className="py-20 md:py-28 sec-tint sec-screen ctx-light">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div data-slide-left>
@@ -1904,7 +1904,7 @@ function TestimonialsCarousel() {
   }, []);
 
   return (
-    <section className="py-10 md:py-28 overflow-hidden sec-flip sec-pat sec-dots">
+    <section className="py-10 md:py-28 overflow-hidden sec-flip sec-pat sec-dots sec-screen ctx-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 md:mb-14" data-reveal>
           <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
@@ -1993,7 +1993,7 @@ function TestimonialCard({
 
 function ProcessTimeline() {
   return (
-    <section className="py-24 md:py-32 bg-slate-50 overflow-hidden">
+    <section className="py-24 md:py-32 bg-slate-50 overflow-hidden sec-screen ctx-light">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-20 md:mb-28">
@@ -2106,7 +2106,7 @@ function ProcessTimeline() {
 
 function FaqSection() {
   return (
-    <section className="py-12 md:py-16 sec-tint">
+    <section className="py-12 md:py-16 sec-tint ctx-light">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8" data-reveal>
           <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -2165,7 +2165,7 @@ function GuaranteesSection() {
   ];
 
   return (
-    <section className="py-20 md:py-24 sec-pat sec-waves sec-pat-light">
+    <section className="py-20 md:py-24 sec-pat sec-waves sec-pat-light sec-screen ctx-light">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-3 gap-6">
           {items.map(({ icon: Icon, title, text, color }) => (
@@ -2193,7 +2193,7 @@ function GuaranteesSection() {
 
 function FinalCTA({ onOpenQuote }: { onOpenQuote: () => void }) {
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden text-white bg-teal-700">
+    <section className="relative py-20 md:py-28 overflow-hidden text-white bg-teal-700 sec-screen ctx-dark">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-white) / 0.15),transparent_60%)] pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 

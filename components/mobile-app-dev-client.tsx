@@ -6,7 +6,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { LocalizedLink } from '@/components/localized-link';
 import { DemoCTA } from '@/components/demo-cta';
-import { HeroVisual } from '@/components/hero-visual';
+import { ServiceHero } from '@/components/service-hero';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
   Smartphone,
@@ -366,52 +366,18 @@ export function MobileAppDevClient({ lang }: Props) {
       <div className="theme-mobile">
       <Header />
       <main ref={containerRef} id="main-content" className="min-h-screen bg-navy-950 pt-24">
-        <section className="py-16 sm:py-24 px-4 relative overflow-hidden" style={{ background: 'rgb(var(--c-navy-950))' }}>
-          <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/5 to-white/5 pointer-events-none" aria-hidden="true" />
-          <div className="max-w-7xl mx-auto relative grid items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
-          <div className="text-left">
-            <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 mb-8">
-              <Smartphone className="w-4 h-4 text-white" />
-              <span className="text-sm font-medium text-white">Mobile App Development</span>
-            </div>
-            <h1 className="animate-on-scroll fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
-              {c.hero.h1}{' '}
-              <span className="text-white">
-                {c.hero.highlight}
-              </span>
-            </h1>
-            <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mb-10">
-              {c.hero.subtitle}
-            </p>
-            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4">
-              <LocalizedLink
-                href="/booking"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white text-gray-900 font-semibold text-lg shadow-lg hover:shadow-xl hover:bg-gray-100 transition-all"
-              >
-                {c.hero.ctaPrimary}
-                <ArrowRight className="w-5 h-5" />
-              </LocalizedLink>
-              <a
-                href="#pricing"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border-2 border-white/40 text-white font-semibold text-lg hover:bg-white/10 transition-colors"
-              >
-                {c.hero.ctaSecondary}
-              </a>
-            </div>
-          </div>
-          <HeroVisual
-            src="/assets/redesign/pages/mobile-hero.webp"
-            alts={{
-              fr: "Illustration d'un smartphone avec une notification, un repère de localisation et des cercles qui rayonnent",
-              en: 'Illustration of a smartphone with a notification, a location pin and radiating circles',
-              es: 'Ilustración de un smartphone con una notificación, un marcador de ubicación y círculos que se expanden',
-              vi: 'Minh họa điện thoại thông minh có thông báo, ghim vị trí và các vòng tròn lan tỏa',
-            }}
-          />
-          </div>
-        </section>
+        <ServiceHero
+          badgeIcon={<Smartphone size={14} aria-hidden="true" />}
+          badge="Mobile App Development"
+          h1={c.hero.h1}
+          highlight={c.hero.highlight}
+          subtitle={c.hero.subtitle}
+          primary={{ href: '/booking', label: c.hero.ctaPrimary }}
+          secondary={{ href: '#pricing', label: c.hero.ctaSecondary }}
+          visual={{ src: "/assets/redesign/pages/mobile-hero.webp", alts: {"fr": "Illustration d'un smartphone avec une notification, un repère de localisation et des cercles qui rayonnent", "en": "Illustration of a smartphone with a notification, a location pin and radiating circles", "es": "Ilustración de un smartphone con una notificación, un marcador de ubicación y círculos que se expanden", "vi": "Minh họa điện thoại thông minh có thông báo, ghim vị trí và các vòng tròn lan tỏa"} }}
+        />
 
-        <section className="py-16 sm:py-20 px-4" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section className="py-16 sm:py-20 px-4 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-6xl mx-auto">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">
@@ -450,7 +416,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 sec-pat sec-waves sec-dark-base">
+        <section className="py-16 sm:py-20 px-4 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
           <div className="max-w-6xl mx-auto">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -488,7 +454,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 sec-tint">
+        <section className="py-16 sm:py-20 px-4 sec-tint sec-screen ctx-light">
           <div className="max-w-5xl mx-auto">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">
@@ -524,7 +490,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section id="pricing" className="py-16 sm:py-20 px-4" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section id="pricing" className="py-16 sm:py-20 px-4 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-6xl mx-auto">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -581,7 +547,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 sec-flip sec-flip-light">
+        <section className="py-16 sm:py-20 px-4 sec-flip sec-flip-light sec-screen ctx-light">
           <div className="max-w-6xl mx-auto">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -610,7 +576,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 sec-tint">
+        <section className="py-16 sm:py-20 px-4 sec-tint sec-screen ctx-light">
           <div className="max-w-3xl mx-auto">
             <h2 className="animate-on-scroll fade-up text-3xl sm:text-4xl font-bold text-navy-900 text-center mb-12">
               {c.faq.h2}
@@ -641,7 +607,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-16 sm:py-20 px-4 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="animate-on-scroll fade-up text-3xl sm:text-4xl font-bold text-white mb-4">
               {c.cta.h2}

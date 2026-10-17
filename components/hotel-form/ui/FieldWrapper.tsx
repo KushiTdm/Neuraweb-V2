@@ -29,7 +29,7 @@ export function FieldWrapper({ label, required, hint, badge, children }: FieldWr
 }
 
 export const inputCls = `w-full px-3.5 py-2.5 rounded-xl text-sm text-slate-100 font-medium
-  bg-white/5 border border-white/8 outline-none transition-all duration-200
+  bg-white/5 border border-white/10 outline-none transition-all duration-200
   placeholder:text-slate-600
   focus:border-indigo-500/60 focus:bg-indigo-500/6 focus:ring-2 focus:ring-indigo-500/12`;
 

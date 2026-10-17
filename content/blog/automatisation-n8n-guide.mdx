@@ -136,7 +136,7 @@ Nous avons mis en place un workflow n8n self-hosted (VPS Scaleway à 9 €/mois)
 
 Pas besoin de partir d'une page blanche : voici cinq modèles de workflows que nous déployons le plus souvent chez nos clients PME.
 
-1. **Facturation automatique** : un paiement Stripe déclenche la génération d'une facture PDF, son envoi par email et son enregistrement dans l'outil de comptabilité (Pennylane, QuickBooks).
+1. **Facturation automatique** : un paiement Stripe déclenche la génération de la facture, son envoi par email et son enregistrement dans l'outil de comptabilité (Pennylane, QuickBooks). Pour vos factures entre entreprises, le format devra devenir une facture électronique conforme (Factur-X) transmise via une plateforme agréée à partir de septembre 2027 : voir [notre guide sur la facturation électronique](/fr/blog/facturation-electronique-pme-reception-automatiser).
 2. **Veille concurrentielle** : un scraping planifié (toutes les 6h) des pages tarifs de vos concurrents, avec alerte Slack en cas de changement détecté.
 3. **Onboarding client automatisé** : à la signature d'un contrat (via signature électronique), création du dossier client dans le CRM, envoi d'un email de bienvenue et création automatique du projet dans l'outil de gestion (Notion, ClickUp).
 4. **Relance de devis** : si un devis envoyé via votre outil de facturation reste sans réponse après 5 jours, un rappel automatique part au prospect, avec notification au commercial.

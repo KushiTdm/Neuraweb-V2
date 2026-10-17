@@ -44,7 +44,7 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="bg-chypre-20 py-24 lg:py-32">
+    <section className="bg-chypre-20 py-24 lg:py-32 sec-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
