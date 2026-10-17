@@ -76,7 +76,7 @@ function StatCard({ value, suffix, label, desc, icon, started, index }: {
   const display = value % 1 !== 0 ? value.toFixed(1) : value;
   return (
     <div
-      className="flex h-full flex-col rounded-3xl border border-creme/25 bg-creme/10 p-6 backdrop-blur-sm sm:p-8 motion-safe:transition-transform motion-safe:duration-300 motion-safe:hover:-translate-y-1"
+      className="glass lift flex h-full flex-col rounded-3xl p-6 sm:p-8"
       style={{ opacity: started ? undefined : 0, animation: started ? `nwFadeInUp 0.6s ${index * 0.15}s ease both` : 'none' }}
     >
       <NeuraIcon name={icon} size={44} className="mb-4 flex-shrink-0 text-creme" />

@@ -70,7 +70,7 @@ function ServiceCard({ href, image, alt, title, desc, learn, tone, badge, horizo
   return (
     <LocalizedLink
       href={href}
-      className={`group relative flex overflow-hidden rounded-3xl border border-chypre/15 bg-creme transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,70,67,0.18)] ${horizontal ? 'flex-row' : 'flex-col'} ${className}`}
+      className={`lift sv-pop group relative flex overflow-hidden rounded-3xl border border-chypre/15 bg-creme transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,70,67,0.18)] ${horizontal ? 'flex-row' : 'flex-col'} ${className}`}
     >
       <div className={`relative overflow-hidden ${horizontal ? 'w-2/5 shrink-0' : big ? 'min-h-[280px] flex-1' : 'aspect-[3/2]'}`}>
         <Image

@@ -814,7 +814,7 @@ function Faq() {
 
 function FinalCTA() {
   return (
-    <section className="relative py-14 md:py-28 overflow-hidden text-white bg-navy-900 sec-screen ctx-dark">
+    <section className="relative py-14 md:py-28 overflow-hidden text-white bg-navy-900 ctx-dark">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-white) / 0.15),transparent_60%)] pointer-events-none" />
       <div data-parallax="-35" className="absolute -bottom-32 -left-32 w-72 h-72 sm:w-96 sm:h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 

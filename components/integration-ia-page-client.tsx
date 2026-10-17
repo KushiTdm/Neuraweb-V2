@@ -908,7 +908,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
-        <section className="py-24 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-24 ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />{c.cta.badge}

@@ -762,7 +762,7 @@ function BlogTeaser() {
 
 function FinalCTA() {
   return (
-    <section className="relative py-14 md:py-28 overflow-hidden text-white bg-amber-600 sec-screen ctx-dark">
+    <section className="relative py-14 md:py-28 overflow-hidden text-white bg-amber-600 ctx-dark">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-white) / 0.15),transparent_60%)] pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 

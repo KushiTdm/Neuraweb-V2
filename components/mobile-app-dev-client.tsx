@@ -365,7 +365,7 @@ export function MobileAppDevClient({ lang }: Props) {
     <>
       <div className="theme-mobile">
       <Header />
-      <main ref={containerRef} id="main-content" className="min-h-screen bg-navy-950 pt-24">
+      <main ref={containerRef} id="main-content" className="min-h-screen bg-navy-950">
         <ServiceHero
           badgeIcon={<Smartphone size={14} aria-hidden="true" />}
           badge="Mobile App Development"
@@ -607,7 +607,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-16 sm:py-20 px-4 ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="animate-on-scroll fade-up text-3xl sm:text-4xl font-bold text-white mb-4">
               {c.cta.h2}

@@ -24,7 +24,7 @@ export interface ServiceHeroProps {
 export function ServiceHero({ badgeIcon, badge, h1, highlight, subtitle, primary, secondary, stats, visual }: ServiceHeroProps) {
   return (
     <section
-      className="sec-dark-base ctx-dark relative flex min-h-[100svh] items-center overflow-hidden pb-14 pt-28 sm:pb-16 sm:pt-32"
+      className="sec-dark-base ctx-dark relative flex min-h-[100svh] items-center overflow-hidden pb-20 pt-20 sm:pb-24 sm:pt-24"
       aria-labelledby="service-hero-title"
     >
       <div className="pointer-events-none absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(var(--c-white) / 0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
@@ -32,7 +32,7 @@ export function ServiceHero({ badgeIcon, badge, h1, highlight, subtitle, primary
 
       <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:px-8">
         <div className="text-left">
-          <div className="animate-on-scroll fade-up mb-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-4 py-2 text-sm font-medium text-white">
+          <div className="animate-on-scroll fade-up mb-5 inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-medium text-white">
             {badgeIcon}
             <span>{badge}</span>
           </div>
@@ -63,7 +63,7 @@ export function ServiceHero({ badgeIcon, badge, h1, highlight, subtitle, primary
           {stats && stats.length > 0 && (
             <dl className="animate-on-scroll fade-up delay-400 grid max-w-xl grid-cols-3 gap-2 sm:gap-4">
               {stats.map((stat) => (
-                <div key={stat.label} className="rounded-xl border border-white/15 bg-white/5 px-3 py-3 sm:px-4 sm:py-4">
+                <div key={stat.label} className="rounded-xl glass px-3 py-3 sm:px-4 sm:py-4 lift">
                   <dt className="sr-only">{stat.label}</dt>
                   <dd className="text-xl font-bold leading-none text-white sm:text-2xl">{stat.value}</dd>
                   <p className="mt-1.5 text-[11px] leading-snug text-slate-300 sm:text-xs" aria-hidden="true">{stat.label}</p>
@@ -73,7 +73,7 @@ export function ServiceHero({ badgeIcon, badge, h1, highlight, subtitle, primary
           )}
         </div>
 
-        <div className="animate-on-scroll fade-up delay-300">
+        <div className="animate-on-scroll fade-up delay-300 sv-parallax">
           <HeroVisual src={visual.src} alts={visual.alts} />
         </div>
       </div>

@@ -58,7 +58,7 @@ export function Header() {
           transition-[transform,background-color,border-color,box-shadow] duration-500 ease-in-out
           ${isHidden && !isMenuOpen ? '-translate-y-full' : 'translate-y-0'}
           ${isScrolled
-            ? 'bg-navbg/80 border-navfg/10 shadow-[0_1px_20px_rgba(0,70,67,0.08)]'
+            ? 'bg-navbg/75 backdrop-saturate-150 border-navfg/10 shadow-[0_1px_20px_rgba(0,70,67,0.08)]'
             : 'bg-navbg border-navfg/15'
           }`}
       >

@@ -74,9 +74,9 @@ export function PromiseSection() {
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-chypre/90 sm:text-lg">{c.subtitle}</p>
         </div>
 
-        <ul className="grid gap-4 md:grid-cols-3">
+        <ul className="grid gap-4 md:grid-cols-3 sv-stagger">
           {c.items.map((item) => (
-            <li key={item.title} className="fade-up rounded-3xl border border-chypre/15 bg-creme p-7">
+            <li key={item.title} className="sv-rise lift rounded-3xl border border-chypre/15 bg-creme p-7">
               <NeuraIcon name={item.icon} size={64} className="mb-5 text-chypre" />
               <h3 className="font-display text-xl font-bold text-chypre">{item.title}</h3>
               <p className="mt-2 text-base leading-relaxed text-chypre/80">{item.text}</p>

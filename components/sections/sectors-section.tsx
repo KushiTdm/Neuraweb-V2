@@ -38,12 +38,12 @@ export function SectorsSection() {
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-chypre/90 sm:text-lg">{t('sectors.sub')}</p>
         </div>
 
-        <ul className="grid gap-5 md:grid-cols-3">
+        <ul className="grid gap-5 md:grid-cols-3 sv-stagger">
           {SECTORS.map(({ key, href, theme, image }) => (
-            <li key={key}>
+            <li key={key} className="sv-rise">
               <LocalizedLink
                 href={href}
-                className="group flex h-full flex-col overflow-hidden rounded-3xl transition-shadow duration-300 hover:shadow-[0_16px_48px_rgba(0,70,67,0.25)]"
+                className="group flex h-full flex-col overflow-hidden rounded-3xl lift transition-shadow duration-300 hover:shadow-[0_16px_48px_rgba(0,70,67,0.25)]"
                 style={{ backgroundColor: theme.bg, color: theme.fg }}
               >
                 <div className="relative aspect-[3/2] w-full overflow-hidden">

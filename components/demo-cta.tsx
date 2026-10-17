@@ -81,7 +81,7 @@ export function DemoCTA({
 
   return (
     <section className={cn('sec-unflip ctx-dark relative px-4 sm:px-6 lg:px-8 py-12 md:py-16', className)}>
-      <div className="relative max-w-6xl mx-auto overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-navy-900 to-navy-950 p-8 sm:p-10 lg:p-12 shadow-2xl shadow-indigo-900/20">
+      <div className="relative max-w-6xl mx-auto overflow-hidden rounded-3xl glass-dark border border-white/10 bg-gradient-to-br from-navy-900 to-navy-950 p-8 sm:p-10 lg:p-12 shadow-2xl shadow-indigo-900/20">
         {/* halos décoratifs */}
         <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-cyan-500/15 blur-3xl" />
