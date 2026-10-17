@@ -21,8 +21,9 @@ export function ServicesPageClient() {
 
   return (
     <>
+      <div className="theme-accueil">
       <Header />
-      <div className="services-page-container min-h-screen bg-[#050510]">
+      <div className="services-page-container min-h-screen bg-navy-950">
         <CustomCursor />
         <div className="overflow-x-hidden">
           <ServicesHero />
@@ -35,6 +36,7 @@ export function ServicesPageClient() {
         </div>
       </div>
       <Footer />
+      </div>
     </>
   );
 }

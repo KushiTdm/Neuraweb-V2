@@ -5,17 +5,18 @@ import dynamic from 'next/dynamic';
 import { HeroSection } from '@/components/sections/hero-section';
 import { StatsSection } from '@/components/sections/stats-section';
 import { PartnersMarquee } from '@/components/sections/partners-marquee';
+import { PromiseSection } from '@/components/sections/promise-section';
 
 // Section skeleton — affiché pendant le chargement des sections dynamiques
 function SectionSkeleton() {
   return (
-    <div className="flex items-center justify-center bg-white py-24">
+    <div className="flex items-center justify-center bg-creme py-24">
       <div className="w-full max-w-7xl mx-auto px-6 space-y-6 animate-pulse">
-        <div className="h-8 bg-gray-100 rounded-xl w-1/3" />
-        <div className="h-4 bg-gray-100 rounded-lg w-2/3" />
+        <div className="h-8 bg-chypre/10 rounded-xl w-1/3" />
+        <div className="h-4 bg-chypre/10 rounded-lg w-2/3" />
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-64 bg-gray-100 rounded-2xl" />
+            <div key={i} className="h-64 bg-chypre/10 rounded-2xl" />
           ))}
         </div>
       </div>
@@ -87,6 +88,9 @@ export function HomePageClient() {
 
       {/* 2. Partenaires / stack tech — marquee infini */}
       <PartnersMarquee />
+
+      {/* 2b. Promesse — prix affichés, équipe joignable, ouvert sur le monde */}
+      <PromiseSection />
 
       {/* 3. Services — cartes image + icône flottante, slider */}
       <div ref={servicesRef}>

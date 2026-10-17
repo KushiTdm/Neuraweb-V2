@@ -329,6 +329,7 @@ export function RestaurantsPageClient() {
 
   return (
     <>
+      <div className="theme-restaurants">
       <Header />
       <div ref={containerRef} className="bg-white text-slate-800 overflow-x-hidden">
         <Hero onScrollToFormules={scrollToFormules} />
@@ -342,6 +343,7 @@ export function RestaurantsPageClient() {
         <FinalCTA />
       </div>
       <Footer />
+      </div>
     </>
   );
 }
@@ -452,7 +454,7 @@ function Problem() {
     { value: '×5', label: 'plus cher d’acquérir un client que d’en fidéliser un' },
   ];
   return (
-    <section className="bg-slate-50 py-10 md:py-16 border-y border-slate-200">
+    <section className="py-10 md:py-16 border-y border-slate-200 sec-tint">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8 md:mb-12">
           {stats.map((s) => (
@@ -603,7 +605,7 @@ function Demos() {
   ));
 
   return (
-    <section className="py-14 md:py-28 bg-rose-50">
+    <section className="py-14 md:py-28 sec-flip sec-pat sec-waves">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14" data-reveal>
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-rose-200 text-rose-700 text-xs sm:text-sm font-medium mb-4 md:mb-5">
@@ -692,7 +694,7 @@ function UseCases() {
 
 function Faq() {
   return (
-    <section className="py-12 md:py-24 bg-slate-50">
+    <section className="py-12 md:py-24 sec-tint">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 md:mb-10" data-reveal>
           <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -728,7 +730,7 @@ function Faq() {
 
 function BlogTeaser() {
   return (
-    <section className="py-10 md:py-12 bg-white">
+    <section className="py-10 md:py-12 sec-flip sec-pat sec-dots">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
         <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 md:mb-4">
           À lire aussi
@@ -761,7 +763,7 @@ function BlogTeaser() {
 function FinalCTA() {
   return (
     <section className="relative py-14 md:py-28 overflow-hidden text-white bg-amber-600">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-white) / 0.15),transparent_60%)] pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>

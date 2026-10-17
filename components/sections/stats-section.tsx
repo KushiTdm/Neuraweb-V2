@@ -1,13 +1,15 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, TrendingUp } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
 import { useLanguage } from '@/contexts/language-context';
+import { NeuraIcon, type NeuraIconName } from '@/components/icons/neura-icon';
 
 const T = {
   fr: {
-    eyebrow: '● NOS RÉSULTATS',
+    eyebrow: 'NOS RÉSULTATS',
     label1: 'Projets livrés avec succès',
     desc1: 'Applications web, mobiles et automatisations livrées dans les délais convenus.',
     label2: 'Clients satisfaits',
@@ -20,7 +22,7 @@ const T = {
     learn: 'À propos de NeuraWeb',
   },
   en: {
-    eyebrow: '● OUR RESULTS',
+    eyebrow: 'OUR RESULTS',
     label1: 'Projects delivered',
     desc1: 'Web, mobile and automation projects delivered on time and within agreed deadlines.',
     label2: 'Satisfied clients',
@@ -33,7 +35,7 @@ const T = {
     learn: 'About NeuraWeb',
   },
   es: {
-    eyebrow: '● NUESTROS RESULTADOS',
+    eyebrow: 'NUESTROS RESULTADOS',
     label1: 'Proyectos entregados',
     desc1: 'Proyectos web, móviles y de automatización entregados a tiempo.',
     label2: 'Clientes satisfechos',
@@ -46,7 +48,7 @@ const T = {
     learn: 'Sobre NeuraWeb',
   },
   vi: {
-    eyebrow: '● KẾT QUẢ CỦA CHÚNG TÔI',
+    eyebrow: 'KẾT QUẢ CỦA CHÚNG TÔI',
     label1: 'Dự án đã bàn giao',
     desc1: 'Website, ứng dụng di động và quy trình tự động hóa được bàn giao đúng hẹn.',
     label2: 'Khách hàng hài lòng',
@@ -60,80 +62,40 @@ const T = {
   },
 };
 
-const STATS = [
-  { value: 150, suffix: '+', key: 'label1', descKey: 'desc1', color: 'sky' as const },
-  { value: 98,  suffix: '%', key: 'label2', descKey: 'desc2', color: 'cyan' as const },
-  { value: 3.2, suffix: 'x', key: 'label3', descKey: 'desc3', color: 'sky' as const },
+// ⚠ Chiffres (150+, 98 %, 3,2x) repris tels quels de la version précédente : ils ne sont
+// documentés nulle part dans le repo. À justifier (preuves) ou remplacer avant mise en production.
+const STATS: { value: number; suffix: string; key: string; descKey: string; icon: NeuraIconName }[] = [
+  { value: 150, suffix: '+', key: 'label1', descKey: 'desc1', icon: 'site-web' },
+  { value: 98, suffix: '%', key: 'label2', descKey: 'desc2', icon: 'sante' },
+  { value: 3.2, suffix: 'x', key: 'label3', descKey: 'desc3', icon: 'seo-geo' },
 ];
 
-const STAT_COLORS = {
-  sky:  { gradient: 'linear-gradient(90deg, #ffffff, #e5e7eb)', icon: '#ffffff' },
-  cyan: { gradient: 'linear-gradient(90deg, #e5e7eb, #ffffff)', icon: '#e5e7eb' },
-};
-
-// Valeur finale rendue directement : l'ancien compteur partait de 0 et exposait "0+" au HTML serveur / aux crawlers.
-function useCountUp(target: number, _started: boolean) {
-  return target;
-}
-
-function StatCard({
-  value,
-  suffix,
-  label,
-  desc,
-  color,
-  started,
-  index,
-}: {
-  value: number;
-  suffix: string;
-  label: string;
-  desc: string;
-  color: keyof typeof STAT_COLORS;
-  started: boolean;
-  index: number;
+function StatCard({ value, suffix, label, desc, icon, started, index }: {
+  value: number; suffix: string; label: string; desc: string; icon: NeuraIconName; started: boolean; index: number;
 }) {
-  const count = useCountUp(value, started);
-  const isDecimal = value % 1 !== 0;
-  const displayValue = isDecimal ? count.toFixed(1) : count;
-  const colorConfig = STAT_COLORS[color];
-
-  const numberStyle = { color: '#ffffff' };
-
+  const display = value % 1 !== 0 ? value.toFixed(1) : value;
   return (
     <div
-      className="rounded-3xl p-6 sm:p-8 border transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
-      style={{
-        background: '#1E2A4A',
-        borderColor: '#1E3A6B',
-        opacity: 0,
-        animation: started ? `fadeInUp 0.6s ${index * 0.15}s ease forwards` : 'none',
-      }}
+      className="flex h-full flex-col rounded-3xl border border-creme/25 bg-creme/10 p-6 backdrop-blur-sm sm:p-8 motion-safe:transition-transform motion-safe:duration-300 motion-safe:hover:-translate-y-1"
+      style={{ opacity: started ? undefined : 0, animation: started ? `nwFadeInUp 0.6s ${index * 0.15}s ease both` : 'none' }}
     >
-      {/* Icône tendance */}
-      <TrendingUp className="w-5 h-5 mb-4 flex-shrink-0" style={{ color: colorConfig.icon }} />
-
-      {/* Nombre — clamp ajusté pour ne pas déborder de la carte */}
+      <NeuraIcon name={icon} size={44} className="mb-4 flex-shrink-0 text-creme" />
       <div
-        className="font-display font-bold leading-none mb-3 whitespace-nowrap"
-        style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3rem)', ...numberStyle }}
+        className="mb-3 whitespace-nowrap font-impact font-black leading-none text-creme"
+        style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.25rem)' }}
         aria-label={`${value}${suffix} ${label}`}
       >
-        {displayValue}{suffix}
+        {display}{suffix}
       </div>
-
-      {/* Label */}
-      <p className="text-white font-semibold text-base mb-2">{label}</p>
-
-      {/* Description */}
-      <p className="text-sm leading-relaxed" style={{ color: 'rgba(148,163,184,0.8)' }}>{desc}</p>
+      <p className="mb-2 text-base font-semibold text-creme">{label}</p>
+      <p className="text-sm leading-relaxed text-creme/80">{desc}</p>
     </div>
   );
 }
 
 export function StatsSection() {
   const { language } = useLanguage();
-  const t = T[(language as keyof typeof T)] ?? T.fr;
+  const t = T[language as keyof typeof T] ?? T.fr;
   const sectionRef = useRef<HTMLElement>(null);
   const [started, setStarted] = useState(false);
 
@@ -145,42 +107,41 @@ export function StatsSection() {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 sm:py-24 lg:py-32 overflow-hidden" style={{ background: '#070F26' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div className="grid grid-cols-1 lg:grid-cols-[40fr_60fr] gap-10 lg:gap-16 items-start">
-
-          {/* ── Colonne gauche — texte ────────────────────────── */}
+    <section ref={sectionRef} className="relative overflow-hidden bg-chypre py-20 sm:py-24 lg:py-32">
+      <Image
+        src="/assets/redesign/motif-vagues.webp"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover opacity-70 motion-safe:animate-[nwDrift_40s_ease-in-out_infinite_alternate]"
+        aria-hidden="true"
+        loading="lazy"
+      />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[40fr_60fr] lg:gap-16">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-white mb-6">
-              {t.eyebrow}
-            </p>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6 text-white">
+            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.1em] text-creme/90">{t.eyebrow}</p>
+            <h2 className="mb-6 font-impact text-3xl font-black leading-tight text-creme sm:text-4xl lg:text-5xl">
               {t.heading1} {t.heading2}
             </h2>
-            <p className="text-base leading-relaxed mb-10 max-w-md" style={{ color: 'rgba(148,163,184,0.8)' }}>
-              {t.sub}
-            </p>
+            <p className="mb-10 max-w-md text-base leading-relaxed text-creme/90">{t.sub}</p>
             <LocalizedLink
               href="/equipe"
-              className="inline-flex items-center gap-2 font-semibold text-white border border-white/20 rounded-full px-6 py-3 hover:bg-white/5 transition-colors duration-200 group"
+              className="group inline-flex items-center gap-2 rounded-full bg-creme px-6 py-3 font-semibold text-chypre transition-colors duration-200 hover:bg-white"
             >
               {t.learn}
-              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors duration-200">
-                <ArrowUpRight className="w-4 h-4" />
-              </span>
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
             </LocalizedLink>
           </div>
 
-          {/* ── Colonne droite — Stack mobile / Grid desktop ────────────────────── */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {STATS.map((s, i) => (
               <StatCard
                 key={s.key}
@@ -188,7 +149,7 @@ export function StatsSection() {
                 suffix={s.suffix}
                 label={t[s.key as keyof typeof t] as string}
                 desc={t[s.descKey as keyof typeof t] as string}
-                color={s.color}
+                icon={s.icon}
                 started={started}
                 index={i}
               />
@@ -196,13 +157,6 @@ export function StatsSection() {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </section>
   );
 }

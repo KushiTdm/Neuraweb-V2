@@ -6,6 +6,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { LocalizedLink } from '@/components/localized-link';
 import { DemoCTA } from '@/components/demo-cta';
+import { HeroVisual } from '@/components/hero-visual';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
   Smartphone,
@@ -362,11 +363,13 @@ export function MobileAppDevClient({ lang }: Props) {
 
   return (
     <>
+      <div className="theme-mobile">
       <Header />
-      <main ref={containerRef} id="main-content" className="min-h-screen bg-[#050510] pt-24">
-        <section className="py-16 sm:py-24 px-4 relative overflow-hidden" style={{ background: '#070F26' }}>
+      <main ref={containerRef} id="main-content" className="min-h-screen bg-navy-950 pt-24">
+        <section className="py-16 sm:py-24 px-4 relative overflow-hidden" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/5 to-white/5 pointer-events-none" aria-hidden="true" />
-          <div className="max-w-5xl mx-auto text-center relative">
+          <div className="max-w-7xl mx-auto relative grid items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
+          <div className="text-left">
             <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/5 mb-8">
               <Smartphone className="w-4 h-4 text-white" />
               <span className="text-sm font-medium text-white">Mobile App Development</span>
@@ -377,10 +380,10 @@ export function MobileAppDevClient({ lang }: Props) {
                 {c.hero.highlight}
               </span>
             </h1>
-            <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10">
+            <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mb-10">
               {c.hero.subtitle}
             </p>
-            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4">
               <LocalizedLink
                 href="/booking"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white text-gray-900 font-semibold text-lg shadow-lg hover:shadow-xl hover:bg-gray-100 transition-all"
@@ -396,12 +399,22 @@ export function MobileAppDevClient({ lang }: Props) {
               </a>
             </div>
           </div>
+          <HeroVisual
+            src="/assets/redesign/pages/mobile-hero.webp"
+            alts={{
+              fr: "Illustration d'un smartphone avec une notification, un repère de localisation et des cercles qui rayonnent",
+              en: 'Illustration of a smartphone with a notification, a location pin and radiating circles',
+              es: 'Ilustración de un smartphone con una notificación, un marcador de ubicación y círculos que se expanden',
+              vi: 'Minh họa điện thoại thông minh có thông báo, ghim vị trí và các vòng tròn lan tỏa',
+            }}
+          />
+          </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4" style={{ background: '#F7FAFD' }}>
+        <section className="py-16 sm:py-20 px-4" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-6xl mx-auto">
             <div className="animate-on-scroll fade-up text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">
                 {c.tech.h2}
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
@@ -423,7 +436,7 @@ export function MobileAppDevClient({ lang }: Props) {
                     <div className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
                       {card.tag}
                     </div>
-                    <h3 className="text-xl font-bold text-[#0e1b3d] mb-2">
+                    <h3 className="text-xl font-bold text-navy-900 mb-2">
                       {card.name}
                     </h3>
                     <p className="text-sm text-slate-500 leading-relaxed">
@@ -437,7 +450,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4" style={{ background: '#070F26' }}>
+        <section className="py-16 sm:py-20 px-4 sec-pat sec-waves sec-dark-base">
           <div className="max-w-6xl mx-auto">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -475,10 +488,10 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4" style={{ background: '#F7FAFD' }}>
+        <section className="py-16 sm:py-20 px-4 sec-tint">
           <div className="max-w-5xl mx-auto">
             <div className="animate-on-scroll fade-up text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">
+              <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">
                 {c.process.h2}
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
@@ -497,7 +510,7 @@ export function MobileAppDevClient({ lang }: Props) {
                     <div className="w-12 h-12 rounded-xl bg-gray-900 flex items-center justify-center mb-4">
                       <Icon className="w-6 h-6 text-white" strokeWidth={2} />
                     </div>
-                    <h3 className="text-lg font-bold text-[#0e1b3d] mb-2">
+                    <h3 className="text-lg font-bold text-navy-900 mb-2">
                       {step.title}
                     </h3>
                     <p className="text-sm text-slate-500 leading-relaxed">
@@ -511,7 +524,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section id="pricing" className="py-16 sm:py-20 px-4" style={{ background: '#070F26' }}>
+        <section id="pricing" className="py-16 sm:py-20 px-4" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-6xl mx-auto">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -568,7 +581,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4" style={{ background: '#0B1430' }}>
+        <section className="py-16 sm:py-20 px-4 sec-flip sec-flip-light">
           <div className="max-w-6xl mx-auto">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
@@ -597,9 +610,9 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4" style={{ background: '#F7FAFD' }}>
+        <section className="py-16 sm:py-20 px-4 sec-tint">
           <div className="max-w-3xl mx-auto">
-            <h2 className="animate-on-scroll fade-up text-3xl sm:text-4xl font-bold text-[#0e1b3d] text-center mb-12">
+            <h2 className="animate-on-scroll fade-up text-3xl sm:text-4xl font-bold text-navy-900 text-center mb-12">
               {c.faq.h2}
             </h2>
             <div className="animate-on-scroll fade-up delay-100 space-y-4">
@@ -610,7 +623,7 @@ export function MobileAppDevClient({ lang }: Props) {
                     className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-slate-50 transition-colors"
                     aria-expanded={openFaq === i}
                   >
-                    <h3 className="text-base sm:text-lg font-semibold text-[#0e1b3d]">
+                    <h3 className="text-base sm:text-lg font-semibold text-navy-900">
                       {item.q}
                     </h3>
                     <ChevronDown
@@ -628,7 +641,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4" style={{ background: '#070F26' }}>
+        <section className="py-16 sm:py-20 px-4" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="animate-on-scroll fade-up text-3xl sm:text-4xl font-bold text-white mb-4">
               {c.cta.h2}
@@ -650,6 +663,7 @@ export function MobileAppDevClient({ lang }: Props) {
         <DemoCTA sector="mobile" />
       </main>
       <Footer />
+      </div>
     </>
   );
 }

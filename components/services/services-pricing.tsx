@@ -538,7 +538,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
   // ─── SSR fallback ─────────────────────────────────────────────────────────
   if (!mounted) {
     return (
-      <section ref={ref} className="relative py-24 px-4 sm:px-6 bg-gradient-to-b from-[#050510] to-[#0e1b3d]">
+      <section ref={ref} className="relative py-24 px-4 sm:px-6 bg-gradient-to-b from-navy-950 to-navy-900">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">{t.title}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -546,7 +546,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
               const packData = t.packs[pack.id as keyof typeof t.packs];
               const PackIconSSR = pack.lucideIcon;
               return (
-                <div key={pack.id} className={`relative rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 ${pack.popular ? 'ring-2 ring-white' : ''}`}>
+                <div key={pack.id} className={`relative rounded-2xl overflow-hidden bg-navy-900/50 border border-white/10 ${pack.popular ? 'ring-2 ring-white' : ''}`}>
                   {pack.popular && (
                     <div className="absolute top-4 right-4">
                       <span className="px-3 py-1 text-xs font-semibold bg-white text-gray-900 rounded-full">Populaire</span>
@@ -593,7 +593,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
         key={pack.id}
         data-pack-id={pack.id}
         ref={(el) => { if (el) cardsRef.current[index] = el; }}
-        className={`relative group cursor-pointer rounded-2xl overflow-hidden bg-[#0e1b3d]/50 border border-white/10 hover:border-white/40 transition-all duration-500 ${pack.popular ? 'ring-2 ring-white' : ''}`}
+        className={`relative group cursor-pointer rounded-2xl overflow-hidden bg-navy-900/50 border border-white/10 hover:border-white/40 transition-all duration-500 ${pack.popular ? 'ring-2 ring-white' : ''}`}
         onClick={(e) => openModal(pack.id, e)}
       >
         {pack.popular && (
@@ -646,7 +646,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
   return (
     <section
       ref={sectionRef}
-      className="relative py-24 px-6 bg-gradient-to-b from-[#050510] to-[#0e1b3d]"
+      className="relative py-24 px-6 bg-gradient-to-b from-navy-950 to-navy-900"
     >
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12 md:mb-16 text-white">
@@ -660,7 +660,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
             premium. Voir LANDING_OFFER plus haut. */}
         {language === 'vi' && (
           <div className="mb-14 md:mb-20 rounded-3xl p-[1.5px] bg-emerald-400">
-            <div className="rounded-3xl bg-[#050510] p-6 sm:p-8 lg:p-10">
+            <div className="rounded-3xl bg-navy-950 p-6 sm:p-8 lg:p-10">
               <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
                 {/* Colonne offre */}
                 <div className="flex-1 min-w-0">
@@ -750,7 +750,7 @@ export const ServicesPricing = forwardRef<HTMLDivElement, ServicesPricingProps>(
         >
           <div
             ref={modalRef}
-            className="relative max-w-lg w-full bg-[#0e1b3d] border border-white/10 rounded-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+            className="relative max-w-lg w-full bg-navy-900 border border-white/10 rounded-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button onClick={closeModal} className="absolute top-4 right-4 p-2 text-white/50 hover:text-white transition-colors z-10">

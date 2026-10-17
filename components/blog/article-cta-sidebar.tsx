@@ -79,7 +79,7 @@ export function ArticleCTASidebar({
           {/* Glow décoratif */}
           <div
             className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-2xl opacity-40 pointer-events-none"
-            style={{ background: 'rgba(255,255,255,0.4)' }}
+            style={{ background: 'rgb(var(--c-white) / 0.4)' }}
             aria-hidden="true"
           />
 

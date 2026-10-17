@@ -144,8 +144,8 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
     gsap.to(buttonRef.current, {
       scale: isHovering ? 1.1 : 1,
       boxShadow: isHovering
-        ? '0 20px 60px rgba(139, 92, 246, 0.6)'
-        : '0 10px 40px rgba(139, 92, 246, 0.3)',
+        ? '0 20px 60px rgb(var(--c-violet-500) / 0.6)'
+        : '0 10px 40px rgb(var(--c-violet-500) / 0.3)',
       duration: 0.3,
       ease: 'power2.out',
     });
@@ -155,7 +155,7 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
 
   if (!mounted) {
     return (
-      <section className="relative py-32 px-6 bg-gradient-to-b from-[#0e1b3d] to-[#050510]">
+      <section className="relative py-32 px-6 bg-gradient-to-b from-navy-900 to-navy-950">
         <div className="relative max-w-5xl mx-auto text-center z-10">
           <h2 className="text-5xl md:text-7xl font-bold mb-12 text-white">
             {t('servicePage.cta.title.word1')} {t('servicePage.cta.title.word2')}{' '}
@@ -169,7 +169,7 @@ export function ServicesCTA({ language = 'fr' }: ServicesCTAProps) {
   return (
     <section
       ref={sectionRef}
-      className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-[#0e1b3d] to-[#050510]"
+      className="relative py-32 px-6 overflow-hidden bg-gradient-to-b from-navy-900 to-navy-950"
     >
       {/* Particules */}
       <div ref={particlesRef} className="absolute inset-0 pointer-events-none">

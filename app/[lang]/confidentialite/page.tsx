@@ -644,6 +644,7 @@ export default async function ConfidentialitePage({
   return (
     <>
       <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
+      <div className="theme-accueil">
       <Header />
       <main className="min-h-screen bg-background pt-24 pb-16">
         <div className="container max-w-4xl mx-auto px-4">
@@ -682,6 +683,7 @@ export default async function ConfidentialitePage({
         </div>
       </main>
       <Footer />
+      </div>
     </>
   );
 }

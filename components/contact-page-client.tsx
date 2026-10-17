@@ -43,8 +43,9 @@ export default function ContactPageClient() {
 
   return (
     <>
+      <div className="theme-accueil">
       <Header />
-      <main id="main-content" className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-white to-gray-50 dark:from-[#050510] dark:to-[#0a0a1a]">
+      <main id="main-content" className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-white to-gray-50 dark:from-navy-950 dark:to-navy-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}
           <div className="text-center mb-16">
@@ -241,7 +242,7 @@ export default function ContactPageClient() {
                   disabled={isSubmitting || !consent}
                   className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-semibold transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
                   style={{
-                    background: '#111827',
+                    background: 'rgb(var(--c-gray-900))',
                   }}
                 >
                   {isSubmitting ? (
@@ -262,6 +263,7 @@ export default function ContactPageClient() {
         </div>
       </main>
       <Footer />
+      </div>
     </>
   );
 }

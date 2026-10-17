@@ -30,7 +30,7 @@
   /* ── Variables CSS ──────────────────────────────────────── */
   :root {
     /* Shadcn/ui tokens */
-    --background: 0 0% 100%;
+    --background: 43 27% 92%; /* Crème #F0EDE5 */
     --foreground: 224 71% 4%;
     --card: 0 0% 100%;
     --card-foreground: 224 71% 4%;
@@ -145,16 +145,27 @@
   }
 
   /* ── Typographie ────────────────────────────────────────── */
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-inter-tight), var(--font-inter), system-ui, sans-serif;
+  /* Système typographique (plaquette B) : Secondaire = Inter (texte), Primaire = Bricolage Grotesque
+     (titres, boutons, navigation), Principale = Fraunces Soft Black (logo et titres d'impact : h1). */
+  h2, h3, h4, h5, h6 {
+    font-family: var(--font-bricolage), var(--font-inter), system-ui, sans-serif;
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.02em;
   }
 
-  h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; }
+  h1 {
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.08;
+  }
   h2 { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700; }
   h3 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; }
+
+  button, [role='button'], nav a, a[class*='rounded-full'], a[class*='rounded-xl'] {
+    font-family: var(--font-bricolage), var(--font-inter), system-ui, sans-serif;
+  }
 
   p {
     line-height: 1.75;
@@ -828,8 +839,8 @@ img:not([alt]) {
 .pill-btn-dark .pill-label {
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  color: #ffffff;
+  border: 1px solid rgba(240, 237, 229, 0.7);
+  color: #F0EDE5;
   font-size: 0.875rem;
   font-weight: 600;
   padding: 0.875rem 1.75rem;
@@ -843,20 +854,20 @@ img:not([alt]) {
   width: 3rem;
   height: 3rem;
   border-radius: 9999px;
-  background: #ffffff;
-  color: #0B1220;
+  background: #F0EDE5;
+  color: #004643;
   margin-left: -1px;
   transition: background 0.3s ease, color 0.3s ease;
   flex-shrink: 0;
 }
 .pill-btn-dark:hover .pill-label {
-  background: #ffffff;
-  color: #0B1220;
+  background: #F0EDE5;
+  color: #004643;
 }
 .pill-btn-dark:hover .pill-disc {
-  background: #0B1220;
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: #004643;
+  color: #F0EDE5;
+  border: 1px solid rgba(240, 237, 229, 0.5);
 }
 
 /* ── Pill button (fond clair) ───────────────────────────────── */
@@ -868,8 +879,8 @@ img:not([alt]) {
 .pill-btn-light .pill-label {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #0B1220;
-  color: #0B1220;
+  border: 1px solid #004643;
+  color: #004643;
   font-size: 0.875rem;
   font-weight: 600;
   padding: 0.875rem 1.75rem;
@@ -883,20 +894,20 @@ img:not([alt]) {
   width: 3rem;
   height: 3rem;
   border-radius: 9999px;
-  background: #0B1220;
-  color: #ffffff;
+  background: #004643;
+  color: #F0EDE5;
   margin-left: -1px;
   transition: background 0.3s ease, color 0.3s ease;
   flex-shrink: 0;
 }
 .pill-btn-light:hover .pill-label {
-  background: #0B1220;
-  color: #ffffff;
+  background: #004643;
+  color: #F0EDE5;
 }
 .pill-btn-light:hover .pill-disc {
-  background: #ffffff;
-  color: #0B1220;
-  border: 1px solid #0B1220;
+  background: #F0EDE5;
+  color: #004643;
+  border: 1px solid #004643;
 }
 
 /* ── Service card hover ─────────────────────────────────────── */
@@ -991,4 +1002,28 @@ img:not([alt]) {
   opacity: 1 !important;
   transform: none !important;
   transition: none !important;
+}
+
+
+/* ── Motion de la refonte : décor lent + entrée des cartes (coupés si prefers-reduced-motion) ── */
+@keyframes nwFadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes nwDrift {
+  from { transform: scale(1.04) translate3d(-1.5%, 0, 0); }
+  to   { transform: scale(1.08) translate3d(1.5%, -1%, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [class*='nwDrift'] { animation: none !important; }
+}
+
+/* Flottement lent des visuels de héros (désactivé si prefers-reduced-motion) */
+@keyframes nwFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.nw-float { animation: nwFloat 7s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .nw-float { animation: none; }
 }

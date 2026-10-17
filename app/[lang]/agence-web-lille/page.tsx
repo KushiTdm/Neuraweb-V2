@@ -333,12 +333,13 @@ export default async function AgenceWebLillePage({
       <JsonLd id="agence-lille-faq" data={faqPageSchema} />
       <JsonLd id="agence-lille-breadcrumb" data={breadcrumbData} />
 
+      <div className="theme-accueil">
       <Header />
       <main id="main-content" className="bg-white text-slate-800 overflow-x-hidden">
 
         {/* ── HERO ────────────────────────────────────────────────────────── */}
         <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-navy-900">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(99,102,241,0.10),transparent_60%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-indigo-500) / 0.10),transparent_60%)] pointer-events-none" />
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-violet-200/30 rounded-full blur-3xl pointer-events-none" />
 
@@ -702,7 +703,7 @@ export default async function AgenceWebLillePage({
 
         {/* ── CTA FINAL ──────────────────────────────────────────────────────── */}
         <section className="relative py-14 md:py-28 overflow-hidden text-white bg-navy-900">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-white) / 0.15),transparent_60%)] pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -751,6 +752,7 @@ export default async function AgenceWebLillePage({
 
       </main>
       <Footer />
+      </div>
     </>
   );
 }

@@ -1,10 +1,18 @@
 'use client';
 
 import { useLanguage } from '@/contexts/language-context';
-import { Globe, Check } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import type { Language } from '@/contexts/language-context';
+
+// Sélecteur de langue : texte seul (FR / EN / ES / VI), sans icône ni drapeau.
+// Couleurs : celles de la page (Chypre sur Crème dans l'en-tête).
+const LANGUAGES: { code: Language; name: string }[] = [
+  { code: 'fr', name: 'Français' },
+  { code: 'en', name: 'English' },
+  { code: 'es', name: 'Español' },
+  { code: 'vi', name: 'Tiếng Việt' },
+];
 
 export function LanguageSelector() {
   const { language, setLanguage } = useLanguage();
@@ -13,23 +21,19 @@ export function LanguageSelector() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const languages: { code: Language; name: string; flag: string }[] = [
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
-  ];
-
-  // Fermer le dropdown au clic extérieur
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
+    const onClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) setIsOpen(false);
     };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+    document.addEventListener('mousedown', onClickOutside);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onClickOutside);
+      document.removeEventListener('keydown', onKey);
+    };
   }, []);
 
   const handleLanguageChange = (newLang: Language) => {
@@ -37,12 +41,7 @@ export function LanguageSelector() {
     setIsOpen(false);
 
     const pathSegments = pathname.split('/');
-    if (
-      pathSegments[1] === 'fr' ||
-      pathSegments[1] === 'en' ||
-      pathSegments[1] === 'es' ||
-      pathSegments[1] === 'vi'
-    ) {
+    if (['fr', 'en', 'es', 'vi'].includes(pathSegments[1])) {
       pathSegments[1] = newLang;
       router.push(pathSegments.join('/'));
     } else {
@@ -51,46 +50,47 @@ export function LanguageSelector() {
     }
   };
 
-  const currentLanguage = languages.find((lang) => lang.code === language);
-
   return (
     <div className="relative" ref={dropdownRef}>
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-2"
+        className="inline-flex items-center gap-2 rounded-full border border-navfg/30 px-3.5 py-1.5 text-sm font-semibold uppercase tracking-wide text-navfg transition-colors hover:bg-navfg/10"
         aria-label="Change language"
         aria-expanded={isOpen}
-        aria-haspopup="true"
+        aria-haspopup="listbox"
       >
-        <Globe size={20} />
-        <span className="text-sm font-medium hidden sm:inline">
-          {currentLanguage?.flag} {currentLanguage?.code.toUpperCase()}
-        </span>
+        {language}
+        <span
+          aria-hidden="true"
+          className={`inline-block h-0 w-0 border-x-4 border-t-[5px] border-x-transparent border-t-current transition-transform ${isOpen ? 'rotate-180' : ''}`}
+        />
       </button>
 
-      {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 animate-in slide-in-from-top-2 duration-200">
-          {languages.map((lang) => (
-            <button
-              key={lang.code}
-              onClick={() => handleLanguageChange(lang.code)}
-              className={`w-full px-4 py-3 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
-                language === lang.code
-                  ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white'
-                  : 'text-gray-700 dark:text-gray-300'
-              }`}
-            >
-              <span className="flex items-center gap-3">
-                <span className="text-2xl">{lang.flag}</span>
-                <span className="font-medium">{lang.name}</span>
-              </span>
-              {language === lang.code && (
-                <Check size={18} className="text-gray-900 dark:text-white" />
-              )}
-            </button>
-          ))}
-        </div>
+        <ul
+          role="listbox"
+          aria-label="Language"
+          className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-navfg/20 bg-navbg py-1 text-navfg shadow-[0_12px_32px_rgba(0,70,67,0.18)]"
+        >
+          {LANGUAGES.map((lang) => {
+            const selected = language === lang.code;
+            return (
+              <li key={lang.code} role="option" aria-selected={selected}>
+                <button
+                  type="button"
+                  onClick={() => handleLanguageChange(lang.code)}
+                  className={`flex w-full items-baseline gap-3 px-4 py-2.5 text-left text-sm transition-colors ${
+                    selected ? 'bg-navfg text-navbg' : 'hover:bg-navfg/10'
+                  }`}
+                >
+                  <span className="w-6 font-bold uppercase">{lang.code}</span>
+                  <span className={selected ? 'text-navbg/90' : 'text-navfg/80'}>{lang.name}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       )}
     </div>
   );

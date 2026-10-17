@@ -238,7 +238,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
     <>
       {/* Hero Image */}
       <div className="relative h-[40vh] min-h-[300px] w-full">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white dark:to-[#050510] z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white dark:to-navy-950 z-10" />
         <Image
           src={post.image || '/assets/og-image.png'}
           alt={post.title}
@@ -255,7 +255,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       </div>
 
       {/* Breadcrumb */}
-      <nav className="py-4 px-4 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-[#050510] -mt-20 relative z-20" aria-label="Breadcrumb">
+      <nav className="py-4 px-4 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-navy-950 -mt-20 relative z-20" aria-label="Breadcrumb">
         <div className="max-w-4xl mx-auto">
           <ol className="flex items-center gap-2 text-sm">
             <li>

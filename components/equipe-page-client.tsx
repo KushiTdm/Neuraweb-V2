@@ -41,6 +41,7 @@ export function EquipePageClient() {
 
   return (
     <>
+      <div className="theme-collectivites">
       <Header />
       <main id="main-content" className="min-h-screen pt-24">
         <div className="relative py-24 sm:py-36 px-4 overflow-hidden bg-navy-950">
@@ -57,7 +58,7 @@ export function EquipePageClient() {
           </div>
         </div>
 
-        <section className="py-12 px-4" style={{ background: '#F7FAFD' }}>
+        <section className="py-12 px-4" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-6xl mx-auto">
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
               {team.map((member) => (
@@ -74,13 +75,13 @@ export function EquipePageClient() {
                       <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 border-white" title={t('equipe.available')} />
                     </div>
                     <div className="text-center sm:text-left">
-                      <h2 className="text-2xl font-bold text-[#0e1b3d]">{member.name}</h2>
+                      <h2 className="text-2xl font-bold text-navy-900">{member.name}</h2>
                       <p className="text-gray-600 font-medium">{member.role}</p>
                     </div>
                   </div>
                   <p className="text-slate-600 mb-6">{member.bio}</p>
                   <div className="mb-6">
-                    <h3 className="text-sm font-semibold text-[#0e1b3d] mb-3 uppercase tracking-wider">{t('equipe.stack')}</h3>
+                    <h3 className="text-sm font-semibold text-navy-900 mb-3 uppercase tracking-wider">{t('equipe.stack')}</h3>
                     <div className="flex flex-wrap gap-2">
                       {member.stack.map((tech) => (
                         <span key={tech} className="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-700 border border-gray-200">{tech}</span>
@@ -88,7 +89,7 @@ export function EquipePageClient() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-[#0e1b3d] mb-3 uppercase tracking-wider">{t('equipe.certifications')}</h3>
+                    <h3 className="text-sm font-semibold text-navy-900 mb-3 uppercase tracking-wider">{t('equipe.certifications')}</h3>
                     <div className="flex flex-wrap gap-2">
                       {member.certifications.map((cert) => (
                         <span key={cert} className="px-3 py-1 rounded-full text-sm font-medium bg-emerald-400/10 text-emerald-400 border border-emerald-400/20">{cert}</span>
@@ -101,7 +102,7 @@ export function EquipePageClient() {
           </div>
         </section>
 
-        <section className="py-16 px-4" style={{ background: '#070F26' }}>
+        <section className="py-16 px-4" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-white text-center mb-12">{t('equipe.values.title')}</h2>
             <div className="grid sm:grid-cols-3 gap-8">
@@ -130,9 +131,9 @@ export function EquipePageClient() {
           </div>
         </section>
 
-        <section className="py-16 px-4" style={{ background: '#F7FAFD' }}>
+        <section className="py-16 px-4" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-[#0e1b3d] mb-4">{t('equipe.cta.title')}</h2>
+            <h2 className="text-3xl font-bold text-navy-900 mb-4">{t('equipe.cta.title')}</h2>
             <p className="text-slate-600 mb-8">{t('equipe.cta.desc')}</p>
             <LocalizedLink href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 text-white hover:bg-gray-800 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
               {t('equipe.cta.button')}
@@ -142,6 +143,7 @@ export function EquipePageClient() {
         </section>
       </main>
       <Footer />
+      </div>
     </>
   );
 }

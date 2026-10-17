@@ -8,7 +8,7 @@ import { useTranslation } from '@/hooks/use-translation';
 import { LanguageSelector } from '@/components/language-selector';
 import { LocalizedLink } from '@/components/localized-link';
 import { DEMO_URL } from '@/lib/site-config';
-import Image from 'next/image';
+import { NeuraWebLogo } from '@/components/brand/neuraweb-logo';
 import { StaggeredMenuPanel, type StaggeredMenuItem } from '@/components/ui/staggered-menu';
 
 export function Header() {
@@ -58,8 +58,8 @@ export function Header() {
           transition-[transform,background-color,border-color,box-shadow] duration-500 ease-in-out
           ${isHidden && !isMenuOpen ? '-translate-y-full' : 'translate-y-0'}
           ${isScrolled
-            ? 'bg-white/75 border-white/25 shadow-[0_1px_20px_rgba(0,0,0,0.06)]'
-            : 'bg-white border-navy-900/10'
+            ? 'bg-navbg/80 border-navfg/10 shadow-[0_1px_20px_rgba(0,70,67,0.08)]'
+            : 'bg-navbg border-navfg/15'
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,14 +67,7 @@ export function Header() {
 
             {/* ── Logo ──────────────────────────────────────── */}
             <LocalizedLink href="/" className="flex items-center group">
-              <Image
-                src={isDark ? '/assets/neurawebW.webp' : '/assets/neurawebB.webp'}
-                alt="NeuraWeb"
-                width={160}
-                height={48}
-                priority
-                className="h-11 w-auto object-contain transition-opacity duration-200 group-hover:opacity-80"
-              />
+              <NeuraWebLogo height={30} className="w-auto text-navfg transition-opacity duration-200 group-hover:opacity-80" />
             </LocalizedLink>
 
             {/* ── Navigation desktop ────────────────────────── */}
@@ -83,13 +76,13 @@ export function Header() {
                 href="/"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/')
-                    ? 'text-navy-900'
-                    : 'text-navy-900 hover:text-navy-900 hover:bg-frost/60'
+                    ? 'text-navfg'
+                    : 'text-navfg hover:text-navfg hover:bg-navfg/10'
                 }`}
               >
                 {t('nav.home')}
                 {isActive('/') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navy-900" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navfg" />
                 )}
               </LocalizedLink>
 
@@ -99,8 +92,8 @@ export function Header() {
                   href="/developpement-web"
                   className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 inline-flex items-center gap-1 ${
                     isActive('/developpement-web')
-                      ? 'text-navy-900'
-                      : 'text-navy-900 hover:text-navy-900 hover:bg-frost/60'
+                      ? 'text-navfg'
+                      : 'text-navfg hover:text-navfg hover:bg-navfg/10'
                   }`}
                   aria-haspopup="menu"
                 >
@@ -110,7 +103,7 @@ export function Header() {
                     className="transition-transform duration-200 group-hover:rotate-180"
                   />
                   {isActive('/developpement-web') && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navy-900" />
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navfg" />
                   )}
                 </LocalizedLink>
 
@@ -193,13 +186,13 @@ export function Header() {
                 href="/blog"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/blog')
-                    ? 'text-navy-900'
-                    : 'text-navy-900 hover:text-navy-900 hover:bg-frost/60'
+                    ? 'text-navfg'
+                    : 'text-navfg hover:text-navfg hover:bg-navfg/10'
                 }`}
               >
                 {t('nav.blog')}
                 {isActive('/blog') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navy-900" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navfg" />
                 )}
               </LocalizedLink>
 
@@ -207,13 +200,13 @@ export function Header() {
                 href="/equipe"
                 className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive('/equipe')
-                    ? 'text-navy-900'
-                    : 'text-navy-900 hover:text-navy-900 hover:bg-frost/60'
+                    ? 'text-navfg'
+                    : 'text-navfg hover:text-navfg hover:bg-navfg/10'
                 }`}
               >
                 {t('nav.team')}
                 {isActive('/equipe') && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navy-900" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-navfg" />
                 )}
               </LocalizedLink>
             </nav>
@@ -226,7 +219,7 @@ export function Header() {
               {/* CTA Contact */}
               <LocalizedLink
                 href="/contact"
-                className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-300 group bg-navy-900 hover:bg-navy-800"
+                className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-navbg transition-all duration-300 group bg-navfg hover:bg-navfg/90"
                 style={{ boxShadow: '0 4px 15px rgba(14,27,61,0.25)' }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 20px rgba(255,122,89,0.35)';
@@ -257,14 +250,14 @@ export function Header() {
                 <span
                   className="block w-[18px] h-[1.5px] bg-current rounded-full transition-all duration-300 origin-center"
                   style={{
-                    color: isDark ? '#fff' : '#0E1B3D',
+                    color: isDark ? '#fff' : '#004643',
                     transform: isMenuOpen ? 'translateY(6.5px) rotate(45deg)' : 'none',
                   }}
                 />
                 <span
                   className="block w-[18px] h-[1.5px] bg-current rounded-full transition-all duration-300"
                   style={{
-                    color: isDark ? '#fff' : '#0E1B3D',
+                    color: isDark ? '#fff' : '#004643',
                     opacity: isMenuOpen ? 0 : 1,
                     transform: isMenuOpen ? 'scaleX(0)' : 'none',
                   }}
@@ -272,7 +265,7 @@ export function Header() {
                 <span
                   className="block w-[18px] h-[1.5px] bg-current rounded-full transition-all duration-300 origin-center"
                   style={{
-                    color: isDark ? '#fff' : '#0E1B3D',
+                    color: isDark ? '#fff' : '#004643',
                     transform: isMenuOpen ? 'translateY(-6.5px) rotate(-45deg)' : 'none',
                   }}
                 />
@@ -297,7 +290,7 @@ export function Header() {
             { label: t('nav.blog'),     href: '/blog',                 ariaLabel: t('nav.blog')     },
             { label: t('nav.team'),     href: '/equipe',               ariaLabel: t('nav.team')     },
           ] as StaggeredMenuItem[]}
-          colors={['#1A2847', '#0E1B3D']}
+          colors={['#1A2847', '#004643']}
           accentColor="#ffffff"
         />
       </div>

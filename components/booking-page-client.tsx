@@ -334,8 +334,9 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
   if (success) {
     return (
       <>
-        <Header />
-        <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-white to-gray-50 dark:from-[#050510] dark:to-[#0a0a1a]">
+        <div className="theme-accueil">
+      <Header />
+        <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-white to-gray-50 dark:from-navy-950 dark:to-navy-950">
           <div className="max-w-2xl mx-auto px-4 text-center">
             <div className="w-20 h-20 mx-auto mb-6 bg-green-500/20 rounded-full flex items-center justify-center">
               <CheckCircle className="w-10 h-10 text-green-500" />
@@ -352,14 +353,16 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
           </div>
         </main>
         <Footer />
+      </div>
       </>
     );
   }
 
   return (
     <>
+      <div className="theme-accueil">
       <Header />
-      <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-white to-gray-50 dark:from-[#050510] dark:to-[#0a0a1a]">
+      <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-white to-gray-50 dark:from-navy-950 dark:to-navy-950">
         <div className="max-w-2xl mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-8">
@@ -667,6 +670,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
         </div>
       </main>
       <Footer />
+      </div>
     </>
   );
 }

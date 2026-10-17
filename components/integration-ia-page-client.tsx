@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { HeroVisual } from '@/components/hero-visual';
 import { LocalizedLink } from '@/components/localized-link';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
@@ -607,12 +608,13 @@ export function IntegrationIAPageClient({ lang }: Props) {
 
   return (
     <>
+      <div className="theme-chatbot">
       <Header />
       <main ref={containerRef} id="main-content" className="min-h-screen">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#070F26' }}>
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+        <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: 'rgb(var(--c-navy-950))' }}>
+          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(var(--c-white) / 0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
           <div data-parallax="-50" className="absolute top-0 left-1/2 -ml-[400px] w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
           <div data-parallax="80" className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -625,12 +627,18 @@ export function IntegrationIAPageClient({ lang }: Props) {
             </h1>
             <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{c.hero.p}</p>
             <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
+              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90" style={{ background: 'rgb(var(--c-white))', boxShadow: '0 4px 20px rgb(var(--c-white) / 0.2)' }}>
                 <Brain size={18} />{c.hero.ctaAudit}<ArrowRight size={16} />
               </LocalizedLink>
               <a href="#pricing" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white border border-white/20 hover:border-white/40 hover:bg-white/5 transition-all duration-300">
                 {c.hero.ctaPricing}<ChevronDown size={16} />
               </a>
+            </div>
+            <div className="animate-on-scroll fade-up delay-400 mx-auto mb-14 max-w-3xl">
+              <HeroVisual
+                src="/assets/redesign/pages/chatbot-hero.webp"
+                alts={{"fr": "Illustration d'une bulle de discussion qui respire, entourée d'ondes, avec une bulle de réponse en cours d'écriture", "en": "Illustration of a breathing chat bubble surrounded by ripples, with a reply bubble being typed", "es": "Ilustración de una burbuja de chat que respira, rodeada de ondas, con una burbuja de respuesta escribiéndose", "vi": "Minh họa bong bóng trò chuyện như đang thở, bao quanh bởi các sóng, kèm bong bóng trả lời đang gõ"}}
+              />
             </div>
             <div className="animate-on-scroll fade-up delay-400">
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-3 max-w-3xl mx-auto" gridGap="gap-6">
@@ -646,10 +654,10 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#F7FAFD' }}>
+        <section className="py-20" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.problems.h2}</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.problems.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">{c.problems.subtitle}</p>
             </div>
             <div className="animate-on-scroll fade-up delay-100">
@@ -661,7 +669,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 return (
                   <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 hover:shadow-md transition-shadow h-full">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${colors[i]}`}><Icon size={22} /></div>
-                    <h3 className="font-semibold text-[#0e1b3d] mb-2 text-sm leading-snug">{p.title}</h3>
+                    <h3 className="font-semibold text-navy-900 mb-2 text-sm leading-snug">{p.title}</h3>
                     <p className="text-slate-500 text-sm">{p.text}</p>
                   </div>
                 );
@@ -672,7 +680,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#070F26' }}>
+        <section className="py-20 sec-pat sec-waves sec-dark-base">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.services.h2}</h2>
@@ -684,7 +692,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 const Icon = SERVICE_ICONS[i];
                 const isExpanded = expandedService === i;
                 return (
-                  <div key={i} className={`rounded-xl border-2 ${SERVICE_ACCENT_COLORS[i]} bg-[#0e1b3d]/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300 h-full`} onClick={() => setExpandedService(isExpanded ? null : i)}>
+                  <div key={i} className={`rounded-xl border-2 ${SERVICE_ACCENT_COLORS[i]} bg-navy-900/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300 h-full`} onClick={() => setExpandedService(isExpanded ? null : i)}>
                     <div className="flex items-start justify-between mb-3">
                       <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center"><Icon size={20} className="text-slate-300" /></div>
                       <span className={`${SERVICE_BADGE_COLORS[i]} text-white text-xs font-semibold px-3 py-1 rounded-full`}>{service.badge}</span>
@@ -712,7 +720,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── MODÈLES IA ────────────────────────────────────────────────── */}
-        <section className="py-14 border-y border-slate-200" style={{ background: '#F7FAFD' }}>
+        <section className="py-14 border-y border-slate-200 sec-tint">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="animate-on-scroll fade-up text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.models.label}</p>
             <div className="animate-on-scroll fade-up delay-100 grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -728,7 +736,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── CAS D'USAGE ───────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#070F26' }}>
+        <section className="py-20" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.useCases.h2}</h2>
@@ -756,10 +764,10 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-20" style={{ background: '#F7FAFD' }}>
+        <section id="pricing" className="py-20" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.packs.h2}</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.packs.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">{c.packs.subtitle}</p>
             </div>
 
@@ -780,17 +788,17 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 return (
                   <div key={id} onClick={() => setSelectedPack(id)} className={`relative rounded-2xl border-2 p-6 cursor-pointer transition-all duration-300 ${borders[i]} ${selectedPack === id ? 'shadow-xl bg-white scale-[1.02]' : 'bg-white hover:shadow-md'}`}>
                     {i === 1 && <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs font-bold px-4 py-1 rounded-full">{c.packs.popular}</span>}
-                    <h3 className="font-bold text-[#0e1b3d] text-lg mb-1">{pack.name}</h3>
+                    <h3 className="font-bold text-navy-900 text-lg mb-1">{pack.name}</h3>
                     <p className="text-slate-500 text-sm mb-4">{pack.tagline}</p>
                     <div className="mb-4">
                       {isQuoteOnly ? (
                         <>
-                          <span className="text-3xl font-bold text-[#0e1b3d]">{QUOTE_PRICE_LABEL}</span>
+                          <span className="text-3xl font-bold text-navy-900">{QUOTE_PRICE_LABEL}</span>
                           <div className="text-sm text-slate-500">{QUOTE_PRICE_NOTE}</div>
                         </>
                       ) : (
                         <>
-                          <span className="text-3xl font-bold text-[#0e1b3d]">{PACK_PRICES[i].toLocaleString('fr-FR')} €</span>
+                          <span className="text-3xl font-bold text-navy-900">{PACK_PRICES[i].toLocaleString('fr-FR')} €</span>
                           <span className="text-slate-500 text-sm ml-1">{c.packs.ht}</span>
                           <div className="text-sm text-slate-500">+ {PACK_MONTHLY[i]} {c.packs.monthly}</div>
                         </>
@@ -813,16 +821,16 @@ export function IntegrationIAPageClient({ lang }: Props) {
             <div className="animate-on-scroll fade-up delay-200 rounded-2xl border border-slate-200 shadow-sm bg-white p-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 <div>
-                  <h3 className="text-xl font-bold text-[#0e1b3d] mb-1">{activePack.name}</h3>
+                  <h3 className="text-xl font-bold text-navy-900 mb-1">{activePack.name}</h3>
                   <p className="text-slate-500 text-sm">{activePack.tagline}</p>
                 </div>
-                <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:opacity-90" style={{ background: '#111827', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>
+                <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:opacity-90" style={{ background: 'rgb(var(--c-gray-900))', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>
                   {c.detail.choose} {activePack.name}<ArrowRight size={14} />
                 </LocalizedLink>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div>
-                  <h4 className="font-semibold text-[#0e1b3d] mb-3 flex items-center gap-2"><Check size={16} className="text-emerald-500" /> {c.detail.included}</h4>
+                  <h4 className="font-semibold text-navy-900 mb-3 flex items-center gap-2"><Check size={16} className="text-emerald-500" /> {c.detail.included}</h4>
                   <ul className="space-y-2">
                     {activePack.included.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
@@ -832,7 +840,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#0e1b3d] mb-3 flex items-center gap-2"><XIcon size={16} className="text-rose-400" /> {c.detail.notIncluded}</h4>
+                  <h4 className="font-semibold text-navy-900 mb-3 flex items-center gap-2"><XIcon size={16} className="text-rose-400" /> {c.detail.notIncluded}</h4>
                   <ul className="space-y-2">
                     {activePack.notIncluded.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-slate-500">
@@ -842,12 +850,12 @@ export function IntegrationIAPageClient({ lang }: Props) {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#0e1b3d] mb-3">{c.detail.options}</h4>
+                  <h4 className="font-semibold text-navy-900 mb-3">{c.detail.options}</h4>
                   <ul className="space-y-2 mb-6">
                     {activePack.options.map((opt, i) => (
                       <li key={i} className="flex items-start justify-between gap-2 text-sm">
                         <span className="text-slate-600">{opt.label}</span>
-                        <span className="text-[#0e1b3d] font-medium shrink-0">{opt.price}</span>
+                        <span className="text-navy-900 font-medium shrink-0">{opt.price}</span>
                       </li>
                     ))}
                   </ul>
@@ -873,7 +881,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#070F26' }}>
+        <section className="py-20 sec-pat sec-dots sec-dark-base">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.testimonials.h2}</h2>
@@ -899,25 +907,25 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#F7FAFD' }}>
+        <section className="py-20 sec-tint">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
-              <h2 className="text-3xl font-bold text-[#0e1b3d] mb-4">{c.faq.h2}</h2>
+              <h2 className="text-3xl font-bold text-navy-900 mb-4">{c.faq.h2}</h2>
             </div>
             <Accordion type="single" collapsible className="animate-on-scroll fade-up delay-100 space-y-3">
               {c.faq.items.map((item, i) => (
                 <AccordionItem key={i} value={`faq-${i}`} className="rounded-xl border border-slate-200 bg-white overflow-hidden">
-                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-[#0e1b3d] hover:no-underline">{item.q}</AccordionTrigger>
+                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-navy-900 hover:no-underline">{item.q}</AccordionTrigger>
                   <AccordionContent className="px-6 pb-4 text-sm text-slate-600 leading-relaxed">{item.a}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
             <div className="animate-on-scroll fade-up delay-200 mt-10 rounded-xl border border-slate-200 bg-white p-6">
-              <h3 className="font-semibold text-[#0e1b3d] mb-4">{c.more.h3}</h3>
+              <h3 className="font-semibold text-navy-900 mb-4">{c.more.h3}</h3>
               <ul className="space-y-3">
                 {c.more.items.map((item, i) => (
                   <li key={i}>
-                    <LocalizedLink href={item.href} className="flex items-center gap-2 text-sm text-slate-700 hover:text-[#0e1b3d] hover:underline">
+                    <LocalizedLink href={item.href} className="flex items-center gap-2 text-sm text-slate-700 hover:text-navy-900 hover:underline">
                       <ArrowRight size={14} />{item.label}
                     </LocalizedLink>
                   </li>
@@ -928,7 +936,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
-        <section className="py-24" style={{ background: '#070F26' }}>
+        <section className="py-24" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />{c.cta.badge}
@@ -936,10 +944,10 @@ export function IntegrationIAPageClient({ lang }: Props) {
             <h2 className="animate-on-scroll fade-up delay-100 text-3xl sm:text-4xl font-bold text-white mb-6">{c.cta.h2}</h2>
             <p className="animate-on-scroll fade-up delay-200 text-slate-300 text-lg mb-10 max-w-2xl mx-auto">{c.cta.p}</p>
             <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center">
-              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold transition-all duration-300" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
-                <Brain size={18} className="text-[#050510]" />
-                <span className="text-[#050510]">{c.cta.ctaAudit}</span>
-                <ArrowRight size={16} className="text-[#050510]" />
+              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold transition-all duration-300" style={{ background: 'rgb(var(--c-white))', boxShadow: '0 4px 20px rgb(var(--c-white) / 0.2)' }}>
+                <Brain size={18} className="text-navy-950" />
+                <span className="text-navy-950">{c.cta.ctaAudit}</span>
+                <ArrowRight size={16} className="text-navy-950" />
               </LocalizedLink>
               <LocalizedLink href={c.cta.ctaBlogHref} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-slate-300 border border-slate-700 hover:border-slate-500 hover:text-white transition-all duration-300">
                 {c.cta.ctaBlog}<ArrowRight size={16} />
@@ -950,6 +958,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
 
       </main>
       <Footer />
+      </div>
     </>
   );
 }
