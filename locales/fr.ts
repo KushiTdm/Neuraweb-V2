@@ -90,7 +90,7 @@ export const fr = {
   'hero.main.title': 'Agence Web, IA &',
   'hero.title.highlight': 'Applications Mobiles',
   'hero.title.end': 'sur mesure',
-  'hero.subtitle': "Développement web, applications mobiles, intégration IA et automatisation n8n pour PME et commerces. Basés à Lille, clients dans toute la France.",
+  'hero.subtitle': "Développement web, applications mobiles, intégration IA et automatisation n8n pour PME et commerces. Agence française immatriculée à Lille, équipe à Hanoï, clients en France et à l'étranger.",
   'hero.cta.start': 'Démarrer un projet',
   'hero.cta.services': 'Nos services',
   'hero.scroll.discover': 'Découvrir',
@@ -112,7 +112,7 @@ export const fr = {
 
   // About Section
   'about.title': 'À propos de NeuraWeb',
-  'about.description': "NeuraWeb est une petite agence basée à Lille, fondée par Nacer, développeur. Avec Sandra (communication et marketing) et Arthur (IA et automatisation), vous parlez directement à l'équipe qui construit votre site, votre application ou vos automatisations, du devis jusqu'à la maintenance.",
+  'about.description': "NeuraWeb est une agence web & IA française, immatriculée à Lille. Nous sommes trois — Nacer, développeur, Sandra (communication et marketing) et Arthur (IA et automatisation) — et nous travaillons cette année depuis Hanoï. Depuis 2023, nous travaillons à distance avec des hôtels, restaurants, agences de voyage et cafés en Asie, en Amérique du Sud, en France et en Europe : contrat et facture français, où que nous soyons. Vous parlez directement à l'équipe qui construit votre site, votre application ou vos automatisations, du devis jusqu'à la maintenance.",
   'about.image.alt': 'Équipe NeuraWeb en collaboration',
   'about.badge': 'Qui sommes-nous ?',
   'about.stat.satisfaction': 'Satisfaction client',
@@ -232,7 +232,7 @@ export const fr = {
   'cta.subtitle': 'Rejoignez les entreprises qui ont choisi l\'excellence digitale avec NeuraWeb',
   'cta.bookCall': 'Réserver un appel',
   'cta.requestQuote': 'Demander un devis',
-  'cta.guaranteedGrowth': 'Croissance garantie',
+  'cta.guaranteedGrowth': 'Croissance durable',
   'cta.secure': '100% Sécurisé',
   'cta.dedicatedSupport': 'Support dédié',
   'cta.callDuration': 'Appel 30 min · Gratuit',
@@ -240,7 +240,7 @@ export const fr = {
   'cta.bookSlot': 'Réserver un créneau',
 
   // Footer
-  'footer.company.description': "Agence web à Lille : sites Next.js, applications mobiles, automatisation n8n et intégration IA.",
+  'footer.company.description': "Sites web, IA & automatisations. Prix clairs, contrat français. Agence immatriculée à Lille, équipe à Hanoï.",
   'footer.links.title': 'Liens rapides',
   'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. Tous droits réservés.`,
   'footer.legal.legalNotice': 'Mentions légales',
@@ -257,7 +257,7 @@ export const fr = {
 
   // Services Page
   'servicePage.hero.title': 'Développement Web Sur Mesure',
-  'servicePage.hero.subtitle': 'Sites vitrine, business et e-commerce Next.js — performance, SEO et design soigné. Devis gratuit sous 24h.',
+  'servicePage.hero.subtitle': 'Sites vitrine, business et e-commerce Next.js — performance, SEO et design soigné. Devis gratuit sous 48h.',
   'servicePage.process.title': 'Notre Processus',
   'servicePage.process.badge': 'Méthode éprouvée',
   'servicePage.process.audit.title': '1. Audit & Analyse',
@@ -330,7 +330,7 @@ export const fr = {
   'servicePage.cta.title.word7': 'nous ?',
   'servicePage.cta.subtitle': 'Discutons de vos objectifs et transformons votre vision en réalité',
   'servicePage.cta.button': 'Demander un devis',
-  'servicePage.cta.feature1': 'Réponse sous 24h',
+  'servicePage.cta.feature1': 'Réponse sous 48h',
   'servicePage.cta.feature2': 'Devis gratuit',
   'servicePage.cta.feature3': 'Sans engagement',
 
@@ -342,7 +342,7 @@ export const fr = {
   'contact.hero.description': 'Développement web sur mesure, intégration IA ou automatisation de vos processus métier — notre équipe analyse vos besoins spécifiques et vous propose une solution adaptée à votre budget. Chaque projet démarre par un appel de découverte gratuit de 30 minutes pour comprendre vos objectifs et votre contexte. Vous recevrez une proposition détaillée sous 48 heures, incluant le périmètre du projet, la méthodologie et une tarification entièrement transparente. Nos clients bénéficient d\'un accompagnement personnalisé de la première consultation jusqu\'à la maintenance post-lancement.',
   'contact.info.email.label': 'Email',
   'contact.info.email.value': 'contact@neuraweb.fr',
-  'contact.info.email.desc': 'Réponse sous 24h',
+  'contact.info.email.desc': 'Réponse sous 48h',
   'contact.info.whatsapp.label': 'WhatsApp',
   'contact.info.whatsapp.value': '+33 7 49 77 56 54',
   'contact.info.whatsapp.desc': 'Disponible 7j/7',
@@ -369,12 +369,12 @@ export const fr = {
   'contact.form.submit': 'Envoyer le message',
   'contact.form.submitting': 'Envoi en cours...',
   'contact.form.success.title': 'Message envoyé !',
-  'contact.form.success.desc': 'Nous vous répondrons dans les 24 heures.',
+  'contact.form.success.desc': 'Nous vous répondrons dans les 48 heures ouvrées.',
   'contact.form.error.title': 'Erreur d\'envoi',
   'contact.form.error.desc': 'Veuillez réessayer ou nous contacter directement.',
   'contact.trust.title': 'Pourquoi nous choisir ?',
   'contact.trust.fast.title': 'Réponse rapide',
-  'contact.trust.fast.desc': 'Nous répondons à chaque demande sous 24h ouvrées',
+  'contact.trust.fast.desc': 'Nous répondons à chaque demande sous 48h ouvrées',
   'contact.trust.free.title': 'Devis gratuit',
   'contact.trust.free.desc': 'Estimation personnalisée sans engagement',
   'contact.trust.expert.title': 'Expertise reconnue',
@@ -399,11 +399,11 @@ export const fr = {
 
   // SEO Dynamic
   'seo.home.title': 'NeuraWeb — Agence Web, IA & Automatisation',
-  'seo.home.description': "Agence web à Lille : sites Next.js, applications mobiles, automatisation n8n et agents IA pour PME, hôtels et restaurants. Devis gratuit sous 24 h.",
+  'seo.home.description': "Agence web à Lille : sites Next.js, applications mobiles, automatisation n8n et agents IA pour PME, hôtels et restaurants. Devis gratuit sous 48 h.",
   'seo.services.title': 'Services - Solutions Web Sur Mesure | NeuraWeb',
   'seo.services.description': 'Découvrez nos services de développement web, intégration IA et automatisation. Packs adaptés à vos besoins. Devis gratuit.',
   'seo.contact.title': 'Contact - Parlons de votre projet | NeuraWeb',
-  'seo.contact.description': 'Contactez notre équipe pour discuter de votre projet. Réponse sous 24h, devis gratuit.',
+  'seo.contact.description': 'Contactez notre équipe pour discuter de votre projet. Réponse sous 48h, devis gratuit.',
   'seo.portfolio.title': 'Portfolio - Nos Réalisations | NeuraWeb',
   'seo.portfolio.description': 'Découvrez nos projets web, applications et solutions IA. Portfolio de réalisations pour nos clients.',
   'seo.blog.title': 'Blog - Actualités & Conseils | NeuraWeb',
@@ -412,7 +412,7 @@ export const fr = {
   'seo.boost.business': 'transformation digitale, croissance, ROI',
   'seo.boost.ai': 'intelligence artificielle, machine learning, automatisation',
   'seo.boost.local': 'Lille, France, agence française',
-  'seo.boost.cta': 'Devis gratuit, Réponse 24h',
+  'seo.boost.cta': 'Devis gratuit, Réponse 48h',
 
   // Audit CTA Section
   'audit.badge': 'Offre de lancement',

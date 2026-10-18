@@ -126,15 +126,16 @@ const offerCatalogSchema = {
       name: 'Pack Vitrine Santé',
       description:
         'Site vitrine essentiel pour libéral solo (ostéopathe, kiné, infirmier). Hébergement France, lien Doctolib, SEO local. Livraison en 1 semaine.',
-      price: '990',
-      priceCurrency: 'EUR',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: '29',
-        priceCurrency: 'EUR',
-        billingIncrement: 1,
-        unitCode: 'MON',
-      },
+      priceSpecification: [
+        { '@type': 'PriceSpecification', minPrice: '990', priceCurrency: 'EUR' },
+        {
+          '@type': 'UnitPriceSpecification',
+          minPrice: '59',
+          priceCurrency: 'EUR',
+          billingIncrement: 1,
+          unitCode: 'MON',
+        },
+      ],
       itemOffered: {
         '@type': 'Service',
         name: 'Création site web santé Vitrine',
@@ -145,15 +146,16 @@ const offerCatalogSchema = {
       name: 'Pack Vitrine Pro + Blog',
       description:
         'Site professionnel avec blog autonome, 3 articles SEO de lancement, newsletter, intégrations sociales. Pour cabinets établis.',
-      price: '1490',
-      priceCurrency: 'EUR',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: '49',
-        priceCurrency: 'EUR',
-        billingIncrement: 1,
-        unitCode: 'MON',
-      },
+      priceSpecification: [
+        { '@type': 'PriceSpecification', minPrice: '1490', priceCurrency: 'EUR' },
+        {
+          '@type': 'UnitPriceSpecification',
+          minPrice: '89',
+          priceCurrency: 'EUR',
+          billingIncrement: 1,
+          unitCode: 'MON',
+        },
+      ],
       itemOffered: {
         '@type': 'Service',
         name: 'Création site web santé avec blog',
@@ -164,15 +166,16 @@ const offerCatalogSchema = {
       name: 'Pack Pro Santé',
       description:
         'Plateforme multi-praticiens avec réservation en ligne, espace patient, rappels SMS, hébergement HDS certifié. Pour cabinets structurés.',
-      price: '4490',
-      priceCurrency: 'EUR',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: '129',
-        priceCurrency: 'EUR',
-        billingIncrement: 1,
-        unitCode: 'MON',
-      },
+      priceSpecification: [
+        { '@type': 'PriceSpecification', minPrice: '4490', priceCurrency: 'EUR' },
+        {
+          '@type': 'UnitPriceSpecification',
+          minPrice: '349',
+          priceCurrency: 'EUR',
+          billingIncrement: 1,
+          unitCode: 'MON',
+        },
+      ],
       itemOffered: {
         '@type': 'Service',
         name: 'Plateforme web santé HDS multi-praticiens',
@@ -182,16 +185,7 @@ const offerCatalogSchema = {
       '@type': 'Offer',
       name: 'Pack Premium Santé',
       description:
-        'Écosystème digital complet pour réseaux et cliniques : multi-sites, CRM patient, marketing automation, BI, HDS + ISO 27001.',
-      price: '8900',
-      priceCurrency: 'EUR',
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: '219',
-        priceCurrency: 'EUR',
-        billingIncrement: 1,
-        unitCode: 'MON',
-      },
+        'Écosystème digital complet pour réseaux et cliniques, architecture entièrement sur mesure, prix défini à part et uniquement sur devis : multi-sites, CRM patient, marketing automation, BI, HDS + ISO 27001. Maintenance sur devis (HDS).',
       itemOffered: {
         '@type': 'Service',
         name: 'Écosystème digital santé Premium',
@@ -232,7 +226,7 @@ const FAQ_DATA: { q: string; a: string }[] = [
   },
   {
     q: "Que se passe-t-il si je veux arrêter l'abonnement ?",
-    a: "Après les 12 mois d'engagement initial, l'abonnement est résiliable à tout moment avec un préavis de 30 jours. Vous récupérez l'export complet de votre site et restez propriétaire de votre nom de domaine.",
+    a: "Après les 12 mois d'engagement initial, l'abonnement est résiliable à tout moment avec un préavis de 30 jours. Vous récupérez l'export complet de votre site et restez propriétaire de votre nom de domaine. Sur le Pack Premium (HDS, architecture sur mesure), la maintenance est chiffrée à part, uniquement sur devis.",
   },
   {
     q: 'Le site sera-t-il bien référencé sur Google ?',

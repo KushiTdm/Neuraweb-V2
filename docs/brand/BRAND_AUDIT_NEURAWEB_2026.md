@@ -1,4 +1,6 @@
-# NeuraWeb — Brand audit & plateforme de marque (17 octobre 2026)
+# NeuraWeb — Brand audit & plateforme de marque (17 octobre 2026 · mis à jour le 18 octobre 2026)
+
+> **Mise à jour 18 oct. 2026** : identité bicolore Chypre + Crème appliquée au site (accueil, services, secteurs, 404) — voir §10 pour l'état réel face à la checklist et ce qui reste. Les §6 (palette/typo/logo) et §8 (actions site) ci-dessous sont l'état de départ du 17 oct. : **la source de vérité est désormais [BRAND_BICOLORE.md](BRAND_BICOLORE.md), [BRAND_COLOR_TYPE_STRATEGY.md](BRAND_COLOR_TYPE_STRATEGY.md) et [BRAND_DECISIONS.md](BRAND_DECISIONS.md)**.
 
 > Version remplie de [BRAND_CHECKLIST_TEMPLATE.md](BRAND_CHECKLIST_TEMPLATE.md). Remplace l'ancien [neuraweb-brand-identity.md](../neuraweb-brand-identity.md) (indigo/violet/Syne, qui ne correspond plus au code).
 >
@@ -247,3 +249,96 @@ Anti-persona : clients « tout pour 300 € », projets sans décideur, appels d
 - Quels projets du portfolio sont des clients réels ? Peux-tu publier leurs chiffres ?
 - Tu préfères « tu » ou « vous » comme voix par défaut du site ?
 - Le Vietnam est-il un marché *cible* (clients VN) ou seulement ton lieu de travail ? Cela change la place de la page `/vi`.
+
+---
+
+## 10. État d'avancement face à la checklist (18 octobre 2026)
+
+Légende : ✅ fait · 🟡 partiel · ⬜ à faire · 👤 dépend de toi (données, décision, compte). Lu dans le repo ; ce qui n'a pas été testé est dit tel quel.
+
+### 10.1 Bilan par partie
+| Partie | État | Détail |
+|---|---|---|
+| 1. Audit | 🟡 | Audit visuel/éditorial, 5 concurrents, diagnostic : ✅. Cadrage chiffré, baseline, entretiens clients, deals perdus, visibilité IA, réputation : ⬜ |
+| 2. Stratégie | ✅/🟡 | Problème, personas, proposition de valeur, mission/valeurs/attributs, core strengths, positionnement : rédigés (§3–5), **non validés par toi** (❓ §9). Messaging complet : ⬜ |
+| 3. Identité visuelle | 🟡 | Couleurs, typo, logo, icônes, illustrations, blog : ✅ sur le site. Couvertures d'articles, favicon/OG/schema, réseaux, papeterie : ⬜ |
+| 4. Guidelines | 🟡 | Décisions rédigées dans `docs/brand/` ; pas de guide unique, pas de brand kit Canva/Figma |
+| 5. Activation | 🟡 | Site presque fait ; emails, réseaux, annuaires, KPIs : ⬜ |
+
+### 10.2 Détail des lignes de la checklist
+**1. Audit**
+- ⬜ 👤 1.1 Objectifs mesurables, budget, décideur. 🟡 Baseline : GSC 28 jours consignée dans `HOME_REDESIGN_PLAN.md` ; GA4/leads/conversion non consignés.
+- 🟡 1.2 Offres et prix cartographiés ; ⬜ 👤 matrice des 10–20 projets (quels clients sont réels, autorisation de publier) ; ⬜ promise-vs-delivery.
+- 🟡 1.3 5 concurrents analysés (cible 8–15) ; ⬜ audit de réputation ; ⬜ **baseline de visibilité IA** (10–20 requêtes posées à ChatGPT/Perplexity/Gemini) — à lancer avec search-ai.
+- ⬜ 👤 1.4 Entretiens clients, pains classés par données réelles, JTBD, win/loss (rien ne remplace 5 vrais appels).
+- 🟡 1.5 Assets : logos et assets obsolètes encore présents (voir 3.2).
+- ✅ 1.6 Diagnostic et quick wins (§1.2) ; ⬜ test de distinctivité auprès de tiers.
+
+**2. Stratégie** — ✅ problème, personas, UVP, mission, valeurs, attributs, archétype, core strengths, positionnement, ton de voix. ⬜ : tagline **non appliquée** au site (« Le web sans jargon, sans frontières » recommandée, H1 non modifié, voir `HOME_REDESIGN_PLAN.md` §3), elevator pitch 10 s/30 s/2 min, bios par réseau, matrice de messages, schéma d'architecture de marque. ⬜ 👤 **validation du go/no-go** : jamais formalisée.
+
+**3. Identité visuelle**
+- 3.1 ✅ concept (nœud allumé → bicolore Chypre/Crème, deux fuseaux Paris–Hà Nội). ⬜ moodboard figé dans un fichier.
+- 3.2 Logo : ✅ horizontal + composant SVG recolorable (`neuraweb-logo.tsx`, `neuraweb-p3.svg`). ⬜ **à vérifier/produire** : empilé, symbole seul, logotype seul, versions noir/blanc/mono en SVG livrées ; zone de protection et taille minimale ; interdits ; version animée (des vidéos existent dans `public/assets/logo/`, non intégrées).
+- ⚠️ **Favicon / icônes : encore l'ancien logo** (`app/[lang]/layout.tsx` → `neuraweb-agence_tech.png`, pas de jeux 16/32/48/180/512 ni maskable).
+- ⚠️ **Image OG** : `/assets/og-image.png` et logo du schema `Organization` : `neurawebW.webp` (ancien logo cerveau, version **blanche**, invisible sur fond clair). À remplacer.
+- 3.3 ✅ couleurs par page, tokens CSS/Tailwind, contrastes WCAG résolus algorithmiquement (127 → ~0 défaut mesuré sur les pages auditées). ⬜ valeurs CMYK, couples interdits listés dans un document, thèmes `vietnam` (page non créée).
+- 3.4 ✅ Fraunces Soft Black / Bricolage Grotesque / Inter, vietnamien vérifié sur Fraunces (subset latin + vietnamien). ⬜ échelle typographique documentée en un tableau.
+- 3.5 🟡 formes/rayons/motion CSS en place (verre dépoli, `animation-timeline`, `prefers-reduced-motion`) ; patterns (vagues, points) utilisés, **règles d'usage non écrites**.
+- 3.6 ✅ jeu d'icônes (potrace) et illustrations de services/pages ; ✅ étiquette « Secteur » ; ⬜ stickers/badges ; ⬜ **tags de catégories du blog** (couleurs hors charte, voir §11).
+- 3.7 🟡 fondateur de dos (image générée, honnêtement signalée comme ambiance) ; ⬜ vraies photos de lieux/preuves.
+- 3.8 ⬜ réseaux (profils, bannières, highlight covers, templates), signature email, devis/facture/contrat, deck, carte de visite ; ⬜ mockups ; 🟡 composants UI présents dans le code sans catalogue.
+
+**4. Guidelines** — ⬜ guide unique (sommaire §4 de la checklist), ⬜ exemples bon/mauvais, ⬜ version lisible par IA (JSON de tokens existe : `lib/theme-tokens.json`), ⬜ 👤 brand kit Canva/Figma (manuel).
+
+**5. Activation** — ⬜ ordre de déploiement hors site, ⬜ schema `Organization.logo`/`sameAs`, ⬜ `llms.txt` (positionnement), ⬜ profils tiers (Google Business, LinkedIn, Facebook…) et handles unifiés, ⬜ plan de lancement 30 jours, ⬜ KPIs de marque, ⬜ revue trimestrielle.
+
+### 10.3 Ce qui reste, par priorité
+1. ✅ **Blog** aux couleurs de la charte (proposition A, §11). 🔴 Reste : couvertures d'articles hors charte (bleu/marine, ancien logo) à régénérer.
+2. 🔴 **Favicon + OG + logo du schema** (remplacer l'ancien logo) : visible dans chaque onglet, chaque partage et chaque résultat Google.
+3. 🔴 👤 **Valider** les ❓ du §9 (équipe, propriété du code, vrais clients du portfolio, « tu/vous », rôle du Vietnam) et le go/no-go.
+4. 🔴 **Chiffres de l'accueil non justifiés** (150+ projets, 98 %, 3,2×) et texte « À propos » (Lille vs Vietnam) — décisions en suspens (`HOME_REDESIGN_PLAN.md` §3).
+5. 🟠 Baseline de visibilité IA + audit de réputation + avis réels (Google/Clutch/Trustpilot).
+6. 🟠 Pack logo complet (empilé, symbole, noir/blanc/mono, animé) + règles d'usage.
+7. 🟠 Messaging (tagline appliquée, pitchs, bios) puis réseaux, signature email, devis/facture, carte de visite.
+8. 🟠 Page Vietnam (`.theme-vietnam` prêt), visuels hero Santé/Restaurants/Collectivités à intégrer, audit en/es/vi et Paris/Next.js/sous-traitance non mesurés, Lighthouse non lancé.
+9. 🟡 Guide de marque unique + brand kit Canva/Figma ; stickers/badges ; vidéo.
+
+### 10.4 Scoring mis à jour (vs §1.2)
+| Dimension | 17 oct. | 18 oct. | Pourquoi |
+|---|---|---|---|
+| Clarté du positionnement | 2 | 2 | H1 et tagline non modifiés, « Lille » toujours en hero |
+| Différenciation prouvée | 3 | 3 | prix en promesse d'accueil ; manque avis réels |
+| Cohérence visuelle | 2 | **4** | bicolore par page ; blog, favicon, OG encore hors charte |
+| Cohérence éditoriale | 3 | 3 | inchangé |
+| Distinctivité | 1 | **3** | Fraunces + bicolore + illustrations ; pas encore testé auprès de tiers |
+| Preuves & confiance | 2 | 2 | chiffres à justifier, avis à collecter |
+| Accessibilité | 3 | **4** | contrastes mesurés ; reste à auditer en/es/vi |
+| Visibilité IA / SEO de marque | 3 | 3 | logo schema encore invisible sur fond clair |
+
+## 11. Blog — recherche UI/UX et propositions (18 octobre 2026)
+
+**État actuel (constaté sur captures)** : ancienne palette (gris/indigo/rose dans le parseur Markdown et les pastilles de catégorie) ; sur l'article, l'illustration est à **60 % d'opacité, recouverte par le fil d'Ariane** (`-mt-20`) et coupée à 40 vh : elle n'est quasiment pas lisible ; sur la liste, un paragraphe d'intro de 8 lignes repousse le contenu sous la ligne de flottaison ; les cartes ont des vignettes de 176 px de haut.
+
+**Consensus de la recherche** (6 IA, 49 liens vérifiés ; brief : `/Users/Dev/ai-search-results/research/20261018-113616_Best_UI_UX_design_practices_for_company.md`)
+- Liste : une « une » en split 55–60 %, grille 3/2/1 colonnes, vignettes 16:9 ou 3:2 qui mènent la carte, titre en 2 lignes, extrait tronqué, filtres en pastilles ≥ 44 px, recherche instantanée.
+- Article : colonne de lecture 640–720 px (60–75 caractères), corps 17–20 px, interligne 1,6–1,75, sommaire collant avec scrollspy, barre de progression 2–3 px, encadré « À retenir » sous l'en-tête, CTA discret en fin d'article.
+- Illustration : visible en entier (16:9 ou 2:1, plus large que la colonne de texte) ou pleine largeur ; `aspect-ratio` réservé pour éviter le CLS ; `fetchpriority=high` sur l'image de tête.
+- Mobile : colonne unique, gouttières 16–20 px, filtres en défilement horizontal avec `scroll-snap`, sommaire en tiroir/barre collante, tableaux et code défilant dans leur conteneur.
+- Perf/accessibilité : LCP < 2,5 s, INP < 200 ms, CLS < 0,1 ; `:focus-visible`, hiérarchie H1→H3, `prefers-reduced-motion`.
+- Désaccord : héros pleine largeur immersif (Pentagram, Vercel) vs 16:9 à largeur de colonne (Linear, Stripe) — d'où trois propositions.
+
+**Propositions** (maquettes Gemini dans `generated/blog-propositions/` ; le texte des maquettes est du faux texte généré par IA, seule la composition compte)
+| | Liste | Article | Atout | Risque |
+|---|---|---|---|---|
+| **A — Éditorial** | une 60/40 + grille 3 col., vignettes 3:2 | titre + illustration 16:9 côte à côte, sommaire collant, « À retenir » teinté | le plus sobre, cohérent avec l'accueil ; illustration entière | moins spectaculaire |
+| **B — Bento / bande verte** | grille asymétrique, cartes vertes/crème en alternance | bande Chypre 70 vh avec illustration inversée en crème + puces en verre dépoli | le plus « marque », rappelle le héros des pages services | illustrations à inverser (potrace/filtre) |
+| **C — Magazine** | rail collant à gauche (catégories + compteurs) + fil de lignes à grande vignette 4:3 | illustration pleine largeur 60 vh, carte-titre qui chevauche, lettrine, anneau de progression | illustration au maximum ; très éditorial | plus de composants, plus de travail |
+
+**Parties communes aux trois** : couleurs uniquement Chypre/Crème + teintes ; titres Fraunces Soft Black, texte Inter ; pastilles de catégories en teintes Chypre (fin des couleurs arbitraires) ; image de tête 16:9 sans voile ; mention « Image générée par IA » conservée en légende discrète ; intro de la liste réduite à 2 lignes (texte SEO long déplacé sous la grille) ; version mobile : une colonne, filtres en défilement horizontal, sommaire en tiroir, barre de progression. À conserver : toute l'analytique (`useBlogPostAnalytics`), le FAQ, le maillage et les CTA d'article.
+
+**Décision (18 oct. 2026) : proposition A, implémentée.**
+- Liste : titre compact, « à la une » 50/50 avec illustration entière, filtres en pastilles (défilement horizontal sur mobile, collants sur ≥ 768 px et qui suivent l'en-tête qui se cache), recherche, grille 3/2/1 colonnes, carte entière cliquable, intro SEO déplacée sous la grille, catégories en teintes Chypre.
+- Article : titre + illustration entière côte à côte (illustration au-dessus du titre sur mobile), barre de progression, sommaire collant avec suivi du titre actif (tiroir « Sommaire » sur mobile), colonne de lecture 720 px/18 px, encadré « À retenir » teinté, listes, tableaux défilants, code, `---` ; CTA aux couleurs de la charte, articles liés avec vignette.
+- Technique : `lib/blog-markdown.ts` (parseur, ids de titres), `components/blog/{cover-image,reading-progress,article-toc}.tsx` ; analytics, FAQ et maillage conservés ; la liste « à la une » utilisait `next/link` (langue perdue) : remplacé par `LocalizedLink`.
+- Vérifié (Playwright 1440/768/390) : 0 débordement horizontal, 0 contraste sous le seuil, 114 pages d'articles (fr/en/es/vi) rendues sans Markdown brut.
+- **Reste** : les illustrations des 27 articles existants sont majoritairement des infographies bleu/marine avec l'ancien logo et un cerveau (hors charte) ; seul l'article « Facturation électronique » est dans le style Chypre. Les afficher en grand les rend plus visibles, donc aussi leur écart avec la charte → nouvelle étape proposée : régénérer les couvertures dans le style Chypre/Crème (une proposition de style à valider d'abord). Le formulaire newsletter de la liste n'est relié à aucune action (restylé uniquement).

@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 const CONTENT = {
   fr: {
     title: 'Politique de Confidentialité',
-    description: 'Politique de confidentialité NeuraWeb : collecte, utilisation et protection de vos données personnelles. Conformité RGPD garantie, transparence totale.',
+    description: 'Politique de confidentialité NeuraWeb : collecte, utilisation et protection de vos données personnelles. Respect du RGPD, transparence totale.',
     backToHome: 'Retour à l\'accueil',
     lastUpdate: 'Dernière mise à jour : Juin 2026',
     sections: [

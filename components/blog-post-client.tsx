@@ -14,8 +14,7 @@
  * Chercher "// ← ANALYTICS" pour retrouver tous les ajouts.
  */
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { useMemo, useState } from 'react';
 import { LocalizedLink } from '@/components/localized-link';
 import type { BlogPost, BlogPostMeta } from '@/lib/mdx';
 import { useBlogPostAnalytics } from '@/hooks/use-blog-analytics'; // ← ANALYTICS
@@ -29,6 +28,10 @@ import {
   ArticleCTASidebar,
   ArticleCTAMobile,
 } from '@/components/blog/article-cta-sidebar';
+import { ArticleToc } from '@/components/blog/article-toc';
+import { CoverImage } from '@/components/blog/cover-image';
+import { ReadingProgress } from '@/components/blog/reading-progress';
+import { parseBlogMarkdown } from '@/lib/blog-markdown';
 
 interface BlogPostClientProps {
   post: BlogPost;
@@ -83,6 +86,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       shareArticle: 'Partager',
       aiImageLabel: 'Image générée par IA',
       aiAssisted: 'Assisté par IA',
+      toc: 'Sommaire',
     },
     en: {
       home: 'Home',
@@ -102,6 +106,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       shareArticle: 'Share',
       aiImageLabel: 'AI-generated image',
       aiAssisted: 'AI-assisted',
+      toc: 'Contents',
     },
     es: {
       home: 'Inicio',
@@ -121,6 +126,7 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       shareArticle: 'Compartir',
       aiImageLabel: 'Imagen generada por IA',
       aiAssisted: 'Asistido por IA',
+      toc: 'Índice',
     },
     vi: {
       home: 'Trang chủ',
@@ -140,294 +146,175 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
       shareArticle: 'Chia sẻ',
       aiImageLabel: 'Hình ảnh do AI tạo',
       aiAssisted: 'Có hỗ trợ của AI',
+      toc: 'Mục lục',
     },
   };
 
   const tr = t[language] || t.fr;
   const faqHeading = language === 'en' ? 'FAQ' : language === 'es' ? 'Preguntas frecuentes' : language === 'vi' ? 'Câu hỏi thường gặp' : 'FAQ';
 
+
+  const { html: parsedContent, headings } = useMemo(
+    () => parseBlogMarkdown(post?.content ?? ''),
+    [post?.content]
+  );
+
   if (!post) return null;
 
-  // ── Markdown parser ──────────────────────────────────────────────────────
-  const parseMarkdown = (content: string): string => {
-    const isSeparatorRow = (l: string) => /^\|[\s\-:|]+\|$/.test(l.trim());
-    const isTableRow = (l: string) => /^\s*\|/.test(l) && /\|\s*$/.test(l);
+  const readMinutes = parseInt(post.readTime) || 5;
+  const hasToc = headings.length >= 3;
+  const tocItems = post.faq && post.faq.length > 0 ? [...headings, { id: 'faq', text: faqHeading, level: 2 as const }] : headings;
+  const dateLabel = new Date(post.date).toLocaleDateString(
+    language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : language === 'vi' ? 'vi-VN' : 'fr-FR',
+    { day: 'numeric', month: 'long', year: 'numeric' }
+  );
 
-    const renderInline = (text: string) => text
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-indigo-600 dark:text-indigo-400 font-medium underline decoration-indigo-300 dark:decoration-indigo-700 hover:decoration-indigo-600 dark:hover:decoration-indigo-400">$1</a>')
-      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900 dark:text-white">$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
-      .replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-pink-600 dark:text-pink-400 text-sm font-mono">$1</code>');
-
-    const renderTable = (lines: string[]) => {
-      const dataLines = lines.filter(l => l.trim() && !isSeparatorRow(l));
-      if (dataLines.length < 2) return '';
-      const splitRow = (l: string) => l.trim().split('|').slice(1, -1);
-      const headerCells = splitRow(dataLines[0]).map(c =>
-        `<th class="px-4 py-3 text-left font-semibold text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-800/60 border-b-2 border-gray-200 dark:border-gray-700">${renderInline(c.trim())}</th>`
-      ).join('');
-      const bodyRows = dataLines.slice(1).map(row =>
-        `<tr>${splitRow(row).map(c => `<td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-gray-800">${renderInline(c.trim())}</td>`).join('')}</tr>`
-      ).join('');
-      return `<div class="my-6 overflow-x-auto"><table class="w-full border-collapse text-sm border border-gray-200 dark:border-gray-800 rounded-lg"><thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
-    };
-
-    // Group a run of consecutive "> ..." lines into ONE blockquote box.
-    // Handles a title paragraph + a bulleted list (e.g. the "Key Takeaways" box).
-    const renderQuote = (qLines: string[]) => {
-      const inner = qLines.map(l => l.replace(/^>\s?/, ''));
-      const parts: string[] = [];
-      let listBuf: string[] = [];
-      const flush = () => {
-        if (listBuf.length) {
-          parts.push(`<ul class="list-disc pl-5 space-y-1 my-2 marker:text-gray-400">${listBuf.map(li => `<li>${renderInline(li)}</li>`).join('')}</ul>`);
-          listBuf = [];
-        }
-      };
-      for (const raw of inner) {
-        const t = raw.trim();
-        if (!t) { flush(); continue; }
-        const m = t.match(/^- (.*)$/);
-        if (m) { listBuf.push(m[1]); continue; }
-        flush();
-        parts.push(`<p class="mb-1">${renderInline(t)}</p>`);
-      }
-      flush();
-      return `<blockquote class="border-l-4 border-gray-900 dark:border-gray-200 pl-4 py-3 my-6 bg-gray-100 dark:bg-gray-800/40 rounded-r-lg text-gray-700 dark:text-gray-300 [&>p:first-child]:font-semibold [&>p:first-child]:text-gray-900 dark:[&>p:first-child]:text-white">${parts.join('')}</blockquote>`;
-    };
-
-    // Split into table vs non-table blocks, process separately.
-    // Lines inside an open ``` fence are never treated as table rows — otherwise a
-    // pipe-delimited example line (e.g. a CSV header) inside a code block would split
-    // the block mid-fence and corrupt everything rendered after it.
-    const lines = content.split('\n');
-    const blocks: { type: 'table' | 'other'; lines: string[] }[] = [];
-    let cur: { type: 'table' | 'other'; lines: string[] } = { type: 'other', lines: [] };
-    let inFence = false;
-    for (const line of lines) {
-      if (/^```/.test(line.trim())) inFence = !inFence;
-      const tableRow = !inFence && isTableRow(line);
-      if (tableRow && cur.type !== 'table') { if (cur.lines.length) blocks.push(cur); cur = { type: 'table', lines: [] }; }
-      if (!tableRow && cur.type !== 'other') { blocks.push(cur); cur = { type: 'other', lines: [] }; }
-      cur.lines.push(line);
-    }
-    if (cur.lines.length) blocks.push(cur);
-
-    return blocks.map(block => {
-      if (block.type === 'table') return renderTable(block.lines);
-      return block.lines.join('\n')
-        .replace(/(?:^>.*(?:\r?\n|$))+/gim, (match) => renderQuote(match.split(/\r?\n/).filter(l => /^>/.test(l))))
-        .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-3">$1</h3>')
-        .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">$1</h2>')
-        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-indigo-600 dark:text-indigo-400 font-medium underline decoration-indigo-300 dark:decoration-indigo-700 hover:decoration-indigo-600 dark:hover:decoration-indigo-400">$1</a>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900 dark:text-white">$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
-        .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre class="bg-gray-900 dark:bg-gray-950 rounded-xl p-4 overflow-x-auto my-6"><code class="text-sm text-gray-100 font-mono whitespace-pre">$2</code></pre>')
-        .replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-pink-600 dark:text-pink-400 text-sm font-mono">$1</code>')
-        .replace(/^- (.*$)/gim, '<li class="text-gray-600 dark:text-gray-300 ml-4 mb-2">$1</li>')
-        .replace(/\n\n/g, '</p><p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">')
-        .replace(/\n/g, '<br />')
-        // drop the stray <br /> the grouped blockquote leaves before the next block
-        .replace(/(<\/blockquote>)\s*<br \/>/g, '$1');
-    }).join('');
+  const trackSidebar = (prefix: string) => (kind: 'service' | 'booking', href: string) => {
+    const labels = { service: tr.ourServices, booking: tr.contactUs } as const;
+    trackCTAClick(`${prefix}:${kind}:${labels[kind]}`, href);
   };
-
-  const parsedContent = parseMarkdown(post.content);
 
   return (
     <>
-      {/* Hero Image */}
-      <div className="relative h-[40vh] min-h-[300px] w-full">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white dark:to-navy-950 z-10" />
-        <Image
-          src={post.image || '/assets/og-image.png'}
-          alt={post.title}
-          fill
-          sizes="100vw"
-          className="object-cover opacity-60 dark:opacity-40"
-          priority
-        />
-        {post.image && (
-          <span className="absolute bottom-4 left-4 z-20 px-2.5 py-1 rounded-md text-xs font-medium bg-black/60 text-white backdrop-blur-sm">
-            {tr.aiImageLabel}
-          </span>
-        )}
-      </div>
+      <ReadingProgress targetId="article-body" />
 
-      {/* Breadcrumb */}
-      <nav className="py-4 px-4 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-navy-950 -mt-20 relative z-20" aria-label="Breadcrumb">
-        <div className="max-w-4xl mx-auto">
-          <ol className="flex items-center gap-2 text-sm">
-            <li>
-              <LocalizedLink href="/" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
-                {tr.home}
-              </LocalizedLink>
-            </li>
-            <li className="text-gray-400 dark:text-gray-500">/</li>
-            <li>
-              <LocalizedLink href="/blog" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
-                {tr.blog}
-              </LocalizedLink>
-            </li>
-            <li className="text-gray-400 dark:text-gray-500">/</li>
-            <li className="text-gray-900 dark:text-white font-medium truncate max-w-[200px]">
-              {post.title}
-            </li>
-          </ol>
-        </div>
-      </nav>
+      {/* ── En-tête : titre à gauche, illustration entière à droite (au-dessus sur mobile) ── */}
+      <header className="px-4 pb-10 pt-28 sm:px-6 lg:pb-14 lg:pt-32">
+        <div className="mx-auto max-w-6xl">
+          <nav className="mb-6 sm:mb-8" aria-label="Breadcrumb">
+            <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-chypre/80">
+              <li>
+                <LocalizedLink href="/" className="underline-offset-4 hover:text-chypre hover:underline">{tr.home}</LocalizedLink>
+              </li>
+              <li aria-hidden="true">/</li>
+              <li>
+                <LocalizedLink href="/blog" className="underline-offset-4 hover:text-chypre hover:underline">{tr.blog}</LocalizedLink>
+              </li>
+              <li aria-hidden="true" className="hidden sm:inline">/</li>
+              <li className="hidden max-w-[320px] truncate font-medium text-chypre sm:block" aria-current="page">{post.title}</li>
+            </ol>
+          </nav>
 
-      {/* Article Header */}
-      <header className="py-12 sm:py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-between gap-3 mb-6 flex-wrap">
-            <div className="flex items-center gap-3">
-              <span className="px-3 py-1 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-200">
-                {post.category}
-              </span>
-              <span className="text-gray-500 dark:text-gray-400">
-                {post.readTime} {tr.readTime}
-              </span>
-            </div>
-
-            {/* ── Bouton Copier le lien ──────────────────────────────── ← ANALYTICS */}
-            <button
-              onClick={handleCopyLink}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-gray-900 hover:text-gray-900 dark:hover:text-white dark:hover:border-white transition-all"
-              aria-label={tr.copyLink}
-            >
-              {copied ? (
-                <>
-                  <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-green-600 dark:text-green-400">{tr.copied}</span>
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                  {tr.copyLink}
-                </>
-              )}
-            </button>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-            {post.title}
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-            {post.excerpt}
-          </p>
-
-          {/* Author & Date */}
-          <div className="flex items-center gap-4 pt-6 border-t border-gray-100 dark:border-gray-800">
-            <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gray-700">
-              <span className="text-white font-bold text-lg">N</span>
-            </div>
+          <div className={`grid items-center gap-8 lg:gap-12 ${post.image ? 'lg:grid-cols-[1.05fr_1fr]' : ''}`}>
             <div>
-              <div className="flex items-center gap-2">
-                <p className="font-semibold text-gray-900 dark:text-white">{post.author}</p>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-medium uppercase tracking-wide bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300">
-                  {tr.aiAssisted}
-                </span>
+              <div className="mb-5 flex flex-wrap items-center gap-3">
+                <span className="rounded-full bg-chypre px-3.5 py-1.5 text-sm font-semibold text-creme">{post.category}</span>
+                <span className="text-sm text-chypre/85">{readMinutes} {tr.readTime}</span>
               </div>
-              <time className="text-sm text-gray-500 dark:text-gray-400" dateTime={post.date}>
-                {new Date(post.date).toLocaleDateString(
-                  language === 'en' ? 'en-US' : language === 'es' ? 'es-ES' : language === 'vi' ? 'vi-VN' : 'fr-FR',
-                  { day: 'numeric', month: 'long', year: 'numeric' }
-                )}
-              </time>
+
+              <h1 className="mb-5 text-[2rem] leading-[1.08] text-chypre sm:text-4xl lg:text-[2.75rem]">{post.title}</h1>
+              <p className="mb-7 text-lg leading-relaxed text-chypre/90 sm:text-xl">{post.excerpt}</p>
+
+              <div className="flex flex-wrap items-center justify-between gap-4 border-t border-chypre/15 pt-5">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-chypre font-display text-lg font-bold text-creme" aria-hidden="true">N</div>
+                  <div>
+                    <p className="flex items-center gap-2 font-semibold text-chypre">
+                      {post.author}
+                      <span className="rounded-full bg-chypre/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-chypre">{tr.aiAssisted}</span>
+                    </p>
+                    <time className="text-sm text-chypre/80" dateTime={post.date}>{dateLabel}</time>
+                  </div>
+                </div>
+
+                {/* ── Bouton Copier le lien ── ← ANALYTICS */}
+                <button
+                  onClick={handleCopyLink}
+                  className="inline-flex min-h-[44px] items-center gap-1.5 rounded-full border border-chypre/30 px-4 text-sm font-semibold text-chypre transition-colors hover:bg-chypre hover:text-creme"
+                  aria-label={tr.copyLink}
+                >
+                  {copied ? (
+                    <>
+                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                      {tr.copied}
+                    </>
+                  ) : (
+                    <>
+                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                      {tr.copyLink}
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
+
+            {post.image && (
+              <figure className="max-lg:order-first">
+                <CoverImage
+                  src={post.image}
+                  alt={post.title}
+                  sizes="(max-width: 1024px) 100vw, 560px"
+                  priority
+                  className="aspect-[3/2] rounded-3xl border border-chypre/15"
+                />
+                <figcaption className="mt-2 text-xs text-chypre/80">{tr.aiImageLabel}</figcaption>
+              </figure>
+            )}
           </div>
         </div>
       </header>
 
-      {/* Article Content + Sidebar CTA */}
-      <article className="pb-16 px-4">
-        <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-[280px_1fr] lg:gap-10 xl:gap-14">
+      {/* ── Article : sommaire (gauche) · texte (700 px) · CTA (droite, ≥ xl) ── */}
+      <article id="article-body" className="px-4 pb-16 sm:px-6">
+        <div
+          className={`mx-auto max-w-[1280px] lg:grid lg:justify-center lg:gap-10 ${
+            hasToc
+              ? 'lg:grid-cols-[220px_minmax(0,720px)] xl:grid-cols-[220px_minmax(0,720px)_260px]'
+              : 'xl:grid-cols-[minmax(0,720px)_260px]'
+          }`}
+        >
+          {hasToc && (
+            <aside className="hidden lg:block">
+              <div className="sticky top-28">
+                <ArticleToc headings={tocItems} title={tr.toc} variant="desktop" />
+              </div>
+            </aside>
+          )}
 
-          {/* Sidebar CTA — sticky sur desktop ≥ lg */}
-          <ArticleCTASidebar
-            slug={post.slug}
-            category={post.category}
-            tags={post.tags}
-            language={language}
-            onTrack={(kind, href) => {
-              const labels = {
-                service: tr.ourServices,
-                booking: tr.contactUs,
-              } as const;
-              trackCTAClick(`sidebar:${kind}:${labels[kind]}`, href);
-            }}
-          />
+          <div className="w-full min-w-0">
+            {hasToc && <ArticleToc headings={tocItems} title={tr.toc} variant="mobile" />}
 
-          {/* Colonne contenu */}
-          <div className="max-w-3xl mx-auto lg:mx-0 w-full">
-            <div className="prose prose-lg dark:prose-invert max-w-none
-              prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
-              prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
-              prose-a:text-gray-900 dark:prose-a:text-white prose-a:no-underline hover:prose-a:underline
-              prose-strong:font-semibold prose-strong:text-gray-900 dark:prose-strong:text-white
-              prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3"
-            >
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: `<p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">${parsedContent}</p>`,
-                }}
-              />
-            </div>
+            <div
+              className="text-[1.0625rem] leading-[1.75] text-chypre/90 sm:text-[1.125rem]"
+              dangerouslySetInnerHTML={{ __html: parsedContent }}
+            />
 
-            {/* CTA inline mobile (visible < lg) */}
+            {/* CTA inline (visible < xl) */}
             <ArticleCTAMobile
               slug={post.slug}
               category={post.category}
               tags={post.tags}
               language={language}
-              onTrack={(kind, href) => {
-                const labels = {
-                  service: tr.ourServices,
-                  booking: tr.contactUs,
-                } as const;
-                trackCTAClick(`mobile-cta:${kind}:${labels[kind]}`, href);
-              }}
+              onTrack={trackSidebar('mobile-cta')}
             />
 
             {/* FAQ */}
             {post.faq && post.faq.length > 0 && (
-              <section className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                  {faqHeading}
-                </h2>
+              <section id="faq" className="mt-14 scroll-mt-28 border-t border-chypre/20 pt-10">
+                <h2 className="mb-6 font-display text-2xl font-bold text-chypre sm:text-[1.75rem]">{faqHeading}</h2>
                 <Accordion type="single" collapsible className="w-full">
                   {post.faq.map((item, idx) => (
-                    <AccordionItem key={idx} value={`faq-${idx}`} className="border-gray-200 dark:border-gray-800">
-                      <AccordionTrigger className="text-left text-lg font-semibold text-gray-900 dark:text-white hover:no-underline">
+                    <AccordionItem key={idx} value={`faq-${idx}`} className="border-chypre/20">
+                      <AccordionTrigger className="min-h-[48px] text-left text-base font-semibold text-chypre hover:no-underline sm:text-lg">
                         {item.question}
                       </AccordionTrigger>
-                      <AccordionContent className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        {item.answer}
-                      </AccordionContent>
+                      <AccordionContent className="text-base leading-relaxed text-chypre/90">{item.answer}</AccordionContent>
                     </AccordionItem>
                   ))}
                 </Accordion>
               </section>
             )}
 
-            {/* ── Tags avec tracking ────────────────────────────────────── ← ANALYTICS */}
+            {/* ── Tags avec tracking ── ← ANALYTICS */}
             {post.tags.length > 0 && (
-              <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
-                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
-                  {tr.tags}
-                </h3>
+              <div className="mt-12 border-t border-chypre/20 pt-8">
+                <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-chypre/80">{tr.tags}</h3>
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <button
                       key={tag}
                       onClick={() => trackTagClick(tag)} // ← ANALYTICS
-                      className="px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-900 dark:hover:bg-white hover:text-white dark:hover:text-gray-900 transition-colors cursor-pointer"
+                      className="min-h-[40px] cursor-pointer rounded-full border border-chypre/25 px-4 text-sm font-medium text-chypre transition-colors hover:bg-chypre hover:text-creme"
                     >
                       {tag}
                     </button>
@@ -436,33 +323,43 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
               </div>
             )}
           </div>
+
+          {/* Sidebar CTA — sticky, visible ≥ xl */}
+          <ArticleCTASidebar
+            slug={post.slug}
+            category={post.category}
+            tags={post.tags}
+            language={language}
+            onTrack={trackSidebar('sidebar')}
+          />
         </div>
       </article>
 
-      {/* ── Articles liés avec tracking ───────────────────────────────── ← ANALYTICS */}
+      {/* ── Articles liés (illustrations en vedette) ── ← ANALYTICS */}
       {relatedPosts.length > 0 && (
-        <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900/30">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-              {tr.relatedArticles}
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
+        <section className="bg-chypre/[0.06] px-4 py-16 sm:px-6">
+          <div className="mx-auto max-w-6xl">
+            <h2 className="mb-8 font-display text-2xl font-bold text-chypre sm:text-3xl">{tr.relatedArticles}</h2>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {relatedPosts.map((relatedPost) => (
                 <LocalizedLink
                   key={relatedPost.slug}
                   href={`/blog/${relatedPost.slug}`}
                   onClick={() => trackRelatedArticleClick(relatedPost.slug, relatedPost.title)} // ← ANALYTICS
-                  className="group bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 hover:border-gray-400/50 transition-all duration-300"
+                  className="lift group flex flex-col overflow-hidden rounded-3xl border border-chypre/15 bg-creme transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,70,67,0.14)]"
                 >
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                    {relatedPost.category}
-                  </span>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mt-2 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
-                    {relatedPost.title}
-                  </h3>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm mt-2 line-clamp-2">
-                    {relatedPost.excerpt}
-                  </p>
+                  <CoverImage
+                    src={relatedPost.image || '/assets/og-image.png'}
+                    alt={relatedPost.title}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                    className="aspect-[3/2] border-b border-chypre/10"
+                    imgClassName="transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
+                  />
+                  <div className="flex flex-1 flex-col p-5">
+                    <span className="text-xs font-bold uppercase tracking-wider text-chypre/80">{relatedPost.category}</span>
+                    <h3 className="mt-2 line-clamp-2 font-display text-lg font-semibold leading-snug text-chypre">{relatedPost.title}</h3>
+                    <p className="mt-2 line-clamp-2 text-sm text-chypre/85">{relatedPost.excerpt}</p>
+                  </div>
                 </LocalizedLink>
               ))}
             </div>
@@ -470,43 +367,35 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
         </section>
       )}
 
-      {/* ── CTA avec tracking ─────────────────────────────────────────── ← ANALYTICS */}
-      <section className="py-16 px-4">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            {tr.needHelp}
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-6">
-            {tr.helpDesc}
-          </p>
+      {/* ── CTA fin d'article ── ← ANALYTICS */}
+      <section className="px-4 py-16 sm:px-6">
+        <div className="ctx-dark mx-auto max-w-4xl rounded-3xl bg-chypre px-6 py-12 text-center sm:px-12">
+          <h2 className="mb-3 font-display text-2xl font-bold text-creme sm:text-3xl">{tr.needHelp}</h2>
+          <p className="mx-auto mb-7 max-w-xl text-creme/90">{tr.helpDesc}</p>
           <LocalizedLink
             href="/contact"
             onClick={() => trackCTAClick(tr.contactUs, '/contact')} // ← ANALYTICS
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-gray-900 text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-creme px-8 py-3 font-semibold text-chypre transition-transform hover:scale-[1.03]"
           >
             {tr.contactUs}
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
           </LocalizedLink>
 
           {/* Maillage interne */}
-          <div className="mt-10 pt-8 border-t border-gray-100 dark:border-gray-800">
-            <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4">
-              {tr.ourServices}
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center">
+          <div className="mt-8 border-t border-creme/20 pt-6">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-creme/80">{tr.ourServices}</p>
+            <div className="flex flex-wrap justify-center gap-3">
               <LocalizedLink
                 href="/services"
                 onClick={() => trackCTAClick(tr.webAi, '/services')} // ← ANALYTICS
-                className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-gray-900 hover:text-gray-900 dark:hover:text-white dark:hover:border-white transition-colors"
+                className="inline-flex min-h-[44px] items-center rounded-full border border-creme/40 px-4 text-sm font-medium text-creme transition-colors hover:bg-creme hover:text-chypre"
               >
                 {tr.webAi}
               </LocalizedLink>
               <LocalizedLink
                 href="/mobile-app-development"
                 onClick={() => trackCTAClick(tr.mobileApp, '/mobile-app-development')} // ← ANALYTICS
-                className="px-4 py-2 rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-gray-900 hover:text-gray-900 dark:hover:text-white dark:hover:border-white transition-colors"
+                className="inline-flex min-h-[44px] items-center rounded-full border border-creme/40 px-4 text-sm font-medium text-creme transition-colors hover:bg-creme hover:text-chypre"
               >
                 {tr.mobileApp}
               </LocalizedLink>

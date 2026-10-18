@@ -10,10 +10,12 @@
 
 | Pack | Profil cible | Création | Abonnement / mois | Engagement | HDS |
 |:---|:---|---:|---:|:---|:---:|
-| **Vitrine Santé** | Libéral solo, début d'activité | **990 €** | **29 €** | 12 mois | ❌ |
-| **Vitrine Pro + Blog** | Cabinet établi, 1-2 praticiens | **1 490 €** | **49 €** | 12 mois | ❌ |
-| **Pro Santé** | Cabinet multi-praticiens, centre paramédical | **4 490 €** | **129 €** | 12 mois | ✅ |
-| **Premium Santé** | Réseau de cabinets, clinique, groupement | **8 900 €** | **219 €** | 12 mois | ✅ |
+| **Vitrine Santé** | Libéral solo, début d'activité | **990 €** | **dès 59 €** | 12 mois | ❌ |
+| **Vitrine Pro + Blog** | Cabinet établi, 1-2 praticiens | **1 490 €** | **dès 89 €** | 12 mois | ❌ |
+| **Pro Santé** | Cabinet multi-praticiens, centre paramédical | **4 490 €** | **dès 349 €** (hébergement HDS inclus) | 12 mois | ✅ |
+| **Premium Santé** | Réseau de cabinets, clinique, groupement | **Sur mesure (devis)** | **Sur devis** (HDS) | — | ✅ |
+
+> **Ligne tarifaire (18 octobre 2026) :** prix de création « à partir de » sur maquettes prédéfinies (Vitrine, Vitrine Pro + Blog, Pro Santé). Premium Santé = architecture sur mesure, aucun prix affiché. Maintenance selon le temps alloué et la complexité : site statique dès 59 €/mois (~0,5 h), backend + CMS dès 89 €/mois (~1 h), **HDS dès 349 €/mois, hébergement HDS certifié inclus** (≈ 149 € d'hébergement HDS certifié + ≈ 200 € pour ≈ 3 h/mois de maintenance et de conformité : journaux d'accès, tests de sauvegarde, correctifs ; l'hébergement HDS seul démarre à 149 €/mois HT chez un hébergeur certifié). Pas d'année de maintenance offerte (réservée au Pack Premium web).
 
 ---
 
@@ -28,7 +30,7 @@ Ostéopathe, kinésithérapeute, infirmier(e), sage-femme, podologue, psychomotr
 | Poste | Montant |
 |:---|---:|
 | **Création du site** | **990 € HT** |
-| **Abonnement maintenance** | **29 € HT / mois** |
+| **Abonnement maintenance** | **à partir de 59 € HT / mois** |
 | **Engagement** | 12 mois minimum |
 
 ### ✅ CE QUI EST COMPRIS
@@ -73,7 +75,7 @@ Ostéopathe, kinésithérapeute, infirmier(e), sage-femme, podologue, psychomotr
 | Multilingue (FR + EN ou ES) | +350 € HT |
 | Blog intégré (module CMS) | +490 € HT |
 
-### 📋 DÉTAILS DE L'ABONNEMENT (29 € HT / mois)
+### 📋 DÉTAILS DE L'ABONNEMENT (à partir de 59 € HT / mois)
 
 | Comprend | Ne comprend pas |
 |:---|:---|
@@ -99,7 +101,7 @@ Cabinet établi (1 à 2 praticiens), ostéopathe avec spécialisation (pédiatri
 | Poste | Montant |
 |:---|---:|
 | **Création du site** | **1 490 € HT** |
-| **Abonnement maintenance** | **49 € HT / mois** |
+| **Abonnement maintenance** | **à partir de 89 € HT / mois** |
 | **Engagement** | 12 mois minimum |
 
 ### ✅ CE QUI EST COMPRIS
@@ -107,7 +109,7 @@ Cabinet établi (1 à 2 praticiens), ostéopathe avec spécialisation (pédiatri
 #### Site vitrine professionnel (jusqu'à 10 pages)
 - **Toutes les pages du Pack Vitrine Santé**
 - **Pages supplémentaires** : Témoignages patients (formulaire modéré), FAQ détaillée par spécialité, Page "Ostéopathie & vous" (ou équivalent métier)
-- **Design sur-mesure** : maquettes Figma/Adobe XD présentées et validées avant intégration
+- **Design sur-mesure** : maquettes présentées et validées avant intégration
 - **Blog intégré avec CMS** : le client peut rédiger, publier, modifier ses articles en autonomie
 - **3 articles de lancement rédigés** : 800 mots chacun, optimisés SEO, sur des thématiques santé pertinentes
 - **Catégories & tags** : organisation du contenu éditorial
@@ -146,7 +148,7 @@ Cabinet établi (1 à 2 praticiens), ostéopathe avec spécialisation (pédiatri
 | Campagne Google Ads (setup initial) | +790 € HT |
 | Espace patient basique (historique RDV uniquement) | +990 € HT |
 
-### 📋 DÉTAILS DE L'ABONNEMENT (49 € HT / mois)
+### 📋 DÉTAILS DE L'ABONNEMENT (à partir de 89 € HT / mois)
 
 | Comprend | Ne comprend pas |
 |:---|:---|
@@ -174,7 +176,7 @@ Cabinet multi-praticiens (3 et plus), centre de bien-être médicalisé, maison 
 | Poste | Montant |
 |:---|---:|
 | **Création de la plateforme** | **4 490 € HT** |
-| **Abonnement maintenance** | **129 € HT / mois** |
+| **Abonnement maintenance** | **à partir de 349 € HT / mois** (hébergement HDS inclus) |
 | **Engagement** | 12 mois minimum |
 
 ### ✅ CE QUI EST COMPRIS
@@ -224,7 +226,7 @@ Cabinet multi-praticiens (3 et plus), centre de bien-être médicalisé, maison 
 | Community management (8 posts/mois) | +590 € HT / mois |
 | Formation complémentaire (1h) | +190 € HT |
 
-### 📋 DÉTAILS DE L'ABONNEMENT (129 € HT / mois)
+### 📋 DÉTAILS DE L'ABONNEMENT (à partir de 349 € HT / mois)
 
 | Comprend | Ne comprend pas |
 |:---|:---|
@@ -253,9 +255,9 @@ Réseau de cabinets, clinique paramédicale, centre de rééducation, groupement
 ### 💰 Forfaits
 | Poste | Montant |
 |:---|---:|
-| **Création de l'écosystème** | **8 900 € HT** |
-| **Abonnement maintenance** | **219 € HT / mois** |
-| **Engagement** | 12 mois minimum |
+| **Création de l'écosystème** | **Sur mesure — devis personnalisé** |
+| **Abonnement maintenance** | **Sur devis** (HDS, architecture sur mesure) |
+| **Engagement** | Défini dans le devis |
 
 ### ✅ CE QUI EST COMPRIS
 
@@ -303,7 +305,7 @@ Réseau de cabinets, clinique paramédicale, centre de rééducation, groupement
 | DPO externe dédié (conformité RGPD continue) | +390 € HT / mois |
 | Pentest annuel récurrent | +1 200 € HT / an |
 
-### 📋 DÉTAILS DE L'ABONNEMENT (219 € HT / mois)
+### 📋 DÉTAILS DE L'ABONNEMENT (sur devis)
 
 | Comprend | Ne comprend pas |
 |:---|:---|
@@ -328,7 +330,7 @@ Réseau de cabinets, clinique paramédicale, centre de rééducation, groupement
 | Étape | % | Détail |
 |:---|---:|:---|
 | **À la commande** | 40% | Signature du devis et versement pour lancer le projet |
-| **Validation des maquettes** | 30% | Après approbation du design (Figma/Adobe XD) |
+| **Validation des maquettes** | 30% | Après approbation du design  |
 | **À la livraison** | 30% | Mise en ligne, recette finale, formation effectuée |
 
 **Abonnement** : prélèvement automatique mensuel (SEPA ou CB). Reconduction tacite mensuelle après la période d'engagement initiale. Résiliable avec préavis de 30 jours.

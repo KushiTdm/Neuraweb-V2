@@ -23,7 +23,7 @@ const COPY: Record<string, Copy> = {
     subtitle: 'Agence web et IA : sites Next.js, applications et automatisations, avec des prix affichés et une équipe que vous joignez directement.',
     items: [
       { icon: 'devis', title: 'Prix affichés', text: 'Des packs web dès 1 490 €, avec le détail de ce qui est inclus. Pas de devis opaque, pas de surprise.' },
-      { icon: 'agent-ia', title: 'Équipe joignable', text: 'Vous échangez directement avec l\'équipe qui fait le travail, avec une réponse sous 24 h.' },
+      { icon: 'agent-ia', title: 'Équipe joignable', text: 'Vous échangez directement avec l\'équipe qui fait le travail, avec une réponse sous 48 h.' },
       { icon: 'paris-hanoi', title: 'Ouvert sur le monde', text: 'Un site en français, anglais, espagnol et vietnamien, et une équipe entre la France et le Vietnam.' },
     ],
   },
@@ -43,7 +43,7 @@ const COPY: Record<string, Copy> = {
     subtitle: 'Agencia web y de IA: sitios Next.js, apps y automatizaciones, con precios visibles y un equipo al que puedes contactar directamente.',
     items: [
       { icon: 'devis', title: 'Precios visibles', text: 'Packs web desde 1.490 €, con el detalle de lo que incluyen. Sin presupuestos opacos, sin sorpresas.' },
-      { icon: 'agent-ia', title: 'Equipo accesible', text: 'Hablas directamente con quien hace el trabajo, con respuesta en 24 horas.' },
+      { icon: 'agent-ia', title: 'Equipo accesible', text: 'Hablas directamente con quien hace el trabajo, con respuesta en 48 horas.' },
       { icon: 'paris-hanoi', title: 'Abiertos al mundo', text: 'Un sitio en francés, inglés, español y vietnamita, y un equipo entre Francia y Vietnam.' },
     ],
   },
@@ -53,7 +53,7 @@ const COPY: Record<string, Copy> = {
     subtitle: 'Agency web và AI: website Next.js, ứng dụng và tự động hóa, báo giá rõ ràng và đội ngũ bạn có thể liên hệ trực tiếp.',
     items: [
       { icon: 'devis', title: 'Báo giá rõ ràng', text: 'Gói website ghi rõ những gì được bao gồm. Không báo giá mập mờ, không phát sinh bất ngờ.' },
-      { icon: 'agent-ia', title: 'Dễ dàng liên hệ', text: 'Bạn trao đổi trực tiếp với người thực hiện dự án, phản hồi trong vòng 24 giờ.' },
+      { icon: 'agent-ia', title: 'Dễ dàng liên hệ', text: 'Bạn trao đổi trực tiếp với người thực hiện dự án, phản hồi trong vòng 48 giờ.' },
       { icon: 'paris-hanoi', title: 'Mở ra thế giới', text: 'Website bằng tiếng Pháp, Anh, Tây Ban Nha và Việt, cùng đội ngũ giữa Pháp và Việt Nam.' },
     ],
   },

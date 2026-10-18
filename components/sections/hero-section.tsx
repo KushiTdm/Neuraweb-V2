@@ -21,41 +21,41 @@ const COPY: Record<string, {
   alt: string;
 }> = {
   fr: {
-    kicker: 'Agence web à Lille',
+    kicker: 'Agence web & IA française · Lille – Hanoï',
     title: 'Sites web, applications et automatisations pour les PME',
     subtitle:
       'Nous créons votre site Next.js, votre application mobile ou vos workflows n8n et agents IA. Hôtels, restaurants, cabinets de santé, collectivités : vous échangez directement avec l\'équipe qui fait le travail.',
-    proof: ['Devis gratuit sous 24 h', 'Packs web dès 1 490 €', 'Basés à Lille, clients dans toute la France'],
+    proof: ['Devis gratuit sous 48 h', 'Packs web dès 1 490 €', 'Contrat et facture français, équipe à Hanoï'],
     cta: 'Demander un devis',
     ctaSecondary: 'Voir les tarifs',
     alt: 'Le fondateur vu de dos, travaillant sur un ordinateur devant un mur vert et un grand disque crème',
   },
   en: {
-    kicker: 'Web agency in Lille, France',
+    kicker: 'French web & AI agency · Lille – Hanoi',
     title: 'Websites, apps and automations for small businesses',
     subtitle:
       'We build your Next.js website, mobile app, n8n workflows and AI agents. Hotels, restaurants, health practices, local authorities: you talk directly to the team that does the work.',
-    proof: ['Free quote within 24 h', 'Web packs from €1,490', 'Based in Lille, clients across France'],
+    proof: ['Free quote within 48 h', 'Web packs from €1,490', 'French contract and invoice, team in Hanoi'],
     cta: 'Get a quote',
     ctaSecondary: 'See pricing',
     alt: 'The founder seen from behind, working on a laptop in front of a green wall and a large cream circle',
   },
   es: {
-    kicker: 'Agencia web en Lille, Francia',
+    kicker: 'Agencia web e IA francesa · Lille – Hanói',
     title: 'Sitios web, apps y automatizaciones para pymes',
     subtitle:
       'Creamos tu sitio Next.js, tu aplicación móvil, flujos n8n y agentes de IA. Hoteles, restaurantes, consultas de salud, administraciones: hablas directamente con el equipo que hace el trabajo.',
-    proof: ['Presupuesto gratis en 24 h', 'Packs web desde 1.490 €', 'Con sede en Lille, clientes en toda Francia'],
+    proof: ['Presupuesto gratis en 48 h', 'Packs web desde 1.490 €', 'Contrato y factura franceses, equipo en Hanói'],
     cta: 'Pedir presupuesto',
     ctaSecondary: 'Ver precios',
     alt: 'El fundador de espaldas, trabajando con su portátil frente a una pared verde y un gran círculo crema',
   },
   vi: {
-    kicker: 'Agency web tại Lille, Pháp',
+    kicker: 'Agency web & AI của Pháp · Lille – Hà Nội',
     title: 'Website, ứng dụng và tự động hoá cho doanh nghiệp nhỏ',
     subtitle:
       'Chúng tôi xây dựng website Next.js, ứng dụng di động, quy trình n8n và AI agent. Khách sạn, nhà hàng, phòng khám, cơ quan địa phương: bạn làm việc trực tiếp với đội ngũ thực hiện dự án.',
-    proof: ['Báo giá miễn phí trong 24 giờ', 'Gói web từ 1.490 €', 'Trụ sở tại Lille, khách hàng khắp nước Pháp'],
+    proof: ['Báo giá miễn phí trong 48 giờ', 'Gói web từ 1.490 €', 'Hợp đồng và hóa đơn của Pháp, đội ngũ tại Hà Nội'],
     cta: 'Nhận báo giá',
     ctaSecondary: 'Xem bảng giá',
     alt: 'Người sáng lập nhìn từ phía sau, làm việc trên laptop trước bức tường xanh và một vòng tròn kem lớn',

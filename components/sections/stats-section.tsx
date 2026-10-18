@@ -9,65 +9,71 @@ import { NeuraIcon, type NeuraIconName } from '@/components/icons/neura-icon';
 
 const T = {
   fr: {
-    eyebrow: 'NOS RÉSULTATS',
-    label1: 'Projets livrés avec succès',
-    desc1: 'Applications web, mobiles et automatisations livrées dans les délais convenus.',
-    label2: 'Clients satisfaits',
-    desc2: 'Taux de satisfaction mesuré après chaque livraison — notre priorité absolue.',
-    label3: 'ROI moyen client',
-    desc3: 'Retour sur investissement constaté sur nos projets d\'automatisation et IA.',
+    eyebrow: 'NOS REPÈRES',
+    unit1: ' ans',
+    label1: 'd\'expérience en développement web',
+    desc1: 'Premiers projets en 2021, freelance puis agence, et NeuraWeb depuis 2023.',
+    label2: 'Continents où nous avons livré',
+    desc2: 'Asie, Amérique du Sud et Europe : hôtels, restaurants, agences de voyage et cafés.',
+    label3: 'Note moyenne sur Google',
+    desc3: '14 avis clients publiés sur notre fiche Google, tous à 5 étoiles.',
     heading1: 'Des chiffres qui parlent',
     heading2: 'd\'eux-mêmes',
-    sub: 'Depuis notre création, nous avons aidé des dizaines d\'entreprises à accélérer leur croissance grâce à des solutions web, IA et automatisation.',
+    sub: 'Depuis 2023, à distance depuis l\'Asie, l\'Amérique du Sud et l\'Europe : sites, applications et automatisations pour des hôtels, restaurants, agences de voyage et cafés.',
     learn: 'À propos de NeuraWeb',
   },
   en: {
-    eyebrow: 'OUR RESULTS',
-    label1: 'Projects delivered',
-    desc1: 'Web, mobile and automation projects delivered on time and within agreed deadlines.',
-    label2: 'Satisfied clients',
-    desc2: 'Satisfaction rate measured after each delivery — our absolute priority.',
-    label3: 'Average client ROI',
-    desc3: 'Return on investment observed on our automation and AI projects.',
+    eyebrow: 'OUR BENCHMARKS',
+    unit1: ' years',
+    label1: 'of web development experience',
+    desc1: 'First projects in 2021, freelance then agency, and NeuraWeb since 2023.',
+    label2: 'Continents where we have delivered',
+    desc2: 'Asia, South America and Europe: hotels, restaurants, travel agencies and cafés.',
+    label3: 'Average Google rating',
+    desc3: '14 client reviews published on our Google profile, all 5 stars.',
     heading1: 'Numbers that speak',
     heading2: 'for themselves',
-    sub: 'Since our creation, we have helped dozens of companies accelerate their growth.',
+    sub: 'Since 2023, working remotely from Asia, South America and Europe: websites, apps and automations for hotels, restaurants, travel agencies and cafés.',
     learn: 'About NeuraWeb',
   },
   es: {
-    eyebrow: 'NUESTROS RESULTADOS',
-    label1: 'Proyectos entregados',
-    desc1: 'Proyectos web, móviles y de automatización entregados a tiempo.',
-    label2: 'Clientes satisfechos',
-    desc2: 'Tasa de satisfacción medida después de cada entrega — nuestra prioridad absoluta.',
-    label3: 'ROI promedio',
-    desc3: 'Retorno de inversión observado en nuestros proyectos de automatización e IA.',
+    eyebrow: 'NUESTROS DATOS',
+    unit1: ' años',
+    label1: 'de experiencia en desarrollo web',
+    desc1: 'Primeros proyectos en 2021, freelance, luego agencia, y NeuraWeb desde 2023.',
+    label2: 'Continentes donde hemos entregado',
+    desc2: 'Asia, Sudamérica y Europa: hoteles, restaurantes, agencias de viajes y cafeterías.',
+    label3: 'Valoración media en Google',
+    desc3: '14 reseñas de clientes publicadas en nuestra ficha de Google, todas de 5 estrellas.',
     heading1: 'Cifras que hablan',
     heading2: 'por sí solas',
-    sub: 'Desde nuestra creación, hemos ayudado a docenas de empresas a acelerar su crecimiento.',
+    sub: 'Desde 2023, trabajando a distancia desde Asia, Sudamérica y Europa: sitios web, apps y automatizaciones para hoteles, restaurantes, agencias de viajes y cafeterías.',
     learn: 'Sobre NeuraWeb',
   },
   vi: {
-    eyebrow: 'KẾT QUẢ CỦA CHÚNG TÔI',
-    label1: 'Dự án đã bàn giao',
-    desc1: 'Website, ứng dụng di động và quy trình tự động hóa được bàn giao đúng hẹn.',
-    label2: 'Khách hàng hài lòng',
-    desc2: 'Tỷ lệ hài lòng được ghi nhận sau mỗi lần bàn giao — ưu tiên hàng đầu của chúng tôi.',
-    label3: 'Hiệu quả đầu tư trung bình',
-    desc3: 'Mức hiệu quả đầu tư ghi nhận được trên các dự án tự động hóa và AI.',
+    eyebrow: 'CON SỐ CỦA CHÚNG TÔI',
+    unit1: ' năm',
+    label1: 'kinh nghiệm phát triển web',
+    desc1: 'Dự án đầu tiên năm 2021, freelance rồi làm cho agency, và NeuraWeb từ năm 2023.',
+    label2: 'Châu lục đã bàn giao dự án',
+    desc2: 'Châu Á, Nam Mỹ và châu Âu: khách sạn, nhà hàng, công ty du lịch và quán cà phê.',
+    label3: 'Điểm đánh giá trung bình trên Google',
+    desc3: '14 đánh giá của khách hàng trên trang Google của chúng tôi, tất cả đều 5 sao.',
     heading1: 'Những con số',
     heading2: 'tự nói lên tất cả',
-    sub: 'Từ ngày thành lập, chúng tôi đã đồng hành cùng hàng chục doanh nghiệp tăng trưởng nhanh hơn nhờ website, AI và tự động hóa.',
+    sub: 'Từ năm 2023, làm việc từ xa tại châu Á, Nam Mỹ và châu Âu: website, ứng dụng và tự động hóa cho khách sạn, nhà hàng, công ty du lịch và quán cà phê.',
     learn: 'Về NeuraWeb',
   },
 };
 
-// ⚠ Chiffres (150+, 98 %, 3,2x) repris tels quels de la version précédente : ils ne sont
-// documentés nulle part dans le repo. À justifier (preuves) ou remplacer avant mise en production.
+// Repères vérifiables (18/10/2026) : développement depuis 2021 (5 ans) ; livraisons sur 3 continents
+// (Asie, Amérique du Sud, Europe) ; 5/5 = note de la fiche Google (14 avis). « 150+ projets » et « 98 % »
+// retirés : périmètre (projets perso inclus) et méthode non justifiables. Ajouter ici un décompte des
+// missions clients seulement s'il est chiffré et défini.
 const STATS: { value: number; suffix: string; key: string; descKey: string; icon: NeuraIconName }[] = [
-  { value: 150, suffix: '+', key: 'label1', descKey: 'desc1', icon: 'site-web' },
-  { value: 98, suffix: '%', key: 'label2', descKey: 'desc2', icon: 'sante' },
-  { value: 3.2, suffix: 'x', key: 'label3', descKey: 'desc3', icon: 'seo-geo' },
+  { value: 5, suffix: ' ans', key: 'label1', descKey: 'desc1', icon: 'site-web' },
+  { value: 3, suffix: '', key: 'label2', descKey: 'desc2', icon: 'sante' },
+  { value: 5, suffix: '/5', key: 'label3', descKey: 'desc3', icon: 'seo-geo' },
 ];
 
 function StatCard({ value, suffix, label, desc, icon, started, index }: {
@@ -146,7 +152,7 @@ export function StatsSection() {
               <StatCard
                 key={s.key}
                 value={s.value}
-                suffix={s.suffix}
+                suffix={s.key === 'label1' ? t.unit1 : s.suffix}
                 label={t[s.key as keyof typeof t] as string}
                 desc={t[s.descKey as keyof typeof t] as string}
                 icon={s.icon}

@@ -10,7 +10,7 @@ const PACK_LABELS: Record<string, string> = {
   vitrine: 'Pack Vitrine Santé (990€ HT)',
   'pro-blog': 'Pack Vitrine Pro + Blog (1 490€ HT)',
   'pro-sante': 'Pack Pro Santé (4 490€ HT)',
-  premium: 'Pack Premium Santé (8 900€ HT)',
+  premium: 'Pack Premium Santé (sur mesure, devis)',
 };
 
 const METIER_LABELS: Record<string, string> = {

@@ -58,8 +58,8 @@ const translations = {
     consentSuffix: '.',
     services: ['Développement Web', 'Application Mobile', 'Intégration IA', 'Automatisation', 'Site Restaurant', 'Site Santé', 'Audit IA', 'Autre'],
     packs: {
-      starter: 'Pack Starter - 1 490€',
-      business: 'Pack Business - 3 990€',
+      starter: 'Pack Starter - à partir de 1 490€',
+      business: 'Pack Business - à partir de 3 990€',
       premium: 'Pack Premium - Sur mesure (devis)',
       ai: 'Pack IA - Sur devis'
     }
@@ -93,8 +93,8 @@ const translations = {
     consentSuffix: '.',
     services: ['Web Development', 'Mobile App', 'AI Integration', 'Automation', 'Restaurant Website', 'Healthcare Website', 'AI Audit', 'Other'],
     packs: {
-      starter: 'Starter Pack - €1,490',
-      business: 'Business Pack - €3,990',
+      starter: 'Starter Pack - from €1,490',
+      business: 'Business Pack - from €3,990',
       premium: 'Premium Pack - Tailor-made (quote)',
       ai: 'AI Pack - On quote'
     }
@@ -128,8 +128,8 @@ const translations = {
     consentSuffix: '.',
     services: ['Desarrollo Web', 'Aplicación Móvil', 'Integración IA', 'Automatización', 'Sitio Restaurante', 'Sitio Salud', 'Auditoría IA', 'Otro'],
     packs: {
-      starter: 'Pack Starter - 1.490€',
-      business: 'Pack Business - 3.990€',
+      starter: 'Pack Starter - desde 1.490€',
+      business: 'Pack Business - desde 3.990€',
       premium: 'Pack Premium - A medida (presupuesto)',
       ai: 'Pack IA - Bajo presupuesto'
     }
@@ -336,16 +336,16 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
       <>
         <div className="theme-accueil">
       <Header />
-        <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-white to-gray-50 dark:from-navy-950 dark:to-navy-950">
+        <main className="min-h-screen pt-24 pb-16 bg-creme">
           <div className="max-w-2xl mx-auto px-4 text-center">
-            <div className="w-20 h-20 mx-auto mb-6 bg-green-500/20 rounded-full flex items-center justify-center">
-              <CheckCircle className="w-10 h-10 text-green-500" />
+            <div className="w-20 h-20 mx-auto mb-6 bg-chypre/10 rounded-full flex items-center justify-center">
+              <CheckCircle className="w-10 h-10 text-chypre" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t.success}</h1>
-            <p className="text-gray-600 dark:text-gray-300 mb-8">{t.successMessage}</p>
+            <h1 className="text-3xl sm:text-4xl text-chypre mb-4">{t.success}</h1>
+            <p className="text-chypre/85 mb-8">{t.successMessage}</p>
             <LocalizedLink
               href="/"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl font-medium hover:bg-gray-800 transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-chypre text-creme rounded-full font-semibold hover:bg-chypre/90 transition-all"
             >
               <ArrowLeft className="w-4 h-4" />
               {t.backToHome}
@@ -362,12 +362,19 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
     <>
       <div className="theme-accueil">
       <Header />
-      <main className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-white to-gray-50 dark:from-navy-950 dark:to-navy-950">
+      <main className="min-h-screen pt-24 pb-16 bg-creme">
         <div className="max-w-2xl mx-auto px-4">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t.title}</h1>
-            <p className="text-gray-600 dark:text-gray-300">{t.subtitle}</p>
+            <svg className="mx-auto mb-3 h-8 w-8 text-chypre" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="4" y="7" width="24" height="20" rx="3" />
+              <path d="M4 13h24M10 4v6M22 4v6" />
+              <circle cx="11" cy="20" r="1.6" fill="currentColor" />
+              <circle cx="21" cy="20" r="1.6" fill="currentColor" />
+              <path d="M12.5 20h7" strokeDasharray="1.5 2.5" />
+            </svg>
+            <h1 className="text-3xl sm:text-4xl text-chypre mb-2">{t.title}</h1>
+            <p className="text-chypre/85">{t.subtitle}</p>
 
             {/* Contact WhatsApp (vi uniquement) — au Vietnam beaucoup de prospects
                 préfèrent écrire directement plutôt que de réserver un créneau.
@@ -376,7 +383,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                 lecture via `translations.vi` plutôt que via `t` (union de types). */}
             {lang === 'vi' && (
               <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-                <span className="text-sm text-gray-500 dark:text-gray-400">{translations.vi.whatsappPrompt}</span>
+                <span className="text-sm text-chypre/85">{translations.vi.whatsappPrompt}</span>
                 <WhatsAppContactButton />
               </div>
             )}
@@ -385,33 +392,33 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
           {/* Steps indicator */}
           <div className="flex items-center justify-center gap-2 mb-8">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-              step === 1 ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
+              step === 1 ? 'bg-chypre text-creme' : 'border border-chypre/40 text-chypre'
             }`}>1</div>
-            <div className="w-12 h-0.5 bg-gray-200 dark:bg-gray-700" />
+            <div className="w-12 h-0.5 bg-chypre/30" />
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-              step === 2 ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
+              step === 2 ? 'bg-chypre text-creme' : 'border border-chypre/40 text-chypre'
             }`}>2</div>
           </div>
 
-          <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-lg overflow-hidden">
+          <div className="bg-chypre/[0.05] rounded-2xl border border-chypre/15 overflow-hidden">
             {/* Step 1: Sélection du créneau */}
             {step === 1 && (
               <div className="p-6 space-y-6">
                 {/* Pack présélectionné - affiché dès l'étape 1 */}
                 {packLabel && (
-                  <div className="bg-gray-100 dark:bg-gray-800/40 rounded-xl p-4 border border-gray-200 dark:border-gray-700">
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{t.pack}</p>
-                    <p className="font-semibold text-gray-900 dark:text-white">{packLabel}</p>
+                  <div className="bg-creme rounded-xl p-4 border border-chypre/20">
+                    <p className="text-sm text-chypre/85">{t.pack}</p>
+                    <p className="font-semibold text-chypre">{packLabel}</p>
                   </div>
                 )}
                 
                 {uniqueDates.length === 0 ? (
-                  <p className="text-center text-gray-500 dark:text-gray-400 py-12">{t.noSlots}</p>
+                  <p className="text-center text-chypre/85 py-12">{t.noSlots}</p>
                 ) : (
                   <>
                     {/* Sélection de la date */}
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                      <label className="block text-sm font-medium text-chypre/85 mb-3">
                         <Calendar className="w-4 h-4 inline mr-2" />
                         {t.selectDate}
                       </label>
@@ -434,8 +441,8 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                               onClick={() => { setSelectedDate(date); setSelectedTime(''); }}
                               className={`p-2 rounded-xl text-center transition-all ${
                                 selectedDate === date 
-                                  ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
-                                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                                  ? 'bg-chypre text-creme'
+                                  : 'bg-creme border border-chypre/30 text-chypre hover:bg-chypre/10'
                               }`}
                             >
                               <div className="text-xs uppercase">{dayName}</div>
@@ -450,7 +457,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                     {/* Sélection de l'heure */}
                     {selectedDate && (
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                        <label className="block text-sm font-medium text-chypre/85 mb-3">
                           <Clock className="w-4 h-4 inline mr-2" />
                           {t.selectTime}
                         </label>
@@ -461,8 +468,8 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                               onClick={() => setSelectedTime(time)}
                               className={`p-2 rounded-xl text-center transition-all font-medium ${
                                 selectedTime === time 
-                                  ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
-                                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                                  ? 'bg-chypre text-creme'
+                                  : 'bg-creme border border-chypre/30 text-chypre hover:bg-chypre/10'
                               }`}
                             >
                               {time}
@@ -485,7 +492,7 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                         }
                       }}
                       disabled={!selectedDate || !selectedTime}
-                      className="w-full py-3 bg-gray-900 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800 transition-all"
+                      className="w-full py-3 bg-chypre text-creme rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-chypre/90 transition-all"
                     >
                       {t.step2} →
                     </button>
@@ -498,18 +505,18 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
             {step === 2 && (
               <div className="p-6 space-y-4">
                 {/* Résumé du créneau */}
-                <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-4 flex items-center gap-4">
-                  <Calendar className="w-6 h-6 text-gray-500" />
+                <div className="bg-creme border border-chypre/20 rounded-xl p-4 flex items-center gap-4">
+                  <Calendar className="w-6 h-6 text-chypre/80" />
                   <div>
-                    <div className="font-medium text-gray-900 dark:text-white">{formatDate(selectedDate)}</div>
-                    <div className="text-gray-500 dark:text-gray-400">{selectedTime}</div>
+                    <div className="font-medium text-chypre">{formatDate(selectedDate)}</div>
+                    <div className="text-chypre/85">{selectedTime}</div>
                   </div>
                 </div>
 
                 {/* Formulaire */}
                 <div className="grid gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-chypre/85 mb-1">
                       <User className="w-4 h-4 inline mr-1" />
                       {t.name}
                     </label>
@@ -517,12 +524,12 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                       type="text"
                       value={formData.name}
                       onChange={e => { trackFormStart(); setFormData({...formData, name: e.target.value}); }}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre"
                     />
                   </div>
                   
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-chypre/85 mb-1">
                       <Mail className="w-4 h-4 inline mr-1" />
                       {t.email}
                     </label>
@@ -530,13 +537,13 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                       type="email"
                       value={formData.email}
                       onChange={e => setFormData({...formData, email: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-chypre/85 mb-1">
                         <Phone className="w-4 h-4 inline mr-1" />
                         {t.phone}
                       </label>
@@ -544,11 +551,11 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                         type="tel"
                         value={formData.phone}
                         onChange={e => setFormData({...formData, phone: e.target.value})}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-chypre/85 mb-1">
                         <MessageSquare className="w-4 h-4 inline mr-1" />
                         {t.whatsapp}
                       </label>
@@ -556,13 +563,13 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                         type="tel"
                         value={formData.whatsapp}
                         onChange={e => setFormData({...formData, whatsapp: e.target.value})}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-chypre/85 mb-1">
                       <Building className="w-4 h-4 inline mr-1" />
                       {t.company}
                     </label>
@@ -570,18 +577,18 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                       type="text"
                       value={formData.company}
                       onChange={e => setFormData({...formData, company: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-chypre/85 mb-1">
                       {t.service}
                     </label>
                     <select
                       value={formData.service}
                       onChange={e => setFormData({...formData, service: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre"
                     >
                       <option value="">{t.service}</option>
                       {t.services.map(s => (
@@ -593,13 +600,13 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                   {/* Sélection du pack — inclut « Landing Page Express » en vi (offre d'appel
                       à prix fixe), les autres packs restant en mode devis sur cette langue. */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-chypre/85 mb-1">
                       {t.pack}
                     </label>
                     <select
                       value={formData.pack}
                       onChange={e => setFormData({...formData, pack: e.target.value})}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre"
                     >
                       <option value="">{t.pack}</option>
                       {Object.entries(t.packs).map(([packId, packName]) => (
@@ -609,28 +616,28 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-chypre/85 mb-1">
                       {t.message}
                     </label>
                     <textarea
                       value={formData.message}
                       onChange={e => setFormData({...formData, message: e.target.value})}
                       rows={3}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 focus:border-transparent resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre resize-none"
                     />
                   </div>
                 </div>
 
-                <label className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+                <label className="flex items-start gap-3 text-sm text-chypre/85">
                   <input
                     type="checkbox"
                     checked={formData.consent}
                     onChange={e => setFormData({...formData, consent: e.target.checked})}
-                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-gray-900"
+                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-[#004643]"
                   />
                   <span>
                     {t.consentPrefix}{' '}
-                    <LocalizedLink href="/confidentialite" className="underline hover:text-gray-900 dark:hover:text-white">
+                    <LocalizedLink href="/confidentialite" className="underline hover:text-chypre">
                       {t.consentLink}
                     </LocalizedLink>
                     {t.consentSuffix}
@@ -638,21 +645,21 @@ export function BookingPageClient({ lang, preselectedService, preselectedPack, i
                 </label>
 
                 {error && (
-                  <p className="text-red-500 text-sm text-center">{error}</p>
+                  <p className="text-chypre text-sm text-center font-semibold">{error}</p>
                 )}
 
                 {/* Boutons */}
                 <div className="flex gap-4 pt-2">
                   <button
                     onClick={() => setStep(1)}
-                    className="flex-1 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-xl font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+                    className="flex-1 py-3 bg-creme border border-chypre/40 text-chypre rounded-full font-semibold hover:bg-chypre/10 transition-all"
                   >
                     ← {t.back}
                   </button>
                   <button
                     onClick={handleSubmit}
                     disabled={submitting || !formData.name || !formData.email || !formData.consent}
-                    className="flex-1 py-3 bg-gray-900 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-800 transition-all flex items-center justify-center gap-2"
+                    className="flex-1 py-3 bg-chypre text-creme rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-chypre/90 transition-all flex items-center justify-center gap-2"
                   >
                     {submitting ? (
                       <>

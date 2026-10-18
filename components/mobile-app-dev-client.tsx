@@ -1,5 +1,6 @@
 'use client';
 
+import { SourcedStats } from '@/components/sourced-stats';
 import React, { useRef, useState } from 'react';
 import { useGsapReveal } from '@/hooks/use-gsap-reveal';
 import { Header } from '@/components/header';
@@ -77,14 +78,14 @@ const content: Record<Lang, {
       subtitle: 'De l\'idée à la publication sur l\'App Store et Google Play, en 8 à 16 semaines.',
       steps: [
         { title: '1. Audit & cadrage', desc: 'Analyse du marché, définition du MVP, choix de la stack (native vs cross-platform) selon votre budget et vos contraintes.' },
-        { title: '2. Design UX/UI', desc: 'Maquettes Figma, prototype cliquable, respect des guidelines iOS Human Interface et Material Design.' },
+        { title: '2. Design UX/UI', desc: 'Maquettes, prototype cliquable, respect des guidelines iOS Human Interface et Material Design.' },
         { title: '3. Développement', desc: 'Sprints bi-hebdomadaires avec démo, code versionné sur GitHub, tests automatisés, backend API sécurisé.' },
         { title: '4. Tests & publication', desc: 'Beta TestFlight + Play Console, corrections, soumission stores, support post-lancement inclus 3 mois.' },
       ],
     },
     pricing: {
       h2: 'Tarifs développement application mobile',
-      subtitle: 'Des forfaits transparents, pas de mauvaise surprise. Devis détaillé sous 24h.',
+      subtitle: 'Des forfaits transparents, pas de mauvaise surprise. Devis détaillé sous 48h.',
       packs: [
         { name: 'MVP Mobile', price: 'À partir de 8 900€', delay: '3 à 4 semaines', features: ['App cross-platform (React Native)', '3 à 5 écrans clés', 'Authentification + 1 intégration API', 'Publication stores incluse', 'Support 1 mois'] },
         { name: 'App Standard', price: 'À partir de 15 900€', delay: '6 à 10 semaines', features: ['iOS + Android (natif ou Flutter)', '10 à 15 écrans', 'Backend sur mesure + admin', 'Notifications push, analytics', 'Support 3 mois'], highlighted: true },
@@ -94,11 +95,11 @@ const content: Record<Lang, {
     },
     useCases: {
       h2: 'Cas d\'usage concrets',
-      subtitle: 'Comment nos clients utilisent une application mobile pour valider, fidéliser et faire croître leur activité.',
+      subtitle: 'Des scénarios types : comment une application mobile aide à valider, fidéliser et faire croître une activité. À titre indicatif, sans garantie de résultat.',
       items: [
-        { sector: 'Startup FoodTech', context: 'Lever des fonds suppose de prouver la traction. Un site web ne suffit pas à valider l\'usage mobile.', solution: 'MVP React Native (5 écrans) : commande, paiement Stripe, suivi livraison temps réel, publication App Store + Play Store.', result: 'Hypothèse validée en 6 semaines au lieu de 6 mois · rétention J+30 de 22% (vs 8% en web)', pack: 'MVP Mobile' },
-        { sector: 'Chaîne de restaurants (15 sites)', context: 'Programme de fidélité papier, commandes par téléphone, aucune donnée client exploitable.', solution: 'App iOS + Android (15 écrans) : menu, commande, fidélité, paiement Apple/Google Pay, backend + notifications push.', result: 'Commandes à emporter ×4 · fréquence de visite +62% · 15 000 profils clients collectés', pack: 'App Standard' },
-        { sector: 'PME e-commerce / retail', context: 'Site mobile lent, panier abandonné, aucune notification pour relancer les clients.', solution: 'App native catalogue + paiement in-app + notifications push + suivi de commande, synchro Shopify/WooCommerce.', result: 'Taux d\'engagement ×3 grâce aux push · panier moyen +20% via l\'upsell in-app', pack: 'App Standard' },
+        { sector: 'Startup FoodTech', context: 'Lever des fonds suppose de prouver la traction. Un site web ne suffit pas à valider l\'usage mobile.', solution: 'MVP React Native (5 écrans) : commande, paiement Stripe, suivi livraison temps réel, publication App Store + Play Store.', result: 'Hypothèse validée en quelques semaines plutôt qu\'en mois · suivi de la rétention dès le MVP', pack: 'MVP Mobile' },
+        { sector: 'Chaîne de restaurants (15 sites)', context: 'Programme de fidélité papier, commandes par téléphone, aucune donnée client exploitable.', solution: 'App iOS + Android (15 écrans) : menu, commande, fidélité, paiement Apple/Google Pay, backend + notifications push.', result: 'Commandes à emporter en hausse · fréquence de visite en hausse · base de profils clients qui vous appartient', pack: 'App Standard' },
+        { sector: 'PME e-commerce / retail', context: 'Site mobile lent, panier abandonné, aucune notification pour relancer les clients.', solution: 'App native catalogue + paiement in-app + notifications push + suivi de commande, synchro Shopify/WooCommerce.', result: 'Engagement renforcé grâce aux notifications push · panier moyen en hausse via l\'upsell in-app', pack: 'App Standard' },
         { sector: 'B2B / SaaS terrain', context: 'Équipes mobiles sans outil adapté, ressaisie au bureau, données de terrain perdues.', solution: 'App métier scalable avec synchronisation offline, temps réel et tableau de bord admin sur mesure.', result: 'Remontée terrain en temps réel · 0 ressaisie · décisions basées sur des données fiables', pack: 'App Premium' },
       ],
     },
@@ -114,7 +115,7 @@ const content: Record<Lang, {
     },
     cta: {
       h2: 'Prêt à lancer votre application mobile ?',
-      subtitle: 'Devis gratuit sous 24h. Aucun engagement.',
+      subtitle: 'Devis gratuit sous 48h. Aucun engagement.',
       button: 'Demander un devis',
     },
   },
@@ -151,14 +152,14 @@ const content: Record<Lang, {
       subtitle: 'From idea to App Store and Google Play, in 8 to 16 weeks.',
       steps: [
         { title: '1. Audit & scoping', desc: 'Market analysis, MVP definition, stack choice (native vs cross-platform) based on your budget and constraints.' },
-        { title: '2. UX/UI design', desc: 'Figma mockups, clickable prototype, iOS Human Interface and Material Design guidelines compliance.' },
+        { title: '2. UX/UI design', desc: 'Mockups, clickable prototype, iOS Human Interface and Material Design guidelines compliance.' },
         { title: '3. Development', desc: 'Bi-weekly sprints with demos, GitHub-versioned code, automated tests, secure backend API.' },
         { title: '4. Testing & release', desc: 'TestFlight + Play Console beta, fixes, store submission, 3 months post-launch support included.' },
       ],
     },
     pricing: {
       h2: 'Mobile app development pricing',
-      subtitle: 'Transparent packages, no surprises. Detailed quote within 24h.',
+      subtitle: 'Transparent packages, no surprises. Detailed quote within 48h.',
       packs: [
         { name: 'Mobile MVP', price: 'From €8,900', delay: '3 to 4 weeks', features: ['Cross-platform app (React Native)', '3 to 5 core screens', 'Auth + 1 API integration', 'Store publication included', '1 month support'] },
         { name: 'Standard App', price: 'From €15,900', delay: '6 to 10 weeks', features: ['iOS + Android (native or Flutter)', '10 to 15 screens', 'Custom backend + admin', 'Push notifications, analytics', '3 months support'], highlighted: true },
@@ -168,11 +169,11 @@ const content: Record<Lang, {
     },
     useCases: {
       h2: 'Real-world use cases',
-      subtitle: 'How our clients use a mobile app to validate, retain and grow their business.',
+      subtitle: 'Typical scenarios: how a mobile app helps validate, retain and grow a business. For guidance only, no guaranteed outcome.',
       items: [
-        { sector: 'FoodTech startup', context: 'Raising funds means proving traction. A website alone can\'t validate mobile usage.', solution: 'React Native MVP (5 screens): ordering, Stripe payment, real-time delivery tracking, App Store + Play Store publication.', result: 'Hypothesis validated in 6 weeks instead of 6 months · 22% D+30 retention (vs 8% on web)', pack: 'Mobile MVP' },
-        { sector: 'Restaurant chain (15 sites)', context: 'Paper loyalty program, phone-only orders, no usable customer data.', solution: 'iOS + Android app (15 screens): menu, ordering, loyalty, Apple/Google Pay, backend + push notifications.', result: 'Takeaway orders ×4 · visit frequency +62% · 15,000 customer profiles collected', pack: 'Standard App' },
-        { sector: 'E-commerce / retail SMB', context: 'Slow mobile site, abandoned carts, no notification to re-engage customers.', solution: 'Native app with catalog + in-app payment + push notifications + order tracking, Shopify/WooCommerce sync.', result: 'Engagement ×3 thanks to push · average basket +20% via in-app upsell', pack: 'Standard App' },
+        { sector: 'FoodTech startup', context: 'Raising funds means proving traction. A website alone can\'t validate mobile usage.', solution: 'React Native MVP (5 screens): ordering, Stripe payment, real-time delivery tracking, App Store + Play Store publication.', result: 'Hypothesis validated in weeks rather than months · retention tracked from the MVP', pack: 'Mobile MVP' },
+        { sector: 'Restaurant chain (15 sites)', context: 'Paper loyalty program, phone-only orders, no usable customer data.', solution: 'iOS + Android app (15 screens): menu, ordering, loyalty, Apple/Google Pay, backend + push notifications.', result: 'Takeaway orders up · visit frequency up · a customer base that belongs to you', pack: 'Standard App' },
+        { sector: 'E-commerce / retail SMB', context: 'Slow mobile site, abandoned carts, no notification to re-engage customers.', solution: 'Native app with catalog + in-app payment + push notifications + order tracking, Shopify/WooCommerce sync.', result: 'Stronger engagement thanks to push notifications · higher average basket via in-app upsell', pack: 'Standard App' },
         { sector: 'B2B / field SaaS', context: 'Mobile teams with no suitable tool, re-entry at the office, field data lost.', solution: 'Scalable business app with offline sync, real-time updates and a custom admin dashboard.', result: 'Real-time field reporting · zero re-entry · decisions driven by reliable data', pack: 'Premium App' },
       ],
     },
@@ -188,7 +189,7 @@ const content: Record<Lang, {
     },
     cta: {
       h2: 'Ready to launch your mobile app?',
-      subtitle: 'Free quote within 24h. No commitment.',
+      subtitle: 'Free quote within 48h. No commitment.',
       button: 'Request a quote',
     },
   },
@@ -225,14 +226,14 @@ const content: Record<Lang, {
       subtitle: 'De la idea a la publicación en App Store y Google Play, en 8 a 16 semanas.',
       steps: [
         { title: '1. Auditoría y alcance', desc: 'Análisis de mercado, definición del MVP, elección del stack según presupuesto y restricciones.' },
-        { title: '2. Diseño UX/UI', desc: 'Mockups en Figma, prototipo clicable, cumplimiento de guías iOS Human Interface y Material Design.' },
+        { title: '2. Diseño UX/UI', desc: 'Mockups, prototipo clicable, cumplimiento de guías iOS Human Interface y Material Design.' },
         { title: '3. Desarrollo', desc: 'Sprints quincenales con demo, código versionado en GitHub, tests automáticos, backend API seguro.' },
         { title: '4. Testing y publicación', desc: 'Beta TestFlight + Play Console, correcciones, envío a stores, soporte post-lanzamiento 3 meses incluido.' },
       ],
     },
     pricing: {
       h2: 'Precios desarrollo aplicación móvil',
-      subtitle: 'Paquetes transparentes, sin sorpresas. Presupuesto detallado en 24h.',
+      subtitle: 'Paquetes transparentes, sin sorpresas. Presupuesto detallado en 48h.',
       packs: [
         { name: 'MVP Móvil', price: 'Desde 8 900€', delay: '3 a 4 semanas', features: ['App multiplataforma (React Native)', '3 a 5 pantallas clave', 'Autenticación + 1 integración API', 'Publicación en stores incluida', 'Soporte 1 mes'] },
         { name: 'App Estándar', price: 'Desde 15 900€', delay: '6 a 10 semanas', features: ['iOS + Android (nativo o Flutter)', '10 a 15 pantallas', 'Backend a medida + admin', 'Push, analytics', 'Soporte 3 meses'], highlighted: true },
@@ -242,11 +243,11 @@ const content: Record<Lang, {
     },
     useCases: {
       h2: 'Casos de uso concretos',
-      subtitle: 'Cómo nuestros clientes usan una app móvil para validar, fidelizar y hacer crecer su negocio.',
+      subtitle: 'Escenarios tipo: cómo una app móvil ayuda a validar, fidelizar y hacer crecer un negocio. A título orientativo, sin garantía de resultado.',
       items: [
-        { sector: 'Startup FoodTech', context: 'Levantar fondos exige demostrar tracción. Una web no basta para validar el uso móvil.', solution: 'MVP React Native (5 pantallas): pedido, pago Stripe, seguimiento de entrega en tiempo real, publicación App Store + Play Store.', result: 'Hipótesis validada en 6 semanas en lugar de 6 meses · retención D+30 del 22% (vs 8% en web)', pack: 'MVP Móvil' },
-        { sector: 'Cadena de restaurantes (15 sedes)', context: 'Programa de fidelidad en papel, pedidos solo por teléfono, sin datos de cliente aprovechables.', solution: 'App iOS + Android (15 pantallas): menú, pedido, fidelidad, pago Apple/Google Pay, backend + notificaciones push.', result: 'Pedidos para llevar ×4 · frecuencia de visita +62% · 15 000 perfiles de cliente recopilados', pack: 'App Estándar' },
-        { sector: 'Pyme e-commerce / retail', context: 'Web móvil lenta, carrito abandonado, sin notificaciones para reactivar clientes.', solution: 'App nativa con catálogo + pago in-app + notificaciones push + seguimiento de pedido, sincronización Shopify/WooCommerce.', result: 'Engagement ×3 gracias a las push · cesta media +20% vía upsell in-app', pack: 'App Estándar' },
+        { sector: 'Startup FoodTech', context: 'Levantar fondos exige demostrar tracción. Una web no basta para validar el uso móvil.', solution: 'MVP React Native (5 pantallas): pedido, pago Stripe, seguimiento de entrega en tiempo real, publicación App Store + Play Store.', result: 'Hipótesis validada en semanas en lugar de meses · retención medida desde el MVP', pack: 'MVP Móvil' },
+        { sector: 'Cadena de restaurantes (15 sedes)', context: 'Programa de fidelidad en papel, pedidos solo por teléfono, sin datos de cliente aprovechables.', solution: 'App iOS + Android (15 pantallas): menú, pedido, fidelidad, pago Apple/Google Pay, backend + notificaciones push.', result: 'Más pedidos para llevar · más frecuencia de visita · base de clientes que te pertenece', pack: 'App Estándar' },
+        { sector: 'Pyme e-commerce / retail', context: 'Web móvil lenta, carrito abandonado, sin notificaciones para reactivar clientes.', solution: 'App nativa con catálogo + pago in-app + notificaciones push + seguimiento de pedido, sincronización Shopify/WooCommerce.', result: 'Mayor engagement gracias a las notificaciones push · cesta media más alta con upsell in-app', pack: 'App Estándar' },
         { sector: 'B2B / SaaS de campo', context: 'Equipos móviles sin herramienta adecuada, reintroducción en oficina, datos de campo perdidos.', solution: 'App empresarial escalable con sincronización offline, tiempo real y panel admin a medida.', result: 'Reporte de campo en tiempo real · cero reintroducción · decisiones basadas en datos fiables', pack: 'App Premium' },
       ],
     },
@@ -262,7 +263,7 @@ const content: Record<Lang, {
     },
     cta: {
       h2: '¿Listo para lanzar tu app móvil?',
-      subtitle: 'Presupuesto gratis en 24h. Sin compromiso.',
+      subtitle: 'Presupuesto gratis en 48h. Sin compromiso.',
       button: 'Solicitar presupuesto',
     },
   },
@@ -274,7 +275,7 @@ const content: Record<Lang, {
     hero: {
       h1: 'Phát triển ứng dụng di động',
       highlight: 'iOS & Android',
-      subtitle: 'Chúng tôi phát triển ứng dụng di động native và đa nền tảng cho startup, doanh nghiệp vừa và nhỏ: React Native, Flutter, Swift, Kotlin. Báo giá miễn phí trong 24 giờ, làm việc được bằng tiếng Việt, tiếng Anh và tiếng Pháp.',
+      subtitle: 'Chúng tôi phát triển ứng dụng di động native và đa nền tảng cho startup, doanh nghiệp vừa và nhỏ: React Native, Flutter, Swift, Kotlin. Báo giá miễn phí trong 48 giờ, làm việc được bằng tiếng Việt, tiếng Anh và tiếng Pháp.',
       ctaPrimary: 'Nhận báo giá miễn phí',
       ctaSecondary: 'Xem các gói dịch vụ',
     },
@@ -303,7 +304,7 @@ const content: Record<Lang, {
       subtitle: 'Từ ý tưởng đến khi lên App Store và Google Play, thường trong khoảng 8 đến 16 tuần tuỳ phạm vi.',
       steps: [
         { title: '1. Rà soát & xác định phạm vi', desc: 'Phân tích thị trường, chốt phạm vi bản MVP, chọn công nghệ (native hay đa nền tảng) theo ngân sách và ràng buộc của bạn.' },
-        { title: '2. Thiết kế UX/UI', desc: 'Bản thiết kế trên Figma, nguyên mẫu bấm được, tuân thủ chuẩn iOS Human Interface và Material Design.' },
+        { title: '2. Thiết kế UX/UI', desc: 'Bản thiết kế, nguyên mẫu bấm được, tuân thủ chuẩn iOS Human Interface và Material Design.' },
         { title: '3. Lập trình', desc: 'Sprint hai tuần một lần kèm demo, mã nguồn quản lý trên GitHub, kiểm thử tự động, backend API an toàn.' },
         { title: '4. Kiểm thử & phát hành', desc: 'Bản beta trên TestFlight và Play Console, sửa lỗi, nộp lên kho ứng dụng, đã bao gồm 3 tháng hỗ trợ sau khi ra mắt.' },
       ],
@@ -320,18 +321,18 @@ const content: Record<Lang, {
     },
     useCases: {
       h2: 'Tình huống thực tế theo từng mô hình',
-      subtitle: 'Những kịch bản cụ thể, với gói phù hợp và kết quả đo lường được mà bạn có thể kỳ vọng.',
+      subtitle: 'Các kịch bản mẫu, với gói phù hợp. Chỉ mang tính tham khảo: kết quả thay đổi theo từng trường hợp và không được cam kết.',
       items: [
-        { sector: 'Startup công nghệ ẩm thực', context: 'Muốn gọi vốn thì phải chứng minh có người dùng thật. Một website thôi không đủ để kiểm chứng hành vi trên điện thoại.', solution: 'MVP React Native (5 màn hình): đặt món, thanh toán MoMo / ZaloPay, theo dõi giao hàng theo thời gian thực, phát hành trên App Store và Play Store.', result: 'Kiểm chứng giả thuyết trong 6 tuần thay vì 6 tháng · tỷ lệ quay lại sau 30 ngày đạt 22% (so với 8% trên web)', pack: 'MVP di động' },
+        { sector: 'Startup công nghệ ẩm thực', context: 'Muốn gọi vốn thì phải chứng minh có người dùng thật. Một website thôi không đủ để kiểm chứng hành vi trên điện thoại.', solution: 'MVP React Native (5 màn hình): đặt món, thanh toán MoMo / ZaloPay, theo dõi giao hàng theo thời gian thực, phát hành trên App Store và Play Store.', result: 'Kiểm chứng giả thuyết trong vài tuần thay vì vài tháng · theo dõi tỷ lệ quay lại ngay từ bản MVP', pack: 'MVP di động' },
         { sector: 'Chuỗi nhà hàng tại Hà Nội', context: 'Thẻ tích điểm bằng giấy, đơn đặt qua điện thoại và Zalo, phụ thuộc nặng vào GrabFood và ShopeeFood, không giữ được dữ liệu khách hàng.', solution: 'Ứng dụng iOS + Android (15 màn hình): thực đơn, đặt món, tích điểm, thanh toán MoMo / ZaloPay / Apple Pay, backend và thông báo đẩy.', result: 'Đơn đặt trực tiếp tăng mạnh · giảm phụ thuộc vào ứng dụng giao đồ ăn · tự sở hữu dữ liệu khách hàng', pack: 'Ứng dụng tiêu chuẩn' },
-        { sector: 'Bán lẻ / thương mại điện tử', context: 'Website trên điện thoại tải chậm, khách bỏ giỏ hàng giữa chừng, không có kênh nào để nhắc họ quay lại.', solution: 'Ứng dụng native: danh mục sản phẩm, thanh toán trong ứng dụng, thông báo đẩy, theo dõi đơn hàng, đồng bộ với hệ thống bán hàng đang dùng.', result: 'Mức độ tương tác tăng gấp 3 nhờ thông báo đẩy · giá trị đơn trung bình +20% nhờ gợi ý mua thêm ngay trong ứng dụng', pack: 'Ứng dụng tiêu chuẩn' },
+        { sector: 'Bán lẻ / thương mại điện tử', context: 'Website trên điện thoại tải chậm, khách bỏ giỏ hàng giữa chừng, không có kênh nào để nhắc họ quay lại.', solution: 'Ứng dụng native: danh mục sản phẩm, thanh toán trong ứng dụng, thông báo đẩy, theo dõi đơn hàng, đồng bộ với hệ thống bán hàng đang dùng.', result: 'Tương tác tốt hơn nhờ thông báo đẩy · giá trị đơn trung bình cao hơn nhờ gợi ý mua thêm ngay trong ứng dụng', pack: 'Ứng dụng tiêu chuẩn' },
         { sector: 'Doanh nghiệp B2B / đội ngũ đi hiện trường', context: 'Nhân viên đi thị trường không có công cụ phù hợp, về văn phòng phải nhập lại từ đầu, dữ liệu hiện trường thất lạc.', solution: 'Ứng dụng nghiệp vụ mở rộng được, đồng bộ khi mất mạng, cập nhật theo thời gian thực và bảng điều hành riêng cho quản lý.', result: 'Báo cáo hiện trường theo thời gian thực · không phải nhập lại · quyết định dựa trên số liệu đáng tin', pack: 'Ứng dụng cao cấp' },
       ],
     },
     faq: {
       h2: 'Câu hỏi thường gặp về phát triển ứng dụng di động',
       items: [
-        { q: 'Làm một ứng dụng di động hết bao nhiêu tiền?', a: 'Chúng tôi báo giá riêng cho từng dự án, vì chi phí phụ thuộc vào số màn hình, hệ điều hành cần hỗ trợ (chỉ Android hay cả iOS), mức độ thiết kế riêng và các kết nối cần thiết (thanh toán, CRM, phần mềm quản lý). Báo giá chi tiết là miễn phí và được gửi trong vòng 24 giờ, kèm phạm vi công việc và lịch bàn giao. Bạn có thể đặt lịch trao đổi tại neuraweb.fr/vi/booking. Nếu ngân sách còn hạn chế, chúng tôi thường khuyên nên bắt đầu bằng một PWA hoặc một bản MVP thu gọn trước khi đầu tư vào ứng dụng đầy đủ.' },
+        { q: 'Làm một ứng dụng di động hết bao nhiêu tiền?', a: 'Chúng tôi báo giá riêng cho từng dự án, vì chi phí phụ thuộc vào số màn hình, hệ điều hành cần hỗ trợ (chỉ Android hay cả iOS), mức độ thiết kế riêng và các kết nối cần thiết (thanh toán, CRM, phần mềm quản lý). Báo giá chi tiết là miễn phí và được gửi trong vòng 48 giờ, kèm phạm vi công việc và lịch bàn giao. Bạn có thể đặt lịch trao đổi tại neuraweb.fr/vi/booking. Nếu ngân sách còn hạn chế, chúng tôi thường khuyên nên bắt đầu bằng một PWA hoặc một bản MVP thu gọn trước khi đầu tư vào ứng dụng đầy đủ.' },
         { q: 'Bao lâu thì ứng dụng của tôi lên được kho ứng dụng?', a: 'Khoảng 6 đến 8 tuần cho một bản MVP, 12 đến 16 tuần cho ứng dụng đầy đủ iOS + Android kèm backend. Chúng tôi bàn giao theo từng sprint 2 tuần để bạn luôn thấy được tiến độ.' },
         { q: 'Nên chọn đa nền tảng (React Native/Flutter) hay native (Swift/Kotlin)?', a: 'Đa nền tảng khi bạn cần ra mắt nhanh và tối ưu ngân sách, vì chỉ cần một đội và một mã nguồn. Tại Việt Nam, Android chiếm phần lớn thị phần điện thoại, nên nhiều dự án bắt đầu bằng Android rồi mở rộng sang iOS sau — đây cũng là cách chia nhỏ chi phí đầu tư. Chọn native khi bạn cần trải nghiệm cao cấp, hiệu năng đồ hoạ cao hoặc tích hợp sâu với hệ điều hành (Apple Watch, widget iOS...).' },
         { q: 'Các bạn có lo phần đưa ứng dụng lên App Store và Google Play không?', a: 'Có, đã bao gồm trong mọi gói. Chúng tôi mở tài khoản nhà phát triển nếu bạn chưa có, chuẩn bị ảnh chụp màn hình và phần mô tả, rồi xử lý toàn bộ khâu nộp cùng các phản hồi từ Apple hoặc Google. Riêng phí tài khoản (Apple 99 USD/năm, Google Play 25 USD trả một lần) bạn thanh toán trực tiếp cho hai hãng.' },
@@ -340,7 +341,7 @@ const content: Record<Lang, {
     },
     cta: {
       h2: 'Sẵn sàng khởi động ứng dụng di động của bạn?',
-      subtitle: 'Báo giá miễn phí trong 24 giờ. Không ràng buộc.',
+      subtitle: 'Báo giá miễn phí trong 48 giờ. Không ràng buộc.',
       button: 'Nhận báo giá',
     },
   },
@@ -573,6 +574,7 @@ export function MobileAppDevClient({ lang }: Props) {
                 </article>
               ))}
             </div>
+            <SourcedStats ids={['phone91','speed53']} tone="light" className="mt-14" />
           </div>
         </section>
 

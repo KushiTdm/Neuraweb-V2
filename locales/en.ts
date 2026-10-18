@@ -92,7 +92,7 @@ export const en: Record<TranslationKey, string> = {
   'hero.main.title': 'Custom Web &',
   'hero.title.highlight': 'Mobile App Development',
   'hero.title.end': 'Agency',
-  'hero.subtitle': "Web development, mobile apps, AI integration and n8n automation for small businesses. Based in Lille, France, serving clients across Europe.",
+  'hero.subtitle': "Web development, mobile apps, AI integration and n8n automation for small businesses. A French agency registered in Lille, with our team in Hanoi, serving clients in France and abroad.",
   'hero.cta.start': 'Start a project',
   'hero.cta.services': 'Our services',
   'hero.scroll.discover': 'Discover',
@@ -114,7 +114,7 @@ export const en: Record<TranslationKey, string> = {
 
   // About Section
   'about.title': 'About NeuraWeb',
-  'about.description': "NeuraWeb is a small agency based in Lille, France, founded by Nacer, a developer. With Sandra (communication and marketing) and Arthur (AI and automation), you talk directly to the team that builds your website, app or automations, from quote to maintenance.",
+  'about.description': "NeuraWeb is a French web & AI agency, registered in Lille. We are three — Nacer, a developer, Sandra (communication and marketing) and Arthur (AI and automation) — and this year we work from Hanoi. Since 2023 we have worked remotely with hotels, restaurants, travel agencies and cafés in Asia, South America, France and Europe: French contract and invoice, wherever we are. You talk directly to the team that builds your website, app or automations, from quote to maintenance.",
   'about.image.alt': 'NeuraWeb team collaborating',
   'about.badge': 'Who are we?',
   'about.stat.satisfaction': 'Client satisfaction',
@@ -235,7 +235,7 @@ export const en: Record<TranslationKey, string> = {
   'cta.subtitle': 'Join businesses that have chosen digital excellence with NeuraWeb',
   'cta.bookCall': 'Book a call',
   'cta.requestQuote': 'Request a quote',
-  'cta.guaranteedGrowth': 'Guaranteed growth',
+  'cta.guaranteedGrowth': 'Sustainable growth',
   'cta.secure': '100% Secure',
   'cta.dedicatedSupport': 'Dedicated support',
   'cta.callDuration': '30-min call · Free',
@@ -243,7 +243,7 @@ export const en: Record<TranslationKey, string> = {
   'cta.bookSlot': 'Book a slot',
 
   // Footer
-  'footer.company.description': "Web agency in Lille, France: Next.js websites, mobile apps, n8n automation and AI integration.",
+  'footer.company.description': "Websites, AI & automation. Clear prices, French contract. Agency registered in Lille, team in Hanoi.",
   'footer.links.title': 'Quick Links',
   'footer.copyright': `© ${new Date().getFullYear()} NeuraWeb. All rights reserved.`,
   'footer.legal.legalNotice': 'Legal Notice',
@@ -260,7 +260,7 @@ export const en: Record<TranslationKey, string> = {
 
   // Services Page
   'servicePage.hero.title': 'Custom Web Development',
-  'servicePage.hero.subtitle': 'Showcase sites, professional websites and e-commerce in Next.js — performance, SEO and clean design. Free quote within 24h.',
+  'servicePage.hero.subtitle': 'Showcase sites, professional websites and e-commerce in Next.js — performance, SEO and clean design. Free quote within 48h.',
   'servicePage.process.title': 'Our Process',
   'servicePage.process.badge': 'Proven method',
   'servicePage.process.audit.title': '1. Audit & Analysis',
@@ -333,7 +333,7 @@ export const en: Record<TranslationKey, string> = {
   'servicePage.cta.title.word7': '',
   'servicePage.cta.subtitle': 'Let\'s discuss your goals and turn your vision into reality',
   'servicePage.cta.button': 'Request a quote',
-  'servicePage.cta.feature1': 'Response within 24h',
+  'servicePage.cta.feature1': 'Response within 48h',
   'servicePage.cta.feature2': 'Free quote',
   'servicePage.cta.feature3': 'No commitment',
 
@@ -345,7 +345,7 @@ export const en: Record<TranslationKey, string> = {
   'contact.hero.description': 'Custom web development, AI integration or business process automation — our expert team analyzes your specific requirements and proposes a tailored solution within your budget. Every engagement begins with a complimentary 30-minute discovery call to understand your goals, technical constraints, and timeline. You will receive a detailed written proposal within 48 hours, covering project scope, technical methodology, and fully transparent pricing. Our clients benefit from dedicated support from initial consultation through post-launch maintenance, ensuring lasting digital value.',
   'contact.info.email.label': 'Email',
   'contact.info.email.value': 'contact@neuraweb.fr',
-  'contact.info.email.desc': 'Response within 24h',
+  'contact.info.email.desc': 'Response within 48h',
   'contact.info.whatsapp.label': 'WhatsApp',
   'contact.info.whatsapp.value': '+33 7 49 77 56 54',
   'contact.info.whatsapp.desc': 'Available 7 days a week',
@@ -372,7 +372,7 @@ export const en: Record<TranslationKey, string> = {
   'contact.form.submit': 'Send message',
   'contact.form.submitting': 'Sending...',
   'contact.form.success.title': 'Message sent!',
-  'contact.form.success.desc': 'We\'ll get back to you within 24 hours.',
+  'contact.form.success.desc': 'We\'ll get back to you within 48 hours.',
   'contact.form.error.title': 'Send error',
   'contact.form.error.desc': 'Please try again or contact us directly.',
   'contact.trust.title': 'Why choose us?',
@@ -402,11 +402,11 @@ export const en: Record<TranslationKey, string> = {
 
   // SEO Dynamic
   'seo.home.title': 'NeuraWeb — Web Agency, AI & Automation',
-  'seo.home.description': "Web agency in Lille, France: Next.js websites, mobile apps, n8n automation and AI agents for small businesses, hotels and restaurants. Free quote within 24 h.",
+  'seo.home.description': "Web agency in Lille, France: Next.js websites, mobile apps, n8n automation and AI agents for small businesses, hotels and restaurants. Free quote within 48 h.",
   'seo.services.title': 'Services - Custom Web Solutions | NeuraWeb',
   'seo.services.description': 'Discover our web development, AI integration and automation services. Packages tailored to your needs. Free quote.',
   'seo.contact.title': 'Contact - Let\'s talk about your project | NeuraWeb',
-  'seo.contact.description': 'Contact our team to discuss your project. Response within 24h, free quote.',
+  'seo.contact.description': 'Contact our team to discuss your project. Response within 48h, free quote.',
   'seo.portfolio.title': 'Portfolio - Our Work | NeuraWeb',
   'seo.portfolio.description': 'Discover our web projects, applications and AI solutions. Client portfolio showcase.',
   'seo.blog.title': 'Blog - News & Tips | NeuraWeb',
@@ -415,7 +415,7 @@ export const en: Record<TranslationKey, string> = {
   'seo.boost.business': 'digital transformation, growth, ROI',
   'seo.boost.ai': 'artificial intelligence, machine learning, automation',
   'seo.boost.local': 'Lille, France, French agency',
-  'seo.boost.cta': 'Free quote, 24h response',
+  'seo.boost.cta': 'Free quote, 48h response',
 
   // Audit CTA Section
   'audit.badge': 'Launch offer',

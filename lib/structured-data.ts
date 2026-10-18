@@ -33,7 +33,7 @@ export const organizationSchema = {
     height: 60,
   },
   description:
-    'Agence de développement web full-stack, intégration IA et automatisation n8n pour startups et PME.',
+    'Agence web & IA française, immatriculée à Lille : sites, applications mobiles, automatisation n8n et assistants IA pour PME. Prix clairs, contrat français.',
   address: {
     '@type': 'PostalAddress',
     addressCountry: REAL_ADDRESS_COUNTRY,
@@ -58,17 +58,14 @@ export const organizationSchema = {
     { '@type': 'City', name: 'Hanoï' },
   ],
   sameAs: [
-    'https://www.linkedin.com/company/neuraweb',
-    'https://github.com/neuraweb',
     'https://x.com/neurawebtech',
     'https://www.facebook.com/people/Neuraweb/61587416320627/',
     'https://maps.app.goo.gl/DUkC3mSovCR8cpRz5', // Google Business Profile
   ],
-  foundingDate: '2024',
+  foundingDate: '2023',
   numberOfEmployees: {
     '@type': 'QuantitativeValue',
-    minValue: 1,
-    maxValue: 10,
+    value: 3,
   },
 };
 
@@ -80,7 +77,7 @@ export const localBusinessSchema = {
   '@id': `${BASE_URL}/#localbusiness`,
   name: 'NeuraWeb',
   description:
-    'Agence digitale spécialisée en développement web sur mesure, intégration IA et automatisation n8n. Startups, PME et grandes entreprises.',
+    'Agence web & IA française, immatriculée à Lille, équipe de trois travaillant à distance depuis Hanoï. Sites sur mesure, applications mobiles, automatisation n8n et assistants IA pour PME, hôtels et restaurants. Prix clairs, contrat français.',
   url: BASE_URL,
   telephone: REAL_PHONE,
   email: 'contact@neuraweb.fr',
@@ -197,15 +194,13 @@ export const professionalServiceSchema = {
         '@type': 'Offer',
         name: 'Pack Starter',
         description: 'Site vitrine responsive avec SEO optimisé',
-        price: '1490',
-        priceCurrency: 'EUR',
+        priceSpecification: { '@type': 'PriceSpecification', minPrice: '1490', priceCurrency: 'EUR' },
       },
       {
         '@type': 'Offer',
         name: 'Pack Business',
         description: 'Solution complète avec espace admin, blog et analytics',
-        price: '3990',
-        priceCurrency: 'EUR',
+        priceSpecification: { '@type': 'PriceSpecification', minPrice: '3990', priceCurrency: 'EUR' },
       },
       {
         '@type': 'Offer',

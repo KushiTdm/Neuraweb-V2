@@ -45,6 +45,12 @@ export function Header() {
     setIsMenuOpen(false);
   }, [pathname]);
 
+  // Expose l'état de la barre pour les éléments collants de page (ex. filtres du blog)
+  useEffect(() => {
+    document.documentElement.dataset.navHidden = String(isHidden && !isMenuOpen);
+    return () => { delete document.documentElement.dataset.navHidden; };
+  }, [isHidden, isMenuOpen]);
+
   // Bloquer le scroll quand le menu mobile est ouvert
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : '';

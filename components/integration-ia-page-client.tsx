@@ -1,5 +1,6 @@
 'use client';
 
+import { SourcedStats } from '@/components/sourced-stats';
 import React, { useRef, useState } from 'react';
 import { useGsapReveal } from '@/hooks/use-gsap-reveal';
 import {
@@ -106,12 +107,12 @@ const CONTENT: Record<Lang, {
     },
     useCases: {
       h2: "Cas d'usage par secteur",
-      subtitle: "Des scénarios concrets, avec le pack adapté et le résultat mesurable que vous pouvez en attendre.",
+      subtitle: "Des scénarios types, avec le pack adapté. À titre indicatif : les résultats varient selon le contexte et ne sont pas garantis.",
       items: [
-        { sector: 'Commerce / Boutique locale', context: '40% des questions sont répétitives (horaires, stock, localisation) et mobilisent le personnel en boutique.', solution: 'Chatbot RAG connecté au site + FAQ + catalogue, 5 intentions, réponses 24/7 dans votre charte.', result: '−7h/semaine de questions répétitives · +6 pts de conversion grâce à la réponse immédiate', pack: 'Essentiel IA' },
-        { sector: 'Agence immobilière', context: 'Leads SeLoger/Figaro traités à la main, réponse > 24h, CRM mis à jour à 70%.', solution: 'Agent IA de qualification BANT + indexation des biens + prise de RDV Calendly + handoff CRM/Slack.', result: 'Qualification 20 min → 2 min · réponse < 1h passée de 35% à 85% · RDV pris +87%', pack: 'Business IA' },
-        { sector: 'E-commerce', context: 'SAV débordé, mêmes questions sur les commandes, abandons faute de réponse rapide.', solution: 'Assistant RAG sur tout le catalogue + suivi de commande + recommandations produits, 3 langues.', result: 'Jusqu\'à 68% des demandes traitées sans agent · SAV recentré sur les cas complexes', pack: 'Business IA' },
-        { sector: 'Cabinet médical / Réseau de santé', context: 'Documentation interne volumineuse, données sensibles, conformité RGPD/HDS exigeante.', solution: 'Architecture multi-agents (RDV, support, contenu) + RAG sur 500+ documents + hébergement souverain OVH + DPA.', result: 'Recherche documentaire instantanée · 100% conforme RGPD santé · support patient 24/7', pack: 'Premium IA' },
+        { sector: 'Commerce / Boutique locale', context: '40% des questions sont répétitives (horaires, stock, localisation) et mobilisent le personnel en boutique.', solution: 'Chatbot RAG connecté au site + FAQ + catalogue, 5 intentions, réponses 24/7 dans votre charte.', result: 'Moins de temps passé sur les questions répétitives · réponse immédiate qui aide à convertir', pack: 'Essentiel IA' },
+        { sector: 'Agence immobilière', context: 'Leads SeLoger/Figaro traités à la main, réponse > 24h, CRM mis à jour à 70%.', solution: 'Agent IA de qualification BANT + indexation des biens + prise de RDV Calendly + handoff CRM/Slack.', result: 'Qualification des leads en quelques minutes · réponses rapides aux demandes entrantes · prise de RDV automatisée', pack: 'Business IA' },
+        { sector: 'E-commerce', context: 'SAV débordé, mêmes questions sur les commandes, abandons faute de réponse rapide.', solution: 'Assistant RAG sur tout le catalogue + suivi de commande + recommandations produits, 3 langues.', result: 'Une grande partie des demandes traitée sans agent · SAV recentré sur les cas complexes', pack: 'Business IA' },
+        { sector: 'Cabinet médical / Réseau de santé', context: 'Documentation interne volumineuse, données sensibles, conformité RGPD/HDS exigeante.', solution: 'Architecture multi-agents (RDV, support, contenu) + RAG sur 500+ documents + hébergement souverain OVH + DPA.', result: 'Recherche documentaire instantanée · hébergement souverain et DPA · support patient 24/7', pack: 'Premium IA' },
         { sector: 'SaaS / B2B tech', context: 'Onboarding chronophage, support de niveau 1 saturé, blog SEO à l\'arrêt.', solution: 'Assistant onboarding IA + support tier 1 RAG sur la doc + agent de génération de contenu SEO.', result: 'Time-to-value réduit · tickets niveau 1 absorbés · production de contenu SEO continue', pack: 'Premium IA' },
         { sector: 'Restaurant / Hôtellerie', context: 'Réservations par téléphone hors service, questions FAQ en boucle, PMS non connecté.', solution: 'Chatbot réservation + FAQ + synchronisation PMS, multilingue pour la clientèle internationale.', result: 'Réservations captées 24/7 · standard téléphonique allégé · clientèle étrangère mieux servie', pack: 'Essentiel IA' },
       ],
@@ -227,12 +228,12 @@ const CONTENT: Record<Lang, {
     },
     useCases: {
       h2: 'Use cases by industry',
-      subtitle: 'Concrete scenarios, with the right pack and the measurable result you can expect.',
+      subtitle: 'Typical scenarios, with the right pack. For guidance only: results vary with context and are not guaranteed.',
       items: [
-        { sector: 'Local shop / Retail', context: '40% of questions are repetitive (hours, stock, location) and tie up in-store staff.', solution: 'RAG chatbot connected to your site + FAQ + catalog, 5 intents, 24/7 answers in your brand style.', result: '−7h/week of repetitive questions · +6 pts conversion thanks to instant answers', pack: 'Essential AI' },
-        { sector: 'Real estate agency', context: 'Portal leads handled by hand, replies > 24h, CRM only 70% up to date.', solution: 'BANT qualification AI agent + listing indexing + Calendly booking + CRM/Slack handoff.', result: 'Qualification 20 min → 2 min · sub-1h reply rate from 35% to 85% · bookings +87%', pack: 'Business AI' },
-        { sector: 'E-commerce', context: 'Overwhelmed support, the same order questions, drop-offs for lack of a fast answer.', solution: 'RAG assistant over the full catalog + order tracking + product recommendations, 3 languages.', result: 'Up to 68% of requests handled without an agent · support refocused on complex cases', pack: 'Business AI' },
-        { sector: 'Medical practice / Healthcare network', context: 'Large internal documentation, sensitive data, demanding GDPR/HDS compliance.', solution: 'Multi-agent architecture (booking, support, content) + RAG over 500+ documents + sovereign OVH hosting + DPA.', result: 'Instant document search · 100% health-GDPR compliant · 24/7 patient support', pack: 'Premium AI' },
+        { sector: 'Local shop / Retail', context: '40% of questions are repetitive (hours, stock, location) and tie up in-store staff.', solution: 'RAG chatbot connected to your site + FAQ + catalog, 5 intents, 24/7 answers in your brand style.', result: 'Less time spent on repetitive questions · instant answers that help conversion', pack: 'Essential AI' },
+        { sector: 'Real estate agency', context: 'Portal leads handled by hand, replies > 24h, CRM only 70% up to date.', solution: 'BANT qualification AI agent + listing indexing + Calendly booking + CRM/Slack handoff.', result: 'Leads qualified in minutes · fast replies to inbound requests · automated booking', pack: 'Business AI' },
+        { sector: 'E-commerce', context: 'Overwhelmed support, the same order questions, drop-offs for lack of a fast answer.', solution: 'RAG assistant over the full catalog + order tracking + product recommendations, 3 languages.', result: 'A large share of requests handled without an agent · support refocused on complex cases', pack: 'Business AI' },
+        { sector: 'Medical practice / Healthcare network', context: 'Large internal documentation, sensitive data, demanding GDPR/HDS compliance.', solution: 'Multi-agent architecture (booking, support, content) + RAG over 500+ documents + sovereign OVH hosting + DPA.', result: 'Instant document search · sovereign hosting and DPA · 24/7 patient support', pack: 'Premium AI' },
         { sector: 'SaaS / B2B tech', context: 'Time-consuming onboarding, saturated tier-1 support, SEO blog at a standstill.', solution: 'AI onboarding assistant + tier-1 RAG support over the docs + SEO content generation agent.', result: 'Reduced time-to-value · tier-1 tickets absorbed · continuous SEO content output', pack: 'Premium AI' },
         { sector: 'Restaurant / Hospitality', context: 'After-hours phone bookings, looping FAQ questions, PMS not connected.', solution: 'Booking chatbot + FAQ + PMS synchronisation, multilingual for international guests.', result: 'Bookings captured 24/7 · lighter phone load · international guests better served', pack: 'Essential AI' },
       ],
@@ -348,12 +349,12 @@ const CONTENT: Record<Lang, {
     },
     useCases: {
       h2: 'Casos de uso por sector',
-      subtitle: 'Escenarios concretos, con el pack adecuado y el resultado medible que puedes esperar.',
+      subtitle: 'Escenarios tipo, con el pack adecuado. A título orientativo: los resultados varían según el contexto y no están garantizados.',
       items: [
-        { sector: 'Comercio / Tienda local', context: 'El 40% de las preguntas son repetitivas (horarios, stock, ubicación) y ocupan al personal de tienda.', solution: 'Chatbot RAG conectado a tu web + FAQ + catálogo, 5 intenciones, respuestas 24/7 con tu identidad.', result: '−7h/semana de preguntas repetitivas · +6 pts de conversión por la respuesta inmediata', pack: 'Esencial IA' },
-        { sector: 'Agencia inmobiliaria', context: 'Leads de portales tratados a mano, respuesta > 24h, CRM actualizado al 70%.', solution: 'Agente IA de cualificación BANT + indexación de inmuebles + cita Calendly + handoff CRM/Slack.', result: 'Cualificación 20 min → 2 min · respuesta < 1h del 35% al 85% · citas +87%', pack: 'Business IA' },
-        { sector: 'E-commerce', context: 'Atención desbordada, las mismas preguntas sobre pedidos, abandonos por falta de respuesta rápida.', solution: 'Asistente RAG sobre todo el catálogo + seguimiento de pedidos + recomendaciones, 3 idiomas.', result: 'Hasta el 68% de las consultas resueltas sin agente · atención centrada en casos complejos', pack: 'Business IA' },
-        { sector: 'Consulta médica / Red de salud', context: 'Documentación interna voluminosa, datos sensibles, conformidad RGPD/HDS exigente.', solution: 'Arquitectura multi-agente (citas, soporte, contenido) + RAG sobre 500+ documentos + alojamiento soberano OVH + DPA.', result: 'Búsqueda documental instantánea · 100% conforme RGPD salud · soporte al paciente 24/7', pack: 'Premium IA' },
+        { sector: 'Comercio / Tienda local', context: 'El 40% de las preguntas son repetitivas (horarios, stock, ubicación) y ocupan al personal de tienda.', solution: 'Chatbot RAG conectado a tu web + FAQ + catálogo, 5 intenciones, respuestas 24/7 con tu identidad.', result: 'Menos tiempo en preguntas repetitivas · respuesta inmediata que ayuda a convertir', pack: 'Esencial IA' },
+        { sector: 'Agencia inmobiliaria', context: 'Leads de portales tratados a mano, respuesta > 24h, CRM actualizado al 70%.', solution: 'Agente IA de cualificación BANT + indexación de inmuebles + cita Calendly + handoff CRM/Slack.', result: 'Leads cualificados en minutos · respuestas rápidas a las solicitudes entrantes · citas automatizadas', pack: 'Business IA' },
+        { sector: 'E-commerce', context: 'Atención desbordada, las mismas preguntas sobre pedidos, abandonos por falta de respuesta rápida.', solution: 'Asistente RAG sobre todo el catálogo + seguimiento de pedidos + recomendaciones, 3 idiomas.', result: 'Gran parte de las consultas resueltas sin agente · atención centrada en casos complejos', pack: 'Business IA' },
+        { sector: 'Consulta médica / Red de salud', context: 'Documentación interna voluminosa, datos sensibles, conformidad RGPD/HDS exigente.', solution: 'Arquitectura multi-agente (citas, soporte, contenido) + RAG sobre 500+ documentos + alojamiento soberano OVH + DPA.', result: 'Búsqueda documental instantánea · alojamiento soberano y DPA · soporte al paciente 24/7', pack: 'Premium IA' },
         { sector: 'SaaS / B2B tech', context: 'Onboarding lento, soporte de nivel 1 saturado, blog SEO parado.', solution: 'Asistente de onboarding IA + soporte tier 1 RAG sobre la documentación + agente de generación de contenido SEO.', result: 'Menor time-to-value · tickets de nivel 1 absorbidos · producción de contenido SEO continua', pack: 'Premium IA' },
         { sector: 'Restaurante / Hostelería', context: 'Reservas por teléfono fuera de horario, preguntas FAQ en bucle, PMS no conectado.', solution: 'Chatbot de reservas + FAQ + sincronización PMS, multilingüe para la clientela internacional.', result: 'Reservas captadas 24/7 · centralita aliviada · clientela extranjera mejor atendida', pack: 'Esencial IA' },
       ],
@@ -470,7 +471,7 @@ const CONTENT: Record<Lang, {
     },
     useCases: {
       h2: 'Tình huống thực tế theo từng ngành',
-      subtitle: 'Những kịch bản cụ thể, với gói phù hợp và kết quả đo lường được mà bạn có thể kỳ vọng.',
+      subtitle: 'Các kịch bản mẫu, với gói phù hợp. Chỉ mang tính tham khảo: kết quả thay đổi theo từng trường hợp và không được cam kết.',
       items: [
         { sector: 'Cửa hàng / hộ kinh doanh địa phương', context: 'Phần lớn câu hỏi lặp đi lặp lại (giờ mở cửa, còn hàng không, ở đâu) và chiếm hết thời gian của nhân viên bán hàng.', solution: 'Chatbot RAG kết nối website + câu hỏi thường gặp + danh mục hàng, 5 tình huống, trả lời 24/7 trên website và Zalo.', result: 'Giảm mạnh thời gian trả lời câu hỏi lặp lại · khách được phản hồi ngay nên chốt nhanh hơn', pack: 'Essentiel IA' },
         { sector: 'Khách sạn tại Hà Nội', context: 'Yêu cầu đặt phòng đến từ Agoda, Booking, Traveloka và Zalo, trả lời chậm, khách quốc tế phải chờ qua đêm.', solution: 'AI agent trả lời tiếng Việt, Anh, Pháp 24/7 + lập chỉ mục thông tin phòng, dịch vụ, chính sách + đặt phòng trực tiếp.', result: 'Trả lời ngay trong vài phút · giảm phụ thuộc vào OTA · khách phương Tây được phục vụ bằng chính ngôn ngữ của họ', pack: 'Business IA' },
@@ -577,7 +578,7 @@ type PackId = (typeof PACK_IDS)[number];
 // celui de l'offre Landing Page Express, dans son encart de services-pricing.tsx.
 const QUOTE_ONLY_LANGS: readonly Lang[] = ['vi'];
 const QUOTE_PRICE_LABEL = 'Theo báo giá';
-const QUOTE_PRICE_NOTE = 'Báo giá miễn phí trong 24 giờ';
+const QUOTE_PRICE_NOTE = 'Báo giá miễn phí trong 48 giờ';
 const QUOTE_MAINTENANCE_LABEL = 'Bảo trì hằng tháng theo báo giá';
 
 const MODELS = [
@@ -732,6 +733,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
               ))}
             </ResponsiveCards>
             </div>
+            <SourcedStats ids={['ai18','ai54','mck60']} tone="dark" className="mt-14" />
           </div>
         </section>
 

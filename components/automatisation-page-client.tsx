@@ -1,5 +1,6 @@
 'use client';
 
+import { SourcedStats } from '@/components/sourced-stats';
 import React, { useRef, useState } from 'react';
 import { useGsapReveal } from '@/hooks/use-gsap-reveal';
 import {
@@ -107,12 +108,12 @@ const CONTENT: Record<Lang, {
     tools: { label: 'Nous connectons vos outils' },
     useCases: {
       h2: "Cas d'usage par métier",
-      subtitle: 'Des scénarios concrets, avec le pack adapté et le gain mesurable que vous pouvez en attendre.',
+      subtitle: 'Des scénarios types, avec le pack adapté. À titre indicatif : les gains varient selon le contexte et ne sont pas garantis.',
       items: [
-        { sector: 'Cabinet (avocat, expert-comptable, conseil)', context: 'Chaque lead entrant est traité à la main : email, saisie Excel, devis, relances — 45 min par dossier.', solution: 'Workflow formulaire → qualification IA → CRM → prise de RDV Calendly → devis généré automatiquement.', result: 'Traitement d\'un lead : 45 min → 3 min · +10 pts de taux de conversion · 0 oubli de relance', pack: 'Starter Auto' },
-        { sector: 'Agence / PME B2B', context: 'Prospection LinkedIn manuelle, CRM mis à jour à 60%, nurturing fait au coup par coup.', solution: '3 à 5 workflows + agent IA de qualification (scoring BANT) + séquence de nurturing + reporting automatique.', result: 'Prospection 15h → 3h/semaine · CRM 100% à jour · taux de réponse ×2 (IA personnalisée)', pack: 'Business Auto' },
-        { sector: 'E-commerce / Retail', context: 'Commandes, SAV et stock gérés dans des outils non connectés, doubles saisies et erreurs.', solution: 'Synchronisation commandes ↔ CRM ↔ facturation + alertes de stock + relances panier automatiques.', result: 'Erreurs de saisie quasi nulles · relances panier 24/7 · suivi commande sans intervention', pack: 'Business Auto' },
-        { sector: 'ETI / multi-sites', context: '10 à 15 outils non connectés (CRM, ERP, compta, RH), reporting consolidé à la main sur 3 jours.', solution: 'Infrastructure n8n self-hosted + 3 agents IA (leads, support, contenu) + dashboard de pilotage temps réel.', result: '−28h/semaine de saisie · ruptures de stock −87% · reporting 3 jours → 10 min', pack: 'Full Automation' },
+        { sector: 'Cabinet (avocat, expert-comptable, conseil)', context: 'Chaque lead entrant est traité à la main : email, saisie Excel, devis, relances — 45 min par dossier.', solution: 'Workflow formulaire → qualification IA → CRM → prise de RDV Calendly → devis généré automatiquement.', result: 'Leads traités en quelques minutes · relances automatiques systématiques · meilleur taux de conversion visé', pack: 'Starter Auto' },
+        { sector: 'Agence / PME B2B', context: 'Prospection LinkedIn manuelle, CRM mis à jour à 60%, nurturing fait au coup par coup.', solution: '3 à 5 workflows + agent IA de qualification (scoring BANT) + séquence de nurturing + reporting automatique.', result: 'Prospection allégée de plusieurs heures par semaine · CRM à jour automatiquement · relances personnalisées par IA', pack: 'Business Auto' },
+        { sector: 'E-commerce / Retail', context: 'Commandes, SAV et stock gérés dans des outils non connectés, doubles saisies et erreurs.', solution: 'Synchronisation commandes ↔ CRM ↔ facturation + alertes de stock + relances panier automatiques.', result: 'Moins d\'erreurs de saisie · relances panier 24/7 · suivi commande sans intervention', pack: 'Business Auto' },
+        { sector: 'ETI / multi-sites', context: '10 à 15 outils non connectés (CRM, ERP, compta, RH), reporting consolidé à la main sur 3 jours.', solution: 'Infrastructure n8n self-hosted + 3 agents IA (leads, support, contenu) + dashboard de pilotage temps réel.', result: 'Saisie manuelle réduite · meilleure visibilité sur les stocks · reporting en minutes plutôt qu\'en jours', pack: 'Full Automation' },
       ],
     },
     packs: {
@@ -234,12 +235,12 @@ const CONTENT: Record<Lang, {
     tools: { label: 'We connect your tools' },
     useCases: {
       h2: 'Use cases by profession',
-      subtitle: 'Concrete scenarios, with the right pack and the measurable gain you can expect.',
+      subtitle: 'Typical scenarios, with the right pack. For guidance only: gains vary with context and are not guaranteed.',
       items: [
-        { sector: 'Firm (law, accounting, consulting)', context: 'Every incoming lead is handled by hand: email, Excel entry, quote, follow-ups — 45 min per case.', solution: 'Form → AI qualification → CRM → Calendly booking → automatically generated quote workflow.', result: 'Lead handling: 45 min → 3 min · +10 pts conversion rate · zero missed follow-up', pack: 'Starter Auto' },
-        { sector: 'Agency / B2B SMB', context: 'Manual LinkedIn prospecting, CRM only 60% up to date, ad-hoc nurturing.', solution: '3 to 5 workflows + AI qualification agent (BANT scoring) + nurturing sequence + automatic reporting.', result: 'Prospecting 15h → 3h/week · CRM 100% up to date · reply rate ×2 (personalised AI)', pack: 'Business Auto' },
-        { sector: 'E-commerce / Retail', context: 'Orders, support and stock managed in disconnected tools, double entry and errors.', solution: 'Orders ↔ CRM ↔ billing sync + stock alerts + automatic cart recovery.', result: 'Near-zero data-entry errors · 24/7 cart recovery · order tracking with no manual work', pack: 'Business Auto' },
-        { sector: 'Mid-market / multi-site', context: '10 to 15 disconnected tools (CRM, ERP, accounting, HR), consolidated reporting done by hand over 3 days.', solution: 'Self-hosted n8n infrastructure + 3 AI agents (leads, support, content) + real-time management dashboard.', result: '−28h/week of data entry · stockouts −87% · reporting 3 days → 10 min', pack: 'Full Automation' },
+        { sector: 'Firm (law, accounting, consulting)', context: 'Every incoming lead is handled by hand: email, Excel entry, quote, follow-ups — 45 min per case.', solution: 'Form → AI qualification → CRM → Calendly booking → automatically generated quote workflow.', result: 'Leads handled in minutes · systematic automatic follow-ups · higher conversion targeted', pack: 'Starter Auto' },
+        { sector: 'Agency / B2B SMB', context: 'Manual LinkedIn prospecting, CRM only 60% up to date, ad-hoc nurturing.', solution: '3 to 5 workflows + AI qualification agent (BANT scoring) + nurturing sequence + automatic reporting.', result: 'Prospecting lightened by several hours a week · CRM updated automatically · AI-personalised follow-ups', pack: 'Business Auto' },
+        { sector: 'E-commerce / Retail', context: 'Orders, support and stock managed in disconnected tools, double entry and errors.', solution: 'Orders ↔ CRM ↔ billing sync + stock alerts + automatic cart recovery.', result: 'Fewer data-entry errors · 24/7 cart recovery · order tracking with no manual work', pack: 'Business Auto' },
+        { sector: 'Mid-market / multi-site', context: '10 to 15 disconnected tools (CRM, ERP, accounting, HR), consolidated reporting done by hand over 3 days.', solution: 'Self-hosted n8n infrastructure + 3 AI agents (leads, support, content) + real-time management dashboard.', result: 'Less manual data entry · better stock visibility · reporting in minutes instead of days', pack: 'Full Automation' },
       ],
     },
     packs: {
@@ -361,12 +362,12 @@ const CONTENT: Record<Lang, {
     tools: { label: 'Conectamos tus herramientas' },
     useCases: {
       h2: 'Casos de uso por sector',
-      subtitle: 'Escenarios concretos, con el pack adecuado y la ganancia medible que puedes esperar.',
+      subtitle: 'Escenarios tipo, con el pack adecuado. A título orientativo: las ganancias varían según el contexto y no están garantizadas.',
       items: [
-        { sector: 'Despacho (abogado, asesor, consultoría)', context: 'Cada lead entrante se trata a mano: email, Excel, presupuesto, seguimientos — 45 min por expediente.', solution: 'Flujo formulario → cualificación IA → CRM → cita Calendly → presupuesto generado automáticamente.', result: 'Tratamiento de un lead: 45 min → 3 min · +10 pts de conversión · 0 seguimiento olvidado', pack: 'Starter Auto' },
-        { sector: 'Agencia / Pyme B2B', context: 'Prospección LinkedIn manual, CRM actualizado al 60%, nurturing puntual.', solution: '3 a 5 flujos + agente IA de cualificación (scoring BANT) + secuencia de nurturing + reporting automático.', result: 'Prospección 15h → 3h/semana · CRM 100% actualizado · tasa de respuesta ×2 (IA personalizada)', pack: 'Business Auto' },
-        { sector: 'E-commerce / Retail', context: 'Pedidos, atención y stock en herramientas no conectadas, doble entrada y errores.', solution: 'Sincronización pedidos ↔ CRM ↔ facturación + alertas de stock + recuperación de carrito automática.', result: 'Errores de entrada casi nulos · recuperación de carrito 24/7 · seguimiento de pedido sin intervención', pack: 'Business Auto' },
-        { sector: 'Mediana empresa / multisede', context: '10 a 15 herramientas no conectadas (CRM, ERP, contabilidad, RRHH), reporting consolidado a mano en 3 días.', solution: 'Infraestructura n8n self-hosted + 3 agentes IA (leads, soporte, contenido) + dashboard de gestión en tiempo real.', result: '−28h/semana de entrada de datos · roturas de stock −87% · reporting 3 días → 10 min', pack: 'Full Automation' },
+        { sector: 'Despacho (abogado, asesor, consultoría)', context: 'Cada lead entrante se trata a mano: email, Excel, presupuesto, seguimientos — 45 min por expediente.', solution: 'Flujo formulario → cualificación IA → CRM → cita Calendly → presupuesto generado automáticamente.', result: 'Leads tratados en minutos · seguimientos automáticos sistemáticos · mejor conversión como objetivo', pack: 'Starter Auto' },
+        { sector: 'Agencia / Pyme B2B', context: 'Prospección LinkedIn manual, CRM actualizado al 60%, nurturing puntual.', solution: '3 a 5 flujos + agente IA de cualificación (scoring BANT) + secuencia de nurturing + reporting automático.', result: 'Prospección aliviada varias horas por semana · CRM actualizado automáticamente · seguimientos personalizados con IA', pack: 'Business Auto' },
+        { sector: 'E-commerce / Retail', context: 'Pedidos, atención y stock en herramientas no conectadas, doble entrada y errores.', solution: 'Sincronización pedidos ↔ CRM ↔ facturación + alertas de stock + recuperación de carrito automática.', result: 'Menos errores de entrada · recuperación de carrito 24/7 · seguimiento de pedido sin intervención', pack: 'Business Auto' },
+        { sector: 'Mediana empresa / multisede', context: '10 a 15 herramientas no conectadas (CRM, ERP, contabilidad, RRHH), reporting consolidado a mano en 3 días.', solution: 'Infraestructura n8n self-hosted + 3 agentes IA (leads, soporte, contenido) + dashboard de gestión en tiempo real.', result: 'Menos entrada manual de datos · mejor visibilidad del stock · reporting en minutos en lugar de días', pack: 'Full Automation' },
       ],
     },
     packs: {
@@ -490,7 +491,7 @@ const CONTENT: Record<Lang, {
     tools: { label: 'Chúng tôi kết nối các công cụ của bạn' },
     useCases: {
       h2: 'Tình huống thực tế theo từng mô hình',
-      subtitle: 'Những kịch bản cụ thể, với gói phù hợp và lợi ích đo lường được mà bạn có thể kỳ vọng.',
+      subtitle: 'Các kịch bản mẫu, với gói phù hợp. Chỉ mang tính tham khảo: lợi ích thay đổi theo từng trường hợp và không được cam kết.',
       items: [
         { sector: 'Cửa hàng / hộ kinh doanh cá thể', context: 'Đơn hàng đến từ Zalo, Facebook và điện thoại, ghi tay vào sổ, không ai nhớ đã nhắn lại cho ai.', solution: 'Một workflow duy nhất gom tin nhắn Zalo, Facebook và biểu mẫu website về cùng một bảng, kèm nhắc việc tự động.', result: 'Không còn bỏ sót khách · toàn bộ đơn nằm trong một bảng duy nhất · triển khai trong vài ngày', pack: 'Starter Auto' },
         { sector: 'Khách sạn / nhà hàng tại Hà Nội', context: 'Yêu cầu đặt chỗ đến từ Agoda, Booking, Traveloka, GrabFood và Zalo, mỗi kênh một nơi, khách quốc tế phải chờ trả lời.', solution: '3 đến 5 workflow gom mọi kênh + AI agent trả lời tiếng Việt, Anh, Pháp 24/7 + đồng bộ lịch phòng và bàn.', result: 'Trả lời khách ngay trong vài phút · giảm phụ thuộc vào OTA · nhân viên lễ tân bớt việc thủ công', pack: 'Business Auto' },
@@ -608,7 +609,7 @@ type PackId = (typeof PACK_IDS)[number];
 // celui de l'offre Landing Page Express, dans son encart de services-pricing.tsx.
 const QUOTE_ONLY_LANGS: readonly Lang[] = ['vi'];
 const QUOTE_PRICE_LABEL = 'Theo báo giá';
-const QUOTE_PRICE_NOTE = 'Báo giá miễn phí trong 24 giờ';
+const QUOTE_PRICE_NOTE = 'Báo giá miễn phí trong 48 giờ';
 const QUOTE_MAINTENANCE_LABEL = 'Bảo trì hằng tháng theo báo giá';
 
 const TOOLS = [
@@ -778,6 +779,7 @@ export function AutomatisationPageClient({ lang }: Props) {
                 </article>
               ))}
             </div>
+            <SourcedStats ids={['ai18','mck60','ai54']} tone="dark" className="mt-14" />
           </div>
         </section>
 

@@ -121,7 +121,7 @@ const professionalServiceSchema = {
 const FAQ_DATA: { q: string; a: string }[] = [
   {
     q: 'Combien coûte un site web pour restaurant ?',
-    a: "Cela dépend de vos besoins. Une landing page soignée démarre autour de 990 à 1 490 €. Un site vitrine pro (multi-pages, avis, galerie) se situe entre 1 490 et 2 490 €. Un site avec réservation en ligne, commande et paiement Stripe va de 2 990 à 3 990 €. La formule fidélité + compte client se situe entre 4 990 et 7 990 €. Pour un réseau multi-restaurants ou une franchise, c'est sur devis. À chaque fois, vous restez propriétaire de votre site et de vos données.",
+    a: "Les prix sont toujours « à partir de » et dépendent de vos besoins. Une landing page soignée (site statique) démarre à partir de 990 €. Un site vitrine pro (multi-pages, avis, galerie, carte modifiable en autonomie avec un CMS) démarre à partir de 1 490 €. Un site avec réservation en ligne, commande et paiement Stripe (développement backend) démarre à partir de 2 990 €. La formule fidélité + compte client démarre à partir de 4 990 €. Ces prix s'appliquent à des maquettes déjà déterminées, adaptées à votre charte. Pour un réseau multi-restaurants ou une franchise, l'architecture est sur mesure : son prix est défini à part, uniquement sur devis. À chaque fois, vous restez propriétaire de votre site et de vos données.",
   },
   {
     q: 'Pourquoi un site direct plutôt qu’Uber Eats ou Deliveroo ?',
@@ -129,11 +129,11 @@ const FAQ_DATA: { q: string; a: string }[] = [
   },
   {
     q: 'Existe-t-il un système de réservation en ligne gratuit pour un restaurant ?',
-    a: "Oui, mais le mot « gratuit » déplace toujours le coût ailleurs. Les portails de réservation proposent un module sans frais d'installation, puis se rémunèrent par un abonnement mensuel ou par une commission sur chaque couvert apporté via leur application. Les widgets gratuits des plateformes, eux, vous rendent dépendant d'un acteur qui détient la relation client. Un module de réservation intégré à votre propre site fonctionne autrement : vous financez le développement une seule fois, puis uniquement l'infrastructure (40 à 80 €/mois), sans commission par couvert et en conservant les coordonnées de vos clients. Plus votre volume de réservations augmente, plus l'écart penche en faveur du module intégré.",
+    a: "Oui, mais le mot « gratuit » déplace toujours le coût ailleurs. Les portails de réservation proposent un module sans frais d'installation, puis se rémunèrent par un abonnement mensuel ou par une commission sur chaque couvert apporté via leur application. Les widgets gratuits des plateformes, eux, vous rendent dépendant d'un acteur qui détient la relation client. Un module de réservation intégré à votre propre site fonctionne autrement : vous financez le développement une seule fois, puis uniquement la maintenance (à partir de 119 €/mois avec réservation et base de données), sans commission par couvert et en conservant les coordonnées de vos clients. Plus votre volume de réservations augmente, plus l'écart penche en faveur du module intégré.",
   },
   {
     q: 'Quels sont les frais mensuels en plus du développement ?',
-    a: "Les frais d'infrastructure dépendent de la formule : 10 à 20 €/mois pour une vitrine simple (domaine + hébergement), 20 à 40 €/mois avec CMS et avis, 40 à 80 €/mois dès qu'on ajoute réservation, commande et paiement (base de données + e-mail/SMS), 80 à 150 €/mois pour la fidélité avec volume marketing. S'ajoutent les frais Stripe (1,4 % + 0,25 €) uniquement sur les paiements réellement encaissés.",
+    a: "Les frais mensuels correspondent à la maintenance (hébergement, nom de domaine, mises à jour de sécurité, sauvegardes, support). Elle suit le temps alloué et la complexité : à partir de 59 €/mois pour un site statique comme une landing, à partir de 89 €/mois avec un CMS (carte modifiable en autonomie), à partir de 119 €/mois dès qu'il y a réservation, commande, paiement ou fidélité (comptes clients, base de données). Pour une architecture sur mesure (réseau / franchise), la maintenance est chiffrée à part, uniquement sur devis. S'ajoutent les frais Stripe (1,4 % + 0,25 €) uniquement sur les paiements réellement encaissés.",
   },
   {
     q: 'Puis-je commencer petit et faire évoluer le site ?',

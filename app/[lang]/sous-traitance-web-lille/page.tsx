@@ -149,7 +149,7 @@ const serviceSchema = {
         itemOffered: { '@type': 'Service', name: 'Développement de site Next.js en marque blanche' },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '1490',
+          minPrice: '1490',
           priceCurrency: 'EUR',
           valueAddedTaxIncluded: false,
         },
@@ -159,7 +159,7 @@ const serviceSchema = {
         itemOffered: { '@type': 'Service', name: 'Application web sur mesure en marque blanche' },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '3990',
+          minPrice: '3990',
           priceCurrency: 'EUR',
           valueAddedTaxIncluded: false,
         },
@@ -603,8 +603,8 @@ export default async function SousTraitanceWebLillePage({
 
             <div className="rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
               {[
-                { name: 'Site vitrine', scope: "Jusqu'à 8 pages sur maquettes prédéfinies, SEO de base", price: '1 490 € HT' },
-                { name: 'Site ou application avancée', scope: "Jusqu'à 20 pages sur maquettes prédéfinies, blog, chatbot IA, intégrations métier", price: '3 990 € HT' },
+                { name: 'Site vitrine', scope: "Jusqu'à 8 pages sur maquettes prédéfinies, SEO de base", price: 'À partir de 1 490 € HT' },
+                { name: 'Site ou application avancée', scope: "Jusqu'à 20 pages sur maquettes prédéfinies, blog, chatbot IA, intégrations métier", price: 'À partir de 3 990 € HT' },
                 { name: 'Plateforme sur mesure', scope: 'Design sur mesure, application web, IA et automatisation, multi-langue, API tierces', price: 'Sur devis' },
                 { name: 'Audit ou reprise de projet', scope: 'Diagnostic technique écrit, estimation de reprise', price: 'Sur devis' },
                 { name: 'Renfort en régie', scope: 'Développeur intégré à votre équipe, durée définie', price: 'Sur devis' },
@@ -744,7 +744,7 @@ export default async function SousTraitanceWebLillePage({
 
             <p className="mt-6 md:mt-8 inline-flex items-center gap-2 text-xs sm:text-sm text-white/80">
               <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              Réponse garantie sous 4 heures ouvrées
+              Réponse sous 48 h ouvrées
             </p>
           </div>
         </section>

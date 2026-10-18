@@ -107,7 +107,7 @@ const generateServiceJsonLd = (lang: string) => ({
         },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '1490',
+          minPrice: '1490',
           priceCurrency: 'EUR',
         },
       },
@@ -123,7 +123,7 @@ const generateServiceJsonLd = (lang: string) => ({
         },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '3990',
+          minPrice: '3990',
           priceCurrency: 'EUR',
         },
       },

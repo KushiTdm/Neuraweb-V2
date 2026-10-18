@@ -64,8 +64,9 @@ interface Pack {
   name: string;
   tagline: string;
   profil: string;
-  price: number;
-  monthly: number;
+  // Premium Santé = architecture sur mesure : ni prix ni abonnement affichés (null), tout est chiffré au devis
+  price: number | null;
+  monthly: number | null; // « à partir de » : statique 59, backend + CMS 89, HDS 349 (hébergement HDS inclus) ; Premium Santé : sur devis
   bullets: string[];
   badge?: string;
   badgeColor?: string;
@@ -73,6 +74,7 @@ interface Pack {
   ringColor: string;
   bgAccent: string;
   hds: boolean;
+  siteType: 'Site statique' | 'Backend + CMS' | 'Architecture sur mesure'; // statique ≠ backend + CMS ≠ sur mesure (prix à part)
   delivery: string;
   included: string[];
   notIncluded: string[];
@@ -87,9 +89,10 @@ const PACKS: Pack[] = [
     tagline: 'Le site essentiel. Présent en ligne en 1 semaine.',
     profil: "Libéral solo, début d'activité",
     price: 990,
-    monthly: 29,
+    monthly: 59,
     delivery: '5 à 8 jours',
     hds: false,
+    siteType: 'Site statique',
     borderColor: 'border-slate-200',
     ringColor: 'ring-slate-300',
     bgAccent: 'bg-white',
@@ -126,14 +129,15 @@ const PACKS: Pack[] = [
       'Photos pro fournies par le client',
     ],
     options: [
-      { label: 'Rédaction SEO des 5 pages', price: '+290 € HT' },
-      { label: 'Shooting photo pro (15 photos)', price: '+550 € HT' },
-      { label: 'Page supplémentaire', price: '+120 € HT / page' },
-      { label: 'Multilingue (FR + EN ou ES)', price: '+350 € HT' },
-      { label: 'Blog intégré (module CMS)', price: '+490 € HT' },
+      { label: 'Rédaction SEO des 5 pages', price: 'à partir de 290 € HT' },
+      { label: 'Shooting photo pro (15 photos)', price: 'à partir de 550 € HT' },
+      { label: 'Page supplémentaire', price: 'à partir de 120 € HT / page' },
+      { label: 'Multilingue (FR + EN ou ES)', price: 'à partir de 350 € HT' },
+      { label: 'Blog intégré (module CMS)', price: 'à partir de 490 € HT' },
     ],
     abonnement: {
       included: [
+        '≈ 0,5 h de maintenance / mois',
         'Hébergement + nom de domaine',
         'Certificat SSL renouvelé',
         'Sauvegardes mensuelles automatiques',
@@ -157,9 +161,10 @@ const PACKS: Pack[] = [
     tagline: 'Le site qui travaille pour vous. Référencement et autorité.',
     profil: 'Cabinet établi, 1 à 2 praticiens',
     price: 1490,
-    monthly: 49,
+    monthly: 89,
     delivery: '3 à 4 semaines',
     hds: false,
+    siteType: 'Backend + CMS',
     badge: 'Le plus choisi',
     badgeColor: 'bg-amber-500',
     borderColor: 'border-teal-500',
@@ -174,7 +179,7 @@ const PACKS: Pack[] = [
     included: [
       'Toutes les pages du Pack Vitrine Santé',
       'Pages : Témoignages modérés, FAQ par spécialité, page expertise métier',
-      'Design sur-mesure (maquettes Figma validées)',
+      'Maquettes prédéfinies adaptées à votre charte (validées avant intégration)',
       'Blog intégré avec CMS — autonomie complète du client',
       '3 articles SEO de lancement (800 mots chacun)',
       'Catégories, tags, sitemap XML',
@@ -198,16 +203,17 @@ const PACKS: Pack[] = [
       'Photos pro (option disponible)',
     ],
     options: [
-      { label: 'Prise de RDV intégrée (synchro agenda)', price: '+390 € HT' },
-      { label: 'Rappels SMS/Email', price: '+490 € HT + 0,08 €/SMS' },
-      { label: 'Paiement en ligne (Stripe)', price: '+390 € HT' },
-      { label: 'Rédaction 2 articles SEO/mois (800 mots)', price: '+290 € HT/mois' },
-      { label: 'Shooting photo pro (20 + 5 portraits)', price: '+650 € HT' },
-      { label: 'Setup campagne Google Ads', price: '+790 € HT' },
-      { label: 'Espace patient basique (RDV uniquement)', price: '+990 € HT' },
+      { label: 'Prise de RDV intégrée (synchro agenda)', price: 'à partir de 390 € HT' },
+      { label: 'Rappels SMS/Email', price: 'à partir de 490 € HT + 0,08 €/SMS' },
+      { label: 'Paiement en ligne (Stripe)', price: 'à partir de 390 € HT' },
+      { label: 'Rédaction 2 articles SEO/mois (800 mots)', price: 'à partir de 290 € HT/mois' },
+      { label: 'Shooting photo pro (20 + 5 portraits)', price: 'à partir de 650 € HT' },
+      { label: 'Setup campagne Google Ads', price: 'à partir de 790 € HT' },
+      { label: 'Espace patient basique (RDV uniquement)', price: 'à partir de 990 € HT' },
     ],
     abonnement: {
       included: [
+        '≈ 1 h de maintenance / mois',
         'Hébergement premium + CDN',
         'Nom de domaine + SSL',
         'Sauvegardes hebdomadaires + stockage externe',
@@ -233,9 +239,10 @@ const PACKS: Pack[] = [
     tagline: 'La plateforme pour cabinets structurés. HDS inclus.',
     profil: 'Cabinet multi-praticiens, centre paramédical',
     price: 4490,
-    monthly: 129,
+    monthly: 349, // HDS : ~149 (hébergement HDS certifié, ex. Guardis Essentiel) + ~200 (≈ 3 h/mois de maintenance et conformité : journaux d'accès, tests de sauvegarde, correctifs)
     delivery: '6 à 8 semaines',
     hds: true,
+    siteType: 'Backend + CMS',
     badge: 'HDS Inclus',
     badgeColor: 'bg-emerald-600',
     borderColor: 'border-emerald-500',
@@ -276,16 +283,17 @@ const PACKS: Pack[] = [
       'Budget publicitaire',
     ],
     options: [
-      { label: 'Paiement en ligne (Stripe ou PayZen)', price: '+490 € HT' },
-      { label: 'Téléconsultation vidéo sécurisée', price: '+1 590 € HT' },
-      { label: 'Application mobile PWA', price: '+1 990 € HT' },
+      { label: 'Paiement en ligne (Stripe ou PayZen)', price: 'à partir de 490 € HT' },
+      { label: 'Téléconsultation vidéo sécurisée', price: 'à partir de 1 590 € HT' },
+      { label: 'Application mobile PWA', price: 'à partir de 1 990 € HT' },
       { label: 'Intégration logiciel cabinet (API)', price: 'Sur devis (dès 1 500 € HT)' },
-      { label: 'Rédaction 2 articles SEO santé/mois', price: '+390 € HT/mois' },
-      { label: 'Community management (8 posts/mois)', price: '+590 € HT/mois' },
-      { label: 'Formation complémentaire (1h)', price: '+190 € HT' },
+      { label: 'Rédaction 2 articles SEO santé/mois', price: 'à partir de 390 € HT/mois' },
+      { label: 'Community management (8 posts/mois)', price: 'à partir de 590 € HT/mois' },
+      { label: 'Formation complémentaire (1h)', price: 'à partir de 190 € HT' },
     ],
     abonnement: {
       included: [
+        '≈ 3 h de maintenance et de conformité HDS / mois',
         'Hébergement HDS certifié + nom de domaine',
         'Certificat SSL EV (Extended Validation)',
         'Sauvegardes temps réel + stockage géo-redondant',
@@ -312,10 +320,11 @@ const PACKS: Pack[] = [
     name: 'Premium Santé',
     tagline: "L'écosystème digital complet. Automatisation et BI.",
     profil: 'Réseau de cabinets, clinique, groupement',
-    price: 8900,
-    monthly: 219,
+    price: null,
+    monthly: null,
     delivery: '8 à 12 semaines',
     hds: true,
+    siteType: 'Architecture sur mesure',
     badge: 'Sur-mesure',
     badgeColor: 'bg-violet-600',
     borderColor: 'border-violet-500',
@@ -357,16 +366,17 @@ const PACKS: Pack[] = [
       'Développements sur-mesure hors scope',
     ],
     options: [
-      { label: 'Application mobile native iOS + Android', price: '+4 490 € HT' },
-      { label: 'Vidéo corporate + 5 témoignages filmés', price: '+2 900 € HT' },
-      { label: 'Community management complet', price: '+890 € HT/mois' },
-      { label: 'Gestion campagnes Ads', price: '15% du media (min 490 €/mois)' },
-      { label: "Rédaction illimitée (jusqu'à 8 articles/mois)", price: '+790 € HT/mois' },
-      { label: 'DPO externe dédié continu', price: '+390 € HT/mois' },
-      { label: 'Pentest annuel récurrent', price: '+1 200 € HT/an' },
+      { label: 'Application mobile native iOS + Android', price: 'Sur devis' },
+      { label: 'Vidéo corporate + 5 témoignages filmés', price: 'Sur devis' },
+      { label: 'Community management complet', price: 'Sur devis' },
+      { label: 'Gestion campagnes Ads', price: 'Sur devis' },
+      { label: "Rédaction illimitée (jusqu'à 8 articles/mois)", price: 'Sur devis' },
+      { label: 'DPO externe dédié continu', price: 'Sur devis' },
+      { label: 'Pentest annuel récurrent', price: 'Sur devis' },
     ],
     abonnement: {
       included: [
+        'Temps alloué et niveau de service définis au devis',
         'Hébergement cloud dédié HDS + CDN global',
         'Domaine + SSL EV + sécurité renforcée',
         'Sauvegardes temps réel + PRA',
@@ -390,6 +400,9 @@ const PACKS: Pack[] = [
     },
   },
 ];
+
+const formatPackPrice = (pack: Pack) =>
+  pack.price === null ? 'Sur mesure' : `${pack.price.toLocaleString('fr-FR')} €`;
 
 const FAQ: { q: string; a: string }[] = [
   {
@@ -422,7 +435,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: 'Que se passe-t-il si je veux arrêter l\'abonnement ?',
-    a: 'Après les 12 mois d\'engagement initial, l\'abonnement est résiliable à tout moment avec un préavis de 30 jours. Vous récupérez l\'export complet de votre site (fichiers + base de données) et restez propriétaire de votre nom de domaine.',
+    a: 'Après les 12 mois d\'engagement initial, l\'abonnement est résiliable à tout moment avec un préavis de 30 jours. Vous récupérez l\'export complet de votre site (fichiers + base de données) et restez propriétaire de votre nom de domaine. Sur le Pack Premium (HDS, architecture sur mesure), la maintenance est chiffrée à part, uniquement sur devis.',
   },
   {
     q: 'Le site sera-t-il bien référencé sur Google ?',
@@ -538,7 +551,7 @@ const PROBLEMS = [
   {
     icon: ThumbsUp,
     title: "J'ai déjà eu une mauvaise expérience",
-    text: 'Devis transparent, livraison garantie, 3 révisions de maquettes incluses. Pas de surprise, pas de frais cachés, un interlocuteur dédié du début à la fin.',
+    text: 'Devis transparent, livraison dans les délais convenus, 3 révisions de maquettes incluses. Pas de surprise, pas de frais cachés, un interlocuteur dédié du début à la fin.',
     color: 'text-violet-600 bg-violet-50',
   },
 ];
@@ -1051,10 +1064,17 @@ function SimulatorSection({
                 </h3>
                 <p className="text-slate-600 mb-2">{recommendedPack.tagline}</p>
                 <div className="flex items-baseline justify-center gap-2 mb-6">
+                  {recommendedPack.price !== null && (
+                    <span className="text-sm font-medium text-slate-500">À partir de</span>
+                  )}
                   <span className="text-4xl font-extrabold text-teal-600">
-                    {recommendedPack.price.toLocaleString('fr-FR')} €
+                    {formatPackPrice(recommendedPack)}
                   </span>
-                  <span className="text-slate-500">HT + {recommendedPack.monthly} €/mois</span>
+                  <span className="text-slate-500">
+                    {recommendedPack.price === null
+                      ? 'devis personnalisé · maintenance sur devis (HDS)'
+                      : `HT + à partir de ${recommendedPack.monthly} €/mois`}
+                  </span>
                 </div>
                 <p className="text-slate-600 mb-8 max-w-md mx-auto">
                   Basé sur vos réponses, le <strong>{recommendedPack.name}</strong> correspond le
@@ -1129,7 +1149,7 @@ const USE_CASES = [
     icon: Stethoscope,
     context: 'Site obsolète, invisible sur Google, jusqu\'à 40% d\'appels manqués hors horaires de secrétariat.',
     solution: 'Vitrine responsive + bouton Doctolib intégré + SEO local + fiche Google Business optimisée.',
-    result: 'Visible en page 1 sur sa ville · +120% de nouveaux patients · appels manqués 40% → 10% (RDV 24/7)',
+    result: 'Visible sur Google dans sa ville · nouveaux patients grâce à la prise de RDV en ligne · moins d\'appels manqués (RDV 24/7)',
     pack: 'Vitrine Santé',
   },
   {
@@ -1137,7 +1157,7 @@ const USE_CASES = [
     icon: HeartPulse,
     context: 'Concurrents en page 1, aucune autorité SEO, pas de contenu pour se différencier.',
     solution: '10 pages + blog CMS autonome + 3 articles SEO de lancement ciblant les bonnes requêtes locales.',
-    result: '+300% de trafic organique en quelques mois · positionnement page 1 top 3 · autorité de domaine renforcée',
+    result: 'Trafic organique en progression · meilleur positionnement local · autorité du site renforcée',
     pack: 'Vitrine Pro + Blog',
   },
   {
@@ -1145,7 +1165,7 @@ const USE_CASES = [
     icon: UserCheck,
     context: 'Prise de RDV par téléphone uniquement, pas d\'espace patient, données de santé sans hébergement HDS.',
     solution: 'Réservation en ligne multi-praticiens + espace patient sécurisé + rappels SMS/Email + hébergement HDS certifié OVH.',
-    result: 'Absences aux RDV 20% → 5% · +35% de RDV pris hors horaires · 100% conforme RGPD santé (HDS)',
+    result: 'Moins d\'absences grâce aux rappels SMS/email · RDV pris hors horaires · hébergement certifié HDS (OVH)',
     pack: 'Pro Santé',
   },
   {
@@ -1153,7 +1173,7 @@ const USE_CASES = [
     icon: ShieldCheck,
     context: 'Plusieurs sites à gérer, exigences de conformité strictes, marketing et données patients dispersés.',
     solution: 'Architecture multi-sites + CRM patient + marketing automation + HDS + ISO 27001 + pentest + DPO externe 3 mois.',
-    result: 'Conformité maximale (HDS + ISO 27001) · pilotage centralisé via BI · acquisition patients automatisée',
+    result: 'Hébergement certifié HDS · pilotage centralisé via BI · acquisition patients automatisée',
     pack: 'Premium Santé',
   },
 ];
@@ -1164,11 +1184,11 @@ function UseCasesSection() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16" data-reveal>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-            Des résultats concrets, <span className="text-teal-600">par profil</span>
+            Des scénarios concrets, <span className="text-teal-600">par profil</span>
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
             Comment chaque pack répond aux enjeux réels des professionnels de santé — du libéral solo
-            au réseau de cabinets.
+            au réseau de cabinets. Scénarios types, à titre indicatif : les résultats varient selon le contexte et ne sont pas garantis.
           </p>
         </div>
 
@@ -1264,16 +1284,32 @@ function PacksSection({
                 <p className="text-sm text-slate-500 mb-4">{pack.profil}</p>
 
                 <div className="mb-1">
+                  {pack.price !== null && (
+                    <span className="block text-xs font-medium text-slate-500">À partir de</span>
+                  )}
                   <span className="text-3xl sm:text-4xl font-extrabold text-slate-900">
-                    {pack.price.toLocaleString('fr-FR')} €
+                    {formatPackPrice(pack)}
                   </span>
-                  <span className="ml-1 text-sm text-slate-500">HT</span>
+                  {pack.price !== null && <span className="ml-1 text-sm text-slate-500">HT</span>}
                 </div>
+                <p className="text-xs text-slate-500 mb-1">
+                  {pack.price === null
+                    ? `${pack.siteType} · prix défini à part, sur devis`
+                    : `${pack.siteType} · sur maquettes prédéfinies`}
+                </p>
                 <div className="text-sm text-slate-600 mb-1">
-                  + <strong>{pack.monthly} €</strong>
-                  <span className="text-slate-500"> HT / mois</span>
+                  {pack.monthly === null ? (
+                    <strong>Maintenance sur devis (HDS)</strong>
+                  ) : (
+                    <>
+                      + à partir de <strong>{pack.monthly} €</strong>
+                      <span className="text-slate-500"> HT / mois</span>
+                    </>
+                  )}
                 </div>
-                <p className="text-xs text-slate-400 mb-5 sm:mb-6">Engagement 12 mois</p>
+                <p className="text-xs text-slate-400 mb-5 sm:mb-6">
+                  {pack.monthly === null ? 'Architecture sur mesure : chiffrée à part' : 'Engagement 12 mois'}
+                </p>
 
                 <ul className="space-y-2.5 mb-6 flex-1">
                   {pack.bullets.map((b) => (
@@ -1426,12 +1462,26 @@ function PackDetailsModal({
                     {pack.profil}
                   </DialogDescription>
                   <div className="mt-1.5 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+                    {pack.price !== null && (
+                      <span className="text-xs font-medium text-slate-500">À partir de</span>
+                    )}
                     <span className="text-xl sm:text-2xl font-extrabold text-slate-900">
-                      {pack.price.toLocaleString('fr-FR')} €
+                      {formatPackPrice(pack)}
                     </span>
-                    <span className="text-xs text-slate-500">HT</span>
+                    {pack.price !== null && <span className="text-xs text-slate-500">HT</span>}
                     <span className="text-xs text-slate-600">
-                      + <strong>{pack.monthly} €</strong> HT / mois
+                      {pack.monthly === null ? (
+                        <strong>maintenance sur devis (HDS)</strong>
+                      ) : (
+                        <>
+                          + à partir de <strong>{pack.monthly} €</strong> HT / mois
+                        </>
+                      )}
+                    </span>
+                    <span className="text-[11px] text-slate-500 basis-full">
+                      {pack.price === null
+                        ? `${pack.siteType} · prix défini à part, uniquement sur devis`
+                        : `${pack.siteType} · prix sur maquettes prédéfinies`}
                     </span>
                   </div>
                 </div>
@@ -1685,8 +1735,17 @@ function PackDetails({ pack }: { pack: Pack }) {
           {/* Abonnement */}
           <div className="w-full shrink-0 overflow-y-auto p-3 sm:p-4" aria-hidden={activeTab !== 'subscription'}>
             <div className="flex items-baseline gap-1.5 mb-2">
-              <span className="text-lg font-extrabold text-cyan-700">{pack.monthly} €</span>
-              <span className="text-[11px] text-slate-500">HT / mois — engagement 12 mois</span>
+              {pack.monthly === null ? (
+                <>
+                  <span className="text-lg font-extrabold text-cyan-700">Sur devis</span>
+                  <span className="text-[11px] text-slate-500">HDS + architecture sur mesure : temps alloué et prix définis au devis</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-lg font-extrabold text-cyan-700">à partir de {pack.monthly} €</span>
+                  <span className="text-[11px] text-slate-500">HT / mois — engagement 12 mois</span>
+                </>
+              )}
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <div className="rounded-lg border border-emerald-200 bg-emerald-50/60 p-2.5">
@@ -1760,7 +1819,7 @@ function PackDetails({ pack }: { pack: Pack }) {
       <div className="grid grid-cols-3 gap-1.5">
         <div className="flex items-center gap-1.5 rounded-lg bg-teal-50 border border-teal-100 px-2.5 py-1.5 text-[11px] text-teal-800">
           <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
-          <span>Devis sous 24h</span>
+          <span>Devis sous 48h</span>
         </div>
         <div className="flex items-center gap-1.5 rounded-lg bg-cyan-50 border border-cyan-100 px-2.5 py-1.5 text-[11px] text-cyan-800">
           <Globe className="w-3.5 h-3.5 shrink-0" />
@@ -2204,7 +2263,7 @@ function FinalCTA({ onOpenQuote }: { onOpenQuote: () => void }) {
           Prêt à faire découvrir votre cabinet sur Google ?
         </h2>
         <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-          Devis gratuit sous 24h. Sans engagement.
+          Devis gratuit sous 48h. Sans engagement.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -2226,7 +2285,7 @@ function FinalCTA({ onOpenQuote }: { onOpenQuote: () => void }) {
         </div>
 
         <p className="mt-8 text-sm text-white/80">
-          ⚡ Réponse garantie sous 4 heures ouvrées
+          ⚡ Réponse sous 48 h ouvrées
         </p>
       </div>
     </section>
@@ -2315,7 +2374,7 @@ function QuoteModal({
               Merci ! 🎉
             </DialogTitle>
             <DialogDescription className="text-slate-600">
-              Votre devis arrive sous 24h. Nous vous recontactons par email ou téléphone.
+              Votre devis arrive sous 48h. Nous vous recontactons par email ou téléphone.
             </DialogDescription>
           </div>
         ) : (
@@ -2325,7 +2384,7 @@ function QuoteModal({
                 Demander un devis
               </DialogTitle>
               <DialogDescription className="text-slate-600">
-                Réponse garantie sous 24h. Sans engagement.
+                Réponse sous 48 h ouvrées. Sans engagement.
               </DialogDescription>
             </DialogHeader>
 
@@ -2429,10 +2488,10 @@ function QuoteModal({
                   className="w-full rounded-lg border border-slate-300 bg-white text-slate-900 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                 >
                   <option value="">Je ne sais pas encore</option>
-                  <option value="vitrine">Vitrine Santé — 990 € HT</option>
-                  <option value="pro-blog">Vitrine Pro + Blog — 1 490 € HT</option>
-                  <option value="pro-sante">Pro Santé — 4 490 € HT</option>
-                  <option value="premium">Premium Santé — 8 900 € HT</option>
+                  <option value="vitrine">Vitrine Santé — à partir de 990 € HT</option>
+                  <option value="pro-blog">Vitrine Pro + Blog — à partir de 1 490 € HT</option>
+                  <option value="pro-sante">Pro Santé — à partir de 4 490 € HT</option>
+                  <option value="premium">Premium Santé — sur mesure (devis)</option>
                 </select>
               </div>
 
@@ -2479,7 +2538,7 @@ function QuoteModal({
               </Button>
 
               <p className="text-xs text-center text-slate-500">
-                ⚡ Réponse garantie sous 4h ouvrées
+                ⚡ Réponse sous 48 h ouvrées
               </p>
             </form>
           </>

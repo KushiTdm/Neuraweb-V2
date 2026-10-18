@@ -15,7 +15,7 @@ export const revalidate = 3600;
 const META: Record<Lang, { title: string; description: string; keywords: string[]; ogTitle: string; ogDescription: string }> = {
   fr: {
     title: 'Développement Application Mobile iOS & Android | NeuraWeb',
-    description: 'Agence de développement d\'applications mobiles basée à Lille, clients à Paris et partout en France. Apps iOS, Android, React Native, Flutter. MVP à partir de 8 900€. Devis gratuit sous 24h.',
+    description: 'Agence de développement d\'applications mobiles basée à Lille, clients à Paris et partout en France. Apps iOS, Android, React Native, Flutter. MVP à partir de 8 900€. Devis gratuit sous 48h.',
     keywords: [
       'développement application mobile',
       'création application mobile',
@@ -33,7 +33,7 @@ const META: Record<Lang, { title: string; description: string; keywords: string[
   },
   en: {
     title: 'Mobile App Development Agency — iOS & Android | NeuraWeb',
-    description: 'Custom mobile app development agency. iOS, Android, React Native, Flutter. MVP from €8,900. Free detailed quote within 24h. Based in France, clients worldwide.',
+    description: 'Custom mobile app development agency. iOS, Android, React Native, Flutter. MVP from €8,900. Free detailed quote within 48h. Based in France, clients worldwide.',
     keywords: [
       'mobile app development',
       'mobile app development agency',
@@ -47,11 +47,11 @@ const META: Record<Lang, { title: string; description: string; keywords: string[
       'mobile app development pricing',
     ],
     ogTitle: 'Mobile App Development Agency — iOS & Android | NeuraWeb',
-    ogDescription: 'Custom iOS and Android apps for startups and SMBs. MVP from €8,900. Free quote in 24h.',
+    ogDescription: 'Custom iOS and Android apps for startups and SMBs. MVP from €8,900. Free quote in 48h.',
   },
   es: {
     title: 'Desarrollo Aplicaciones Móviles iOS y Android | NeuraWeb',
-    description: 'Agencia de desarrollo de aplicaciones móviles. Apps iOS, Android, React Native, Flutter. MVP desde 8 900€. Presupuesto detallado gratis en 24h.',
+    description: 'Agencia de desarrollo de aplicaciones móviles. Apps iOS, Android, React Native, Flutter. MVP desde 8 900€. Presupuesto detallado gratis en 48h.',
     keywords: [
       'desarrollo aplicaciones móviles',
       'agencia desarrollo apps móviles',
@@ -64,11 +64,11 @@ const META: Record<Lang, { title: string; description: string; keywords: string[
       'agencia apps móviles España',
     ],
     ogTitle: 'Desarrollo Aplicaciones Móviles iOS y Android — NeuraWeb',
-    ogDescription: 'Apps móviles a medida para startups y pymes. MVP desde 8 900€. Presupuesto gratis en 24h.',
+    ogDescription: 'Apps móviles a medida para startups y pymes. MVP desde 8 900€. Presupuesto gratis en 48h.',
   },
   vi: {
     title: 'Phát triển ứng dụng di động iOS & Android | NeuraWeb',
-    description: 'Đội ngũ Pháp tại Hà Nội phát triển ứng dụng di động iOS, Android, React Native, Flutter cho startup và doanh nghiệp. MVP trong 6 tuần, báo giá miễn phí trong 24 giờ.',
+    description: 'Đội ngũ Pháp tại Hà Nội phát triển ứng dụng di động iOS, Android, React Native, Flutter cho startup và doanh nghiệp. MVP trong 6 tuần, báo giá miễn phí trong 48 giờ.',
     keywords: [
       'phát triển ứng dụng di động',
       'thiết kế app mobile',
@@ -154,7 +154,7 @@ const FAQ_BY_LANG: Record<Lang, { question: string; answer: string }[]> = {
     { question: '¿Trabajáis con clientes internacionales?', answer: 'Sí. Equipo basado en Francia, clientes en toda Europa. Remoto con puntos semanales por video.' },
   ],
   vi: [
-    { question: 'Chi phí phát triển một ứng dụng di động là bao nhiêu?', answer: 'Chi phí phụ thuộc vào phạm vi thực tế: số màn hình, backend, tích hợp thanh toán hay AI. Vì vậy chúng tôi báo giá riêng cho từng dự án sau một buổi trao đổi ngắn về nhu cầu của bạn. Báo giá miễn phí, gửi trong 24 giờ và không ràng buộc.' },
+    { question: 'Chi phí phát triển một ứng dụng di động là bao nhiêu?', answer: 'Chi phí phụ thuộc vào phạm vi thực tế: số màn hình, backend, tích hợp thanh toán hay AI. Vì vậy chúng tôi báo giá riêng cho từng dự án sau một buổi trao đổi ngắn về nhu cầu của bạn. Báo giá miễn phí, gửi trong 48 giờ và không ràng buộc.' },
     { question: 'Làm một ứng dụng di động mất bao lâu?', answer: 'Khoảng 6 đến 8 tuần cho bản MVP, và 12 đến 16 tuần cho một ứng dụng hoàn chỉnh iOS + Android kèm backend. Chúng tôi bàn giao theo từng sprint 2 tuần để bạn thấy tiến độ liên tục.' },
     { question: 'Nên chọn đa nền tảng (React Native/Flutter) hay native (Swift/Kotlin)?', answer: 'Đa nền tảng phù hợp khi bạn cần ra mắt MVP nhanh với ngân sách gọn. Native phù hợp khi bạn hướng tới trải nghiệm cao cấp hoặc cần khai thác sâu tính năng của hệ điều hành.' },
     { question: 'Các bạn có lo phần đăng ứng dụng lên App Store và Google Play không?', answer: 'Có, việc này nằm trong tất cả các gói. Chúng tôi tạo tài khoản nhà phát triển nếu bạn chưa có và xử lý toàn bộ quá trình gửi duyệt ứng dụng.' },

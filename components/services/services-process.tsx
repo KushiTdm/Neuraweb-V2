@@ -22,7 +22,7 @@ const STEP_DATA = {
     },
     {
       title: 'Design & UX',
-      description: 'Wireframes interactifs validés avec vous. Design system sur Figma. Maquettes responsive testées sur utilisateurs réels.',
+      description: 'Wireframes interactifs validés avec vous. Design system. Maquettes responsive testées sur utilisateurs réels.',
       icon: '🎨',
       colorHex: 'rgb(var(--c-purple-500))',
       accentClass: 'from-purple-500/20 to-purple-600/5 border-purple-500/30',
@@ -74,7 +74,7 @@ const STEP_DATA = {
     },
     {
       title: 'Design & UX',
-      description: 'Interactive wireframes validated with you. Figma design system. Responsive mockups tested with real users.',
+      description: 'Interactive wireframes validated with you. Design system. Responsive mockups tested with real users.',
       icon: '🎨',
       colorHex: 'rgb(var(--c-purple-500))',
       accentClass: 'from-purple-500/20 to-purple-600/5 border-purple-500/30',
@@ -126,7 +126,7 @@ const STEP_DATA = {
     },
     {
       title: 'Diseño y UX',
-      description: 'Wireframes interactivos validados contigo. Design system en Figma. Mockups responsive testeados con usuarios reales.',
+      description: 'Wireframes interactivos validados contigo. Design system. Mockups responsive testeados con usuarios reales.',
       icon: '🎨',
       colorHex: 'rgb(var(--c-purple-500))',
       accentClass: 'from-purple-500/20 to-purple-600/5 border-purple-500/30',
@@ -178,7 +178,7 @@ const STEP_DATA = {
     },
     {
       title: 'Design & UX',
-      description: 'Wireframes interactifs validés avec vous. Design system sur Figma. Maquettes responsive testées sur utilisateurs réels.',
+      description: 'Wireframes interactifs validés avec vous. Design system. Maquettes responsive testées sur utilisateurs réels.',
       icon: '🎨',
       colorHex: 'rgb(var(--c-purple-500))',
       accentClass: 'from-purple-500/20 to-purple-600/5 border-purple-500/30',

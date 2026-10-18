@@ -55,7 +55,7 @@ export async function generateMetadata({
   const ogImage = `${BASE_URL}/assets/og-image.png`;
   const title = 'Agence Web à Paris — Sites Next.js & IA pour PME | NeuraWeb';
   const description =
-    'Agence web & IA travaillant avec les entreprises parisiennes : création site Next.js, apps mobiles, automatisation n8n. Tarifs 30 à 60% sous le marché parisien. Devis gratuit sous 24h.';
+    'Agence web & IA travaillant avec les entreprises parisiennes : création site Next.js, apps mobiles, automatisation n8n. Tarifs 30 à 60% sous le marché parisien. Devis gratuit sous 48h.';
 
   return {
     title: { absolute: title },
@@ -161,7 +161,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: 'Proposez-vous un devis gratuit pour les entreprises de Paris ?',
-    a: 'Oui, le devis est gratuit et sans engagement. Décrivez votre projet via notre formulaire en ligne ou prenez rendez-vous directement en visio. Nous vous répondons sous 24h avec une estimation détaillée et un appel de cadrage pour affiner vos besoins.',
+    a: 'Oui, le devis est gratuit et sans engagement. Décrivez votre projet via notre formulaire en ligne ou prenez rendez-vous directement en visio. Nous vous répondons sous 48h avec une estimation détaillée et un appel de cadrage pour affiner vos besoins.',
   },
   {
     q: "Quel est le prix d'un site web pour une PME à Paris ?",
@@ -169,7 +169,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "Comment se déroule la collaboration à distance avec une agence non-parisienne ?",
-    a: "Le projet démarre par un appel de cadrage en visio, suivi de points d'avancement hebdomadaires (Google Meet/Zoom), d'un accès partagé aux maquettes Figma et au suivi de tâches. La quasi-totalité de nos clients parisiens fonctionnent ainsi sans jamais perdre en réactivité — réponse garantie sous 4 heures ouvrées.",
+    a: "Le projet démarre par un appel de cadrage en visio, suivi de points d'avancement hebdomadaires (Google Meet/Zoom), d'un accès partagé aux maquettes et au suivi de tâches. La quasi-totalité de nos clients parisiens fonctionnent ainsi sans jamais perdre en réactivité — réponse garantie sous 4 heures ouvrées.",
   },
   {
     q: "Comment NeuraWeb intègre-t-elle l'IA dans les sites web ?",
@@ -289,7 +289,7 @@ const PACKS = [
       'Multi-langue (FR / EN / ES)',
       'API & intégrations tierces',
       'Design system complet',
-      'Performance garantie 90+/100',
+      'Objectif de performance 90+/100',
       'Support 12 mois inclus',
     ],
   },
@@ -365,7 +365,7 @@ export default async function AgenceWebParisPage({
                   <strong>sites web haute performance en Next.js</strong>, des applications
                   mobiles et des automatisations IA pour les PME et entreprises parisiennes —
                   à distance, avec des tarifs <strong>30 à 60% sous le marché parisien</strong>.{' '}
-                  <strong>Devis gratuit sous 24h</strong>.
+                  <strong>Devis gratuit sous 48h</strong>.
                 </p>
 
                 <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
@@ -395,7 +395,7 @@ export default async function AgenceWebParisPage({
                 {/* Trust badges */}
                 <div className="mt-6 md:mt-10 flex flex-wrap gap-x-4 gap-y-2 sm:grid sm:grid-cols-3 sm:gap-4">
                   {[
-                    { icon: Clock, label: 'Réponse 24h', longLabel: 'Réponse sous 24h', color: 'text-indigo-600' },
+                    { icon: Clock, label: 'Réponse 48h', longLabel: 'Réponse sous 48h', color: 'text-indigo-600' },
                     { icon: Wifi, label: '100% remote', longLabel: 'Collaboration 100% à distance', color: 'text-violet-600' },
                     { icon: TrendingUp, label: '90+/100', longLabel: 'PageSpeed 90+/100', color: 'text-cyan-600' },
                   ].map(({ icon: Icon, label, longLabel, color }) => (
@@ -480,7 +480,7 @@ export default async function AgenceWebParisPage({
                 {
                   icon: Clock,
                   title: 'Réactivité & suivi personnalisé',
-                  desc: 'Un interlocuteur dédié, joignable directement. Pas de ticket support perdu dans un helpdesk. Réponse garantie sous 4 heures ouvrées, où que vous soyez.',
+                  desc: 'Un interlocuteur dédié, joignable directement. Pas de ticket support perdu dans un helpdesk. Réponse sous 48 h ouvrées, où que vous soyez.',
                 },
                 {
                   icon: Brain,
@@ -590,6 +590,9 @@ export default async function AgenceWebParisPage({
                     </span>
                   </div>
                   <div className="mb-1">
+                    {pack.price !== 'Sur mesure' && (
+                      <span className="block text-xs font-medium text-slate-500">À partir de</span>
+                    )}
                     <span className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900">{pack.price}</span>
                   </div>
                   <p className="text-xs text-slate-500 mb-2">{pack.note}</p>
@@ -621,7 +624,7 @@ export default async function AgenceWebParisPage({
             </div>
 
             <p className="text-center text-xs text-slate-400 mt-6 md:mt-8">
-              Prix HT, applicables à des maquettes déjà déterminées. Pack Premium entièrement sur mesure, sur devis. Hébergement Vercel inclus la première année.
+              Prix HT « à partir de », applicables à des maquettes déjà déterminées. Pack Premium : architecture sur mesure, prix défini à part, uniquement sur devis. Hébergement Vercel inclus la première année.
             </p>
 
             {/* Lien vers la page dev web */}
@@ -712,7 +715,7 @@ export default async function AgenceWebParisPage({
               Lancez votre projet web à Paris
             </h2>
             <p className="text-base sm:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto">
-              Devis gratuit sous 24h. Sans engagement. On échange sur votre projet,
+              Devis gratuit sous 48h. Sans engagement. On échange sur votre projet,
               vos objectifs et on vous propose la solution adaptée à votre budget.
             </p>
 
@@ -741,7 +744,7 @@ export default async function AgenceWebParisPage({
 
             <p className="mt-6 md:mt-8 inline-flex items-center gap-2 text-xs sm:text-sm text-white/80">
               <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              Réponse garantie sous 4 heures ouvrées
+              Réponse sous 48 h ouvrées
             </p>
           </div>
         </section>

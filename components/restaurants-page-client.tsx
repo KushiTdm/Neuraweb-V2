@@ -1,5 +1,7 @@
 'use client';
 
+import { SourcedStats } from '@/components/sourced-stats';
+
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import {
@@ -88,7 +90,7 @@ const FORMULES: Formule[] = [
     profil: 'Restaurant qui veut une vraie crédibilité en ligne',
     accent: 'orange',
     bullets: [
-      'Site multi-pages au design sur-mesure',
+      'Site multi-pages sur maquettes prédéfinies personnalisées',
       'Avis Google mis en avant (preuve sociale)',
       'Carte modifiable en autonomie',
       'SEO local renforcé + bouton réservation',
@@ -210,19 +212,19 @@ const USE_CASES: UseCase[] = [
     icon: CreditCard,
     context: 'Un fast-food fait 5 000 €/mois de ventes via Uber Eats et Deliveroo, qui prélèvent 30 %.',
     solution: 'Commande + paiement Stripe en direct sur son propre site (≈ 1,4 % + 0,25 €).',
-    result: '≈ 1 400 €/mois récupérés · ~17 000 €/an · site amorti en 1 à 3 mois',
+    result: 'Calcul : ≈ 1 400 €/mois de commissions en moins, soit ~17 000 €/an · amortissement rapide du site',
   },
   {
     icon: Heart,
     context: 'Une cantine de quartier voit ses habitués revenir… ou pas, sans aucun moyen de les relancer.',
     solution: 'Programme de fidélité (points, paliers) + relances automatiques sur base client.',
-    result: '+1 visite/mois × 300 habitués à 25 € = +7 500 €/mois de CA récurrent',
+    result: 'Calcul illustratif : +1 visite/mois × 300 habitués × 25 € = 7 500 €/mois de CA récurrent',
   },
   {
     icon: Star,
     context: 'Un restaurant a d’excellents avis Google… noyés sur une plateforme tierce.',
     solution: 'Avis 4,9/5 affichés dès le premier écran + design pro et rassurant.',
-    result: 'Taux de réservation +30 à +50 % grâce à la preuve sociale',
+    result: 'Des avis visibles dès l\'arrivée rassurent et favorisent la réservation',
   },
   {
     icon: Percent,
@@ -234,11 +236,11 @@ const USE_CASES: UseCase[] = [
     icon: ShoppingBag,
     context: 'Le click & collect au comptoir génère erreurs, files d’attente et appels « c’est prêt ? ».',
     solution: 'Créneau réservé, code de retrait 4 chiffres, suivi en direct + upsell intégré.',
-    result: 'Panier moyen +15 à +25 % · zéro appel de suivi · moins d’erreurs',
+    result: 'Panier moyen en hausse grâce à l\'upsell · moins d\'appels de suivi · moins d’erreurs',
   },
   {
     icon: Smartphone,
-    context: '9 clients sur 10 vérifient un resto sur leur téléphone avant de venir — sans le trouver.',
+    context: 'La plupart des clients vérifient un resto sur leur téléphone avant de venir — sans le trouver.',
     solution: 'Page rapide, fiche Google à jour, données structurées schema.org Restaurant.',
     result: 'Visible sur « restaurant + quartier » et cité par les réponses IA (Google, ChatGPT)',
   },
@@ -248,7 +250,7 @@ const USE_CASES: UseCase[] = [
 const FAQ: { q: string; a: string }[] = [
   {
     q: 'Combien coûte un site web pour restaurant ?',
-    a: "Cela dépend de vos besoins. Une landing page soignée démarre autour de 990 à 1 490 €. Un site vitrine pro (multi-pages, avis, galerie) se situe entre 1 490 et 2 490 €. Un site avec réservation en ligne, commande et paiement Stripe va de 2 990 à 3 990 €. La formule fidélité + compte client se situe entre 4 990 et 7 990 €. Pour un réseau multi-restaurants ou une franchise, c'est sur devis. À chaque fois, vous restez propriétaire de votre site et de vos données.",
+    a: "Les prix sont toujours « à partir de » et dépendent de vos besoins. Une landing page soignée (site statique) démarre à partir de 990 €. Un site vitrine pro (multi-pages, avis, galerie, carte modifiable en autonomie avec un CMS) démarre à partir de 1 490 €. Un site avec réservation en ligne, commande et paiement Stripe (développement backend) démarre à partir de 2 990 €. La formule fidélité + compte client démarre à partir de 4 990 €. Ces prix s'appliquent à des maquettes déjà déterminées, adaptées à votre charte. Pour un réseau multi-restaurants ou une franchise, l'architecture est sur mesure : son prix est défini à part, uniquement sur devis. À chaque fois, vous restez propriétaire de votre site et de vos données.",
   },
   {
     q: 'Pourquoi un site direct plutôt qu’Uber Eats ou Deliveroo ?',
@@ -256,11 +258,11 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: 'Existe-t-il un système de réservation en ligne gratuit pour un restaurant ?',
-    a: "Oui, mais le mot « gratuit » déplace toujours le coût ailleurs. Les portails de réservation proposent un module sans frais d'installation, puis se rémunèrent par un abonnement mensuel ou par une commission sur chaque couvert apporté via leur application. Les widgets gratuits des plateformes, eux, vous rendent dépendant d'un acteur qui détient la relation client. Un module de réservation intégré à votre propre site fonctionne autrement : vous financez le développement une seule fois, puis uniquement l'infrastructure (40 à 80 €/mois), sans commission par couvert et en conservant les coordonnées de vos clients. Plus votre volume de réservations augmente, plus l'écart penche en faveur du module intégré.",
+    a: "Oui, mais le mot « gratuit » déplace toujours le coût ailleurs. Les portails de réservation proposent un module sans frais d'installation, puis se rémunèrent par un abonnement mensuel ou par une commission sur chaque couvert apporté via leur application. Les widgets gratuits des plateformes, eux, vous rendent dépendant d'un acteur qui détient la relation client. Un module de réservation intégré à votre propre site fonctionne autrement : vous financez le développement une seule fois, puis uniquement la maintenance (à partir de 119 €/mois avec réservation et base de données), sans commission par couvert et en conservant les coordonnées de vos clients. Plus votre volume de réservations augmente, plus l'écart penche en faveur du module intégré.",
   },
   {
     q: 'Quels sont les frais mensuels en plus du développement ?',
-    a: "Les frais d'infrastructure dépendent de la formule : 10 à 20 €/mois pour une vitrine simple (domaine + hébergement), 20 à 40 €/mois avec CMS et avis, 40 à 80 €/mois dès qu'on ajoute réservation, commande et paiement (base de données + e-mail/SMS), 80 à 150 €/mois pour la fidélité avec volume marketing. S'ajoutent les frais Stripe (1,4 % + 0,25 €) uniquement sur les paiements réellement encaissés.",
+    a: "Les frais mensuels correspondent à la maintenance (hébergement, nom de domaine, mises à jour de sécurité, sauvegardes, support). Elle suit le temps alloué et la complexité : à partir de 59 €/mois pour un site statique comme une landing, à partir de 89 €/mois avec un CMS (carte modifiable en autonomie), à partir de 119 €/mois dès qu'il y a réservation, commande, paiement ou fidélité (comptes clients, base de données). Pour une architecture sur mesure (réseau / franchise), la maintenance est chiffrée à part, uniquement sur devis. S'ajoutent les frais Stripe (1,4 % + 0,25 €) uniquement sur les paiements réellement encaissés.",
   },
   {
     q: 'Puis-je commencer petit et faire évoluer le site ?',
@@ -666,10 +668,10 @@ function UseCases() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14" data-reveal>
           <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
-            Des résultats <span className="text-amber-600">chiffrés</span>, pas des promesses
+            Des exemples <span className="text-amber-600">chiffrés</span>, avec leurs hypothèses
           </h2>
           <p className="text-base sm:text-lg text-slate-600">
-            Ce qui se fait vraiment en 2026 dans la restauration, et ce que vous pouvez en attendre.
+            Ce qui se fait en 2026 dans la restauration. Calculs illustratifs à partir des hypothèses indiquées : ils ne constituent pas une garantie de résultat.
           </p>
         </div>
 
@@ -683,10 +685,12 @@ function UseCases() {
           {useCaseCards}
         </ResponsiveCards>
 
-        <p className="text-center text-xs text-slate-400 mt-6 md:mt-8 max-w-3xl mx-auto px-2">
-          Fourchettes indicatives basées sur des moyennes du secteur et nos projets ; les résultats
-          réels dépendent de votre volume, votre ticket moyen et votre zone de chalandise.
+        <p className="text-center text-xs text-slate-600 mt-6 md:mt-8 max-w-3xl mx-auto px-2">
+          Exemples de calcul fondés sur les hypothèses indiquées ; les résultats réels
+          dépendent de votre volume, votre ticket moyen et votre zone de chalandise.
         </p>
+
+        <SourcedStats ids={['restoOnline49', 'cart70', 'speed53']} tone="light" className="mt-12" />
       </div>
     </section>
   );
@@ -773,7 +777,7 @@ function FinalCTA() {
           Reprenez la main sur vos commandes
         </h2>
         <p className="text-base sm:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto">
-          Devis gratuit sous 24h. Sans engagement. On vous montre les démos en direct.
+          Devis gratuit sous 48h. Sans engagement. On vous montre les démos en direct.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">

@@ -57,7 +57,7 @@ export async function generateMetadata({
   const ogImage = `${BASE_URL}/assets/og-image.png`;
   const title = 'Agence Next.js — Sites & Apps Web Performants | NeuraWeb';
   const description =
-    'Agence spécialisée Next.js et React : sites vitrines, applications web et migrations WordPress. Score PageSpeed 90+, SEO technique natif. Devis sous 24h.';
+    'Agence spécialisée Next.js et React : sites vitrines, applications web et migrations WordPress. Score PageSpeed 90+, SEO technique natif. Devis sous 48h.';
 
   return {
     title: { absolute: title },
@@ -144,7 +144,7 @@ const serviceSchema = {
         itemOffered: { '@type': 'Service', name: 'Site vitrine Next.js' },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '1490',
+          minPrice: '1490',
           priceCurrency: 'EUR',
           valueAddedTaxIncluded: false,
         },
@@ -154,7 +154,7 @@ const serviceSchema = {
         itemOffered: { '@type': 'Service', name: 'Site Next.js avancé avec blog et chatbot IA' },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '3990',
+          minPrice: '3990',
           priceCurrency: 'EUR',
           valueAddedTaxIncluded: false,
         },
@@ -387,7 +387,7 @@ export default async function AgenceNextjsPage({
                 <div className="mt-6 md:mt-10 flex flex-wrap gap-x-4 gap-y-2 sm:grid sm:grid-cols-3 sm:gap-4">
                   {[
                     { icon: Gauge, label: '90+/100', longLabel: 'PageSpeed 90+/100', color: 'text-indigo-600' },
-                    { icon: Clock, label: 'Réponse 24h', longLabel: 'Réponse sous 24h', color: 'text-violet-600' },
+                    { icon: Clock, label: 'Réponse 48h', longLabel: 'Réponse sous 48h', color: 'text-violet-600' },
                     { icon: MapPin, label: 'Lille · France', longLabel: 'Lille, partout en France', color: 'text-cyan-600' },
                   ].map(({ icon: Icon, label, longLabel, color }) => (
                     <div key={label} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-slate-700">
@@ -626,7 +626,7 @@ export default async function AgenceNextjsPage({
             </h2>
             <p className="text-base sm:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto">
               Nouveau projet ou migration depuis WordPress : nous auditons votre existant
-              et vous remettons un chiffrage sous 24h, sans engagement.
+              et vous remettons un chiffrage sous 48h, sans engagement.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
@@ -654,7 +654,7 @@ export default async function AgenceNextjsPage({
 
             <p className="mt-6 md:mt-8 inline-flex items-center gap-2 text-xs sm:text-sm text-white/80">
               <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              Réponse garantie sous 4 heures ouvrées
+              Réponse sous 48 h ouvrées
             </p>
           </div>
         </section>
