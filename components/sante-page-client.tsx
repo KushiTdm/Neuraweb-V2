@@ -41,6 +41,7 @@ import { Button } from '@/components/ui/button';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { SectorTag } from '@/components/sector-tag';
+import { ResponsiveCards, CardsCarousel } from '@/components/ui/cards-carousel';
 import {
   Dialog,
   DialogContent,
@@ -830,9 +831,9 @@ function TrustBar() {
 
 function ProblemSolutionSection() {
   return (
-    <section className="py-20 md:py-28 sec-screen ctx-light">
+    <section className="py-12 md:py-28 sec-screen ctx-light">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16" data-reveal>
+        <div className="text-center mb-8 md:mb-16" data-reveal>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
             Pourquoi une agence{' '}
             <span className="text-teal-600">spécialisée santé</span> ?
@@ -843,12 +844,12 @@ function ProblemSolutionSection() {
           </p>
         </div>
 
-        <div className="space-y-12 md:space-y-16">
+        <div className="space-y-8 md:space-y-16">
           {PROBLEMS.map(({ icon: Icon, title, text, color }, idx) => (
             <div
               key={title}
               className={cn(
-                'grid md:grid-cols-12 gap-8 items-center',
+                'grid md:grid-cols-12 gap-3 md:gap-8 items-center',
                 idx % 2 === 1 && 'md:[&>div:first-child]:order-2'
               )}
             >
@@ -858,19 +859,19 @@ function ProblemSolutionSection() {
               >
                 <div
                   className={cn(
-                    'inline-flex w-16 h-16 rounded-2xl items-center justify-center mb-4',
+                    'inline-flex w-12 h-12 md:w-16 md:h-16 rounded-2xl items-center justify-center mb-3 md:mb-4',
                     color
                   )}
                 >
                   <Icon className="w-8 h-8" />
                 </div>
-                <h3 className="font-display text-2xl font-bold text-slate-900 mb-3">{title}</h3>
+                <h3 className="font-display text-xl md:text-2xl font-bold text-slate-900 mb-2 md:mb-3">{title}</h3>
               </div>
               <div
                 className="md:col-span-7"
                 {...(idx % 2 === 0 ? { 'data-slide-right': true } : { 'data-slide-left': true })}
               >
-                <p className="text-lg text-slate-600 leading-relaxed">{text}</p>
+                <p className="text-base md:text-lg text-slate-600 leading-relaxed">{text}</p>
               </div>
             </div>
           ))}
@@ -915,7 +916,7 @@ function SimulatorSection({
   const recommendedPack = result ? PACKS.find((p) => p.id === result) : null;
 
   return (
-    <section className="py-20 md:py-24 sec-tint sec-screen ctx-light">
+    <section className="py-12 md:py-24 sec-tint sec-screen ctx-light">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
         <div className="text-center mb-10">
           <span className="inline-block px-4 py-1.5 rounded-full bg-teal-100 text-teal-700 text-sm font-semibold mb-4">
@@ -1129,9 +1130,9 @@ const USE_CASES = [
 
 function UseCasesSection() {
   return (
-    <section className="py-20 md:py-28 sec-flip sec-pat sec-waves sec-screen ctx-dark">
+    <section className="py-12 md:py-28 sec-flip sec-pat sec-waves sec-screen ctx-dark">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16" data-reveal>
+        <div className="text-center mb-8 md:mb-16" data-reveal>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
             Des scénarios concrets, <span className="text-teal-600">par profil</span>
           </h2>
@@ -1141,12 +1142,12 @@ function UseCasesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <ResponsiveCards breakpoint="md" gridClass="grid-cols-2" gridGap="gap-6">
           {USE_CASES.map(({ sector, icon: Icon, context, solution, result, pack }) => (
             <article
               key={sector}
               data-reveal
-              className="flex flex-col rounded-2xl md:rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm"
+              className="flex h-full flex-col rounded-2xl md:rounded-3xl border border-slate-200 bg-white p-5 sm:p-8 shadow-sm"
             >
               <div className="flex items-center justify-between gap-3 mb-4">
                 <div className="flex items-center gap-3">
@@ -1167,7 +1168,7 @@ function UseCasesSection() {
               </div>
             </article>
           ))}
-        </div>
+        </ResponsiveCards>
       </div>
     </section>
   );
@@ -1188,9 +1189,9 @@ function PacksSection({
   const [detailsPack, setDetailsPack] = useState<Pack | null>(null);
 
   return (
-    <section id="packs" className="py-16 md:py-28 bg-white sec-screen ctx-light">
+    <section id="packs" className="py-12 md:py-28 bg-white sec-screen ctx-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 md:mb-14" data-reveal>
+        <div className="text-center mb-8 md:mb-14" data-reveal>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
             Choisissez votre <span className="text-teal-600">pack</span>
           </h2>
@@ -1200,7 +1201,8 @@ function PacksSection({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        <div className="-mx-4 md:mx-0">
+        <CardsCarousel gridFrom="md" gridClass="md:grid-cols-2 lg:grid-cols-4 md:!gap-6" dotColor="#0f766e" padding={1.25} gap={1}>
           {PACKS.map((pack) => {
             const highlighted = highlightedPack === pack.id;
             return (
@@ -1209,7 +1211,7 @@ function PacksSection({
                 id={`pack-${pack.id}`}
                 data-reveal
                 className={cn(
-                  'relative rounded-2xl md:rounded-3xl border-2 p-5 sm:p-6 flex flex-col bg-white transition-all duration-300',
+                  'relative h-full rounded-2xl md:rounded-3xl border-2 p-5 sm:p-6 flex flex-col bg-white transition-all duration-300',
                   pack.borderColor,
                   pack.bgAccent,
                   highlighted && 'ring-4 ring-offset-2 animate-pulse',
@@ -1293,9 +1295,10 @@ function PacksSection({
               </div>
             );
           })}
+        </CardsCarousel>
         </div>
 
-        <div className="text-center mt-12 md:mt-14" data-reveal>
+        <div className="text-center mt-8 md:mt-14" data-reveal>
           <button
             type="button"
             onClick={() => setShowCompare((v) => !v)}
@@ -1789,7 +1792,7 @@ function PackDetails({ pack }: { pack: Pack }) {
 
 function ExampleSiteSection() {
   return (
-    <section className="py-20 md:py-28 sec-tint sec-screen ctx-light">
+    <section className="py-12 md:py-28 sec-tint sec-screen ctx-light">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div data-slide-left>
@@ -2003,10 +2006,10 @@ function TestimonialCard({
 
 function ProcessTimeline() {
   return (
-    <section className="py-24 md:py-32 bg-slate-50 overflow-hidden sec-screen ctx-light">
+    <section className="py-12 md:py-32 bg-slate-50 overflow-hidden sec-screen ctx-light">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-20 md:mb-28">
+        <div className="text-center mb-8 md:mb-28">
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-5">
             Comment ça <span className="text-teal-600">se passe</span> ?
           </h2>
@@ -2021,7 +2024,7 @@ function ProcessTimeline() {
           <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-teal-200" />
           <div className="md:hidden absolute left-8 top-0 bottom-0 w-px bg-teal-200" />
 
-          <div className="space-y-20 md:space-y-32">
+          <div className="space-y-8 md:space-y-32">
             {PROCESSUS.map((step, idx) => {
               const isLeft = idx % 2 === 0;
 
@@ -2081,8 +2084,8 @@ function ProcessTimeline() {
                     </div>
                   </div>
 
-                  {/* ─── IMAGE ─── */}
-                  <div className={`md:w-1/2 ${isLeft ? 'md:pl-20' : 'md:pr-20'} pl-20 md:pl-0`}>
+                  {/* ─── IMAGE ─── (masquée sur mobile : décorative, allonge la page) */}
+                  <div className={`hidden md:block md:w-1/2 ${isLeft ? 'md:pl-20' : 'md:pr-20'} pl-20 md:pl-0`}>
                     <div className="
                       group relative overflow-hidden rounded-2xl 
                       bg-white border border-slate-200/80 
@@ -2175,7 +2178,7 @@ function GuaranteesSection() {
   ];
 
   return (
-    <section className="py-20 md:py-24 sec-pat sec-waves sec-pat-light sec-screen ctx-light">
+    <section className="py-12 md:py-24 sec-pat sec-waves sec-pat-light sec-screen ctx-light">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-3 gap-6">
           {items.map(({ icon: Icon, title, text, color }) => (
@@ -2203,7 +2206,7 @@ function GuaranteesSection() {
 
 function FinalCTA({ onOpenQuote }: { onOpenQuote: () => void }) {
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden text-white bg-teal-700 ctx-dark">
+    <section className="relative py-12 md:py-28 overflow-hidden text-white bg-teal-700 ctx-dark">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-white) / 0.15),transparent_60%)] pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 

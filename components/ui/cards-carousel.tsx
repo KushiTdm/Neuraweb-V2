@@ -94,6 +94,12 @@ interface CardsCarouselProps {
   gap?: number;
   /** Padding latéral du conteneur en rem (default 1) */
   padding?: number;
+  /**
+   * Mode adaptatif : le MÊME jeu d'éléments (ids uniques) est un carrousel sous ce breakpoint
+   * et une grille au-dessus. `gridClass` = classes de la grille (préfixées md:/lg:).
+   */
+  gridFrom?: 'md' | 'lg';
+  gridClass?: string;
 }
 
 /**
@@ -111,6 +117,8 @@ export function CardsCarousel({
   dotColor = '#F0EDE5',
   gap = 1,
   padding = 1,
+  gridFrom,
+  gridClass,
 }: CardsCarouselProps) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -186,6 +194,7 @@ export function CardsCarousel({
     timerRef.current = setInterval(() => {
       const scroller = scrollerRef.current;
       if (!scroller || pausedRef.current) return;
+      if (window.getComputedStyle(scroller).display === 'grid') return; // mode grille : rien à faire défiler
       const r = scroller.getBoundingClientRect();
       if (r.bottom < 0 || r.top > window.innerHeight) return; // hors écran
       const next = (activeIndexRef.current + 1) % count;
@@ -212,12 +221,19 @@ export function CardsCarousel({
     goTo((activeIndexRef.current + 1) % count);
   }, [count, goTo]);
 
+  const adaptive = gridFrom
+    ? gridFrom === 'md'
+      ? { scroller: 'md:grid md:overflow-visible md:!px-0 md:[scroll-snap-type:none]', slide: 'md:w-auto md:max-w-none md:shrink', dots: 'md:hidden' }
+      : { scroller: 'lg:grid lg:overflow-visible lg:!px-0 lg:[scroll-snap-type:none]', slide: 'lg:w-auto lg:max-w-none lg:shrink', dots: 'lg:hidden' }
+    : null;
+
   const slideClass =
     slideWidth === 'full'
       ? 'w-full shrink-0 snap-center'
       : slideWidth === 'snap'
         ? 'w-[83vw] max-w-[380px] shrink-0 snap-center'
         : 'shrink-0 snap-center';
+  const finalSlideClass = cn(slideClass, adaptive?.slide);
 
   return (
     <div className={cn('relative', className)}>
@@ -225,7 +241,7 @@ export function CardsCarousel({
       <div className="relative">
         <div
           ref={scrollerRef}
-          className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide"
+          className={cn('flex overflow-x-auto snap-x snap-mandatory scroll-smooth scrollbar-hide', adaptive?.scroller, gridClass)}
           style={{
             gap: `${gap}rem`,
             paddingInline: `${padding}rem`,
@@ -245,7 +261,7 @@ export function CardsCarousel({
             <div
               key={i}
               data-carousel-slide
-              className={slideClass}
+              className={finalSlideClass}
               role="group"
               aria-roledescription="slide"
               aria-label={`${i + 1} sur ${count}`}
@@ -288,7 +304,7 @@ export function CardsCarousel({
 
       {/* Indicateurs minimalistes — <div> pour éviter le min-height navigateur des <button> */}
       {showDots && count > 1 && (
-        <div className="flex items-center justify-center gap-1.5 mt-4" role="tablist" aria-label="Navigation du carousel">
+        <div className={cn('flex items-center justify-center gap-1.5 mt-4', adaptive?.dots)} role="tablist" aria-label="Navigation du carousel">
           {Array.from({ length: count }).map((_, i) => {
             const isActive = i === activeIndex;
             return (

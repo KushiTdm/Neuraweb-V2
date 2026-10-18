@@ -28,6 +28,7 @@ import { LocalizedLink } from '@/components/localized-link';
 import { DemoCTA } from '@/components/demo-cta';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import { MobileCollapse } from '@/components/ui/mobile-collapse';
+import { PageAnchorNav } from '@/components/page-anchor-nav';
 import {
   Accordion,
   AccordionContent,
@@ -724,6 +725,14 @@ const QUOTE_ONLY_LANGS: readonly Lang[] = ['vi'];
 const QUOTE_PRICE_LABEL = 'Theo báo giá';
 const QUOTE_PRICE_NOTE = 'Báo giá miễn phí trong 48 giờ';
 const QUOTE_MAINTENANCE_LABEL = 'Bảo trì hằng tháng theo báo giá';
+// Sommaire mobile collant (ancres de la page)
+const ANCHOR_LABEL: Record<Lang, string> = { fr: 'Sommaire de la page', en: 'Page contents', es: 'Contenido de la página', vi: 'Mục lục trang' };
+const ANCHORS: Record<Lang, [string, string, string, string]> = {
+  fr: ['Packs', 'SEO', 'Méthode', 'FAQ'],
+  en: ['Packs', 'SEO', 'Process', 'FAQ'],
+  es: ['Packs', 'SEO', 'Método', 'FAQ'],
+  vi: ['Gói', 'SEO', 'Quy trình', 'FAQ'],
+};
 const PACK_IDS = ['starter', 'business', 'premium'] as const;
 type PackId = (typeof PACK_IDS)[number];
 
@@ -808,6 +817,16 @@ export function DeveloppementWebPageClient({ lang }: Props) {
           secondary={{ href: '#pricing', label: c.hero.ctaPricing }}
           stats={c.stats.map((stat, i) => ({ value: String(STATS_VALUES[i]), label: stat.label }))}
           visual={{ src: "/assets/redesign/pages/dev-web-hero.webp", alts: {"fr": "Illustration d'une fenêtre de navigateur dont les blocs de contenu s'assemblent, avec un curseur qui clique sur un bouton", "en": "Illustration of a browser window whose content blocks snap together, with a cursor clicking a button", "es": "Ilustración de una ventana de navegador cuyos bloques de contenido se ensamblan, con un cursor que hace clic en un botón", "vi": "Minh họa cửa sổ trình duyệt với các khối nội dung đang ghép lại và con trỏ nhấp vào một nút"} }}
+        />
+
+        <PageAnchorNav
+          label={ANCHOR_LABEL[lang]}
+          items={[
+            { href: '#pricing', label: ANCHORS[lang][0] },
+            { href: '#seo-geo', label: ANCHORS[lang][1] },
+            { href: '#process', label: ANCHORS[lang][2] },
+            { href: '#faq', label: ANCHORS[lang][3] },
+          ]}
         />
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
@@ -923,7 +942,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-12 md:py-20 sec-flip sec-flip-light sec-screen ctx-light">
+        <section id="pricing" className="scroll-mt-28 py-12 md:py-20 sec-flip sec-flip-light sec-screen ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-8 md:mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.packs.h2}</h2>
@@ -1067,7 +1086,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── SEO / GEO : niveaux et contenus ───────────────────────────── */}
-        <section id="seo-geo" className="py-12 md:py-20 sec-pat sec-dots sec-dark-base sec-screen ctx-dark">
+        <section id="seo-geo" className="scroll-mt-28 py-12 md:py-20 sec-pat sec-dots sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.seo.h2}</h2>
@@ -1097,7 +1116,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── PROCESSUS ─────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-20 sec-tint sec-screen ctx-light">
+        <section id="process" className="scroll-mt-28 py-12 md:py-20 sec-tint sec-screen ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-8 md:mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.process.h2}</h2>
@@ -1148,7 +1167,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section id="faq" className="scroll-mt-28 py-12 md:py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl font-bold text-navy-900 mb-4">{c.faq.h2}</h2>

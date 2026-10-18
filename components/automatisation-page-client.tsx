@@ -35,6 +35,7 @@ import { ServiceHero } from '@/components/service-hero';
 import { LocalizedLink } from '@/components/localized-link';
 import { Button } from '@/components/ui/button';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
+import { MobileCollapse } from '@/components/ui/mobile-collapse';
 import {
   Accordion,
   AccordionContent,
@@ -672,9 +673,9 @@ export function AutomatisationPageClient({ lang }: Props) {
         />
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
-        <section className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section className="py-12 md:py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.problems.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto" dangerouslySetInnerHTML={{ __html: c.problems.subtitle }} />
             </div>
@@ -700,9 +701,9 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
-        <section className="py-20 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
+        <section className="py-12 md:py-20 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.services.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.services.subtitle}</p>
             </div>
@@ -742,7 +743,7 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── OUTILS ────────────────────────────────────────────────────── */}
-        <section className="py-14 border-y border-slate-200 sec-tint ctx-light">
+        <section className="py-8 md:py-14 border-y border-slate-200 sec-tint ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="animate-on-scroll fade-up text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.tools.label}</p>
             <div className="animate-on-scroll fade-up delay-100 flex flex-wrap justify-center gap-3">
@@ -757,13 +758,13 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── CAS D'USAGE ───────────────────────────────────────────────── */}
-        <section className="py-20 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-12 md:py-20 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.useCases.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.useCases.subtitle}</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <ResponsiveCards breakpoint="md" gridClass="grid-cols-2" gridGap="gap-6">
               {c.useCases.items.map((uc, i) => (
                 <article key={i} className={`animate-on-scroll fade-up ${DELAY_CLASSES[Math.min(i, 5)]} rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 h-full flex flex-col`}>
                   <div className="flex items-center justify-between gap-3 mb-4">
@@ -778,15 +779,15 @@ export function AutomatisationPageClient({ lang }: Props) {
                   </div>
                 </article>
               ))}
-            </div>
+            </ResponsiveCards>
             <SourcedStats ids={['ai18','mck60','ai54']} tone="dark" className="mt-14" />
           </div>
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-20 sec-flip sec-flip-light sec-screen ctx-light">
+        <section id="pricing" className="scroll-mt-28 py-12 md:py-20 sec-flip sec-flip-light sec-screen ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.packs.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.packs.subtitle}</p>
             </div>
@@ -838,72 +839,90 @@ export function AutomatisationPageClient({ lang }: Props) {
             </div>
 
             {/* Détails pack sélectionné */}
-            <div className="animate-on-scroll fade-up delay-200 rounded-2xl border border-white/10 bg-navy-900/30 p-8">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+            <div className="animate-on-scroll fade-up delay-200 rounded-2xl border border-white/10 bg-navy-900/30 p-5 sm:p-8">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 lg:mb-8">
                 <div>
                   <h3 className="text-xl font-bold text-white mb-1">{activePack.name}</h3>
                   <p className="text-slate-400 text-sm">{activePack.tagline}</p>
+                  <div className="mt-4 sm:hidden">
+                    {isQuoteOnly ? (
+                      <>
+                        <span className="text-2xl font-bold text-white">{QUOTE_PRICE_LABEL}</span>
+                        <div className="text-sm text-slate-400">{QUOTE_PRICE_NOTE}</div>
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-3xl font-bold text-white">{PACK_PRICES[packIdx].toLocaleString('fr-FR')} €</span>
+                        <span className="text-slate-400 text-sm ml-1">{c.packs.ht}</span>
+                        <div className="text-sm text-slate-400">+ {PACK_MONTHLY[packIdx]} {c.packs.monthly}</div>
+                      </>
+                    )}
+                    <div className="mt-2 text-xs text-slate-400">⏱ {c.packs.delivery} : {PACK_DELIVERY[lang][packIdx]}</div>
+                  </div>
                 </div>
                 <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-gray-900 transition-all duration-300" style={{ background: 'rgb(var(--c-white))', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>
                   {c.detail.choose} {activePack.name}<ArrowRight size={14} />
                 </LocalizedLink>
               </div>
+              <MobileCollapse openLabel={c.showDetails ? c.hideDetails.replace(/\s*[↓↑]/, '') : 'Hide'} closedLabel={c.showDetails ? c.showDetails.replace(/\s*[↓↑]/, '') : 'Details'} className="mt-5 lg:mt-0" headerClassName="justify-center rounded-xl border border-white/20 px-4 py-3">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div>
-                  <h4 className="font-semibold text-white mb-3 flex items-center gap-2"><Check size={16} className="text-emerald-500" /> {c.detail.included}</h4>
-                  <ul className="space-y-2">
-                    {activePack.included.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                        <Check size={13} className="text-emerald-500 mt-0.5 shrink-0" />{item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white mb-3 flex items-center gap-2"><XIcon size={16} className="text-rose-500" /> {c.detail.notIncluded}</h4>
-                  <ul className="space-y-2">
-                    {activePack.notIncluded.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-400">
-                        <XIcon size={13} className="text-rose-400 mt-0.5 shrink-0" />{item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white mb-3">{c.detail.options}</h4>
-                  <ul className="space-y-2 mb-6">
-                    {activePack.options.map((opt, i) => (
-                      <li key={i} className="flex items-start justify-between gap-2 text-sm">
-                        <span className="text-slate-300">{opt.label}</span>
-                        <span className="text-white font-medium shrink-0">{opt.price}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="bg-navy-900/40 rounded-xl p-4 border border-white/10">
-                    <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-                      {isQuoteOnly
-                        ? QUOTE_MAINTENANCE_LABEL
-                        : `${c.detail.maintenance} ${PACK_MONTHLY[packIdx]} €/${lang === 'fr' ? 'mois' : lang === 'es' ? 'mes' : 'month'}`}
-                    </div>
-                    <ul className="space-y-1">
-                      {activePack.maintenanceItems.map((item, i) => (
-                        <li key={i} className="flex items-center gap-2 text-xs text-slate-300">
-                          <CheckCircle size={11} className="text-emerald-500 shrink-0" />{item}
+                  <div>
+                    <h4 className="font-semibold text-white mb-3 flex items-center gap-2"><Check size={16} className="text-emerald-500" /> {c.detail.included}</h4>
+                    <ul className="space-y-2">
+                      {activePack.included.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
+                          <Check size={13} className="text-emerald-500 mt-0.5 shrink-0" />{item}
                         </li>
                       ))}
                     </ul>
                   </div>
-                </div>
+                  <div>
+                    <h4 className="font-semibold text-white mb-3 flex items-center gap-2"><XIcon size={16} className="text-rose-500" /> {c.detail.notIncluded}</h4>
+                    <ul className="space-y-2">
+                      {activePack.notIncluded.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-slate-400">
+                          <XIcon size={13} className="text-rose-400 mt-0.5 shrink-0" />{item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white mb-3">{c.detail.options}</h4>
+                    <ul className="space-y-2 mb-6">
+                      {activePack.options.map((opt, i) => (
+                        <li key={i} className="flex items-start justify-between gap-2 text-sm">
+                          <span className="text-slate-300">{opt.label}</span>
+                          <span className="text-white font-medium shrink-0">{opt.price}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="bg-navy-900/40 rounded-xl p-4 border border-white/10">
+                      <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                        {isQuoteOnly
+                          ? QUOTE_MAINTENANCE_LABEL
+                          : `${c.detail.maintenance} ${PACK_MONTHLY[packIdx]} €/${lang === 'fr' ? 'mois' : lang === 'es' ? 'mes' : 'month'}`}
+                      </div>
+                      <ul className="space-y-1">
+                        {activePack.maintenanceItems.map((item, i) => (
+                          <li key={i} className="flex items-center gap-2 text-xs text-slate-300">
+                            <CheckCircle size={11} className="text-emerald-500 shrink-0" />{item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+  
               </div>
+              </MobileCollapse>
             </div>
             <p className="text-center text-sm text-slate-400 mt-6">{c.detail.payment}</p>
           </div>
         </section>
 
         {/* ── PROCESSUS ─────────────────────────────────────────────────── */}
-        <section className="py-20 sec-tint sec-screen ctx-light">
+        <section className="py-12 md:py-20 sec-tint sec-screen ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.process.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">{c.process.subtitle}</p>
             </div>
@@ -926,9 +945,9 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
-        <section className="py-20 sec-pat sec-dots sec-dark-base sec-screen ctx-dark">
+        <section className="py-12 md:py-20 sec-pat sec-dots sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.testimonials.h2}</h2>
             </div>
             <div className="animate-on-scroll fade-up delay-100">
@@ -952,9 +971,9 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
-        <section className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section className="py-12 md:py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl font-bold text-navy-900 mb-4">{c.faq.h2}</h2>
             </div>
             <Accordion type="single" collapsible className="animate-on-scroll fade-up delay-100 space-y-3">
@@ -981,7 +1000,7 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
-        <section className="py-24 ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-14 md:py-24 ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />{c.cta.badge}

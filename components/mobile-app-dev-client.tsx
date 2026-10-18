@@ -378,9 +378,9 @@ export function MobileAppDevClient({ lang }: Props) {
           visual={{ src: "/assets/redesign/pages/mobile-hero.webp", alts: {"fr": "Illustration d'un smartphone avec une notification, un repère de localisation et des cercles qui rayonnent", "en": "Illustration of a smartphone with a notification, a location pin and radiating circles", "es": "Ilustración de un smartphone con una notificación, un marcador de ubicación y círculos que se expanden", "vi": "Minh họa điện thoại thông minh có thông báo, ghim vị trí và các vòng tròn lan tỏa"} }}
         />
 
-        <section className="py-16 sm:py-20 px-4 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section className="py-12 sm:py-20 px-4 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-6xl mx-auto">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">
                 {c.tech.h2}
               </h2>
@@ -417,9 +417,9 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
+        <section className="py-12 sm:py-20 px-4 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
           <div className="max-w-6xl mx-auto">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {c.types.h2}
               </h2>
@@ -427,13 +427,13 @@ export function MobileAppDevClient({ lang }: Props) {
                 {c.types.subtitle}
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <ResponsiveCards breakpoint="md" gridClass="grid-cols-2" gridGap="gap-6">
               {c.types.cards.map((card, i) => {
                 const Icon = typeIcons[i % typeIcons.length]!;
                 return (
                   <article
                     key={card.title}
-                    className={`animate-on-scroll fade-up ${DELAY_CLASSES[Math.min(i, 5)]} p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gray-300 transition-colors`}
+                    className={`animate-on-scroll fade-up ${DELAY_CLASSES[Math.min(i, 5)]} p-5 sm:p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gray-300 h-full transition-colors`}
                   >
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white flex items-center justify-center">
@@ -451,13 +451,13 @@ export function MobileAppDevClient({ lang }: Props) {
                   </article>
                 );
               })}
-            </div>
+            </ResponsiveCards>
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 sec-tint sec-screen ctx-light">
+        <section className="py-12 sm:py-20 px-4 sec-tint sec-screen ctx-light">
           <div className="max-w-5xl mx-auto">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">
                 {c.process.h2}
               </h2>
@@ -491,9 +491,9 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section id="pricing" className="py-16 sm:py-20 px-4 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section id="pricing" className="scroll-mt-28 py-12 sm:py-20 px-4 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-6xl mx-auto">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {c.pricing.h2}
               </h2>
@@ -506,7 +506,7 @@ export function MobileAppDevClient({ lang }: Props) {
                 {c.pricing.packs.map((pack) => (
                   <article
                     key={pack.name}
-                    className={`p-8 rounded-3xl border-2 h-full ${
+                    className={`p-6 sm:p-8 rounded-3xl border-2 h-full ${
                       pack.highlighted
                         ? 'border-white bg-white text-gray-900'
                         : 'border-white/20 bg-white/5'
@@ -548,9 +548,9 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 sec-flip sec-flip-light sec-screen ctx-light">
+        <section className="py-12 sm:py-20 px-4 sec-flip sec-flip-light sec-screen ctx-light">
           <div className="max-w-6xl mx-auto">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {c.useCases.h2}
               </h2>
@@ -558,7 +558,7 @@ export function MobileAppDevClient({ lang }: Props) {
                 {c.useCases.subtitle}
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <ResponsiveCards breakpoint="md" gridClass="grid-cols-2" gridGap="gap-6">
               {c.useCases.items.map((uc, i) => (
                 <article key={uc.sector} className={`animate-on-scroll fade-up ${DELAY_CLASSES[Math.min(i, 5)]} p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/10 h-full flex flex-col`}>
                   <div className="flex items-center justify-between gap-3 mb-4">
@@ -573,14 +573,14 @@ export function MobileAppDevClient({ lang }: Props) {
                   </div>
                 </article>
               ))}
-            </div>
+            </ResponsiveCards>
             <SourcedStats ids={['phone91','speed53']} tone="light" className="mt-14" />
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 sec-tint sec-screen ctx-light">
+        <section className="py-12 sm:py-20 px-4 sec-tint sec-screen ctx-light">
           <div className="max-w-3xl mx-auto">
-            <h2 className="animate-on-scroll fade-up text-3xl sm:text-4xl font-bold text-navy-900 text-center mb-12">
+            <h2 className="animate-on-scroll fade-up text-3xl sm:text-4xl font-bold text-navy-900 text-center mb-8 md:mb-12">
               {c.faq.h2}
             </h2>
             <div className="animate-on-scroll fade-up delay-100 space-y-4">
@@ -609,7 +609,7 @@ export function MobileAppDevClient({ lang }: Props) {
           </div>
         </section>
 
-        <section className="py-16 sm:py-20 px-4 ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-12 sm:py-20 px-4 ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="animate-on-scroll fade-up text-3xl sm:text-4xl font-bold text-white mb-4">
               {c.cta.h2}

@@ -44,11 +44,11 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="bg-chypre-20 py-24 lg:py-32 sec-screen">
+    <section className="bg-chypre-20 py-12 lg:py-32 sec-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 lg:mb-12">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest bg-chypre text-creme mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-creme" />
             {labels.chip}

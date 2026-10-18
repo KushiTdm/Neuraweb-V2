@@ -3,6 +3,7 @@
 import React from 'react';
 import { useTranslation } from '@/hooks/use-translation';
 import { NeuraIcon, type NeuraIconName } from '@/components/icons/neura-icon';
+import { ResponsiveCards } from '@/components/ui/cards-carousel';
 
 // Section « promesse » : traduit les 3 différenciateurs vérifiés de NeuraWeb
 // (prix affichés, équipe joignable, 4 langues + deux fuseaux) en réponse aux
@@ -64,25 +65,25 @@ export function PromiseSection() {
   const c = COPY[language as string] ?? COPY.fr;
 
   return (
-    <section className="bg-chypre-20 py-20 lg:py-28 sec-screen" aria-labelledby="promise-heading">
+    <section className="bg-chypre-20 py-12 lg:py-28 sec-screen" aria-labelledby="promise-heading">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 max-w-3xl">
+        <div className="mb-8 max-w-3xl lg:mb-12">
           <span className="mb-4 inline-flex rounded-full bg-chypre px-4 py-1.5 text-xs font-semibold tracking-widest text-creme">{c.chip}</span>
-          <h2 id="promise-heading" className="font-impact text-4xl font-black leading-[1.05] tracking-tight text-chypre sm:text-5xl lg:text-6xl">
+          <h2 id="promise-heading" className="font-impact text-3xl font-black leading-[1.05] tracking-tight text-chypre sm:text-5xl lg:text-6xl">
             {c.title}
           </h2>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-chypre/90 sm:text-lg">{c.subtitle}</p>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-chypre/90 sm:mt-5 sm:text-lg">{c.subtitle}</p>
         </div>
 
-        <ul className="grid gap-4 md:grid-cols-3 sv-stagger">
+        <ResponsiveCards breakpoint="md" gridClass="grid-cols-3" gridGap="gap-4" dotColor="#004643">
           {c.items.map((item) => (
-            <li key={item.title} className="sv-rise lift rounded-3xl border border-chypre/15 bg-creme p-7">
-              <NeuraIcon name={item.icon} size={64} className="mb-5 text-chypre" />
+            <div key={item.title} className="lift h-full rounded-3xl border border-chypre/15 bg-creme p-6 sm:p-7">
+              <NeuraIcon name={item.icon} size={48} className="mb-4 text-chypre" />
               <h3 className="font-display text-xl font-bold text-chypre">{item.title}</h3>
-              <p className="mt-2 text-base leading-relaxed text-chypre/80">{item.text}</p>
-            </li>
+              <p className="mt-2 text-sm leading-relaxed text-chypre/80 sm:text-base">{item.text}</p>
+            </div>
           ))}
-        </ul>
+        </ResponsiveCards>
       </div>
     </section>
   );

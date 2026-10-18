@@ -6,6 +6,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
 import { PAGE_THEMES } from '@/lib/page-themes';
+import { ResponsiveCards } from '@/components/ui/cards-carousel';
 
 // Section « Pour votre métier » : les secteurs sont présentés À PART des services
 // (les services = ce que l'on fait ; les secteurs = pour qui). Chaque carte porte la paire de
@@ -29,58 +30,69 @@ export function SectorsSection({ hub = false }: { hub?: boolean } = {}) {
 
   return (
     <section
-      className={`bg-chypre-20 ${hub ? 'flex min-h-[100svh] items-center pb-16 pt-28 sm:pt-32' : 'sec-screen py-20 lg:py-28'}`}
+      className={`bg-chypre-20 ${hub ? 'flex min-h-[100svh] items-center pb-16 pt-28 sm:pt-32' : 'sec-screen py-12 lg:py-28'}`}
       aria-labelledby="sectors-heading"
     >
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className={hub ? 'mb-8 max-w-3xl lg:mb-10' : 'mb-12 max-w-3xl'}>
+        <div className={hub ? 'mb-8 max-w-3xl lg:mb-10' : 'mb-8 max-w-3xl lg:mb-12'}>
           <span className="mb-4 inline-flex rounded-full bg-chypre px-4 py-1.5 text-xs font-semibold tracking-widest text-creme">{t('sectors.chip')}</span>
           {(() => {
             const Heading = hub ? 'h1' : 'h2';
             return (
-              <Heading id="sectors-heading" className="font-impact text-4xl font-black leading-[1.05] tracking-tight text-chypre sm:text-5xl lg:text-6xl">
+              <Heading id="sectors-heading" className="font-impact text-3xl font-black leading-[1.05] tracking-tight text-chypre sm:text-5xl lg:text-6xl">
                 {t('sectors.title')}
               </Heading>
             );
           })()}
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-chypre/90 sm:text-lg">{t('sectors.sub')}</p>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-chypre/90 sm:mt-5 sm:text-lg">{t('sectors.sub')}</p>
         </div>
 
-        <ul className="grid gap-5 md:grid-cols-3 sv-stagger">
-          {SECTORS.map(({ key, href, theme, image }) => (
-            <li key={key} className="sv-rise">
-              <LocalizedLink
-                href={href}
-                className="group flex h-full flex-col overflow-hidden rounded-3xl lift transition-shadow duration-300 hover:shadow-[0_16px_48px_rgba(0,70,67,0.25)]"
-                style={{ backgroundColor: theme.bg, color: theme.fg }}
-              >
-                <div className={`relative w-full overflow-hidden ${hub ? 'aspect-[3/2] lg:aspect-[16/9]' : 'aspect-[3/2]'}`}>
-                  <Image
-                    src={image}
-                    alt={alts[key]}
-                    fill
-                    sizes="(max-width:768px) 92vw, 400px"
-                    className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <span
-                    className="absolute left-4 top-4 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest"
-                    style={{ backgroundColor: theme.fg, color: theme.bg }}
-                  >
-                    {t('sectors.badge')}
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="font-display text-xl font-bold leading-tight sm:text-2xl">{t(`nav.dropdown.${key}.label` as any)}</h3>
-                  <p className="mt-3 text-sm leading-relaxed opacity-90 sm:text-base">{t(`sectors.${key}.hook` as any)}</p>
-                  <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold transition-all duration-200 group-hover:gap-2.5">
-                    {t('sectors.cta')} <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-                  </span>
-                </div>
-              </LocalizedLink>
-            </li>
-          ))}
-        </ul>
+        {(() => {
+          const cards = SECTORS.map(({ key, href, theme, image }) => (
+            <LocalizedLink
+                  href={href}
+                  className="group flex h-full flex-col overflow-hidden rounded-3xl lift transition-shadow duration-300 hover:shadow-[0_16px_48px_rgba(0,70,67,0.25)]"
+                  style={{ backgroundColor: theme.bg, color: theme.fg }}
+                >
+                  <div className={`relative w-full overflow-hidden ${hub ? 'aspect-[3/2] lg:aspect-[16/9]' : 'aspect-[16/9] sm:aspect-[3/2]'}`}>
+                    <Image
+                      src={image}
+                      alt={alts[key]}
+                      fill
+                      sizes="(max-width:768px) 92vw, 400px"
+                      className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <span
+                      className="absolute left-4 top-4 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-widest"
+                      style={{ backgroundColor: theme.fg, color: theme.bg }}
+                    >
+                      {t('sectors.badge')}
+                    </span>
+                  </div>
+                  <div className="flex flex-1 flex-col p-5 sm:p-6">
+                    <h3 className="font-display text-xl font-bold leading-tight sm:text-2xl">{t(`nav.dropdown.${key}.label` as any)}</h3>
+                    <p className="mt-3 text-sm leading-relaxed opacity-90 sm:text-base">{t(`sectors.${key}.hook` as any)}</p>
+                    <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold transition-all duration-200 group-hover:gap-2.5">
+                      {t('sectors.cta')} <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                  </div>
+                </LocalizedLink>
+          ));
+          return hub ? (
+            <ul className="grid gap-5 md:grid-cols-3 sv-stagger">
+              {cards.map((card, i) => (
+                <li key={SECTORS[i].key} className="sv-rise">{card}</li>
+              ))}
+            </ul>
+          ) : (
+            <ResponsiveCards breakpoint="md" gridClass="grid-cols-3" gridGap="gap-5" dotColor="#004643">
+              {cards.map((card, i) => (
+                <div key={SECTORS[i].key} className="h-full">{card}</div>
+              ))}
+            </ResponsiveCards>
+          );
+        })()}
       </div>
     </section>
   );

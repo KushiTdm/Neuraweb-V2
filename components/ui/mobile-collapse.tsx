@@ -14,6 +14,8 @@ interface MobileCollapseProps {
   defaultOpen?: boolean;
   className?: string;
   headerClassName?: string;
+  /** Classes du libellé (mode sans `title`). */
+  labelClassName?: string;
 }
 
 /**
@@ -29,6 +31,7 @@ export function MobileCollapse({
   defaultOpen = false,
   className,
   headerClassName,
+  labelClassName = 'text-white/80',
 }: MobileCollapseProps) {
   const [open, setOpen] = useState(defaultOpen);
   const panelId = useId();
@@ -46,7 +49,7 @@ export function MobileCollapse({
           headerClassName,
         )}
       >
-        {title ?? <span className="text-sm font-medium text-white/80">{open ? openLabel : closedLabel}</span>}
+        {title ?? <span className={cn('text-sm font-medium', labelClassName)}>{open ? openLabel : closedLabel}</span>}
         <ChevronDown
           size={16}
           aria-hidden="true"

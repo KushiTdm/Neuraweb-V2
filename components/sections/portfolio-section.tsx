@@ -231,7 +231,7 @@ export function PortfolioSection() {
                     tabIndex={copy === 1 ? -1 : undefined}
                     className="group flex h-full flex-col overflow-hidden rounded-2xl border border-chypre/15 bg-creme shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-chypre/40 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
                   >
-                    <div className="relative aspect-[16/10] overflow-hidden bg-chypre/10">
+                    <div className="relative aspect-[16/9] overflow-hidden bg-chypre/10 sm:aspect-[16/10]">
                       <Image
                         src={project.image}
                         alt={copy === 1 ? '' : `${project.name} — ${t(project.sectorKey)}`}
@@ -245,13 +245,13 @@ export function PortfolioSection() {
                       </span>
                     </div>
 
-                    <div className="flex flex-1 flex-col p-5">
+                    <div className="flex flex-1 flex-col p-4 sm:p-5">
                       <h3 className="text-lg font-bold text-chypre">{project.name}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-chypre/80">
+                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-chypre/80 sm:line-clamp-none">
                         {t(project.descKey)}
                       </p>
 
-                      <ul className="mt-4 flex flex-wrap gap-2" aria-label={t('portfolio.modal.technologies')}>
+                      <ul className="mt-4 hidden flex-wrap gap-2 sm:flex" aria-label={t('portfolio.modal.technologies')}>
                         {project.stack.map((tech) => (
                           <li
                             key={tech}
@@ -262,7 +262,7 @@ export function PortfolioSection() {
                         ))}
                       </ul>
 
-                      <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-chypre transition-colors group-hover:text-indigo-500">
+                      <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-sm font-semibold text-chypre transition-colors group-hover:text-indigo-500 sm:pt-5">
                         {t('portfolio.modal.view')}
                         <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>
@@ -279,7 +279,7 @@ export function PortfolioSection() {
                 <LocalizedLink
                   href="/secteurs/restaurants-hotels"
                   tabIndex={copy === 1 ? -1 : undefined}
-                  className="group flex h-full min-h-[18rem] flex-col items-start justify-center rounded-2xl border border-dashed border-chypre/40 bg-chypre/5 p-6 transition-colors hover:border-chypre hover:bg-chypre/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
+                  className="group flex h-full min-h-[12rem] flex-col items-start justify-center sm:min-h-[18rem] rounded-2xl border border-dashed border-chypre/40 bg-chypre/5 p-6 transition-colors hover:border-chypre hover:bg-chypre/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
                 >
                   <h3 className="text-lg font-bold text-chypre">{t('portfolio.restaurant.seeAllTitle')}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-chypre/80">{t('portfolio.restaurant.seeAllDesc')}</p>

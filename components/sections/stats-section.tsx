@@ -6,6 +6,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
 import { useLanguage } from '@/contexts/language-context';
 import { NeuraIcon, type NeuraIconName } from '@/components/icons/neura-icon';
+import { ResponsiveCards } from '@/components/ui/cards-carousel';
 
 const T = {
   fr: {
@@ -85,7 +86,7 @@ function StatCard({ value, suffix, label, desc, icon, started, index }: {
       className="glass lift flex h-full flex-col rounded-3xl p-6 sm:p-8"
       style={{ opacity: started ? undefined : 0, animation: started ? `nwFadeInUp 0.6s ${index * 0.15}s ease both` : 'none' }}
     >
-      <NeuraIcon name={icon} size={44} className="mb-4 flex-shrink-0 text-creme" />
+      <NeuraIcon name={icon} size={44} className="mb-3 flex-shrink-0 text-creme sm:mb-4" />
       <div
         className="mb-3 whitespace-nowrap font-impact font-black leading-none text-creme"
         style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.25rem)' }}
@@ -120,7 +121,7 @@ export function StatsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-chypre py-20 sm:py-24 lg:py-32 sec-screen">
+    <section ref={sectionRef} className="relative overflow-hidden bg-chypre py-12 sm:py-24 lg:py-32 sec-screen">
       <Image
         src="/assets/redesign/motif-vagues.webp"
         alt=""
@@ -131,13 +132,13 @@ export function StatsSection() {
         loading="lazy"
       />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[40fr_60fr] lg:gap-16">
+        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[40fr_60fr] lg:gap-16">
           <div>
-            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.1em] text-creme/90">{t.eyebrow}</p>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.1em] text-creme/90 sm:mb-6">{t.eyebrow}</p>
             <h2 className="mb-6 font-impact text-3xl font-black leading-tight text-creme sm:text-4xl lg:text-5xl">
               {t.heading1} {t.heading2}
             </h2>
-            <p className="mb-10 max-w-md text-base leading-relaxed text-creme/90">{t.sub}</p>
+            <p className="mb-6 max-w-md text-sm leading-relaxed text-creme/90 sm:mb-10 sm:text-base">{t.sub}</p>
             <LocalizedLink
               href="/equipe"
               className="group inline-flex items-center gap-2 rounded-full bg-creme px-6 py-3 font-semibold text-chypre transition-colors duration-200 hover:bg-white"
@@ -147,7 +148,8 @@ export function StatsSection() {
             </LocalizedLink>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div>
+          <ResponsiveCards breakpoint="md" gridClass="grid-cols-3" gridGap="gap-4">
             {STATS.map((s, i) => (
               <StatCard
                 key={s.key}
@@ -160,6 +162,7 @@ export function StatsSection() {
                 index={i}
               />
             ))}
+          </ResponsiveCards>
           </div>
         </div>
       </div>

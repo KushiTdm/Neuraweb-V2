@@ -34,9 +34,9 @@ export function TestimonialsSection() {
   }));
 
   return (
-    <section className="overflow-hidden bg-creme py-20 lg:py-28 sec-screen">
+    <section className="overflow-hidden bg-creme py-12 lg:py-28 sec-screen">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 mb-8 lg:mb-14">
           <div>
             <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-chypre/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-chypre">
               <Star className="h-3 w-3 fill-chypre text-chypre" aria-hidden="true" />

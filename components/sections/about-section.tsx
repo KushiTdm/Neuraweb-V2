@@ -6,6 +6,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
 import { MultiStepLoader } from '@/components/ui/multi-step-loader';
+import { MobileCollapse } from '@/components/ui/mobile-collapse';
 
 const COMMITMENT_KEYS = [
   'about.commitments.1',
@@ -16,11 +17,11 @@ const COMMITMENT_KEYS = [
   'about.commitments.6',
 ] as const;
 
-const SECTION_LABELS: Record<string, { chip: string; learnMore: string; alt: string }> = {
-  fr: { chip: 'QUI SOMMES-NOUS ?', learnMore: "Rencontrer l'équipe", alt: 'Le fondateur assis de profil dans un café aux murs verts, la tête tournée vers la fenêtre, travaillant sur son ordinateur' },
-  en: { chip: 'ABOUT US', learnMore: 'Meet the team', alt: 'The founder seated in profile in a green-walled coffee shop, head turned toward the window, working on his laptop' },
-  es: { chip: 'QUIÉNES SOMOS', learnMore: 'Conocer el equipo', alt: 'El fundador sentado de perfil en una cafetería de paredes verdes, con la cabeza girada hacia la ventana, trabajando con su portátil' },
-  vi: { chip: 'CHÚNG TÔI LÀ AI?', learnMore: 'Gặp gỡ đội ngũ', alt: 'Người sáng lập ngồi nghiêng trong quán cà phê tường xanh, quay đầu về phía cửa sổ, làm việc trên laptop' },
+const SECTION_LABELS: Record<string, { chip: string; learnMore: string; alt: string; show: string; hide: string }> = {
+  fr: { show: 'Voir nos engagements', hide: 'Masquer les engagements', chip: 'QUI SOMMES-NOUS ?', learnMore: "Rencontrer l'équipe", alt: 'Le fondateur assis de profil dans un café aux murs verts, la tête tournée vers la fenêtre, travaillant sur son ordinateur' },
+  en: { show: 'See our commitments', hide: 'Hide commitments', chip: 'ABOUT US', learnMore: 'Meet the team', alt: 'The founder seated in profile in a green-walled coffee shop, head turned toward the window, working on his laptop' },
+  es: { show: 'Ver nuestros compromisos', hide: 'Ocultar compromisos', chip: 'QUIÉNES SOMOS', learnMore: 'Conocer el equipo', alt: 'El fundador sentado de perfil en una cafetería de paredes verdes, con la cabeza girada hacia la ventana, trabajando con su portátil' },
+  vi: { show: 'Xem cam kết của chúng tôi', hide: 'Ẩn cam kết', chip: 'CHÚNG TÔI LÀ AI?', learnMore: 'Gặp gỡ đội ngũ', alt: 'Người sáng lập ngồi nghiêng trong quán cà phê tường xanh, quay đầu về phía cửa sổ, làm việc trên laptop' },
 };
 
 export function AboutSection() {
@@ -54,7 +55,7 @@ export function AboutSection() {
               transition: 'opacity 0.7s ease, transform 0.7s ease',
             }}
           >
-            <div className="relative h-[240px] overflow-hidden rounded-2xl border border-chypre/15 sm:h-[340px] sm:rounded-3xl lg:h-[460px] xl:h-[520px]">
+            <div className="relative h-[190px] overflow-hidden rounded-2xl border border-chypre/15 sm:h-[340px] sm:rounded-3xl lg:h-[460px] xl:h-[520px]">
               <Image
                 src="/assets/redesign/about-cafe-tete-tournee.webp"
                 alt={labels.alt}
@@ -86,9 +87,17 @@ export function AboutSection() {
               {t('about.description')}
             </p>
 
-            <div className="mb-6 sm:mb-10">
-              <MultiStepLoader steps={COMMITMENT_KEYS.map((key) => ({ text: t(key) }))} active={isVisible} duration={2200} />
-            </div>
+            <MobileCollapse
+              className="mb-6 sm:mb-10"
+              openLabel={labels.hide}
+              closedLabel={labels.show}
+              labelClassName="text-chypre"
+              headerClassName="rounded-xl border border-chypre/30 px-4 py-3 text-chypre"
+            >
+              <div className="mt-4 sm:mt-0">
+                <MultiStepLoader steps={COMMITMENT_KEYS.map((key) => ({ text: t(key) }))} active={isVisible} duration={2200} />
+              </div>
+            </MobileCollapse>
 
             <LocalizedLink
               href="/equipe"
