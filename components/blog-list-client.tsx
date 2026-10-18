@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useMemo } from 'react';
 import { useLanguage } from '@/contexts/language-context';
 import { useAnalytics } from '@/hooks/use-analytics';
 import { CoverImage } from '@/components/blog/cover-image';
+import { CategoryRail } from '@/components/blog/category-rail';
 import { LocalizedLink } from '@/components/localized-link';
 import type { Language } from '@/lib/mdx';
 
@@ -149,6 +150,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
       intro: "Bienvenue sur le blog NeuraWeb — la ressource de référence pour les entrepreneurs, startups et PME qui veulent exploiter les technologies web de demain. Nos experts partagent chaque semaine des guides pratiques, des analyses approfondies et des retours d'expérience concrets sur trois grands thèmes : le développement web avec Next.js et React, l'intégration de l'intelligence artificielle dans les processus métier, et l'automatisation des workflows avec des outils comme n8n, Make et Zapier. Que vous cherchiez à refondre votre site, déployer un chatbot IA, automatiser votre prospection commerciale ou comprendre les enjeux du SEO en 2026, vous trouverez ici des réponses directement applicables. Chaque article est rédigé par notre équipe de développeurs et consultants IA, avec un angle orienté résultats et ROI mesurable. Pas de contenu générique — uniquement des cas concrets, des chiffres réels et des recommandations actionnables pour accélérer votre transformation digitale.",
       featuredBadge: 'À LA UNE',
       all: 'Tous',
+      seeAll: 'Tout voir',
       readArticle: "Lire l'article",
       searchPlaceholder: 'Rechercher un article, un mot-clé...',
       dateLabel: 'Date de publication',
@@ -171,6 +173,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
       intro: 'Welcome to the NeuraWeb blog — your go-to resource for entrepreneurs, startups and SMBs looking to leverage tomorrow\'s web technologies. Our experts share weekly practical guides, in-depth analyses and real-world case studies on three major topics: web development with Next.js and React, integrating artificial intelligence into business processes, and workflow automation with tools like n8n, Make and Zapier. Whether you\'re looking to redesign your website, deploy an AI chatbot, automate your sales prospecting or understand SEO challenges in 2026, you\'ll find directly actionable answers here. Every article is written by our team of developers and AI consultants, with a results-driven, measurable ROI focus. No generic content — only concrete case studies, real numbers and actionable recommendations to accelerate your digital transformation and stay ahead of the competition.',
       featuredBadge: 'FEATURED',
       all: 'All',
+      seeAll: 'See all',
       readArticle: 'Read article',
       searchPlaceholder: 'Search an article, a keyword...',
       dateLabel: 'Publication date',
@@ -193,6 +196,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
       intro: 'Bienvenido al blog de NeuraWeb — tu recurso de referencia para emprendedores, startups y pymes que quieren aprovechar las tecnologías web del futuro. Nuestros expertos comparten cada semana guías prácticas, análisis en profundidad y casos de uso reales sobre tres grandes temas: el desarrollo web con Next.js y React, la integración de la inteligencia artificial en los procesos de negocio, y la automatización de flujos de trabajo con herramientas como n8n, Make y Zapier. Ya sea que quieras renovar tu sitio web, desplegar un chatbot IA, automatizar tu prospección comercial o entender los desafíos del SEO en 2026, encontrarás aquí respuestas directamente aplicables. Cada artículo está redactado por nuestro equipo de desarrolladores y consultores en IA, con un enfoque orientado a resultados y ROI medible. Sin contenido genérico — solo casos concretos, cifras reales y recomendaciones accionables para acelerar tu transformación digital.',
       featuredBadge: 'DESTACADO',
       all: 'Todos',
+      seeAll: 'Ver todo',
       readArticle: 'Leer el artículo',
       searchPlaceholder: 'Buscar un artículo, una palabra clave...',
       dateLabel: 'Fecha de publicación',
@@ -215,6 +219,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
       intro: 'Chào mừng bạn đến với blog NeuraWeb — nơi chủ cửa hàng, hộ kinh doanh và doanh nghiệp vừa và nhỏ tại Việt Nam tìm được những kiến thức thực tế về công nghệ web. Mỗi tuần, đội ngũ lập trình viên và chuyên gia AI của chúng tôi chia sẻ hướng dẫn từng bước, phân tích chuyên sâu và các tình huống có thật xoay quanh ba chủ đề chính: thiết kế website với Next.js và React, ứng dụng trí tuệ nhân tạo vào công việc kinh doanh hằng ngày, và tự động hóa quy trình bằng n8n, Make hay Zapier. Dù bạn đang muốn có một trang giới thiệu cửa hàng để khách tìm thấy trên Google, làm mới website doanh nghiệp, triển khai chatbot AI trả lời khách 24/7, giảm phụ thuộc vào các app đặt món, hay hiểu rõ cách làm SEO năm 2026 — bạn đều tìm được câu trả lời áp dụng được ngay. Chúng tôi viết theo hướng kết quả: không nội dung chung chung, chỉ có tình huống cụ thể, con số thật và những việc bạn có thể bắt tay làm ngay.',
       featuredBadge: 'NỔI BẬT',
       all: 'Tất cả',
+      seeAll: 'Xem tất cả',
       readArticle: 'Đọc bài viết',
       searchPlaceholder: 'Tìm bài viết, từ khóa...',
       dateLabel: 'Ngày đăng',
@@ -263,23 +268,74 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
     return m;
   }, [allPosts]);
 
+  // Carte d'article (grille et carrousels de catégories)
+  const renderCard = (post: BlogPostMeta, extra = '') => (
+    <article
+                    key={post.slug}
+                    data-blog-slug={post.slug}
+                    data-blog-title={post.title}
+                    className={`lift group relative flex flex-col overflow-hidden rounded-3xl border border-chypre/15 bg-creme transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,70,67,0.14)] ${extra}`}
+                  >
+                    <CoverImage
+                      src={post.image}
+                      alt=""
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                      className="aspect-[3/2] w-full border-b border-chypre/10"
+                      imgClassName="transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
+                    />
+
+                    <div className="flex flex-1 flex-col p-5">
+                      <span className={`mb-3 self-start rounded-full px-3 py-1 text-xs font-semibold ${CATEGORY_STYLES[post.category] ?? CAT_STYLES[0]}`}>
+                        {post.category}
+                      </span>
+                      <h3 className="mb-2 line-clamp-2 font-display text-lg font-bold leading-snug text-chypre">
+                        {/* Lien étiré : toute la carte est cliquable */}
+                        <LocalizedLink
+                          href={`/blog/${post.slug}`}
+                          onClick={() => handleBlogClick(post.slug, post.title)}
+                          className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-chypre focus-visible:after:rounded-3xl"
+                        >
+                          {post.title}
+                        </LocalizedLink>
+                      </h3>
+                      <p className="mb-4 line-clamp-2 flex-1 text-sm text-chypre/85">{post.excerpt}</p>
+                      <div className="mt-auto flex items-center gap-2 text-xs text-chypre/80">
+                        <time>{formatDate(post.date)}</time>
+                        <span aria-hidden="true">·</span>
+                        <span>{post.readTime}</span>
+                      </div>
+                    </div>
+                  </article>
+  )
+
+  // Vue « Tous » : un carrousel automatique par catégorie ; dès qu'un filtre ou une recherche est actif : grille paginée
+  const railMode = selectedCategory === 'all' && !searchQuery.trim() && sortByDate === 'newest'
+  const rails = useMemo(
+    () =>
+      categories
+        .map((cat) => ({ cat, posts: remainingPosts.filter((p) => p.category === cat) }))
+        .filter((r) => r.posts.length > 0)
+        .sort((a, b) => b.posts.length - a.posts.length),
+    [categories, remainingPosts]
+  )
+
   const hasFilters = searchQuery || selectedCategory !== 'all' || sortByDate !== 'newest';
 
   return (
     <>
       {/* ─── En-tête compact ─── */}
-      <section className="px-4 pb-8 pt-28 sm:px-6 lg:pt-32">
+      <section className="px-4 pb-4 pt-24 sm:px-6 sm:pb-8 sm:pt-28 lg:pt-32">
         <div className="mx-auto max-w-6xl">
-          <h1 className="mb-3 text-4xl text-chypre sm:text-5xl lg:text-6xl">
+          <h1 className="mb-2 text-[2rem] leading-[1.1] text-chypre sm:mb-3 sm:text-5xl lg:text-6xl">
             {tr.title} NeuraWeb
           </h1>
-          <p className="max-w-2xl text-lg leading-relaxed text-chypre/90 sm:text-xl">{tr.subtitle}</p>
+          <p className="max-w-2xl text-base leading-relaxed text-chypre/90 sm:text-xl">{tr.subtitle}</p>
         </div>
       </section>
 
       {/* ─── À la une : texte 50 % / illustration entière 50 % ─── */}
       {latestPost && (
-        <section className="mb-10 px-4 sm:px-6">
+        <section className="mb-6 px-4 sm:mb-10 sm:px-6">
           <div className="mx-auto max-w-6xl">
             <div className="overflow-hidden rounded-3xl border border-chypre/15 bg-creme">
               {(featuredPosts.length > 1 ? featuredPosts : [latestPost]).map((fp, idx) => (
@@ -370,51 +426,29 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
       {/* ─── Grille : l'illustration mène chaque carte ─── */}
       <section className="px-4 pb-16 pt-10 sm:px-6">
         <div className="mx-auto max-w-6xl">
-          {paginatedPosts.length === 0 ? (
+          {railMode ? (
+            <>
+              {rails.map(({ cat, posts }) => (
+                <CategoryRail
+                  key={cat}
+                  title={cat}
+                  count={posts.length}
+                  items={posts}
+                  seeAllLabel={tr.seeAll}
+                  onSeeAll={() => { setSelectedCategory(cat); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+                  getKey={(p) => p.slug}
+                  renderItem={(p, extra) => renderCard(p, extra)}
+                />
+              ))}
+            </>
+          ) : paginatedPosts.length === 0 ? (
             <div className="rounded-3xl border border-chypre/15 bg-chypre/[0.05] py-20 text-center">
               <p className="text-chypre/90">{tr.noResults}</p>
             </div>
           ) : (
             <>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {paginatedPosts.map((post) => (
-                  <article
-                    key={post.slug}
-                    data-blog-slug={post.slug}
-                    data-blog-title={post.title}
-                    className="lift group relative flex flex-col overflow-hidden rounded-3xl border border-chypre/15 bg-creme transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,70,67,0.14)]"
-                  >
-                    <CoverImage
-                      src={post.image}
-                      alt=""
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
-                      className="aspect-[3/2] w-full border-b border-chypre/10"
-                      imgClassName="transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
-                    />
-
-                    <div className="flex flex-1 flex-col p-5">
-                      <span className={`mb-3 self-start rounded-full px-3 py-1 text-xs font-semibold ${CATEGORY_STYLES[post.category] ?? CAT_STYLES[0]}`}>
-                        {post.category}
-                      </span>
-                      <h3 className="mb-2 line-clamp-2 font-display text-lg font-bold leading-snug text-chypre">
-                        {/* Lien étiré : toute la carte est cliquable */}
-                        <LocalizedLink
-                          href={`/blog/${post.slug}`}
-                          onClick={() => handleBlogClick(post.slug, post.title)}
-                          className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-chypre focus-visible:after:rounded-3xl"
-                        >
-                          {post.title}
-                        </LocalizedLink>
-                      </h3>
-                      <p className="mb-4 line-clamp-2 flex-1 text-sm text-chypre/85">{post.excerpt}</p>
-                      <div className="mt-auto flex items-center gap-2 text-xs text-chypre/80">
-                        <time>{formatDate(post.date)}</time>
-                        <span aria-hidden="true">·</span>
-                        <span>{post.readTime}</span>
-                      </div>
-                    </div>
-                  </article>
-                ))}
+                {paginatedPosts.map((post) => renderCard(post))}
               </div>
 
               {/* Pagination */}
@@ -475,14 +509,14 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
             <p className="font-display text-lg font-bold text-creme">{tr.newsletter}</p>
             <p className="mt-0.5 text-sm text-creme/85">{tr.newsletterDesc}</p>
           </div>
-          <div className="flex w-full items-center gap-2 sm:w-auto">
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
             <input
               type="email"
               placeholder={tr.emailPlaceholder}
               aria-label={tr.emailPlaceholder}
-              className="min-h-[44px] flex-1 rounded-full border border-creme/30 bg-creme/10 px-4 text-sm text-creme placeholder:text-creme/70 focus:border-creme focus:outline-none focus:ring-2 focus:ring-creme/40 sm:w-60"
+              className="min-h-[44px] w-full min-w-0 flex-1 rounded-full border border-creme/30 bg-creme/10 px-4 text-base sm:text-sm text-creme placeholder:text-creme/70 focus:border-creme focus:outline-none focus:ring-2 focus:ring-creme/40 sm:w-60"
             />
-            <button className="min-h-[44px] shrink-0 rounded-full bg-creme px-5 text-sm font-semibold text-chypre transition-transform hover:scale-[1.03]">
+            <button className="min-h-[44px] w-full shrink-0 rounded-full bg-creme px-5 text-sm font-semibold text-chypre transition-transform hover:scale-[1.03] sm:w-auto">
               {tr.subscribe} →
             </button>
           </div>
@@ -539,7 +573,7 @@ function FeaturedCard({ post, tr, formatDate, priority, onOpen }: FeaturedCardPr
         alt={post.title}
         sizes="(max-width: 768px) 100vw, 560px"
         priority={priority}
-        className="aspect-[3/2] border-b border-chypre/10 md:aspect-auto md:min-h-[340px] md:border-b-0 md:border-l"
+        className="aspect-[16/9] border-b border-chypre/10 md:aspect-auto md:min-h-[340px] md:border-b-0 md:border-l"
       />
     </div>
   );

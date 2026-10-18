@@ -34,6 +34,10 @@ const config: Config = {
         // ── Identité 2026 (bicolore accueil) ──
         chypre: { DEFAULT: '#004643', 20: '#C0CCC5', 40: '#90AAA4', 60: '#608984' },
         creme: { DEFAULT: '#F0EDE5' },
+        // Chatbot : paire de couleurs de la page courante (variables posées par components/chatbot.tsx)
+        cbdark: 'rgb(var(--cb-dark, 0 70 67) / <alpha-value>)',
+        cblight: 'rgb(var(--cb-light, 240 237 229) / <alpha-value>)',
+        cbtint: 'rgb(var(--cb-tint, 192 204 197) / <alpha-value>)',
         // Barres de navigation/pied de page : suivent le thème de la page (valeurs par défaut = Crème/Chypre)
         navbg: 'rgb(var(--nav-bg, 240 237 229) / <alpha-value>)',
         navfg: 'rgb(var(--nav-fg, 0 70 67) / <alpha-value>)',

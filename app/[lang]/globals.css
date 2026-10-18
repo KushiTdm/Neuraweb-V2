@@ -1077,3 +1077,7 @@ img:not([alt]) {
 .marquee-track { display: flex; width: max-content; animation: nwMarquee 38s linear infinite; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; flex-wrap: wrap; width: auto; } }
+
+/* Filet de sécurité mobile : aucun élément ne doit créer de défilement horizontal de la page */
+html, body { overflow-x: clip; }
+html { background-color: #F0EDE5; }

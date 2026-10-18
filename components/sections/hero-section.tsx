@@ -68,32 +68,32 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
 
   return (
     <section className="relative flex min-h-[100svh] w-full items-center overflow-hidden bg-chypre" aria-label="NeuraWeb">
-      <div className="w-full max-w-7xl mx-auto px-6 lg:px-12 pt-32 pb-16 lg:pt-36 lg:pb-20 grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+      <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-12 pt-24 pb-8 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20 grid lg:grid-cols-12 gap-6 sm:gap-10 lg:gap-14 items-center">
         <div className="lg:col-span-7">
-          <p className="text-sm font-semibold text-creme/70 mb-5">{c.kicker}</p>
+          <p className="text-sm font-semibold text-creme/80 mb-3 sm:mb-5">{c.kicker}</p>
 
-          <h1 className="font-impact font-black text-creme leading-[1.05] mb-6 text-4xl sm:text-5xl xl:text-6xl tracking-tight">
+          <h1 className="font-impact font-black text-creme leading-[1.05] mb-4 sm:mb-6 text-[2rem] sm:text-5xl xl:text-6xl tracking-tight">
             {c.title}
           </h1>
 
-          <p className="text-lg leading-relaxed text-creme/90 mb-8 max-w-xl">{c.subtitle}</p>
+          <p className="text-base sm:text-lg leading-relaxed text-creme/90 mb-5 sm:mb-8 max-w-xl">{c.subtitle}</p>
 
-          <div className="flex flex-wrap items-center gap-3 mb-8">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2.5 sm:gap-3 mb-5 sm:mb-8">
             <LocalizedLink
               href="/booking"
-              className="inline-flex items-center px-7 py-3.5 rounded-lg text-sm font-semibold text-chypre bg-creme hover:bg-white transition-colors"
+              className="inline-flex min-h-[48px] items-center justify-center px-4 sm:px-7 py-3 rounded-lg text-sm font-semibold text-chypre bg-creme hover:bg-white transition-colors text-center"
             >
               {c.cta}
             </LocalizedLink>
             <LocalizedLink
               href="/services"
-              className="inline-flex items-center px-7 py-3.5 rounded-lg text-sm font-semibold text-creme border border-creme/40 hover:border-creme transition-colors"
+              className="inline-flex min-h-[48px] items-center justify-center px-4 sm:px-7 py-3 rounded-lg text-sm font-semibold text-creme border border-creme/40 hover:border-creme transition-colors text-center"
             >
               {c.ctaSecondary}
             </LocalizedLink>
           </div>
 
-          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-creme/70">
+          <ul className="hidden sm:flex flex-wrap gap-x-6 gap-y-2 text-sm text-creme/80">
             {c.proof.map((p) => (
               <li key={p}>{p}</li>
             ))}
@@ -101,7 +101,7 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
         </div>
 
         <div className="lg:col-span-5">
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-creme/15">
+          <div className="relative aspect-[16/9] max-h-[27svh] sm:max-h-none sm:aspect-[4/3] rounded-2xl overflow-hidden border border-creme/15">
             <Image
               src="/assets/redesign/hero-fondateur.webp"
               alt={c.alt}

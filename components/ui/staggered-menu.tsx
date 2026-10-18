@@ -7,8 +7,7 @@
  */
 
 import React, { useCallback, useLayoutEffect, useRef, useEffect } from 'react';
-import Image from 'next/image';
-import { ArrowRight, X } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { LocalizedLink } from '@/components/localized-link';
 
@@ -19,6 +18,8 @@ export interface StaggeredMenuItem {
   isSubItem?: boolean;
   /** lien externe (ex. sous-domaine démo) — rendu via <a> + nouvel onglet */
   external?: boolean;
+  /** intertitre de groupe (affiché quand il change d'un item à l'autre) */
+  group?: string;
 }
 
 interface StaggeredMenuPanelProps {
@@ -39,8 +40,8 @@ export function StaggeredMenuPanel({
   open,
   onClose,
   items,
-  colors = ['#1E2A4A', '#0E1B3D'],
-  accentColor = '#ffffff',
+  colors = ['rgb(var(--nav-fg, 0 70 67) / 0.55)', 'rgb(var(--nav-fg, 0 70 67))'],
+  accentColor = 'currentColor',
   displayItemNumbering = false,
   contactLabel = 'Contact',
 }: StaggeredMenuPanelProps) {
@@ -156,7 +157,7 @@ export function StaggeredMenuPanel({
 
   // ── Couleurs des pre-layers ───────────────────────────────────────────────
   const preLayerColors = (() => {
-    const raw = colors.length ? colors.slice(0, 4) : ['#1E2A4A', '#0E1B3D'];
+    const raw = colors.length ? colors.slice(0, 4) : ['rgb(var(--nav-fg, 0 70 67) / 0.55)', 'rgb(var(--nav-fg, 0 70 67))'];
     const arr = [...raw];
     if (arr.length >= 3) arr.splice(Math.floor(arr.length / 2), 1);
     return arr;
@@ -164,159 +165,73 @@ export function StaggeredMenuPanel({
 
   return (
     <>
-      {/* Pre-layers colorés — glissent juste avant le panel */}
-      <div
-        ref={preLayersRef}
-        className="fixed inset-0 pointer-events-none"
-        style={{ zIndex: 47 }}
-        aria-hidden
-      >
+      {/* Pre-layers colorés — glissent juste avant le panel (couleur = texte de la barre, donc de la page) */}
+      <div ref={preLayersRef} className="fixed inset-0 pointer-events-none" style={{ zIndex: 47 }} aria-hidden>
         {preLayerColors.map((c, i) => (
-          <div
-            key={i}
-            className="sm-prelayer absolute inset-0"
-            style={{ background: c }}
-          />
+          <div key={i} className="sm-prelayer absolute inset-0" style={{ background: c }} />
         ))}
       </div>
 
-      {/* Panel principal */}
+      {/* Panneau : mêmes couleurs que la barre de navigation (fond crème, texte Chypre ou couleur de la page) */}
       <aside
         ref={panelRef}
         className="fixed inset-0 flex flex-col overflow-y-auto"
-        style={{ background: '#070F26', zIndex: 48 }}
+        style={{ background: 'rgb(var(--nav-bg, 240 237 229))', color: 'rgb(var(--nav-fg, 0 70 67))', zIndex: 48 }}
         aria-hidden={!open}
         aria-label="Navigation mobile"
       >
-        {/* Header : logo + bouton fermer */}
-        <div className="flex items-center justify-between px-5 py-4 flex-shrink-0">
-          <LocalizedLink href="/" onClick={onClose}>
-            <Image
-              src="/assets/neurawebW.webp"
-              alt="NeuraWeb"
-              width={130}
-              height={40}
-              className="h-9 w-auto object-contain"
-              priority
-            />
-          </LocalizedLink>
-          <button
-            onClick={onClose}
-            className="flex items-center justify-center w-10 h-10 rounded-xl transition-colors"
-            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
-            aria-label="Fermer le menu"
-          >
-            <X className="w-5 h-5 text-white/70" />
-          </button>
-        </div>
+        {/* La barre fixe (logo, langue, croix) reste au-dessus : on laisse sa hauteur libre */}
+        <div className="h-[72px] flex-shrink-0" />
+        <div className="mx-5 mb-4 h-px flex-shrink-0 bg-current opacity-15" />
 
-        {/* Ligne de séparation gradient */}
-        <div className="mx-5 mb-6 h-px" style={{ background: 'linear-gradient(90deg,rgba(255,255,255,0.3),transparent)' }} />
-
-        {/* Items de navigation */}
-        <nav className="flex-1 px-5 overflow-y-auto">
+        <nav className="flex-1 overflow-y-auto px-5 pb-4" aria-label="Navigation principale">
           <ul
-            className="sm-panel-list list-none m-0 p--0 flex flex-col gap-1"
+            className="sm-panel-list m-0 flex list-none flex-col p-0"
             role="list"
-            style={{ '--sm-accent': accentColor } as React.CSSProperties}
             data-numbering={displayItemNumbering ? 'true' : undefined}
           >
-            {items.map((item, idx) => (
-              <li
-                key={item.label + idx}
-                className={`sm-panel-itemWrap relative overflow-hidden leading-none ${item.isSubItem ? 'ml-5 border-l border-white/10 pl-4' : ''}`}
-              >
-                {(() => {
-                  const className = `sm-panel-item group relative cursor-pointer leading-none inline-block no-underline ${
-                    item.isSubItem
-                      ? 'text-white/60 font-semibold py-1.5 hover:text-white/90'
-                      : 'text-white/90 font-bold tracking-tight uppercase py-2'
-                  }`;
-                  const style = {
-                    fontSize: item.isSubItem ? 'clamp(1.1rem, 4.5vw, 1.5rem)' : 'clamp(2.2rem, 9vw, 3.4rem)',
-                    letterSpacing: item.isSubItem ? '-0.01em' : '-0.03em',
-                    paddingRight: displayItemNumbering && !item.isSubItem ? '2.5em' : undefined,
-                  } as const;
-                  const inner = (
-                    <span
-                      className="sm-panel-itemLabel inline-block transition-colors duration-150 group-hover:text-white"
-                      style={{ transformOrigin: '50% 100%', willChange: 'transform' }}
-                    >
-                      {item.isSubItem && <span className="mr-1.5 opacity-40">—</span>}
-                      {item.label}
-                    </span>
-                  );
-                  return item.external ? (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={onClose}
-                      className={className}
-                      style={style}
-                      aria-label={item.ariaLabel}
-                      data-index={idx + 1}
-                    >
+            {items.map((item, idx) => {
+              const showGroup = item.group && item.group !== '·' && item.group !== items[idx - 1]?.group;
+              const className = `sm-panel-item group relative inline-flex min-h-[44px] items-center no-underline font-display font-bold leading-tight ${
+                item.group ? 'py-1.5 text-[1.35rem] opacity-90' : 'py-2 text-[1.9rem]'
+              }`;
+              const inner = (
+                <span className="sm-panel-itemLabel inline-block" style={{ transformOrigin: '50% 100%', willChange: 'transform' }}>
+                  {item.label}
+                </span>
+              );
+              return (
+                <li key={item.label + idx} className="sm-panel-itemWrap relative overflow-hidden">
+                  {showGroup && (
+                    <p className="mb-1 mt-3 text-[11px] font-bold uppercase tracking-[0.18em] opacity-60">{item.group}</p>
+                  )}
+                  {item.external ? (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" onClick={onClose} className={className} aria-label={item.ariaLabel} data-index={idx + 1}>
                       {inner}
                     </a>
                   ) : (
-                    <LocalizedLink
-                      href={item.href}
-                      onClick={onClose}
-                      className={className}
-                      style={style}
-                      aria-label={item.ariaLabel}
-                      data-index={idx + 1}
-                    >
+                    <LocalizedLink href={item.href} onClick={onClose} className={className} aria-label={item.ariaLabel} data-index={idx + 1}>
                       {inner}
                     </LocalizedLink>
-                  );
-                })()}
-              </li>
-            ))}
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
-        {/* Footer */}
-        <div className="px-5 pb-10 pt-6 flex-shrink-0">
-          {/* Ligne de séparation */}
-          <div className="mb-5 h-px" style={{ background: 'rgba(255,255,255,0.07)' }} />
-
-          {/* CTA Contact */}
+        <div className="flex-shrink-0 px-5 pb-8 pt-3">
           <LocalizedLink
             href="/contact"
             onClick={onClose}
-            className="flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-full text-sm font-semibold mb-5 transition-opacity hover:opacity-90"
-            style={{ background: '#ffffff', color: '#111827' }}
+            className="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-base font-semibold transition-opacity hover:opacity-90"
+            style={{ background: 'rgb(var(--nav-fg, 0 70 67))', color: 'rgb(var(--nav-bg, 240 237 229))' }}
           >
             {contactLabel}
-            <ArrowRight size={15} />
+            <ArrowRight size={16} aria-hidden="true" />
           </LocalizedLink>
-
-          <p className="text-xs text-center" style={{ color: 'rgba(255,255,255,0.2)' }}>
-            contact@neuraweb.fr
-          </p>
         </div>
       </aside>
-
-      <style>{`
-        /* Numérotation */
-        .sm-panel-list[data-numbering] { counter-reset: smItem; }
-        .sm-panel-list[data-numbering] .sm-panel-item::after {
-          counter-increment: smItem;
-          content: counter(smItem, decimal-leading-zero);
-          position: absolute;
-          top: 0.15em;
-          right: 0;
-          font-size: 13px;
-          font-weight: 400;
-          color: #9ca3af;
-          letter-spacing: 0;
-          pointer-events: none;
-          user-select: none;
-          opacity: var(--sm-num-opacity, 0);
-        }
-      `}</style>
     </>
   );
 }

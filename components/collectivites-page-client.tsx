@@ -1,5 +1,7 @@
 'use client';
 
+import { SectorHero } from '@/components/sector-hero';
+
 import React, { useEffect, useRef } from 'react';
 import {
   Landmark,
@@ -368,72 +370,21 @@ export function CollectivitesPageClient() {
 
 function Hero({ onScrollToBriques }: { onScrollToBriques: () => void }) {
   return (
-    <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 sec-tint ctx-light">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(56,189,248,0.10),transparent_60%)] pointer-events-none" />
-      <div data-parallax="40" className="absolute -top-32 -right-32 w-72 h-72 sm:w-96 sm:h-96 bg-indigo-200/30 rounded-full blur-3xl pointer-events-none" />
-      <div data-parallax="-40" className="absolute -bottom-32 -left-32 w-72 h-72 sm:w-96 sm:h-96 bg-cyan-200/30 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        <div className="lg:col-span-7" data-reveal="left">
-          <SectorTag />
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-indigo-200 text-indigo-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
-            <Landmark className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            Collectivités & secteur public
-          </span>
-
-          <h1 className="font-display text-[2rem] leading-[1.1] sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
-            Le numérique de votre commune,{' '}
-            <span className="text-navy-700 dark:text-sky-400">
-              conforme et utile
-            </span>
-          </h1>
-
-          <p className="mt-4 md:mt-6 text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl">
-            Sites <strong>conformes RGAA & RGPD</strong>, démarches en ligne,
-            chatbot IA et application citoyenne. Une agence locale qui maîtrise la{' '}
-            <strong>commande publique</strong> et accompagne votre transition numérique,
-            brique par brique.
-          </p>
-
-          <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
-            <Button
-              onClick={onScrollToBriques}
-              size="lg"
-              className="text-white shadow-lg shadow-indigo-600/20 h-12 px-6 sm:px-8 bg-navy-900 hover:bg-navy-800"
-            >
-              Découvrir les services
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="bg-white border-indigo-300 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-800 h-12 px-6 sm:px-8"
-            >
-              <LocalizedLink href="/booking">Demander un audit gratuit</LocalizedLink>
-            </Button>
-          </div>
-
-          {/* Trust badges */}
-          <div className="mt-6 md:mt-10 flex flex-wrap gap-x-4 gap-y-2 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-4">
-            {[
-              { icon: Accessibility, label: 'RGAA', longLabel: 'Accessibilité RGAA', color: 'text-indigo-600' },
-              { icon: Lock, label: 'RGPD', longLabel: 'Conforme RGPD/CNIL', color: 'text-sky-600' },
-              { icon: Server, label: 'France', longLabel: 'Hébergement France', color: 'text-cyan-600' },
-              { icon: ScrollText, label: 'Marché public', longLabel: 'Commande publique', color: 'text-blue-600' },
-            ].map(({ icon: Icon, label, longLabel, color }) => (
-              <div key={label} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-slate-700">
-                <Icon className={cn('w-4 h-4 sm:w-5 sm:h-5', color)} />
-                <span className="sm:hidden">{label}</span>
-                <span className="hidden sm:inline">{longLabel}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Mini-tableau de conformité (sans image) */}
-        <div className="lg:col-span-5" data-reveal="right">
-          <div className="relative">
+    <SectorHero
+      badgeIcon={<Landmark className="h-4 w-4" aria-hidden="true" />}
+      badge="Collectivités & secteur public"
+      h1="Le numérique de votre commune, conforme et utile"
+      subtitle={<>Sites <strong>conçus selon le RGAA et le RGPD</strong>, démarches en ligne, chatbot IA et application citoyenne. Une agence qui maîtrise la <strong>commande publique</strong> et accompagne votre transition numérique, brique par brique.</>}
+      primary={{ label: 'Découvrir les services', onClick: onScrollToBriques }}
+      secondary={{ label: 'Demander un audit gratuit', href: '/booking' }}
+      trust={[
+        { icon: Accessibility, label: 'RGAA', longLabel: 'Accessibilité RGAA' },
+        { icon: Lock, label: 'RGPD', longLabel: 'Pensé pour le RGPD/CNIL' },
+        { icon: Server, label: 'France', longLabel: 'Hébergement France' },
+        { icon: ScrollText, label: 'Marché public', longLabel: 'Commande publique' },
+      ]}
+      visual={
+        <div className="relative">
             <div className="rounded-2xl md:rounded-3xl bg-white shadow-2xl shadow-indigo-600/10 border border-slate-200 p-5 sm:p-6">
               <div className="flex items-center gap-2.5 mb-4 pb-4 border-b border-slate-100">
                 <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
@@ -463,14 +414,13 @@ function Hero({ onScrollToBriques }: { onScrollToBriques: () => void }) {
               </ul>
             </div>
             {/* Badge sanction évitée — animation bounce continue */}
-            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-bottom-4 sm:-left-4 animate-bounce-subtle bg-white rounded-2xl shadow-xl px-3.5 py-2.5 sm:px-4 sm:py-3 border border-amber-200 flex items-center gap-2 whitespace-nowrap motion-reduce:animate-none">
+            <div className="relative mt-3 w-fit  bg-white rounded-2xl shadow-xl px-3.5 py-2.5 sm:px-4 sm:py-3 border border-amber-200 flex items-center gap-2 whitespace-nowrap motion-reduce:animate-none">
               <ShieldCheck className="w-4 h-4 text-amber-600 flex-shrink-0" />
-              <span className="text-[11px] sm:text-xs font-semibold text-slate-700">Amende ARCOM jusqu’à 50 000 € évitée</span>
+              <span className="text-[11px] sm:text-xs font-semibold text-slate-700">Risque d’amende ARCOM : jusqu’à 50 000 €</span>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+      }
+    />
   );
 }
 

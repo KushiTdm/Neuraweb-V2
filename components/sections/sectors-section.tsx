@@ -23,18 +23,26 @@ const ALTS: Record<string, Record<string, string>> = {
   vi: { sante: 'Phòng trị liệu sáng sủa với bàn gỗ và một chậu cây', restaurants: 'Bàn ăn nhìn từ trên cao với một món ăn theo mùa', collectivites: 'Minh họa một tòa thị chính và người dân mọi lứa tuổi' },
 };
 
-export function SectorsSection() {
+export function SectorsSection({ hub = false }: { hub?: boolean } = {}) {
   const { language, t } = useTranslation();
   const alts = ALTS[language as string] ?? ALTS.fr;
 
   return (
-    <section className="sec-screen bg-chypre-20 py-20 lg:py-28" aria-labelledby="sectors-heading">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 max-w-3xl">
+    <section
+      className={`bg-chypre-20 ${hub ? 'flex min-h-[100svh] items-center pb-16 pt-28 sm:pt-32' : 'sec-screen py-20 lg:py-28'}`}
+      aria-labelledby="sectors-heading"
+    >
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className={hub ? 'mb-8 max-w-3xl lg:mb-10' : 'mb-12 max-w-3xl'}>
           <span className="mb-4 inline-flex rounded-full bg-chypre px-4 py-1.5 text-xs font-semibold tracking-widest text-creme">{t('sectors.chip')}</span>
-          <h2 id="sectors-heading" className="font-impact text-4xl font-black leading-[1.05] tracking-tight text-chypre sm:text-5xl lg:text-6xl">
-            {t('sectors.title')}
-          </h2>
+          {(() => {
+            const Heading = hub ? 'h1' : 'h2';
+            return (
+              <Heading id="sectors-heading" className="font-impact text-4xl font-black leading-[1.05] tracking-tight text-chypre sm:text-5xl lg:text-6xl">
+                {t('sectors.title')}
+              </Heading>
+            );
+          })()}
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-chypre/90 sm:text-lg">{t('sectors.sub')}</p>
         </div>
 
@@ -46,7 +54,7 @@ export function SectorsSection() {
                 className="group flex h-full flex-col overflow-hidden rounded-3xl lift transition-shadow duration-300 hover:shadow-[0_16px_48px_rgba(0,70,67,0.25)]"
                 style={{ backgroundColor: theme.bg, color: theme.fg }}
               >
-                <div className="relative aspect-[3/2] w-full overflow-hidden">
+                <div className={`relative w-full overflow-hidden ${hub ? 'aspect-[3/2] lg:aspect-[16/9]' : 'aspect-[3/2]'}`}>
                   <Image
                     src={image}
                     alt={alts[key]}

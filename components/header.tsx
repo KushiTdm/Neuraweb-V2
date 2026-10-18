@@ -289,8 +289,8 @@ export function Header() {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="md:hidden flex flex-col items-center justify-center w-10 h-10 rounded-xl gap-[5px] transition-all duration-200"
                 style={{
-                  background: isMenuOpen ? 'rgba(93,184,240,0.1)' : 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  background: 'transparent',
+                  border: '1px solid rgb(var(--nav-fg, 0 70 67) / 0.3)',
                   zIndex: 51, // au-dessus du panel (z-48)
                   position: 'relative',
                 }}
@@ -332,19 +332,18 @@ export function Header() {
           onClose={() => setIsMenuOpen(false)}
           contactLabel={t('nav.contact')}
           items={[
-            { label: t('nav.home'),     href: '/',                     ariaLabel: t('nav.home')     },
-            { label: t('nav.dropdown.web.label'), href: '/developpement-web' },
-            { label: 'Mobile',          href: '/mobile-app-development' },
-            { label: 'IA',              href: '/integration-ia'        },
-            { label: `${t('nav.sectors')} · ${t('nav.dropdown.sante.label')}`,         href: '/secteurs/sante'         },
-            { label: `${t('nav.sectors')} · ${t('nav.dropdown.restaurants.label')}`,   href: '/secteurs/restaurants-hotels'   },
-            { label: `${t('nav.sectors')} · ${t('nav.dropdown.collectivites.label')}`, href: '/secteurs/collectivites' },
-            { label: 'Démo',            href: DEMO_URL, external: true, ariaLabel: 'Démo interactive web + mobile' },
-            { label: t('nav.blog'),     href: '/blog',                 ariaLabel: t('nav.blog')     },
-            { label: t('nav.team'),     href: '/equipe',               ariaLabel: t('nav.team')     },
+            { label: t('nav.home'), href: '/', ariaLabel: t('nav.home') },
+            { group: t('nav.services'), label: t('nav.dropdown.web.label'), href: '/developpement-web' },
+            { group: t('nav.services'), label: t('nav.dropdown.mobile.label'), href: '/mobile-app-development' },
+            { group: t('nav.services'), label: t('nav.dropdown.automation.label'), href: '/automatisation' },
+            { group: t('nav.services'), label: t('nav.dropdown.ai.label'), href: '/integration-ia' },
+            { group: t('nav.sectors'), label: t('nav.dropdown.sante.label'), href: '/secteurs/sante' },
+            { group: t('nav.sectors'), label: t('nav.dropdown.restaurants.label'), href: '/secteurs/restaurants-hotels' },
+            { group: t('nav.sectors'), label: t('nav.dropdown.collectivites.label'), href: '/secteurs/collectivites' },
+            { group: '·', label: t('nav.blog'), href: '/blog', ariaLabel: t('nav.blog') },
+            { group: '·', label: t('nav.team'), href: '/equipe', ariaLabel: t('nav.team') },
+            { group: '·', label: 'Démo', href: DEMO_URL, external: true, ariaLabel: 'Démo interactive web + mobile' },
           ] as StaggeredMenuItem[]}
-          colors={['#1A2847', '#004643']}
-          accentColor="#ffffff"
         />
       </div>
     </>

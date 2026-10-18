@@ -1,5 +1,7 @@
 'use client';
 
+import { SectorHero } from '@/components/sector-hero';
+
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
@@ -447,32 +449,31 @@ const FAQ: { q: string; a: string }[] = [
   },
 ];
 
+// Avis réels de clients NeuraWeb (mêmes textes que l'accueil, voir locales/fr.ts « testimonials.* »).
+// Les témoignages sectoriels précédents (praticiens nommés par initiales) n'étaient pas vérifiables : retirés le 18/10/2026.
 const TESTIMONIALS = [
   {
-    quote:
-      "Avant, je passais 30 minutes par jour au téléphone à gérer les rendez-vous. Maintenant, mes patients réservent directement en ligne. J'ai gagné 2 heures par semaine.",
-    name: 'Marie L.',
-    role: 'Ostéopathe D.O.',
-    city: 'Lyon',
-    initials: 'ML',
+    quote: "Un excellent travail ! Très professionnel, compétent et réactif. Il s'est montré disponible tout au long du projet et je suis ravie du résultat. Je recommande sans hésiter !",
+    name: 'Maria P.',
+    role: 'Cliente NeuraWeb',
+    city: 'avis client',
+    initials: 'MP',
     color: 'bg-rose-100 text-rose-700',
   },
   {
-    quote:
-      "Le site était en ligne en 8 jours. La formation de 30 minutes m'a suffi pour comprendre comment changer un horaire ou une photo. Très simple à utiliser.",
-    name: 'Thomas B.',
-    role: 'Kinésithérapeute',
-    city: 'Marseille',
-    initials: 'TB',
+    quote: "Après avoir longtemps hésité et fait des recherches j'ai décidé de me lancer avec ce jeune site que l'on m'avait recommandé ; pour faire simple : à l'écoute, professionnel mais surtout FORCE DE PROPOSITIONS ! Ils ont su comprendre rapidement mes besoins et les traduire en un site moderne, clair et performant.",
+    name: 'Sanji S.',
+    role: 'Client NeuraWeb',
+    city: 'avis client',
+    initials: 'SS',
     color: 'bg-cyan-100 text-cyan-700',
   },
   {
-    quote:
-      'Nous sommes 4 praticiens dans la maison de santé. La gestion des plannings et les rappels SMS ont vraiment changé notre quotidien.',
-    name: 'Dr. Sarah K.',
-    role: 'Maison de santé',
-    city: 'Nantes',
-    initials: 'SK',
+    quote: "Le travail réalisé est vraiment de qualité, avec des finitions soignées et un résultat au-delà de mes attentes. Ils ont pris le temps de bien expliquer les choses et de répondre à toutes mes questions. Une équipe fiable, honnête et impliquée dans la satisfaction du client. Je recommande vivement.",
+    name: 'Hermes T.',
+    role: 'Client NeuraWeb',
+    city: 'avis client',
+    initials: 'HT',
     color: 'bg-emerald-100 text-emerald-700',
   },
 ];
@@ -742,93 +743,41 @@ function HeroSection({
   onScrollToPacks: () => void;
 }) {
   return (
-    <section className="relative overflow-hidden pt-28 pb-20 md:pt-32 md:pb-28 sec-tint ctx-light">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(20,184,166,0.10),transparent_60%)] pointer-events-none" />
-      <div className="absolute -top-32 -right-32 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-emerald-200/30 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
-        <div className="lg:col-span-7" data-reveal>
-          <SectorTag />
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-teal-200 text-teal-700 text-sm font-medium mb-6">
-            <Stethoscope className="w-4 h-4" />
-            Spécialiste santé & paramédical
-          </span>
-
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-slate-900">
-            Votre cabinet mérite un site à la{' '}
-            <span className="text-navy-700 dark:text-sky-400">
-              hauteur de votre expertise
-            </span>
-          </h1>
-
-          <p className="mt-6 text-lg sm:text-xl text-slate-600 leading-relaxed max-w-2xl">
-            Sites web conçus pour les <strong>ostéopathes, kinésithérapeutes et infirmiers
-            libéraux</strong>. Conformes RGPD/HDS, hébergés en France, livrés en{' '}
-            <strong>1 semaine</strong>.
-          </p>
-
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <Button
-              onClick={onScrollToPacks}
-              size="lg"
-              className="text-white shadow-lg shadow-teal-600/20 h-12 px-8 bg-teal-600 hover:bg-teal-700"
-            >
-              Voir les forfaits
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-            <Button
-              onClick={onOpenQuote}
-              variant="outline"
-              size="lg"
-              className="bg-white border-teal-300 text-teal-700 hover:bg-teal-50 hover:text-teal-800 h-12 px-8"
-            >
-              Demander un devis gratuit
-            </Button>
+    <SectorHero
+      badgeIcon={<Stethoscope className="h-4 w-4" aria-hidden="true" />}
+      badge="Spécialiste santé & paramédical"
+      h1="Votre cabinet mérite un site à la hauteur de votre expertise"
+      subtitle={<>Sites web conçus pour les <strong>ostéopathes, kinésithérapeutes et infirmiers libéraux</strong>. Hébergement de données de santé certifié HDS (OVH), livrés en <strong>1 semaine</strong>.</>}
+      primary={{ label: 'Voir les forfaits', onClick: onScrollToPacks }}
+      secondary={{ label: 'Demander un devis gratuit', onClick: onOpenQuote }}
+      trust={[
+        { icon: ShieldCheck, label: 'Hébergement HDS', longLabel: 'Hébergement certifié HDS' },
+        { icon: Globe, label: 'Hébergement France' },
+        { icon: HeartPulse, label: 'Doctolib', longLabel: 'Intégration Doctolib' },
+      ]}
+      visual={
+        <div className="hero-mockup relative">
+          <div className="hero-float relative mx-auto aspect-[4/5] max-h-[40svh] w-full overflow-hidden rounded-3xl border border-white/60 bg-white shadow-2xl sm:max-h-[56svh] lg:max-h-[62svh]">
+            <Image
+              src="/assets/site_osteo.png"
+              alt="Aperçu d'un site web pour ostéopathe créé par Neuraweb"
+              fill
+              priority
+              className="object-cover object-top"
+              sizes="(min-width: 1024px) 40vw, 90vw"
+            />
           </div>
-
-          <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {[
-              { icon: ShieldCheck, label: 'Conforme RGPD Santé', color: 'text-emerald-600' },
-              { icon: Globe, label: 'Hébergement France', color: 'text-teal-600' },
-              { icon: HeartPulse, label: 'Intégration Doctolib', color: 'text-cyan-600' },
-            ].map(({ icon: Icon, label, color }) => (
-              <div
-                key={label}
-                className="flex items-center gap-2 text-sm font-medium text-slate-700"
-              >
-                <Icon className={cn('w-5 h-5', color)} />
-                {label}
-              </div>
-            ))}
+          <div className="absolute -top-3 right-2 hidden items-center gap-2 rounded-2xl border border-emerald-200 bg-white px-4 py-3 shadow-xl sm:flex">
+            <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+            <span className="text-xs font-semibold text-slate-700">En ligne en 8 jours</span>
+          </div>
+          <div className="absolute -bottom-3 left-2 hidden items-center gap-2 rounded-2xl border border-teal-200 bg-white px-4 py-3 shadow-xl sm:flex">
+            <Sparkles className="h-4 w-4 text-teal-600" />
+            <span className="text-xs font-semibold text-slate-700">SEO local inclus</span>
           </div>
         </div>
-
-        <div className="lg:col-span-5" data-reveal>
-          <div className="hero-mockup relative">
-            <div className="hero-float relative rounded-3xl overflow-hidden shadow-2xl shadow-teal-600/20 border border-white/60 bg-white">
-              <Image
-                src="/assets/site_osteo.png"
-                alt="Aperçu d'un site web pour ostéopathe créé par Neuraweb"
-                width={800}
-                height={1200}
-                priority
-                className="w-full h-auto"
-                sizes="(min-width: 1024px) 40vw, 90vw"
-              />
-            </div>
-            <div className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-xl px-4 py-3 border border-emerald-200 hidden sm:flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-semibold text-slate-700">En ligne en 8 jours</span>
-            </div>
-            <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-4 py-3 border border-teal-200 hidden sm:flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-teal-600" />
-              <span className="text-xs font-semibold text-slate-700">SEO local inclus</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      }
+    />
   );
 }
 
@@ -1972,7 +1921,7 @@ function TestimonialsCarousel() {
             Ils nous font <span className="text-teal-600">confiance</span>
           </h2>
           <p className="text-base md:text-lg text-slate-600">
-            Des praticiens libéraux qui ont gagné du temps grâce à leur site.
+            Avis de clients NeuraWeb, publiés sur notre fiche Google : 5,0/5 sur 14 avis.
           </p>
         </div>
 
@@ -2040,7 +1989,7 @@ function TestimonialCard({
             {t.name}
           </p>
           <p className="text-xs md:text-sm text-slate-500 truncate">
-            {t.role} — {t.city}
+            {t.role}
           </p>
         </div>
       </div>

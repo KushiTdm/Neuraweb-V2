@@ -46,31 +46,31 @@ export default function ContactPageClient() {
       <div className="theme-accueil">
       <style>{`.contact-illus{animation:contactIn .9s ease-out both}@keyframes contactIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){.contact-illus{animation:none}}`}</style>
       <Header />
-      <main id="main-content" className="min-h-screen pt-24 pb-16 bg-creme">
+      <main id="main-content" className="min-h-screen pt-24 pb-12 sm:pb-16 bg-creme">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-chypre text-creme mb-4">
+          <div className="text-center mb-6 sm:mb-16">
+            <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-chypre text-creme mb-3 sm:mb-4">
               {t('contact.hero.badge')}
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl text-chypre mb-6">
+            <h1 className="text-[2rem] leading-[1.1] sm:text-5xl lg:text-6xl text-chypre mb-3 sm:mb-6">
               {t('contact.hero.title')}{' '}
               <span className="text-chypre">
                 {t('contact.hero.title.highlight')}
               </span>
             </h1>
-            <p className="text-xl text-chypre/90 max-w-2xl mx-auto mb-4">
+            <p className="text-base sm:text-xl text-chypre/90 max-w-2xl mx-auto mb-0 sm:mb-4">
               {t('contact.hero.subtitle')}
             </p>
-            <p className="text-base text-chypre/85 max-w-3xl mx-auto">
+            <p className="hidden sm:block text-base text-chypre/85 max-w-3xl mx-auto">
               {t('contact.hero.description')}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-10 lg:gap-12">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-10 lg:gap-12">
             {/* Contact Info */}
-            <div className="space-y-8">
-              <div className="bg-chypre/[0.05] rounded-2xl p-8 border border-chypre/15">
+            <div className="space-y-5 sm:space-y-8 max-md:order-2">
+              <div className="bg-chypre/[0.05] rounded-2xl p-5 sm:p-8 border border-chypre/15">
                 <h2 className="text-xl font-semibold text-chypre mb-6">
                   {t('contact.info.email.label')}
                 </h2>
@@ -101,7 +101,7 @@ export default function ContactPageClient() {
                   numéro WhatsApp réel n'est pas renseigné — voir
                   `components/whatsapp-contact-button.tsx`. */}
               {language === 'vi' && (
-                <div className="bg-chypre/[0.05] rounded-2xl p-8 border border-chypre/15">
+                <div className="bg-chypre/[0.05] rounded-2xl p-5 sm:p-8 border border-chypre/15">
                   <h2 className="text-xl font-semibold text-chypre mb-2">
                     Nhắn tin qua WhatsApp
                   </h2>
@@ -112,7 +112,7 @@ export default function ContactPageClient() {
                 </div>
               )}
 
-              <div className="bg-chypre/[0.05] rounded-2xl p-8 border border-chypre/15">
+              <div className="bg-chypre/[0.05] rounded-2xl p-5 sm:p-8 border border-chypre/15">
                 <h2 className="text-xl font-semibold text-chypre mb-6">
                   {t('contact.info.location.label')}
                 </h2>
@@ -144,7 +144,7 @@ export default function ContactPageClient() {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-chypre/[0.05] rounded-2xl p-8 border border-chypre/15">
+            <div className="bg-chypre/[0.05] rounded-2xl p-5 sm:p-8 border border-chypre/15">
               <h2 className="text-xl font-semibold text-chypre mb-2">
                 {t('contact.form.title')}
               </h2>

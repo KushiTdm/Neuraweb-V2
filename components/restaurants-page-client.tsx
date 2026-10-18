@@ -1,6 +1,7 @@
 'use client';
 
 import { SourcedStats } from '@/components/sourced-stats';
+import { SectorHero } from '@/components/sector-hero';
 
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
@@ -355,96 +356,42 @@ export function RestaurantsPageClient() {
 
 function Hero({ onScrollToFormules }: { onScrollToFormules: () => void }) {
   return (
-    <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-amber-50 ctx-light">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(244,114,182,0.10),transparent_60%)] pointer-events-none" />
-      <div className="absolute -top-32 -right-32 w-96 h-96 bg-amber-200/30 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-rose-200/30 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        <div className="lg:col-span-7" data-reveal>
-          <SectorTag />
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-amber-200 text-amber-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
-            <UtensilsCrossed className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            Sites web pour restaurants
-          </span>
-
-          <h1 className="font-display text-[2rem] leading-[1.1] sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
-            Votre restaurant mérite mieux que{' '}
-            <span className="text-navy-700 dark:text-sky-400">
-              30 % de commission
-            </span>
-          </h1>
-
-          <p className="mt-4 md:mt-6 text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl">
-            Réservation en ligne, commande et <strong>click & collect avec paiement
-            sans commission</strong>, fidélité : un site qui vous appartient et qui
-            transforme un visiteur en client fidèle. <strong>7 démos en ligne</strong> à
-            l’appui.
-          </p>
-
-          <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
-            <Button
-              onClick={onScrollToFormules}
-              size="lg"
-              className="text-white shadow-lg shadow-amber-600/20 h-12 px-6 sm:px-8 bg-amber-600 hover:bg-amber-700"
-            >
-              Voir les formules
-              <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="bg-white border-amber-300 text-amber-700 hover:bg-amber-50 hover:text-amber-800 h-12 px-6 sm:px-8"
-            >
-              <LocalizedLink href="/booking">Demander un devis gratuit</LocalizedLink>
-            </Button>
+    <SectorHero
+      badgeIcon={<UtensilsCrossed className="h-4 w-4" aria-hidden="true" />}
+      badge="Sites web pour restaurants"
+      h1="Votre restaurant mérite mieux que 30 % de commission"
+      subtitle={<>Réservation en ligne, commande et <strong>click & collect avec paiement sans commission</strong>, fidélité : un site qui vous appartient et qui transforme un visiteur en client fidèle. <strong>7 démos en ligne</strong> à l’appui.</>}
+      primary={{ label: 'Voir les formules', onClick: onScrollToFormules }}
+      secondary={{ label: 'Demander un devis gratuit', href: '/booking' }}
+      trust={[
+        { icon: CreditCard, label: 'Sans commission', longLabel: 'Paiement sans commission' },
+        { icon: CalendarCheck, label: 'Réservation', longLabel: 'Réservation en ligne' },
+        { icon: ShieldCheck, label: 'Site à vous', longLabel: 'Site & données à vous' },
+      ]}
+      visual={
+        <div className="relative">
+          <div className="relative mx-auto aspect-[4/5] max-h-[40svh] w-full overflow-hidden rounded-3xl border border-white/60 bg-white shadow-2xl sm:max-h-[56svh] lg:max-h-[62svh]">
+            <Image
+              src="/assets/restaurant/template-restaurant.webp"
+              alt="Aperçu d'un site web pour restaurant créé par NeuraWeb"
+              fill
+              priority
+              className="object-cover object-top"
+              sizes="(min-width: 1024px) 40vw, 90vw"
+            />
           </div>
-
-          {/* Trust badges : ligne compacte mobile, grille à partir de sm */}
-          <div className="mt-6 md:mt-10 flex flex-wrap gap-x-4 gap-y-2 sm:grid sm:grid-cols-3 sm:gap-4">
-            {[
-              { icon: CreditCard, label: 'Sans commission', longLabel: 'Paiement sans commission', color: 'text-rose-600' },
-              { icon: CalendarCheck, label: 'Réservation', longLabel: 'Réservation en ligne', color: 'text-amber-600' },
-              { icon: ShieldCheck, label: 'Site à vous', longLabel: 'Site & données à vous', color: 'text-orange-600' },
-            ].map(({ icon: Icon, label, longLabel, color }) => (
-              <div key={label} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-slate-700">
-                <Icon className={cn('w-4 h-4 sm:w-5 sm:h-5', color)} />
-                <span className="sm:hidden">{label}</span>
-                <span className="hidden sm:inline">{longLabel}</span>
-              </div>
-            ))}
+          <div className="absolute -top-3 right-2 hidden items-center gap-2.5 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-xl sm:flex">
+            <span className="text-base font-bold text-slate-500 line-through">30 %</span>
+            <ArrowRight className="h-3 w-3 text-slate-500" />
+            <span className="text-base font-bold text-rose-700">1,4 %</span>
+          </div>
+          <div className="absolute -bottom-3 left-2 hidden items-center gap-2 rounded-2xl border border-emerald-200 bg-white px-4 py-3 shadow-xl sm:flex">
+            <TrendingUp className="h-4 w-4 text-emerald-700" />
+            <span className="text-xs font-semibold text-slate-700">Ex. 5 000 €/mois de ventes : ≈ 1 400 € récupérés</span>
           </div>
         </div>
-
-        <div className="lg:col-span-5" data-reveal>
-          <div className="relative">
-            <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-amber-600/20 border border-white/60 bg-white max-h-[60vh] md:max-h-none">
-              <Image
-                src="/assets/restaurant/template-restaurant.webp"
-                alt="Aperçu d'un site web pour restaurant créé par NeuraWeb"
-                width={800}
-                height={1200}
-                priority
-                className="w-full h-auto object-cover object-top max-h-[60vh] md:max-h-none"
-                sizes="(min-width: 1024px) 40vw, 90vw"
-              />
-            </div>
-            {/* Badge haut-droit */}
-            <div className="absolute -top-4 -right-4 bg-white rounded-2xl shadow-xl px-4 py-3 border border-slate-200 hidden sm:flex items-center gap-2.5">
-              <span className="text-base font-bold text-slate-400 line-through">30 %</span>
-              <ArrowRight className="w-3 h-3 text-slate-400" />
-              <span className="text-base font-bold text-rose-600">1,4 %</span>
-            </div>
-            {/* Badge bas-gauche */}
-            <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-4 py-3 border border-emerald-200 hidden sm:flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-emerald-600" />
-              <span className="text-xs font-semibold text-slate-700">≈ 1 400 €/mois récupérés</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      }
+    />
   );
 }
 
@@ -452,10 +399,10 @@ function Hero({ onScrollToFormules }: { onScrollToFormules: () => void }) {
 
 function Problem() {
   const stats = [
-    { value: '9/10', label: 'clients vérifient un resto sur leur mobile avant de venir' },
-    { value: '20–30 %', label: 'de commission prélevée par les plateformes de livraison' },
+    { value: '91 %', label: 'des Français de 12 ans et plus ont un smartphone (Arcep/Credoc, 2025)' },
+    { value: '≈ 30 %', label: 'de commission sur les plateformes de livraison (selon contrat, ex. 5 000 €/mois → ≈ 1 500 €)' },
     { value: '~1,4 %', label: 'de frais seulement avec un paiement Stripe en direct' },
-    { value: '×5', label: 'plus cher d’acquérir un client que d’en fidéliser un' },
+    { value: '49 %', label: 'des TPE/PME de l’hébergement-restauration vendent en ligne (France Num, 2024)' },
   ];
   return (
     <section className="py-10 md:py-16 border-y border-slate-200 sec-tint ctx-light">

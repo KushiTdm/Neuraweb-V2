@@ -1,8 +1,40 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
+import type { CSSProperties } from 'react'
+import { usePathname } from 'next/navigation'
 import { X, Loader2 } from 'lucide-react'
 import { useTranslation } from '@/hooks/use-translation'
+import { PAGE_THEMES, type PageThemeName } from '@/lib/page-themes'
+
+// ── Thème de la page courante : le chat reprend la paire de couleurs de la page ──────────────
+function themeForPath(pathname: string): PageThemeName {
+  const p = pathname.replace(/^\/(fr|en|es|vi)(?=\/|$)/, '') || '/'
+  if (p.startsWith('/developpement-web')) return 'dev-web'
+  if (p.startsWith('/mobile-app-development')) return 'mobile'
+  if (p.startsWith('/automatisation')) return 'automatisation'
+  if (p.startsWith('/integration-ia')) return 'chatbot'
+  if (p.startsWith('/secteurs/sante')) return 'sante'
+  if (p.startsWith('/secteurs/restaurants')) return 'restaurants'
+  if (p.startsWith('/secteurs/collectivites')) return 'collectivites'
+  return 'accueil'
+}
+const hexToRgb = (h: string): [number, number, number] => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)) as [number, number, number]
+const lum = ([r, g, b]: number[]) => {
+  const f = (v: number) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4) }
+  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+}
+const ratio = (a: number[], b: number[]) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + 0.05) / (y + 0.05) }
+const mix = (a: number[], b: number[], t: number) => a.map((v, i) => Math.round(v * (1 - t) + b[i] * t))
+/** Couleurs du chat : « dark » = fond du thème, assombri si besoin pour un texte lisible (≥ 4,5) sur « light ». */
+function chatColors(name: PageThemeName): CSSProperties {
+  const t: { bg: string; fg: string } = PAGE_THEMES[name]
+  const light = hexToRgb(t.fg)
+  let dark: number[] = hexToRgb(t.bg)
+  for (let i = 0; i < 12 && ratio(dark, light) < 4.5; i++) dark = mix(dark, [0, 0, 0], 0.12)
+  const tint = mix(light, dark, 0.2)
+  return { '--cb-dark': dark.join(' '), '--cb-light': light.join(' '), '--cb-tint': tint.join(' ') } as CSSProperties
+}
 
 interface Message {
   role: 'user' | 'assistant'
@@ -55,6 +87,19 @@ function MessageContent({ content }: { content: string }) {
   )
 }
 
+// ── Icône animée du bouton : bulle de dialogue dont les trois points « écrivent » à tour de rôle ──
+const ChatLauncherIcon = () => (
+  <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
+    <path
+      d="M6 6.5h20a2.5 2.5 0 0 1 2.5 2.5v11a2.5 2.5 0 0 1-2.5 2.5H14l-5.2 4.3a.6.6 0 0 1-1-.46V22.5H6A2.5 2.5 0 0 1 3.5 20V9A2.5 2.5 0 0 1 6 6.5Z"
+      stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"
+    />
+    <circle className="nw-typing-dot" cx="10.5" cy="14.5" r="1.9" fill="currentColor" style={{ animationDelay: '0ms' }} />
+    <circle className="nw-typing-dot" cx="16" cy="14.5" r="1.9" fill="currentColor" style={{ animationDelay: '160ms' }} />
+    <circle className="nw-typing-dot" cx="21.5" cy="14.5" r="1.9" fill="currentColor" style={{ animationDelay: '320ms' }} />
+  </svg>
+)
+
 // ── Icônes fonctionnelles uniquement (fermer) ─────────────────────────────────
 const CloseSmallIcon = () => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -93,6 +138,8 @@ export default function Chatbot() {
   const previousGreetingRef = useRef<string>('')
 
   const { t, language } = useTranslation()
+  const pathname = usePathname()
+  const chatVars = useMemo(() => chatColors(themeForPath(pathname || '/')), [pathname])
 
   const generateSessionId = useCallback(() => {
     return `session_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`
@@ -391,7 +438,7 @@ export default function Chatbot() {
   const sendLabel = language === 'fr' ? 'Envoyer le message' : language === 'es' ? 'Enviar mensaje' : language === 'vi' ? 'Gửi tin nhắn' : 'Send message'
 
   return (
-    <>
+    <div className="contents" style={chatVars}>
       {/* ── Styles keyframes ─────────────────────────────────────────────────── */}
       <style>{`
         @keyframes nw-pulse-ring {
@@ -430,13 +477,21 @@ export default function Chatbot() {
           100% { transform: scale(1);    }
         }
         .nw-btn-press { animation: nw-press 0.3s ease forwards; }
+        @keyframes nw-typing {
+          0%, 60%, 100% { transform: translateY(0);    opacity: 0.45; }
+          30%           { transform: translateY(-2.6px); opacity: 1;    }
+        }
+        .nw-typing-dot { animation: nw-typing 1.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+        @media (prefers-reduced-motion: reduce) {
+          .nw-typing-dot, .nw-btn-press { animation: none !important; opacity: 1; }
+        }
       `}</style>
 
       {/* ── Bouton flottant + label ───────────────────────────────────────────── */}
       <div style={{
         position: 'fixed',
-        bottom: 24,
-        right: 24,
+        bottom: 16,
+        right: 16,
         zIndex: 50,
         display: 'flex',
         alignItems: 'center',
@@ -451,13 +506,13 @@ export default function Chatbot() {
             <>
               <span style={{
                 position: 'absolute', inset: -5, borderRadius: '50%',
-                border: '1.5px solid rgba(0,70,67,0.5)',
+                border: '1.5px solid rgb(var(--cb-dark) / 0.5)',
                 animation: 'nw-pulse-ring 2.5s ease-out infinite',
                 pointerEvents: 'none',
               }} />
               <span style={{
                 position: 'absolute', inset: -5, borderRadius: '50%',
-                border: '1px solid rgba(0,70,67,0.3)',
+                border: '1px solid rgb(var(--cb-dark) / 0.3)',
                 animation: 'nw-pulse-ring2 2.5s ease-out infinite 0.4s',
                 pointerEvents: 'none',
               }} />
@@ -479,11 +534,11 @@ export default function Chatbot() {
               position: 'relative', overflow: 'hidden',
               animation: (btnHovered || isOpen) ? 'none' : 'nw-float 3s ease-in-out infinite',
               transition: 'transform 0.2s ease',
-              background: '#F0EDE5',
-              border: '2px solid #004643',
+              background: 'rgb(var(--cb-light))',
+              border: '2px solid rgb(var(--cb-dark))',
               boxShadow: btnHovered
-                ? '0 0 0 4px rgba(0,70,67,0.45), 0 8px 28px rgba(0,70,67,0.35)'
-                : '0 4px 20px rgba(0,70,67,0.35)',
+                ? '0 0 0 4px rgb(var(--cb-dark) / 0.45), 0 8px 28px rgb(var(--cb-dark) / 0.35)'
+                : '0 4px 20px rgb(var(--cb-dark) / 0.35)',
               transform: btnHovered ? 'scale(1.08)' : 'scale(1)',
             }}
           >
@@ -491,33 +546,20 @@ export default function Chatbot() {
             {btnHovered && !isOpen && (
               <span style={{
                 position: 'absolute', inset: 0, borderRadius: '50%',
-                background: 'linear-gradient(90deg, transparent, rgba(0,70,67,0.12), transparent)',
+                background: 'linear-gradient(90deg, transparent, rgb(var(--cb-dark) / 0.12), transparent)',
                 backgroundSize: '200% 100%',
                 animation: 'nw-shimmer 1.2s linear infinite',
               }} />
             )}
 
-            <span style={{ color: '#004643', position: 'relative', zIndex: 1, fontWeight: 700, fontSize: 14, letterSpacing: '0.02em' }}>
-              {isOpen
-                ? <X className="w-6 h-6" aria-hidden="true" />
-                : 'Chat'
-              }
+            <span style={{ color: 'rgb(var(--cb-dark))', position: 'relative', zIndex: 1, display: 'flex' }}>
+              {isOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <ChatLauncherIcon />}
             </span>
-
-            {/* Point "en ligne" (masqué quand ouvert) */}
-            {!isOpen && (
-              <span style={{
-                position: 'absolute', top: 10, right: 10,
-                width: 9, height: 9, borderRadius: '50%',
-                background: '#004643', border: '2px solid #F0EDE5',
-                animation: 'nw-dot 1.8s ease-in-out infinite', zIndex: 2,
-              }} />
-            )}
           </button>
         </div>
 
-        {/* Label bubble */}
-        <div style={{
+        {/* Label bubble (masqué sur mobile pour ne pas masquer le contenu) */}
+        <div className="hidden sm:block" style={{
           animation: showLabel
             ? 'nw-label-in 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards'
             : labelVisible
@@ -527,26 +569,26 @@ export default function Chatbot() {
           pointerEvents: showLabel ? 'auto' : 'none',
         }}>
           <div style={{
-            background: '#004643',
+            background: 'rgb(var(--cb-dark))',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(240,237,229,0.25)',
+            border: '1px solid rgb(var(--cb-light) / 0.25)',
             borderRadius: 14, padding: '10px 16px',
             display: 'flex', alignItems: 'center', gap: 10,
-            boxShadow: '0 4px 24px rgba(0,70,67,0.35)',
+            boxShadow: '0 4px 24px rgb(var(--cb-dark) / 0.35)',
             whiteSpace: 'nowrap', position: 'relative',
           }}>
             {/* Texte */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
               <span style={{
-                fontSize: 11, fontWeight: 600, color: 'rgba(240,237,229,0.85)',
+                fontSize: 11, fontWeight: 600, color: 'rgb(var(--cb-light) / 0.85)',
                 letterSpacing: '0.06em', textTransform: 'uppercase',
               }}>NeuraWeb IA</span>
               <span style={{
-                fontSize: 13, fontWeight: 500, color: '#F0EDE5',
+                fontSize: 13, fontWeight: 500, color: 'rgb(var(--cb-light))',
                 display: 'flex', alignItems: 'center', gap: 4,
               }}>
                 {language === 'fr' ? 'Parlez à notre IA' : language === 'es' ? 'Hable con nuestra IA' : language === 'vi' ? 'Trò chuyện với AI của chúng tôi' : 'Talk to our AI'}
-                <span style={{ color: 'rgba(240,237,229,0.75)', fontFamily: 'monospace', minWidth: 16 }}>
+                <span style={{ color: 'rgb(var(--cb-light) / 0.75)', fontFamily: 'monospace', minWidth: 16 }}>
                   {dots}
                 </span>
               </span>
@@ -557,18 +599,18 @@ export default function Chatbot() {
               onClick={(e) => { e.stopPropagation(); setLabelDismissed(true) }}
               aria-label="Fermer"
               style={{
-                background: 'rgba(240,237,229,0.12)', border: 'none', borderRadius: '50%',
+                background: 'rgb(var(--cb-light) / 0.12)', border: 'none', borderRadius: '50%',
                 width: 22, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                cursor: 'pointer', color: 'rgba(240,237,229,0.8)', marginLeft: 2,
+                cursor: 'pointer', color: 'rgb(var(--cb-light) / 0.8)', marginLeft: 2,
                 transition: 'background 0.2s, color 0.2s',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(240,237,229,0.25)'
-                e.currentTarget.style.color = '#F0EDE5'
+                e.currentTarget.style.background = 'rgb(var(--cb-light) / 0.25)'
+                e.currentTarget.style.color = 'rgb(var(--cb-light))'
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(240,237,229,0.12)'
-                e.currentTarget.style.color = 'rgba(240,237,229,0.8)'
+                e.currentTarget.style.background = 'rgb(var(--cb-light) / 0.12)'
+                e.currentTarget.style.color = 'rgb(var(--cb-light) / 0.8)'
               }}
             ><CloseSmallIcon /></button>
 
@@ -578,7 +620,7 @@ export default function Chatbot() {
               width: 0, height: 0,
               borderTop: '7px solid transparent',
               borderBottom: '7px solid transparent',
-              borderLeft: '7px solid #004643',
+              borderLeft: '7px solid rgb(var(--cb-dark))',
             }} />
           </div>
         </div>
@@ -589,30 +631,30 @@ export default function Chatbot() {
         role="dialog"
         aria-modal="true"
         aria-label={language === 'fr' ? 'Chat NeuraWeb' : language === 'es' ? 'Chat NeuraWeb' : language === 'vi' ? 'Chat NeuraWeb' : 'NeuraWeb Chat'}
-        className={`fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-48px)] transition-all duration-300 ${
+        className={`fixed bottom-[88px] left-3 right-3 z-50 transition-all duration-300 sm:bottom-24 sm:left-auto sm:right-6 sm:w-[380px] ${
           isOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
-        <div className="overflow-hidden rounded-2xl border border-chypre/25 bg-creme shadow-[0_20px_60px_rgba(0,70,67,0.3)]">
+        <div className="overflow-hidden rounded-2xl border border-cbdark/25 bg-cblight shadow-[0_20px_60px_rgb(var(--cb-dark)/0.3)]">
 
           {/* Header */}
-          <div className="bg-chypre px-4 py-3">
+          <div className="bg-cbdark px-4 py-3">
             <div className="flex items-center gap-3">
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <h3 className="font-display text-base font-bold leading-tight text-creme">{t('chatbot.title')}</h3>
-                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium uppercase tracking-wide shrink-0 whitespace-nowrap bg-creme/20 text-creme">
+                  <h3 className="font-display text-base font-bold leading-tight text-cblight">{t('chatbot.title')}</h3>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium uppercase tracking-wide shrink-0 whitespace-nowrap bg-cblight/20 text-cblight">
                     {t('chatbot.aiTag')}
                   </span>
                 </div>
-                <p className="text-xs text-creme/80">{remainingMessages} {t('chatbot.remaining')}</p>
+                <p className="text-xs text-cblight/80">{remainingMessages} {t('chatbot.remaining')}</p>
               </div>
             </div>
           </div>
 
           {/* Messages */}
           <div
-            className="h-80 space-y-4 overflow-y-auto bg-creme p-4"
+            className="h-[min(20rem,calc(100svh-23rem))] min-h-[11rem] space-y-4 overflow-y-auto bg-cblight p-4"
             role="log"
             aria-live="polite"
             aria-label={language === 'fr' ? 'Messages du chat' : language === 'es' ? 'Mensajes del chat' : language === 'vi' ? 'Tin nhắn trò chuyện' : 'Chat messages'}
@@ -622,8 +664,8 @@ export default function Chatbot() {
                 <div className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                   <div className={`max-w-[85%] px-4 py-2 rounded-2xl ${
                     msg.role === 'user'
-                      ? 'rounded-br-sm bg-chypre text-creme'
-                      : 'rounded-bl-sm border border-chypre/15 bg-chypre-20 text-chypre'
+                      ? 'rounded-br-sm bg-cbdark text-cblight'
+                      : 'rounded-bl-sm border border-cbdark/15 bg-cbtint text-cbdark'
                   }`}>
                     <MessageContent content={msg.content} />
                   </div>
@@ -637,13 +679,13 @@ export default function Chatbot() {
                         key={date}
                         onClick={() => selectDate(date, msg.slots)}
                         aria-label={formatDate(date)}
-                        className="p-2 rounded-lg border border-chypre/30 bg-creme text-center text-sm text-chypre transition-all hover:bg-chypre/10"
+                        className="p-2 rounded-lg border border-cbdark/30 bg-cblight text-center text-sm text-cbdark transition-all hover:bg-cbdark/10"
                       >
-                        <div className="text-xs text-chypre/70">{new Date(date).toLocaleDateString(
+                        <div className="text-xs text-cbdark/70">{new Date(date).toLocaleDateString(
                           language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : language === 'vi' ? 'vi-VN' : 'en-US', { weekday: 'short' }
                         )}</div>
                         <div className="font-bold text-lg">{new Date(date).getDate()}</div>
-                        <div className="text-xs text-chypre/70">{new Date(date).toLocaleDateString(
+                        <div className="text-xs text-cbdark/70">{new Date(date).toLocaleDateString(
                           language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : language === 'vi' ? 'vi-VN' : 'en-US', { month: 'short' }
                         )}</div>
                       </button>
@@ -659,7 +701,7 @@ export default function Chatbot() {
                         key={time}
                         onClick={() => selectTime(time)}
                         aria-label={`${language === 'fr' ? 'Réserver à' : language === 'vi' ? 'Đặt lúc' : 'Book at'} ${time}`}
-                        className="p-2 rounded-lg border border-chypre/30 bg-creme text-sm font-medium text-chypre transition-all hover:bg-chypre/10"
+                        className="p-2 rounded-lg border border-cbdark/30 bg-cblight text-sm font-medium text-cbdark transition-all hover:bg-cbdark/10"
                       >
                         {time}
                       </button>
@@ -675,13 +717,13 @@ export default function Chatbot() {
                       value={bookingForm.name}
                       onChange={e => setBookingForm({...bookingForm, name: e.target.value})}
                       aria-label={language === 'fr' ? 'Votre nom' : language === 'vi' ? 'Họ tên của bạn' : 'Your name'}
-                      className="w-full rounded-lg border border-chypre/30 bg-creme px-3 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none"
+                      className="w-full rounded-lg border border-cbdark/30 bg-cblight px-3 py-2 text-sm text-cbdark placeholder-cbdark/60 focus:border-cbdark focus:outline-none"
                     />
                     <input type="email" placeholder="Email *"
                       value={bookingForm.email}
                       onChange={e => setBookingForm({...bookingForm, email: e.target.value})}
                       aria-label={language === 'fr' ? 'Votre email' : language === 'vi' ? 'Email của bạn' : 'Your email'}
-                      className="w-full rounded-lg border border-chypre/30 bg-creme px-3 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none"
+                      className="w-full rounded-lg border border-cbdark/30 bg-cblight px-3 py-2 text-sm text-cbdark placeholder-cbdark/60 focus:border-cbdark focus:outline-none"
                     />
                     <div className="grid grid-cols-2 gap-2">
                       <input type="tel"
@@ -689,13 +731,13 @@ export default function Chatbot() {
                         value={bookingForm.phone}
                         onChange={e => setBookingForm({...bookingForm, phone: e.target.value})}
                         aria-label={language === 'fr' ? 'Téléphone' : language === 'vi' ? 'Số điện thoại' : 'Phone'}
-                        className="w-full rounded-lg border border-chypre/30 bg-creme px-3 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none"
+                        className="w-full rounded-lg border border-cbdark/30 bg-cblight px-3 py-2 text-sm text-cbdark placeholder-cbdark/60 focus:border-cbdark focus:outline-none"
                       />
                       <input type="tel" placeholder="WhatsApp"
                         value={bookingForm.whatsapp}
                         onChange={e => setBookingForm({...bookingForm, whatsapp: e.target.value})}
                         aria-label="WhatsApp"
-                        className="w-full rounded-lg border border-chypre/30 bg-creme px-3 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none"
+                        className="w-full rounded-lg border border-cbdark/30 bg-cblight px-3 py-2 text-sm text-cbdark placeholder-cbdark/60 focus:border-cbdark focus:outline-none"
                       />
                     </div>
                     <textarea
@@ -704,13 +746,13 @@ export default function Chatbot() {
                       onChange={e => setBookingForm({...bookingForm, message: e.target.value})}
                       rows={2}
                       aria-label={language === 'fr' ? 'Message optionnel' : language === 'vi' ? 'Lời nhắn không bắt buộc' : 'Optional message'}
-                      className="w-full rounded-lg border border-chypre/30 bg-creme px-3 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none resize-none"
+                      className="w-full rounded-lg border border-cbdark/30 bg-cblight px-3 py-2 text-sm text-cbdark placeholder-cbdark/60 focus:border-cbdark focus:outline-none resize-none"
                     />
                     <button
                       onClick={submitBooking}
                       disabled={!bookingForm.name || !bookingForm.email || isSubmittingBooking}
                       aria-label={language === 'fr' ? 'Confirmer le rendez-vous' : language === 'vi' ? 'Xác nhận lịch hẹn' : 'Confirm booking'}
-                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-chypre py-2 font-medium text-creme disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-cbdark py-2 font-medium text-cblight disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {isSubmittingBooking ? (
                         <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />{language === 'fr' ? 'Réservation...' : language === 'vi' ? 'Đang đặt lịch...' : 'Booking...'}</>
@@ -725,16 +767,16 @@ export default function Chatbot() {
 
             {isLoading && (
               <div className="flex gap-3" role="status" aria-label={language === 'fr' ? 'En cours de réponse…' : language === 'vi' ? 'Đang trả lời…' : 'Typing…'}>
-                <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm border border-chypre/15 bg-chypre-20 px-4 py-3" aria-hidden="true">
-                  <span className="h-2 w-2 animate-bounce rounded-full bg-chypre/70 [animation-delay:0ms]" />
-                  <span className="h-2 w-2 animate-bounce rounded-full bg-chypre/70 [animation-delay:150ms]" />
-                  <span className="h-2 w-2 animate-bounce rounded-full bg-chypre/70 [animation-delay:300ms]" />
+                <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm border border-cbdark/15 bg-cbtint px-4 py-3" aria-hidden="true">
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-cbdark/70 [animation-delay:0ms]" />
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-cbdark/70 [animation-delay:150ms]" />
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-cbdark/70 [animation-delay:300ms]" />
                 </div>
               </div>
             )}
 
             {error && (
-              <div className="flex items-center gap-2 rounded-lg border border-chypre/30 bg-chypre/10 px-3 py-2 text-sm text-chypre" role="alert">
+              <div className="flex items-center gap-2 rounded-lg border border-cbdark/30 bg-cbdark/10 px-3 py-2 text-sm text-cbdark" role="alert">
                 
                 <span>{error}</span>
               </div>
@@ -744,11 +786,11 @@ export default function Chatbot() {
           </div>
 
           {/* Input */}
-          <div className="border-t border-chypre/20 bg-creme p-3">
+          <div className="border-t border-cbdark/20 bg-cblight p-3">
             {remainingMessages <= 0 ? (
               <div className="text-center py-2">
-                <p className="mb-2 text-sm text-chypre/80">{t('chatbot.limit')}</p>
-                <a href="mailto:contact@neuraweb.fr" className="text-sm text-chypre underline hover:text-chypre/80">
+                <p className="mb-2 text-sm text-cbdark/80">{t('chatbot.limit')}</p>
+                <a href="mailto:contact@neuraweb.fr" className="text-sm text-cbdark underline hover:text-cbdark/80">
                   {t('chatbot.contact')}
                 </a>
               </div>
@@ -763,13 +805,13 @@ export default function Chatbot() {
                   placeholder={t('chatbot.placeholder')}
                   disabled={isLoading}
                   aria-label={t('chatbot.placeholder')}
-                  className="flex-1 rounded-xl border border-chypre/30 bg-creme px-4 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none disabled:opacity-50"
+                  className="min-w-0 flex-1 rounded-xl border border-cbdark/30 bg-cblight px-3 py-2 text-base sm:px-4 sm:text-sm text-cbdark placeholder-cbdark/60 focus:border-cbdark focus:outline-none disabled:opacity-50"
                 />
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
                   aria-label={sendLabel}
-                  className="rounded-xl bg-chypre px-4 py-2 text-sm font-semibold text-creme transition-all hover:bg-chypre/90 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="shrink-0 rounded-xl bg-cbdark px-4 py-2 text-sm font-semibold text-cblight transition-all hover:bg-cbdark/90 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {language === 'fr' ? 'Envoyer' : language === 'es' ? 'Enviar' : language === 'vi' ? 'Gửi' : 'Send'}
                 </button>
@@ -778,9 +820,9 @@ export default function Chatbot() {
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-center border-t border-chypre/15 bg-chypre-20 px-4 py-2">
-            <p className="text-xs text-chypre/80">
-              {t('chatbot.footer')} <span className="font-semibold text-chypre">NeuraWeb</span>
+          <div className="flex items-center justify-center border-t border-cbdark/15 bg-cbtint px-4 py-2">
+            <p className="text-xs text-cbdark/80">
+              {t('chatbot.footer')} <span className="font-semibold text-cbdark">NeuraWeb</span>
             </p>
           </div>
         </div>
@@ -789,11 +831,11 @@ export default function Chatbot() {
       {/* Overlay mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-chypre/50 z-40 md:hidden"
+          className="fixed inset-0 bg-cbdark/50 z-40 md:hidden"
           onClick={() => setIsOpen(false)}
           aria-hidden="true"
         />
       )}
-    </>
+    </div>
   )
 }

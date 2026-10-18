@@ -46,8 +46,8 @@ export default async function SecteursPage({ params }: { params: Promise<{ lang:
     <div className="theme-accueil">
       <JsonLd id="breadcrumb-secteurs" data={breadcrumb} />
       <Header />
-      <main id="main-content" className="pt-20">
-        <SectorsSection />
+      <main id="main-content">
+        <SectorsSection hub />
       </main>
       <Footer />
     </div>
