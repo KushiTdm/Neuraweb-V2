@@ -102,7 +102,7 @@ export function ServicesSection() {
   const alt = ALTS[language as string] ?? ALTS.fr;
   const learn = t('common.learnMore');
 
-  const web = { href: '/services', image: '/assets/redesign/service-web.webp', alt: alt.web, title: t('services.web.title'), desc: t('services.web.desc'), learn };
+  const web = { href: '/developpement-web', image: '/assets/redesign/service-web.webp', alt: alt.web, title: t('services.web.title'), desc: t('services.web.desc'), learn };
   const mobile = { href: '/mobile-app-development', image: '/assets/redesign/service-mobile.webp', alt: alt.mobile, title: t('services.mobile.title'), desc: t('services.mobile.desc'), learn, badge: 'MVP 6 sem.' };
   const ai = { href: '/integration-ia', image: '/assets/redesign/service-ia-assistant.webp', alt: alt.ai, title: t('services.ai.title'), desc: t('services.ai.desc'), learn };
   const auto = { href: '/automatisation', image: '/assets/redesign/service-automatisation-flux.webp', alt: alt.automation, title: t('services.automation.title'), desc: t('services.automation.desc'), learn };
@@ -119,7 +119,7 @@ export function ServicesSection() {
             </h2>
           </div>
           <LocalizedLink
-            href="/services"
+            href="/developpement-web"
             className="group inline-flex flex-shrink-0 items-center gap-2 rounded-full border border-chypre/30 px-6 py-3 text-sm font-semibold text-chypre transition-all duration-200 hover:bg-chypre hover:text-creme"
           >
             {labels.cta}

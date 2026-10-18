@@ -386,8 +386,8 @@ export function BlogPostClient({ post, relatedPosts, lang }: BlogPostClientProps
             <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-creme/80">{tr.ourServices}</p>
             <div className="flex flex-wrap justify-center gap-3">
               <LocalizedLink
-                href="/services"
-                onClick={() => trackCTAClick(tr.webAi, '/services')} // ← ANALYTICS
+                href="/developpement-web"
+                onClick={() => trackCTAClick(tr.webAi, '/developpement-web')} // ← ANALYTICS
                 className="inline-flex min-h-[44px] items-center rounded-full border border-creme/40 px-4 text-sm font-medium text-creme transition-colors hover:bg-creme hover:text-chypre"
               >
                 {tr.webAi}

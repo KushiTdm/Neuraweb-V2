@@ -205,6 +205,9 @@ export function StaggeredMenuPanel({
                   {showGroup && (
                     <p className="mb-1 mt-3 text-[11px] font-bold uppercase tracking-[0.18em] opacity-60">{item.group}</p>
                   )}
+                  {item.group === '·' && items[idx - 1]?.group !== '·' && (
+                    <div className="mb-2 mt-4 border-t border-current opacity-20" role="separator" />
+                  )}
                   {item.external ? (
                     <a href={item.href} target="_blank" rel="noopener noreferrer" onClick={onClose} className={className} aria-label={item.ariaLabel} data-index={idx + 1}>
                       {inner}

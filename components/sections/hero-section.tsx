@@ -86,7 +86,7 @@ export function HeroSection({ onScrollToNext }: HeroSectionProps) {
               {c.cta}
             </LocalizedLink>
             <LocalizedLink
-              href="/services"
+              href="/developpement-web"
               className="inline-flex min-h-[48px] items-center justify-center px-4 sm:px-7 py-3 rounded-lg text-sm font-semibold text-creme border border-creme/40 hover:border-creme transition-colors text-center"
             >
               {c.ctaSecondary}

@@ -40,8 +40,8 @@ export function ResponsiveCards({
   carouselPadding = 1,
   className,
   showArrows = false,
-  autoPlay = false,
-  autoPlayInterval = 4000,
+  autoPlay = true,
+  autoPlayInterval = 4500,
 }: ResponsiveCardsProps) {
   // Mappings pour les classes responsive (Tailwind a besoin de classes complètes pour purge)
   const hideOnMobile = breakpoint === 'sm' ? 'hidden sm:grid' : breakpoint === 'md' ? 'hidden md:grid' : 'hidden lg:grid';
@@ -105,8 +105,8 @@ export function CardsCarousel({
   slideWidth = 'snap',
   showDots = true,
   showArrows = false,
-  autoPlay = false,
-  autoPlayInterval = 4000,
+  autoPlay = true,
+  autoPlayInterval = 4500,
   className,
   dotColor = '#F0EDE5',
   gap = 1,
@@ -165,10 +165,29 @@ export function CardsCarousel({
   }, []);
 
   // Démarre / redémarre le timer d'auto-play
+  // Défilement auto : montre qu'il y a une suite. Suspendu pendant que l'utilisateur touche/survole
+  // le carrousel (reprise 6 s après), hors écran, et avec prefers-reduced-motion.
+  const pausedRef = useRef(false);
+  const resumeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pause = useCallback(() => {
+    pausedRef.current = true;
+    if (resumeRef.current) clearTimeout(resumeRef.current);
+  }, []);
+  const resumeLater = useCallback(() => {
+    if (resumeRef.current) clearTimeout(resumeRef.current);
+    resumeRef.current = setTimeout(() => { pausedRef.current = false; }, 6000);
+  }, []);
+  useEffect(() => () => { if (resumeRef.current) clearTimeout(resumeRef.current); }, []);
+
   const startAutoPlay = useCallback(() => {
-    if (!autoPlay) return;
+    if (!autoPlay || count < 2) return;
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
+      const scroller = scrollerRef.current;
+      if (!scroller || pausedRef.current) return;
+      const r = scroller.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return; // hors écran
       const next = (activeIndexRef.current + 1) % count;
       scrollTo(next);
     }, autoPlayInterval);
@@ -215,6 +234,12 @@ export function CardsCarousel({
           }}
           role="region"
           aria-roledescription="carousel"
+          onTouchStart={pause}
+          onTouchEnd={resumeLater}
+          onMouseEnter={pause}
+          onMouseLeave={resumeLater}
+          onFocusCapture={pause}
+          onBlurCapture={resumeLater}
         >
           {React.Children.map(children, (child, i) => (
             <div

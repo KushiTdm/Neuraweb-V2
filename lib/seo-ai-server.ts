@@ -283,7 +283,7 @@ function buildFallbackSEO(context: PageSEOContext): GeneratedSEO {
  * USAGE dans une page Next.js :
  * ```ts
  * export async function generateMetadata({ params }) {
- *   const seo = await generateAISEO({ pageType: 'services', language: params.lang, path: '/fr/services' });
+ *   const seo = await generateAISEO({ pageType: 'services', language: params.lang, path: '/fr/developpement-web' });
  *   return {
  *     title: seo.title,
  *     description: seo.description,

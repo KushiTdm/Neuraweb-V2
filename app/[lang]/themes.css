@@ -16159,7 +16159,8 @@
 /* Sections : teinte, inversion, motifs (masque SVG recoloré par le thème) */
 .sec-tint { background-color: rgb(var(--c-tint)); }
 /* Section pleine hauteur d'écran (svh : stable sur mobile). min-height seulement : un contenu plus long reste complet. */
-.sec-screen { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+.sec-screen { display: flex; flex-direction: column; justify-content: center; }
+@media (min-width: 768px) { .sec-screen { min-height: 100svh; } }
 .sec-screen > :not([class*='absolute']):not([class*='fixed']) { width: 100%; }
 .sec-dark-base { background-color: rgb(var(--c-navy-950)); }
 .sec-flip { background-color: rgb(var(--c-white)); color: rgb(var(--c-gray-900)); }

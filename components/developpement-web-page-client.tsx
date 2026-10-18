@@ -27,6 +27,7 @@ import { ServiceHero } from '@/components/service-hero';
 import { LocalizedLink } from '@/components/localized-link';
 import { DemoCTA } from '@/components/demo-cta';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
+import { MobileCollapse } from '@/components/ui/mobile-collapse';
 import {
   Accordion,
   AccordionContent,
@@ -756,6 +757,36 @@ export function DeveloppementWebPageClient({ lang }: Props) {
   const isQuoteOnly = QUOTE_ONLY_LANGS.includes(lang);
   const isCustomPack = PACK_PRICES[packIdx] === null;
 
+  // Bloc prix d'un pack (cartes desktop + résumé mobile)
+  const renderPrice = (i: number) => (
+          <div className="mb-4">
+            {isQuoteOnly ? (
+              <>
+                <span className="text-3xl font-bold text-white">{QUOTE_PRICE_LABEL}</span>
+                <div className="text-sm text-slate-400">{QUOTE_PRICE_NOTE}</div>
+              </>
+            ) : PACK_PRICES[i] === null ? (
+              <>
+                <span className="text-3xl font-bold text-white">{c.packs.custom}</span>
+                <div className="text-sm text-slate-400">{c.packs.customNote}</div>
+              </>
+            ) : (
+              <>
+                <div className="text-xs text-slate-400">{c.packs.priceFrom}</div>
+                <span className="text-3xl font-bold text-white">{PACK_PRICES[i]!.toLocaleString('fr-FR')} €</span>
+                <span className="text-slate-400 text-sm ml-1">{c.packs.ht}</span>
+                <div className="text-sm text-slate-400">+ {c.packs.monthlyFrom} {PACK_MONTHLY[i]} {c.packs.monthly}</div>
+              </>
+            )}
+            {PACK_PRICES[i] !== null && (
+              <div className="text-xs text-slate-400 mt-1">{c.packs.mockupNote}</div>
+            )}
+            {PACK_PRICES[i] === null && (
+              <div className="text-sm text-slate-300 font-medium mt-1">{c.packs.maintenanceFree}</div>
+            )}
+          </div>
+  );
+
   // Animations au scroll (GSAP ScrollTrigger) + parallaxe — voir useGsapReveal
   const containerRef = useRef<HTMLElement>(null);
   useGsapReveal(containerRef, [lang]);
@@ -780,9 +811,9 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         />
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
-        <section className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section className="py-12 md:py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.problems.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto" dangerouslySetInnerHTML={{ __html: c.problems.subtitle }} />
             </div>
@@ -808,9 +839,9 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
-        <section className="py-20 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
+        <section className="py-12 md:py-20 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.services.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.services.subtitle}</p>
             </div>
@@ -850,14 +881,14 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── OUTILS ────────────────────────────────────────────────────── */}
-        <section className="py-14 border-y border-slate-200 sec-tint ctx-light">
+        <section className="py-8 md:py-14 border-y border-slate-200 sec-tint ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="animate-on-scroll fade-up text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.tools.label}</p>
             <div className="animate-on-scroll fade-up delay-100 flex flex-wrap justify-center gap-3">
               {TOOLS.map((tool, i) => (
                 <span key={i} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-sm text-slate-600 font-medium hover:border-slate-400 transition-colors">
                   {tool.name}
-                  <span className="text-xs text-slate-500">{tool.cat[lang]}</span>
+                  <span className="hidden text-xs text-slate-500 sm:inline">{tool.cat[lang]}</span>
                 </span>
               ))}
             </div>
@@ -865,13 +896,13 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── CAS D'USAGE ───────────────────────────────────────────────── */}
-        <section className="py-20 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-12 md:py-20 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.useCases.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.useCases.subtitle}</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ResponsiveCards breakpoint="md" gridClass="grid-cols-2 lg:grid-cols-3" gridGap="gap-6">
               {c.useCases.items.map((uc, i) => (
                 <article key={i} className={`animate-on-scroll fade-up ${DELAY_CLASSES[i]} rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8 h-full flex flex-col`}>
                   <div className="flex items-center justify-between gap-3 mb-4">
@@ -886,15 +917,15 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                   </div>
                 </article>
               ))}
-            </div>
+            </ResponsiveCards>
             <SourcedStats ids={['speed53','speed84','site65']} tone="dark" className="mt-14" />
           </div>
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-20 sec-flip sec-flip-light sec-screen ctx-light">
+        <section id="pricing" className="py-12 md:py-20 sec-flip sec-flip-light sec-screen ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.packs.h2}</h2>
               <p className="text-slate-400 max-w-2xl mx-auto">{c.packs.subtitle}</p>
             </div>
@@ -919,32 +950,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                     <h3 className="font-bold text-white text-lg mb-1">{pack.name}</h3>
                     <p className="text-slate-400 text-sm mb-3">{pack.tagline}</p>
                     <span className="inline-block text-[11px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-white/10 text-white mb-4">{c.packs.types[i]}</span>
-                    <div className="mb-4">
-                      {isQuoteOnly ? (
-                        <>
-                          <span className="text-3xl font-bold text-white">{QUOTE_PRICE_LABEL}</span>
-                          <div className="text-sm text-slate-400">{QUOTE_PRICE_NOTE}</div>
-                        </>
-                      ) : PACK_PRICES[i] === null ? (
-                        <>
-                          <span className="text-3xl font-bold text-white">{c.packs.custom}</span>
-                          <div className="text-sm text-slate-400">{c.packs.customNote}</div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="text-xs text-slate-400">{c.packs.priceFrom}</div>
-                          <span className="text-3xl font-bold text-white">{PACK_PRICES[i]!.toLocaleString('fr-FR')} €</span>
-                          <span className="text-slate-400 text-sm ml-1">{c.packs.ht}</span>
-                          <div className="text-sm text-slate-400">+ {c.packs.monthlyFrom} {PACK_MONTHLY[i]} {c.packs.monthly}</div>
-                        </>
-                      )}
-                      {PACK_PRICES[i] !== null && (
-                        <div className="text-xs text-slate-400 mt-1">{c.packs.mockupNote}</div>
-                      )}
-                      {PACK_PRICES[i] === null && (
-                        <div className="text-sm text-slate-300 font-medium mt-1">{c.packs.maintenanceFree}</div>
-                      )}
-                    </div>
+                    {renderPrice(i)}
                     <div className="text-xs text-slate-400 mb-4">⏱ {c.packs.delivery} : {PACK_DELIVERY[lang][i]}</div>
                     <ul className="space-y-2">
                       {pack.bullets.map((b, j) => (
@@ -959,21 +965,28 @@ export function DeveloppementWebPageClient({ lang }: Props) {
             </div>
 
             {/* Détails pack sélectionné */}
-            <div className="animate-on-scroll fade-up delay-100 rounded-2xl border border-white/10 bg-navy-900/30 p-8">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+            <div className="animate-on-scroll fade-up delay-100 rounded-2xl border border-white/10 bg-navy-900/30 p-5 sm:p-8">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 lg:mb-8">
                 <div>
                   <h3 className="text-xl font-bold text-white mb-1">{activePack.name}</h3>
                   <p className="text-slate-400 text-sm">{activePack.tagline}</p>
                   <span className="inline-block text-[11px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full bg-white/10 text-white mt-3">{c.packs.types[packIdx]}</span>
-                  <p className="text-xs text-slate-400 mt-3 max-w-xl leading-relaxed">{isCustomPack ? c.packs.customDetail : c.packs.mockupDetail}</p>
+                  <div className="mt-4 sm:hidden">
+                    {renderPrice(packIdx)}
+                    <div className="mt-2 text-xs text-slate-400">⏱ {c.packs.delivery} : {PACK_DELIVERY[lang][packIdx]}</div>
+                  </div>
                 </div>
                 <LocalizedLink href={`/booking?pack=${selectedPack}`} className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-gray-900 transition-all duration-300" style={{ background: 'rgb(var(--c-white))', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>
                   {isCustomPack ? c.packs.customCta : `${c.detail.choose} ${activePack.name}`}<ArrowRight size={14} />
                 </LocalizedLink>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <MobileCollapse openLabel={c.hideDetails.replace(/\s*[↓↑]/, '')} closedLabel={c.showDetails.replace(/\s*[↓↑]/, '')} className="lg:mt-0 mt-5" headerClassName="justify-center rounded-xl border border-white/20 px-4 py-3">
+                <div className="mb-6 mt-5 lg:mt-0">
+                  <p className="text-xs text-slate-400 max-w-xl leading-relaxed">{isCustomPack ? c.packs.customDetail : c.packs.mockupDetail}</p>
+                </div>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
                 <div>
-                  <h4 className="font-semibold text-white mb-3 flex items-center gap-2"><Check size={16} className="text-emerald-500" /> {c.detail.included}</h4>
+                  <h4 className="mb-3 font-semibold text-white flex items-center gap-2"><Check size={16} className="text-emerald-500" /> {c.detail.included}</h4>
                   <ul className="space-y-2">
                     {activePack.included.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
@@ -983,7 +996,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-3 flex items-center gap-2"><XIcon size={16} className="text-rose-500" /> {c.detail.notIncluded}</h4>
+                  <h4 className="mb-3 font-semibold text-white flex items-center gap-2"><XIcon size={16} className="text-rose-500" /> {c.detail.notIncluded}</h4>
                   <ul className="space-y-2">
                     {activePack.notIncluded.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-slate-400">
@@ -993,7 +1006,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-3">{c.detail.options}</h4>
+                  <h4 className="mb-3 font-semibold text-white">{c.detail.options}</h4>
                   <ul className="space-y-2 mb-6">
                     {activePack.options.map((opt, i) => (
                       <li key={i} className="flex items-start justify-between gap-2 text-sm">
@@ -1026,12 +1039,13 @@ export function DeveloppementWebPageClient({ lang }: Props) {
                   </div>
                 </div>
               </div>
+              </MobileCollapse>
             </div>
 
             {/* Options à la carte (issues du devis), valables sur tous les packs */}
-            <div className="animate-on-scroll fade-up mt-8 rounded-2xl border border-white/10 bg-navy-900/30 p-8">
-              <h3 className="text-xl font-bold text-white mb-1">{c.packs.extras.title}</h3>
-              <p className="text-slate-400 text-sm mb-6">{c.packs.extras.subtitle}</p>
+            <div className="animate-on-scroll fade-up mt-6 sm:mt-8 rounded-2xl border border-white/10 bg-navy-900/30 p-5 sm:p-8">
+              <MobileCollapse title={<h3 className="text-lg sm:text-xl font-bold text-white">{c.packs.extras.title}</h3>}>
+              <p className="text-slate-400 text-sm mt-1 mb-6">{c.packs.extras.subtitle}</p>
               <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {c.packs.extras.items.map((opt) => (
                   <li key={opt.label} className="rounded-xl border border-white/10 bg-navy-900/40 p-4 flex flex-col gap-2">
@@ -1045,6 +1059,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
               </ul>
               <p className="text-xs text-slate-400 mt-6">{c.packs.extras.hourly}</p>
               <p className="text-xs text-slate-400 mt-1">{c.packs.extras.tools}</p>
+              </MobileCollapse>
             </div>
 
             <p className="text-center text-sm text-slate-400 mt-6">{c.detail.payment}</p>
@@ -1052,37 +1067,39 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── SEO / GEO : niveaux et contenus ───────────────────────────── */}
-        <section id="seo-geo" className="py-20 sec-pat sec-dots sec-dark-base sec-screen ctx-dark">
+        <section id="seo-geo" className="py-12 md:py-20 sec-pat sec-dots sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.seo.h2}</h2>
               <p className="text-slate-400 max-w-3xl mx-auto">{c.seo.subtitle}</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <ResponsiveCards breakpoint="md" gridClass="grid-cols-2 lg:grid-cols-3" gridGap="gap-6">
               {c.seo.levels.map((lvl) => (
-                <article key={lvl.name} className="animate-on-scroll fade-up rounded-2xl border border-white/10 bg-navy-900/40 p-6 flex flex-col">
+                <article key={lvl.name} className="rounded-2xl border border-white/10 bg-navy-900/40 p-6 flex flex-col h-full">
                   <span className="self-start text-xs font-semibold px-2.5 py-1 rounded-full bg-white/10 text-white mb-3">{lvl.badge}</span>
                   <h3 className="text-lg font-bold text-white mb-2">{lvl.name}</h3>
                   <p className="text-sm text-slate-400 mb-4">{lvl.goal}</p>
-                  <ul className="space-y-2 mb-5">
-                    {lvl.items.map((item) => (
-                      <li key={item} className="flex items-start gap-2 text-sm text-slate-300">
-                        <Check size={13} className="text-emerald-500 mt-0.5 shrink-0" />{item}
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="mb-5">
+                    <ul className="space-y-2 mt-3">
+                      {lvl.items.map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-sm text-slate-300">
+                          <Check size={13} className="text-emerald-500 mt-0.5 shrink-0" />{item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   <div className="mt-auto pt-4 border-t border-white/10 text-sm font-semibold text-white">{lvl.price}</div>
                 </article>
               ))}
-            </div>
+            </ResponsiveCards>
             <p className="text-center text-sm text-slate-400 mt-8 max-w-3xl mx-auto">{c.seo.note}</p>
           </div>
         </section>
 
         {/* ── PROCESSUS ─────────────────────────────────────────────────── */}
-        <section className="py-20 sec-tint sec-screen ctx-light">
+        <section className="py-12 md:py-20 sec-tint sec-screen ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-14">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.process.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">{c.process.subtitle}</p>
             </div>
@@ -1105,9 +1122,9 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
-        <section className="py-20 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
+        <section className="py-12 md:py-20 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.testimonials.h2}</h2>
             </div>
             <div className="animate-on-scroll fade-up delay-100">
@@ -1131,9 +1148,9 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
-        <section className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
+        <section className="py-12 md:py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-on-scroll fade-up text-center mb-12">
+            <div className="animate-on-scroll fade-up text-center mb-8 md:mb-12">
               <h2 className="text-3xl font-bold text-navy-900 mb-4">{c.faq.h2}</h2>
             </div>
             <Accordion type="single" collapsible className="animate-on-scroll fade-up delay-100 space-y-3">
@@ -1160,7 +1177,7 @@ export function DeveloppementWebPageClient({ lang }: Props) {
         </section>
 
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
-        <section className="py-24 ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
+        <section className="py-14 md:py-24 ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />{c.cta.badge}

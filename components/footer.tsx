@@ -50,7 +50,7 @@ export function Footer() {
   })();
 
   const services: { label: string; href: string }[] = [
-    { label: t('services.web.title'),        href: '/services'              },
+    { label: t('services.web.title'),        href: '/developpement-web'              },
     { label: t('services.mobile.title'),     href: '/mobile-app-development'},
     { label: t('services.automation.title'), href: '/automatisation'        },
     { label: t('services.ai.title'),         href: '/integration-ia'        },

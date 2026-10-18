@@ -464,7 +464,7 @@ function getFooterHTML(language: string = 'fr'): string {
       <div class="footer-links">
         <a href="https://neuraweb.fr" class="footer-link">neuraweb.fr</a>
         <a href="https://neuraweb.fr/contact" class="footer-link">${language === 'en' ? 'Contact' : language === 'es' ? 'Contacto' : 'Contact'}</a>
-        <a href="https://neuraweb.fr/services" class="footer-link">${language === 'en' ? 'Services' : language === 'es' ? 'Servicios' : 'Services'}</a>
+        <a href="https://neuraweb.fr/developpement-web" class="footer-link">${language === 'en' ? 'Services' : language === 'es' ? 'Servicios' : 'Services'}</a>
       </div>
       
       <!-- Divider -->

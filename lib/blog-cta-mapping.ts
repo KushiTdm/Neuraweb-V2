@@ -177,7 +177,7 @@ const SERVICES: Record<ServiceKey, ServiceCTAContent> = {
   },
   services: {
     key: 'services',
-    href: '/services',
+    href: '/developpement-web',
     eyebrow: {
       fr: 'Service en lien',
       en: 'Related service',

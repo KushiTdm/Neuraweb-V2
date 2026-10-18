@@ -21,7 +21,7 @@ export function Navigation() {
             <Link href="/" className="text-gray-700 hover:text-gray-900 transition-colors">
               Home
             </Link>
-            <Link href="/services" className="text-gray-700 hover:text-gray-900 transition-colors">
+            <Link href="/developpement-web" className="text-gray-700 hover:text-gray-900 transition-colors">
               Services
             </Link>
             <Link href="/contact" className="text-gray-700 hover:text-gray-900 transition-colors">
@@ -53,7 +53,7 @@ export function Navigation() {
               Home
             </Link>
             <Link
-              href="/services"
+              href="/developpement-web"
               className="block px-3 py-2 text-gray-700 hover:bg-gray-50 rounded-md"
               onClick={() => setIsOpen(false)}
             >

@@ -128,7 +128,7 @@ export function PortfolioSection() {
               href={`${DEMO_URL}/c/collectivite`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative block aspect-[16/10] overflow-hidden bg-chypre focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
+              className="group relative block aspect-[16/9] overflow-hidden bg-chypre sm:aspect-[16/10] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
             >
               <Image
                 src="/assets/portfolio/connected-suite.webp"
@@ -143,15 +143,15 @@ export function PortfolioSection() {
               </span>
             </a>
 
-            <div className="p-6 md:p-8 lg:p-10">
-              <h3 className="text-2xl font-bold text-chypre md:text-3xl">
+            <div className="p-5 md:p-8 lg:p-10">
+              <h3 className="text-xl font-bold text-chypre sm:text-2xl md:text-3xl">
                 NeuraWeb Connected Suite
               </h3>
-              <p className="mt-3 text-base leading-relaxed text-chypre/80">
+              <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-chypre/80 sm:mt-3 sm:line-clamp-none sm:text-base">
                 {t('portfolio.suite.desc')}
               </p>
 
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-6 hidden space-y-3 sm:block">
                 {[
                   { Icon: Monitor, key: 'portfolio.suite.feature.backoffice' as TranslationKey },
                   { Icon: Smartphone, key: 'portfolio.suite.feature.mobile' as TranslationKey },
@@ -164,7 +164,7 @@ export function PortfolioSection() {
                 ))}
               </ul>
 
-              <ul className="mt-6 flex flex-wrap gap-2" aria-label={t('portfolio.modal.technologies')}>
+              <ul className="mt-6 hidden flex-wrap gap-2 sm:flex" aria-label={t('portfolio.modal.technologies')}>
                 {['Next.js 16', 'React 19', 'Zustand', 'PWA'].map((tech) => (
                   <li
                     key={tech}
@@ -175,7 +175,7 @@ export function PortfolioSection() {
                 ))}
               </ul>
 
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="mt-5 flex flex-wrap gap-3 sm:mt-7">
                 <a
                   href={`${DEMO_URL}/c/collectivite`}
                   target="_blank"
@@ -189,7 +189,7 @@ export function PortfolioSection() {
                   href={DEMO_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-chypre/40 px-5 py-2.5 text-sm font-semibold text-chypre transition-colors hover:border-chypre hover:bg-chypre/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
+                  className="hidden items-center gap-1.5 rounded-full border border-chypre/40 px-5 sm:inline-flex py-2.5 text-sm font-semibold text-chypre transition-colors hover:border-chypre hover:bg-chypre/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
                 >
                   {t('portfolio.suite.ctaAll')}
                   <ArrowUpRight className="h-4 w-4" />
