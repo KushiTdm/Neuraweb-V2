@@ -1,5 +1,6 @@
 'use client';
 
+import { SourcedStats } from '@/components/sourced-stats';
 import React, { useRef, useState } from 'react';
 import { useGsapReveal } from '@/hooks/use-gsap-reveal';
 import {
@@ -29,6 +30,7 @@ import {
 } from 'lucide-react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { ServiceHero } from '@/components/service-hero';
 import { LocalizedLink } from '@/components/localized-link';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
 import {
@@ -105,12 +107,12 @@ const CONTENT: Record<Lang, {
     },
     useCases: {
       h2: "Cas d'usage par secteur",
-      subtitle: "Des scénarios concrets, avec le pack adapté et le résultat mesurable que vous pouvez en attendre.",
+      subtitle: "Des scénarios types, avec le pack adapté. À titre indicatif : les résultats varient selon le contexte et ne sont pas garantis.",
       items: [
-        { sector: 'Commerce / Boutique locale', context: '40% des questions sont répétitives (horaires, stock, localisation) et mobilisent le personnel en boutique.', solution: 'Chatbot RAG connecté au site + FAQ + catalogue, 5 intentions, réponses 24/7 dans votre charte.', result: '−7h/semaine de questions répétitives · +6 pts de conversion grâce à la réponse immédiate', pack: 'Essentiel IA' },
-        { sector: 'Agence immobilière', context: 'Leads SeLoger/Figaro traités à la main, réponse > 24h, CRM mis à jour à 70%.', solution: 'Agent IA de qualification BANT + indexation des biens + prise de RDV Calendly + handoff CRM/Slack.', result: 'Qualification 20 min → 2 min · réponse < 1h passée de 35% à 85% · RDV pris +87%', pack: 'Business IA' },
-        { sector: 'E-commerce', context: 'SAV débordé, mêmes questions sur les commandes, abandons faute de réponse rapide.', solution: 'Assistant RAG sur tout le catalogue + suivi de commande + recommandations produits, 3 langues.', result: 'Jusqu\'à 68% des demandes traitées sans agent · SAV recentré sur les cas complexes', pack: 'Business IA' },
-        { sector: 'Cabinet médical / Réseau de santé', context: 'Documentation interne volumineuse, données sensibles, conformité RGPD/HDS exigeante.', solution: 'Architecture multi-agents (RDV, support, contenu) + RAG sur 500+ documents + hébergement souverain OVH + DPA.', result: 'Recherche documentaire instantanée · 100% conforme RGPD santé · support patient 24/7', pack: 'Premium IA' },
+        { sector: 'Commerce / Boutique locale', context: '40% des questions sont répétitives (horaires, stock, localisation) et mobilisent le personnel en boutique.', solution: 'Chatbot RAG connecté au site + FAQ + catalogue, 5 intentions, réponses 24/7 dans votre charte.', result: 'Moins de temps passé sur les questions répétitives · réponse immédiate qui aide à convertir', pack: 'Essentiel IA' },
+        { sector: 'Agence immobilière', context: 'Leads SeLoger/Figaro traités à la main, réponse > 24h, CRM mis à jour à 70%.', solution: 'Agent IA de qualification BANT + indexation des biens + prise de RDV Calendly + handoff CRM/Slack.', result: 'Qualification des leads en quelques minutes · réponses rapides aux demandes entrantes · prise de RDV automatisée', pack: 'Business IA' },
+        { sector: 'E-commerce', context: 'SAV débordé, mêmes questions sur les commandes, abandons faute de réponse rapide.', solution: 'Assistant RAG sur tout le catalogue + suivi de commande + recommandations produits, 3 langues.', result: 'Une grande partie des demandes traitée sans agent · SAV recentré sur les cas complexes', pack: 'Business IA' },
+        { sector: 'Cabinet médical / Réseau de santé', context: 'Documentation interne volumineuse, données sensibles, conformité RGPD/HDS exigeante.', solution: 'Architecture multi-agents (RDV, support, contenu) + RAG sur 500+ documents + hébergement souverain OVH + DPA.', result: 'Recherche documentaire instantanée · hébergement souverain et DPA · support patient 24/7', pack: 'Premium IA' },
         { sector: 'SaaS / B2B tech', context: 'Onboarding chronophage, support de niveau 1 saturé, blog SEO à l\'arrêt.', solution: 'Assistant onboarding IA + support tier 1 RAG sur la doc + agent de génération de contenu SEO.', result: 'Time-to-value réduit · tickets niveau 1 absorbés · production de contenu SEO continue', pack: 'Premium IA' },
         { sector: 'Restaurant / Hôtellerie', context: 'Réservations par téléphone hors service, questions FAQ en boucle, PMS non connecté.', solution: 'Chatbot réservation + FAQ + synchronisation PMS, multilingue pour la clientèle internationale.', result: 'Réservations captées 24/7 · standard téléphonique allégé · clientèle étrangère mieux servie', pack: 'Essentiel IA' },
       ],
@@ -226,12 +228,12 @@ const CONTENT: Record<Lang, {
     },
     useCases: {
       h2: 'Use cases by industry',
-      subtitle: 'Concrete scenarios, with the right pack and the measurable result you can expect.',
+      subtitle: 'Typical scenarios, with the right pack. For guidance only: results vary with context and are not guaranteed.',
       items: [
-        { sector: 'Local shop / Retail', context: '40% of questions are repetitive (hours, stock, location) and tie up in-store staff.', solution: 'RAG chatbot connected to your site + FAQ + catalog, 5 intents, 24/7 answers in your brand style.', result: '−7h/week of repetitive questions · +6 pts conversion thanks to instant answers', pack: 'Essential AI' },
-        { sector: 'Real estate agency', context: 'Portal leads handled by hand, replies > 24h, CRM only 70% up to date.', solution: 'BANT qualification AI agent + listing indexing + Calendly booking + CRM/Slack handoff.', result: 'Qualification 20 min → 2 min · sub-1h reply rate from 35% to 85% · bookings +87%', pack: 'Business AI' },
-        { sector: 'E-commerce', context: 'Overwhelmed support, the same order questions, drop-offs for lack of a fast answer.', solution: 'RAG assistant over the full catalog + order tracking + product recommendations, 3 languages.', result: 'Up to 68% of requests handled without an agent · support refocused on complex cases', pack: 'Business AI' },
-        { sector: 'Medical practice / Healthcare network', context: 'Large internal documentation, sensitive data, demanding GDPR/HDS compliance.', solution: 'Multi-agent architecture (booking, support, content) + RAG over 500+ documents + sovereign OVH hosting + DPA.', result: 'Instant document search · 100% health-GDPR compliant · 24/7 patient support', pack: 'Premium AI' },
+        { sector: 'Local shop / Retail', context: '40% of questions are repetitive (hours, stock, location) and tie up in-store staff.', solution: 'RAG chatbot connected to your site + FAQ + catalog, 5 intents, 24/7 answers in your brand style.', result: 'Less time spent on repetitive questions · instant answers that help conversion', pack: 'Essential AI' },
+        { sector: 'Real estate agency', context: 'Portal leads handled by hand, replies > 24h, CRM only 70% up to date.', solution: 'BANT qualification AI agent + listing indexing + Calendly booking + CRM/Slack handoff.', result: 'Leads qualified in minutes · fast replies to inbound requests · automated booking', pack: 'Business AI' },
+        { sector: 'E-commerce', context: 'Overwhelmed support, the same order questions, drop-offs for lack of a fast answer.', solution: 'RAG assistant over the full catalog + order tracking + product recommendations, 3 languages.', result: 'A large share of requests handled without an agent · support refocused on complex cases', pack: 'Business AI' },
+        { sector: 'Medical practice / Healthcare network', context: 'Large internal documentation, sensitive data, demanding GDPR/HDS compliance.', solution: 'Multi-agent architecture (booking, support, content) + RAG over 500+ documents + sovereign OVH hosting + DPA.', result: 'Instant document search · sovereign hosting and DPA · 24/7 patient support', pack: 'Premium AI' },
         { sector: 'SaaS / B2B tech', context: 'Time-consuming onboarding, saturated tier-1 support, SEO blog at a standstill.', solution: 'AI onboarding assistant + tier-1 RAG support over the docs + SEO content generation agent.', result: 'Reduced time-to-value · tier-1 tickets absorbed · continuous SEO content output', pack: 'Premium AI' },
         { sector: 'Restaurant / Hospitality', context: 'After-hours phone bookings, looping FAQ questions, PMS not connected.', solution: 'Booking chatbot + FAQ + PMS synchronisation, multilingual for international guests.', result: 'Bookings captured 24/7 · lighter phone load · international guests better served', pack: 'Essential AI' },
       ],
@@ -347,12 +349,12 @@ const CONTENT: Record<Lang, {
     },
     useCases: {
       h2: 'Casos de uso por sector',
-      subtitle: 'Escenarios concretos, con el pack adecuado y el resultado medible que puedes esperar.',
+      subtitle: 'Escenarios tipo, con el pack adecuado. A título orientativo: los resultados varían según el contexto y no están garantizados.',
       items: [
-        { sector: 'Comercio / Tienda local', context: 'El 40% de las preguntas son repetitivas (horarios, stock, ubicación) y ocupan al personal de tienda.', solution: 'Chatbot RAG conectado a tu web + FAQ + catálogo, 5 intenciones, respuestas 24/7 con tu identidad.', result: '−7h/semana de preguntas repetitivas · +6 pts de conversión por la respuesta inmediata', pack: 'Esencial IA' },
-        { sector: 'Agencia inmobiliaria', context: 'Leads de portales tratados a mano, respuesta > 24h, CRM actualizado al 70%.', solution: 'Agente IA de cualificación BANT + indexación de inmuebles + cita Calendly + handoff CRM/Slack.', result: 'Cualificación 20 min → 2 min · respuesta < 1h del 35% al 85% · citas +87%', pack: 'Business IA' },
-        { sector: 'E-commerce', context: 'Atención desbordada, las mismas preguntas sobre pedidos, abandonos por falta de respuesta rápida.', solution: 'Asistente RAG sobre todo el catálogo + seguimiento de pedidos + recomendaciones, 3 idiomas.', result: 'Hasta el 68% de las consultas resueltas sin agente · atención centrada en casos complejos', pack: 'Business IA' },
-        { sector: 'Consulta médica / Red de salud', context: 'Documentación interna voluminosa, datos sensibles, conformidad RGPD/HDS exigente.', solution: 'Arquitectura multi-agente (citas, soporte, contenido) + RAG sobre 500+ documentos + alojamiento soberano OVH + DPA.', result: 'Búsqueda documental instantánea · 100% conforme RGPD salud · soporte al paciente 24/7', pack: 'Premium IA' },
+        { sector: 'Comercio / Tienda local', context: 'El 40% de las preguntas son repetitivas (horarios, stock, ubicación) y ocupan al personal de tienda.', solution: 'Chatbot RAG conectado a tu web + FAQ + catálogo, 5 intenciones, respuestas 24/7 con tu identidad.', result: 'Menos tiempo en preguntas repetitivas · respuesta inmediata que ayuda a convertir', pack: 'Esencial IA' },
+        { sector: 'Agencia inmobiliaria', context: 'Leads de portales tratados a mano, respuesta > 24h, CRM actualizado al 70%.', solution: 'Agente IA de cualificación BANT + indexación de inmuebles + cita Calendly + handoff CRM/Slack.', result: 'Leads cualificados en minutos · respuestas rápidas a las solicitudes entrantes · citas automatizadas', pack: 'Business IA' },
+        { sector: 'E-commerce', context: 'Atención desbordada, las mismas preguntas sobre pedidos, abandonos por falta de respuesta rápida.', solution: 'Asistente RAG sobre todo el catálogo + seguimiento de pedidos + recomendaciones, 3 idiomas.', result: 'Gran parte de las consultas resueltas sin agente · atención centrada en casos complejos', pack: 'Business IA' },
+        { sector: 'Consulta médica / Red de salud', context: 'Documentación interna voluminosa, datos sensibles, conformidad RGPD/HDS exigente.', solution: 'Arquitectura multi-agente (citas, soporte, contenido) + RAG sobre 500+ documentos + alojamiento soberano OVH + DPA.', result: 'Búsqueda documental instantánea · alojamiento soberano y DPA · soporte al paciente 24/7', pack: 'Premium IA' },
         { sector: 'SaaS / B2B tech', context: 'Onboarding lento, soporte de nivel 1 saturado, blog SEO parado.', solution: 'Asistente de onboarding IA + soporte tier 1 RAG sobre la documentación + agente de generación de contenido SEO.', result: 'Menor time-to-value · tickets de nivel 1 absorbidos · producción de contenido SEO continua', pack: 'Premium IA' },
         { sector: 'Restaurante / Hostelería', context: 'Reservas por teléfono fuera de horario, preguntas FAQ en bucle, PMS no conectado.', solution: 'Chatbot de reservas + FAQ + sincronización PMS, multilingüe para la clientela internacional.', result: 'Reservas captadas 24/7 · centralita aliviada · clientela extranjera mejor atendida', pack: 'Esencial IA' },
       ],
@@ -469,7 +471,7 @@ const CONTENT: Record<Lang, {
     },
     useCases: {
       h2: 'Tình huống thực tế theo từng ngành',
-      subtitle: 'Những kịch bản cụ thể, với gói phù hợp và kết quả đo lường được mà bạn có thể kỳ vọng.',
+      subtitle: 'Các kịch bản mẫu, với gói phù hợp. Chỉ mang tính tham khảo: kết quả thay đổi theo từng trường hợp và không được cam kết.',
       items: [
         { sector: 'Cửa hàng / hộ kinh doanh địa phương', context: 'Phần lớn câu hỏi lặp đi lặp lại (giờ mở cửa, còn hàng không, ở đâu) và chiếm hết thời gian của nhân viên bán hàng.', solution: 'Chatbot RAG kết nối website + câu hỏi thường gặp + danh mục hàng, 5 tình huống, trả lời 24/7 trên website và Zalo.', result: 'Giảm mạnh thời gian trả lời câu hỏi lặp lại · khách được phản hồi ngay nên chốt nhanh hơn', pack: 'Essentiel IA' },
         { sector: 'Khách sạn tại Hà Nội', context: 'Yêu cầu đặt phòng đến từ Agoda, Booking, Traveloka và Zalo, trả lời chậm, khách quốc tế phải chờ qua đêm.', solution: 'AI agent trả lời tiếng Việt, Anh, Pháp 24/7 + lập chỉ mục thông tin phòng, dịch vụ, chính sách + đặt phòng trực tiếp.', result: 'Trả lời ngay trong vài phút · giảm phụ thuộc vào OTA · khách phương Tây được phục vụ bằng chính ngôn ngữ của họ', pack: 'Business IA' },
@@ -576,7 +578,7 @@ type PackId = (typeof PACK_IDS)[number];
 // celui de l'offre Landing Page Express, dans son encart de services-pricing.tsx.
 const QUOTE_ONLY_LANGS: readonly Lang[] = ['vi'];
 const QUOTE_PRICE_LABEL = 'Theo báo giá';
-const QUOTE_PRICE_NOTE = 'Báo giá miễn phí trong 24 giờ';
+const QUOTE_PRICE_NOTE = 'Báo giá miễn phí trong 48 giờ';
 const QUOTE_MAINTENANCE_LABEL = 'Bảo trì hằng tháng theo báo giá';
 
 const MODELS = [
@@ -607,49 +609,28 @@ export function IntegrationIAPageClient({ lang }: Props) {
 
   return (
     <>
+      <div className="theme-chatbot">
       <Header />
       <main ref={containerRef} id="main-content" className="min-h-screen">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#070F26' }}>
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-          <div data-parallax="-50" className="absolute top-0 left-1/2 -ml-[400px] w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-          <div data-parallax="80" className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
-              <Brain size={14} /><span>{c.hero.badge}</span>
-            </div>
-            <h1 className="animate-on-scroll fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              {c.hero.h1}{' '}
-              <span className="text-white">{c.hero.h1highlight}</span>
-            </h1>
-            <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{c.hero.p}</p>
-            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
-                <Brain size={18} />{c.hero.ctaAudit}<ArrowRight size={16} />
-              </LocalizedLink>
-              <a href="#pricing" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white border border-white/20 hover:border-white/40 hover:bg-white/5 transition-all duration-300">
-                {c.hero.ctaPricing}<ChevronDown size={16} />
-              </a>
-            </div>
-            <div className="animate-on-scroll fade-up delay-400">
-            <ResponsiveCards breakpoint="sm" gridClass="grid-cols-3 max-w-3xl mx-auto" gridGap="gap-6">
-              {c.stats.map((stat, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
-                  <div className="text-3xl font-bold mb-1 text-white">{STATS_VALUES[i]}</div>
-                  <div className="text-sm text-slate-400">{stat.label}</div>
-                </div>
-              ))}
-            </ResponsiveCards>
-            </div>
-          </div>
-        </section>
+        <ServiceHero
+          badgeIcon={<Brain size={14} aria-hidden="true" />}
+          badge={c.hero.badge}
+          h1={c.hero.h1}
+          highlight={c.hero.h1highlight}
+          subtitle={c.hero.p}
+          primary={{ href: '/contact', label: c.hero.ctaAudit, icon: <Brain size={18} aria-hidden="true" /> }}
+          secondary={{ href: '#pricing', label: c.hero.ctaPricing }}
+          stats={c.stats.map((stat, i) => ({ value: String(STATS_VALUES[i]), label: stat.label }))}
+          visual={{ src: "/assets/redesign/pages/chatbot-hero.webp", alts: {"fr": "Illustration d'une bulle de discussion qui respire, entourée d'ondes, avec une bulle de réponse en cours d'écriture", "en": "Illustration of a breathing chat bubble surrounded by ripples, with a reply bubble being typed", "es": "Ilustración de una burbuja de chat que respira, rodeada de ondas, con una burbuja de respuesta escribiéndose", "vi": "Minh họa bong bóng trò chuyện như đang thở, bao quanh bởi các sóng, kèm bong bóng trả lời đang gõ"} }}
+        />
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#F7FAFD' }}>
+        <section className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.problems.h2}</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.problems.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">{c.problems.subtitle}</p>
             </div>
             <div className="animate-on-scroll fade-up delay-100">
@@ -661,7 +642,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 return (
                   <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 hover:shadow-md transition-shadow h-full">
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${colors[i]}`}><Icon size={22} /></div>
-                    <h3 className="font-semibold text-[#0e1b3d] mb-2 text-sm leading-snug">{p.title}</h3>
+                    <h3 className="font-semibold text-navy-900 mb-2 text-sm leading-snug">{p.title}</h3>
                     <p className="text-slate-500 text-sm">{p.text}</p>
                   </div>
                 );
@@ -672,7 +653,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#070F26' }}>
+        <section className="py-20 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.services.h2}</h2>
@@ -684,7 +665,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 const Icon = SERVICE_ICONS[i];
                 const isExpanded = expandedService === i;
                 return (
-                  <div key={i} className={`rounded-xl border-2 ${SERVICE_ACCENT_COLORS[i]} bg-[#0e1b3d]/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300 h-full`} onClick={() => setExpandedService(isExpanded ? null : i)}>
+                  <div key={i} className={`rounded-xl border-2 ${SERVICE_ACCENT_COLORS[i]} bg-navy-900/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300 h-full`} onClick={() => setExpandedService(isExpanded ? null : i)}>
                     <div className="flex items-start justify-between mb-3">
                       <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center"><Icon size={20} className="text-slate-300" /></div>
                       <span className={`${SERVICE_BADGE_COLORS[i]} text-white text-xs font-semibold px-3 py-1 rounded-full`}>{service.badge}</span>
@@ -712,7 +693,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── MODÈLES IA ────────────────────────────────────────────────── */}
-        <section className="py-14 border-y border-slate-200" style={{ background: '#F7FAFD' }}>
+        <section className="py-14 border-y border-slate-200 sec-tint ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="animate-on-scroll fade-up text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.models.label}</p>
             <div className="animate-on-scroll fade-up delay-100 grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -728,7 +709,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── CAS D'USAGE ───────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#070F26' }}>
+        <section className="py-20 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.useCases.h2}</h2>
@@ -752,14 +733,15 @@ export function IntegrationIAPageClient({ lang }: Props) {
               ))}
             </ResponsiveCards>
             </div>
+            <SourcedStats ids={['ai18','ai54','mck60']} tone="dark" className="mt-14" />
           </div>
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-20" style={{ background: '#F7FAFD' }}>
+        <section id="pricing" className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.packs.h2}</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.packs.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">{c.packs.subtitle}</p>
             </div>
 
@@ -780,17 +762,17 @@ export function IntegrationIAPageClient({ lang }: Props) {
                 return (
                   <div key={id} onClick={() => setSelectedPack(id)} className={`relative rounded-2xl border-2 p-6 cursor-pointer transition-all duration-300 ${borders[i]} ${selectedPack === id ? 'shadow-xl bg-white scale-[1.02]' : 'bg-white hover:shadow-md'}`}>
                     {i === 1 && <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs font-bold px-4 py-1 rounded-full">{c.packs.popular}</span>}
-                    <h3 className="font-bold text-[#0e1b3d] text-lg mb-1">{pack.name}</h3>
+                    <h3 className="font-bold text-navy-900 text-lg mb-1">{pack.name}</h3>
                     <p className="text-slate-500 text-sm mb-4">{pack.tagline}</p>
                     <div className="mb-4">
                       {isQuoteOnly ? (
                         <>
-                          <span className="text-3xl font-bold text-[#0e1b3d]">{QUOTE_PRICE_LABEL}</span>
+                          <span className="text-3xl font-bold text-navy-900">{QUOTE_PRICE_LABEL}</span>
                           <div className="text-sm text-slate-500">{QUOTE_PRICE_NOTE}</div>
                         </>
                       ) : (
                         <>
-                          <span className="text-3xl font-bold text-[#0e1b3d]">{PACK_PRICES[i].toLocaleString('fr-FR')} €</span>
+                          <span className="text-3xl font-bold text-navy-900">{PACK_PRICES[i].toLocaleString('fr-FR')} €</span>
                           <span className="text-slate-500 text-sm ml-1">{c.packs.ht}</span>
                           <div className="text-sm text-slate-500">+ {PACK_MONTHLY[i]} {c.packs.monthly}</div>
                         </>
@@ -813,16 +795,16 @@ export function IntegrationIAPageClient({ lang }: Props) {
             <div className="animate-on-scroll fade-up delay-200 rounded-2xl border border-slate-200 shadow-sm bg-white p-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 <div>
-                  <h3 className="text-xl font-bold text-[#0e1b3d] mb-1">{activePack.name}</h3>
+                  <h3 className="text-xl font-bold text-navy-900 mb-1">{activePack.name}</h3>
                   <p className="text-slate-500 text-sm">{activePack.tagline}</p>
                 </div>
-                <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:opacity-90" style={{ background: '#111827', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>
+                <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:opacity-90" style={{ background: 'rgb(var(--c-gray-900))', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>
                   {c.detail.choose} {activePack.name}<ArrowRight size={14} />
                 </LocalizedLink>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div>
-                  <h4 className="font-semibold text-[#0e1b3d] mb-3 flex items-center gap-2"><Check size={16} className="text-emerald-500" /> {c.detail.included}</h4>
+                  <h4 className="font-semibold text-navy-900 mb-3 flex items-center gap-2"><Check size={16} className="text-emerald-500" /> {c.detail.included}</h4>
                   <ul className="space-y-2">
                     {activePack.included.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
@@ -832,7 +814,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#0e1b3d] mb-3 flex items-center gap-2"><XIcon size={16} className="text-rose-400" /> {c.detail.notIncluded}</h4>
+                  <h4 className="font-semibold text-navy-900 mb-3 flex items-center gap-2"><XIcon size={16} className="text-rose-400" /> {c.detail.notIncluded}</h4>
                   <ul className="space-y-2">
                     {activePack.notIncluded.map((item, i) => (
                       <li key={i} className="flex items-start gap-2 text-sm text-slate-500">
@@ -842,12 +824,12 @@ export function IntegrationIAPageClient({ lang }: Props) {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#0e1b3d] mb-3">{c.detail.options}</h4>
+                  <h4 className="font-semibold text-navy-900 mb-3">{c.detail.options}</h4>
                   <ul className="space-y-2 mb-6">
                     {activePack.options.map((opt, i) => (
                       <li key={i} className="flex items-start justify-between gap-2 text-sm">
                         <span className="text-slate-600">{opt.label}</span>
-                        <span className="text-[#0e1b3d] font-medium shrink-0">{opt.price}</span>
+                        <span className="text-navy-900 font-medium shrink-0">{opt.price}</span>
                       </li>
                     ))}
                   </ul>
@@ -873,7 +855,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#070F26' }}>
+        <section className="py-20 sec-pat sec-dots sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.testimonials.h2}</h2>
@@ -899,25 +881,25 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#F7FAFD' }}>
+        <section className="py-20 sec-tint sec-screen ctx-light">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
-              <h2 className="text-3xl font-bold text-[#0e1b3d] mb-4">{c.faq.h2}</h2>
+              <h2 className="text-3xl font-bold text-navy-900 mb-4">{c.faq.h2}</h2>
             </div>
             <Accordion type="single" collapsible className="animate-on-scroll fade-up delay-100 space-y-3">
               {c.faq.items.map((item, i) => (
                 <AccordionItem key={i} value={`faq-${i}`} className="rounded-xl border border-slate-200 bg-white overflow-hidden">
-                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-[#0e1b3d] hover:no-underline">{item.q}</AccordionTrigger>
+                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-navy-900 hover:no-underline">{item.q}</AccordionTrigger>
                   <AccordionContent className="px-6 pb-4 text-sm text-slate-600 leading-relaxed">{item.a}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
             <div className="animate-on-scroll fade-up delay-200 mt-10 rounded-xl border border-slate-200 bg-white p-6">
-              <h3 className="font-semibold text-[#0e1b3d] mb-4">{c.more.h3}</h3>
+              <h3 className="font-semibold text-navy-900 mb-4">{c.more.h3}</h3>
               <ul className="space-y-3">
                 {c.more.items.map((item, i) => (
                   <li key={i}>
-                    <LocalizedLink href={item.href} className="flex items-center gap-2 text-sm text-slate-700 hover:text-[#0e1b3d] hover:underline">
+                    <LocalizedLink href={item.href} className="flex items-center gap-2 text-sm text-slate-700 hover:text-navy-900 hover:underline">
                       <ArrowRight size={14} />{item.label}
                     </LocalizedLink>
                   </li>
@@ -928,7 +910,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
         </section>
 
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
-        <section className="py-24" style={{ background: '#070F26' }}>
+        <section className="py-24 ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />{c.cta.badge}
@@ -936,10 +918,10 @@ export function IntegrationIAPageClient({ lang }: Props) {
             <h2 className="animate-on-scroll fade-up delay-100 text-3xl sm:text-4xl font-bold text-white mb-6">{c.cta.h2}</h2>
             <p className="animate-on-scroll fade-up delay-200 text-slate-300 text-lg mb-10 max-w-2xl mx-auto">{c.cta.p}</p>
             <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center">
-              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold transition-all duration-300" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
-                <Brain size={18} className="text-[#050510]" />
-                <span className="text-[#050510]">{c.cta.ctaAudit}</span>
-                <ArrowRight size={16} className="text-[#050510]" />
+              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold transition-all duration-300" style={{ background: 'rgb(var(--c-white))', boxShadow: '0 4px 20px rgb(var(--c-white) / 0.2)' }}>
+                <Brain size={18} className="text-navy-950" />
+                <span className="text-navy-950">{c.cta.ctaAudit}</span>
+                <ArrowRight size={16} className="text-navy-950" />
               </LocalizedLink>
               <LocalizedLink href={c.cta.ctaBlogHref} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-slate-300 border border-slate-700 hover:border-slate-500 hover:text-white transition-all duration-300">
                 {c.cta.ctaBlog}<ArrowRight size={16} />
@@ -950,6 +932,7 @@ export function IntegrationIAPageClient({ lang }: Props) {
 
       </main>
       <Footer />
+      </div>
     </>
   );
 }

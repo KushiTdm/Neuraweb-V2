@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 const CONTENT = {
   fr: {
     title: 'Politique de Confidentialité',
-    description: 'Politique de confidentialité NeuraWeb : collecte, utilisation et protection de vos données personnelles. Conformité RGPD garantie, transparence totale.',
+    description: 'Politique de confidentialité NeuraWeb : collecte, utilisation et protection de vos données personnelles. Respect du RGPD, transparence totale.',
     backToHome: 'Retour à l\'accueil',
     lastUpdate: 'Dernière mise à jour : Juin 2026',
     sections: [
@@ -644,6 +644,7 @@ export default async function ConfidentialitePage({
   return (
     <>
       <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
+      <div className="theme-accueil">
       <Header />
       <main className="min-h-screen bg-background pt-24 pb-16">
         <div className="container max-w-4xl mx-auto px-4">
@@ -669,7 +670,7 @@ export default async function ConfidentialitePage({
           {/* Content */}
           <div className="space-y-6">
             {content.sections.map((section, index) => (
-              <section key={index} className="bg-card rounded-2xl p-6 border border-border/50">
+              <section key={index} className="bg-card rounded-2xl p-6 border border-border/50 ctx-light">
                 <h2 className="text-xl font-semibold mb-4 text-foreground">
                   {section.title}
                 </h2>
@@ -682,6 +683,7 @@ export default async function ConfidentialitePage({
         </div>
       </main>
       <Footer />
+      </div>
     </>
   );
 }

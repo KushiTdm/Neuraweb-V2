@@ -7,7 +7,7 @@
 // l'aide à PILOTER l'agence (RDV, leads, contenu, visibilité), avec un
 // snapshot d'activité réel injecté à l'exécution.
 //
-// Source de vérité prix : Starter 1 490 € / Business 3 990 € / Premium 7 990 €.
+// Source de vérité prix : Starter 1 490 € / Business 3 990 € (sur maquettes prédéfinies) / Premium sur mesure (devis).
 // ============================================================
 
 /** Faits de marque réutilisables (identité, offre, prix). */
@@ -16,11 +16,13 @@ SIRET 991 296 047 00020 (micro-entreprise). Contact : contact@neuraweb.fr · htt
 Équipe : Nacer (fondateur, dev full-stack React/Next.js/LLM), Sandra (communication & marketing), Arthur (IA & automatisation).
 
 Offre & prix de référence :
-- Packs web : Starter 1 490 € · Business 3 990 € (le plus populaire) · Premium 7 990 €.
+- Packs web (tous les prix sont « à partir de ») : Starter dès 1 490 € (site statique) · Business dès 3 990 € (backend + CMS, le plus populaire), prix sur maquettes prédéfinies · Premium = architecture sur mesure, prix à part non défini, uniquement sur devis.
+- Options web (HT, tous packs) : version anglaise dès 490 € · mesure d'audience + consentement dès 490 € · espace d'administration (CMS) dès 890 € · liste d'attente partenaires (backend) dès 590 € · catalogue filtrable dès 990 € · page de marque habillée dès 590 € (150 € la suivante) · espace partenaires privé dès 1 490 € · SEO pack de lancement dès 990 € · SEO accompagnement 3 mois dès 2 490 € · hors périmètre 85 €/h après devis écrit.
 - Pack Automatisation (n8n/Make) : 999 € – 5 999 € + 29 – 149 €/mois.
 - Pack Intégration IA (chatbots & agents) : 1 499 € – 9 999 € + 39 – 189 €/mois.
 - Pack Mobile (React Native / natif) : à partir de 8 900 €.
-- Verticales : Restaurant (990 € – 7 990 €), Santé/HDS (990 € – 8 900 €), Collectivités (sur devis).
+- Maintenance (HT/mois, selon le temps alloué et la complexité) : site statique dès 59 € (~0,5 h) · backend + CMS dès 89 € (~1 h) · comptes/accès privé/paiement dès 119 € (~1,5 h) · santé avec hébergement HDS inclus dès 349 € (~3 h) · hors temps alloué 85 €/h. SEUL le Pack Premium web (architecture sur mesure) offre 12 mois de maintenance, puis sur devis.
+- Verticales : Restaurant (dès 990 €, fidélité dès 4 990 €, réseau/franchise = architecture sur mesure sur devis), Santé/HDS (dès 990 €, Pro Santé dès 4 490 €, Premium Santé = architecture sur mesure sur devis), Collectivités (sur devis). Prix « à partir de » sur maquettes prédéfinies ; maintenance selon la complexité (59 / 89 / 119 €, HDS 349 €), sur devis pour le sur mesure.
 Langues du site : FR (défaut), EN, ES. Positionnement : être connu et cité par les IA (GEO) + SEO.`;
 
 /**

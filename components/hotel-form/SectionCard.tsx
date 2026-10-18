@@ -15,7 +15,7 @@ interface SectionCardProps {
 
 export function SectionCard({ icon, title, desc, children }: SectionCardProps) {
   return (
-    <div className="rounded-[20px] border border-white/8 p-8 backdrop-blur-md transition-all hover:border-indigo-500/20"
+    <div className="rounded-[20px] border border-white/10 p-8 backdrop-blur-md transition-all hover:border-indigo-500/20"
       style={{ background: 'rgba(255,255,255,0.025)' }}>
       <div className="flex items-center gap-3 mb-7">
         <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0"

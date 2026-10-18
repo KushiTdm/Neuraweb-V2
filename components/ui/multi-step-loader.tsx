@@ -64,7 +64,7 @@ export function MultiStepLoader({
     <div className="space-y-3.5">
       {steps.map((step, index) => {
         const distance = Math.abs(index - current);
-        const opacity = active ? Math.max(1 - distance * 0.18, 0.25) : 1;
+        const opacity = active ? Math.max(1 - distance * 0.08, 0.82) : 1;
         const isActive = active && index === current;
         const isDone = active && index < current;
 
@@ -79,15 +79,15 @@ export function MultiStepLoader({
             <span
               className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-300"
               style={{
-                background: isActive ? '#C5F277' : isDone ? '#ffffff' : '#E8F4FD',
+                background: isActive ? '#004643' : isDone ? '#004643' : 'rgba(0,70,67,0.15)',
               }}
             >
               {isDone ? (
                 <CheckFilled style={{ color: 'white' }} />
               ) : isActive ? (
-                <CheckFilled style={{ color: '#0E1B3D' }} />
+                <CheckFilled style={{ color: '#F0EDE5' }} />
               ) : (
-                <CheckOutline style={{ color: '#ffffff' }} />
+                <CheckOutline style={{ color: '#004643' }} />
               )}
             </span>
 
@@ -95,7 +95,7 @@ export function MultiStepLoader({
             <span
               className="text-sm leading-snug transition-all duration-300"
               style={{
-                color: isActive ? '#0E1B3D' : '#64748b',
+                color: isActive ? '#004643' : 'rgba(0,70,67,0.9)',
                 fontWeight: isActive ? '600' : '500',
               }}
             >
@@ -110,7 +110,7 @@ export function MultiStepLoader({
                 animate={{ scaleX: 1 }}
                 transition={{ duration: duration / 1000, ease: 'linear' }}
                 className="ml-auto h-0.5 w-10 rounded-full origin-left flex-shrink-0"
-                style={{ background: '#C5F277' }}
+                style={{ background: '#004643' }}
               />
             )}
           </motion.div>

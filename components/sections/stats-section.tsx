@@ -1,139 +1,107 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, TrendingUp } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
 import { LocalizedLink } from '@/components/localized-link';
 import { useLanguage } from '@/contexts/language-context';
+import { NeuraIcon, type NeuraIconName } from '@/components/icons/neura-icon';
 
 const T = {
   fr: {
-    eyebrow: '● NOS RÉSULTATS',
-    label1: 'Projets livrés avec succès',
-    desc1: 'Applications web, mobiles et automatisations livrées dans les délais convenus.',
-    label2: 'Clients satisfaits',
-    desc2: 'Taux de satisfaction mesuré après chaque livraison — notre priorité absolue.',
-    label3: 'ROI moyen client',
-    desc3: 'Retour sur investissement constaté sur nos projets d\'automatisation et IA.',
+    eyebrow: 'NOS REPÈRES',
+    unit1: ' ans',
+    label1: 'd\'expérience en développement web',
+    desc1: 'Premiers projets en 2021, freelance puis agence, et NeuraWeb depuis 2023.',
+    label2: 'Continents où nous avons livré',
+    desc2: 'Asie, Amérique du Sud et Europe : hôtels, restaurants, agences de voyage et cafés.',
+    label3: 'Note moyenne sur Google',
+    desc3: '14 avis clients publiés sur notre fiche Google, tous à 5 étoiles.',
     heading1: 'Des chiffres qui parlent',
     heading2: 'd\'eux-mêmes',
-    sub: 'Depuis notre création, nous avons aidé des dizaines d\'entreprises à accélérer leur croissance grâce à des solutions web, IA et automatisation.',
+    sub: 'Depuis 2023, à distance depuis l\'Asie, l\'Amérique du Sud et l\'Europe : sites, applications et automatisations pour des hôtels, restaurants, agences de voyage et cafés.',
     learn: 'À propos de NeuraWeb',
   },
   en: {
-    eyebrow: '● OUR RESULTS',
-    label1: 'Projects delivered',
-    desc1: 'Web, mobile and automation projects delivered on time and within agreed deadlines.',
-    label2: 'Satisfied clients',
-    desc2: 'Satisfaction rate measured after each delivery — our absolute priority.',
-    label3: 'Average client ROI',
-    desc3: 'Return on investment observed on our automation and AI projects.',
+    eyebrow: 'OUR BENCHMARKS',
+    unit1: ' years',
+    label1: 'of web development experience',
+    desc1: 'First projects in 2021, freelance then agency, and NeuraWeb since 2023.',
+    label2: 'Continents where we have delivered',
+    desc2: 'Asia, South America and Europe: hotels, restaurants, travel agencies and cafés.',
+    label3: 'Average Google rating',
+    desc3: '14 client reviews published on our Google profile, all 5 stars.',
     heading1: 'Numbers that speak',
     heading2: 'for themselves',
-    sub: 'Since our creation, we have helped dozens of companies accelerate their growth.',
+    sub: 'Since 2023, working remotely from Asia, South America and Europe: websites, apps and automations for hotels, restaurants, travel agencies and cafés.',
     learn: 'About NeuraWeb',
   },
   es: {
-    eyebrow: '● NUESTROS RESULTADOS',
-    label1: 'Proyectos entregados',
-    desc1: 'Proyectos web, móviles y de automatización entregados a tiempo.',
-    label2: 'Clientes satisfechos',
-    desc2: 'Tasa de satisfacción medida después de cada entrega — nuestra prioridad absoluta.',
-    label3: 'ROI promedio',
-    desc3: 'Retorno de inversión observado en nuestros proyectos de automatización e IA.',
+    eyebrow: 'NUESTROS DATOS',
+    unit1: ' años',
+    label1: 'de experiencia en desarrollo web',
+    desc1: 'Primeros proyectos en 2021, freelance, luego agencia, y NeuraWeb desde 2023.',
+    label2: 'Continentes donde hemos entregado',
+    desc2: 'Asia, Sudamérica y Europa: hoteles, restaurantes, agencias de viajes y cafeterías.',
+    label3: 'Valoración media en Google',
+    desc3: '14 reseñas de clientes publicadas en nuestra ficha de Google, todas de 5 estrellas.',
     heading1: 'Cifras que hablan',
     heading2: 'por sí solas',
-    sub: 'Desde nuestra creación, hemos ayudado a docenas de empresas a acelerar su crecimiento.',
+    sub: 'Desde 2023, trabajando a distancia desde Asia, Sudamérica y Europa: sitios web, apps y automatizaciones para hoteles, restaurantes, agencias de viajes y cafeterías.',
     learn: 'Sobre NeuraWeb',
   },
   vi: {
-    eyebrow: '● KẾT QUẢ CỦA CHÚNG TÔI',
-    label1: 'Dự án đã bàn giao',
-    desc1: 'Website, ứng dụng di động và quy trình tự động hóa được bàn giao đúng hẹn.',
-    label2: 'Khách hàng hài lòng',
-    desc2: 'Tỷ lệ hài lòng được ghi nhận sau mỗi lần bàn giao — ưu tiên hàng đầu của chúng tôi.',
-    label3: 'Hiệu quả đầu tư trung bình',
-    desc3: 'Mức hiệu quả đầu tư ghi nhận được trên các dự án tự động hóa và AI.',
+    eyebrow: 'CON SỐ CỦA CHÚNG TÔI',
+    unit1: ' năm',
+    label1: 'kinh nghiệm phát triển web',
+    desc1: 'Dự án đầu tiên năm 2021, freelance rồi làm cho agency, và NeuraWeb từ năm 2023.',
+    label2: 'Châu lục đã bàn giao dự án',
+    desc2: 'Châu Á, Nam Mỹ và châu Âu: khách sạn, nhà hàng, công ty du lịch và quán cà phê.',
+    label3: 'Điểm đánh giá trung bình trên Google',
+    desc3: '14 đánh giá của khách hàng trên trang Google của chúng tôi, tất cả đều 5 sao.',
     heading1: 'Những con số',
     heading2: 'tự nói lên tất cả',
-    sub: 'Từ ngày thành lập, chúng tôi đã đồng hành cùng hàng chục doanh nghiệp tăng trưởng nhanh hơn nhờ website, AI và tự động hóa.',
+    sub: 'Từ năm 2023, làm việc từ xa tại châu Á, Nam Mỹ và châu Âu: website, ứng dụng và tự động hóa cho khách sạn, nhà hàng, công ty du lịch và quán cà phê.',
     learn: 'Về NeuraWeb',
   },
 };
 
-const STATS = [
-  { value: 150, suffix: '+', key: 'label1', descKey: 'desc1', color: 'sky' as const },
-  { value: 98,  suffix: '%', key: 'label2', descKey: 'desc2', color: 'cyan' as const },
-  { value: 3.2, suffix: 'x', key: 'label3', descKey: 'desc3', color: 'sky' as const },
+// Repères vérifiables (18/10/2026) : développement depuis 2021 (5 ans) ; livraisons sur 3 continents
+// (Asie, Amérique du Sud, Europe) ; 5/5 = note de la fiche Google (14 avis). « 150+ projets » et « 98 % »
+// retirés : périmètre (projets perso inclus) et méthode non justifiables. Ajouter ici un décompte des
+// missions clients seulement s'il est chiffré et défini.
+const STATS: { value: number; suffix: string; key: string; descKey: string; icon: NeuraIconName }[] = [
+  { value: 5, suffix: ' ans', key: 'label1', descKey: 'desc1', icon: 'site-web' },
+  { value: 3, suffix: '', key: 'label2', descKey: 'desc2', icon: 'sante' },
+  { value: 5, suffix: '/5', key: 'label3', descKey: 'desc3', icon: 'seo-geo' },
 ];
 
-const STAT_COLORS = {
-  sky:  { gradient: 'linear-gradient(90deg, #ffffff, #e5e7eb)', icon: '#ffffff' },
-  cyan: { gradient: 'linear-gradient(90deg, #e5e7eb, #ffffff)', icon: '#e5e7eb' },
-};
-
-// Valeur finale rendue directement : l'ancien compteur partait de 0 et exposait "0+" au HTML serveur / aux crawlers.
-function useCountUp(target: number, _started: boolean) {
-  return target;
-}
-
-function StatCard({
-  value,
-  suffix,
-  label,
-  desc,
-  color,
-  started,
-  index,
-}: {
-  value: number;
-  suffix: string;
-  label: string;
-  desc: string;
-  color: keyof typeof STAT_COLORS;
-  started: boolean;
-  index: number;
+function StatCard({ value, suffix, label, desc, icon, started, index }: {
+  value: number; suffix: string; label: string; desc: string; icon: NeuraIconName; started: boolean; index: number;
 }) {
-  const count = useCountUp(value, started);
-  const isDecimal = value % 1 !== 0;
-  const displayValue = isDecimal ? count.toFixed(1) : count;
-  const colorConfig = STAT_COLORS[color];
-
-  const numberStyle = { color: '#ffffff' };
-
+  const display = value % 1 !== 0 ? value.toFixed(1) : value;
   return (
     <div
-      className="rounded-3xl p-6 sm:p-8 border transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
-      style={{
-        background: '#1E2A4A',
-        borderColor: '#1E3A6B',
-        opacity: 0,
-        animation: started ? `fadeInUp 0.6s ${index * 0.15}s ease forwards` : 'none',
-      }}
+      className="glass lift flex h-full flex-col rounded-3xl p-6 sm:p-8"
+      style={{ opacity: started ? undefined : 0, animation: started ? `nwFadeInUp 0.6s ${index * 0.15}s ease both` : 'none' }}
     >
-      {/* Icône tendance */}
-      <TrendingUp className="w-5 h-5 mb-4 flex-shrink-0" style={{ color: colorConfig.icon }} />
-
-      {/* Nombre — clamp ajusté pour ne pas déborder de la carte */}
+      <NeuraIcon name={icon} size={44} className="mb-4 flex-shrink-0 text-creme" />
       <div
-        className="font-display font-bold leading-none mb-3 whitespace-nowrap"
-        style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3rem)', ...numberStyle }}
+        className="mb-3 whitespace-nowrap font-impact font-black leading-none text-creme"
+        style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.25rem)' }}
         aria-label={`${value}${suffix} ${label}`}
       >
-        {displayValue}{suffix}
+        {display}{suffix}
       </div>
-
-      {/* Label */}
-      <p className="text-white font-semibold text-base mb-2">{label}</p>
-
-      {/* Description */}
-      <p className="text-sm leading-relaxed" style={{ color: 'rgba(148,163,184,0.8)' }}>{desc}</p>
+      <p className="mb-2 text-base font-semibold text-creme">{label}</p>
+      <p className="text-sm leading-relaxed text-creme/80">{desc}</p>
     </div>
   );
 }
 
 export function StatsSection() {
   const { language } = useLanguage();
-  const t = T[(language as keyof typeof T)] ?? T.fr;
+  const t = T[language as keyof typeof T] ?? T.fr;
   const sectionRef = useRef<HTMLElement>(null);
   const [started, setStarted] = useState(false);
 
@@ -145,50 +113,49 @@ export function StatsSection() {
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 sm:py-24 lg:py-32 overflow-hidden" style={{ background: '#070F26' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div className="grid grid-cols-1 lg:grid-cols-[40fr_60fr] gap-10 lg:gap-16 items-start">
-
-          {/* ── Colonne gauche — texte ────────────────────────── */}
+    <section ref={sectionRef} className="relative overflow-hidden bg-chypre py-20 sm:py-24 lg:py-32 sec-screen">
+      <Image
+        src="/assets/redesign/motif-vagues.webp"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover opacity-70 motion-safe:animate-[nwDrift_40s_ease-in-out_infinite_alternate]"
+        aria-hidden="true"
+        loading="lazy"
+      />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[40fr_60fr] lg:gap-16">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-white mb-6">
-              {t.eyebrow}
-            </p>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6 text-white">
+            <p className="mb-6 text-xs font-semibold uppercase tracking-[0.1em] text-creme/90">{t.eyebrow}</p>
+            <h2 className="mb-6 font-impact text-3xl font-black leading-tight text-creme sm:text-4xl lg:text-5xl">
               {t.heading1} {t.heading2}
             </h2>
-            <p className="text-base leading-relaxed mb-10 max-w-md" style={{ color: 'rgba(148,163,184,0.8)' }}>
-              {t.sub}
-            </p>
+            <p className="mb-10 max-w-md text-base leading-relaxed text-creme/90">{t.sub}</p>
             <LocalizedLink
               href="/equipe"
-              className="inline-flex items-center gap-2 font-semibold text-white border border-white/20 rounded-full px-6 py-3 hover:bg-white/5 transition-colors duration-200 group"
+              className="group inline-flex items-center gap-2 rounded-full bg-creme px-6 py-3 font-semibold text-chypre transition-colors duration-200 hover:bg-white"
             >
               {t.learn}
-              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors duration-200">
-                <ArrowUpRight className="w-4 h-4" />
-              </span>
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
             </LocalizedLink>
           </div>
 
-          {/* ── Colonne droite — Stack mobile / Grid desktop ────────────────────── */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {STATS.map((s, i) => (
               <StatCard
                 key={s.key}
                 value={s.value}
-                suffix={s.suffix}
+                suffix={s.key === 'label1' ? t.unit1 : s.suffix}
                 label={t[s.key as keyof typeof t] as string}
                 desc={t[s.descKey as keyof typeof t] as string}
-                color={s.color}
+                icon={s.icon}
                 started={started}
                 index={i}
               />
@@ -196,13 +163,6 @@ export function StatsSection() {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </section>
   );
 }

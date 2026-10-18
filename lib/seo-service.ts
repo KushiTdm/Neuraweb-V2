@@ -61,17 +61,17 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     services: {
       title: 'Services — Développement Web, Apps Mobiles & IA | NeuraWeb',
-      description: 'Développement web Next.js, apps mobiles iOS/Android, intégration IA et automatisation n8n. Packs Starter, Business, Premium. Devis gratuit sous 24h.',
+      description: 'Développement web Next.js, apps mobiles iOS/Android, intégration IA et automatisation n8n. Packs Starter, Business, Premium. Devis gratuit sous 48h.',
       keywords: ['services développement web', 'création application mobile', 'app iOS Android sur mesure', 'intégration IA site web', 'automatisation processus', 'tarifs développement web', 'devis site web'],
     },
     'developpement-web': {
       title: 'Développement Web Sur Mesure — Packs & Tarifs | NeuraWeb',
-      description: 'Agence web Next.js : sites vitrine, sites pro et e-commerce sur mesure. Packs Starter à 1 490€, Business à 3 990€, Premium à 7 990€. Devis gratuit sous 24h.',
+      description: 'Agence web Next.js : Starter dès 1 490€, Business dès 3 990€ sur maquettes prédéfinies, Premium sur mesure sur devis. Devis gratuit sous 48h.',
       keywords: ['développement web sur mesure', 'création site web professionnel', 'agence web Next.js', 'site vitrine entreprise', 'e-commerce sur mesure', 'tarifs site web 2026', 'devis site web gratuit', 'agence web Paris', 'refonte site web'],
     },
     contact: {
       title: 'Contactez NeuraWeb — Devis gratuit pour votre projet',
-      description: 'Contactez NeuraWeb pour discuter de votre projet web, application mobile ou intégration IA. Réponse garantie sous 24h, devis gratuit et sans engagement.',
+      description: 'Contactez NeuraWeb pour discuter de votre projet web, application mobile ou intégration IA. Réponse sous 48 h ouvrées, devis gratuit et sans engagement.',
       keywords: ['contact', 'devis gratuit', 'projet web'],
     },
     portfolio: {
@@ -86,7 +86,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     custom: {
       title: 'NeuraWeb — Agence Web Sur Mesure, IA & Automatisation',
-      description: 'NeuraWeb conçoit des solutions web sur mesure, applications mobiles et intégrations IA pour startups et PME. Devis gratuit, réponse garantie sous 24h.',
+      description: 'NeuraWeb conçoit des solutions web sur mesure, applications mobiles et intégrations IA pour startups et PME. Devis gratuit, réponse sous 48 h ouvrées.',
       keywords: ['neuraweb', 'agence web', 'digital'],
     },
     equipe: {
@@ -96,7 +96,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     booking: {
       title: 'Prendre rendez-vous — Audit & Devis Gratuit | NeuraWeb',
-      description: 'Réservez un appel gratuit avec NeuraWeb. Audit de votre projet web, app mobile ou IA. Réponse sous 24h, sans engagement.',
+      description: 'Réservez un appel gratuit avec NeuraWeb. Audit de votre projet web, app mobile ou IA. Réponse sous 48h, sans engagement.',
       keywords: ['prendre rendez-vous agence web', 'devis gratuit site web', 'audit gratuit IA', 'contact agence web Paris'],
     },
   },
@@ -108,17 +108,17 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     services: {
       title: 'Services — Custom Web, Mobile App & AI Dev | NeuraWeb',
-      description: 'Next.js web development, iOS/Android mobile apps, AI integration and n8n automation. Starter, Business, Premium packs. Free quote within 24h.',
+      description: 'Next.js web development, iOS/Android mobile apps, AI integration and n8n automation. Starter, Business, Premium packs. Free quote within 48h.',
       keywords: ['custom app development services', 'mobile app development services', 'custom web software development', 'AI integration services', 'web development pricing', 'software development company'],
     },
     'developpement-web': {
       title: 'Custom Web Development — Packages & Pricing | NeuraWeb',
-      description: 'Next.js web agency: showcase sites, professional websites and e-commerce built to order. Starter from €1,490, Business from €3,990, Premium from €7,990. Free quote in 24h.',
+      description: 'Next.js web agency: Starter from €1,490, Business from €3,990 on pre-defined mockups, Premium fully tailor-made on quote. Free quote in 48h.',
       keywords: ['custom web development', 'professional website creation', 'Next.js web agency', 'business website design', 'custom e-commerce development', 'web development pricing 2026', 'free website quote', 'web development agency France'],
     },
     contact: {
       title: 'Contact NeuraWeb — Free Quote for Your Web Project',
-      description: 'Contact NeuraWeb to discuss your web project, mobile app or AI integration. Guaranteed response within 24 hours and a free, no-commitment quote.',
+      description: 'Contact NeuraWeb to discuss your web project, mobile app or AI integration. Response within 48 business hours and a free, no-commitment quote.',
       keywords: ['contact', 'free quote', 'web project'],
     },
     portfolio: {
@@ -143,7 +143,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     booking: {
       title: 'Book a Call — Free Audit & Quote | NeuraWeb',
-      description: 'Schedule a free call with NeuraWeb. Get an audit of your web, mobile or AI project. Response within 24h, no commitment.',
+      description: 'Schedule a free call with NeuraWeb. Get an audit of your web, mobile or AI project. Response within 48h, no commitment.',
       keywords: ['book web agency call', 'free web project quote', 'free AI audit', 'contact web agency Paris'],
     },
   },
@@ -155,17 +155,17 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     services: {
       title: 'Servicios — Desarrollo Web, Apps Móviles e IA | NeuraWeb',
-      description: 'Desarrollo web Next.js, apps móviles iOS/Android, integración IA y automatización n8n. Paquetes Starter, Business, Premium. Presupuesto gratuito en 24h.',
+      description: 'Desarrollo web Next.js, apps móviles iOS/Android, integración IA y automatización n8n. Paquetes Starter, Business, Premium. Presupuesto gratuito en 48h.',
       keywords: ['servicios desarrollo web', 'desarrollo apps móviles', 'desarrollo software personalizado', 'integración IA web', 'precios desarrollo web', 'presupuesto app móvil'],
     },
     'developpement-web': {
       title: 'Desarrollo Web a Medida — Paquetes y Precios | NeuraWeb',
-      description: 'Agencia web Next.js: sitios vitrina, webs profesionales y e-commerce a medida. Starter desde 1.490€, Business desde 3.990€, Premium desde 7.990€. Presupuesto gratis en 24h.',
+      description: 'Agencia web Next.js: Starter desde 1.490€, Business desde 3.990€ sobre maquetas predefinidas, Premium a medida. Presupuesto gratis en 48h.',
       keywords: ['desarrollo web a medida', 'creación web profesional', 'agencia web Next.js', 'diseño web empresa', 'e-commerce personalizado', 'precios web 2026', 'presupuesto web gratis', 'agencia web Francia'],
     },
     contact: {
       title: 'Contacta NeuraWeb — Presupuesto gratis para tu proyecto',
-      description: 'Contacta con NeuraWeb para hablar de tu proyecto web, app móvil o integración IA. Respuesta garantizada en 24h y presupuesto gratuito sin compromiso.',
+      description: 'Contacta con NeuraWeb para hablar de tu proyecto web, app móvil o integración IA. Respuesta en 48 h hábiles y presupuesto gratuito sin compromiso.',
       keywords: ['contacto', 'presupuesto gratis', 'proyecto web'],
     },
     portfolio: {
@@ -180,7 +180,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     custom: {
       title: 'NeuraWeb — Agencia Web, IA y Automatización | Francia',
-      description: 'NeuraWeb desarrolla soluciones web a medida, apps móviles e integraciones IA para startups y pymes. Con sede en Lille, Francia. Presupuesto gratis en 24h.',
+      description: 'NeuraWeb desarrolla soluciones web a medida, apps móviles e integraciones IA para startups y pymes. Con sede en Lille, Francia. Presupuesto gratis en 48h.',
       keywords: ['neuraweb', 'agencia web', 'digital'],
     },
     equipe: {
@@ -190,7 +190,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     booking: {
       title: 'Reservar una Llamada — Auditoría Gratis | NeuraWeb',
-      description: 'Programa una llamada gratuita con NeuraWeb. Auditoría de tu proyecto web, app móvil o IA. Respuesta en 24h, sin compromiso.',
+      description: 'Programa una llamada gratuita con NeuraWeb. Auditoría de tu proyecto web, app móvil o IA. Respuesta en 48h, sin compromiso.',
       keywords: ['reservar llamada agencia web', 'presupuesto gratuito web', 'auditoría IA gratis', 'contacto agencia web París'],
     },
   },
@@ -211,12 +211,12 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     'developpement-web': {
       title: 'Thiết kế website theo yêu cầu — Báo giá | NeuraWeb',
-      description: 'Website giới thiệu, website doanh nghiệp và bán hàng trên nền Next.js. Landing Page Express 1.290.000 VND cho cửa hàng nhỏ, dự án lớn hơn báo giá trong 24 giờ.',
+      description: 'Website giới thiệu, website doanh nghiệp và bán hàng trên nền Next.js. Landing Page Express 1.290.000 VND cho cửa hàng nhỏ, dự án lớn hơn báo giá trong 48 giờ.',
       keywords: ['thiết kế website theo yêu cầu', 'làm website cho cửa hàng', 'báo giá thiết kế website Hà Nội', 'landing page cho hộ kinh doanh', 'website doanh nghiệp Next.js', 'làm lại website cũ', 'thiết kế web chuẩn SEO', 'website bán hàng online', 'công ty thiết kế website Hà Nội'],
     },
     contact: {
       title: 'Liên hệ NeuraWeb — Báo giá miễn phí cho dự án của bạn',
-      description: 'Liên hệ NeuraWeb tại Hà Nội để trao đổi về website, ứng dụng di động hay tích hợp AI. Phản hồi trong 24 giờ, báo giá miễn phí và không ràng buộc.',
+      description: 'Liên hệ NeuraWeb tại Hà Nội để trao đổi về website, ứng dụng di động hay tích hợp AI. Phản hồi trong 48 giờ, báo giá miễn phí và không ràng buộc.',
       keywords: ['liên hệ', 'báo giá miễn phí', 'dự án website', 'liên hệ công ty thiết kế web Hà Nội'],
     },
     portfolio: {
@@ -231,7 +231,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     custom: {
       title: 'NeuraWeb — Website, AI & Tự động hóa theo yêu cầu',
-      description: 'NeuraWeb xây dựng website, ứng dụng di động và giải pháp AI theo yêu cầu cho doanh nghiệp Việt Nam. Báo giá miễn phí, phản hồi trong vòng 24 giờ.',
+      description: 'NeuraWeb xây dựng website, ứng dụng di động và giải pháp AI theo yêu cầu cho doanh nghiệp Việt Nam. Báo giá miễn phí, phản hồi trong vòng 48 giờ.',
       keywords: ['neuraweb', 'công ty thiết kế web', 'chuyển đổi số'],
     },
     equipe: {
@@ -241,7 +241,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     booking: {
       title: 'Đặt lịch tư vấn — Rà soát & báo giá miễn phí | NeuraWeb',
-      description: 'Đặt buổi tư vấn miễn phí với NeuraWeb tại Hà Nội. Rà soát dự án website, ứng dụng di động hoặc AI của bạn. Phản hồi trong 24 giờ, không ràng buộc.',
+      description: 'Đặt buổi tư vấn miễn phí với NeuraWeb tại Hà Nội. Rà soát dự án website, ứng dụng di động hoặc AI của bạn. Phản hồi trong 48 giờ, không ràng buộc.',
       keywords: ['đặt lịch tư vấn website', 'báo giá website miễn phí', 'tư vấn AI miễn phí', 'liên hệ công ty web Hà Nội'],
     },
   },
@@ -388,8 +388,7 @@ export function generateJsonLd(
             description: 'Solution idéale pour démarrer votre présence en ligne',
             offers: {
               '@type': 'Offer',
-              price: '1490',
-              priceCurrency: 'EUR',
+              priceSpecification: { '@type': 'PriceSpecification', minPrice: '1490', priceCurrency: 'EUR' },
             },
           },
         },
@@ -401,8 +400,7 @@ export function generateJsonLd(
             description: 'Solution complète pour entreprises en croissance',
             offers: {
               '@type': 'Offer',
-              price: '3990',
-              priceCurrency: 'EUR',
+              priceSpecification: { '@type': 'PriceSpecification', minPrice: '3990', priceCurrency: 'EUR' },
             },
           },
         },
@@ -411,12 +409,7 @@ export function generateJsonLd(
           itemOffered: {
             '@type': 'Service',
             name: 'Pack Premium',
-            description: 'Solution premium pour projets ambitieux',
-            offers: {
-              '@type': 'Offer',
-              price: '7990',
-              priceCurrency: 'EUR',
-            },
+            description: 'Solution entièrement sur mesure, sur devis, pour projets ambitieux',
           },
         },
       ],

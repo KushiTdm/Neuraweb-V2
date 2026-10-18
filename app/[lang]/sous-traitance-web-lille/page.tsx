@@ -149,7 +149,7 @@ const serviceSchema = {
         itemOffered: { '@type': 'Service', name: 'Développement de site Next.js en marque blanche' },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '1490',
+          minPrice: '1490',
           priceCurrency: 'EUR',
           valueAddedTaxIncluded: false,
         },
@@ -159,20 +159,15 @@ const serviceSchema = {
         itemOffered: { '@type': 'Service', name: 'Application web sur mesure en marque blanche' },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '3990',
+          minPrice: '3990',
           priceCurrency: 'EUR',
           valueAddedTaxIncluded: false,
         },
       },
       {
         '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: 'Plateforme digitale et intégration IA en marque blanche' },
-        priceSpecification: {
-          '@type': 'PriceSpecification',
-          price: '7990',
-          priceCurrency: 'EUR',
-          valueAddedTaxIncluded: false,
-        },
+        // Sur mesure : aucun prix publié, chiffrage sur devis
+        itemOffered: { '@type': 'Service', name: 'Plateforme digitale et intégration IA en marque blanche (sur devis)' },
       },
     ],
   },
@@ -192,7 +187,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: 'Quels sont vos tarifs de sous-traitance pour une agence ?',
-    a: "Nous travaillons principalement au forfait, sur la base de nos packs : à partir de 1 490 € HT pour un site vitrine jusqu'à 8 pages, 3 990 € HT pour un site ou une application jusqu'à 20 pages avec fonctions avancées, et 7 990 € HT pour une plateforme sur mesure avec IA et automatisation. Un tarif partenaire dégressif s'applique à partir du troisième projet confié dans l'année. Les missions en régie ou les reprises de projet font l'objet d'un devis spécifique.",
+    a: "Nous travaillons principalement au forfait, sur la base de nos packs : à partir de 1 490 € HT pour un site vitrine jusqu'à 8 pages et 3 990 € HT pour un site ou une application jusqu'à 20 pages avec fonctions avancées, sur des maquettes déjà déterminées. Une plateforme entièrement sur mesure avec IA et automatisation est chiffrée sur devis. Un tarif partenaire dégressif s'applique à partir du troisième projet confié dans l'année. Les missions en régie ou les reprises de projet font l'objet d'un devis spécifique.",
   },
   {
     q: 'Quelles technologies prenez-vous en charge ?',
@@ -361,12 +356,13 @@ export default async function SousTraitanceWebLillePage({
       <JsonLd id="sous-traitance-faq" data={faqPageSchema} />
       <JsonLd id="sous-traitance-breadcrumb" data={breadcrumbData} />
 
+      <div className="theme-accueil">
       <Header />
-      <main id="main-content" className="bg-white text-slate-800 overflow-x-hidden">
+      <main id="main-content" className="bg-white text-slate-800 overflow-x-hidden ctx-light">
 
         {/* ── HERO ────────────────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-slate-50">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(99,102,241,0.10),transparent_60%)] pointer-events-none" />
+        <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-slate-50 ctx-light">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-indigo-500) / 0.10),transparent_60%)] pointer-events-none" />
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-violet-200/30 rounded-full blur-3xl pointer-events-none" />
 
@@ -413,7 +409,7 @@ export default async function SousTraitanceWebLillePage({
                     asChild
                     variant="outline"
                     size="lg"
-                    className="bg-white border-indigo-300 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-800 h-12 px-6 sm:px-8"
+                    className="bg-white border-indigo-300 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-800 h-12 px-6 sm:px-8 ctx-light"
                   >
                     <LocalizedLink href="/developpement-web">
                       Voir nos compétences
@@ -439,7 +435,7 @@ export default async function SousTraitanceWebLillePage({
 
               {/* Carte réponse directe (optimisée extraction IA) */}
               <div className="lg:col-span-5">
-                <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-indigo-600/15 border border-slate-200/60 bg-white p-6 sm:p-8">
+                <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-indigo-600/15 border border-slate-200/60 bg-white p-6 sm:p-8 ctx-light">
                   <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-2xl opacity-60 pointer-events-none bg-navy-900" />
                   <p className="relative text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
                     En résumé
@@ -472,7 +468,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── PAIN POINTS ─────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-20 bg-white">
+        <section className="py-12 md:py-20 bg-white ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -500,7 +496,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── SERVICES ────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-slate-50">
+        <section className="py-12 md:py-24 bg-slate-50 ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -518,7 +514,7 @@ export default async function SousTraitanceWebLillePage({
               {SERVICES.map(({ icon: Icon, title, desc, color }) => (
                 <div
                   key={title}
-                  className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow"
+                  className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow ctx-light"
                 >
                   <div className={`inline-flex items-center justify-center w-10 h-10 rounded-lg mb-4 ${color}`}>
                     <Icon className="w-5 h-5" />
@@ -532,7 +528,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── GARANTIES MARQUE BLANCHE ────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-white">
+        <section className="py-12 md:py-24 bg-white ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -565,7 +561,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── PROCESS ─────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-slate-50">
+        <section className="py-12 md:py-24 bg-slate-50 ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -579,7 +575,7 @@ export default async function SousTraitanceWebLillePage({
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {PROCESS.map((p) => (
-                <div key={p.step} className="relative rounded-xl border border-slate-200 bg-white p-5 sm:p-6">
+                <div key={p.step} className="relative rounded-xl border border-slate-200 bg-white p-5 sm:p-6 ctx-light">
                   <span className="text-3xl font-extrabold text-indigo-100 absolute top-4 right-4 select-none">
                     {p.step}
                   </span>
@@ -592,7 +588,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── TARIFS ──────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-white">
+        <section className="py-12 md:py-24 bg-white ctx-light">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -607,9 +603,9 @@ export default async function SousTraitanceWebLillePage({
 
             <div className="rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
               {[
-                { name: 'Site vitrine', scope: "Jusqu'à 8 pages, design sur mesure, SEO de base", price: '1 490 € HT' },
-                { name: 'Site ou application avancée', scope: "Jusqu'à 20 pages, blog, chatbot IA, intégrations métier", price: '3 990 € HT' },
-                { name: 'Plateforme sur mesure', scope: 'Application web, IA et automatisation, multi-langue, API tierces', price: '7 990 € HT' },
+                { name: 'Site vitrine', scope: "Jusqu'à 8 pages sur maquettes prédéfinies, SEO de base", price: 'À partir de 1 490 € HT' },
+                { name: 'Site ou application avancée', scope: "Jusqu'à 20 pages sur maquettes prédéfinies, blog, chatbot IA, intégrations métier", price: 'À partir de 3 990 € HT' },
+                { name: 'Plateforme sur mesure', scope: 'Design sur mesure, application web, IA et automatisation, multi-langue, API tierces', price: 'Sur devis' },
                 { name: 'Audit ou reprise de projet', scope: 'Diagnostic technique écrit, estimation de reprise', price: 'Sur devis' },
                 { name: 'Renfort en régie', scope: 'Développeur intégré à votre équipe, durée définie', price: 'Sur devis' },
               ].map((row, idx) => (
@@ -645,7 +641,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── LIENS INTERNES ───────────────────────────────────────────────── */}
-        <section className="py-10 md:py-14 bg-white border-y border-slate-100">
+        <section className="py-10 md:py-14 bg-white border-y border-slate-100 ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4 md:mb-6">
               Aller plus loin
@@ -674,7 +670,7 @@ export default async function SousTraitanceWebLillePage({
         </section>
 
         {/* ── FAQ ─────────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-slate-50">
+        <section className="py-12 md:py-24 bg-slate-50 ctx-light">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 md:mb-10">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -690,7 +686,7 @@ export default async function SousTraitanceWebLillePage({
                 <AccordionItem
                   key={idx}
                   value={`faq-${idx}`}
-                  className="border border-slate-200 rounded-lg mb-2 overflow-hidden bg-white shadow-sm data-[state=open]:shadow-md"
+                  className="border border-slate-200 rounded-lg mb-2 overflow-hidden bg-white shadow-sm data-[state=open]:shadow-md ctx-light"
                 >
                   <AccordionTrigger className="px-4 py-3 hover:no-underline text-left font-semibold text-slate-900 text-base">
                     {item.q}
@@ -706,7 +702,7 @@ export default async function SousTraitanceWebLillePage({
 
         {/* ── CTA FINAL ──────────────────────────────────────────────────────── */}
         <section className="relative py-14 md:py-28 overflow-hidden text-white bg-navy-900">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-white) / 0.15),transparent_60%)] pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -727,7 +723,7 @@ export default async function SousTraitanceWebLillePage({
               <Button
                 asChild
                 size="lg"
-                className="bg-white hover:bg-slate-50 text-indigo-700 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold shadow-2xl shadow-indigo-900/30 w-full sm:w-auto"
+                className="bg-white hover:bg-slate-50 text-indigo-700 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold shadow-2xl shadow-indigo-900/30 w-full sm:w-auto ctx-light"
               >
                 <LocalizedLink href="/booking">
                   <Sparkles className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
@@ -738,7 +734,7 @@ export default async function SousTraitanceWebLillePage({
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-white/40 text-white hover:bg-white/10 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base w-full sm:w-auto"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base w-full sm:w-auto"
               >
                 <LocalizedLink href="/contact">
                   Nous contacter
@@ -748,13 +744,14 @@ export default async function SousTraitanceWebLillePage({
 
             <p className="mt-6 md:mt-8 inline-flex items-center gap-2 text-xs sm:text-sm text-white/80">
               <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              Réponse garantie sous 4 heures ouvrées
+              Réponse sous 48 h ouvrées
             </p>
           </div>
         </section>
 
       </main>
       <Footer />
+      </div>
     </>
   );
 }

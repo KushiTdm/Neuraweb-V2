@@ -121,7 +121,7 @@ const SERVICES: Record<ServiceKey, ServiceCTAContent> = {
   },
   restaurants: {
     key: 'restaurants',
-    href: '/restaurants',
+    href: '/secteurs/restaurants-hotels',
     eyebrow: {
       fr: 'Service en lien',
       en: 'Related service',

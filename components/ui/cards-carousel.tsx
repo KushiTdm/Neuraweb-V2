@@ -36,7 +36,7 @@ export function ResponsiveCards({
   breakpoint = 'sm',
   gridClass = 'grid-cols-2 lg:grid-cols-4',
   gridGap = 'gap-6',
-  dotColor = '#ffffff',
+  dotColor = '#F0EDE5',
   carouselPadding = 1,
   className,
   showArrows = false,
@@ -108,7 +108,7 @@ export function CardsCarousel({
   autoPlay = false,
   autoPlayInterval = 4000,
   className,
-  dotColor = '#ffffff',
+  dotColor = '#F0EDE5',
   gap = 1,
   padding = 1,
 }: CardsCarouselProps) {
@@ -237,9 +237,9 @@ export function CardsCarousel({
               onClick={goPrev}
               className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-9 h-9 rounded-full backdrop-blur-sm transition-all duration-200 active:scale-95 touch-manipulation"
               style={{
-                background: 'rgba(7,15,38,0.72)',
-                border: '1px solid rgba(255,255,255,0.18)',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.35)',
+                background: 'rgba(0,70,67,0.85)',
+                border: '1px solid rgba(240,237,229,0.28)',
+                boxShadow: '0 2px 12px rgba(0,40,38,0.35)',
               }}
               aria-label="Slide précédent"
             >
@@ -249,9 +249,9 @@ export function CardsCarousel({
               onClick={goNext}
               className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-9 h-9 rounded-full backdrop-blur-sm transition-all duration-200 active:scale-95 touch-manipulation"
               style={{
-                background: 'rgba(7,15,38,0.72)',
-                border: '1px solid rgba(255,255,255,0.18)',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.35)',
+                background: 'rgba(0,70,67,0.85)',
+                border: '1px solid rgba(240,237,229,0.28)',
+                boxShadow: '0 2px 12px rgba(0,40,38,0.35)',
               }}
               aria-label="Slide suivant"
             >

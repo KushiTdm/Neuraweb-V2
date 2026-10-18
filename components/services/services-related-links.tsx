@@ -134,7 +134,7 @@ export function ServicesRelatedLinks({ language = 'fr' }: ServicesRelatedLinksPr
   const c = CONTENT[language] ?? CONTENT.fr;
 
   return (
-    <section className="relative py-20 px-6 bg-[#050510] border-t border-white/5">
+    <section className="relative py-20 px-6 bg-navy-950 border-t border-white/5">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">{c.title}</h2>
@@ -147,7 +147,7 @@ export function ServicesRelatedLinks({ language = 'fr' }: ServicesRelatedLinksPr
             <LocalizedLink
               key={`article-${i}`}
               href={item.href}
-              className="group flex flex-col gap-3 p-5 rounded-2xl bg-[#0e1b3d]/60 border border-white/10 hover:border-white/40 hover:bg-[#0e1b3d] transition-all duration-300"
+              className="group flex flex-col gap-3 p-5 rounded-2xl bg-navy-900/60 border border-white/10 hover:border-white/40 hover:bg-navy-900 transition-all duration-300"
             >
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/10 border border-white/20 text-white">
@@ -171,7 +171,7 @@ export function ServicesRelatedLinks({ language = 'fr' }: ServicesRelatedLinksPr
             <LocalizedLink
               key={`service-${i}`}
               href={item.href}
-              className="group flex flex-col gap-3 p-5 rounded-2xl bg-[#0e1b3d]/60 border border-white/10 hover:border-white/40 hover:bg-[#0e1b3d] transition-all duration-300"
+              className="group flex flex-col gap-3 p-5 rounded-2xl bg-navy-900/60 border border-white/10 hover:border-white/40 hover:bg-navy-900 transition-all duration-300"
             >
               <div className="flex items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-white/10 border border-white/20 text-white">

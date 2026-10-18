@@ -1,10 +1,9 @@
 'use client';
 
 import { useEffect, useState, useRef, useMemo } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import { useLanguage } from '@/contexts/language-context';
 import { useAnalytics } from '@/hooks/use-analytics';
+import { CoverImage } from '@/components/blog/cover-image';
 import { LocalizedLink } from '@/components/localized-link';
 import type { Language } from '@/lib/mdx';
 
@@ -60,6 +59,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
     if (!mounted) return;
     const featuredPosts = language === 'en' ? featuredEn : language === 'es' ? featuredEs : language === 'vi' ? featuredVi : featuredFr;
     if (featuredPosts.length <= 1) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const timer = setInterval(() => {
       setFeaturedIndex((i) => (i + 1) % featuredPosts.length);
     }, 5000);
@@ -148,6 +148,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
       subtitle: "Articles, tutoriels et conseils sur le développement web, l'IA et l'automatisation.",
       intro: "Bienvenue sur le blog NeuraWeb — la ressource de référence pour les entrepreneurs, startups et PME qui veulent exploiter les technologies web de demain. Nos experts partagent chaque semaine des guides pratiques, des analyses approfondies et des retours d'expérience concrets sur trois grands thèmes : le développement web avec Next.js et React, l'intégration de l'intelligence artificielle dans les processus métier, et l'automatisation des workflows avec des outils comme n8n, Make et Zapier. Que vous cherchiez à refondre votre site, déployer un chatbot IA, automatiser votre prospection commerciale ou comprendre les enjeux du SEO en 2026, vous trouverez ici des réponses directement applicables. Chaque article est rédigé par notre équipe de développeurs et consultants IA, avec un angle orienté résultats et ROI mesurable. Pas de contenu générique — uniquement des cas concrets, des chiffres réels et des recommandations actionnables pour accélérer votre transformation digitale.",
       featuredBadge: 'À LA UNE',
+      all: 'Tous',
       readArticle: "Lire l'article",
       searchPlaceholder: 'Rechercher un article, un mot-clé...',
       dateLabel: 'Date de publication',
@@ -169,6 +170,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
       subtitle: 'Articles, tutorials and tips on web development, AI and automation.',
       intro: 'Welcome to the NeuraWeb blog — your go-to resource for entrepreneurs, startups and SMBs looking to leverage tomorrow\'s web technologies. Our experts share weekly practical guides, in-depth analyses and real-world case studies on three major topics: web development with Next.js and React, integrating artificial intelligence into business processes, and workflow automation with tools like n8n, Make and Zapier. Whether you\'re looking to redesign your website, deploy an AI chatbot, automate your sales prospecting or understand SEO challenges in 2026, you\'ll find directly actionable answers here. Every article is written by our team of developers and AI consultants, with a results-driven, measurable ROI focus. No generic content — only concrete case studies, real numbers and actionable recommendations to accelerate your digital transformation and stay ahead of the competition.',
       featuredBadge: 'FEATURED',
+      all: 'All',
       readArticle: 'Read article',
       searchPlaceholder: 'Search an article, a keyword...',
       dateLabel: 'Publication date',
@@ -190,6 +192,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
       subtitle: 'Artículos, tutoriales y consejos sobre desarrollo web, IA y automatización.',
       intro: 'Bienvenido al blog de NeuraWeb — tu recurso de referencia para emprendedores, startups y pymes que quieren aprovechar las tecnologías web del futuro. Nuestros expertos comparten cada semana guías prácticas, análisis en profundidad y casos de uso reales sobre tres grandes temas: el desarrollo web con Next.js y React, la integración de la inteligencia artificial en los procesos de negocio, y la automatización de flujos de trabajo con herramientas como n8n, Make y Zapier. Ya sea que quieras renovar tu sitio web, desplegar un chatbot IA, automatizar tu prospección comercial o entender los desafíos del SEO en 2026, encontrarás aquí respuestas directamente aplicables. Cada artículo está redactado por nuestro equipo de desarrolladores y consultores en IA, con un enfoque orientado a resultados y ROI medible. Sin contenido genérico — solo casos concretos, cifras reales y recomendaciones accionables para acelerar tu transformación digital.',
       featuredBadge: 'DESTACADO',
+      all: 'Todos',
       readArticle: 'Leer el artículo',
       searchPlaceholder: 'Buscar un artículo, una palabra clave...',
       dateLabel: 'Fecha de publicación',
@@ -211,6 +214,7 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
       subtitle: 'Bài viết, hướng dẫn và kinh nghiệm thực tế về website, AI và tự động hóa.',
       intro: 'Chào mừng bạn đến với blog NeuraWeb — nơi chủ cửa hàng, hộ kinh doanh và doanh nghiệp vừa và nhỏ tại Việt Nam tìm được những kiến thức thực tế về công nghệ web. Mỗi tuần, đội ngũ lập trình viên và chuyên gia AI của chúng tôi chia sẻ hướng dẫn từng bước, phân tích chuyên sâu và các tình huống có thật xoay quanh ba chủ đề chính: thiết kế website với Next.js và React, ứng dụng trí tuệ nhân tạo vào công việc kinh doanh hằng ngày, và tự động hóa quy trình bằng n8n, Make hay Zapier. Dù bạn đang muốn có một trang giới thiệu cửa hàng để khách tìm thấy trên Google, làm mới website doanh nghiệp, triển khai chatbot AI trả lời khách 24/7, giảm phụ thuộc vào các app đặt món, hay hiểu rõ cách làm SEO năm 2026 — bạn đều tìm được câu trả lời áp dụng được ngay. Chúng tôi viết theo hướng kết quả: không nội dung chung chung, chỉ có tình huống cụ thể, con số thật và những việc bạn có thể bắt tay làm ngay.',
       featuredBadge: 'NỔI BẬT',
+      all: 'Tất cả',
       readArticle: 'Đọc bài viết',
       searchPlaceholder: 'Tìm bài viết, từ khóa...',
       dateLabel: 'Ngày đăng',
@@ -243,154 +247,119 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
     setSelectedCategory('all');
   };
 
-  // Category badge color map (cycles through a palette)
-  const CATEGORY_COLORS: Record<string, string> = {};
-  const PALETTE = [
-    'bg-gray-700',
-    'bg-purple-500',
-    'bg-teal-500',
-    'bg-orange-500',
-    'bg-pink-500',
-    'bg-green-500',
-    'bg-yellow-500',
-    'bg-red-500',
+  // Catégories : trois teintes de la charte (plus de couleurs arbitraires)
+  const CAT_STYLES = [
+    'bg-chypre text-creme',
+    'bg-chypre-20 text-chypre',
+    'border border-chypre/40 bg-creme text-chypre',
   ];
+  const CATEGORY_STYLES: Record<string, string> = {};
   categories.forEach((cat, i) => {
-    CATEGORY_COLORS[cat] = PALETTE[i % PALETTE.length];
+    CATEGORY_STYLES[cat] = CAT_STYLES[i % CAT_STYLES.length];
   });
+  const countByCategory = useMemo(() => {
+    const m: Record<string, number> = {};
+    allPosts.forEach((p) => { m[p.category] = (m[p.category] ?? 0) + 1; });
+    return m;
+  }, [allPosts]);
+
+  const hasFilters = searchQuery || selectedCategory !== 'all' || sortByDate !== 'newest';
 
   return (
     <>
-      {/* ─── Hero ─── */}
-      <section className="py-16 sm:py-20 px-4 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            {tr.title}{' '}
-            <span className="text-white">
-              NeuraWeb
-            </span>
+      {/* ─── En-tête compact ─── */}
+      <section className="px-4 pb-8 pt-28 sm:px-6 lg:pt-32">
+        <div className="mx-auto max-w-6xl">
+          <h1 className="mb-3 text-4xl text-chypre sm:text-5xl lg:text-6xl">
+            {tr.title} NeuraWeb
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            {tr.subtitle}
-          </p>
-          {tr.intro && (
-            <p className="text-sm text-gray-500 dark:text-gray-400 max-w-3xl mx-auto mt-4 leading-relaxed">
-              {tr.intro}
-            </p>
-          )}
+          <p className="max-w-2xl text-lg leading-relaxed text-chypre/90 sm:text-xl">{tr.subtitle}</p>
         </div>
       </section>
 
-      {/* ─── Latest / Featured Hero Card ─── */}
+      {/* ─── À la une : texte 50 % / illustration entière 50 % ─── */}
       {latestPost && (
-        <section className="px-4 mb-10">
-          <div className="max-w-6xl mx-auto">
-            <div className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50">
-              {/* Carousel if there are multiple featured */}
-              {featuredPosts.length > 1 && (
-                <>
-                  {featuredPosts.map((fp, idx) => (
-                    <div
-                      key={fp.slug}
-                      className={`transition-opacity duration-700 ${idx === featuredIndex ? 'block' : 'hidden'}`}
-                    >
-                      <HeroCard post={fp} tr={tr} formatDate={formatDate} categoryColors={CATEGORY_COLORS} />
-                    </div>
-                  ))}
-                  {/* Dots */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-                    {featuredPosts.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setFeaturedIndex(idx)}
-                        className={`h-1.5 rounded-full transition-all ${idx === featuredIndex ? 'w-8 bg-white' : 'w-2 bg-gray-400/60'}`}
-                        aria-label={`Slide ${idx + 1}`}
-                      />
-                    ))}
-                  </div>
-                  {/* Arrow */}
-                  <button
-                    onClick={() => setFeaturedIndex((i) => (i + 1) % featuredPosts.length)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/10 dark:bg-gray-800/60 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition"
-                    aria-label="Next"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </>
-              )}
-              {/* Single latest post if no featured carousel */}
-              {featuredPosts.length <= 1 && (
-                <HeroCard post={latestPost} tr={tr} formatDate={formatDate} categoryColors={CATEGORY_COLORS} />
-              )}
+        <section className="mb-10 px-4 sm:px-6">
+          <div className="mx-auto max-w-6xl">
+            <div className="overflow-hidden rounded-3xl border border-chypre/15 bg-creme">
+              {(featuredPosts.length > 1 ? featuredPosts : [latestPost]).map((fp, idx) => (
+                <div key={fp.slug} className={idx === (featuredPosts.length > 1 ? featuredIndex : 0) ? 'block' : 'hidden'}>
+                  <FeaturedCard post={fp} tr={tr} formatDate={formatDate} priority={idx === 0} onOpen={handleBlogClick} />
+                </div>
+              ))}
             </div>
+            {featuredPosts.length > 1 && (
+              <div className="mt-4 flex items-center justify-center gap-3">
+                {featuredPosts.map((fp, idx) => (
+                  <button
+                    key={fp.slug}
+                    onClick={() => setFeaturedIndex(idx)}
+                    className="flex h-6 items-center"
+                    aria-label={`${idx + 1} / ${featuredPosts.length}`}
+                    aria-current={idx === featuredIndex}
+                  >
+                    <span className={`block h-1.5 rounded-full transition-all ${idx === featuredIndex ? 'w-8 bg-chypre' : 'w-2 bg-chypre/35'}`} />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       )}
 
-      {/* ─── Search & Filters ─── */}
-      <section className="px-4 mb-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
-            {/* Search */}
-            <div className="relative flex-1">
-              <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
-                fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              >
+      {/* ─── Filtres collants : pastilles défilantes + recherche ─── */}
+      <section className="z-40 border-y border-chypre/10 bg-creme/90 px-4 py-3 backdrop-blur-md sm:px-6 lg:sticky lg:top-[72px] lg:transition-[top] lg:duration-500 lg:[html[data-nav-hidden='true']_&]:top-0">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 lg:flex-row lg:items-start">
+          <div
+            className="flex flex-wrap gap-2 lg:flex-1"
+            role="group"
+            aria-label={tr.contentType}
+          >
+            {['all', ...categories].map((cat) => {
+              const selected = selectedCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  aria-pressed={selected}
+                  className={`min-h-[44px] whitespace-nowrap rounded-full border px-4 text-sm font-semibold transition-colors ${
+                    selected ? 'border-chypre bg-chypre text-creme' : 'border-chypre/30 text-chypre hover:bg-chypre/10'
+                  }`}
+                >
+                  {cat === 'all' ? tr.all : cat}
+                  <span className={`ml-1.5 text-xs font-medium ${selected ? 'text-creme/80' : 'text-chypre/80'}`}>
+                    {cat === 'all' ? allPosts.length : countByCategory[cat]}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <div className="relative flex-1 lg:w-64 lg:flex-none">
+              <svg className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-chypre/80" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
               </svg>
               <input
-                type="text"
+                type="search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={tr.searchPlaceholder}
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400/50 focus:border-gray-400 transition"
+                aria-label={tr.searchPlaceholder}
+                className="min-h-[44px] w-full rounded-full border border-chypre/30 bg-creme pl-10 pr-4 text-sm text-chypre placeholder:text-chypre/60 focus:border-chypre focus:outline-none focus:ring-2 focus:ring-chypre/30"
               />
             </div>
-
-            {/* Date sort */}
-            <div className="relative">
-              <select
-                value={sortByDate}
-                onChange={(e) => setSortByDate(e.target.value as 'newest' | 'oldest')}
-                className="appearance-none pl-3 pr-9 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400/50 focus:border-gray-400 transition cursor-pointer"
-              >
-                <option value="newest">{tr.dateLabel} ↓ {tr.newest}</option>
-                <option value="oldest">{tr.dateLabel} ↑ {tr.oldest}</option>
-              </select>
-              <svg className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4M16 15l-4 4-4-4" />
-              </svg>
-            </div>
-
-            {/* Category filter */}
-            <div className="relative">
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="appearance-none pl-3 pr-9 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400/50 focus:border-gray-400 transition cursor-pointer"
-              >
-                <option value="all">{tr.contentType} — {tr.allTypes}</option>
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-              <svg className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-
-            {/* Reset */}
-            {(searchQuery || selectedCategory !== 'all' || sortByDate !== 'newest') && (
-              <button
-                onClick={handleReset}
-                className="flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-sm hover:border-red-400 hover:text-red-500 transition"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582M20 20v-5h-.581M5.635 19A9 9 0 1 0 4.583 9.001" />
-                </svg>
+            <select
+              value={sortByDate}
+              onChange={(e) => setSortByDate(e.target.value as 'newest' | 'oldest')}
+              aria-label={tr.dateLabel}
+              className="min-h-[44px] cursor-pointer rounded-full border border-chypre/30 bg-creme px-3 text-sm text-chypre focus:border-chypre focus:outline-none focus:ring-2 focus:ring-chypre/30"
+            >
+              <option value="newest">{tr.newest}</option>
+              <option value="oldest">{tr.oldest}</option>
+            </select>
+            {hasFilters && (
+              <button onClick={handleReset} className="min-h-[44px] shrink-0 rounded-full px-3 text-sm font-semibold text-chypre underline underline-offset-4">
                 {tr.reset}
               </button>
             )}
@@ -398,58 +367,50 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
         </div>
       </section>
 
-      {/* ─── Posts Grid ─── */}
-      <section className="px-4 pb-16">
-        <div className="max-w-6xl mx-auto">
+      {/* ─── Grille : l'illustration mène chaque carte ─── */}
+      <section className="px-4 pb-16 pt-10 sm:px-6">
+        <div className="mx-auto max-w-6xl">
           {paginatedPosts.length === 0 ? (
-            <div className="text-center py-20 bg-gray-50 dark:bg-gray-900/30 rounded-2xl">
-              <p className="text-gray-500 dark:text-gray-400">{tr.noResults}</p>
+            <div className="rounded-3xl border border-chypre/15 bg-chypre/[0.05] py-20 text-center">
+              <p className="text-chypre/90">{tr.noResults}</p>
             </div>
           ) : (
             <>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {paginatedPosts.map((post) => (
                   <article
                     key={post.slug}
                     data-blog-slug={post.slug}
                     data-blog-title={post.title}
-                    className="group bg-white dark:bg-gray-900/40 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-gray-400/50 hover:shadow-lg hover:shadow-gray-400/10 transition-all duration-300 flex flex-col"
+                    className="lift group relative flex flex-col overflow-hidden rounded-3xl border border-chypre/15 bg-creme transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,70,67,0.14)]"
                   >
-                    {/* Image */}
-                    <div className="relative h-44 w-full overflow-hidden flex-shrink-0">
-                      <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute top-3 left-3">
-                        <span className={`px-2.5 py-1 rounded-full text-xs font-semibold text-white ${CATEGORY_COLORS[post.category] ?? 'bg-gray-700'}`}>
-                          {post.category}
-                        </span>
-                      </div>
-                    </div>
+                    <CoverImage
+                      src={post.image}
+                      alt=""
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+                      className="aspect-[3/2] w-full border-b border-chypre/10"
+                      imgClassName="transition-transform duration-500 motion-safe:group-hover:scale-[1.03]"
+                    />
 
-                    {/* Content */}
-                    <div className="p-5 flex flex-col flex-1">
-                      <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-gray-900 dark:group-hover:text-white transition-colors line-clamp-2 leading-snug">
-                        <Link href={`/blog/${post.slug}`} onClick={() => handleBlogClick(post.slug, post.title)}>
+                    <div className="flex flex-1 flex-col p-5">
+                      <span className={`mb-3 self-start rounded-full px-3 py-1 text-xs font-semibold ${CATEGORY_STYLES[post.category] ?? CAT_STYLES[0]}`}>
+                        {post.category}
+                      </span>
+                      <h3 className="mb-2 line-clamp-2 font-display text-lg font-bold leading-snug text-chypre">
+                        {/* Lien étiré : toute la carte est cliquable */}
+                        <LocalizedLink
+                          href={`/blog/${post.slug}`}
+                          onClick={() => handleBlogClick(post.slug, post.title)}
+                          className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-chypre focus-visible:after:rounded-3xl"
+                        >
                           {post.title}
-                        </Link>
+                        </LocalizedLink>
                       </h3>
-                      <p className="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2 flex-1">
-                        {post.excerpt}
-                      </p>
-                      <div className="flex items-center gap-2 mt-auto">
-                        <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 bg-gray-700">
-                          <span className="text-white text-xs font-bold">N</span>
-                        </div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400 truncate">{post.author}</span>
-                        <span className="text-gray-300 dark:text-gray-600">•</span>
-                        <time className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                          {formatDate(post.date)}
-                        </time>
+                      <p className="mb-4 line-clamp-2 flex-1 text-sm text-chypre/85">{post.excerpt}</p>
+                      <div className="mt-auto flex items-center gap-2 text-xs text-chypre/80">
+                        <time>{formatDate(post.date)}</time>
+                        <span aria-hidden="true">·</span>
+                        <span>{post.readTime}</span>
                       </div>
                     </div>
                   </article>
@@ -458,16 +419,14 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="mt-10 flex justify-center items-center gap-2">
+                <nav className="mt-10 flex items-center justify-center gap-2" aria-label="Pagination">
                   <button
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-900 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-chypre/30 text-chypre transition hover:bg-chypre/10 disabled:cursor-not-allowed disabled:opacity-30"
                     aria-label="Previous"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                   </button>
 
                   {Array.from({ length: totalPages }, (_, i) => i + 1)
@@ -479,17 +438,14 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
                     }, [])
                     .map((p, i) =>
                       p === '...' ? (
-                        <span key={`ellipsis-${i}`} className="w-9 h-9 flex items-center justify-center text-gray-400 text-sm">
-                          ...
-                        </span>
+                        <span key={`ellipsis-${i}`} className="flex h-11 w-8 items-center justify-center text-chypre/80">…</span>
                       ) : (
                         <button
                           key={p}
                           onClick={() => setCurrentPage(p as number)}
-                          className={`w-9 h-9 flex items-center justify-center rounded-xl text-sm font-medium transition border ${
-                            currentPage === p
-                              ? 'bg-gray-900 text-white border-gray-900'
-                              : 'border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-gray-900 hover:text-gray-900'
+                          aria-current={currentPage === p ? 'page' : undefined}
+                          className={`flex h-11 w-11 items-center justify-center rounded-full border text-sm font-semibold transition ${
+                            currentPage === p ? 'border-chypre bg-chypre text-creme' : 'border-chypre/30 text-chypre hover:bg-chypre/10'
                           }`}
                         >
                           {p}
@@ -500,111 +456,91 @@ export function BlogListClient({ postsFr, postsEn, postsEs, postsVi, featuredFr,
                   <button
                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="w-9 h-9 flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-gray-900 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-chypre/30 text-chypre transition hover:bg-chypre/10 disabled:cursor-not-allowed disabled:opacity-30"
                     aria-label="Next"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                   </button>
-                </div>
+                </nav>
               )}
             </>
           )}
         </div>
       </section>
 
-      {/* ─── Newsletter Banner ─── */}
-      <section className="px-4 pb-16">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col sm:flex-row items-center gap-6 bg-gray-900 dark:bg-gray-800/50 rounded-2xl px-8 py-7 border border-gray-700">
-            {/* Icon */}
-            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
-
-            {/* Text */}
-            <div className="flex-1 text-center sm:text-left">
-              <p className="font-semibold text-white text-base">{tr.newsletter}</p>
-              <p className="text-gray-400 text-sm mt-0.5">{tr.newsletterDesc}</p>
-            </div>
-
-            {/* Form */}
-            <div className="flex items-center gap-2 w-full sm:w-auto">
-              <input
-                type="email"
-                placeholder={tr.emailPlaceholder}
-                className="flex-1 sm:w-60 px-4 py-2.5 rounded-xl bg-gray-800 dark:bg-gray-700 border border-gray-700 dark:border-gray-600 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400/50 focus:border-gray-400 transition"
-              />
-              <button className="flex-shrink-0 px-5 py-2.5 rounded-xl bg-white hover:bg-gray-100 text-gray-900 text-sm font-semibold transition">
-                {tr.subscribe} →
-              </button>
-            </div>
+      {/* ─── Newsletter ─── */}
+      <section className="px-4 pb-12 sm:px-6">
+        <div className="ctx-dark mx-auto flex max-w-6xl flex-col items-center gap-6 rounded-3xl bg-chypre px-6 py-8 sm:flex-row sm:px-8">
+          <div className="flex-1 text-center sm:text-left">
+            <p className="font-display text-lg font-bold text-creme">{tr.newsletter}</p>
+            <p className="mt-0.5 text-sm text-creme/85">{tr.newsletterDesc}</p>
+          </div>
+          <div className="flex w-full items-center gap-2 sm:w-auto">
+            <input
+              type="email"
+              placeholder={tr.emailPlaceholder}
+              aria-label={tr.emailPlaceholder}
+              className="min-h-[44px] flex-1 rounded-full border border-creme/30 bg-creme/10 px-4 text-sm text-creme placeholder:text-creme/70 focus:border-creme focus:outline-none focus:ring-2 focus:ring-creme/40 sm:w-60"
+            />
+            <button className="min-h-[44px] shrink-0 rounded-full bg-creme px-5 text-sm font-semibold text-chypre transition-transform hover:scale-[1.03]">
+              {tr.subscribe} →
+            </button>
           </div>
         </div>
       </section>
+
+      {/* ─── Texte de présentation (SEO) : sous la grille pour ne pas repousser les articles ─── */}
+      {tr.intro && (
+        <section className="px-4 pb-20 sm:px-6">
+          <p className="mx-auto max-w-3xl text-sm leading-relaxed text-chypre/80">{tr.intro}</p>
+        </section>
+      )}
     </>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// HeroCard sub-component (latest/featured post)
+// FeaturedCard : « à la une » — texte à gauche, illustration entière à droite
 // ─────────────────────────────────────────────────────────────────────────────
-interface HeroCardProps {
+interface FeaturedCardProps {
   post: BlogPostMeta;
   tr: Record<string, string>;
   formatDate: (d: string) => string;
-  categoryColors: Record<string, string>;
+  priority: boolean;
+  onOpen: (slug: string, title: string) => void;
 }
 
-function HeroCard({ post, tr, formatDate, categoryColors }: HeroCardProps) {
+function FeaturedCard({ post, tr, formatDate, priority, onOpen }: FeaturedCardProps) {
   return (
-    <div className="flex flex-col md:flex-row min-h-[340px]">
-      {/* Text side */}
-      <div className="flex-1 p-8 flex flex-col justify-center z-10">
-        <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-gray-900 text-white mb-4 self-start tracking-wide">
+    <div className="grid md:grid-cols-2">
+      <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10 max-md:order-last">
+        <span className="mb-4 self-start rounded-full bg-chypre px-3 py-1 text-xs font-bold tracking-wide text-creme">
           {tr.featuredBadge}
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">
-          {post.title}
-        </h2>
-        <p className="text-gray-600 dark:text-gray-300 mb-6 line-clamp-2 max-w-md">
-          {post.excerpt}
-        </p>
-        <div className="flex items-center gap-2 mb-6 text-sm text-gray-500 dark:text-gray-400">
-          <div className="w-7 h-7 rounded-full flex items-center justify-center bg-gray-700">
-            <span className="text-white text-xs font-bold">N</span>
-          </div>
-          <span>{post.author}</span>
-          <span>•</span>
+        <h2 className="mb-3 font-impact text-2xl font-black leading-tight text-chypre sm:text-3xl">{post.title}</h2>
+        <p className="mb-5 line-clamp-3 max-w-md text-chypre/90">{post.excerpt}</p>
+        <div className="mb-6 flex items-center gap-2 text-sm text-chypre/80">
           <time>{formatDate(post.date)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{post.readTime}</span>
         </div>
-        <Link
+        <LocalizedLink
           href={`/blog/${post.slug}`}
-          className="inline-flex items-center gap-2 self-start px-5 py-2.5 rounded-xl border-2 border-gray-900 dark:border-white text-gray-900 dark:text-white font-semibold text-sm hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-all duration-200"
+          onClick={() => onOpen(post.slug, post.title)}
+          className="inline-flex min-h-[48px] items-center gap-2 self-start rounded-full bg-chypre px-6 text-sm font-semibold text-creme transition-transform hover:scale-[1.03]"
         >
           {tr.readArticle}
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </Link>
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </LocalizedLink>
       </div>
 
-      {/* Image side */}
-      <div className="relative md:w-[45%] min-h-[220px] md:min-h-0">
-        <Image
-          src={post.image}
-          alt={post.title}
-          fill
-          sizes="(max-width: 768px) 100vw, 45vw"
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-white dark:from-gray-900/90 via-transparent to-transparent md:block hidden" />
-        <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-gray-900/90 via-transparent to-transparent md:hidden" />
-      </div>
+      <CoverImage
+        src={post.image}
+        alt={post.title}
+        sizes="(max-width: 768px) 100vw, 560px"
+        priority={priority}
+        className="aspect-[3/2] border-b border-chypre/10 md:aspect-auto md:min-h-[340px] md:border-b-0 md:border-l"
+      />
     </div>
   );
 }

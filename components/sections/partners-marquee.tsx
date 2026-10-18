@@ -19,10 +19,10 @@ export function PartnersMarquee() {
   const label = LABELS[language as string] ?? LABELS.fr;
 
   return (
-    <section className="py-8 border-b border-navy-900/10 bg-white">
+    <section className="border-b border-chypre/15 bg-creme py-8">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row md:items-center gap-4 md:gap-10">
-        <p className="text-sm font-semibold text-navy-900 whitespace-nowrap">{label}</p>
-        <ul className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-slate-600">
+        <p className="text-sm font-semibold text-chypre whitespace-nowrap">{label}</p>
+        <ul className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-chypre/80">
           {STACK.map((name) => (
             <li key={name}>{name}</li>
           ))}

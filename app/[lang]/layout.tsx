@@ -1,6 +1,8 @@
 import './globals.css';
+import './themes.css';
 import type { Metadata, Viewport } from 'next';
-import { Inter, Inter_Tight, JetBrains_Mono } from 'next/font/google';
+import { Inter, Bricolage_Grotesque, JetBrains_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import { ThemeProvider } from '@/components/theme-provider';
 import { LanguageProvider } from '@/contexts/language-context';
 import { CookieConsentProvider } from '@/contexts/cookie-consent-context';
@@ -19,18 +21,30 @@ import { notFound } from 'next/navigation';
 
 // ─── Fonts ────────────────────────────────────────────────────────────────────
 const inter = Inter({
-  subsets: ['latin'],
+  subsets: ['latin', 'latin-ext', 'vietnamese'],
   display: 'swap',
   variable: '--font-inter',
   weight: ['400', '500', '700'],
   preload: true,
 });
 
-const interTight = Inter_Tight({
-  subsets: ['latin'],
+// Primaire : titres, boutons, navigation (plaquette B — rétro chaleureux)
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin', 'latin-ext', 'vietnamese'],
   display: 'swap',
-  variable: '--font-inter-tight',
-  weight: ['700', '800'],
+  variable: '--font-bricolage',
+  weight: ['600', '700', '800'],
+  preload: true,
+});
+
+// Principale : logo et titres d'impact — Fraunces 72pt Soft Black, auto-hébergée
+// (sous-ensemble latin + vietnamien, ~22 Ko ; source : design-sources/fonts/Fraunces.zip)
+const fraunces = localFont({
+  src: '../fonts/Fraunces-SoftBlack.woff2',
+  weight: '900',
+  style: 'normal',
+  display: 'swap',
+  variable: '--font-fraunces',
   preload: true,
 });
 
@@ -210,7 +224,7 @@ export default async function LangLayout({
     <html
       lang={lang}
       suppressHydrationWarning
-      className={`${inter.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${bricolage.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
     >
       <head>
         {/* Préconnexion aux origines tierces critiques */}

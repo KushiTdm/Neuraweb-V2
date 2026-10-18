@@ -34,15 +34,15 @@ export function TestimonialsSection() {
   }));
 
   return (
-    <section className="py-20 lg:py-28 overflow-hidden" style={{ background: '#F7FAFD' }}>
+    <section className="overflow-hidden bg-creme py-20 lg:py-28 sec-screen">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-14">
           <div>
-            <span className="section-chip section-chip-light mb-4 inline-flex">
-              <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full bg-chypre/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-chypre">
+              <Star className="h-3 w-3 fill-chypre text-chypre" aria-hidden="true" />
               {labels.chip}
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight max-w-xl">
+            <h2 className="font-impact text-3xl sm:text-4xl lg:text-5xl font-black text-chypre leading-tight max-w-xl">
               {labels.title}
             </h2>
           </div>

@@ -157,6 +157,7 @@ export default async function BlogPostPage({
       <JsonLd id={`article-schema-${slug}`} data={articleSchema} />
       {faqSchema && <JsonLd id={`faq-schema-${slug}`} data={faqSchema} />}
       <JsonLd id={`breadcrumb-schema-${slug}`} data={breadcrumbData} />
+      <div className="theme-accueil">
       <Header />
       <main id="main-content">
         <BlogPostClient
@@ -166,6 +167,7 @@ export default async function BlogPostPage({
         />
       </main>
       <Footer />
+      </div>
     </>
   );
 }

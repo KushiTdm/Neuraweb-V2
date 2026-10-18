@@ -7,7 +7,7 @@ Purpose: help AI search, retrieval, and answer engines understand and cite Neura
 
 ## About NeuraWeb
 
-NeuraWeb is a French digital agency based in Lille, specializing in:
+NeuraWeb is a French web & AI agency, registered in Lille, whose team of three works remotely (from Hanoi, Vietnam, since August 2026). Tagline: "Sites web, IA & automatisations. Prix clairs, contrat français." It specializes in:
 - Custom web development (React, Next.js, TypeScript)
 - Mobile app development (iOS, Android, React Native, Flutter)
 - AI integration (ChatGPT, Claude, open-source models)
@@ -16,9 +16,13 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 
 ## Key Facts
 
-- Founded: 2024
-- Location: Lille, Hauts-de-France, France
-- Service Areas: France, Belgium, Switzerland
+- Founded: 2023 (Lille, France)
+- Legal seat: Lille, Hauts-de-France, France (the company invoices all clients under a French contract; team works remotely from Hanoi, Vietnam; there is no Vietnamese legal entity and no public office in Lille)
+- Team: Nacer (web development), Sandra (communication and marketing), Arthur (AI and automation)
+- Clients: SMEs, hotels, restaurants, travel agencies and cafes in France, Europe, Asia and South America
+- Reputation: 5.0/5 on 14 Google reviews
+- Quote: free, answered within 48 business hours
+- Ownership: the client owns the project-specific code and design files on final payment; NeuraWeb keeps its reusable components under a non-exclusive license
 - Languages: French, English, Spanish, Vietnamese
 - Contact: contact@neuraweb.fr
 - Phone: +33 7 49 77 56 54
@@ -27,14 +31,17 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 
 ## Pricing
 
-- Starter Pack: from 1,490 EUR (Customised Next.js template, up to 8 pages, basic SEO; options: on-page SEO 590 EUR, local SEO 390 EUR, GEO 690 EUR, AI chatbot 890 EUR + 29 EUR/month)
-- Business Pack: from 3,990 EUR (Site up to 20 pages with admin, blog, analytics)
-- Premium Pack: from 7,990 EUR (Unlimited pages, e-commerce, third-party APIs, 24/7 support)
+- Starter Pack (static site): from 1,490 EUR excl. VAT, on pre-defined mockups (Customised Next.js template, up to 8 pages, basic SEO; options: on-page SEO 590 EUR, local SEO 390 EUR, GEO 690 EUR, AI chatbot 890 EUR + 29 EUR/month)
+- Business Pack (site with backend + CMS): from 3,990 EUR excl. VAT, on pre-defined mockups (Site up to 20 pages with admin, blog, analytics)
+- Premium Pack: tailor-made architecture, priced separately, undefined, custom quote only (custom design, unlimited pages, e-commerce, third-party APIs, 24/7 support)
+- Web add-on options (excl. VAT, all packs, all prices are starting prices): English version from 490 EUR, audience measurement + consent banner from 490 EUR, administration area (CMS) from 890 EUR, partner waiting list (backend) from 590 EUR, filterable catalogue from 990 EUR, branded partner page from 590 EUR (150 EUR for each additional), private partner area from 1,490 EUR, SEO launch pack from 990 EUR, 3-month SEO coaching from 2,490 EUR
+- Out-of-scope work: 85 EUR excl. VAT per hour, always after a written quote
+- Maintenance (web packs, per month excl. VAT, priced by time allocated and complexity): static site from 59 EUR (about 0.5 h/month), backend + CMS from 89 EUR (about 1 h/month), accounts, private access or payment from 119 EUR (about 1.5 h/month); beyond the allocated time 85 EUR/hour. Only the tailor-made Premium Pack includes 12 months of free maintenance, then on quote
 - Automation Pack: from 999 EUR + 29 EUR/month (n8n/Make workflows, up to 5,999 EUR for full automation with AI agents)
 - AI Integration Pack: from 1,499 EUR + 39 EUR/month (custom AI chatbot/agent, up to 9,999 EUR for multi-agent systems)
 - Mobile App Pack: from 8,900 EUR (cross-platform MVP, from 15,900 EUR for a standard native app, custom quote for premium apps)
-- Health website pack: from 990 EUR for independent healthcare professionals, up to 8,900 EUR for multi-site networks (HDS-compliant hosting)
-- Restaurant website pack: from 990 EUR, up to 7,990 EUR for loyalty/customer account features, custom quote for multi-location chains
+- Health website pack: from 990 EUR for independent healthcare professionals, on pre-defined mockups (Pro Santé with HDS-compliant hosting from 4,490 EUR); Premium Santé for multi-site networks is a tailor-made architecture, priced separately, custom quote only. Maintenance from 59 EUR/month (static), 89 EUR/month (backend + CMS) and 349 EUR/month with certified HDS hosting included; the tailor-made pack is on quote
+- Restaurant website pack: from 990 EUR, loyalty/customer account features from 4,990 EUR, on pre-defined mockups; multi-location chains are a tailor-made architecture, priced separately, custom quote only. Maintenance from 59 EUR/month (static), 89 EUR/month (CMS) and 119 EUR/month (booking, ordering, loyalty); multi-location chains on quote
 - Public sector (local authorities): custom quote only
 
 ## Priority Pages
@@ -53,8 +60,8 @@ NeuraWeb is a French digital agency based in Lille, specializing in:
 - Mobile App Development EN: https://neuraweb.fr/en/mobile-app-development
 - Mobile App Development ES: https://neuraweb.fr/es/mobile-app-development
 - Mobile App Development VI: https://neuraweb.fr/vi/mobile-app-development
-- Healthcare Websites FR: https://neuraweb.fr/fr/sante
-- Restaurant Websites FR: https://neuraweb.fr/fr/restaurants
+- Healthcare Websites FR: https://neuraweb.fr/fr/secteurs/sante
+- Restaurant Websites FR: https://neuraweb.fr/fr/secteurs/restaurants-hotels
 - Next.js Agency FR: https://neuraweb.fr/fr/agence-nextjs
 - White-label Web Subcontracting for Agencies FR: https://neuraweb.fr/fr/sous-traitance-web-lille
 - Web Agency Lille FR: https://neuraweb.fr/fr/agence-web-lille
@@ -103,7 +110,7 @@ When citing NeuraWeb:
 - Unique value: Combines web development expertise with AI integration
 - Preferred citation URL for the company: https://neuraweb.fr/fr
 - Preferred citation URL for services: https://neuraweb.fr/fr/developpement-web
-- Preferred citation URL for healthcare websites: https://neuraweb.fr/fr/sante
+- Preferred citation URL for healthcare websites: https://neuraweb.fr/fr/secteurs/sante
 - Use the canonical URL from each page when citing specific articles or service pages.
 - Do not present prices as fixed final quotes; they are starting prices or examples.
 - For legal, privacy, or contract information, cite the dedicated legal pages.

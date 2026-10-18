@@ -80,8 +80,8 @@ export function DemoCTA({
   const href = copy.path ? `${DEMO_URL}${copy.path}` : DEMO_URL;
 
   return (
-    <section className={cn('relative px-4 sm:px-6 lg:px-8 py-12 md:py-16', className)}>
-      <div className="relative max-w-6xl mx-auto overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0E1B3D] to-[#070F26] p-8 sm:p-10 lg:p-12 shadow-2xl shadow-indigo-900/20">
+    <section className={cn('sec-unflip ctx-dark relative px-4 sm:px-6 lg:px-8 py-12 md:py-16', className)}>
+      <div className="relative max-w-6xl mx-auto overflow-hidden rounded-3xl glass-dark border border-white/10 bg-gradient-to-br from-navy-900 to-navy-950 p-8 sm:p-10 lg:p-12 shadow-2xl shadow-indigo-900/20">
         {/* halos décoratifs */}
         <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-cyan-500/15 blur-3xl" />
@@ -100,7 +100,7 @@ export function DemoCTA({
               </span>
             </h2>
 
-            <p className="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-white/60">
+            <p className="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-white">
               {copy.text}
             </p>
 
@@ -108,7 +108,7 @@ export function DemoCTA({
               {PILLARS.map(({ icon: Icon, label }) => (
                 <li
                   key={label}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-white/8 px-3 py-1 text-xs font-medium text-white/75"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white"
                 >
                   <Icon className="h-3.5 w-3.5 text-sky-300" />
                   {label}
@@ -122,12 +122,12 @@ export function DemoCTA({
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[#070F26] shadow-lg shadow-white/10 transition hover:-translate-y-0.5 hover:opacity-90"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-navy-950 shadow-lg shadow-white/10 transition hover:-translate-y-0.5 hover:opacity-90"
             >
               Voir la démo
               <ArrowRight className="h-4 w-4" />
             </a>
-            <p className="mt-3 text-xs text-white/40">
+            <p className="mt-3 text-xs text-white">
               Maquette interactive — données fictives, sans installation.
             </p>
           </div>

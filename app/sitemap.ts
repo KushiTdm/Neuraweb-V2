@@ -19,6 +19,7 @@ const STATIC_PAGES: Record<string, {
   equipe:                     { priority: 0.7, changeFrequency: 'monthly',  lastModified: new Date('2026-03-15') },
   contact:                    { priority: 0.8, changeFrequency: 'monthly',  lastModified: new Date('2026-03-01') },
   blog:                       { priority: 0.8, changeFrequency: 'weekly' },  // today — mis à jour à chaque article
+  secteurs:                   { priority: 0.8, changeFrequency: 'monthly',  lastModified: new Date('2026-10-18') },
   booking:                    { priority: 0.9, changeFrequency: 'monthly',  lastModified: new Date('2026-03-01') },
   // Pages légales — très stables, date fixe
   'mentions-legales':         { priority: 0.3, changeFrequency: 'yearly',   lastModified: MIGRATION_DATE },
@@ -72,42 +73,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Page Santé — FR uniquement (canal de conversion vertical, pas traduit)
   urls.push({
-    url: `${BASE_URL}/fr/sante`,
+    url: `${BASE_URL}/fr/secteurs/sante`,
     lastModified: new Date('2026-04-15'),
     changeFrequency: 'monthly',
     priority: 0.95,
     alternates: {
       languages: {
-        fr: `${BASE_URL}/fr/sante`,
-        'x-default': `${BASE_URL}/fr/sante`,
+        fr: `${BASE_URL}/fr/secteurs/sante`,
+        'x-default': `${BASE_URL}/fr/secteurs/sante`,
       },
     },
   });
 
   // Page Restaurants — FR uniquement (canal de conversion vertical, pas traduit)
   urls.push({
-    url: `${BASE_URL}/fr/restaurants`,
+    url: `${BASE_URL}/fr/secteurs/restaurants-hotels`,
     lastModified: new Date('2026-06-13'),
     changeFrequency: 'monthly',
     priority: 0.95,
     alternates: {
       languages: {
-        fr: `${BASE_URL}/fr/restaurants`,
-        'x-default': `${BASE_URL}/fr/restaurants`,
+        fr: `${BASE_URL}/fr/secteurs/restaurants-hotels`,
+        'x-default': `${BASE_URL}/fr/secteurs/restaurants-hotels`,
       },
     },
   });
 
   // Page Collectivités — FR uniquement (canal de conversion B2G, pas traduit)
   urls.push({
-    url: `${BASE_URL}/fr/collectivites`,
+    url: `${BASE_URL}/fr/secteurs/collectivites`,
     lastModified: new Date('2026-06-18'),
     changeFrequency: 'monthly',
     priority: 0.95,
     alternates: {
       languages: {
-        fr: `${BASE_URL}/fr/collectivites`,
-        'x-default': `${BASE_URL}/fr/collectivites`,
+        fr: `${BASE_URL}/fr/secteurs/collectivites`,
+        'x-default': `${BASE_URL}/fr/secteurs/collectivites`,
       },
     },
   });

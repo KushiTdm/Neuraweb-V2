@@ -14,7 +14,7 @@ const STEP_DATA = {
       title: 'Audit & Analyse',
       description: 'Appel découverte gratuit de 30 minutes. Analyse de votre marché, concurrents et cibles. Cahier des charges détaillé et roadmap sur mesure.',
       icon: '🔍',
-      colorHex: '#3b82f6',
+      colorHex: 'rgb(var(--c-blue-500))',
       accentClass: 'from-white/20 to-white/5 border-white/30',
       badgeClass: 'bg-white/15 text-white border-white/30',
       dotClass: 'bg-white',
@@ -22,9 +22,9 @@ const STEP_DATA = {
     },
     {
       title: 'Design & UX',
-      description: 'Wireframes interactifs validés avec vous. Design system sur Figma. Maquettes responsive testées sur utilisateurs réels.',
+      description: 'Wireframes interactifs validés avec vous. Design system. Maquettes responsive testées sur utilisateurs réels.',
       icon: '🎨',
-      colorHex: '#a855f7',
+      colorHex: 'rgb(var(--c-purple-500))',
       accentClass: 'from-purple-500/20 to-purple-600/5 border-purple-500/30',
       badgeClass: 'bg-purple-500/20 text-purple-400 border-purple-500/40',
       dotClass: 'bg-purple-500',
@@ -34,7 +34,7 @@ const STEP_DATA = {
       title: 'Développement',
       description: 'Stack moderne : React, Next.js 15, TypeScript, Tailwind CSS. Sprints de 2 semaines avec démos. Code versionné sur GitHub.',
       icon: '⚡',
-      colorHex: '#f97316',
+      colorHex: 'rgb(var(--c-orange-500))',
       accentClass: 'from-orange-500/20 to-orange-600/5 border-orange-500/30',
       badgeClass: 'bg-orange-500/20 text-orange-400 border-orange-500/40',
       dotClass: 'bg-orange-500',
@@ -44,7 +44,7 @@ const STEP_DATA = {
       title: 'Tests & Optimisation',
       description: 'Tests automatisés et manuels. Score Lighthouse 90+ garanti. Optimisation Core Web Vitals et SEO technique.',
       icon: '✅',
-      colorHex: '#10b981',
+      colorHex: 'rgb(var(--c-emerald-500))',
       accentClass: 'from-emerald-500/20 to-emerald-600/5 border-emerald-500/30',
       badgeClass: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
       dotClass: 'bg-emerald-500',
@@ -54,7 +54,7 @@ const STEP_DATA = {
       title: 'Livraison & Support',
       description: 'Déploiement sur Vercel ou votre serveur. Formation équipe incluse. Support réactif 3 mois inclus dans tous les packs.',
       icon: '🚀',
-      colorHex: '#eab308',
+      colorHex: 'rgb(var(--c-yellow-500))',
       accentClass: 'from-yellow-500/20 to-yellow-600/5 border-yellow-500/30',
       badgeClass: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40',
       dotClass: 'bg-yellow-500',
@@ -66,7 +66,7 @@ const STEP_DATA = {
       title: 'Audit & Analysis',
       description: 'Free 30-minute discovery call. Market, competitor and target analysis. Detailed specifications and tailored roadmap.',
       icon: '🔍',
-      colorHex: '#3b82f6',
+      colorHex: 'rgb(var(--c-blue-500))',
       accentClass: 'from-white/20 to-white/5 border-white/30',
       badgeClass: 'bg-white/15 text-white border-white/30',
       dotClass: 'bg-white',
@@ -74,9 +74,9 @@ const STEP_DATA = {
     },
     {
       title: 'Design & UX',
-      description: 'Interactive wireframes validated with you. Figma design system. Responsive mockups tested with real users.',
+      description: 'Interactive wireframes validated with you. Design system. Responsive mockups tested with real users.',
       icon: '🎨',
-      colorHex: '#a855f7',
+      colorHex: 'rgb(var(--c-purple-500))',
       accentClass: 'from-purple-500/20 to-purple-600/5 border-purple-500/30',
       badgeClass: 'bg-purple-500/20 text-purple-400 border-purple-500/40',
       dotClass: 'bg-purple-500',
@@ -86,7 +86,7 @@ const STEP_DATA = {
       title: 'Development',
       description: 'Modern stack: React, Next.js 15, TypeScript, Tailwind CSS. 2-week sprints with demos. Code versioned on GitHub.',
       icon: '⚡',
-      colorHex: '#f97316',
+      colorHex: 'rgb(var(--c-orange-500))',
       accentClass: 'from-orange-500/20 to-orange-600/5 border-orange-500/30',
       badgeClass: 'bg-orange-500/20 text-orange-400 border-orange-500/40',
       dotClass: 'bg-orange-500',
@@ -96,7 +96,7 @@ const STEP_DATA = {
       title: 'Testing & Optimization',
       description: 'Automated and manual testing. Lighthouse score 90+ guaranteed. Core Web Vitals and technical SEO optimization.',
       icon: '✅',
-      colorHex: '#10b981',
+      colorHex: 'rgb(var(--c-emerald-500))',
       accentClass: 'from-emerald-500/20 to-emerald-600/5 border-emerald-500/30',
       badgeClass: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
       dotClass: 'bg-emerald-500',
@@ -106,7 +106,7 @@ const STEP_DATA = {
       title: 'Delivery & Support',
       description: 'Deployment on Vercel or your server. Team training included. Responsive 3-month support included in all packs.',
       icon: '🚀',
-      colorHex: '#eab308',
+      colorHex: 'rgb(var(--c-yellow-500))',
       accentClass: 'from-yellow-500/20 to-yellow-600/5 border-yellow-500/30',
       badgeClass: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40',
       dotClass: 'bg-yellow-500',
@@ -118,7 +118,7 @@ const STEP_DATA = {
       title: 'Auditoría y Análisis',
       description: 'Llamada gratuita de 30 minutos. Análisis de mercado, competidores y público. Pliego de condiciones y roadmap personalizado.',
       icon: '🔍',
-      colorHex: '#3b82f6',
+      colorHex: 'rgb(var(--c-blue-500))',
       accentClass: 'from-white/20 to-white/5 border-white/30',
       badgeClass: 'bg-white/15 text-white border-white/30',
       dotClass: 'bg-white',
@@ -126,9 +126,9 @@ const STEP_DATA = {
     },
     {
       title: 'Diseño y UX',
-      description: 'Wireframes interactivos validados contigo. Design system en Figma. Mockups responsive testeados con usuarios reales.',
+      description: 'Wireframes interactivos validados contigo. Design system. Mockups responsive testeados con usuarios reales.',
       icon: '🎨',
-      colorHex: '#a855f7',
+      colorHex: 'rgb(var(--c-purple-500))',
       accentClass: 'from-purple-500/20 to-purple-600/5 border-purple-500/30',
       badgeClass: 'bg-purple-500/20 text-purple-400 border-purple-500/40',
       dotClass: 'bg-purple-500',
@@ -138,7 +138,7 @@ const STEP_DATA = {
       title: 'Desarrollo',
       description: 'Stack moderno: React, Next.js 15, TypeScript, Tailwind CSS. Sprints de 2 semanas con demos. Código versionado en GitHub.',
       icon: '⚡',
-      colorHex: '#f97316',
+      colorHex: 'rgb(var(--c-orange-500))',
       accentClass: 'from-orange-500/20 to-orange-600/5 border-orange-500/30',
       badgeClass: 'bg-orange-500/20 text-orange-400 border-orange-500/40',
       dotClass: 'bg-orange-500',
@@ -148,7 +148,7 @@ const STEP_DATA = {
       title: 'Pruebas y Optimización',
       description: 'Tests automatizados y manuales. Lighthouse 90+ garantizado. Optimización Core Web Vitals y SEO técnico.',
       icon: '✅',
-      colorHex: '#10b981',
+      colorHex: 'rgb(var(--c-emerald-500))',
       accentClass: 'from-emerald-500/20 to-emerald-600/5 border-emerald-500/30',
       badgeClass: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
       dotClass: 'bg-emerald-500',
@@ -158,7 +158,7 @@ const STEP_DATA = {
       title: 'Entrega y Soporte',
       description: 'Despliegue en Vercel o tu servidor. Formación del equipo incluida. Soporte reactivo 3 meses incluido en todos los paquetes.',
       icon: '🚀',
-      colorHex: '#eab308',
+      colorHex: 'rgb(var(--c-yellow-500))',
       accentClass: 'from-yellow-500/20 to-yellow-600/5 border-yellow-500/30',
       badgeClass: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40',
       dotClass: 'bg-yellow-500',
@@ -170,7 +170,7 @@ const STEP_DATA = {
       title: 'Audit & Analyse',
       description: 'Appel découverte gratuit de 30 minutes. Analyse de votre marché, concurrents et cibles. Cahier des charges détaillé et roadmap sur mesure.',
       icon: '🔍',
-      colorHex: '#3b82f6',
+      colorHex: 'rgb(var(--c-blue-500))',
       accentClass: 'from-white/20 to-white/5 border-white/30',
       badgeClass: 'bg-white/15 text-white border-white/30',
       dotClass: 'bg-white',
@@ -178,9 +178,9 @@ const STEP_DATA = {
     },
     {
       title: 'Design & UX',
-      description: 'Wireframes interactifs validés avec vous. Design system sur Figma. Maquettes responsive testées sur utilisateurs réels.',
+      description: 'Wireframes interactifs validés avec vous. Design system. Maquettes responsive testées sur utilisateurs réels.',
       icon: '🎨',
-      colorHex: '#a855f7',
+      colorHex: 'rgb(var(--c-purple-500))',
       accentClass: 'from-purple-500/20 to-purple-600/5 border-purple-500/30',
       badgeClass: 'bg-purple-500/20 text-purple-400 border-purple-500/40',
       dotClass: 'bg-purple-500',
@@ -190,7 +190,7 @@ const STEP_DATA = {
       title: 'Développement',
       description: 'Stack moderne : React, Next.js 15, TypeScript, Tailwind CSS. Sprints de 2 semaines avec démos. Code versionné sur GitHub.',
       icon: '⚡',
-      colorHex: '#f97316',
+      colorHex: 'rgb(var(--c-orange-500))',
       accentClass: 'from-orange-500/20 to-orange-600/5 border-orange-500/30',
       badgeClass: 'bg-orange-500/20 text-orange-400 border-orange-500/40',
       dotClass: 'bg-orange-500',
@@ -200,7 +200,7 @@ const STEP_DATA = {
       title: 'Tests & Optimisation',
       description: 'Tests automatisés et manuels. Score Lighthouse 90+ garanti. Optimisation Core Web Vitals et SEO technique.',
       icon: '✅',
-      colorHex: '#10b981',
+      colorHex: 'rgb(var(--c-emerald-500))',
       accentClass: 'from-emerald-500/20 to-emerald-600/5 border-emerald-500/30',
       badgeClass: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/40',
       dotClass: 'bg-emerald-500',
@@ -210,7 +210,7 @@ const STEP_DATA = {
       title: 'Livraison & Support',
       description: 'Déploiement sur Vercel ou votre serveur. Formation équipe incluse. Support réactif 3 mois inclus dans tous les packs.',
       icon: '🚀',
-      colorHex: '#eab308',
+      colorHex: 'rgb(var(--c-yellow-500))',
       accentClass: 'from-yellow-500/20 to-yellow-600/5 border-yellow-500/30',
       badgeClass: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/40',
       dotClass: 'bg-yellow-500',
@@ -277,7 +277,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
   // SEO-friendly SSR fallback — full content rendered server-side
   if (!mounted) {
     return (
-      <section className="relative bg-[#050510] py-24 px-6">
+      <section className="relative bg-navy-950 py-24 px-6">
         <div className="max-w-4xl mx-auto text-center mb-16">
           <h2 className="text-5xl md:text-7xl font-bold text-white">
             {language === 'fr' ? 'Notre Processus' : language === 'es' ? 'Nuestro Proceso' : 'Our Process'}
@@ -306,14 +306,14 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#050510]"
+      className="relative bg-navy-950"
       style={{ height: `${TOTAL_STEPS * 100 + 100}vh` }}
     >
       {/* Sticky viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
 
         {/* RetroGrid background */}
-        <div className="absolute inset-0 bg-[#050510]">
+        <div className="absolute inset-0 bg-navy-950">
           <RetroGrid
             angle={55}
             cellSize={50}
@@ -376,7 +376,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
                     style={{ boxShadow: isActive ? `0 0 60px 10px ${step.colorHex}18` : undefined }}
                   >
                     {/* FIX 2: backdrop-blur conditionnel à isActive pour éviter les silhouettes ghost */}
-                    <div className={`absolute inset-0 bg-[#050510]/95 ${isActive ? 'backdrop-blur-md' : ''}`} />
+                    <div className={`absolute inset-0 bg-navy-950/95 ${isActive ? 'backdrop-blur-md' : ''}`} />
                     <div className={`absolute inset-0 bg-gradient-to-br ${step.accentClass}`} />
 
                     {/* Content above background */}
@@ -428,7 +428,7 @@ export function ServicesProcess({ language = 'fr', onScrollToPricing }: Services
                 style={{
                   width: i === activeStep ? '24px' : '8px',
                   height: '8px',
-                  backgroundColor: i === activeStep ? step.colorHex : 'rgba(255,255,255,0.2)',
+                  backgroundColor: i === activeStep ? step.colorHex : 'rgb(var(--c-white) / 0.2)',
                   boxShadow: i === activeStep ? `0 0 10px ${step.colorHex}` : 'none',
                 }}
               />

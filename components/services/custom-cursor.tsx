@@ -65,8 +65,8 @@ export function CustomCursor() {
     gsap.to(cursorRef.current, {
       scale: isHovering ? 1.5 : 1,
       backgroundColor: isHovering
-        ? 'rgba(139, 92, 246, 0.3)'
-        : 'rgba(255, 255, 255, 0.1)',
+        ? 'rgb(var(--c-violet-500) / 0.3)'
+        : 'rgb(var(--c-white) / 0.1)',
       duration: 0.3,
       ease: 'power2.out',
     });

@@ -203,10 +203,10 @@ function sendContactEmails(params) {
 
   try {
     var clientSubject = isEnglish
-      ? '[NeurAWeb] We received your message — We\'ll get back to you within 24h'
+      ? '[NeurAWeb] We received your message — We\'ll get back to you within 48h'
       : isSpanish
-      ? '[NeurAWeb] Recibimos tu mensaje — Te responderemos en 24h'
-      : '[NeurAWeb] Votre message a bien été reçu — Réponse sous 24h';
+      ? '[NeurAWeb] Recibimos tu mensaje — Te responderemos en 48h'
+      : '[NeurAWeb] Votre message a bien été reçu — Réponse sous 48h';
 
     sendEmail({
       to: email,
@@ -261,14 +261,14 @@ function getContactClientTemplate(params) {
   } : isSpanish ? {
     title: 'Mensaje Recibido',
     greeting: 'Hola ' + name + ',',
-    subtitle: 'Gracias por contactar a NeurAWeb. Hemos recibido tu mensaje y te responderemos en las próximas 24 horas hábiles.',
+    subtitle: 'Gracias por contactar a NeurAWeb. Hemos recibido tu mensaje y te responderemos en las próximas 48 horas hábiles.',
     detailsTitle: 'Tu Solicitud',
     labelService: 'Asunto',
     labelMessage: 'Tu mensaje',
     nextSteps: '¿Qué sigue?',
     steps: [
       'Nuestro equipo revisará tu solicitud con atención.',
-      'Te responderemos en las próximas 24 horas hábiles.',
+      'Te responderemos en las próximas 48 horas hábiles.',
       'Prepararemos una propuesta personalizada para tu proyecto.'
     ],
     footer: '¿Preguntas? Responde a este email o contáctanos en',
@@ -276,14 +276,14 @@ function getContactClientTemplate(params) {
   } : {
     title: 'Message Reçu',
     greeting: 'Bonjour ' + name + ',',
-    subtitle: 'Merci de nous avoir contactés. Nous avons bien reçu votre message et vous répondrons dans les 24 heures ouvrées.',
+    subtitle: 'Merci de nous avoir contactés. Nous avons bien reçu votre message et vous répondrons dans les 48 heures ouvrées.',
     detailsTitle: 'Votre Demande',
     labelService: 'Sujet',
     labelMessage: 'Votre message',
     nextSteps: 'La suite ?',
     steps: [
       'Notre équipe va étudier votre demande avec attention.',
-      'Nous vous répondrons dans les 24 heures ouvrées.',
+      'Nous vous répondrons dans les 48 heures ouvrées.',
       'Nous préparerons une proposition personnalisée pour votre projet.'
     ],
     footer: 'Des questions ? Répondez à cet email ou contactez-nous à',

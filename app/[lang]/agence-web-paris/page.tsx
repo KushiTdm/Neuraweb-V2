@@ -55,7 +55,7 @@ export async function generateMetadata({
   const ogImage = `${BASE_URL}/assets/og-image.png`;
   const title = 'Agence Web à Paris — Sites Next.js & IA pour PME | NeuraWeb';
   const description =
-    'Agence web & IA travaillant avec les entreprises parisiennes : création site Next.js, apps mobiles, automatisation n8n. Tarifs 30 à 60% sous le marché parisien. Devis gratuit sous 24h.';
+    'Agence web & IA travaillant avec les entreprises parisiennes : création site Next.js, apps mobiles, automatisation n8n. Tarifs 30 à 60% sous le marché parisien. Devis gratuit sous 48h.';
 
   return {
     title: { absolute: title },
@@ -161,15 +161,15 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: 'Proposez-vous un devis gratuit pour les entreprises de Paris ?',
-    a: 'Oui, le devis est gratuit et sans engagement. Décrivez votre projet via notre formulaire en ligne ou prenez rendez-vous directement en visio. Nous vous répondons sous 24h avec une estimation détaillée et un appel de cadrage pour affiner vos besoins.',
+    a: 'Oui, le devis est gratuit et sans engagement. Décrivez votre projet via notre formulaire en ligne ou prenez rendez-vous directement en visio. Nous vous répondons sous 48h avec une estimation détaillée et un appel de cadrage pour affiner vos besoins.',
   },
   {
     q: "Quel est le prix d'un site web pour une PME à Paris ?",
-    a: "Nos packs web sont transparents : le pack Starter démarre à 1 490 €, le pack Business à 3 990 € et le pack Premium à 7 990 € — bien sous les tarifs habituellement constatés chez les agences parisiennes pour un livrable comparable. Chaque pack inclut design sur mesure, développement Next.js, optimisation SEO, hébergement et accompagnement post-lancement.",
+    a: "Nos packs web sont transparents : le pack Starter démarre à 1 490 € et le pack Business à 3 990 €, sur des maquettes déjà déterminées adaptées à votre charte — bien sous les tarifs habituellement constatés chez les agences parisiennes pour un livrable comparable. Le pack Premium est entièrement sur mesure (design sur mesure, application web ou e-commerce) et fait l'objet d'un devis personnalisé. Chaque pack inclut développement Next.js, optimisation SEO, hébergement et accompagnement post-lancement.",
   },
   {
     q: "Comment se déroule la collaboration à distance avec une agence non-parisienne ?",
-    a: "Le projet démarre par un appel de cadrage en visio, suivi de points d'avancement hebdomadaires (Google Meet/Zoom), d'un accès partagé aux maquettes Figma et au suivi de tâches. La quasi-totalité de nos clients parisiens fonctionnent ainsi sans jamais perdre en réactivité — réponse garantie sous 4 heures ouvrées.",
+    a: "Le projet démarre par un appel de cadrage en visio, suivi de points d'avancement hebdomadaires (Google Meet/Zoom), d'un accès partagé aux maquettes et au suivi de tâches. La quasi-totalité de nos clients parisiens fonctionnent ainsi sans jamais perdre en réactivité — réponse garantie sous 4 heures ouvrées.",
   },
   {
     q: "Comment NeuraWeb intègre-t-elle l'IA dans les sites web ?",
@@ -240,6 +240,7 @@ const PACKS = [
   {
     name: 'Starter',
     price: '1 490 €',
+    note: 'Sur maquettes prédéfinies',
     tagline: 'Être trouvé et crédible en ligne',
     profil: 'TPE, artisans, indépendants',
     color: 'border-indigo-200',
@@ -247,7 +248,7 @@ const PACKS = [
     featured: false,
     bullets: [
       'Site vitrine jusqu\'à 8 pages',
-      'Design sur mesure (mobile-first)',
+      'Maquette prédéfinie personnalisée (mobile-first)',
       'Optimisation SEO de base',
       'Intégration Google Analytics',
       'Formulaire de contact',
@@ -257,6 +258,7 @@ const PACKS = [
   {
     name: 'Business',
     price: '3 990 €',
+    note: 'Sur maquettes prédéfinies',
     tagline: 'Générer des leads et convertir',
     profil: 'PME, commerces, cabinets',
     featured: true,
@@ -274,7 +276,8 @@ const PACKS = [
   },
   {
     name: 'Premium',
-    price: '7 990 €',
+    price: 'Sur mesure',
+    note: 'Devis personnalisé, sans engagement',
     tagline: 'Plateforme digitale sur mesure',
     profil: 'ETI, franchise, e-commerce',
     color: 'border-cyan-200',
@@ -286,7 +289,7 @@ const PACKS = [
       'Multi-langue (FR / EN / ES)',
       'API & intégrations tierces',
       'Design system complet',
-      'Performance garantie 90+/100',
+      'Objectif de performance 90+/100',
       'Support 12 mois inclus',
     ],
   },
@@ -324,12 +327,13 @@ export default async function AgenceWebParisPage({
       <JsonLd id="agence-paris-faq" data={faqPageSchema} />
       <JsonLd id="agence-paris-breadcrumb" data={breadcrumbData} />
 
+      <div className="theme-accueil">
       <Header />
-      <main id="main-content" className="bg-white text-slate-800 overflow-x-hidden">
+      <main id="main-content" className="bg-white text-slate-800 overflow-x-hidden ctx-light">
 
         {/* ── HERO ────────────────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-navy-900">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(99,102,241,0.10),transparent_60%)] pointer-events-none" />
+        <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 sec-tint ctx-light">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-indigo-500) / 0.10),transparent_60%)] pointer-events-none" />
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-violet-200/30 rounded-full blur-3xl pointer-events-none" />
 
@@ -361,7 +365,7 @@ export default async function AgenceWebParisPage({
                   <strong>sites web haute performance en Next.js</strong>, des applications
                   mobiles et des automatisations IA pour les PME et entreprises parisiennes —
                   à distance, avec des tarifs <strong>30 à 60% sous le marché parisien</strong>.{' '}
-                  <strong>Devis gratuit sous 24h</strong>.
+                  <strong>Devis gratuit sous 48h</strong>.
                 </p>
 
                 <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
@@ -379,7 +383,7 @@ export default async function AgenceWebParisPage({
                     asChild
                     variant="outline"
                     size="lg"
-                    className="bg-white border-indigo-300 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-800 h-12 px-6 sm:px-8"
+                    className="bg-white border-indigo-300 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-800 h-12 px-6 sm:px-8 ctx-light"
                   >
                     <LocalizedLink href="/developpement-web">
                       Voir nos services
@@ -391,7 +395,7 @@ export default async function AgenceWebParisPage({
                 {/* Trust badges */}
                 <div className="mt-6 md:mt-10 flex flex-wrap gap-x-4 gap-y-2 sm:grid sm:grid-cols-3 sm:gap-4">
                   {[
-                    { icon: Clock, label: 'Réponse 24h', longLabel: 'Réponse sous 24h', color: 'text-indigo-600' },
+                    { icon: Clock, label: 'Réponse 48h', longLabel: 'Réponse sous 48h', color: 'text-indigo-600' },
                     { icon: Wifi, label: '100% remote', longLabel: 'Collaboration 100% à distance', color: 'text-violet-600' },
                     { icon: TrendingUp, label: '90+/100', longLabel: 'PageSpeed 90+/100', color: 'text-cyan-600' },
                   ].map(({ icon: Icon, label, longLabel, color }) => (
@@ -406,7 +410,7 @@ export default async function AgenceWebParisPage({
 
               {/* Carte stats hero */}
               <div className="lg:col-span-5">
-                <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-indigo-600/15 border border-slate-200/60 bg-white p-6 sm:p-8">
+                <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-indigo-600/15 border border-slate-200/60 bg-white p-6 sm:p-8 ctx-light">
                   <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-2xl opacity-60 pointer-events-none bg-navy-900" />
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
                     Marché digital Paris / Île-de-France
@@ -436,7 +440,7 @@ export default async function AgenceWebParisPage({
         </section>
 
         {/* ── POURQUOI NEURAWEB POUR PARIS ─────────────────────────────────── */}
-        <section className="bg-slate-50 py-14 md:py-24 border-y border-slate-200">
+        <section className="bg-slate-50 py-14 md:py-24 border-y border-slate-200 ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
               <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
@@ -476,7 +480,7 @@ export default async function AgenceWebParisPage({
                 {
                   icon: Clock,
                   title: 'Réactivité & suivi personnalisé',
-                  desc: 'Un interlocuteur dédié, joignable directement. Pas de ticket support perdu dans un helpdesk. Réponse garantie sous 4 heures ouvrées, où que vous soyez.',
+                  desc: 'Un interlocuteur dédié, joignable directement. Pas de ticket support perdu dans un helpdesk. Réponse sous 48 h ouvrées, où que vous soyez.',
                 },
                 {
                   icon: Brain,
@@ -486,7 +490,7 @@ export default async function AgenceWebParisPage({
               ].map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.title} className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-sm">
+                  <div key={item.title} className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-sm ctx-light">
                     <div className="w-11 h-11 rounded-xl bg-indigo-50 flex items-center justify-center mb-4">
                       <Icon className="w-5 h-5 text-indigo-600" />
                     </div>
@@ -511,7 +515,7 @@ export default async function AgenceWebParisPage({
         </section>
 
         {/* ── NOS SERVICES ──────────────────────────────────────────────────── */}
-        <section className="py-14 md:py-28 bg-white">
+        <section className="py-14 md:py-28 bg-white ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
               <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
@@ -531,7 +535,7 @@ export default async function AgenceWebParisPage({
                 return (
                   <div
                     key={s.title}
-                    className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all"
+                    className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all ctx-light"
                   >
                     <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-4 ${s.color}`}>
                       <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -553,7 +557,7 @@ export default async function AgenceWebParisPage({
         </section>
 
         {/* ── NOS PACKS ──────────────────────────────────────────────────────── */}
-        <section id="packs" className="py-14 md:py-28 bg-navy-900">
+        <section id="packs" className="py-14 md:py-28 sec-tint ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
               <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
@@ -586,8 +590,12 @@ export default async function AgenceWebParisPage({
                     </span>
                   </div>
                   <div className="mb-1">
+                    {pack.price !== 'Sur mesure' && (
+                      <span className="block text-xs font-medium text-slate-500">À partir de</span>
+                    )}
                     <span className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900">{pack.price}</span>
                   </div>
+                  <p className="text-xs text-slate-500 mb-2">{pack.note}</p>
                   <p className="text-sm font-semibold text-slate-700 mb-1">{pack.tagline}</p>
                   <p className="text-xs text-slate-400 mb-5 md:mb-6">{pack.profil}</p>
                   <ul className="space-y-2.5 mb-6 md:mb-8 flex-1">
@@ -616,7 +624,7 @@ export default async function AgenceWebParisPage({
             </div>
 
             <p className="text-center text-xs text-slate-400 mt-6 md:mt-8">
-              Tous les prix sont HT. Hébergement Vercel inclus la première année. Projets sur mesure sur devis.
+              Prix HT « à partir de », applicables à des maquettes déjà déterminées. Pack Premium : architecture sur mesure, prix défini à part, uniquement sur devis. Hébergement Vercel inclus la première année.
             </p>
 
             {/* Lien vers la page dev web */}
@@ -633,7 +641,7 @@ export default async function AgenceWebParisPage({
         </section>
 
         {/* ── LIENS INTERNES ───────────────────────────────────────────────── */}
-        <section className="py-10 md:py-14 bg-white border-y border-slate-100">
+        <section className="py-10 md:py-14 bg-white border-y border-slate-100 ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4 md:mb-6">
               Aller plus loin
@@ -662,7 +670,7 @@ export default async function AgenceWebParisPage({
         </section>
 
         {/* ── FAQ ─────────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-slate-50">
+        <section className="py-12 md:py-24 bg-slate-50 ctx-light">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 md:mb-10">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -678,7 +686,7 @@ export default async function AgenceWebParisPage({
                 <AccordionItem
                   key={idx}
                   value={`faq-${idx}`}
-                  className="border border-slate-200 rounded-lg mb-2 overflow-hidden bg-white shadow-sm data-[state=open]:shadow-md"
+                  className="border border-slate-200 rounded-lg mb-2 overflow-hidden bg-white shadow-sm data-[state=open]:shadow-md ctx-light"
                 >
                   <AccordionTrigger className="px-4 py-3 hover:no-underline text-left font-semibold text-slate-900 text-base">
                     {item.q}
@@ -694,7 +702,7 @@ export default async function AgenceWebParisPage({
 
         {/* ── CTA FINAL ──────────────────────────────────────────────────────── */}
         <section className="relative py-14 md:py-28 overflow-hidden text-white bg-navy-900">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-white) / 0.15),transparent_60%)] pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -707,7 +715,7 @@ export default async function AgenceWebParisPage({
               Lancez votre projet web à Paris
             </h2>
             <p className="text-base sm:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto">
-              Devis gratuit sous 24h. Sans engagement. On échange sur votre projet,
+              Devis gratuit sous 48h. Sans engagement. On échange sur votre projet,
               vos objectifs et on vous propose la solution adaptée à votre budget.
             </p>
 
@@ -715,7 +723,7 @@ export default async function AgenceWebParisPage({
               <Button
                 asChild
                 size="lg"
-                className="bg-white hover:bg-slate-50 text-indigo-700 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold shadow-2xl shadow-indigo-900/30 w-full sm:w-auto"
+                className="bg-white hover:bg-slate-50 text-indigo-700 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold shadow-2xl shadow-indigo-900/30 w-full sm:w-auto ctx-light"
               >
                 <LocalizedLink href="/booking">
                   <Sparkles className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
@@ -726,7 +734,7 @@ export default async function AgenceWebParisPage({
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-white/40 text-white hover:bg-white/10 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base w-full sm:w-auto"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base w-full sm:w-auto"
               >
                 <LocalizedLink href="/contact">
                   Nous contacter
@@ -736,13 +744,14 @@ export default async function AgenceWebParisPage({
 
             <p className="mt-6 md:mt-8 inline-flex items-center gap-2 text-xs sm:text-sm text-white/80">
               <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              Réponse garantie sous 4 heures ouvrées
+              Réponse sous 48 h ouvrées
             </p>
           </div>
         </section>
 
       </main>
       <Footer />
+      </div>
     </>
   );
 }

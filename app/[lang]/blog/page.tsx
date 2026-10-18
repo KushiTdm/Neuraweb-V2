@@ -99,6 +99,7 @@ export default async function BlogPage({
   return (
     <>
       <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
+      <div className="theme-accueil">
       <Header />
       <main id="main-content">
         <BlogListClient
@@ -113,6 +114,7 @@ export default async function BlogPage({
         />
       </main>
       <Footer />
+      </div>
     </>
   );
 }

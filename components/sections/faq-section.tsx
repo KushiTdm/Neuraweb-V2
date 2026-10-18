@@ -44,22 +44,22 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-24 lg:py-32 bg-surface">
+    <section className="bg-chypre-20 py-24 lg:py-32 sec-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
         <div className="text-center mb-12">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest bg-frost text-navy-900 border border-white/20 mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-white" />
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest bg-chypre text-creme mb-5">
+            <span className="w-1.5 h-1.5 rounded-full bg-creme" />
             {labels.chip}
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-            <span className="text-navy-900">{labels.title1} </span>
-            <span style={{ color: '#1E3A6B' }}>
+          <h2 className="font-impact text-3xl sm:text-4xl lg:text-5xl font-black leading-tight text-chypre">
+            <span>{labels.title1} </span>
+            <span>
               {labels.title2}
             </span>
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base leading-relaxed mt-4 max-w-xl mx-auto">
+          <p className="text-chypre/90 text-sm sm:text-base leading-relaxed mt-4 max-w-xl mx-auto">
             {labels.subtitle}
           </p>
         </div>
@@ -72,7 +72,7 @@ export function FAQSection() {
             return (
               <div
                 key={i}
-                className="bg-white rounded-2xl border border-navy-900/10 overflow-hidden transition-shadow duration-200 hover:shadow-md"
+                className="bg-creme rounded-2xl border border-chypre/15 overflow-hidden transition-shadow duration-200 hover:shadow-md"
               >
                 <h3 className="m-0">
                   <button
@@ -82,11 +82,11 @@ export function FAQSection() {
                     aria-controls={`faq-answer-${i}`}
                     className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
                   >
-                    <span className="font-display text-base sm:text-lg font-bold text-navy-900">
+                    <span className="font-display text-base sm:text-lg font-bold text-chypre">
                       {item.question}
                     </span>
                     <ChevronDown
-                      className={`w-5 h-5 flex-shrink-0 text-navy-900/60 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                      className={`w-5 h-5 flex-shrink-0 text-chypre/60 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
                       aria-hidden
                     />
                   </button>
@@ -96,7 +96,7 @@ export function FAQSection() {
                   className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-6 pb-5 text-sm sm:text-base text-slate-600 leading-relaxed">
+                    <p className="px-6 pb-5 text-sm sm:text-base text-chypre/90 leading-relaxed">
                       {item.answer}
                     </p>
                   </div>
@@ -110,7 +110,7 @@ export function FAQSection() {
         <div className="mt-10 text-center">
           <LocalizedLink
             href="/contact"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-navy-900 border border-navy-900/20 rounded-full px-6 py-3 hover:bg-navy-900 hover:text-white transition-all duration-200 group"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-chypre border border-chypre/30 rounded-full px-6 py-3 hover:bg-chypre hover:text-creme transition-all duration-200 group"
           >
             {labels.cta}
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />

@@ -7,218 +7,145 @@ import { useTranslation } from '@/hooks/use-translation';
 import { LocalizedLink } from '@/components/localized-link';
 import { CardsCarousel } from '@/components/ui/cards-carousel';
 
+// H2 : les mots-clés (sites web, applications, IA, automatisation, PME) sont dans le titre ;
+// les H3 de cartes restent traduits via locales (services.*.title / desc).
 const SECTION_LABELS: Record<string, { chip: string; title1: string; title2: string; cta: string }> = {
-  fr: { chip: 'NOS SERVICES', title1: 'Ce que nous construisons', title2: 'pour les PME et commerces locaux', cta: 'Voir tous nos services' },
-  en: { chip: 'OUR SERVICES',  title1: 'What we build',       title2: 'for small and local businesses',    cta: 'View all services'      },
-  es: { chip: 'NUESTROS SERVICIOS', title1: 'Lo que construimos', title2: 'para pymes y comercios locales', cta: 'Ver todos los servicios' },
-  vi: { chip: 'DỊCH VỤ CỦA CHÚNG TÔI', title1: 'Những gì chúng tôi xây dựng', title2: 'cho doanh nghiệp nhỏ và cửa hàng địa phương', cta: 'Xem tất cả dịch vụ' },
+  fr: { chip: 'NOS SERVICES', title1: 'Sites web, applications, IA et automatisation', title2: 'pour les PME et commerces locaux', cta: 'Voir tous nos services' },
+  en: { chip: 'OUR SERVICES', title1: 'Websites, apps, AI and automation', title2: 'for small and local businesses', cta: 'View all services' },
+  es: { chip: 'NUESTROS SERVICIOS', title1: 'Sitios web, apps, IA y automatización', title2: 'para pymes y comercios locales', cta: 'Ver todos los servicios' },
+  vi: { chip: 'DỊCH VỤ CỦA CHÚNG TÔI', title1: 'Website, ứng dụng, AI và tự động hóa', title2: 'cho doanh nghiệp nhỏ và cửa hàng địa phương', cta: 'Xem tất cả dịch vụ' },
 };
 
-// SVG constellation pour la carte IA
+const ALTS: Record<string, { web: string; mobile: string; ai: string; automation: string }> = {
+  fr: {
+    web: 'Illustration d\'une fenêtre de navigateur formée de formes organiques vertes et crème, avec un curseur',
+    mobile: 'Illustration d\'un smartphone avec un repère de localisation au centre de cercles concentriques',
+    ai: 'Illustration d\'un assistant IA souriant qui répond à la question d\'un client dans des bulles de discussion, à côté d\'un site web',
+    automation: 'Illustration d\'un flux automatisé : un email reçu, un engrenage, une facture validée et un agenda mis à jour',
+  },
+  en: {
+    web: 'Illustration of a browser window made of organic green and cream shapes with a cursor',
+    mobile: 'Illustration of a smartphone with a location pin inside concentric circles',
+    ai: 'Illustration of a smiling AI assistant answering a customer question in chat bubbles, next to a website',
+    automation: 'Illustration of an automated flow: an incoming email, a gear, a validated invoice and an updated calendar',
+  },
+  es: {
+    web: 'Ilustración de una ventana de navegador hecha de formas orgánicas verdes y crema, con un cursor',
+    mobile: 'Ilustración de un smartphone con un marcador de ubicación entre círculos concéntricos',
+    ai: 'Ilustración de un asistente de IA sonriente que responde a la pregunta de un cliente en burbujas de chat, junto a un sitio web',
+    automation: 'Ilustración de un flujo automatizado: un correo recibido, un engranaje, una factura validada y una agenda actualizada',
+  },
+  vi: {
+    web: 'Minh họa cửa sổ trình duyệt tạo từ các hình khối hữu cơ màu xanh lá và kem, có con trỏ chuột',
+    mobile: 'Minh họa điện thoại thông minh có ghim vị trí giữa các vòng tròn đồng tâm',
+    ai: 'Minh họa trợ lý AI mỉm cười trả lời câu hỏi của khách hàng trong các bong bóng trò chuyện, bên cạnh một website',
+    automation: 'Minh họa một quy trình tự động: email nhận được, bánh răng, hóa đơn đã duyệt và lịch được cập nhật',
+  },
+};
+
+type Tone = 'chypre' | 'creme' | 'tint';
+const TONES: Record<Tone, { panel: string; title: string; text: string; link: string }> = {
+  chypre: { panel: 'bg-chypre', title: 'text-creme', text: 'text-creme/80', link: 'text-creme' },
+  creme: { panel: 'bg-creme border-t border-chypre/10', title: 'text-chypre', text: 'text-chypre/80', link: 'text-chypre' },
+  tint: { panel: 'bg-chypre-20', title: 'text-chypre', text: 'text-chypre/90', link: 'text-chypre' },
+};
+
+interface CardProps {
+  href: string;
+  image: string;
+  alt: string;
+  title: string;
+  desc: string;
+  learn: string;
+  tone: Tone;
+  badge?: string;
+  horizontal?: boolean;
+  big?: boolean;
+  sizes: string;
+  className?: string;
+}
+
+function ServiceCard({ href, image, alt, title, desc, learn, tone, badge, horizontal, big, sizes, className = '' }: CardProps) {
+  const c = TONES[tone];
+  return (
+    <LocalizedLink
+      href={href}
+      className={`lift sv-pop group relative flex overflow-hidden rounded-3xl border border-chypre/15 bg-creme transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,70,67,0.18)] ${horizontal ? 'flex-row' : 'flex-col'} ${className}`}
+    >
+      <div className={`relative overflow-hidden ${horizontal ? 'w-2/5 shrink-0' : big ? 'min-h-[280px] flex-1' : 'aspect-[3/2]'}`}>
+        <Image
+          src={image}
+          alt={alt}
+          fill
+          sizes={sizes}
+          className="object-cover transition-transform duration-700 motion-safe:group-hover:scale-105"
+          loading="lazy"
+        />
+        {badge && (
+          <span className="absolute right-3 top-3 rounded-full bg-creme px-2.5 py-1 text-xs font-bold text-chypre">{badge}</span>
+        )}
+      </div>
+      <div className={`flex flex-col justify-center ${c.panel} ${horizontal ? 'flex-1 p-5' : big ? 'p-7 lg:p-8' : 'p-5'}`}>
+        <h3 className={`font-display font-bold leading-tight ${c.title} ${big ? 'text-2xl lg:text-3xl' : 'text-lg'} mb-1.5`}>{title}</h3>
+        <p className={`leading-relaxed ${c.text} ${big ? 'max-w-md text-base' : 'text-sm'}`}>{desc}</p>
+        <span className={`mt-3 inline-flex items-center gap-1 text-sm font-semibold ${c.link} transition-all duration-200 group-hover:gap-2`}>
+          {learn} <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+        </span>
+      </div>
+    </LocalizedLink>
+  );
+}
 
 export function ServicesSection() {
   const { language, t } = useTranslation();
-  const labels = SECTION_LABELS[(language as string)] ?? SECTION_LABELS.fr;
+  const labels = SECTION_LABELS[language as string] ?? SECTION_LABELS.fr;
+  const alt = ALTS[language as string] ?? ALTS.fr;
+  const learn = t('common.learnMore');
+
+  const web = { href: '/services', image: '/assets/redesign/service-web.webp', alt: alt.web, title: t('services.web.title'), desc: t('services.web.desc'), learn };
+  const mobile = { href: '/mobile-app-development', image: '/assets/redesign/service-mobile.webp', alt: alt.mobile, title: t('services.mobile.title'), desc: t('services.mobile.desc'), learn, badge: 'MVP 6 sem.' };
+  const ai = { href: '/integration-ia', image: '/assets/redesign/service-ia-assistant.webp', alt: alt.ai, title: t('services.ai.title'), desc: t('services.ai.desc'), learn };
+  const auto = { href: '/automatisation', image: '/assets/redesign/service-automatisation-flux.webp', alt: alt.automation, title: t('services.automation.title'), desc: t('services.automation.desc'), learn };
 
   return (
-    <section className="py-24 lg:py-32 bg-surface">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
+    <section className="bg-creme py-24 lg:py-32 sec-screen">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight max-w-xl">
-              <span className="text-navy-900">{labels.title1}</span>
-              <br />
-              <span style={{ color: '#1E3A6B' }}>
-                {labels.title2}
-              </span>
+            <span className="mb-4 inline-flex rounded-full bg-chypre/10 px-4 py-1.5 text-xs font-semibold tracking-widest text-chypre">{labels.chip}</span>
+            <h2 className="max-w-2xl font-display text-3xl font-bold leading-tight text-chypre sm:text-4xl lg:text-5xl">
+              {labels.title1}{' '}
+              <span className="font-impact font-black">{labels.title2}</span>
             </h2>
           </div>
-          <LocalizedLink href="/services" className="flex-shrink-0 inline-flex items-center gap-2 text-sm font-semibold text-navy-900 border border-navy-900/20 rounded-full px-6 py-3 hover:bg-navy-900 hover:text-white transition-all duration-200 group">
+          <LocalizedLink
+            href="/services"
+            className="group inline-flex flex-shrink-0 items-center gap-2 rounded-full border border-chypre/30 px-6 py-3 text-sm font-semibold text-chypre transition-all duration-200 hover:bg-chypre hover:text-creme"
+          >
             {labels.cta}
-            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
           </LocalizedLink>
         </div>
 
-        {/* ── Bento Grid Desktop ─────────────────────────────── */}
-        {/*
-          Layout 12 cols × 2 rows :
-          Col 1-7 row 1-2 : Développement Web (grande carte)
-          Col 8-12 row 1  : Applications Mobiles (moyenne)
-          Col 8-10 row 2  : Intégration IA (petite)
-          Col 11-12 row 2 : Automatisation (la plus petite)
-        */}
-        <div className="hidden md:grid grid-cols-12 grid-rows-2 gap-4" style={{ minHeight: '560px' }}>
-
-          {/* Carte 1 — Développement Web (héroïne) — col 1-7 / row 1-2 */}
-          <LocalizedLink href="/services" className="relative col-span-7 row-span-2 rounded-3xl overflow-hidden group bg-white">
-            {/* Liseré gradient top */}
-            <div className="absolute top-0 left-0 right-0 h-0.5 z-10" style={{ background: '#ffffff' }} />
-            {/* Photo pleine carte */}
-            <div className="absolute inset-0">
-              <Image
-                src="/assets/services/development_web-macbook.webp"
-                alt="MacBook affichant du code TypeScript dans un éditeur sombre"
-                fill sizes="(max-width:1280px) 58vw, 740px"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy"
-              />
-              {/* Overlay gradient bottom pour lisibilité du texte */}
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.92) 0%, rgba(7,15,38,0.5) 45%, transparent 75%)' }} />
+        {/* Desktop : grande carte à gauche, 3 cartes à droite */}
+        <div className="hidden min-h-[600px] grid-cols-12 gap-4 md:grid">
+          <ServiceCard {...web} tone="chypre" big sizes="(max-width:1280px) 58vw, 740px" className="col-span-7" />
+          <div className="col-span-5 grid grid-rows-[auto_1fr] gap-4">
+            <ServiceCard {...mobile} tone="creme" horizontal sizes="220px" className="min-h-[200px]" />
+            <div className="grid grid-cols-2 gap-4">
+              <ServiceCard {...ai} tone="tint" sizes="(max-width:1280px) 22vw, 280px" />
+              <ServiceCard {...auto} tone="creme" sizes="(max-width:1280px) 22vw, 280px" />
             </div>
-            {/* Label numéro */}
-            {/* Texte en bas */}
-            <div className="absolute bottom-0 left-0 right-0 p-8 z-10">
-              <h3 className="font-display text-2xl lg:text-3xl font-bold text-white mb-2">
-                {t('services.web.title')}
-              </h3>
-              <p className="text-sm leading-relaxed max-w-sm text-white/70">
-                {t('services.web.desc')}
-              </p>
-              <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white group-hover:gap-2.5 transition-all duration-200">
-                {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
-              </div>
-            </div>
-          </LocalizedLink>
-
-          {/* Carte 2 — Applications Mobiles — col 8-12 / row 1 */}
-          <LocalizedLink href="/mobile-app-development" className="relative col-span-5 rounded-3xl overflow-hidden bg-frost group">
-            <Image
-              src="/assets/services/nw_card_mobile_app.webp"
-              alt="Une main tient un smartphone affichant une application de réservation dans un commerce"
-              fill sizes="(max-width:1280px) 42vw, 540px"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              loading="lazy"
-            />
-            {/* Overlay pour lisibilité */}
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0) 30%, rgba(250,250,247,0.92) 70%, rgba(250,250,247,0.98) 100%)' }} />
-            {/* Badge */}
-            <div className="absolute top-5 right-5 z-10">
-              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold text-navy-900" style={{ background: '#ffffff' }}>
-                MVP 6 sem.
-              </span>
-            </div>
-                        <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-              <h3 className="font-display text-xl font-bold text-navy-900 mb-1.5">
-                {t('services.mobile.title')}
-              </h3>
-              <p className="text-sm text-slate-700 leading-relaxed">
-                {t('services.mobile.desc')}
-              </p>
-              <div className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-navy-900 group-hover:gap-2 transition-all duration-200">
-                {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
-              </div>
-            </div>
-          </LocalizedLink>
-
-          {/* Carte 3 — Intégration IA — col 8-10 / row 2 */}
-          <LocalizedLink href="/integration-ia" className="relative col-span-3 rounded-3xl overflow-hidden group" style={{ background: '#0E1B3D' }}>
-            <Image
-              src="/assets/services/nw_card_ia_integration.webp"
-              alt="Bureau d'un dirigeant de PME avec un ordinateur portable et un carnet de notes"
-              fill sizes="(max-width:1280px) 25vw, 320px"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              loading="lazy"
-            />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(14,27,61,0.95) 0%, rgba(14,27,61,0.75) 45%, rgba(14,27,61,0.35) 100%)' }} />
-            <div className="relative z-10 p-6 h-full flex flex-col justify-end">
-              <div>
-                <h3 className="font-display text-lg font-bold text-white mb-1 leading-tight">
-                  {t('services.ai.title')}
-                </h3>
-                <p className="text-xs leading-relaxed text-slate-400">
-                  {t('services.ai.desc')}
-                </p>
-                <div className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-white group-hover:gap-1.5 transition-all duration-200">
-                  {t('common.learnMore')} <ArrowUpRight className="w-3 h-3" />
-                </div>
-              </div>
-            </div>
-          </LocalizedLink>
-
-          {/* Carte 4 — Automatisation — col 11-12 / row 2 (la plus petite) */}
-          <LocalizedLink href="/automatisation" className="relative col-span-2 rounded-3xl overflow-hidden group" style={{ background: '#070F26' }}>
-            <Image
-              src="/assets/services/automation_n8n.webp"
-              alt="Workflow d'automatisation n8n"
-              fill sizes="20vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              style={{ opacity: 0.6 }}
-              loading="lazy"
-            />
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.88) 0%, rgba(7,15,38,0.35) 55%, transparent 100%)' }} />
-            <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-              <h3 className="font-display text-sm font-bold text-white leading-tight mb-1">
-                {t('services.automation.title')}
-              </h3>
-              <p className="text-[11px] leading-relaxed text-slate-400 line-clamp-3">
-                {t('services.automation.desc')}
-              </p>
-            </div>
-          </LocalizedLink>
+          </div>
         </div>
 
-        {/* ── Mobile : carousel snap horizontal — 4 cards défilantes ─────── */}
-        <div className="md:hidden -mx-4 sm:-mx-6">
-          <CardsCarousel slideWidth="snap" padding={1} gap={1} dotColor="#0E1B3D" showArrows autoPlay autoPlayInterval={4500}>
-            {/* Carte 1 — Dev Web */}
-            <LocalizedLink href="/services" className="relative rounded-3xl overflow-hidden group block h-[340px]">
-              <Image src="/assets/services/development_web-macbook.webp" alt="Développement Web" fill sizes="85vw" className="object-cover" loading="lazy" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.95) 0%, rgba(7,15,38,0.4) 60%, transparent 100%)' }} />
-              <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: '#ffffff' }} />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.web.title')}</h3>
-                <p className="text-sm text-white/70">{t('services.web.desc')}</p>
-                <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
-                  {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
-                </div>
-              </div>
-            </LocalizedLink>
-
-            {/* Carte 2 — Mobile */}
-            <LocalizedLink href="/mobile-app-development" className="relative rounded-3xl overflow-hidden bg-frost group block h-[340px]">
-              <Image src="/assets/services/nw_card_mobile_app.webp" alt="Application mobile de réservation sur smartphone" fill sizes="85vw" className="object-cover" loading="lazy" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0) 30%, rgba(250,250,247,0.96) 70%)' }} />
-              <div className="absolute top-5 right-5 z-10">
-                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold text-navy-900" style={{ background: '#ffffff' }}>
-                  MVP 6 sem.
-                </span>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                <h3 className="font-display text-2xl font-bold text-navy-900 mb-2">{t('services.mobile.title')}</h3>
-                <p className="text-sm text-slate-700 leading-relaxed">{t('services.mobile.desc')}</p>
-                <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-navy-900">
-                  {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
-                </div>
-              </div>
-            </LocalizedLink>
-
-            {/* Carte 3 — IA */}
-            <LocalizedLink href="/integration-ia" className="relative rounded-3xl overflow-hidden group block h-[340px]" style={{ background: '#0E1B3D' }}>
-              <Image src="/assets/services/nw_card_ia_integration.webp" alt="Bureau d'un dirigeant de PME avec ordinateur portable et carnet de notes" fill sizes="85vw" className="object-cover" loading="lazy" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(14,27,61,0.96) 0%, rgba(14,27,61,0.55) 100%)' }} />
-              <div className="relative z-10 p-6 h-full flex flex-col justify-end">
-                <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.ai.title')}</h3>
-                <p className="text-sm leading-relaxed text-slate-400">{t('services.ai.desc')}</p>
-                <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
-                  {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
-                </div>
-              </div>
-            </LocalizedLink>
-
-            {/* Carte 4 — Automatisation */}
-            <LocalizedLink href="/automatisation" className="relative rounded-3xl overflow-hidden group block h-[340px]" style={{ background: '#070F26' }}>
-              <Image src="/assets/services/automation_n8n.webp" alt="Automatisation" fill sizes="85vw" className="object-cover" style={{ opacity: 0.65 }} loading="lazy" />
-              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,15,38,0.88) 0%, transparent 60%)' }} />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="font-display text-2xl font-bold text-white mb-2">{t('services.automation.title')}</h3>
-                <p className="text-sm text-white/70">{t('services.automation.desc')}</p>
-                <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
-                  {t('common.learnMore')} <ArrowUpRight className="w-4 h-4" />
-                </div>
-              </div>
-            </LocalizedLink>
+        {/* Mobile : carrousel */}
+        <div className="-mx-4 sm:-mx-6 md:hidden">
+          <CardsCarousel slideWidth="snap" padding={1} gap={1} dotColor="#004643" showArrows autoPlay autoPlayInterval={4500}>
+            <ServiceCard {...web} tone="chypre" sizes="85vw" className="h-[430px]" />
+            <ServiceCard {...mobile} tone="creme" sizes="85vw" className="h-[430px]" />
+            <ServiceCard {...ai} tone="tint" sizes="85vw" className="h-[430px]" />
+            <ServiceCard {...auto} tone="creme" sizes="85vw" className="h-[430px]" />
           </CardsCarousel>
         </div>
       </div>

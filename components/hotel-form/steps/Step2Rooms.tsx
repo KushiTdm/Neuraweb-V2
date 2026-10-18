@@ -64,7 +64,7 @@ export function Step2Rooms() {
             <span>{t('hotelForm.step2.rooms.type')}</span><span>{t('hotelForm.step2.rooms.qty')}</span><span>{t('hotelForm.step2.rooms.capacity')}</span><span>{t('hotelForm.step2.rooms.price')}</span><span />
           </div>
           {formData.rooms.map(room => (
-            <div key={room.id} className="grid grid-cols-2 sm:grid-cols-[1fr_70px_70px_80px_32px] gap-2 p-3 rounded-xl border border-white/8 bg-white/4 hover:border-indigo-500/25 transition-all">
+            <div key={room.id} className="grid grid-cols-2 sm:grid-cols-[1fr_70px_70px_80px_32px] gap-2 p-3 rounded-xl border border-white/10 bg-white/4 hover:border-indigo-500/25 transition-all">
               <input className={inputCls} placeholder={t('hotelForm.step2.rooms.typePlaceholder')} value={room.type} onChange={e => updateRoom(room.id, 'type', e.target.value)} />
               <input type="number" className={inputCls} placeholder="10" min="1" value={room.qty} onChange={e => updateRoom(room.id, 'qty', e.target.value)} />
               <input type="number" className={inputCls} placeholder="2" min="1" value={room.capacity} onChange={e => updateRoom(room.id, 'capacity', e.target.value)} />

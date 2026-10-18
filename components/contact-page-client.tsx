@@ -43,24 +43,26 @@ export default function ContactPageClient() {
 
   return (
     <>
+      <div className="theme-accueil">
+      <style>{`.contact-illus{animation:contactIn .9s ease-out both}@keyframes contactIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){.contact-illus{animation:none}}`}</style>
       <Header />
-      <main id="main-content" className="min-h-screen pt-24 pb-16 bg-gradient-to-b from-white to-gray-50 dark:from-[#050510] dark:to-[#0a0a1a]">
+      <main id="main-content" className="min-h-screen pt-24 pb-16 bg-creme">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}
           <div className="text-center mb-16">
-            <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 mb-4">
+            <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-chypre text-creme mb-4">
               {t('contact.hero.badge')}
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl text-chypre mb-6">
               {t('contact.hero.title')}{' '}
-              <span className="text-gray-900 dark:text-white">
+              <span className="text-chypre">
                 {t('contact.hero.title.highlight')}
               </span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-4">
+            <p className="text-xl text-chypre/90 max-w-2xl mx-auto mb-4">
               {t('contact.hero.subtitle')}
             </p>
-            <p className="text-base text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
+            <p className="text-base text-chypre/85 max-w-3xl mx-auto">
               {t('contact.hero.description')}
             </p>
           </div>
@@ -68,21 +70,21 @@ export default function ContactPageClient() {
           <div className="grid md:grid-cols-2 gap-10 lg:gap-12">
             {/* Contact Info */}
             <div className="space-y-8">
-              <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 shadow-sm">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+              <div className="bg-chypre/[0.05] rounded-2xl p-8 border border-chypre/15">
+                <h2 className="text-xl font-semibold text-chypre mb-6">
                   {t('contact.info.email.label')}
                 </h2>
                 <div className="space-y-4">
                   <a
                     href="mailto:contact@neuraweb.fr"
-                    className="flex items-center gap-4 text-gray-600 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+                    className="flex items-center gap-4 text-chypre/85 hover:text-chypre hover:underline underline-offset-4 transition-colors"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+                    <div className="w-12 h-12 rounded-xl bg-chypre flex items-center justify-center">
+                      <Mail className="w-5 h-5 text-creme" />
                     </div>
                     <div>
                       <p className="font-medium">contact@neuraweb.fr</p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-chypre/80">
                         {t('contact.info.email.desc')}
                       </p>
                     </div>
@@ -99,63 +101,76 @@ export default function ContactPageClient() {
                   numéro WhatsApp réel n'est pas renseigné — voir
                   `components/whatsapp-contact-button.tsx`. */}
               {language === 'vi' && (
-                <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 shadow-sm">
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                <div className="bg-chypre/[0.05] rounded-2xl p-8 border border-chypre/15">
+                  <h2 className="text-xl font-semibold text-chypre mb-2">
                     Nhắn tin qua WhatsApp
                   </h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+                  <p className="text-sm text-chypre/80 mb-6">
                     Cách nhanh nhất để trao đổi trực tiếp. Chúng tôi trả lời bằng tiếng Việt, tiếng Anh hoặc tiếng Pháp.
                   </p>
                   <WhatsAppContactButton className="w-full sm:w-auto" />
                 </div>
               )}
 
-              <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 shadow-sm">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+              <div className="bg-chypre/[0.05] rounded-2xl p-8 border border-chypre/15">
+                <h2 className="text-xl font-semibold text-chypre mb-6">
                   {t('contact.info.location.label')}
                 </h2>
-                <div className="flex items-center gap-4 text-gray-600 dark:text-gray-300">
-                  <div className="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <div className="flex items-center gap-4 text-chypre/85">
+                  <div className="w-12 h-12 rounded-xl bg-chypre flex items-center justify-center">
+                    <MapPin className="w-5 h-5 text-creme" />
                   </div>
                   <div>
                     <p className="font-medium">{t('contact.info.location.value')}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-chypre/80">
                       {t('contact.info.location.desc')}
                     </p>
                   </div>
                 </div>
               </div>
+              {/* Illustration (lg+ seulement : ne repousse jamais le formulaire sur mobile).
+                  Animation d'entrée unique, désactivée si prefers-reduced-motion. */}
+              <div className="hidden lg:block contact-illus overflow-hidden rounded-2xl border border-chypre/15">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/assets/redesign/contact-illustration.webp"
+                  alt=""
+                  width={960}
+                  height={720}
+                  loading="lazy"
+                  className="h-auto w-full"
+                />
+              </div>
             </div>
 
             {/* Contact Form */}
-            <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-200 dark:border-gray-800 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <div className="bg-chypre/[0.05] rounded-2xl p-8 border border-chypre/15">
+              <h2 className="text-xl font-semibold text-chypre mb-2">
                 {t('contact.form.title')}
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-chypre/85 mb-6">
                 {t('contact.form.subtitle')}
               </p>
 
               {submitStatus === 'success' && (
-                <div className="mb-6 p-4 rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
-                  <div className="flex items-center gap-2 text-green-700 dark:text-green-400">
+                <div className="mb-6 p-4 rounded-xl bg-chypre/10 border border-chypre/30">
+                  <div className="flex items-center gap-2 text-chypre">
                     <CheckCircle className="w-5 h-5" />
                     <p className="font-medium">{t('contact.form.success.title')}</p>
                   </div>
-                  <p className="text-sm text-green-600 dark:text-green-300 mt-1">
+                  <p className="text-sm text-chypre/85 mt-1">
                     {t('contact.form.success.desc')}
                   </p>
                 </div>
               )}
 
               {submitStatus === 'error' && (
-                <div className="mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
-                  <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
+                <div className="mb-6 p-4 rounded-xl bg-chypre/10 border border-chypre/30">
+                  <div className="flex items-center gap-2 text-chypre">
                     <AlertCircle className="w-5 h-5" />
                     <p className="font-medium">{t('contact.form.error.title')}</p>
                   </div>
-                  <p className="text-sm text-red-600 dark:text-red-300 mt-1">
+                  <p className="text-sm text-chypre/85 mt-1">
                     {t('contact.form.error.desc')}
                   </p>
                 </div>
@@ -163,7 +178,7 @@ export default function ContactPageClient() {
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label htmlFor="name" className="block text-sm font-medium text-chypre/85 mb-1">
                     {t('contact.form.name')}
                   </label>
                   <input
@@ -172,12 +187,12 @@ export default function ContactPageClient() {
                     name="name"
                     required
                     placeholder={t('contact.form.name.placeholder')}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre transition-all"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label htmlFor="email" className="block text-sm font-medium text-chypre/85 mb-1">
                     {t('contact.form.email')}
                   </label>
                   <input
@@ -186,12 +201,12 @@ export default function ContactPageClient() {
                     name="email"
                     required
                     placeholder={t('contact.form.email.placeholder')}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre transition-all"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label htmlFor="subject" className="block text-sm font-medium text-chypre/85 mb-1">
                     {t('contact.form.subject')}
                   </label>
                   <input
@@ -200,12 +215,12 @@ export default function ContactPageClient() {
                     name="subject"
                     required
                     placeholder={t('contact.form.subject.placeholder')}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre transition-all"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  <label htmlFor="message" className="block text-sm font-medium text-chypre/85 mb-1">
                     {t('contact.form.message')}
                   </label>
                   <textarea
@@ -214,22 +229,22 @@ export default function ContactPageClient() {
                     required
                     rows={5}
                     placeholder={t('contact.form.message.placeholder')}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all resize-none"
+                    className="w-full px-4 py-3 rounded-xl border border-chypre/30 bg-creme text-chypre placeholder:text-chypre/60 focus:outline-none focus:ring-2 focus:ring-chypre/40 focus:border-chypre transition-all resize-none"
                   />
                 </div>
 
-                <label className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+                <label className="flex items-start gap-3 text-sm text-chypre/80">
                   <input
                     type="checkbox"
                     name="consent"
                     required
                     checked={consent}
                     onChange={(e) => setConsent(e.target.checked)}
-                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-gray-900"
+                    className="mt-0.5 h-4 w-4 flex-shrink-0 accent-[#004643]"
                   />
                   <span>
                     {t('forms.consent.prefix')}{' '}
-                    <LocalizedLink href="/confidentialite" className="underline hover:text-gray-900 dark:hover:text-white">
+                    <LocalizedLink href="/confidentialite" className="underline hover:text-chypre">
                       {t('forms.consent.link')}
                     </LocalizedLink>
                     {t('forms.consent.suffix')}
@@ -239,14 +254,11 @@ export default function ContactPageClient() {
                 <button
                   type="submit"
                   disabled={isSubmitting || !consent}
-                  className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl text-white font-semibold transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
-                  style={{
-                    background: '#111827',
-                  }}
+                  className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-chypre text-creme font-semibold transition-all duration-300 hover:bg-chypre/90 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <div className="w-5 h-5 border-2 border-creme/30 border-t-creme rounded-full animate-spin" />
                       {t('contact.form.submitting')}
                     </>
                   ) : (
@@ -262,6 +274,7 @@ export default function ContactPageClient() {
         </div>
       </main>
       <Footer />
+      </div>
     </>
   );
 }

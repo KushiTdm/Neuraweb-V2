@@ -102,12 +102,12 @@ const generateServiceJsonLd = (lang: string) => ({
           name: lang === 'fr' ? 'Pack Starter' : 'Starter Package',
           description:
             lang === 'fr'
-              ? 'Site vitrine professionnel jusqu\'à 8 pages, design responsive, SEO technique, hébergement 1 an'
-              : 'Professional showcase site up to 8 pages, responsive design, technical SEO, 1-year hosting',
+              ? 'Site vitrine professionnel jusqu\'à 8 pages sur maquettes prédéfinies, design responsive, SEO technique, hébergement 1 an'
+              : 'Professional showcase site up to 8 pages on pre-defined mockups, responsive design, technical SEO, 1-year hosting',
         },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '1490',
+          minPrice: '1490',
           priceCurrency: 'EUR',
         },
       },
@@ -118,12 +118,12 @@ const generateServiceJsonLd = (lang: string) => ({
           name: lang === 'fr' ? 'Pack Business' : 'Business Package',
           description:
             lang === 'fr'
-              ? 'Site professionnel jusqu\'à 20 pages, blog, espace client, analytics avancés'
-              : 'Professional site up to 20 pages, blog, client area, advanced analytics',
+              ? 'Site professionnel jusqu\'à 20 pages sur maquettes prédéfinies, blog, espace client, analytics avancés'
+              : 'Professional site up to 20 pages on pre-defined mockups, blog, client area, advanced analytics',
         },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '3990',
+          minPrice: '3990',
           priceCurrency: 'EUR',
         },
       },
@@ -134,13 +134,8 @@ const generateServiceJsonLd = (lang: string) => ({
           name: lang === 'fr' ? 'Pack Premium' : 'Premium Package',
           description:
             lang === 'fr'
-              ? 'E-commerce complet, intégrations API, sécurité avancée, performance maximale'
-              : 'Full e-commerce, API integrations, advanced security, maximum performance',
-        },
-        priceSpecification: {
-          '@type': 'PriceSpecification',
-          price: '7990',
-          priceCurrency: 'EUR',
+              ? 'Projet entièrement sur mesure sur devis : design sur mesure, e-commerce complet, intégrations API, sécurité avancée, performance maximale'
+              : 'Fully tailor-made project on quote: custom design, full e-commerce, API integrations, advanced security, maximum performance',
         },
       },
     ],

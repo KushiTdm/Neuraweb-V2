@@ -119,7 +119,7 @@ function buildRichContext(context: PageSEOContext): string {
 - Localisation : Hanoï, Vietnam — équipe française, réseau CCIFV, livraison bilingue VI/EN/FR
 - Prix : SEUL le pack Landing Page Express (1.290.000 VND, offre de lancement) peut être cité. Tout le reste est SUR DEVIS — n'écris JAMAIS de montant en EUR/€
 - Délais : quelques jours pour la Landing Page Express, 2-8 semaines pour les autres projets
-- Points forts : réponse sous 24h, devis gratuit, standard technique européen, spécialisation IA/automatisation`
+- Points forts : réponse sous 48h, devis gratuit, standard technique européen, spécialisation IA/automatisation`
       : `ENTREPRISE :
 - Nom : NeuraWeb
 - Services : Développement web Next.js/React, Intégration IA (ChatGPT/Claude), Automatisation n8n
@@ -127,7 +127,7 @@ function buildRichContext(context: PageSEOContext): string {
 - Localisation : Lille, France (clients internationaux)
 - Prix : À partir de 1 490€
 - Délais : 2-8 semaines selon le projet
-- Points forts : 16 avis 5 étoiles, réponse sous 24h, devis gratuit`;
+- Points forts : 14 avis Google 5/5, réponse sous 48h, devis gratuit`;
 
   return `CONTEXTE DE LA PAGE :
 - Type : ${context.pageType}

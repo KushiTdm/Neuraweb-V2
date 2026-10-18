@@ -62,4 +62,4 @@ Voir [prompts-portfolio.md](./prompts-portfolio.md) pour les briefs de création
 
 Par ordre de priorité : automatisation/IA appliquée (le différenciateur n°1, sans aucune preuve
 visuelle aujourd'hui), restaurant en vitrine cliente, artisan/BTP local, immobilier, et un
-dashboard SaaS métier qui justifie le pack Premium à 7 990 €.
+dashboard SaaS métier qui justifie le pack Premium (sur mesure, sur devis).

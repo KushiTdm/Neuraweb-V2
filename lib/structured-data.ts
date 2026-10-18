@@ -33,7 +33,7 @@ export const organizationSchema = {
     height: 60,
   },
   description:
-    'Agence de développement web full-stack, intégration IA et automatisation n8n pour startups et PME.',
+    'Agence web & IA française, immatriculée à Lille : sites, applications mobiles, automatisation n8n et assistants IA pour PME. Prix clairs, contrat français.',
   address: {
     '@type': 'PostalAddress',
     addressCountry: REAL_ADDRESS_COUNTRY,
@@ -58,17 +58,14 @@ export const organizationSchema = {
     { '@type': 'City', name: 'Hanoï' },
   ],
   sameAs: [
-    'https://www.linkedin.com/company/neuraweb',
-    'https://github.com/neuraweb',
     'https://x.com/neurawebtech',
     'https://www.facebook.com/people/Neuraweb/61587416320627/',
     'https://maps.app.goo.gl/DUkC3mSovCR8cpRz5', // Google Business Profile
   ],
-  foundingDate: '2024',
+  foundingDate: '2023',
   numberOfEmployees: {
     '@type': 'QuantitativeValue',
-    minValue: 1,
-    maxValue: 10,
+    value: 3,
   },
 };
 
@@ -80,7 +77,7 @@ export const localBusinessSchema = {
   '@id': `${BASE_URL}/#localbusiness`,
   name: 'NeuraWeb',
   description:
-    'Agence digitale spécialisée en développement web sur mesure, intégration IA et automatisation n8n. Startups, PME et grandes entreprises.',
+    'Agence web & IA française, immatriculée à Lille, équipe de trois travaillant à distance depuis Hanoï. Sites sur mesure, applications mobiles, automatisation n8n et assistants IA pour PME, hôtels et restaurants. Prix clairs, contrat français.',
   url: BASE_URL,
   telephone: REAL_PHONE,
   email: 'contact@neuraweb.fr',
@@ -197,22 +194,18 @@ export const professionalServiceSchema = {
         '@type': 'Offer',
         name: 'Pack Starter',
         description: 'Site vitrine responsive avec SEO optimisé',
-        price: '1490',
-        priceCurrency: 'EUR',
+        priceSpecification: { '@type': 'PriceSpecification', minPrice: '1490', priceCurrency: 'EUR' },
       },
       {
         '@type': 'Offer',
         name: 'Pack Business',
         description: 'Solution complète avec espace admin, blog et analytics',
-        price: '3990',
-        priceCurrency: 'EUR',
+        priceSpecification: { '@type': 'PriceSpecification', minPrice: '3990', priceCurrency: 'EUR' },
       },
       {
         '@type': 'Offer',
         name: 'Pack Premium',
-        description: 'E-commerce, API tierces, support 24/7',
-        price: '7990',
-        priceCurrency: 'EUR',
+        description: 'Projet entièrement sur mesure sur devis : e-commerce, API tierces, support 24/7',
       },
     ],
   },
@@ -293,7 +286,7 @@ export const HOME_FAQ_ITEMS: Record<'fr' | 'en' | 'es' | 'vi', Array<{ question:
     },
     {
       question: 'Proposez-vous des forfaits tout inclus ?',
-      answer: 'Oui, nous proposons 3 packs web : Starter (à partir de 1 490€), Business (à partir de 3 990€), et Premium (à partir de 7 990€). Nous proposons aussi des packs Automatisation (à partir de 999€) et Intégration IA (à partir de 1 499€). Chaque pack est personnalisable.',
+      answer: 'Oui, nous proposons 3 packs web : Starter (à partir de 1 490€) et Business (à partir de 3 990€), sur des maquettes déjà déterminées, et Premium, entièrement sur mesure sur devis. Nous proposons aussi des packs Automatisation (à partir de 999€) et Intégration IA (à partir de 1 499€). Chaque pack est personnalisable.',
     },
     {
       question: 'Intégrez-vous des solutions IA dans les sites web ?',
@@ -315,7 +308,7 @@ export const HOME_FAQ_ITEMS: Record<'fr' | 'en' | 'es' | 'vi', Array<{ question:
     },
     {
       question: 'Do you offer all-inclusive packages?',
-      answer: 'Yes, we offer 3 web packs: Starter (from €1,490), Business (from €3,990), and Premium (from €7,990). We also offer Automation packs (from €999) and AI Integration packs (from €1,499). Every pack is customizable.',
+      answer: 'Yes, we offer 3 web packs: Starter (from €1,490) and Business (from €3,990), on pre-defined mockups, and Premium, fully tailor-made on quote. We also offer Automation packs (from €999) and AI Integration packs (from €1,499). Every pack is customizable.',
     },
     {
       question: 'Do you integrate AI solutions into websites?',
@@ -337,7 +330,7 @@ export const HOME_FAQ_ITEMS: Record<'fr' | 'en' | 'es' | 'vi', Array<{ question:
     },
     {
       question: '¿Ofrecéis paquetes todo incluido?',
-      answer: 'Sí, ofrecemos 3 packs web: Starter (desde 1.490€), Business (desde 3.990€) y Premium (desde 7.990€). También ofrecemos packs de Automatización (desde 999€) e Integración IA (desde 1.499€). Cada pack es personalizable.',
+      answer: 'Sí, ofrecemos 3 packs web: Starter (desde 1.490€) y Business (desde 3.990€), sobre maquetas ya determinadas, y Premium, totalmente a medida con presupuesto. También ofrecemos packs de Automatización (desde 999€) e Integración IA (desde 1.499€). Cada pack es personalizable.',
     },
     {
       question: '¿Integráis soluciones de IA en los sitios web?',

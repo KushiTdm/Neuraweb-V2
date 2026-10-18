@@ -11,19 +11,19 @@ import { useTranslation } from '@/hooks/use-translation';
 const SSR_CONTENT: Record<string, { title: string; subtitle: string }> = {
   fr: {
     title: 'Développement Web Sur Mesure',
-    subtitle: 'Sites vitrine, business et e-commerce Next.js — performance, SEO et design. Devis gratuit sous 24h.',
+    subtitle: 'Sites vitrine, business et e-commerce Next.js — performance, SEO et design. Devis gratuit sous 48h.',
   },
   en: {
     title: 'Custom Web Development',
-    subtitle: 'Showcase sites, professional websites and e-commerce in Next.js — performance, SEO and design. Free quote in 24h.',
+    subtitle: 'Showcase sites, professional websites and e-commerce in Next.js — performance, SEO and design. Free quote in 48h.',
   },
   es: {
     title: 'Desarrollo Web a Medida',
-    subtitle: 'Sitios vitrina, webs profesionales y e-commerce en Next.js — rendimiento, SEO y diseño. Presupuesto gratis en 24h.',
+    subtitle: 'Sitios vitrina, webs profesionales y e-commerce en Next.js — rendimiento, SEO y diseño. Presupuesto gratis en 48h.',
   },
   vi: {
     title: 'Développement Web Sur Mesure',
-    subtitle: 'Sites vitrine, business et e-commerce Next.js — performance, SEO et design. Devis gratuit sous 24h.',
+    subtitle: 'Sites vitrine, business et e-commerce Next.js — performance, SEO et design. Devis gratuit sous 48h.',
   },
 };
 

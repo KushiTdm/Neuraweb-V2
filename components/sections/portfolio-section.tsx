@@ -101,20 +101,20 @@ export function PortfolioSection() {
     <section
       id="portfolio"
       aria-labelledby="portfolio-heading"
-      className="bg-gradient-to-br from-surface via-frost to-surface py-20 md:py-28 dark:from-navy-950 dark:via-navy-900 dark:to-navy-950"
+      className="bg-chypre-20 py-20 md:py-28 sec-screen"
     >
       <div className="mx-auto max-w-7xl px-4">
         <header className="mb-10 max-w-2xl md:mb-14">
           <h2
             id="portfolio-heading"
-            className="text-3xl font-bold leading-tight text-gray-900 md:text-5xl dark:text-white"
+            className="font-impact text-3xl font-black leading-tight text-chypre md:text-5xl"
           >
             {t('portfolio.section.title.start')}{' '}
-            <span className="text-navy-700 dark:text-sky-400">
+            <span className="text-chypre">
               {t('portfolio.section.title.highlight')}
             </span>
           </h2>
-          <p className="mt-4 text-base text-gray-700 md:text-lg dark:text-neutral-300">
+          <p className="mt-4 text-base text-chypre/90 md:text-lg">
             {t('portfolio.section.subtitle')}
           </p>
         </header>
@@ -122,13 +122,13 @@ export function PortfolioSection() {
         {/* ── Réalisation phare : la démo interactive maison ──────────────
             Seule réalisation qui prouve le back-office métier, le mobile et
             la synchro temps réel — d'où le traitement pleine largeur. */}
-        <article className="mb-10 overflow-hidden rounded-3xl border border-indigo-200/60 bg-white shadow-sm md:mb-14 dark:border-indigo-400/20 dark:bg-white/5">
+        <article className="mb-10 overflow-hidden rounded-3xl border border-chypre/20 bg-creme shadow-sm md:mb-14">
           <div className="grid items-center gap-0 lg:grid-cols-[1.15fr_1fr]">
             <a
               href={`${DEMO_URL}/c/collectivite`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative block aspect-[16/10] overflow-hidden bg-navy-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+              className="group relative block aspect-[16/10] overflow-hidden bg-chypre focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
             >
               <Image
                 src="/assets/portfolio/connected-suite.webp"
@@ -138,16 +138,16 @@ export function PortfolioSection() {
                 className="object-cover object-left-top transition-transform duration-500 group-hover:scale-[1.03]"
                 loading="lazy"
               />
-              <span className="absolute left-4 top-4 rounded-full bg-indigo-600 px-3 py-1 text-xs font-semibold text-white shadow-lg">
+              <span className="absolute left-4 top-4 rounded-full bg-chypre px-3 py-1 text-xs font-semibold text-creme shadow-lg">
                 {t('portfolio.suite.badge')}
               </span>
             </a>
 
             <div className="p-6 md:p-8 lg:p-10">
-              <h3 className="text-2xl font-bold text-gray-900 md:text-3xl dark:text-white">
+              <h3 className="text-2xl font-bold text-chypre md:text-3xl">
                 NeuraWeb Connected Suite
               </h3>
-              <p className="mt-3 text-base leading-relaxed text-gray-600 dark:text-neutral-300">
+              <p className="mt-3 text-base leading-relaxed text-chypre/80">
                 {t('portfolio.suite.desc')}
               </p>
 
@@ -157,8 +157,8 @@ export function PortfolioSection() {
                   { Icon: Smartphone, key: 'portfolio.suite.feature.mobile' as TranslationKey },
                   { Icon: Radio, key: 'portfolio.suite.feature.realtime' as TranslationKey },
                 ].map(({ Icon, key }) => (
-                  <li key={key} className="flex items-start gap-3 text-sm text-gray-700 dark:text-neutral-300">
-                    <Icon className="mt-0.5 h-4 w-4 flex-shrink-0 text-indigo-600 dark:text-indigo-300" aria-hidden="true" />
+                  <li key={key} className="flex items-start gap-3 text-sm text-chypre/90">
+                    <Icon className="mt-0.5 h-4 w-4 flex-shrink-0 text-chypre" aria-hidden="true" />
                     <span>{t(key)}</span>
                   </li>
                 ))}
@@ -168,7 +168,7 @@ export function PortfolioSection() {
                 {['Next.js 16', 'React 19', 'Zustand', 'PWA'].map((tech) => (
                   <li
                     key={tech}
-                    className="rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 dark:bg-white/10 dark:text-neutral-200"
+                    className="rounded-md bg-chypre/10 px-2 py-1 text-xs font-medium text-chypre/90"
                   >
                     {tech}
                   </li>
@@ -180,7 +180,7 @@ export function PortfolioSection() {
                   href={`${DEMO_URL}/c/collectivite`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-chypre px-5 py-2.5 text-sm font-semibold text-creme transition-colors hover:bg-chypre/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
                 >
                   {t('portfolio.suite.ctaCollectivite')}
                   <ArrowUpRight className="h-4 w-4" />
@@ -189,7 +189,7 @@ export function PortfolioSection() {
                   href={DEMO_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-full border border-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-800 transition-colors hover:border-indigo-400 hover:text-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:border-white/20 dark:text-neutral-100 dark:hover:text-indigo-300"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-chypre/40 px-5 py-2.5 text-sm font-semibold text-chypre transition-colors hover:border-chypre hover:bg-chypre/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
                 >
                   {t('portfolio.suite.ctaAll')}
                   <ArrowUpRight className="h-4 w-4" />
@@ -229,9 +229,9 @@ export function PortfolioSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     tabIndex={copy === 1 ? -1 : undefined}
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-300 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:border-white/10 dark:bg-white/5 dark:hover:border-indigo-400/50"
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-chypre/15 bg-creme shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-chypre/40 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
                   >
-                    <div className="relative aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-navy-900">
+                    <div className="relative aspect-[16/10] overflow-hidden bg-chypre/10">
                       <Image
                         src={project.image}
                         alt={copy === 1 ? '' : `${project.name} — ${t(project.sectorKey)}`}
@@ -240,14 +240,14 @@ export function PortfolioSection() {
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
-                      <span className="absolute left-3 top-3 rounded-full bg-navy-950/80 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                      <span className="absolute left-3 top-3 rounded-full bg-chypre/90 px-3 py-1 text-xs font-medium text-creme backdrop-blur-sm">
                         {t(project.sectorKey)}
                       </span>
                     </div>
 
                     <div className="flex flex-1 flex-col p-5">
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white">{project.name}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-neutral-300">
+                      <h3 className="text-lg font-bold text-chypre">{project.name}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-chypre/80">
                         {t(project.descKey)}
                       </p>
 
@@ -255,14 +255,14 @@ export function PortfolioSection() {
                         {project.stack.map((tech) => (
                           <li
                             key={tech}
-                            className="rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 dark:bg-white/10 dark:text-neutral-200"
+                            className="rounded-md bg-chypre/10 px-2 py-1 text-xs font-medium text-chypre/90"
                           >
                             {tech}
                           </li>
                         ))}
                       </ul>
 
-                      <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-indigo-600 transition-colors group-hover:text-indigo-500 dark:text-indigo-300">
+                      <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-chypre transition-colors group-hover:text-indigo-500">
                         {t('portfolio.modal.view')}
                         <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>
@@ -277,13 +277,13 @@ export function PortfolioSection() {
                 className="w-[85vw] shrink-0 pl-4 sm:w-[24rem] md:pl-0 md:pr-6"
               >
                 <LocalizedLink
-                  href="/restaurants"
+                  href="/secteurs/restaurants-hotels"
                   tabIndex={copy === 1 ? -1 : undefined}
-                  className="group flex h-full min-h-[18rem] flex-col items-start justify-center rounded-2xl border border-dashed border-indigo-300 bg-indigo-50/50 p-6 transition-colors hover:border-indigo-500 hover:bg-indigo-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 dark:border-indigo-400/30 dark:bg-indigo-400/5 dark:hover:bg-indigo-400/10"
+                  className="group flex h-full min-h-[18rem] flex-col items-start justify-center rounded-2xl border border-dashed border-chypre/40 bg-chypre/5 p-6 transition-colors hover:border-chypre hover:bg-chypre/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chypre"
                 >
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">{t('portfolio.restaurant.seeAllTitle')}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-neutral-300">{t('portfolio.restaurant.seeAllDesc')}</p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-600 dark:text-indigo-300">
+                  <h3 className="text-lg font-bold text-chypre">{t('portfolio.restaurant.seeAllTitle')}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-chypre/80">{t('portfolio.restaurant.seeAllDesc')}</p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-chypre">
                     {t('portfolio.modal.view')}
                     <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                   </span>
@@ -303,21 +303,21 @@ export function PortfolioSection() {
             href={HANOI_OFFERS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group mt-10 flex flex-col items-start gap-5 rounded-2xl border border-emerald-300/60 bg-emerald-50/60 p-6 transition-colors hover:border-emerald-400 sm:flex-row sm:items-center sm:justify-between md:mt-14 md:p-8 dark:border-emerald-400/20 dark:bg-emerald-400/5 dark:hover:border-emerald-400/40"
+            className="group mt-10 flex flex-col items-start gap-5 rounded-2xl border border-chypre/30 bg-creme p-6 transition-colors hover:border-chypre sm:flex-row sm:items-center sm:justify-between md:mt-14 md:p-8"
           >
             <div>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-chypre px-3 py-1 text-xs font-semibold text-creme">
                 <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
                 {t('portfolio.vietnam.badge')}
               </span>
-              <h3 className="mt-3 text-xl font-bold text-gray-900 md:text-2xl dark:text-white">
+              <h3 className="mt-3 text-xl font-bold text-chypre md:text-2xl">
                 {t('portfolio.vietnam.title')}
               </h3>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-gray-700 md:text-base dark:text-neutral-300">
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-chypre/90 md:text-base">
                 {t('portfolio.vietnam.desc')}
               </p>
             </div>
-            <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors group-hover:bg-emerald-500">
+            <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-chypre px-5 py-2.5 text-sm font-semibold text-creme transition-colors group-hover:bg-chypre/90">
               {t('portfolio.vietnam.cta')}
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </span>

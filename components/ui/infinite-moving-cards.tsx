@@ -57,18 +57,18 @@ export const InfiniteMovingCards = ({
         {items.map((item, idx) => (
           <li
             key={idx}
-            className="relative w-[260px] sm:w-[340px] max-w-full shrink-0 rounded-2xl border border-gray-200/60 bg-white px-5 py-5 sm:px-8 sm:py-6 shadow-sm"
+            className="relative w-[260px] sm:w-[340px] max-w-full shrink-0 rounded-2xl border border-chypre/15 bg-chypre-20 px-5 py-5 sm:px-8 sm:py-6 shadow-sm"
           >
             <blockquote>
-              <span className="relative z-20 text-xs sm:text-sm leading-relaxed font-normal text-gray-700">
+              <span className="relative z-20 text-xs sm:text-sm leading-relaxed font-normal text-chypre">
                 &ldquo;{item.quote}&rdquo;
               </span>
-              <div className="relative z-20 mt-4 sm:mt-6 flex flex-row items-center border-t border-gray-100 pt-3 sm:pt-4">
+              <div className="relative z-20 mt-4 sm:mt-6 flex flex-row items-center border-t border-chypre/15 pt-3 sm:pt-4">
                 <span className="flex flex-col gap-0.5">
-                  <span className="text-xs sm:text-sm font-semibold text-gray-900">
+                  <span className="text-xs sm:text-sm font-semibold text-chypre">
                     {item.name}
                   </span>
-                  <span className="text-[10px] sm:text-xs text-gray-400">
+                  <span className="text-[10px] sm:text-xs text-chypre/90">
                     {item.title}
                   </span>
                 </span>

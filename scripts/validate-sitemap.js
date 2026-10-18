@@ -17,6 +17,7 @@ const expectedStaticPages = [
   'contact',
   'blog',
   'booking',
+  'secteurs',
   'mentions-legales',
   'confidentialite',
   'conditions-utilisation',
@@ -26,6 +27,7 @@ const excludedRoutes = [
   '/[lang]/admin/hotel-tokens',
   '/[lang]/hotel-form',
   '/[lang]/blog/[slug]',
+  '/[lang]/[...slug]', // catch-all → 404 personnalisée
   '/[lang]/services', // redirect-only page → /:lang/developpement-web
   '/',
 ];
@@ -107,7 +109,7 @@ function getBlogFiles(language) {
 }
 
 function validateStaticRoutes(pageRoutes, sitemapStaticPages) {
-  const FR_ONLY_ROUTES = ['sante', 'restaurants', 'collectivites', 'automatisation', 'integration-ia', 'agence-web-lille', 'agence-web-paris', 'agence-nextjs', 'sous-traitance-web-lille'];
+  const FR_ONLY_ROUTES = ['secteurs/sante', 'secteurs/restaurants-hotels', 'secteurs/collectivites', 'automatisation', 'integration-ia', 'agence-web-lille', 'agence-web-paris', 'agence-nextjs', 'sous-traitance-web-lille'];
 
   const publicLanguageRoutes = pageRoutes
     .filter((route) => route.startsWith('/[lang]/'))
@@ -127,14 +129,14 @@ function validateStaticRoutes(pageRoutes, sitemapStaticPages) {
     fail(`STATIC_PAGES contains /[lang]/${route}, but no matching app route exists.`);
   }
 
-  if (!pageRoutes.includes('/[lang]/sante')) {
-    fail('Expected FR-only /[lang]/sante route was not found.');
+  if (!pageRoutes.includes('/[lang]/secteurs/sante')) {
+    fail('Expected FR-only /[lang]/secteurs/sante route was not found.');
   }
-  if (!pageRoutes.includes('/[lang]/restaurants')) {
-    fail('Expected FR-only /[lang]/restaurants route was not found.');
+  if (!pageRoutes.includes('/[lang]/secteurs/restaurants-hotels')) {
+    fail('Expected FR-only /[lang]/secteurs/restaurants-hotels route was not found.');
   }
-  if (!pageRoutes.includes('/[lang]/collectivites')) {
-    fail('Expected FR-only /[lang]/collectivites route was not found.');
+  if (!pageRoutes.includes('/[lang]/secteurs/collectivites')) {
+    fail('Expected FR-only /[lang]/secteurs/collectivites route was not found.');
   }
   if (!pageRoutes.includes('/[lang]/automatisation')) {
     fail('Expected FR-only /[lang]/automatisation route was not found.');
@@ -192,7 +194,7 @@ function validateBlogPosts() {
 function buildExpectedUrlCount(blogPostCount) {
   const homeUrls = LANGUAGES.length;
   const staticUrls = expectedStaticPages.length * LANGUAGES.length;
-  const frenchOnlyUrls = 9; // sante, restaurants, collectivites, automatisation, integration-ia, agence-web-lille, agence-web-paris, agence-nextjs, sous-traitance-web-lille
+  const frenchOnlyUrls = 9; // secteurs/sante, secteurs/restaurants-hotels, secteurs/collectivites, automatisation, integration-ia, agence-web-lille, agence-web-paris, agence-nextjs, sous-traitance-web-lille
   return homeUrls + staticUrls + frenchOnlyUrls + blogPostCount;
 }
 

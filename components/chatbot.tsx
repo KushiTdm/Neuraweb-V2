@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { X, Send, User, Loader2, AlertCircle, CheckCircle } from 'lucide-react'
+import { X, Loader2 } from 'lucide-react'
 import { useTranslation } from '@/hooks/use-translation'
 
 interface Message {
@@ -55,27 +55,7 @@ function MessageContent({ content }: { content: string }) {
   )
 }
 
-const RobotIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <rect x="4" y="8" width="16" height="12" rx="2"/>
-    <path d="M2 12h2"/><path d="M20 12h2"/><path d="M8 4h8"/>
-    <circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/>
-    <path d="M9 17h6"/>
-  </svg>
-)
-
-// ── Widget SVG Icons ──────────────────────────────────────────────────────────
-const BotWidgetIcon = () => (
-  <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-    <circle cx="9" cy="11" r="1.5" fill="currentColor" />
-    <circle cx="17" cy="11" r="1.5" fill="currentColor" />
-    <path d="M9 15.5c1 1.5 7 1.5 8 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <rect x="3" y="5" width="20" height="16" rx="4" stroke="currentColor" strokeWidth="1.8" />
-    <path d="M9 5V3M17 5V3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <path d="M3 13H1M25 13H23" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-)
-
+// ── Icônes fonctionnelles uniquement (fermer) ─────────────────────────────────
 const CloseSmallIcon = () => (
   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
     <path d="M3 3l8 8M11 3L3 11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
@@ -162,9 +142,9 @@ export default function Chatbot() {
       const packId = event.detail?.pack
       if (packId) {
         const packNames: Record<string, Record<string, string>> = {
-          fr: { starter: 'Starter (1 490€)', business: 'Business (3 990€)', premium: 'Premium (7 990€)', ai: 'Pack IA (sur devis)' },
-          en: { starter: 'Starter (€1,490)', business: 'Business (€3,990)', premium: 'Premium (€7,990)', ai: 'AI Pack (custom)' },
-          es: { starter: 'Starter (1.490€)', business: 'Business (3.990€)', premium: 'Premium (7.990€)', ai: 'Pack IA (a presupuesto)' },
+          fr: { starter: 'Starter (à partir de 1 490€)', business: 'Business (à partir de 3 990€)', premium: 'Premium (sur mesure)', ai: 'Pack IA (sur devis)' },
+          en: { starter: 'Starter (from €1,490)', business: 'Business (from €3,990)', premium: 'Premium (tailor-made)', ai: 'AI Pack (custom)' },
+          es: { starter: 'Starter (desde 1.490€)', business: 'Business (desde 3.990€)', premium: 'Premium (a medida)', ai: 'Pack IA (a presupuesto)' },
           // vi : aucun prix EUR fixe (règle du site) — seule l'offre Landing Page
           // Express a un prix affiché, tout le reste est en mode devis.
           vi: { landing: 'Landing Page Express (1.290.000 VND)', starter: 'Starter (Theo báo giá)', business: 'Business (Theo báo giá)', premium: 'Premium (Theo báo giá)', ai: 'Gói AI (Theo báo giá)' },
@@ -471,13 +451,13 @@ export default function Chatbot() {
             <>
               <span style={{
                 position: 'absolute', inset: -5, borderRadius: '50%',
-                border: '1.5px solid rgba(93,184,240,0.5)',
+                border: '1.5px solid rgba(0,70,67,0.5)',
                 animation: 'nw-pulse-ring 2.5s ease-out infinite',
                 pointerEvents: 'none',
               }} />
               <span style={{
                 position: 'absolute', inset: -5, borderRadius: '50%',
-                border: '1px solid rgba(93,184,240,0.3)',
+                border: '1px solid rgba(0,70,67,0.3)',
                 animation: 'nw-pulse-ring2 2.5s ease-out infinite 0.4s',
                 pointerEvents: 'none',
               }} />
@@ -494,19 +474,16 @@ export default function Chatbot() {
             aria-haspopup="dialog"
             style={{
               width: 58, height: 58, borderRadius: '50%',
-              border: 'none', cursor: 'pointer',
+              cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               position: 'relative', overflow: 'hidden',
               animation: (btnHovered || isOpen) ? 'none' : 'nw-float 3s ease-in-out infinite',
               transition: 'transform 0.2s ease',
-              background: isOpen
-                ? 'linear-gradient(135deg, #374151, #4b5563)'
-                : btnHovered
-                ? 'linear-gradient(135deg, #ffffff, #e5e7eb)'
-                : 'linear-gradient(135deg, #111827, #1f2937)',
+              background: '#F0EDE5',
+              border: '2px solid #004643',
               boxShadow: btnHovered
-                ? '0 0 0 3px rgba(255,255,255,0.25), 0 8px 32px rgba(0,0,0,0.4), 0 0 60px rgba(255,255,255,0.15)'
-                : '0 4px 20px rgba(0,0,0,0.45), 0 0 40px rgba(255,255,255,0.08)',
+                ? '0 0 0 4px rgba(0,70,67,0.45), 0 8px 28px rgba(0,70,67,0.35)'
+                : '0 4px 20px rgba(0,70,67,0.35)',
               transform: btnHovered ? 'scale(1.08)' : 'scale(1)',
             }}
           >
@@ -514,16 +491,16 @@ export default function Chatbot() {
             {btnHovered && !isOpen && (
               <span style={{
                 position: 'absolute', inset: 0, borderRadius: '50%',
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)',
+                background: 'linear-gradient(90deg, transparent, rgba(0,70,67,0.12), transparent)',
                 backgroundSize: '200% 100%',
                 animation: 'nw-shimmer 1.2s linear infinite',
               }} />
             )}
 
-            <span style={{ color: btnHovered && !isOpen ? '#111827' : '#fff', position: 'relative', zIndex: 1 }}>
+            <span style={{ color: '#004643', position: 'relative', zIndex: 1, fontWeight: 700, fontSize: 14, letterSpacing: '0.02em' }}>
               {isOpen
-                ? <X className="w-6 h-6 text-white" aria-hidden="true" />
-                : <BotWidgetIcon />
+                ? <X className="w-6 h-6" aria-hidden="true" />
+                : 'Chat'
               }
             </span>
 
@@ -532,7 +509,7 @@ export default function Chatbot() {
               <span style={{
                 position: 'absolute', top: 10, right: 10,
                 width: 9, height: 9, borderRadius: '50%',
-                background: '#9ca3af', border: '2px solid #111827',
+                background: '#004643', border: '2px solid #F0EDE5',
                 animation: 'nw-dot 1.8s ease-in-out infinite', zIndex: 2,
               }} />
             )}
@@ -550,35 +527,26 @@ export default function Chatbot() {
           pointerEvents: showLabel ? 'auto' : 'none',
         }}>
           <div style={{
-            background: 'rgba(15,12,41,0.92)',
+            background: '#004643',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255,255,255,0.18)',
+            border: '1px solid rgba(240,237,229,0.25)',
             borderRadius: 14, padding: '10px 16px',
             display: 'flex', alignItems: 'center', gap: 10,
-            boxShadow: '0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)',
+            boxShadow: '0 4px 24px rgba(0,70,67,0.35)',
             whiteSpace: 'nowrap', position: 'relative',
           }}>
-            {/* Avatar N */}
-            <div style={{
-              width: 32, height: 32, borderRadius: '50%',
-              background: 'linear-gradient(135deg, #374151, #1f2937)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              flexShrink: 0, fontSize: 14, fontWeight: 700, color: '#fff',
-              boxShadow: '0 0 12px rgba(0,0,0,0.5)',
-            }}>N</div>
-
             {/* Texte */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
               <span style={{
-                fontSize: 11, fontWeight: 600, color: '#e5e7eb',
+                fontSize: 11, fontWeight: 600, color: 'rgba(240,237,229,0.85)',
                 letterSpacing: '0.06em', textTransform: 'uppercase',
               }}>NeuraWeb IA</span>
               <span style={{
-                fontSize: 13, fontWeight: 500, color: '#e2e8f0',
+                fontSize: 13, fontWeight: 500, color: '#F0EDE5',
                 display: 'flex', alignItems: 'center', gap: 4,
               }}>
                 {language === 'fr' ? 'Parlez à notre IA' : language === 'es' ? 'Hable con nuestra IA' : language === 'vi' ? 'Trò chuyện với AI của chúng tôi' : 'Talk to our AI'}
-                <span style={{ color: '#9ca3af', fontFamily: 'monospace', minWidth: 16 }}>
+                <span style={{ color: 'rgba(240,237,229,0.75)', fontFamily: 'monospace', minWidth: 16 }}>
                   {dots}
                 </span>
               </span>
@@ -589,18 +557,18 @@ export default function Chatbot() {
               onClick={(e) => { e.stopPropagation(); setLabelDismissed(true) }}
               aria-label="Fermer"
               style={{
-                background: 'rgba(255,255,255,0.07)', border: 'none', borderRadius: '50%',
+                background: 'rgba(240,237,229,0.12)', border: 'none', borderRadius: '50%',
                 width: 22, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                cursor: 'pointer', color: '#94a3b8', marginLeft: 2,
+                cursor: 'pointer', color: 'rgba(240,237,229,0.8)', marginLeft: 2,
                 transition: 'background 0.2s, color 0.2s',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(239,68,68,0.2)'
-                e.currentTarget.style.color = '#f87171'
+                e.currentTarget.style.background = 'rgba(240,237,229,0.25)'
+                e.currentTarget.style.color = '#F0EDE5'
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.07)'
-                e.currentTarget.style.color = '#94a3b8'
+                e.currentTarget.style.background = 'rgba(240,237,229,0.12)'
+                e.currentTarget.style.color = 'rgba(240,237,229,0.8)'
               }}
             ><CloseSmallIcon /></button>
 
@@ -610,7 +578,7 @@ export default function Chatbot() {
               width: 0, height: 0,
               borderTop: '7px solid transparent',
               borderBottom: '7px solid transparent',
-              borderLeft: '7px solid rgba(93,184,240,0.4)',
+              borderLeft: '7px solid #004643',
             }} />
           </div>
         </div>
@@ -625,29 +593,26 @@ export default function Chatbot() {
           isOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
-        <div className="bg-gray-900 border border-gray-700 rounded-2xl shadow-2xl overflow-hidden">
+        <div className="overflow-hidden rounded-2xl border border-chypre/25 bg-creme shadow-[0_20px_60px_rgba(0,70,67,0.3)]">
 
           {/* Header */}
-          <div className="px-4 py-3 bg-navy-900">
+          <div className="bg-chypre px-4 py-3">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center" aria-hidden="true">
-                <RobotIcon className="w-5 h-5 text-white" />
-              </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-white font-semibold">{t('chatbot.title')}</h3>
-                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium uppercase tracking-wide bg-white/20 text-white">
+                  <h3 className="font-display text-base font-bold leading-tight text-creme">{t('chatbot.title')}</h3>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-medium uppercase tracking-wide shrink-0 whitespace-nowrap bg-creme/20 text-creme">
                     {t('chatbot.aiTag')}
                   </span>
                 </div>
-                <p className="text-white/70 text-xs">{remainingMessages} {t('chatbot.remaining')}</p>
+                <p className="text-xs text-creme/80">{remainingMessages} {t('chatbot.remaining')}</p>
               </div>
             </div>
           </div>
 
           {/* Messages */}
           <div
-            className="h-80 overflow-y-auto p-4 space-y-4 bg-gray-950"
+            className="h-80 space-y-4 overflow-y-auto bg-creme p-4"
             role="log"
             aria-live="polite"
             aria-label={language === 'fr' ? 'Messages du chat' : language === 'es' ? 'Mensajes del chat' : language === 'vi' ? 'Tin nhắn trò chuyện' : 'Chat messages'}
@@ -655,21 +620,10 @@ export default function Chatbot() {
             {messages.map((msg, index) => (
               <div key={index}>
                 <div className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                      msg.role === 'user' ? 'bg-gray-600' : 'bg-navy-800'
-                    }`}
-                    aria-hidden="true"
-                  >
-                    {msg.role === 'user'
-                      ? <User className="w-4 h-4 text-white" />
-                      : <RobotIcon className="w-4 h-4 text-white" />
-                    }
-                  </div>
                   <div className={`max-w-[85%] px-4 py-2 rounded-2xl ${
                     msg.role === 'user'
-                      ? 'bg-gray-600 text-white rounded-br-sm'
-                      : 'bg-gray-800 text-gray-100 rounded-bl-sm border border-gray-700'
+                      ? 'rounded-br-sm bg-chypre text-creme'
+                      : 'rounded-bl-sm border border-chypre/15 bg-chypre-20 text-chypre'
                   }`}>
                     <MessageContent content={msg.content} />
                   </div>
@@ -677,19 +631,19 @@ export default function Chatbot() {
 
                 {/* Dates cliquables */}
                 {msg.showBooking === 'dates' && msg.slots && (
-                  <div className="mt-3 ml-11 grid grid-cols-3 gap-2" role="group" aria-label={language === 'fr' ? 'Choisir une date' : language === 'vi' ? 'Chọn ngày' : 'Choose a date'}>
+                  <div className="mt-3 grid grid-cols-3 gap-2" role="group" aria-label={language === 'fr' ? 'Choisir une date' : language === 'vi' ? 'Chọn ngày' : 'Choose a date'}>
                     {Array.from(new Set(msg.slots.filter(s => s.available).map(s => s.date))).sort().slice(0, 9).map(date => (
                       <button
                         key={date}
                         onClick={() => selectDate(date, msg.slots)}
                         aria-label={formatDate(date)}
-                        className="p-2 bg-gray-800 hover:bg-gray-600 border border-gray-700 hover:border-gray-600 rounded-lg text-center text-white text-sm transition-all"
+                        className="p-2 rounded-lg border border-chypre/30 bg-creme text-center text-sm text-chypre transition-all hover:bg-chypre/10"
                       >
-                        <div className="text-xs text-gray-400">{new Date(date).toLocaleDateString(
+                        <div className="text-xs text-chypre/70">{new Date(date).toLocaleDateString(
                           language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : language === 'vi' ? 'vi-VN' : 'en-US', { weekday: 'short' }
                         )}</div>
                         <div className="font-bold text-lg">{new Date(date).getDate()}</div>
-                        <div className="text-xs text-gray-400">{new Date(date).toLocaleDateString(
+                        <div className="text-xs text-chypre/70">{new Date(date).toLocaleDateString(
                           language === 'fr' ? 'fr-FR' : language === 'es' ? 'es-ES' : language === 'vi' ? 'vi-VN' : 'en-US', { month: 'short' }
                         )}</div>
                       </button>
@@ -699,13 +653,13 @@ export default function Chatbot() {
 
                 {/* Heures cliquables */}
                 {msg.showBooking === 'times' && msg.selectedDate && msg.slots && (
-                  <div className="mt-3 ml-11 grid grid-cols-4 gap-2" role="group" aria-label={language === 'fr' ? 'Choisir un horaire' : language === 'vi' ? 'Chọn giờ' : 'Choose a time'}>
+                  <div className="mt-3 grid grid-cols-4 gap-2" role="group" aria-label={language === 'fr' ? 'Choisir un horaire' : language === 'vi' ? 'Chọn giờ' : 'Choose a time'}>
                     {msg.slots.filter(s => s.date === msg.selectedDate && s.available).map(s => s.time).map(time => (
                       <button
                         key={time}
                         onClick={() => selectTime(time)}
                         aria-label={`${language === 'fr' ? 'Réserver à' : language === 'vi' ? 'Đặt lúc' : 'Book at'} ${time}`}
-                        className="p-2 bg-gray-800 hover:bg-gray-600 border border-gray-700 hover:border-gray-600 rounded-lg text-white text-sm font-medium transition-all"
+                        className="p-2 rounded-lg border border-chypre/30 bg-creme text-sm font-medium text-chypre transition-all hover:bg-chypre/10"
                       >
                         {time}
                       </button>
@@ -715,19 +669,19 @@ export default function Chatbot() {
 
                 {/* Formulaire booking */}
                 {msg.showBooking === 'form' && (
-                  <div className="mt-3 ml-11 space-y-2">
+                  <div className="mt-3 space-y-2">
                     <input type="text"
                       placeholder={language === 'fr' ? 'Nom *' : language === 'es' ? 'Nombre *' : language === 'vi' ? 'Họ tên *' : 'Name *'}
                       value={bookingForm.name}
                       onChange={e => setBookingForm({...bookingForm, name: e.target.value})}
                       aria-label={language === 'fr' ? 'Votre nom' : language === 'vi' ? 'Họ tên của bạn' : 'Your name'}
-                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400"
+                      className="w-full rounded-lg border border-chypre/30 bg-creme px-3 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none"
                     />
                     <input type="email" placeholder="Email *"
                       value={bookingForm.email}
                       onChange={e => setBookingForm({...bookingForm, email: e.target.value})}
                       aria-label={language === 'fr' ? 'Votre email' : language === 'vi' ? 'Email của bạn' : 'Your email'}
-                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400"
+                      className="w-full rounded-lg border border-chypre/30 bg-creme px-3 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none"
                     />
                     <div className="grid grid-cols-2 gap-2">
                       <input type="tel"
@@ -735,13 +689,13 @@ export default function Chatbot() {
                         value={bookingForm.phone}
                         onChange={e => setBookingForm({...bookingForm, phone: e.target.value})}
                         aria-label={language === 'fr' ? 'Téléphone' : language === 'vi' ? 'Số điện thoại' : 'Phone'}
-                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400"
+                        className="w-full rounded-lg border border-chypre/30 bg-creme px-3 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none"
                       />
                       <input type="tel" placeholder="WhatsApp"
                         value={bookingForm.whatsapp}
                         onChange={e => setBookingForm({...bookingForm, whatsapp: e.target.value})}
                         aria-label="WhatsApp"
-                        className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400"
+                        className="w-full rounded-lg border border-chypre/30 bg-creme px-3 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none"
                       />
                     </div>
                     <textarea
@@ -750,18 +704,18 @@ export default function Chatbot() {
                       onChange={e => setBookingForm({...bookingForm, message: e.target.value})}
                       rows={2}
                       aria-label={language === 'fr' ? 'Message optionnel' : language === 'vi' ? 'Lời nhắn không bắt buộc' : 'Optional message'}
-                      className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-gray-400 resize-none"
+                      className="w-full rounded-lg border border-chypre/30 bg-creme px-3 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none resize-none"
                     />
                     <button
                       onClick={submitBooking}
                       disabled={!bookingForm.name || !bookingForm.email || isSubmittingBooking}
                       aria-label={language === 'fr' ? 'Confirmer le rendez-vous' : language === 'vi' ? 'Xác nhận lịch hẹn' : 'Confirm booking'}
-                      className="w-full py-2 text-white rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 bg-navy-900"
+                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-chypre py-2 font-medium text-creme disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       {isSubmittingBooking ? (
                         <><Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />{language === 'fr' ? 'Réservation...' : language === 'vi' ? 'Đang đặt lịch...' : 'Booking...'}</>
                       ) : (
-                        <><CheckCircle className="w-4 h-4" aria-hidden="true" />{language === 'fr' ? 'Confirmer le RDV' : language === 'es' ? 'Confirmar cita' : language === 'vi' ? 'Xác nhận lịch hẹn' : 'Confirm booking'}</>
+                        <>{language === 'fr' ? 'Confirmer le RDV' : language === 'es' ? 'Confirmar cita' : language === 'vi' ? 'Xác nhận lịch hẹn' : 'Confirm booking'}</>
                       )}
                     </button>
                   </div>
@@ -771,20 +725,17 @@ export default function Chatbot() {
 
             {isLoading && (
               <div className="flex gap-3" role="status" aria-label={language === 'fr' ? 'En cours de réponse…' : language === 'vi' ? 'Đang trả lời…' : 'Typing…'}>
-                <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 bg-navy-800" aria-hidden="true">
-                  <RobotIcon className="w-4 h-4 text-white" />
-                </div>
-                <div className="bg-gray-800 border border-gray-700 px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1" aria-hidden="true">
-                  <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0ms]" />
-                  <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:150ms]" />
-                  <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:300ms]" />
+                <div className="flex items-center gap-1 rounded-2xl rounded-bl-sm border border-chypre/15 bg-chypre-20 px-4 py-3" aria-hidden="true">
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-chypre/70 [animation-delay:0ms]" />
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-chypre/70 [animation-delay:150ms]" />
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-chypre/70 [animation-delay:300ms]" />
                 </div>
               </div>
             )}
 
             {error && (
-              <div className="flex items-center gap-2 text-red-400 text-sm bg-red-400/10 px-3 py-2 rounded-lg" role="alert">
-                <AlertCircle className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
+              <div className="flex items-center gap-2 rounded-lg border border-chypre/30 bg-chypre/10 px-3 py-2 text-sm text-chypre" role="alert">
+                
                 <span>{error}</span>
               </div>
             )}
@@ -793,11 +744,11 @@ export default function Chatbot() {
           </div>
 
           {/* Input */}
-          <div className="p-3 bg-gray-900 border-t border-gray-700">
+          <div className="border-t border-chypre/20 bg-creme p-3">
             {remainingMessages <= 0 ? (
               <div className="text-center py-2">
-                <p className="text-gray-400 text-sm mb-2">{t('chatbot.limit')}</p>
-                <a href="mailto:contact@neuraweb.fr" className="text-blue-400 hover:text-blue-300 text-sm underline">
+                <p className="mb-2 text-sm text-chypre/80">{t('chatbot.limit')}</p>
+                <a href="mailto:contact@neuraweb.fr" className="text-sm text-chypre underline hover:text-chypre/80">
                   {t('chatbot.contact')}
                 </a>
               </div>
@@ -812,24 +763,24 @@ export default function Chatbot() {
                   placeholder={t('chatbot.placeholder')}
                   disabled={isLoading}
                   aria-label={t('chatbot.placeholder')}
-                  className="flex-1 bg-gray-800 border border-gray-700 rounded-xl px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-gray-400 disabled:opacity-50 text-sm"
+                  className="flex-1 rounded-xl border border-chypre/30 bg-creme px-4 py-2 text-sm text-chypre placeholder-chypre/60 focus:border-chypre focus:outline-none disabled:opacity-50"
                 />
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
                   aria-label={sendLabel}
-                  className="px-4 py-2 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed bg-navy-900 hover:bg-navy-800"
+                  className="rounded-xl bg-chypre px-4 py-2 text-sm font-semibold text-creme transition-all hover:bg-chypre/90 disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  <Send className="w-4 h-4" aria-hidden="true" />
+                  {language === 'fr' ? 'Envoyer' : language === 'es' ? 'Enviar' : language === 'vi' ? 'Gửi' : 'Send'}
                 </button>
               </div>
             )}
           </div>
 
           {/* Footer */}
-          <div className="px-4 py-2 bg-gray-950 border-t border-gray-800 flex items-center justify-center">
-            <p className="text-gray-500 text-xs">
-              {t('chatbot.footer')} <span className="text-gray-400">NeuraWeb</span>
+          <div className="flex items-center justify-center border-t border-chypre/15 bg-chypre-20 px-4 py-2">
+            <p className="text-xs text-chypre/80">
+              {t('chatbot.footer')} <span className="font-semibold text-chypre">NeuraWeb</span>
             </p>
           </div>
         </div>
@@ -838,7 +789,7 @@ export default function Chatbot() {
       {/* Overlay mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          className="fixed inset-0 bg-chypre/50 z-40 md:hidden"
           onClick={() => setIsOpen(false)}
           aria-hidden="true"
         />

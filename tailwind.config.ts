@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import themeTokens from './lib/theme-tokens.json';
 
 const config: Config = {
   darkMode: ['class'],
@@ -6,6 +7,7 @@ const config: Config = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './lib/blog-markdown.ts', // classes du HTML généré pour les articles
   ],
   theme: {
     screens: {
@@ -17,15 +19,26 @@ const config: Config = {
       '2xl': '1536px',
     },
     extend: {
+      // Paliers d'opacité absents de Tailwind 3.3 (utilisés dans le code : /15 /35 /45 /55 /65 /85)
+      opacity: { 15: '0.15', 35: '0.35', 45: '0.45', 55: '0.55', 65: '0.65', 85: '0.85' },
       // ── Fonts premium ──────────────────────────────────────
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-inter-tight)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-bricolage)', 'system-ui', 'sans-serif'],
+        impact: ['var(--font-fraunces)', 'Georgia', 'serif'],
         mono: ['var(--font-jetbrains-mono)', 'monospace'],
       },
 
       // ── Palette de couleurs ────────────────────────────────
       colors: {
+        // ── Identité 2026 (bicolore accueil) ──
+        chypre: { DEFAULT: '#004643', 20: '#C0CCC5', 40: '#90AAA4', 60: '#608984' },
+        creme: { DEFAULT: '#F0EDE5' },
+        // Barres de navigation/pied de page : suivent le thème de la page (valeurs par défaut = Crème/Chypre)
+        navbg: 'rgb(var(--nav-bg, 240 237 229) / <alpha-value>)',
+        navfg: 'rgb(var(--nav-fg, 0 70 67) / <alpha-value>)',
+        footbg: 'rgb(var(--foot-bg, 0 70 67) / <alpha-value>)',
+        footfg: 'rgb(var(--foot-fg, 240 237 229) / <alpha-value>)',
         // Navy — couleur principale de la nouvelle identité
         navy: {
           700: '#1E3A6B',
@@ -236,5 +249,24 @@ const config: Config = {
   },
   plugins: [require('tailwindcss-animate')],
 };
+
+// ── Jetons de thème (voir scripts/generate-themes.mjs) ───────────────────────────────────────────
+// Chaque couleur de palette passe par une variable CSS `--c-<jeton>` : valeur d'origine hors thème,
+// recalculée dans `.theme-<nom>` (app/[lang]/themes.css).
+{
+  const ext = (config.theme as any).extend.colors as Record<string, any>;
+  const txt = ((config.theme as any).extend.textColor ??= {}) as Record<string, any>;
+  for (const token of themeTokens as string[]) {
+    const value = `rgb(var(--c-${token}) / <alpha-value>)`;
+    const i = token.lastIndexOf('-');
+    if (i === -1) { ext[token] = value; continue; }
+    const palette = token.slice(0, i);
+    const shade = token.slice(i + 1);
+    ext[palette] = { ...(typeof ext[palette] === 'object' ? ext[palette] : {}), [shade]: value };
+    // Texte : variables contextuelles --t-* (clair/sombre) au lieu des --c-* (fonds, bordures)
+    const tv = `rgb(var(--t-${token}) / <alpha-value>)`;
+    if (i === -1) { txt[token] = tv; } else { txt[palette] = { ...(typeof txt[palette] === 'object' ? txt[palette] : {}), [shade]: tv }; }
+  }
+}
 
 export default config;

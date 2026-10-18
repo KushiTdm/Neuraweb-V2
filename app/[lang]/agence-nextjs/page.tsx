@@ -57,7 +57,7 @@ export async function generateMetadata({
   const ogImage = `${BASE_URL}/assets/og-image.png`;
   const title = 'Agence Next.js — Sites & Apps Web Performants | NeuraWeb';
   const description =
-    'Agence spécialisée Next.js et React : sites vitrines, applications web et migrations WordPress. Score PageSpeed 90+, SEO technique natif. Devis sous 24h.';
+    'Agence spécialisée Next.js et React : sites vitrines, applications web et migrations WordPress. Score PageSpeed 90+, SEO technique natif. Devis sous 48h.';
 
   return {
     title: { absolute: title },
@@ -144,7 +144,7 @@ const serviceSchema = {
         itemOffered: { '@type': 'Service', name: 'Site vitrine Next.js' },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '1490',
+          minPrice: '1490',
           priceCurrency: 'EUR',
           valueAddedTaxIncluded: false,
         },
@@ -154,20 +154,15 @@ const serviceSchema = {
         itemOffered: { '@type': 'Service', name: 'Site Next.js avancé avec blog et chatbot IA' },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '3990',
+          minPrice: '3990',
           priceCurrency: 'EUR',
           valueAddedTaxIncluded: false,
         },
       },
       {
         '@type': 'Offer',
-        itemOffered: { '@type': 'Service', name: 'Application web Next.js sur mesure' },
-        priceSpecification: {
-          '@type': 'PriceSpecification',
-          price: '7990',
-          priceCurrency: 'EUR',
-          valueAddedTaxIncluded: false,
-        },
+        // Sur mesure : aucun prix publié, chiffrage sur devis
+        itemOffered: { '@type': 'Service', name: 'Application web Next.js sur mesure (sur devis)' },
       },
     ],
   },
@@ -187,7 +182,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "Combien coûte la création d'un site Next.js par une agence ?",
-    a: "Chez NeuraWeb, un site vitrine Next.js jusqu'à 8 pages démarre à 1 490 € HT. Un site plus complet jusqu'à 20 pages, avec blog, SEO avancé et chatbot IA, est à 3 990 € HT. Une application web sur mesure avec IA, automatisation et multi-langue est à 7 990 € HT. Sur le marché français, les agences Next.js facturent généralement entre 50 et 150 € de l'heure en régie ; nous privilégions le forfait pour éviter les dérives de budget.",
+    a: "Chez NeuraWeb, un site vitrine Next.js jusqu'à 8 pages démarre à 1 490 € HT. Un site plus complet jusqu'à 20 pages, avec blog, SEO avancé et chatbot IA, est à 3 990 € HT. Ces deux prix s'appliquent à des maquettes déjà déterminées, adaptées à votre charte. Une application web entièrement sur mesure (design sur mesure, IA, automatisation, multi-langue) est chiffrée sur devis. Sur le marché français, les agences Next.js facturent généralement entre 50 et 150 € de l'heure en régie ; nous privilégions le forfait pour éviter les dérives de budget.",
   },
   {
     q: 'Combien de temps faut-il pour développer un site avec Next.js ?',
@@ -327,11 +322,12 @@ export default async function AgenceNextjsPage({
       <JsonLd id="agence-nextjs-faq" data={faqPageSchema} />
       <JsonLd id="agence-nextjs-breadcrumb" data={breadcrumbData} />
 
+      <div className="theme-accueil">
       <Header />
-      <main id="main-content" className="bg-white text-slate-800 overflow-x-hidden">
+      <main id="main-content" className="bg-white text-slate-800 overflow-x-hidden ctx-light">
 
         {/* ── HERO ────────────────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-slate-50">
+        <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-28 bg-slate-50 ctx-light">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(6,182,212,0.10),transparent_60%)] pointer-events-none" />
           <div className="absolute -top-32 -right-32 w-96 h-96 bg-cyan-200/30 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl pointer-events-none" />
@@ -379,7 +375,7 @@ export default async function AgenceNextjsPage({
                     asChild
                     variant="outline"
                     size="lg"
-                    className="bg-white border-cyan-300 text-cyan-700 hover:bg-cyan-50 hover:text-cyan-800 h-12 px-6 sm:px-8"
+                    className="bg-white border-cyan-300 text-cyan-700 hover:bg-cyan-50 hover:text-cyan-800 h-12 px-6 sm:px-8 ctx-light"
                   >
                     <LocalizedLink href="/blog/nextjs-vs-wordpress-2026">
                       Next.js vs WordPress
@@ -391,7 +387,7 @@ export default async function AgenceNextjsPage({
                 <div className="mt-6 md:mt-10 flex flex-wrap gap-x-4 gap-y-2 sm:grid sm:grid-cols-3 sm:gap-4">
                   {[
                     { icon: Gauge, label: '90+/100', longLabel: 'PageSpeed 90+/100', color: 'text-indigo-600' },
-                    { icon: Clock, label: 'Réponse 24h', longLabel: 'Réponse sous 24h', color: 'text-violet-600' },
+                    { icon: Clock, label: 'Réponse 48h', longLabel: 'Réponse sous 48h', color: 'text-violet-600' },
                     { icon: MapPin, label: 'Lille · France', longLabel: 'Lille, partout en France', color: 'text-cyan-600' },
                   ].map(({ icon: Icon, label, longLabel, color }) => (
                     <div key={label} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-slate-700">
@@ -405,7 +401,7 @@ export default async function AgenceNextjsPage({
 
               {/* Carte réponse directe (optimisée extraction IA) */}
               <div className="lg:col-span-5">
-                <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-cyan-600/15 border border-slate-200/60 bg-white p-6 sm:p-8">
+                <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-cyan-600/15 border border-slate-200/60 bg-white p-6 sm:p-8 ctx-light">
                   <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-2xl opacity-60 pointer-events-none bg-navy-900" />
                   <p className="relative text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
                     En résumé
@@ -437,7 +433,7 @@ export default async function AgenceNextjsPage({
         </section>
 
         {/* ── BÉNÉFICES ───────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-white">
+        <section className="py-12 md:py-24 bg-white ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -453,7 +449,7 @@ export default async function AgenceNextjsPage({
               {BENEFITS.map(({ icon: Icon, title, desc, color }) => (
                 <div
                   key={title}
-                  className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow"
+                  className="rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow ctx-light"
                 >
                   <div className={`inline-flex items-center justify-center w-10 h-10 rounded-lg mb-4 ${color}`}>
                     <Icon className="w-5 h-5" />
@@ -467,7 +463,7 @@ export default async function AgenceNextjsPage({
         </section>
 
         {/* ── COMPARATIF ──────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-slate-50">
+        <section className="py-12 md:py-24 bg-slate-50 ctx-light">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -480,7 +476,7 @@ export default async function AgenceNextjsPage({
               </p>
             </div>
 
-            <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm ctx-light">
               <table className="w-full text-sm min-w-[560px]">
                 <thead>
                   <tr className="border-b border-slate-200 bg-slate-50">
@@ -526,7 +522,7 @@ export default async function AgenceNextjsPage({
         </section>
 
         {/* ── CAS D'USAGE ─────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-white">
+        <section className="py-12 md:py-24 bg-white ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mb-8 md:mb-12">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -555,7 +551,7 @@ export default async function AgenceNextjsPage({
         </section>
 
         {/* ── LIENS INTERNES ───────────────────────────────────────────────── */}
-        <section className="py-10 md:py-14 bg-white border-y border-slate-100">
+        <section className="py-10 md:py-14 bg-white border-y border-slate-100 ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4 md:mb-6">
               Aller plus loin
@@ -584,7 +580,7 @@ export default async function AgenceNextjsPage({
         </section>
 
         {/* ── FAQ ─────────────────────────────────────────────────────────── */}
-        <section className="py-12 md:py-24 bg-slate-50">
+        <section className="py-12 md:py-24 bg-slate-50 ctx-light">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8 md:mb-10">
               <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3">
@@ -600,7 +596,7 @@ export default async function AgenceNextjsPage({
                 <AccordionItem
                   key={idx}
                   value={`faq-${idx}`}
-                  className="border border-slate-200 rounded-lg mb-2 overflow-hidden bg-white shadow-sm data-[state=open]:shadow-md"
+                  className="border border-slate-200 rounded-lg mb-2 overflow-hidden bg-white shadow-sm data-[state=open]:shadow-md ctx-light"
                 >
                   <AccordionTrigger className="px-4 py-3 hover:no-underline text-left font-semibold text-slate-900 text-base">
                     {item.q}
@@ -616,7 +612,7 @@ export default async function AgenceNextjsPage({
 
         {/* ── CTA FINAL ──────────────────────────────────────────────────────── */}
         <section className="relative py-14 md:py-28 overflow-hidden text-white bg-navy-900">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)] pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--c-white) / 0.15),transparent_60%)] pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -630,14 +626,14 @@ export default async function AgenceNextjsPage({
             </h2>
             <p className="text-base sm:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto">
               Nouveau projet ou migration depuis WordPress : nous auditons votre existant
-              et vous remettons un chiffrage sous 24h, sans engagement.
+              et vous remettons un chiffrage sous 48h, sans engagement.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
               <Button
                 asChild
                 size="lg"
-                className="bg-white hover:bg-slate-50 text-indigo-700 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold shadow-2xl shadow-indigo-900/30 w-full sm:w-auto"
+                className="bg-white hover:bg-slate-50 text-indigo-700 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-bold shadow-2xl shadow-indigo-900/30 w-full sm:w-auto ctx-light"
               >
                 <LocalizedLink href="/booking">
                   <Sparkles className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
@@ -648,7 +644,7 @@ export default async function AgenceNextjsPage({
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-white/40 text-white hover:bg-white/10 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base w-full sm:w-auto"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base w-full sm:w-auto"
               >
                 <LocalizedLink href="/contact">
                   Nous contacter
@@ -658,13 +654,14 @@ export default async function AgenceNextjsPage({
 
             <p className="mt-6 md:mt-8 inline-flex items-center gap-2 text-xs sm:text-sm text-white/80">
               <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              Réponse garantie sous 4 heures ouvrées
+              Réponse sous 48 h ouvrées
             </p>
           </div>
         </section>
 
       </main>
       <Footer />
+      </div>
     </>
   );
 }

@@ -35,7 +35,7 @@ excerpt: "Résumé de 140-160 caractères qui sera utilisé comme description SE
 date: "2026-04-26"
 category: "IA"               # IA | Web | Automatisation | Mobile | Stratégie | SEO | Marketing Digital
 author: "NeuraWeb"
-image: "/assets/blog/<slug>.webp"   # 1200x630px, format webp
+image: "/assets/blog/<slug>-cover.webp"   # 3:2 (≈1024×683), webp, style « gravure » (voir ci-dessous)
 tags:
   - "IA"
   - "Sitio Web"              # 4 à 6 tags max
@@ -56,7 +56,7 @@ faq:
 | `title` | ≤ 65 caractères, contient le mot-clé principal au début |
 | `excerpt` | 140-160 caractères, doit pouvoir tenir seul comme meta description |
 | `date` | Format `YYYY-MM-DD`, pas dans le futur sauf publication programmée. **Toujours vérifier la date réelle du jour au moment d'écrire** — ne jamais recopier la date d'un article précédent ni une date vue plus tôt dans la conversation : sur une session longue (plusieurs articles rédigés à la suite, conversation qui s'étale sur plusieurs jours), la date courante peut avoir changé entre deux articles sans que ce soit visible dans le fil de discussion. |
-| `image` | Toujours en `.webp`, dimensions 1200×630, dans `/public/assets/blog/` |
+| `image` | Toujours en `.webp`, ratio 3:2 (≈ 1024×683), `<slug>-cover.webp` dans `/public/assets/blog/` — style de couverture ci-dessous |
 | `category` | Une des 7 valeurs canoniques ci-dessus, **traduite dans chaque langue** (ex. `Automatisation` / `Automation` / `Automatización`) — le champ est affiché tel quel comme badge sur le site et alimente le filtre par catégorie, donc les variantes ("Développement Web" vs "Web", "Intelligence Artificielle" vs "IA") fragmentent silencieusement ce filtre. Toujours réutiliser exactement le même libellé pour la même langue. |
 | `tags` | 4 à 6 maximum, en majuscule de phrase, traduits dans chaque langue |
 | `faq` | **Optionnel mais fortement recommandé** — 4 à 6 Q/R, génère le schéma FAQPage automatiquement |
@@ -202,7 +202,7 @@ Le parser regroupe automatiquement toutes les lignes `>` consécutives dans **un
 1. Rédiger l'article en français → project/content/blog/<slug>.mdx
 2. Traduire vers EN → project/content/blog/en/<slug>.mdx (slug identique)
 3. Traduire vers ES → project/content/blog/es/<slug>.mdx (slug identique)
-4. Ajouter l'image dans /public/assets/blog/<slug>.webp (1200×630)
+4. Ajouter la couverture dans /public/assets/blog/<slug>-cover.webp (3:2, style gravure Chypre/Crème)
 5. (Optionnel) Ajouter l'article dans "Key Articles" de public/llms.txt
 6. npm run typecheck && npm run build  → vérifier qu'il n'y a pas d'erreur
 7. git commit + push → déploiement Vercel
@@ -230,7 +230,7 @@ Le parser regroupe automatiquement toutes les lignes `>` consécutives dans **un
 - [ ] **Encadré « À retenir — Key Takeaways »** présent après l'intro, avant le premier `##`, dans les 3 langues (titre bilingue non traduit — voir §5.1)
 - [ ] **Aucun bloc `<script>`** dans les MDX
 - [ ] **Aucune section `## FAQ` écrite à la main** (générée automatiquement depuis `faq:`)
-- [ ] Image `.webp` 1200×630 ajoutée dans `/public/assets/blog/`
+- [ ] Couverture `.webp` 3:2 (`<slug>-cover.webp`, style gravure) ajoutée dans `/public/assets/blog/`
 - [ ] (Rien à faire pour le sitemap : les articles y sont ajoutés automatiquement)
 - [ ] `npm run typecheck` passe sans erreur
 - [ ] `npm run build` passe sans erreur
@@ -271,3 +271,10 @@ Le parser regroupe automatiquement toutes les lignes `>` consécutives dans **un
 1. Pour la FAQ, tu écris uniquement `faq:` dans le frontmatter. Le code génère **à la fois** le schéma JSON-LD et la section visible.
 2. **Aucune balise `<script>` dans le MDX. Aucune section `## FAQ` à la main.** Jamais.
 3. **Chaque article démarre par l'encadré « À retenir — Key Takeaways »** (blockquote, 6-8 puces, titre bilingue identique dans les 3 langues) juste après l'intro — c'est le format extrait par les IA (GEO). Voir §5.1.
+
+
+## Couvertures d'articles (style fixé le 18 octobre 2026)
+
+Style : **gravure** — traits fins hachurés, **vert Chypre `#004643` sur crème `#F0EDE5`, deux couleurs seulement**, quelques points pleins reliés par des pointillés à flèches qui guident le regard ; un grand objet central + 2 à 4 objets secondaires ; beaucoup de crème vide ; ratio 3:2. Interdits : texte/lettres/chiffres/symboles monétaires, logos, cerveau, neurones, visages, personnes, bleu, dégradés, ombres.
+Choix du sujet : un objet physique reconnaissable par article, **différent des autres couvertures** (un même objet ≤ 3 fois). Séries : automatisation = tuyaux/vannes/pièces mécaniques ; IA Act = cadre, étiquette, classeur, cadenas ; hôtellerie = cloche, chariot, façade, lustre ; prix/ROI = pièces, balance, étiquette de prix ; sites web = fenêtre de navigateur, échafaudage, ossature.
+Génération : image-gen (Gemini) avec `generated/blog-couvertures/brut/cv_n8n…` ou toute couverture existante en `reference_images` ; recadrer à 3:2, exporter en WebP (qualité 82, ≈ 55 Ko). Le nom de fichier se termine par `-cover` : le cache d'images est d'un an (`minimumCacheTTL`), **ne jamais remplacer une image à la même URL**, créer un nouveau nom. Les sources brutes sont dans `generated/blog-couvertures/brut/`, les anciennes couvertures dans `generated/blog-couvertures-anciennes/`.

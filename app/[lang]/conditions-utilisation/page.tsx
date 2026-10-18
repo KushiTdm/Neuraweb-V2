@@ -564,6 +564,7 @@ export default async function ConditionsUtilisationPage({
   return (
     <>
       <JsonLd id="breadcrumb-schema" data={breadcrumbData} />
+      <div className="theme-accueil">
       <Header />
       <main className="min-h-screen bg-background pt-24 pb-16">
         <div className="container max-w-4xl mx-auto px-4">
@@ -589,7 +590,7 @@ export default async function ConditionsUtilisationPage({
           {/* Content */}
           <div className="space-y-6">
             {content.sections.map((section, index) => (
-              <section key={index} className="bg-card rounded-2xl p-6 border border-border/50">
+              <section key={index} className="bg-card rounded-2xl p-6 border border-border/50 ctx-light">
                 <h2 className="text-xl font-semibold mb-4 text-foreground">
                   {section.title}
                 </h2>
@@ -602,6 +603,7 @@ export default async function ConditionsUtilisationPage({
         </div>
       </main>
       <Footer />
+      </div>
     </>
   );
 }

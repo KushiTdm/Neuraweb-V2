@@ -16,18 +16,18 @@ const COMMITMENT_KEYS = [
   'about.commitments.6',
 ] as const;
 
-const SECTION_LABELS: Record<string, { chip: string; learnMore: string }> = {
-  fr: { chip: 'QUI SOMMES-NOUS ?', learnMore: "Rencontrer l'équipe" },
-  en: { chip: 'ABOUT US',          learnMore: 'Meet the team'       },
-  es: { chip: 'QUIÉNES SOMOS',     learnMore: 'Conocer el equipo'   },
-  vi: { chip: 'CHÚNG TÔI LÀ AI?',  learnMore: 'Gặp gỡ đội ngũ'     },
+const SECTION_LABELS: Record<string, { chip: string; learnMore: string; alt: string }> = {
+  fr: { chip: 'QUI SOMMES-NOUS ?', learnMore: "Rencontrer l'équipe", alt: 'Le fondateur assis de profil dans un café aux murs verts, la tête tournée vers la fenêtre, travaillant sur son ordinateur' },
+  en: { chip: 'ABOUT US', learnMore: 'Meet the team', alt: 'The founder seated in profile in a green-walled coffee shop, head turned toward the window, working on his laptop' },
+  es: { chip: 'QUIÉNES SOMOS', learnMore: 'Conocer el equipo', alt: 'El fundador sentado de perfil en una cafetería de paredes verdes, con la cabeza girada hacia la ventana, trabajando con su portátil' },
+  vi: { chip: 'CHÚNG TÔI LÀ AI?', learnMore: 'Gặp gỡ đội ngũ', alt: 'Người sáng lập ngồi nghiêng trong quán cà phê tường xanh, quay đầu về phía cửa sổ, làm việc trên laptop' },
 };
 
 export function AboutSection() {
   const { t, language } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const labels = SECTION_LABELS[(language as string)] ?? SECTION_LABELS.fr;
+  const labels = SECTION_LABELS[language as string] ?? SECTION_LABELS.fr;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -44,15 +44,9 @@ export function AboutSection() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative py-8 sm:py-24 lg:py-32 overflow-hidden"
-      style={{ background: '#F7FAFD' }}
-    >
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-[52%_48%] gap-6 sm:gap-14 xl:gap-20 items-center">
-
-          {/* ── Colonne gauche — image unique ────────────────── */}
+    <section ref={sectionRef} className="relative overflow-hidden bg-creme py-12 sm:py-24 lg:py-32 sec-screen">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 items-center gap-8 sm:gap-14 lg:grid-cols-[52%_48%] xl:gap-20">
           <div
             style={{
               opacity: isVisible ? 1 : 0,
@@ -60,21 +54,18 @@ export function AboutSection() {
               transition: 'opacity 0.7s ease, transform 0.7s ease',
             }}
           >
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl h-[175px] sm:h-[300px] lg:h-[460px] xl:h-[520px]">
+            <div className="relative h-[240px] overflow-hidden rounded-2xl border border-chypre/15 sm:h-[340px] sm:rounded-3xl lg:h-[460px] xl:h-[520px]">
               <Image
-                src="/assets/equipe.webp"
-                alt={t('about.image.alt')}
+                src="/assets/redesign/about-cafe-tete-tournee.webp"
+                alt={labels.alt}
                 fill
                 sizes="(max-width: 640px) 92vw, (max-width: 1024px) 90vw, 52vw"
-                className="object-cover object-top"
-                quality={85}
+                className="object-cover object-center"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent" />
             </div>
           </div>
 
-          {/* ── Colonne droite — texte ────────────────────────── */}
           <div
             style={{
               opacity: isVisible ? 1 : 0,
@@ -82,41 +73,31 @@ export function AboutSection() {
               transition: 'opacity 0.7s 0.15s ease, transform 0.7s 0.15s ease',
             }}
           >
-            {/* Eyebrow badge */}
-            <span className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs font-semibold tracking-widest bg-frost text-navy-900 border border-white/20 mb-3 sm:mb-6">
+            <span className="mb-4 inline-flex rounded-full bg-chypre/10 px-4 py-1.5 text-xs font-semibold tracking-widest text-chypre sm:mb-6">
               {labels.chip}
             </span>
 
-            {/* Titre */}
-            <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-navy-900 leading-tight mb-3 sm:mb-5">
+            <h2 className="mb-4 font-impact text-3xl font-black leading-tight text-chypre sm:text-4xl lg:text-5xl">
               {t('about.title').split('NeuraWeb')[0]}
               <span>NeuraWeb</span>
             </h2>
 
-            {/* Description */}
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-4 sm:mb-10 max-w-lg">
+            <p className="mb-6 max-w-lg text-sm leading-relaxed text-chypre/90 sm:mb-10 sm:text-base">
               {t('about.description')}
             </p>
 
-            {/* Engagements animés */}
-            <div className="mb-4 sm:mb-10">
-              <MultiStepLoader
-                steps={COMMITMENT_KEYS.map((key) => ({ text: t(key) }))}
-                active={isVisible}
-                duration={2200}
-              />
+            <div className="mb-6 sm:mb-10">
+              <MultiStepLoader steps={COMMITMENT_KEYS.map((key) => ({ text: t(key) }))} active={isVisible} duration={2200} />
             </div>
 
-            {/* CTA */}
             <LocalizedLink
               href="/equipe"
-              className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-full text-sm font-semibold text-white bg-navy-900 hover:bg-navy-800 transition-colors duration-200 group mx-auto sm:mx-0 block w-fit"
+              className="group block w-fit inline-flex items-center gap-2 rounded-full bg-chypre px-6 py-3 text-sm font-semibold text-creme transition-colors duration-200 hover:bg-chypre/90"
             >
               {labels.learnMore}
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
             </LocalizedLink>
           </div>
-
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 'use client';
 
+import { SourcedStats } from '@/components/sourced-stats';
 import React, { useRef, useState } from 'react';
 import { useGsapReveal } from '@/hooks/use-gsap-reveal';
 import {
@@ -30,6 +31,7 @@ import {
 } from 'lucide-react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
+import { ServiceHero } from '@/components/service-hero';
 import { LocalizedLink } from '@/components/localized-link';
 import { Button } from '@/components/ui/button';
 import { ResponsiveCards } from '@/components/ui/cards-carousel';
@@ -106,12 +108,12 @@ const CONTENT: Record<Lang, {
     tools: { label: 'Nous connectons vos outils' },
     useCases: {
       h2: "Cas d'usage par métier",
-      subtitle: 'Des scénarios concrets, avec le pack adapté et le gain mesurable que vous pouvez en attendre.',
+      subtitle: 'Des scénarios types, avec le pack adapté. À titre indicatif : les gains varient selon le contexte et ne sont pas garantis.',
       items: [
-        { sector: 'Cabinet (avocat, expert-comptable, conseil)', context: 'Chaque lead entrant est traité à la main : email, saisie Excel, devis, relances — 45 min par dossier.', solution: 'Workflow formulaire → qualification IA → CRM → prise de RDV Calendly → devis généré automatiquement.', result: 'Traitement d\'un lead : 45 min → 3 min · +10 pts de taux de conversion · 0 oubli de relance', pack: 'Starter Auto' },
-        { sector: 'Agence / PME B2B', context: 'Prospection LinkedIn manuelle, CRM mis à jour à 60%, nurturing fait au coup par coup.', solution: '3 à 5 workflows + agent IA de qualification (scoring BANT) + séquence de nurturing + reporting automatique.', result: 'Prospection 15h → 3h/semaine · CRM 100% à jour · taux de réponse ×2 (IA personnalisée)', pack: 'Business Auto' },
-        { sector: 'E-commerce / Retail', context: 'Commandes, SAV et stock gérés dans des outils non connectés, doubles saisies et erreurs.', solution: 'Synchronisation commandes ↔ CRM ↔ facturation + alertes de stock + relances panier automatiques.', result: 'Erreurs de saisie quasi nulles · relances panier 24/7 · suivi commande sans intervention', pack: 'Business Auto' },
-        { sector: 'ETI / multi-sites', context: '10 à 15 outils non connectés (CRM, ERP, compta, RH), reporting consolidé à la main sur 3 jours.', solution: 'Infrastructure n8n self-hosted + 3 agents IA (leads, support, contenu) + dashboard de pilotage temps réel.', result: '−28h/semaine de saisie · ruptures de stock −87% · reporting 3 jours → 10 min', pack: 'Full Automation' },
+        { sector: 'Cabinet (avocat, expert-comptable, conseil)', context: 'Chaque lead entrant est traité à la main : email, saisie Excel, devis, relances — 45 min par dossier.', solution: 'Workflow formulaire → qualification IA → CRM → prise de RDV Calendly → devis généré automatiquement.', result: 'Leads traités en quelques minutes · relances automatiques systématiques · meilleur taux de conversion visé', pack: 'Starter Auto' },
+        { sector: 'Agence / PME B2B', context: 'Prospection LinkedIn manuelle, CRM mis à jour à 60%, nurturing fait au coup par coup.', solution: '3 à 5 workflows + agent IA de qualification (scoring BANT) + séquence de nurturing + reporting automatique.', result: 'Prospection allégée de plusieurs heures par semaine · CRM à jour automatiquement · relances personnalisées par IA', pack: 'Business Auto' },
+        { sector: 'E-commerce / Retail', context: 'Commandes, SAV et stock gérés dans des outils non connectés, doubles saisies et erreurs.', solution: 'Synchronisation commandes ↔ CRM ↔ facturation + alertes de stock + relances panier automatiques.', result: 'Moins d\'erreurs de saisie · relances panier 24/7 · suivi commande sans intervention', pack: 'Business Auto' },
+        { sector: 'ETI / multi-sites', context: '10 à 15 outils non connectés (CRM, ERP, compta, RH), reporting consolidé à la main sur 3 jours.', solution: 'Infrastructure n8n self-hosted + 3 agents IA (leads, support, contenu) + dashboard de pilotage temps réel.', result: 'Saisie manuelle réduite · meilleure visibilité sur les stocks · reporting en minutes plutôt qu\'en jours', pack: 'Full Automation' },
       ],
     },
     packs: {
@@ -163,7 +165,7 @@ const CONTENT: Record<Lang, {
       items: [
         { quote: "En 3 semaines, NeuraWeb a automatisé notre traitement des devis entrants. On a récupéré 8h par semaine, et notre taux de réponse est passé de 6h à 12 minutes.", name: 'Alexandre D.', role: 'Directeur commercial', company: 'Agence immobilière, Paris', initials: 'AD', color: 'bg-white/10 text-white' },
         { quote: "Le workflow de qualification de leads n8n a transformé notre équipe commerciale. Les commerciaux ne traitent plus que des leads chauds. Le CA a augmenté de 34% en 2 mois.", name: 'Sophie M.', role: 'CEO', company: 'SaaS B2B, Lyon', initials: 'SM', color: 'bg-white/10 text-white' },
-        { quote: "J'avais peur que ce soit compliqué. L'audit gratuit a tout clarifié. On est partis sur le pack Business, livré en 4 semaines. La synchro Airtable-Gmail-Slack fonctionne impeccablement.", name: 'Thomas R.', role: 'Fondateur', company: 'Cabinet de conseil, Bordeaux', initials: 'TR', color: 'bg-emerald-400/20 text-emerald-400' },
+        { quote: "J'avais peur que ce soit compliqué. L'audit gratuit a tout clarifié. On est partis sur le pack Business, livré en 4 semaines. La synchro Airtable-Gmail-Slack fonctionne impeccablement.", name: 'Thomas R.', role: 'Fondateur', company: 'Cabinet de conseil, Bordeaux', initials: 'TR', color: 'bg-white/10 text-white' },
       ],
     },
     faq: {
@@ -233,12 +235,12 @@ const CONTENT: Record<Lang, {
     tools: { label: 'We connect your tools' },
     useCases: {
       h2: 'Use cases by profession',
-      subtitle: 'Concrete scenarios, with the right pack and the measurable gain you can expect.',
+      subtitle: 'Typical scenarios, with the right pack. For guidance only: gains vary with context and are not guaranteed.',
       items: [
-        { sector: 'Firm (law, accounting, consulting)', context: 'Every incoming lead is handled by hand: email, Excel entry, quote, follow-ups — 45 min per case.', solution: 'Form → AI qualification → CRM → Calendly booking → automatically generated quote workflow.', result: 'Lead handling: 45 min → 3 min · +10 pts conversion rate · zero missed follow-up', pack: 'Starter Auto' },
-        { sector: 'Agency / B2B SMB', context: 'Manual LinkedIn prospecting, CRM only 60% up to date, ad-hoc nurturing.', solution: '3 to 5 workflows + AI qualification agent (BANT scoring) + nurturing sequence + automatic reporting.', result: 'Prospecting 15h → 3h/week · CRM 100% up to date · reply rate ×2 (personalised AI)', pack: 'Business Auto' },
-        { sector: 'E-commerce / Retail', context: 'Orders, support and stock managed in disconnected tools, double entry and errors.', solution: 'Orders ↔ CRM ↔ billing sync + stock alerts + automatic cart recovery.', result: 'Near-zero data-entry errors · 24/7 cart recovery · order tracking with no manual work', pack: 'Business Auto' },
-        { sector: 'Mid-market / multi-site', context: '10 to 15 disconnected tools (CRM, ERP, accounting, HR), consolidated reporting done by hand over 3 days.', solution: 'Self-hosted n8n infrastructure + 3 AI agents (leads, support, content) + real-time management dashboard.', result: '−28h/week of data entry · stockouts −87% · reporting 3 days → 10 min', pack: 'Full Automation' },
+        { sector: 'Firm (law, accounting, consulting)', context: 'Every incoming lead is handled by hand: email, Excel entry, quote, follow-ups — 45 min per case.', solution: 'Form → AI qualification → CRM → Calendly booking → automatically generated quote workflow.', result: 'Leads handled in minutes · systematic automatic follow-ups · higher conversion targeted', pack: 'Starter Auto' },
+        { sector: 'Agency / B2B SMB', context: 'Manual LinkedIn prospecting, CRM only 60% up to date, ad-hoc nurturing.', solution: '3 to 5 workflows + AI qualification agent (BANT scoring) + nurturing sequence + automatic reporting.', result: 'Prospecting lightened by several hours a week · CRM updated automatically · AI-personalised follow-ups', pack: 'Business Auto' },
+        { sector: 'E-commerce / Retail', context: 'Orders, support and stock managed in disconnected tools, double entry and errors.', solution: 'Orders ↔ CRM ↔ billing sync + stock alerts + automatic cart recovery.', result: 'Fewer data-entry errors · 24/7 cart recovery · order tracking with no manual work', pack: 'Business Auto' },
+        { sector: 'Mid-market / multi-site', context: '10 to 15 disconnected tools (CRM, ERP, accounting, HR), consolidated reporting done by hand over 3 days.', solution: 'Self-hosted n8n infrastructure + 3 AI agents (leads, support, content) + real-time management dashboard.', result: 'Less manual data entry · better stock visibility · reporting in minutes instead of days', pack: 'Full Automation' },
       ],
     },
     packs: {
@@ -290,7 +292,7 @@ const CONTENT: Record<Lang, {
       items: [
         { quote: "In 3 weeks, NeuraWeb automated our incoming quote processing. We recovered 8 hours per week and our response time went from 6 hours to 12 minutes.", name: 'Alexander D.', role: 'Sales Director', company: 'Real estate agency, Paris', initials: 'AD', color: 'bg-white/10 text-white' },
         { quote: "The n8n lead qualification workflow transformed our sales team. Reps now only handle warm leads. Revenue grew 34% in 2 months.", name: 'Sophie M.', role: 'CEO', company: 'B2B SaaS, Lyon', initials: 'SM', color: 'bg-white/10 text-white' },
-        { quote: "I was worried it would be complicated. The free audit clarified everything. We went with the Business pack, delivered in 4 weeks. The Airtable-Gmail-Slack sync works flawlessly.", name: 'Thomas R.', role: 'Founder', company: 'Consulting firm, Bordeaux', initials: 'TR', color: 'bg-emerald-400/20 text-emerald-400' },
+        { quote: "I was worried it would be complicated. The free audit clarified everything. We went with the Business pack, delivered in 4 weeks. The Airtable-Gmail-Slack sync works flawlessly.", name: 'Thomas R.', role: 'Founder', company: 'Consulting firm, Bordeaux', initials: 'TR', color: 'bg-white/10 text-white' },
       ],
     },
     faq: {
@@ -360,12 +362,12 @@ const CONTENT: Record<Lang, {
     tools: { label: 'Conectamos tus herramientas' },
     useCases: {
       h2: 'Casos de uso por sector',
-      subtitle: 'Escenarios concretos, con el pack adecuado y la ganancia medible que puedes esperar.',
+      subtitle: 'Escenarios tipo, con el pack adecuado. A título orientativo: las ganancias varían según el contexto y no están garantizadas.',
       items: [
-        { sector: 'Despacho (abogado, asesor, consultoría)', context: 'Cada lead entrante se trata a mano: email, Excel, presupuesto, seguimientos — 45 min por expediente.', solution: 'Flujo formulario → cualificación IA → CRM → cita Calendly → presupuesto generado automáticamente.', result: 'Tratamiento de un lead: 45 min → 3 min · +10 pts de conversión · 0 seguimiento olvidado', pack: 'Starter Auto' },
-        { sector: 'Agencia / Pyme B2B', context: 'Prospección LinkedIn manual, CRM actualizado al 60%, nurturing puntual.', solution: '3 a 5 flujos + agente IA de cualificación (scoring BANT) + secuencia de nurturing + reporting automático.', result: 'Prospección 15h → 3h/semana · CRM 100% actualizado · tasa de respuesta ×2 (IA personalizada)', pack: 'Business Auto' },
-        { sector: 'E-commerce / Retail', context: 'Pedidos, atención y stock en herramientas no conectadas, doble entrada y errores.', solution: 'Sincronización pedidos ↔ CRM ↔ facturación + alertas de stock + recuperación de carrito automática.', result: 'Errores de entrada casi nulos · recuperación de carrito 24/7 · seguimiento de pedido sin intervención', pack: 'Business Auto' },
-        { sector: 'Mediana empresa / multisede', context: '10 a 15 herramientas no conectadas (CRM, ERP, contabilidad, RRHH), reporting consolidado a mano en 3 días.', solution: 'Infraestructura n8n self-hosted + 3 agentes IA (leads, soporte, contenido) + dashboard de gestión en tiempo real.', result: '−28h/semana de entrada de datos · roturas de stock −87% · reporting 3 días → 10 min', pack: 'Full Automation' },
+        { sector: 'Despacho (abogado, asesor, consultoría)', context: 'Cada lead entrante se trata a mano: email, Excel, presupuesto, seguimientos — 45 min por expediente.', solution: 'Flujo formulario → cualificación IA → CRM → cita Calendly → presupuesto generado automáticamente.', result: 'Leads tratados en minutos · seguimientos automáticos sistemáticos · mejor conversión como objetivo', pack: 'Starter Auto' },
+        { sector: 'Agencia / Pyme B2B', context: 'Prospección LinkedIn manual, CRM actualizado al 60%, nurturing puntual.', solution: '3 a 5 flujos + agente IA de cualificación (scoring BANT) + secuencia de nurturing + reporting automático.', result: 'Prospección aliviada varias horas por semana · CRM actualizado automáticamente · seguimientos personalizados con IA', pack: 'Business Auto' },
+        { sector: 'E-commerce / Retail', context: 'Pedidos, atención y stock en herramientas no conectadas, doble entrada y errores.', solution: 'Sincronización pedidos ↔ CRM ↔ facturación + alertas de stock + recuperación de carrito automática.', result: 'Menos errores de entrada · recuperación de carrito 24/7 · seguimiento de pedido sin intervención', pack: 'Business Auto' },
+        { sector: 'Mediana empresa / multisede', context: '10 a 15 herramientas no conectadas (CRM, ERP, contabilidad, RRHH), reporting consolidado a mano en 3 días.', solution: 'Infraestructura n8n self-hosted + 3 agentes IA (leads, soporte, contenido) + dashboard de gestión en tiempo real.', result: 'Menos entrada manual de datos · mejor visibilidad del stock · reporting en minutos en lugar de días', pack: 'Full Automation' },
       ],
     },
     packs: {
@@ -417,7 +419,7 @@ const CONTENT: Record<Lang, {
       items: [
         { quote: "En 3 semanas, NeuraWeb automatizó el procesamiento de nuestros presupuestos entrantes. Recuperamos 8 horas semanales y nuestro tiempo de respuesta pasó de 6 horas a 12 minutos.", name: 'Alexandre D.', role: 'Director comercial', company: 'Agencia inmobiliaria, París', initials: 'AD', color: 'bg-white/10 text-white' },
         { quote: "El flujo de cualificación de leads n8n transformó nuestro equipo de ventas. Los comerciales solo tratan leads calientes. El revenue creció un 34% en 2 meses.", name: 'Sophie M.', role: 'CEO', company: 'SaaS B2B, Lyon', initials: 'SM', color: 'bg-white/10 text-white' },
-        { quote: "Tenía miedo de que fuera complicado. La auditoría gratuita lo aclaró todo. Elegimos el pack Business, entregado en 4 semanas. La sincronización Airtable-Gmail-Slack funciona perfectamente.", name: 'Thomas R.', role: 'Fundador', company: 'Consultora, Burdeos', initials: 'TR', color: 'bg-emerald-400/20 text-emerald-400' },
+        { quote: "Tenía miedo de que fuera complicado. La auditoría gratuita lo aclaró todo. Elegimos el pack Business, entregado en 4 semanas. La sincronización Airtable-Gmail-Slack funciona perfectamente.", name: 'Thomas R.', role: 'Fundador', company: 'Consultora, Burdeos', initials: 'TR', color: 'bg-white/10 text-white' },
       ],
     },
     faq: {
@@ -489,7 +491,7 @@ const CONTENT: Record<Lang, {
     tools: { label: 'Chúng tôi kết nối các công cụ của bạn' },
     useCases: {
       h2: 'Tình huống thực tế theo từng mô hình',
-      subtitle: 'Những kịch bản cụ thể, với gói phù hợp và lợi ích đo lường được mà bạn có thể kỳ vọng.',
+      subtitle: 'Các kịch bản mẫu, với gói phù hợp. Chỉ mang tính tham khảo: lợi ích thay đổi theo từng trường hợp và không được cam kết.',
       items: [
         { sector: 'Cửa hàng / hộ kinh doanh cá thể', context: 'Đơn hàng đến từ Zalo, Facebook và điện thoại, ghi tay vào sổ, không ai nhớ đã nhắn lại cho ai.', solution: 'Một workflow duy nhất gom tin nhắn Zalo, Facebook và biểu mẫu website về cùng một bảng, kèm nhắc việc tự động.', result: 'Không còn bỏ sót khách · toàn bộ đơn nằm trong một bảng duy nhất · triển khai trong vài ngày', pack: 'Starter Auto' },
         { sector: 'Khách sạn / nhà hàng tại Hà Nội', context: 'Yêu cầu đặt chỗ đến từ Agoda, Booking, Traveloka, GrabFood và Zalo, mỗi kênh một nơi, khách quốc tế phải chờ trả lời.', solution: '3 đến 5 workflow gom mọi kênh + AI agent trả lời tiếng Việt, Anh, Pháp 24/7 + đồng bộ lịch phòng và bàn.', result: 'Trả lời khách ngay trong vài phút · giảm phụ thuộc vào OTA · nhân viên lễ tân bớt việc thủ công', pack: 'Business Auto' },
@@ -547,7 +549,7 @@ const CONTENT: Record<Lang, {
       items: [
         { quote: 'Trong 3 tuần, NeuraWeb đã tự động hoá toàn bộ khâu xử lý yêu cầu báo giá. Chúng tôi lấy lại được 8 giờ mỗi tuần, thời gian phản hồi từ 6 giờ xuống còn 12 phút.', name: 'Alexandre D.', role: 'Giám đốc kinh doanh', company: 'Công ty bất động sản, Paris (Pháp)', initials: 'AD', color: 'bg-white/10 text-white' },
         { quote: 'Workflow sàng lọc khách hàng bằng n8n đã thay đổi hẳn cách đội kinh doanh làm việc. Nhân viên chỉ còn tiếp những khách thực sự sẵn sàng. Doanh thu tăng 34% trong 2 tháng.', name: 'Sophie M.', role: 'Giám đốc điều hành', company: 'Công ty phần mềm B2B, Lyon (Pháp)', initials: 'SM', color: 'bg-white/10 text-white' },
-        { quote: 'Tôi từng lo là sẽ rất phức tạp. Buổi tư vấn miễn phí đã làm rõ mọi thứ. Chúng tôi chọn gói Business, bàn giao sau 4 tuần. Phần đồng bộ giữa các công cụ chạy rất mượt.', name: 'Thomas R.', role: 'Nhà sáng lập', company: 'Công ty tư vấn, Bordeaux (Pháp)', initials: 'TR', color: 'bg-emerald-400/20 text-emerald-400' },
+        { quote: 'Tôi từng lo là sẽ rất phức tạp. Buổi tư vấn miễn phí đã làm rõ mọi thứ. Chúng tôi chọn gói Business, bàn giao sau 4 tuần. Phần đồng bộ giữa các công cụ chạy rất mượt.', name: 'Thomas R.', role: 'Nhà sáng lập', company: 'Công ty tư vấn, Bordeaux (Pháp)', initials: 'TR', color: 'bg-white/10 text-white' },
       ],
     },
     faq: {
@@ -607,7 +609,7 @@ type PackId = (typeof PACK_IDS)[number];
 // celui de l'offre Landing Page Express, dans son encart de services-pricing.tsx.
 const QUOTE_ONLY_LANGS: readonly Lang[] = ['vi'];
 const QUOTE_PRICE_LABEL = 'Theo báo giá';
-const QUOTE_PRICE_NOTE = 'Báo giá miễn phí trong 24 giờ';
+const QUOTE_PRICE_NOTE = 'Báo giá miễn phí trong 48 giờ';
 const QUOTE_MAINTENANCE_LABEL = 'Bảo trì hằng tháng theo báo giá';
 
 const TOOLS = [
@@ -652,51 +654,28 @@ export function AutomatisationPageClient({ lang }: Props) {
 
   return (
     <>
+      <div className="theme-automatisation">
       <Header />
       <main ref={containerRef} id="main-content" className="min-h-screen">
 
         {/* ── HERO ──────────────────────────────────────────────────────── */}
-        <section className="relative pt-32 pb-24 overflow-hidden" style={{ background: '#070F26' }}>
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-          <div data-parallax="-50" className="absolute top-0 left-1/2 -ml-[400px] w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-          <div data-parallax="80" className="absolute top-20 right-1/4 w-[400px] h-[300px] bg-white/5 rounded-full blur-3xl pointer-events-none" />
-
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
-              <Zap size={14} />
-              <span>{c.hero.badge}</span>
-            </div>
-            <h1 className="animate-on-scroll fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              {c.hero.h1}{' '}
-              <span className="text-white">{c.hero.h1highlight}</span>
-            </h1>
-            <p className="animate-on-scroll fade-up delay-200 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">{c.hero.p}</p>
-            <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-gray-900 transition-all duration-300 hover:opacity-90" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
-                <Zap size={18} />{c.hero.ctaAudit}<ArrowRight size={16} />
-              </LocalizedLink>
-              <a href="#pricing" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white border border-white/20 hover:border-white/40 hover:bg-white/5 transition-all duration-300">
-                {c.hero.ctaPricing}<ChevronDown size={16} />
-              </a>
-            </div>
-            <div className="animate-on-scroll fade-up delay-400">
-            <ResponsiveCards breakpoint="sm" gridClass="grid-cols-3 max-w-3xl mx-auto" gridGap="gap-6">
-              {c.stats.map((stat, i) => (
-                <div key={i} className="rounded-xl border border-white/10 bg-white/5 p-6 h-full">
-                  <div className="text-3xl font-bold mb-1 text-white">{STATS_VALUES[i]}</div>
-                  <div className="text-sm text-slate-400">{stat.label}</div>
-                </div>
-              ))}
-            </ResponsiveCards>
-            </div>
-          </div>
-        </section>
+        <ServiceHero
+          badgeIcon={<Zap size={14} aria-hidden="true" />}
+          badge={c.hero.badge}
+          h1={c.hero.h1}
+          highlight={c.hero.h1highlight}
+          subtitle={c.hero.p}
+          primary={{ href: '/contact', label: c.hero.ctaAudit, icon: <Zap size={18} aria-hidden="true" /> }}
+          secondary={{ href: '#pricing', label: c.hero.ctaPricing }}
+          stats={c.stats.map((stat, i) => ({ value: String(STATS_VALUES[i]), label: stat.label }))}
+          visual={{ src: "/assets/redesign/pages/automatisation-hero.webp", alts: {"fr": "Illustration d'un tapis roulant qui fait avancer un email, un engrenage, une facture validée et un agenda mis à jour", "en": "Illustration of a conveyor carrying an email, a gear, a validated invoice and an updated calendar", "es": "Ilustración de una cinta transportadora con un correo, un engranaje, una factura validada y una agenda actualizada", "vi": "Minh họa băng chuyền mang theo email, bánh răng, hóa đơn đã duyệt và lịch được cập nhật"} }}
+        />
 
         {/* ── PROBLEMS ──────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#F7FAFD' }}>
+        <section className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.problems.h2}</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.problems.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto" dangerouslySetInnerHTML={{ __html: c.problems.subtitle }} />
             </div>
             <div className="animate-on-scroll fade-up delay-100">
@@ -710,7 +689,7 @@ export function AutomatisationPageClient({ lang }: Props) {
                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${colors[i]}`}>
                       <Icon size={22} />
                     </div>
-                    <h3 className="font-semibold text-[#0e1b3d] mb-2 text-sm leading-snug">{p.title}</h3>
+                    <h3 className="font-semibold text-navy-900 mb-2 text-sm leading-snug">{p.title}</h3>
                     <p className="text-slate-500 text-sm">{p.text}</p>
                   </div>
                 );
@@ -721,7 +700,7 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── SERVICES ──────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#070F26' }}>
+        <section className="py-20 sec-pat sec-waves sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.services.h2}</h2>
@@ -733,9 +712,9 @@ export function AutomatisationPageClient({ lang }: Props) {
                 const Icon = SERVICE_ICONS[i];
                 const isExpanded = expandedService === i;
                 return (
-                  <div key={i} className={`rounded-xl border-2 ${SERVICE_ACCENT_COLORS[i]} bg-[#0e1b3d]/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300 h-full`} onClick={() => setExpandedService(isExpanded ? null : i)}>
+                  <div key={i} className={`rounded-xl border-2 ${SERVICE_ACCENT_COLORS[i]} bg-navy-900/30 p-6 cursor-pointer hover:shadow-lg transition-all duration-300 h-full`} onClick={() => setExpandedService(isExpanded ? null : i)}>
                     <div className="flex items-start justify-between mb-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#0e1b3d]/40 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg bg-navy-900/40 flex items-center justify-center">
                         <Icon size={20} className="text-slate-300" />
                       </div>
                       <span className={`${SERVICE_BADGE_COLORS[i]} text-white text-xs font-semibold px-3 py-1 rounded-full`}>{service.badge}</span>
@@ -763,7 +742,7 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── OUTILS ────────────────────────────────────────────────────── */}
-        <section className="py-14 border-y border-slate-200" style={{ background: '#F7FAFD' }}>
+        <section className="py-14 border-y border-slate-200 sec-tint ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <p className="animate-on-scroll fade-up text-center text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">{c.tools.label}</p>
             <div className="animate-on-scroll fade-up delay-100 flex flex-wrap justify-center gap-3">
@@ -778,7 +757,7 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── CAS D'USAGE ───────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#0B1430' }}>
+        <section className="py-20 sec-screen ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.useCases.h2}</h2>
@@ -800,11 +779,12 @@ export function AutomatisationPageClient({ lang }: Props) {
                 </article>
               ))}
             </div>
+            <SourcedStats ids={['ai18','mck60','ai54']} tone="dark" className="mt-14" />
           </div>
         </section>
 
         {/* ── PRICING ───────────────────────────────────────────────────── */}
-        <section id="pricing" className="py-20" style={{ background: '#070F26' }}>
+        <section id="pricing" className="py-20 sec-flip sec-flip-light sec-screen ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">{c.packs.h2}</h2>
@@ -814,7 +794,7 @@ export function AutomatisationPageClient({ lang }: Props) {
             {/* Sélecteur mobile */}
             <div className="flex gap-2 mb-8 justify-center sm:hidden">
               {PACK_IDS.map((id, i) => (
-                <button key={id} onClick={() => setSelectedPack(id)} className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${selectedPack === id ? 'bg-white text-gray-900' : 'bg-[#0e1b3d]/40 text-slate-300'}`}>
+                <button key={id} onClick={() => setSelectedPack(id)} className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${selectedPack === id ? 'bg-white text-gray-900' : 'bg-navy-900/40 text-slate-300'}`}>
                   {c.packs.items[i].name.split(' ')[0]}
                 </button>
               ))}
@@ -826,7 +806,7 @@ export function AutomatisationPageClient({ lang }: Props) {
                 const pack = c.packs.items[i];
                 const borders = ['border-white/10', 'border-white', 'border-white/10'];
                 return (
-                  <div key={id} onClick={() => setSelectedPack(id)} className={`relative rounded-2xl border-2 p-6 cursor-pointer transition-all duration-300 ${borders[i]} ${selectedPack === id ? 'shadow-xl bg-[#0e1b3d]/30 scale-[1.02]' : 'bg-[#0e1b3d]/30 hover:shadow-md'}`}>
+                  <div key={id} onClick={() => setSelectedPack(id)} className={`relative rounded-2xl border-2 p-6 cursor-pointer transition-all duration-300 ${borders[i]} ${selectedPack === id ? 'shadow-xl bg-navy-900/30 scale-[1.02]' : 'bg-navy-900/30 hover:shadow-md'}`}>
                     {i === 1 && <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs font-bold px-4 py-1 rounded-full">{c.packs.popular}</span>}
                     <h3 className="font-bold text-white text-lg mb-1">{pack.name}</h3>
                     <p className="text-slate-400 text-sm mb-4">{pack.tagline}</p>
@@ -858,13 +838,13 @@ export function AutomatisationPageClient({ lang }: Props) {
             </div>
 
             {/* Détails pack sélectionné */}
-            <div className="animate-on-scroll fade-up delay-200 rounded-2xl border border-white/10 bg-[#0e1b3d]/30 p-8">
+            <div className="animate-on-scroll fade-up delay-200 rounded-2xl border border-white/10 bg-navy-900/30 p-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 <div>
                   <h3 className="text-xl font-bold text-white mb-1">{activePack.name}</h3>
                   <p className="text-slate-400 text-sm">{activePack.tagline}</p>
                 </div>
-                <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-gray-900 transition-all duration-300" style={{ background: '#ffffff', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>
+                <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-gray-900 transition-all duration-300" style={{ background: 'rgb(var(--c-white))', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>
                   {c.detail.choose} {activePack.name}<ArrowRight size={14} />
                 </LocalizedLink>
               </div>
@@ -899,7 +879,7 @@ export function AutomatisationPageClient({ lang }: Props) {
                       </li>
                     ))}
                   </ul>
-                  <div className="bg-[#0e1b3d]/40 rounded-xl p-4 border border-white/10">
+                  <div className="bg-navy-900/40 rounded-xl p-4 border border-white/10">
                     <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
                       {isQuoteOnly
                         ? QUOTE_MAINTENANCE_LABEL
@@ -921,19 +901,19 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── PROCESSUS ─────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#F7FAFD' }}>
+        <section className="py-20 sec-tint sec-screen ctx-light">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-14">
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e1b3d] mb-4">{c.process.h2}</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">{c.process.h2}</h2>
               <p className="text-slate-600 max-w-2xl mx-auto">{c.process.subtitle}</p>
             </div>
             <div className="animate-on-scroll fade-up delay-100">
             <ResponsiveCards breakpoint="sm" gridClass="grid-cols-2 lg:grid-cols-4" gridGap="gap-6">
               {c.process.steps.map((step, i) => (
                 <div key={i} className="rounded-xl border border-slate-200 shadow-sm bg-white p-6 h-full">
-                  <div className="text-3xl font-black text-[#0e1b3d] mb-3 opacity-60">0{i + 1}</div>
-                  <h3 className="font-bold text-[#0e1b3d] mb-1">{step.title}</h3>
-                  <div className="text-xs font-medium text-[#0e1b3d] mb-3">⏱ {step.duration}</div>
+                  <div className="text-3xl font-black text-navy-900 mb-3 opacity-60">0{i + 1}</div>
+                  <h3 className="font-bold text-navy-900 mb-1">{step.title}</h3>
+                  <div className="text-xs font-medium text-navy-900 mb-3">⏱ {step.duration}</div>
                   <p className="text-slate-500 text-sm mb-3">{step.desc}</p>
                   <div className="text-xs text-slate-500 border-t border-slate-200 pt-3">
                     <strong>{step.bringLabel}</strong> {step.bring}
@@ -946,7 +926,7 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── TÉMOIGNAGES ───────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#070F26' }}>
+        <section className="py-20 sec-pat sec-dots sec-dark-base sec-screen ctx-dark">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">{c.testimonials.h2}</h2>
@@ -972,25 +952,25 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────────────────── */}
-        <section className="py-20" style={{ background: '#F7FAFD' }}>
+        <section className="py-20 sec-screen ctx-light" style={{ background: 'rgb(var(--c-surface-DEFAULT))' }}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-on-scroll fade-up text-center mb-12">
-              <h2 className="text-3xl font-bold text-[#0e1b3d] mb-4">{c.faq.h2}</h2>
+              <h2 className="text-3xl font-bold text-navy-900 mb-4">{c.faq.h2}</h2>
             </div>
             <Accordion type="single" collapsible className="animate-on-scroll fade-up delay-100 space-y-3">
               {c.faq.items.map((item, i) => (
                 <AccordionItem key={i} value={`faq-${i}`} className="rounded-xl border border-slate-200 bg-white overflow-hidden">
-                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-[#0e1b3d] hover:no-underline">{item.q}</AccordionTrigger>
+                  <AccordionTrigger className="px-6 py-4 text-left text-sm font-semibold text-navy-900 hover:no-underline">{item.q}</AccordionTrigger>
                   <AccordionContent className="px-6 pb-4 text-sm text-slate-600 leading-relaxed">{item.a}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
             <div className="animate-on-scroll fade-up delay-200 mt-10 rounded-xl border border-slate-200 bg-white p-6">
-              <h3 className="font-semibold text-[#0e1b3d] mb-4">{c.more.h3}</h3>
+              <h3 className="font-semibold text-navy-900 mb-4">{c.more.h3}</h3>
               <ul className="space-y-3">
                 {c.more.items.map((item, i) => (
                   <li key={i}>
-                    <LocalizedLink href={item.href} className="flex items-center gap-2 text-sm text-slate-700 hover:text-[#0e1b3d] hover:underline">
+                    <LocalizedLink href={item.href} className="flex items-center gap-2 text-sm text-slate-700 hover:text-navy-900 hover:underline">
                       <ArrowRight size={14} />{item.label}
                     </LocalizedLink>
                   </li>
@@ -1001,7 +981,7 @@ export function AutomatisationPageClient({ lang }: Props) {
         </section>
 
         {/* ── CTA FINAL ─────────────────────────────────────────────────── */}
-        <section className="py-24" style={{ background: '#070F26' }}>
+        <section className="py-24 ctx-dark" style={{ background: 'rgb(var(--c-navy-950))' }}>
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="animate-on-scroll fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/20 text-white text-sm font-medium mb-6">
               <Sparkles size={14} />{c.cta.badge}
@@ -1009,7 +989,7 @@ export function AutomatisationPageClient({ lang }: Props) {
             <h2 className="animate-on-scroll fade-up delay-100 text-3xl sm:text-4xl font-bold text-white mb-6">{c.cta.h2}</h2>
             <p className="animate-on-scroll fade-up delay-200 text-slate-300 text-lg mb-10 max-w-2xl mx-auto">{c.cta.p}</p>
             <div className="animate-on-scroll fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center">
-              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white transition-all duration-300" style={{ background: '#ffffff', boxShadow: '0 4px 20px rgba(255,255,255,0.2)' }}>
+              <LocalizedLink href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-semibold text-white transition-all duration-300" style={{ background: 'rgb(var(--c-white))', boxShadow: '0 4px 20px rgb(var(--c-white) / 0.2)' }}>
                 <Zap size={18} className="text-gray-900" />
                 <span className="text-gray-900">{c.cta.ctaAudit}</span>
                 <ArrowRight size={16} className="text-gray-900" />
@@ -1023,6 +1003,7 @@ export function AutomatisationPageClient({ lang }: Props) {
 
       </main>
       <Footer />
+      </div>
     </>
   );
 }
