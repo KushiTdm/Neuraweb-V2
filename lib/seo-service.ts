@@ -76,7 +76,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     portfolio: {
       title: 'Portfolio NeuraWeb — Sites Web, Apps & Solutions IA',
-      description: 'Découvrez les réalisations de NeuraWeb : sites Next.js, applications mobiles iOS/Android et solutions IA. Plus de 16 projets livrés, clients 5 étoiles.',
+      description: 'Découvrez les réalisations de NeuraWeb : sites Next.js, applications mobiles iOS/Android et solutions IA. Prix affichés, contrat français.',
       keywords: ['portfolio', 'réalisations', 'projets web', 'cas client'],
     },
     blog: {
@@ -91,7 +91,7 @@ const SEO_CONTEXTS_BY_LANG: Record<Language, Record<PageType, PageSEOConfig>> = 
     },
     equipe: {
       title: "L'équipe NeuraWeb — Développeurs Web & Experts IA | Lille",
-      description: "Rencontrez l'équipe NeuraWeb : développeurs Next.js, experts IA et automatisation. 16+ projets livrés, 5 étoiles. Basés à Lille, Hauts-de-France.",
+      description: "Rencontrez l'équipe NeuraWeb : développeurs Next.js, experts IA et automatisation. Équipe de trois : développement, communication, IA et automatisation. Agence immatriculée à Lille, travail à distance.",
       keywords: ['équipe agence web Lille', 'développeurs Next.js Lille', 'experts IA France', 'agence web Hauts-de-France équipe'],
     },
     booking: {

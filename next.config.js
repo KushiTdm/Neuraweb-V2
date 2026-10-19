@@ -86,6 +86,8 @@ const nextConfig = {
       { source: '/:lang/blog/best-js-vs-wordpress-2025', destination: '/:lang/blog/nextjs-vs-wordpress-2026', permanent: true },
       { source: '/:lang/blog/nextjs-vs-wordpress-2025', destination: '/:lang/blog/nextjs-vs-wordpress-2026', permanent: true },
       { source: '/:lang/blog/site-web-hotellerie-design-reservations', destination: '/:lang/blog/site-web-hotel-design-reservations', permanent: true },
+      // Sous-traitance : slug « -lille » abandonné (page nationale, agence sans bureau) — octobre 2026
+      { source: '/:lang/sous-traitance-web-lille', destination: '/:lang/sous-traitance-web', permanent: true },
       // /l-equipe détecté par des crawls — slug réel est /equipe
       { source: '/:lang/l-equipe', destination: '/:lang/equipe', permanent: true },
 

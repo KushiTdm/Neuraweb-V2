@@ -11,7 +11,7 @@
 // ============================================================
 
 /** Faits de marque réutilisables (identité, offre, prix). */
-export const NEURAWEB_BRAND = `NeuraWeb — Agence web & IA basée à Lille (Hauts-de-France), intervient partout en France en remote.
+export const NEURAWEB_BRAND = `NeuraWeb — Agence web & IA immatriculée à Lille (aucun bureau ouvert au public), équipe en télétravail depuis Hanoï, intervient partout en France et à l'international, à distance.
 SIRET 991 296 047 00020 (micro-entreprise). Contact : contact@neuraweb.fr · https://neuraweb.fr · +33 7 49 77 56 54.
 Équipe : Nacer (fondateur, dev full-stack React/Next.js/LLM), Sandra (communication & marketing), Arthur (IA & automatisation).
 

@@ -109,7 +109,7 @@ function getBlogFiles(language) {
 }
 
 function validateStaticRoutes(pageRoutes, sitemapStaticPages) {
-  const FR_ONLY_ROUTES = ['secteurs/sante', 'secteurs/restaurants-hotels', 'secteurs/collectivites', 'automatisation', 'integration-ia', 'agence-web-lille', 'agence-web-paris', 'agence-nextjs', 'sous-traitance-web-lille'];
+  const FR_ONLY_ROUTES = ['secteurs/sante', 'secteurs/restaurants-hotels', 'secteurs/collectivites', 'automatisation', 'integration-ia', 'agence-web-lille', 'agence-web-paris', 'agence-nextjs', 'sous-traitance-web'];
 
   const publicLanguageRoutes = pageRoutes
     .filter((route) => route.startsWith('/[lang]/'))
@@ -153,8 +153,8 @@ function validateStaticRoutes(pageRoutes, sitemapStaticPages) {
   if (!pageRoutes.includes('/[lang]/agence-nextjs')) {
     fail('Expected FR-only /[lang]/agence-nextjs route was not found.');
   }
-  if (!pageRoutes.includes('/[lang]/sous-traitance-web-lille')) {
-    fail('Expected FR-only /[lang]/sous-traitance-web-lille route was not found.');
+  if (!pageRoutes.includes('/[lang]/sous-traitance-web')) {
+    fail('Expected FR-only /[lang]/sous-traitance-web route was not found.');
   }
 }
 
@@ -194,7 +194,7 @@ function validateBlogPosts() {
 function buildExpectedUrlCount(blogPostCount) {
   const homeUrls = LANGUAGES.length;
   const staticUrls = expectedStaticPages.length * LANGUAGES.length;
-  const frenchOnlyUrls = 9; // secteurs/sante, secteurs/restaurants-hotels, secteurs/collectivites, automatisation, integration-ia, agence-web-lille, agence-web-paris, agence-nextjs, sous-traitance-web-lille
+  const frenchOnlyUrls = 9; // secteurs/sante, secteurs/restaurants-hotels, secteurs/collectivites, automatisation, integration-ia, agence-web-lille, agence-web-paris, agence-nextjs, sous-traitance-web
   return homeUrls + staticUrls + frenchOnlyUrls + blogPostCount;
 }
 

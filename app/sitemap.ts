@@ -143,14 +143,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Page Sous-traitance web Lille — FR uniquement (canal B2B agences)
   urls.push({
-    url: `${BASE_URL}/fr/sous-traitance-web-lille`,
+    url: `${BASE_URL}/fr/sous-traitance-web`,
     lastModified: new Date('2026-08-01'),
     changeFrequency: 'monthly',
     priority: 0.95,
     alternates: {
       languages: {
-        fr: `${BASE_URL}/fr/sous-traitance-web-lille`,
-        'x-default': `${BASE_URL}/fr/sous-traitance-web-lille`,
+        fr: `${BASE_URL}/fr/sous-traitance-web`,
+        'x-default': `${BASE_URL}/fr/sous-traitance-web`,
       },
     },
   });

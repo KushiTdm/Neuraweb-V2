@@ -55,7 +55,7 @@ export async function generateMetadata({
   const ogImage = `${BASE_URL}/assets/og-image.png`;
   const title = 'Agence Web à Paris — Sites Next.js & IA pour PME | NeuraWeb';
   const description =
-    'Agence web & IA travaillant avec les entreprises parisiennes : création site Next.js, apps mobiles, automatisation n8n. Tarifs 30 à 60% sous le marché parisien. Devis gratuit sous 48h.';
+    'Agence web & IA à distance pour les entreprises parisiennes : site Next.js, apps mobiles, automatisation n8n. Packs dès 1 490 €, devis gratuit sous 48 h ouvrées.';
 
   return {
     title: { absolute: title },
@@ -118,6 +118,7 @@ const professionalServiceSchema = {
   email: 'contact@neuraweb.fr',
   logo: `${BASE_URL}/assets/neurawebW.webp`,
   priceRange: '€€',
+  // Siège d'immatriculation seulement : aucun bureau ni établissement à Paris.
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'FR',
@@ -144,12 +145,12 @@ const professionalServiceSchema = {
 //    (Google exige que le contenu balisé soit visible sur la page).
 const FAQ_ITEMS: { q: string; a: string }[] = [
   {
-    q: 'Avez-vous un bureau à Paris ?',
-    a: "NeuraWeb est basée à Lille (Hauts-de-France). Nous travaillons avec nos clients parisiens entièrement à distance : visioconférence, outils collaboratifs partagés, points d'avancement hebdomadaires. Des déplacements à Paris restent possibles pour les kick-offs ou les jalons majeurs si le projet le justifie.",
+    q: 'Où se trouve NeuraWeb et comment travaille-t-on avec des clients parisiens ?',
+    a: "NeuraWeb est immatriculée à Lille et fonctionne 100 % à distance, sans bureau à Paris ni ailleurs : l'équipe de trois personnes travaille actuellement depuis Hanoï. Nous travaillons avec nos clients parisiens entièrement par visioconférence, avec des outils collaboratifs partagés et des points d'avancement hebdomadaires.",
   },
   {
     q: "Pourquoi choisir NeuraWeb plutôt qu'une agence parisienne ?",
-    a: "Les agences basées à Paris facturent en moyenne 30 à 60% plus cher qu'une agence régionale pour un résultat équivalent. En étant basés à Lille avec une structure plus légère, nous proposons les mêmes standards de qualité (Next.js, design sur mesure, SEO technique) à un tarif nettement plus compétitif, sans sacrifier la réactivité.",
+    a: "Parce que vous savez ce que vous achetez avant de signer : prix affichés à partir de 1 490 € (site vitrine) et 3 990 € (site avec back-office), périmètre de chaque pack détaillé, contrat et facture français, interlocuteur direct. Nous ne prétendons pas être moins chers qu'une agence en particulier : comparez les devis à périmètre égal.",
   },
   {
     q: 'Quel est le délai pour créer un site web avec NeuraWeb pour une entreprise parisienne ?',
@@ -165,11 +166,11 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: "Quel est le prix d'un site web pour une PME à Paris ?",
-    a: "Nos packs web sont transparents : le pack Starter démarre à 1 490 € et le pack Business à 3 990 €, sur des maquettes déjà déterminées adaptées à votre charte — bien sous les tarifs habituellement constatés chez les agences parisiennes pour un livrable comparable. Le pack Premium est entièrement sur mesure (design sur mesure, application web ou e-commerce) et fait l'objet d'un devis personnalisé. Chaque pack inclut développement Next.js, optimisation SEO, hébergement et accompagnement post-lancement.",
+    a: "Nos packs web sont transparents : le pack Starter démarre à 1 490 € et le pack Business à 3 990 €, sur des maquettes déjà déterminées adaptées à votre charte — Le pack Premium est entièrement sur mesure (design sur mesure, application web ou e-commerce) et fait l'objet d'un devis personnalisé. Chaque pack inclut développement Next.js, optimisation SEO, hébergement et accompagnement post-lancement.",
   },
   {
     q: "Comment se déroule la collaboration à distance avec une agence non-parisienne ?",
-    a: "Le projet démarre par un appel de cadrage en visio, suivi de points d'avancement hebdomadaires (Google Meet/Zoom), d'un accès partagé aux maquettes et au suivi de tâches. La quasi-totalité de nos clients parisiens fonctionnent ainsi sans jamais perdre en réactivité — réponse garantie sous 4 heures ouvrées.",
+    a: "Le projet démarre par un appel de cadrage en visio, suivi de points d'avancement hebdomadaires (Google Meet/Zoom), d'un accès partagé aux maquettes et au suivi de tâches. L'équipe travaille actuellement depuis Hanoï (5 à 6 heures de décalage avec Paris) : les points se fixent le matin à Paris. Le devis est livré sous 48 h ouvrées.",
   },
   {
     q: "Comment NeuraWeb intègre-t-elle l'IA dans les sites web ?",
@@ -197,7 +198,7 @@ const SERVICES = [
   {
     icon: Globe,
     title: 'Développement web',
-    desc: 'Sites vitrines, e-commerce, applications web — développés en Next.js pour des performances maximales (90+/100 PageSpeed).',
+    desc: 'Sites vitrines, e-commerce, applications web — développés en Next.js pour des performances maximales (objectif PageSpeed 90+).',
     link: '/fr/developpement-web',
     linkLabel: 'Voir nos packs web',
     color: 'text-indigo-600 bg-indigo-50',
@@ -296,10 +297,10 @@ const PACKS = [
 ];
 
 const STATS = [
-  { value: '+ 400 000', label: 'entreprises actives à Paris intra-muros', icon: Building2 },
-  { value: '1ère', label: "région économique d'Europe (Île-de-France, PIB)", icon: TrendingUp },
-  { value: '84 %', label: 'des PME françaises ont une présence en ligne', icon: Globe },
-  { value: '26 %', label: "des entreprises utilisent déjà l'IA en 2026", icon: Brain },
+  { value: '65 %', label: 'des TPE/PME françaises ont un site internet (France Num, 2024)', icon: Globe },
+  { value: '18 %', label: "des entreprises de 10 salariés ou plus utilisent l'IA en 2025 (Insee)", icon: Brain },
+  { value: '53 %', label: 'des visites mobiles abandonnées au-delà de 3 s de chargement (Google, 2016)', icon: TrendingUp },
+  { value: '91 %', label: 'des Français de 12 ans et plus ont un smartphone (Arcep / Credoc, 2025)', icon: Smartphone },
 ];
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -349,7 +350,7 @@ export default async function AgenceWebParisPage({
               <div className="lg:col-span-7">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-indigo-200 text-indigo-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
                   <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  Basée à Lille, au service des entreprises parisiennes
+                  Agence à distance, des clients à Paris
                 </div>
 
                 <h1 className="font-display text-[2rem] leading-[1.1] sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
@@ -364,8 +365,8 @@ export default async function AgenceWebParisPage({
                   NeuraWeb conçoit des{' '}
                   <strong>sites web haute performance en Next.js</strong>, des applications
                   mobiles et des automatisations IA pour les PME et entreprises parisiennes —
-                  à distance, avec des tarifs <strong>30 à 60% sous le marché parisien</strong>.{' '}
-                  <strong>Devis gratuit sous 48h</strong>.
+                  à distance, avec des <strong>prix affichés dès 1 490 €</strong>.{' '}
+                  <strong>Devis gratuit sous 48 h ouvrées</strong>.
                 </p>
 
                 <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
@@ -397,7 +398,7 @@ export default async function AgenceWebParisPage({
                   {[
                     { icon: Clock, label: 'Réponse 48h', longLabel: 'Réponse sous 48h', color: 'text-indigo-600' },
                     { icon: Wifi, label: '100% remote', longLabel: 'Collaboration 100% à distance', color: 'text-violet-600' },
-                    { icon: TrendingUp, label: '90+/100', longLabel: 'PageSpeed 90+/100', color: 'text-cyan-600' },
+                    { icon: TrendingUp, label: 'PageSpeed 90+', longLabel: 'Objectif PageSpeed 90+', color: 'text-cyan-600' },
                   ].map(({ icon: Icon, label, longLabel, color }) => (
                     <div key={label} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-slate-700">
                       <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${color}`} />
@@ -413,7 +414,7 @@ export default async function AgenceWebParisPage({
                 <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-indigo-600/15 border border-slate-200/60 bg-white p-6 sm:p-8 ctx-light">
                   <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-2xl opacity-60 pointer-events-none bg-navy-900" />
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
-                    Marché digital Paris / Île-de-France
+                    Repères du marché français
                   </p>
                   <div className="grid grid-cols-2 gap-4">
                     {STATS.map((s) => {
@@ -429,7 +430,7 @@ export default async function AgenceWebParisPage({
                   </div>
                   <div className="mt-6 pt-5 border-t border-slate-100">
                     <p className="text-sm text-slate-600">
-                      Paris concentre l&apos;un des marchés digitaux les plus compétitifs de France —{' '}
+                      Chiffres publics cités avec leur source : ils décrivent le marché, pas des résultats de NeuraWeb —{' '}
                       <strong className="text-slate-800">votre site web est votre premier commercial.</strong>
                     </p>
                   </div>
@@ -448,10 +449,9 @@ export default async function AgenceWebParisPage({
                 <span className="text-indigo-600">Paris</span> ?
               </h2>
               <p className="text-base sm:text-lg text-slate-600">
-                Les agences basées à Paris facturent en moyenne{' '}
-                <strong>30 à 60% plus cher</strong> qu&apos;une agence régionale pour un résultat
-                équivalent. En étant basés à Lille avec une structure plus légère, nous offrons
-                les mêmes standards de qualité à un tarif nettement plus compétitif.
+                Prix affichés, périmètre listé avant signature, contrat et facture français,
+                interlocuteur direct : vous comparez des devis à périmètre égal, sans rendez-vous
+                imposé ni déplacement.
               </p>
             </div>
 
@@ -459,13 +459,13 @@ export default async function AgenceWebParisPage({
               {[
                 {
                   icon: TrendingUp,
-                  title: 'Tarifs 30 à 60% sous le marché parisien',
-                  desc: "Une structure basée à Lille, sans les coûts fixes d'une agence parisienne, pour des packs transparents et nettement plus compétitifs à qualité équivalente.",
+                  title: 'Prix affichés, sans surprise',
+                  desc: "Starter dès 1 490 €, Business dès 3 990 €, Premium sur devis : le contenu de chaque pack est listé avant signature.",
                 },
                 {
                   icon: Wifi,
                   title: '100% remote, sans perte de réactivité',
-                  desc: "Points d'avancement hebdomadaires en visio, accès partagé aux maquettes et au suivi de tâches, réponse garantie sous 4 heures ouvrées. Déplacement possible à Paris pour les kick-offs et jalons majeurs.",
+                  desc: "Points d'avancement hebdomadaires en visio, accès partagé aux maquettes et au suivi de tâches. Équipe actuellement à Hanoï : 5 à 6 h de décalage, points fixés le matin à Paris.",
                 },
                 {
                   icon: Search,
@@ -474,18 +474,18 @@ export default async function AgenceWebParisPage({
                 },
                 {
                   icon: Building2,
-                  title: 'Expérience sur le marché parisien',
-                  desc: "Nous avons déjà accompagné des agences immobilières, startups et PME parisiennes en automatisation et intégration IA — nous connaissons les enjeux du marché francilien.",
+                  title: 'Déjà des clients à Paris',
+                  desc: "Nous travaillons déjà avec des entreprises parisiennes, entièrement à distance : le fonctionnement décrit ici n'est pas théorique.",
                 },
                 {
                   icon: Clock,
                   title: 'Réactivité & suivi personnalisé',
-                  desc: 'Un interlocuteur dédié, joignable directement. Pas de ticket support perdu dans un helpdesk. Réponse sous 48 h ouvrées, où que vous soyez.',
+                  desc: 'Un interlocuteur dédié, joignable directement. Pas de ticket support perdu dans un helpdesk. Réponse au devis sous 48 h ouvrées, où que vous soyez.',
                 },
                 {
                   icon: Brain,
-                  title: 'Croissance du marché digital',
-                  desc: "En 2026, 26 % des entreprises utilisent déjà l'IA. Île-de-France et Hauts-de-France comptent parmi les régions qui digitalisent le plus vite leur tissu de PME.",
+                  title: 'Un marché qui s’équipe en IA',
+                  desc: "En 2025, 18 % des entreprises françaises de 10 salariés ou plus utilisent au moins une technologie d'IA (Insee) : c'est un chiffre du marché, pas un résultat NeuraWeb.",
                 },
               ].map((item) => {
                 const Icon = item.icon;

@@ -106,7 +106,7 @@ export function Footer() {
           </nav>
 
           <nav aria-label={t('footer.sectors')}>
-            <h3 className={colTitle}>{t('footer.sectors')}</h3>
+            <h3 className={colTitle}><LocalizedLink href="/secteurs" className="transition-opacity hover:opacity-80">{t('footer.sectors')}</LocalizedLink></h3>
             <ul className="space-y-2">
               {sectorPages.map((l) => (<li key={l.href}><LocalizedLink href={l.href} className={linkCls}>{l.label}</LocalizedLink></li>))}
             </ul>

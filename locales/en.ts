@@ -432,7 +432,7 @@ export const en: Record<TranslationKey, string> = {
   'audit.note': 'No obligation. 100% actionable.',
   'audit.trust.1': 'No commitment',
   'audit.trust.2': '45 minutes',
-  'audit.trust.3': 'Video or in-person',
+  'audit.trust.3': 'By video call',
 
   // Hotel Form - Page Header
   'hotelForm.page.badge': 'NeuraWeb — Client Form',

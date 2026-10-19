@@ -429,7 +429,7 @@ export const fr = {
   'audit.note': 'Aucune obligation. 100% actionnable.',
   'audit.trust.1': 'Sans engagement',
   'audit.trust.2': '45 minutes',
-  'audit.trust.3': 'Visio ou présentiel',
+  'audit.trust.3': 'En visioconférence',
 
   // Hotel Form - Page Header
   'hotelForm.page.badge': 'NeuraWeb — Formulaire Client',

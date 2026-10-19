@@ -36,7 +36,7 @@ const getTeamData = (t: (key: TranslationKey) => string) => [
 ];
 
 export function EquipePageClient() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const team = getTeamData(t);
 
   return (
@@ -139,6 +139,15 @@ export function EquipePageClient() {
               {t('equipe.cta.button')}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </LocalizedLink>
+            {language === 'fr' && (
+              <p className="mt-6 text-sm text-slate-600">
+                Vous êtes une agence, un studio ou un freelance ?{' '}
+                <LocalizedLink href="/sous-traitance-web" className="font-semibold text-navy-900 underline underline-offset-4">
+                  Découvrez notre offre de sous-traitance en marque blanche
+                </LocalizedLink>
+                .
+              </p>
+            )}
           </div>
         </section>
       </main>

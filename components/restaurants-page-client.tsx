@@ -742,7 +742,7 @@ function FinalCTA() {
 
         <p className="mt-6 md:mt-8 inline-flex items-center gap-2 text-xs sm:text-sm text-white/80">
           <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-          Réponse garantie sous 4 heures ouvrées
+          Devis gratuit sous 48 h ouvrées
         </p>
       </div>
     </section>

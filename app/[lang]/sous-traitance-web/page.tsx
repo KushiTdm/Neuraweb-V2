@@ -33,7 +33,7 @@ import {
 import { Button } from '@/components/ui/button';
 
 const BASE_URL = 'https://neuraweb.fr';
-const PAGE_PATH = '/fr/sous-traitance-web-lille';
+const PAGE_PATH = '/fr/sous-traitance-web';
 
 // Page FR uniquement — page B2B agences (ISR 1h)
 export const revalidate = 3600;
@@ -56,9 +56,9 @@ export async function generateMetadata({
   }
 
   const ogImage = `${BASE_URL}/assets/og-image.png`;
-  const title = 'Sous-traitance Développement Web à Lille — Marque Blanche';
+  const title = 'Sous-traitance Développement Web — Marque Blanche | NeuraWeb';
   const description =
-    'Partenaire technique en marque blanche pour agences web et studios : développement Next.js, apps mobiles, IA. Basé à Lille. NDA signé, votre marque protégée.';
+    'Partenaire technique en marque blanche pour agences web, studios et freelances : développement Next.js, apps mobiles, IA. À distance, NDA avant tout échange, votre marque protégée.';
 
   return {
     title: { absolute: title },
@@ -128,13 +128,12 @@ const serviceSchema = {
       addressCountry: 'FR',
       addressLocality: 'Lille',
       addressRegion: 'Hauts-de-France',
-      postalCode: '59000',
     },
   },
   areaServed: [
-    { '@type': 'City', name: 'Lille' },
-    { '@type': 'AdministrativeArea', name: 'Hauts-de-France' },
     { '@type': 'Country', name: 'France' },
+    { '@type': 'Country', name: 'Belgique' },
+    { '@type': 'Country', name: 'Suisse' },
   ],
   audience: {
     '@type': 'BusinessAudience',
@@ -187,7 +186,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: 'Quels sont vos tarifs de sous-traitance pour une agence ?',
-    a: "Nous travaillons principalement au forfait, sur la base de nos packs : à partir de 1 490 € HT pour un site vitrine jusqu'à 8 pages et 3 990 € HT pour un site ou une application jusqu'à 20 pages avec fonctions avancées, sur des maquettes déjà déterminées. Une plateforme entièrement sur mesure avec IA et automatisation est chiffrée sur devis. Un tarif partenaire dégressif s'applique à partir du troisième projet confié dans l'année. Les missions en régie ou les reprises de projet font l'objet d'un devis spécifique.",
+    a: "Nous travaillons principalement au forfait, sur la base de nos packs : à partir de 1 490 € HT pour un site vitrine jusqu'à 8 pages et 3 990 € HT pour un site ou une application jusqu'à 20 pages avec fonctions avancées, sur des maquettes déjà déterminées. Une plateforme entièrement sur mesure avec IA et automatisation est chiffrée sur devis. Les missions en régie ou les reprises de projet font l'objet d'un devis spécifique.",
   },
   {
     q: 'Quelles technologies prenez-vous en charge ?',
@@ -195,7 +194,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: 'Pouvez-vous reprendre un projet déjà commencé par un autre prestataire ?',
-    a: "Oui, c'est une demande fréquente. Nous commençons systématiquement par un audit technique de 2 à 3 jours pour évaluer l'état du code, la dette technique et la faisabilité de la reprise. Cet audit vous est livré sous forme de rapport écrit avec une estimation chiffrée. Dans certains cas, nous recommandons honnêtement une reconstruction plutôt qu'une reprise : nous vous le disons avant que vous vous engagiez auprès de votre client.",
+    a: "Oui, sur devis. Nous commençons par un audit technique pour évaluer l'état du code, la dette technique et la faisabilité de la reprise, livré sous forme de rapport écrit avec une estimation chiffrée. Dans certains cas, nous recommandons honnêtement une reconstruction plutôt qu'une reprise : nous vous le disons avant que vous vous engagiez auprès de votre client.",
   },
   {
     q: 'Quels sont les délais sur un projet sous-traité ?',
@@ -203,15 +202,15 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: 'Travaillez-vous uniquement avec les agences lilloises ?',
-    a: "Non. Nous sommes basés à Lille et rencontrons volontiers les agences des Hauts-de-France en présentiel, mais la majorité de nos collaborations se déroulent à distance avec des agences partout en France, en Belgique et en Suisse. Le processus est identique : cadrage en visioconférence, suivi sur votre outil de gestion de projet, livraisons sur votre dépôt Git.",
+    a: "Non. NeuraWeb est immatriculée à Lille mais n'a pas de bureau ouvert au public : l'équipe travaille à distance (actuellement depuis Hanoï, 5 à 6 heures de décalage avec la France) et collabore avec des agences où qu'elles soient. Le processus est le même partout : cadrage en visioconférence, suivi sur votre outil de gestion de projet, livraisons sur votre dépôt Git.",
   },
   {
     q: 'Comment se passe la communication pendant le projet ?',
-    a: "Nous nous adaptons à vos outils plutôt que l'inverse : Slack, Notion, Jira, Trello ou simplement e-mail. Vous disposez d'un point de contact technique unique, d'un compte-rendu hebdomadaire écrit et d'un accès en lecture au dépôt Git pour suivre l'avancement réel. Aucune réunion imposée : nous privilégions l'asynchrone pour ne pas consommer votre temps de gestion.",
+    a: "Nous nous adaptons à vos outils plutôt que l'inverse : Slack, Notion, Jira, Trello ou simplement e-mail. Vous disposez d'un point de contact technique unique, d'un compte-rendu hebdomadaire écrit et d'un accès en lecture au dépôt Git pour suivre l'avancement réel. Pas de réunion imposée : nous privilégions l'asynchrone, utile avec notre décalage horaire, pour ne pas consommer votre temps de gestion.",
   },
   {
     q: 'Proposez-vous de la maintenance sur les projets livrés en marque blanche ?',
-    a: "Oui. Chaque livraison inclut 30 jours de corrections de bugs sans surcoût. Au-delà, nous proposons des contrats de maintenance mensuels en marque blanche : surveillance de sécurité, mises à jour de dépendances, corrections et petites évolutions. Vous refacturez cette prestation à votre client avec votre propre marge, ce qui transforme un projet ponctuel en revenu récurrent pour votre agence.",
+    a: "Oui. Chaque livraison inclut 30 jours de corrections sans surcoût ; au-delà, nous proposons des contrats de maintenance mensuels en marque blanche : surveillance de sécurité, mises à jour de dépendances, corrections et petites évolutions. Vous refacturez cette prestation à votre client avec votre propre marge, ce qui transforme un projet ponctuel en revenu récurrent pour votre agence.",
   },
   {
     q: 'Que se passe-t-il si mon client demande une évolution après la livraison ?',
@@ -250,7 +249,7 @@ const SERVICES = [
   {
     icon: Globe,
     title: 'Développement web Next.js',
-    desc: "Sites vitrines, e-commerce et applications web en Next.js et TypeScript. Performance 90+/100 sur PageSpeed, SEO technique et données structurées inclus par défaut.",
+    desc: "Sites vitrines, e-commerce et applications web en Next.js et TypeScript. Objectif de performance 90+ sur PageSpeed, SEO technique et données structurées inclus par défaut.",
     color: 'text-indigo-600 bg-indigo-50',
   },
   {
@@ -312,7 +311,7 @@ const PROCESS = [
   {
     step: '01',
     title: 'Prise de brief et NDA',
-    desc: "Vous nous transmettez le besoin du client. NDA signé sous 24h, avant tout échange de détail. Nous vous disons immédiatement si le projet entre dans notre périmètre.",
+    desc: "Vous nous transmettez le besoin du client. NDA signé avant tout échange de détail. Nous vous disons immédiatement si le projet entre dans notre périmètre.",
   },
   {
     step: '02',
@@ -342,12 +341,12 @@ export default async function SousTraitanceWebLillePage({
 }) {
   const { lang } = await params;
   if (lang !== 'fr') {
-    permanentRedirect('/fr/sous-traitance-web-lille');
+    permanentRedirect('/fr/sous-traitance-web');
   }
 
   const breadcrumbData = generateBreadcrumbSchema([
     { name: 'Accueil', url: '/fr' },
-    { name: 'Sous-traitance web Lille', url: PAGE_PATH },
+    { name: 'Sous-traitance web', url: PAGE_PATH },
   ]);
 
   return (
@@ -370,7 +369,7 @@ export default async function SousTraitanceWebLillePage({
             <nav aria-label="Fil d'Ariane" className="flex items-center gap-1.5 text-xs text-slate-400 mb-6 md:mb-8">
               <LocalizedLink href="/" className="hover:text-indigo-600 transition-colors">Accueil</LocalizedLink>
               <ChevronRight className="w-3 h-3" />
-              <span className="text-slate-600 font-medium">Sous-traitance web Lille</span>
+              <span className="text-slate-600 font-medium">Sous-traitance web</span>
             </nav>
 
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -381,7 +380,7 @@ export default async function SousTraitanceWebLillePage({
                 </div>
 
                 <h1 className="font-display text-[2rem] leading-[1.1] sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
-                  Sous-traitance web à Lille —{' '}
+                  Sous-traitance web —{' '}
                   <span className="text-navy-700 dark:text-sky-400">
                     votre équipe technique
                   </span>{' '}
@@ -390,7 +389,7 @@ export default async function SousTraitanceWebLillePage({
 
                 <p className="mt-4 md:mt-6 text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl">
                   NeuraWeb développe vos projets <strong>Next.js, mobiles et IA</strong> pour
-                  le compte de votre agence. <strong>NDA signé sous 24h</strong>, aucun contact
+                  le compte de votre agence. <strong>NDA signé avant tout échange de détail</strong>, aucun contact
                   avec votre client, code livré sur votre dépôt sous votre marque.
                 </p>
 
@@ -420,9 +419,9 @@ export default async function SousTraitanceWebLillePage({
 
                 <div className="mt-6 md:mt-10 flex flex-wrap gap-x-4 gap-y-2 sm:grid sm:grid-cols-3 sm:gap-4">
                   {[
-                    { icon: Lock, label: 'NDA 24h', longLabel: 'NDA signé sous 24h', color: 'text-indigo-600' },
+                    { icon: Lock, label: 'NDA d’abord', longLabel: 'NDA avant tout échange', color: 'text-indigo-600' },
                     { icon: Shield, label: 'Marque blanche', longLabel: 'Marque blanche stricte', color: 'text-violet-600' },
-                    { icon: Clock, label: 'Devis 48h', longLabel: 'Devis ferme sous 48h', color: 'text-cyan-600' },
+                    { icon: Clock, label: 'Devis 48h', longLabel: 'Devis sous 48 h ouvrées', color: 'text-cyan-600' },
                   ].map(({ icon: Icon, label, longLabel, color }) => (
                     <div key={label} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-slate-700">
                       <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${color}`} />
@@ -441,7 +440,7 @@ export default async function SousTraitanceWebLillePage({
                     En résumé
                   </p>
                   <p className="relative text-sm sm:text-base text-slate-700 leading-relaxed">
-                    <strong>NeuraWeb est un partenaire technique en marque blanche basé à Lille</strong>,
+                    <strong>NeuraWeb est un partenaire technique en marque blanche, immatriculé à Lille et 100 % à distance</strong>,
                     qui développe des sites Next.js, des applications mobiles et des intégrations IA
                     pour le compte d&apos;agences web et d&apos;agences de communication.
                     Les projets démarrent à <strong>1 490 € HT</strong>, sont livrés sur votre dépôt Git
@@ -450,10 +449,10 @@ export default async function SousTraitanceWebLillePage({
                   </p>
                   <div className="relative mt-5 pt-5 border-t border-slate-100 grid grid-cols-2 gap-4">
                     {[
-                      { value: '24h', label: 'NDA signé' },
-                      { value: '48h', label: 'Devis ferme' },
+                      { value: 'NDA', label: 'Avant tout échange' },
+                      { value: '48h', label: 'Devis (jours ouvrés)' },
                       { value: '30 j', label: 'Corrections incluses' },
-                      { value: '90+', label: 'Score PageSpeed' },
+                      { value: 'Git', label: 'Code sur votre dépôt' },
                     ].map((s) => (
                       <div key={s.label}>
                         <p className="text-xl sm:text-2xl font-extrabold text-indigo-600">{s.value}</p>
@@ -708,14 +707,14 @@ export default async function SousTraitanceWebLillePage({
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 text-white text-xs sm:text-sm font-medium mb-5 md:mb-6">
               <MapPin className="w-3.5 h-3.5" />
-              Basés à Lille, disponibles partout en France
+              Immatriculés à Lille, 100 % à distance, disponibles partout
             </span>
 
             <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold mb-4 md:mb-5 leading-tight">
               Un projet à confier ? Parlons-en.
             </h2>
             <p className="text-base sm:text-xl text-white/90 mb-6 md:mb-10 max-w-2xl mx-auto">
-              Décrivez le besoin de votre client : nous vous disons sous 48h si nous le prenons,
+              Décrivez le besoin de votre client : nous vous disons sous 48 h ouvrées si nous le prenons,
               à quel prix et dans quel délai. NDA signé avant tout échange de détail.
             </p>
 

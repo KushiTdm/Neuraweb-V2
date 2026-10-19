@@ -53,9 +53,9 @@ export async function generateMetadata({
   }
 
   const ogImage = `${BASE_URL}/assets/og-image.png`;
-  const title = 'Agence Web à Lille — Sites Next.js & IA pour PME | NeuraWeb';
+  const title = 'Agence web & IA de Lille — Sites Next.js pour PME | NeuraWeb';
   const description =
-    'Agence web & IA basée à Lille : création site Next.js, apps mobiles, automatisation n8n. PME des Hauts-de-France. Devis gratuit sous 48h.';
+    'Agence web & IA immatriculée à Lille, 100 % à distance : site Next.js, apps mobiles, automatisation n8n. Clients dans le Nord et partout en France. Devis gratuit sous 48 h ouvrées.';
 
   return {
     title: { absolute: title },
@@ -89,7 +89,7 @@ export async function generateMetadata({
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: 'NeuraWeb — Agence web & IA à Lille, Hauts-de-France',
+          alt: 'NeuraWeb — Agence web & IA de Lille',
         },
       ],
       locale: 'fr_FR',
@@ -112,22 +112,17 @@ const professionalServiceSchema = {
   '@id': `${BASE_URL}${PAGE_PATH}#agence`,
   name: 'NeuraWeb — Agence Web & IA à Lille',
   description:
-    "Agence web et IA basée à Lille, spécialisée dans la création de sites Next.js sur mesure, applications mobiles iOS/Android, intégration IA et automatisation n8n pour PME et hôteliers des Hauts-de-France.",
+    "Agence web et IA immatriculée à Lille, travaillant à distance : sites Next.js sur mesure, applications mobiles iOS/Android, intégration IA et automatisation n8n pour PME, hôtels et restaurants, dans le Nord et partout en France.",
   url: `${BASE_URL}${PAGE_PATH}`,
   email: 'contact@neuraweb.fr',
   logo: `${BASE_URL}/assets/neurawebW.webp`,
   priceRange: '€€',
+  // Siège d'immatriculation seulement : pas de local ouvert au public, donc ni code postal ni coordonnées GPS.
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'FR',
     addressLocality: 'Lille',
     addressRegion: 'Hauts-de-France',
-    postalCode: '59000',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: '50.6292',
-    longitude: '3.0573',
   },
   areaServed: [
     { '@type': 'City', name: 'Lille' },
@@ -149,8 +144,8 @@ const professionalServiceSchema = {
 //    (Google exige que le contenu balisé soit visible sur la page).
 const FAQ_ITEMS: { q: string; a: string }[] = [
   {
-    q: "Pourquoi choisir une agence web à Lille plutôt qu'une agence nationale ?",
-    a: "Une agence locale connaît le tissu économique lillois, les besoins des PME du Nord et les spécificités des secteurs dominants (commerce, industrie, services B2B). Vous bénéficiez de réunions en présentiel, d'une réactivité accrue et d'une relation sur le long terme. NeuraWeb est basée à Lille et intervient aussi bien en métropole lilloise que dans tout le Nord-Pas-de-Calais et les Hauts-de-France.",
+    q: "Où se trouve NeuraWeb et comment travaille-t-on à distance ?",
+    a: "NeuraWeb est une agence immatriculée à Lille (contrat, facture et TVA français), 100 % à distance : pas de local ouvert au public, tout se passe en visioconférence. L'équipe de trois personnes travaille actuellement depuis Hanoï. Nous accompagnons des entreprises du Nord, de Paris et d'autres pays par visioconférence et outils partagés (maquettes, suivi de tâches), avec un interlocuteur direct.",
   },
   {
     q: 'Quel est le délai pour créer un site web avec NeuraWeb à Lille ?',
@@ -170,11 +165,11 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: 'Intervenez-vous uniquement à Lille ou dans toute la France ?',
-    a: "NeuraWeb intervient dans toute la France et à l'international, mais nous sommes particulièrement bien positionnés pour accompagner les entreprises de Lille, du Nord (59), du Pas-de-Calais (62) et des Hauts-de-France. La majorité de nos réunions clients sont réalisables en visioconférence, avec possibilité de rendez-vous en présentiel à Lille.",
+    a: "NeuraWeb intervient dans toute la France et à l'international. Nous avons des clients dans le Nord, à Paris et à l'étranger. Tous les échanges se font en visioconférence : pas de rendez-vous en présentiel, ce qui nous permet de nous adapter à vos horaires.",
   },
   {
     q: "Qu'est-ce qu'un site Next.js et pourquoi choisir cette technologie ?",
-    a: "Next.js est le framework React le plus performant du marché, utilisé par Vercel, Netflix et de nombreuses grandes marques. Par rapport à WordPress, il offre des temps de chargement 3 à 5 fois plus rapides, une sécurité renforcée (absence de CMS vulnérable), un SEO technique de haut niveau et une flexibilité totale pour intégrer des fonctions IA ou des API tierces. Tous nos sites dépassent 90/100 sur PageSpeed Insights.",
+    a: "Next.js est un framework React maintenu par Vercel : les pages sont rendues côté serveur, donc les robots reçoivent du HTML complet, et le chargement est plus facile à maintenir rapide qu'avec un WordPress chargé de plugins. Il offre aussi une surface d'attaque réduite (pas de CMS exposé par défaut), un SEO technique solide et de la flexibilité pour intégrer des fonctions IA ou des API tierces. Nous visons un score PageSpeed supérieur à 90 et le vérifions avant la livraison.",
   },
   {
     q: "Comment NeuraWeb intègre-t-elle l'IA dans les sites web ?",
@@ -206,7 +201,7 @@ const SERVICES = [
   {
     icon: Globe,
     title: 'Développement web',
-    desc: 'Sites vitrines, e-commerce, applications web — développés en Next.js pour des performances maximales (90+/100 PageSpeed).',
+    desc: 'Sites vitrines, e-commerce, applications web — développés en Next.js pour des performances maximales (objectif PageSpeed 90+).',
     link: '/fr/developpement-web',
     linkLabel: 'Voir nos packs web',
     color: 'text-indigo-600 bg-indigo-50',
@@ -305,10 +300,10 @@ const PACKS = [
 ];
 
 const STATS = [
-  { value: '120 000', label: 'entreprises dans la métropole lilloise', icon: Building2 },
-  { value: '7 656', label: 'nouvelles entreprises créées à Lille en 2025', icon: TrendingUp },
-  { value: '84 %', label: 'des PME françaises ont une présence en ligne', icon: Globe },
-  { value: '26 %', label: "des entreprises utilisent déjà l'IA en 2026", icon: Brain },
+  { value: '65 %', label: 'des TPE/PME françaises ont un site internet (France Num, 2024)', icon: Globe },
+  { value: '18 %', label: "des entreprises de 10 salariés ou plus utilisent l'IA en 2025 (Insee)", icon: Brain },
+  { value: '53 %', label: 'des visites mobiles abandonnées au-delà de 3 s de chargement (Google, 2016)', icon: TrendingUp },
+  { value: '91 %', label: 'des Français de 12 ans et plus ont un smartphone (Arcep / Credoc, 2025)', icon: Smartphone },
 ];
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -358,11 +353,11 @@ export default async function AgenceWebLillePage({
               <div className="lg:col-span-7">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-indigo-200 text-indigo-700 text-xs sm:text-sm font-medium mb-4 md:mb-6">
                   <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  Agence web basée à Lille, Hauts-de-France
+                  Agence web immatriculée à Lille, clients partout en France
                 </div>
 
                 <h1 className="font-display text-[2rem] leading-[1.1] sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900">
-                  Agence web à Lille —{' '}
+                  Agence web &amp; IA de Lille —{' '}
                   <span className="text-navy-700 dark:text-sky-400">
                     Sites Next.js & IA
                   </span>{' '}
@@ -372,8 +367,8 @@ export default async function AgenceWebLillePage({
                 <p className="mt-4 md:mt-6 text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl">
                   NeuraWeb conçoit des{' '}
                   <strong>sites web haute performance en Next.js</strong>, des applications
-                  mobiles et des automatisations IA pour les PME et entreprises des Hauts-de-France.{' '}
-                  <strong>Devis gratuit sous 48h</strong>, accompagnement local.
+                  mobiles et des automatisations IA pour les PME et entreprises, du Nord à l&apos;international.{' '}
+                  <strong>Devis gratuit sous 48 h ouvrées</strong>, accompagnement à distance.
                 </p>
 
                 <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
@@ -404,8 +399,8 @@ export default async function AgenceWebLillePage({
                 <div className="mt-6 md:mt-10 flex flex-wrap gap-x-4 gap-y-2 sm:grid sm:grid-cols-3 sm:gap-4">
                   {[
                     { icon: Clock, label: 'Réponse 48h', longLabel: 'Réponse sous 48h', color: 'text-indigo-600' },
-                    { icon: MapPin, label: 'Basé à Lille', longLabel: 'Basé à Lille (59)', color: 'text-violet-600' },
-                    { icon: TrendingUp, label: '90+/100', longLabel: 'PageSpeed 90+/100', color: 'text-cyan-600' },
+                    { icon: MapPin, label: 'Siège à Lille', longLabel: 'Immatriculée à Lille', color: 'text-violet-600' },
+                    { icon: TrendingUp, label: 'PageSpeed 90+', longLabel: 'Objectif PageSpeed 90+', color: 'text-cyan-600' },
                   ].map(({ icon: Icon, label, longLabel, color }) => (
                     <div key={label} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-slate-700">
                       <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${color}`} />
@@ -421,7 +416,7 @@ export default async function AgenceWebLillePage({
                 <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl shadow-indigo-600/15 border border-slate-200/60 bg-white p-6 sm:p-8 ctx-light">
                   <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-2xl opacity-60 pointer-events-none bg-navy-900" />
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">
-                    Marché digital Hauts-de-France
+                    Repères du marché français
                   </p>
                   <div className="grid grid-cols-2 gap-4">
                     {STATS.map((s) => {
@@ -437,7 +432,7 @@ export default async function AgenceWebLillePage({
                   </div>
                   <div className="mt-6 pt-5 border-t border-slate-100">
                     <p className="text-sm text-slate-600">
-                      La métropole lilloise est l&apos;un des bassins économiques les plus dynamiques de France —{' '}
+                      Chiffres publics cités avec leur source : ils décrivent le marché, pas des résultats de NeuraWeb —{' '}
                       <strong className="text-slate-800">votre site web est votre premier commercial.</strong>
                     </p>
                   </div>
@@ -452,14 +447,14 @@ export default async function AgenceWebLillePage({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-10 md:mb-14">
               <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 md:mb-4">
-                Pourquoi travailler avec une{' '}
-                <span className="text-indigo-600">agence web locale à Lille</span> ?
+                Une agence{' '}
+                <span className="text-indigo-600">de Lille</span>, joignable partout
               </h2>
               <p className="text-base sm:text-lg text-slate-600">
-                La Métropole Européenne de Lille regroupe{' '}
-                <strong>120 000 entreprises</strong> et un tissu économique varié — commerce,
-                industrie, services, santé, hôtellerie. Une agence ancrée localement comprend
-                vos enjeux mieux qu&apos;une agence parisienne ou nationale.
+                Pas de bureau ni de rendez-vous en présentiel :
+                NeuraWeb est immatriculée à Lille, l&apos;équipe travaille à distance et vos échanges
+                se font en visioconférence. Un contrat et une facture français, un interlocuteur
+                direct, des prix affichés.
               </p>
             </div>
 
@@ -467,13 +462,13 @@ export default async function AgenceWebLillePage({
               {[
                 {
                   icon: Users,
-                  title: 'Connaissance du tissu local',
-                  desc: 'Nous connaissons les secteurs porteurs du Nord : commerce, industrie, santé, hôtellerie, restauration. Nos recommandations sont adaptées au marché lillois.',
+                  title: 'Clients dans le Nord et au-delà',
+                  desc: 'Nous accompagnons des entreprises du Nord, de Paris et de l’étranger. Nos recommandations s’adaptent à votre secteur : commerce, hôtellerie, restauration, santé, collectivités.',
                 },
                 {
                   icon: MapPin,
-                  title: 'Réunions en présentiel possibles',
-                  desc: "Contrairement aux agences nationales, nous pouvons vous rencontrer à Lille, à la MEL ou dans toute la région Hauts-de-France. La relation humaine est au cœur de notre approche.",
+                  title: 'Rendez-vous en visio',
+                  desc: "Pas de local ouvert au public : tout se passe en visioconférence et sur des outils partagés (maquettes, suivi de tâches), à des horaires qui vous conviennent.",
                 },
                 {
                   icon: Clock,
@@ -482,18 +477,18 @@ export default async function AgenceWebLillePage({
                 },
                 {
                   icon: Search,
-                  title: 'SEO local Hauts-de-France',
-                  desc: 'Nous optimisons vos pages pour les requêtes locales (« [service] + Lille », « [service] + Nord »), le Local Pack Google et votre fiche Google Business Profile.',
+                  title: 'SEO et visibilité locale',
+                  desc: 'Nous optimisons vos pages pour les requêtes locales (« [service] + Lille », « [service] + Nord »), et la cohérence de votre fiche Google Business Profile.',
                 },
                 {
                   icon: TrendingUp,
-                  title: 'Croissance du marché digital',
-                  desc: "En 2026, 26 % des entreprises utilisent déjà l'IA. Les Hauts-de-France comptent parmi les régions qui digitalisent le plus vite leur tissu de PME.",
+                  title: 'Un marché qui s’équipe en IA',
+                  desc: "En 2025, 18 % des entreprises françaises de 10 salariés ou plus utilisent au moins une technologie d'IA (Insee) : c'est un chiffre du marché, pas un résultat NeuraWeb.",
                 },
                 {
                   icon: Building2,
-                  title: 'Secteurs porteurs à Lille',
-                  desc: 'Commerce & retail (Auchan, Decathlon, Leroy Merlin ont leur siège ici), industries de pointe, BTP, services B2B, hôtellerie, restauration — nous les connaissons tous.',
+                  title: 'Offres par secteur',
+                  desc: 'Santé, restaurants et hôtels, collectivités : des offres dédiées, avec prix affichés « à partir de ».',
                 },
               ].map((item) => {
                 const Icon = item.icon;
@@ -533,7 +528,7 @@ export default async function AgenceWebLillePage({
               <p className="text-base sm:text-lg text-slate-600">
                 De la création de site vitrine à l&apos;application web complexe, en passant par
                 l&apos;intégration IA et l&apos;automatisation — nous couvrons tout le spectre digital
-                des entreprises des Hauts-de-France.
+                des entreprises, où qu’elles soient.
               </p>
             </div>
 
@@ -574,7 +569,7 @@ export default async function AgenceWebLillePage({
               </h2>
               <p className="text-base sm:text-lg text-slate-600">
                 Pas de mauvaise surprise : des prix fixes, clairs et adaptés aux budgets
-                des entreprises du Nord. Devis personnalisé gratuit pour les projets sur mesure.
+                des PME. Devis personnalisé gratuit pour les projets sur mesure.
               </p>
             </div>
 
@@ -659,7 +654,7 @@ export default async function AgenceWebLillePage({
                 { href: '/fr/integration-ia', label: 'Intégration IA sur mesure', sub: 'Chatbot, génération de contenu, personnalisation' },
                 { href: '/fr/automatisation', label: 'Automatisation n8n', sub: 'Connectez vos outils, gagnez des heures' },
                 { href: '/fr/agence-nextjs', label: 'Notre expertise Next.js', sub: 'Pourquoi ce framework, comparatif WordPress' },
-                { href: '/fr/sous-traitance-web-lille', label: 'Vous êtes une agence ?', sub: 'Développement en marque blanche pour agences' },
+                { href: '/fr/sous-traitance-web', label: 'Vous êtes une agence ?', sub: 'Développement en marque blanche pour agences' },
               ].map((item) => (
                 <LocalizedLink
                   key={item.href}

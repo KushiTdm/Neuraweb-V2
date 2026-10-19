@@ -217,6 +217,7 @@ const CONTENT: Record<Lang, {
       h3: 'Pour aller plus loin',
       items: [
         { label: 'WordPress vs Next.js : quel choix en 2026 ?', href: '/blog/nextjs-vs-wordpress-2026' },
+        { label: 'Notre expertise Next.js et React (migration WordPress, SEO technique)', href: '/agence-nextjs' },
         { label: 'Comment intégrer l\'IA dans un site web en 2025', href: '/blog/integrer-ia-site-web-2025' },
         { label: 'Ajouter un chatbot IA à votre site', href: '/integration-ia' },
         { label: 'Automatiser vos process métier', href: '/automatisation' },

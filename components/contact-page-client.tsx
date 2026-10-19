@@ -269,6 +269,14 @@ export default function ContactPageClient() {
                   )}
                 </button>
               </form>
+              {language === 'fr' && (
+                <p className="mt-6 text-center text-sm text-chypre/80">
+                  Vous êtes une agence, un studio ou un freelance ?{' '}
+                  <LocalizedLink href="/sous-traitance-web" className="font-semibold underline underline-offset-4">
+                    Sous-traitance en marque blanche
+                  </LocalizedLink>
+                </p>
+              )}
             </div>
           </div>
         </div>

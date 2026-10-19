@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback, useMemo } from 'react'
+import { CHIP_LABELS, DEFAULT_CHIPS } from '@/lib/chat-chips'
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import type { CSSProperties } from 'react'
 import { usePathname } from 'next/navigation'
 import { X, Loader2 } from 'lucide-react'
@@ -39,6 +40,10 @@ function chatColors(name: PageThemeName): CSSProperties {
 interface Message {
   role: 'user' | 'assistant'
   content: string
+  /** Boutons de relance (questions fréquentes) */
+  chips?: { id: string; label: string }[]
+  /** Mini-formulaire de devis : 'form' = ouvert, 'button' = bouton proposé */
+  lead?: 'form' | 'button'
   showBooking?: 'dates' | 'times' | 'form'
   slots?: Slot[]
   selectedDate?: string
@@ -57,14 +62,31 @@ interface ChatResponse {
   maxMessages: number
   error?: string
   showBookingDates?: boolean
+  chips?: { id: string; label: string }[]
+  lead?: 'form' | 'button'
 }
 
 // Rendu Markdown minimal et sûr (aucun HTML injecté) : **gras**, *italique*, listes « - » / « • ».
+function linkify(text: string, keyBase: string): React.ReactNode[] {
+  // Liens https cliquables (la ponctuation finale n'en fait pas partie)
+  return text.split(/(https:\/\/[^\s<>"]+)/g).filter(Boolean).map((part, i) => {
+    if (!part.startsWith('https://')) return part
+    const url = part.replace(/[.,;:!?)»]+$/, '')
+    const tail = part.slice(url.length)
+    return (
+      <React.Fragment key={`${keyBase}-${i}`}>
+        <a href={url} target="_blank" rel="noopener noreferrer" className="font-semibold underline underline-offset-2 break-all">{url.replace(/^https:\/\//, '')}</a>
+        {tail}
+      </React.Fragment>
+    )
+  })
+}
+
 function renderInline(text: string): React.ReactNode[] {
   return text.split(/(\*\*[^*]+\*\*|\*[^*\s][^*]*\*)/g).filter(Boolean).map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) return <strong key={i}>{part.slice(2, -2)}</strong>
+    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) return <strong key={i}>{linkify(part.slice(2, -2), `b${i}`)}</strong>
     if (part.startsWith('*') && part.endsWith('*') && part.length > 2) return <em key={i}>{part.slice(1, -1)}</em>
-    return part
+    return <React.Fragment key={i}>{linkify(part, `t${i}`)}</React.Fragment>
   })
 }
 
@@ -107,6 +129,11 @@ const CloseSmallIcon = () => (
   </svg>
 )
 
+const initialChips = (lang: string) => {
+  const l = (['fr', 'en', 'es', 'vi'].includes(lang) ? lang : 'fr') as 'fr' | 'en' | 'es' | 'vi'
+  return DEFAULT_CHIPS.slice(0, 5).map((id) => ({ id, label: CHIP_LABELS[id][l] }))
+}
+
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState<Message[]>([])
@@ -132,6 +159,13 @@ export default function Chatbot() {
     name: '', email: '', phone: '', whatsapp: '', company: '', service: '', message: ''
   })
   const [isSubmittingBooking, setIsSubmittingBooking] = useState(false)
+
+  // ── Mini-formulaire de devis dans le chat (proposé par les réponses commerciales) ──
+  const [leadOpenAt, setLeadOpenAt] = useState<number | null>(null)
+  const [leadForm, setLeadForm] = useState({ name: '', email: '', message: '', website: '' })
+  const [leadSending, setLeadSending] = useState(false)
+  const tr = (fr: string, en: string, es: string, vi: string) =>
+    language === 'fr' ? fr : language === 'es' ? es : language === 'vi' ? vi : en
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -218,7 +252,7 @@ export default function Chatbot() {
       const greeting = t('chatbot.greeting')
       if (greeting !== previousGreetingRef.current) {
         previousGreetingRef.current = greeting
-        setMessages([{ role: 'assistant', content: greeting }])
+        setMessages([{ role: 'assistant', content: greeting, chips: initialChips(language) }])
       }
     }
   }, [mounted, language, t])
@@ -227,7 +261,7 @@ export default function Chatbot() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [])
 
-  useEffect(() => { scrollToBottom() }, [messages, scrollToBottom])
+  useEffect(() => { scrollToBottom() }, [messages, leadOpenAt, scrollToBottom])
   useEffect(() => { if (isOpen && inputRef.current) inputRef.current.focus() }, [isOpen])
 
   // ── Booking helpers ─────────────────────────────────────────────────────────
@@ -376,9 +410,10 @@ export default function Chatbot() {
     }
   }
 
-  const sendMessage = async () => {
-    if (!input.trim() || isLoading || remainingMessages <= 0) return
-    const userMessage = input.trim()
+  const sendMessage = async (override?: string) => {
+    const raw = typeof override === 'string' ? override : input
+    if (!raw.trim() || isLoading || remainingMessages <= 0) return
+    const userMessage = raw.trim()
     setInput('')
     setError(null)
     setIsLoading(true)
@@ -399,7 +434,7 @@ export default function Chatbot() {
         const slots = await loadAvailableSlots()
         setMessages(prev => [...prev, { role: 'assistant', content: data.response, showBooking: 'dates', slots }])
       } else {
-        setMessages(prev => [...prev, { role: 'assistant', content: data.response }])
+        setMessages(prev => [...prev, { role: 'assistant', content: data.response, chips: data.chips, lead: data.lead }])
       }
       setRemainingMessages(data.remainingMessages)
     } catch (err) {
@@ -408,6 +443,42 @@ export default function Chatbot() {
       setMessages(prev => prev.slice(0, -1))
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const submitLead = async () => {
+    const email = leadForm.email.trim()
+    if (!leadForm.name.trim() || !/^\S+@\S+\.\S+$/.test(email) || leadSending) return
+    setLeadSending(true)
+    setError(null)
+    try {
+      const excerpt = messages
+        .filter(m => m.role === 'user')
+        .slice(-4)
+        .map(m => `- ${m.content}`)
+        .join('\n')
+      const message = [leadForm.message.trim(), excerpt && `Échanges avec l'assistant :\n${excerpt}`].filter(Boolean).join('\n\n') || 'Demande de devis via le chatbot.'
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: leadForm.name.trim(), email, subject: 'Chatbot — demande de devis', message: `[Chatbot] ${message}`, language, website: leadForm.website }),
+      })
+      if (!res.ok) throw new Error('lead')
+      setLeadOpenAt(null)
+      setLeadForm({ name: '', email: '', message: '', website: '' })
+      setMessages(prev => [...prev.map(m => (m.lead ? { ...m, lead: undefined } : m)), {
+        role: 'assistant',
+        content: tr(
+          '✅ **Demande reçue !** Nous vous répondons sous 48 h ouvrées à l’adresse indiquée. En attendant, vous pouvez tester notre démo : https://demo.neuraweb.fr',
+          '✅ **Request received!** We will reply within 48 business hours at the address you gave. Meanwhile, you can try our demo: https://demo.neuraweb.fr',
+          '✅ **¡Solicitud recibida!** Le responderemos en 48 horas hábiles en la dirección indicada. Mientras tanto, pruebe nuestra demo: https://demo.neuraweb.fr',
+          '✅ **Đã nhận yêu cầu!** Chúng tôi sẽ phản hồi trong 48 giờ làm việc theo email bạn cung cấp. Trong lúc chờ, bạn có thể dùng thử bản demo: https://demo.neuraweb.fr',
+        ),
+      }])
+    } catch {
+      setError(tr('Envoi impossible. Écrivez-nous à contact@neuraweb.fr.', 'Could not send. Email us at contact@neuraweb.fr.', 'No se pudo enviar. Escríbanos a contact@neuraweb.fr.', 'Không gửi được. Vui lòng email contact@neuraweb.fr.'))
+    } finally {
+      setLeadSending(false)
     }
   }
 
@@ -671,6 +742,52 @@ export default function Chatbot() {
                   </div>
                 </div>
 
+                {/* Boutons de relance (dernier message uniquement) */}
+                {msg.role === 'assistant' && msg.chips && msg.chips.length > 0 && index === messages.length - 1 && !isLoading && (
+                  <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label={tr('Questions fréquentes', 'Common questions', 'Preguntas frecuentes', 'Câu hỏi thường gặp')}>
+                    {msg.chips.map(chip => (
+                      <button
+                        key={chip.id}
+                        type="button"
+                        onClick={() => sendMessage(chip.label)}
+                        className="min-h-[36px] rounded-full border border-cbdark/35 bg-cblight px-3 py-1.5 text-xs font-medium text-cbdark transition-colors hover:bg-cbdark hover:text-cblight"
+                      >
+                        {chip.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {/* Devis dans le chat */}
+                {msg.role === 'assistant' && msg.lead && index === messages.length - 1 && (msg.lead === 'form' || leadOpenAt === index) ? (
+                  <div className="mt-3 space-y-2 rounded-xl border border-cbdark/25 bg-cblight p-3">
+                    <p className="text-xs font-semibold text-cbdark">{tr('Recevoir un devis sous 48 h ouvrées', 'Get a quote within 48 business hours', 'Recibir un presupuesto en 48 h hábiles', 'Nhận báo giá trong 48 giờ làm việc')}</p>
+                    <input type="text" value={leadForm.name} onChange={e => setLeadForm({ ...leadForm, name: e.target.value })}
+                      placeholder={tr('Nom *', 'Name *', 'Nombre *', 'Họ tên *')} aria-label={tr('Votre nom', 'Your name', 'Su nombre', 'Họ tên của bạn')} autoComplete="name"
+                      className="w-full rounded-lg border border-cbdark/30 bg-cblight px-3 py-2 text-base text-cbdark placeholder-cbdark/60 focus:border-cbdark focus:outline-none sm:text-sm" />
+                    <input type="email" value={leadForm.email} onChange={e => setLeadForm({ ...leadForm, email: e.target.value })}
+                      placeholder="Email *" aria-label="Email" autoComplete="email"
+                      className="w-full rounded-lg border border-cbdark/30 bg-cblight px-3 py-2 text-base text-cbdark placeholder-cbdark/60 focus:border-cbdark focus:outline-none sm:text-sm" />
+                    <textarea value={leadForm.message} onChange={e => setLeadForm({ ...leadForm, message: e.target.value })} rows={2}
+                      placeholder={tr('Votre projet en une ligne (facultatif)', 'Your project in one line (optional)', 'Su proyecto en una línea (opcional)', 'Dự án của bạn trong một dòng (không bắt buộc)')}
+                      aria-label={tr('Votre projet', 'Your project', 'Su proyecto', 'Dự án của bạn')}
+                      className="w-full resize-none rounded-lg border border-cbdark/30 bg-cblight px-3 py-2 text-base text-cbdark placeholder-cbdark/60 focus:border-cbdark focus:outline-none sm:text-sm" />
+                    {/* Honeypot anti-bot */}
+                    <input type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" value={leadForm.website} onChange={e => setLeadForm({ ...leadForm, website: e.target.value })} className="hidden" />
+                    <button type="button" onClick={submitLead} disabled={leadSending || !leadForm.name.trim() || !/^\S+@\S+\.\S+$/.test(leadForm.email.trim())}
+                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-cbdark px-4 py-2.5 text-sm font-semibold text-cblight transition-opacity hover:opacity-90 disabled:opacity-50">
+                      {leadSending ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : null}
+                      {tr('Envoyer ma demande', 'Send my request', 'Enviar mi solicitud', 'Gửi yêu cầu')}
+                    </button>
+                    <p className="text-[11px] leading-snug text-cbdark/70">{tr('Votre e-mail sert uniquement à vous répondre.', 'Your email is only used to reply to you.', 'Su correo solo se usa para responderle.', 'Email chỉ dùng để phản hồi bạn.')}</p>
+                  </div>
+                ) : msg.role === 'assistant' && msg.lead === 'button' && index === messages.length - 1 && !isLoading ? (
+                  <button type="button" onClick={() => setLeadOpenAt(index)}
+                    className="mt-2 min-h-[40px] rounded-full bg-cbdark px-4 py-2 text-xs font-semibold text-cblight transition-opacity hover:opacity-90">
+                    ✉️ {tr('Recevoir un devis sous 48 h ouvrées', 'Get a quote within 48 business hours', 'Recibir un presupuesto en 48 h hábiles', 'Nhận báo giá trong 48 giờ làm việc')}
+                  </button>
+                ) : null}
+
                 {/* Dates cliquables */}
                 {msg.showBooking === 'dates' && msg.slots && (
                   <div className="mt-3 grid grid-cols-3 gap-2" role="group" aria-label={language === 'fr' ? 'Choisir une date' : language === 'vi' ? 'Chọn ngày' : 'Choose a date'}>
@@ -808,7 +925,7 @@ export default function Chatbot() {
                   className="min-w-0 flex-1 rounded-xl border border-cbdark/30 bg-cblight px-3 py-2 text-base sm:px-4 sm:text-sm text-cbdark placeholder-cbdark/60 focus:border-cbdark focus:outline-none disabled:opacity-50"
                 />
                 <button
-                  onClick={sendMessage}
+                  onClick={() => sendMessage()}
                   disabled={!input.trim() || isLoading}
                   aria-label={sendLabel}
                   className="shrink-0 rounded-xl bg-cbdark px-4 py-2 text-sm font-semibold text-cblight transition-all hover:bg-cbdark/90 disabled:cursor-not-allowed disabled:opacity-50"

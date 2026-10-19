@@ -441,7 +441,7 @@ export const vi: Record<TranslationKey, string> = {
   'audit.note': 'Không ràng buộc. Nhận về những việc làm được ngay.',
   'audit.trust.1': 'Không ràng buộc',
   'audit.trust.2': '45 phút',
-  'audit.trust.3': 'Trực tuyến hoặc gặp trực tiếp',
+  'audit.trust.3': 'Trực tuyến',
 
   // Hotel Form - Page Header
   'hotelForm.page.badge': 'NeuraWeb — Biểu mẫu khách hàng',

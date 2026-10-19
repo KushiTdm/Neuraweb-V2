@@ -18,7 +18,7 @@ Brief fiable (5 IA, sources Knok Studios, studios remote-first) : les agences qu
 - **B — Lille d'abord.** « Agence web & IA du Nord, siège à Lille. Équipe de trois, en télétravail depuis Hanoï jusqu'à l'été prochain : vous nous joignez en visio, et nous sommes à Lille pour les rendez-vous en France. » *(à ne dire que si c'est vrai ; sinon supprimer la dernière phrase.)*
 - **C — Mondiale.** « Une petite équipe française qui livre des sites, des applications et des automatisations pour des PME en France et à l'étranger — de Lille à Hanoï, en passant par l'Amérique latine. Prix affichés, interlocuteurs directs. »
 
-Hero (kicker actuel « Agence web à Lille ») : proposé **« Agence web & IA française · Lille – Hanoï »**. Les pages `agence-web-lille` et `sous-traitance-web-lille` gardent Lille pour le SEO local, avec « siège à Lille » plutôt que « basés à Lille ».
+Hero (kicker actuel « Agence web à Lille ») : proposé **« Agence web & IA française · Lille – Hanoï »**. Les pages `agence-web-lille` et `sous-traitance-web` gardent Lille pour le SEO local, avec « siège à Lille » plutôt que « basés à Lille ».
 
 ## 3. Propriété du code — pratiques observées
 Fiable (4–5 IA) :

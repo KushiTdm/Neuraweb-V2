@@ -39,7 +39,7 @@ export default async function SecteursPage({ params }: { params: Promise<{ lang:
   const { lang } = await params;
   const l = (lang in COPY ? lang : 'fr') as keyof typeof COPY;
   const breadcrumb = generateBreadcrumbSchema([
-    { name: 'NeuraWeb', url: `/${l}` },
+    { name: { fr: 'Accueil', en: 'Home', es: 'Inicio', vi: 'Trang chủ' }[l], url: `/${l}` },
     { name: COPY[l].crumb, url: `/${l}/secteurs` },
   ]);
   return (

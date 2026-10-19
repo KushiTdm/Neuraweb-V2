@@ -63,7 +63,7 @@ NeuraWeb is a French web & AI agency, registered in Lille, whose team of three w
 - Healthcare Websites FR: https://neuraweb.fr/fr/secteurs/sante
 - Restaurant Websites FR: https://neuraweb.fr/fr/secteurs/restaurants-hotels
 - Next.js Agency FR: https://neuraweb.fr/fr/agence-nextjs
-- White-label Web Subcontracting for Agencies FR: https://neuraweb.fr/fr/sous-traitance-web-lille
+- White-label Web Subcontracting for Agencies FR: https://neuraweb.fr/fr/sous-traitance-web
 - Web Agency Lille FR: https://neuraweb.fr/fr/agence-web-lille
 - Team FR: https://neuraweb.fr/fr/equipe
 - Contact FR: https://neuraweb.fr/fr/contact

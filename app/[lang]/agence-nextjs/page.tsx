@@ -57,7 +57,7 @@ export async function generateMetadata({
   const ogImage = `${BASE_URL}/assets/og-image.png`;
   const title = 'Agence Next.js — Sites & Apps Web Performants | NeuraWeb';
   const description =
-    'Agence spécialisée Next.js et React : sites vitrines, applications web et migrations WordPress. Score PageSpeed 90+, SEO technique natif. Devis sous 48h.';
+    'Agence spécialisée Next.js et React : sites vitrines, applications web et migrations WordPress. Objectif PageSpeed 90+, SEO technique natif. Devis sous 48 h ouvrées.';
 
   return {
     title: { absolute: title },
@@ -127,7 +127,6 @@ const serviceSchema = {
       addressCountry: 'FR',
       addressLocality: 'Lille',
       addressRegion: 'Hauts-de-France',
-      postalCode: '59000',
     },
   },
   areaServed: [
@@ -206,7 +205,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
   },
   {
     q: 'Travaillez-vous avec des clients partout en France ?',
-    a: "Oui. NeuraWeb est basée à Lille, dans les Hauts-de-France, et intervient dans toute la France ainsi qu'en Belgique et en Suisse. Le cadrage et le suivi se font en visioconférence, avec possibilité de rendez-vous en présentiel dans la métropole lilloise. Nous accompagnons aussi d'autres agences en sous-traitance technique.",
+    a: "Oui. NeuraWeb est une agence immatriculée à Lille, sans bureau ouvert au public : l'équipe travaille à distance (actuellement depuis Hanoï) et intervient dans toute la France comme à l'international. Le cadrage et le suivi se font en visioconférence. Nous accompagnons aussi d'autres agences en sous-traitance technique.",
   },
   {
     q: 'Que se passe-t-il après la mise en ligne ?',
@@ -351,13 +350,13 @@ export default async function AgenceNextjsPage({
                   <span className="text-navy-700 dark:text-sky-400">
                     Next.js
                   </span>{' '}
-                  — des sites que Google et les IA adorent
+                  — des sites lisibles par Google et par les IA
                 </h1>
 
                 <p className="mt-4 md:mt-6 text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl">
                   Nous concevons des sites et applications web en <strong>Next.js</strong> :
-                  chargement en moins d&apos;une seconde, <strong>score PageSpeed 90+</strong> et
-                  référencement technique natif. Basés à Lille, nous intervenons partout en France.
+                  <strong>objectif PageSpeed 90+</strong> et référencement technique natif.
+                  Agence immatriculée à Lille, nous travaillons à distance avec des clients partout en France.
                 </p>
 
                 <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
@@ -386,9 +385,9 @@ export default async function AgenceNextjsPage({
 
                 <div className="mt-6 md:mt-10 flex flex-wrap gap-x-4 gap-y-2 sm:grid sm:grid-cols-3 sm:gap-4">
                   {[
-                    { icon: Gauge, label: '90+/100', longLabel: 'PageSpeed 90+/100', color: 'text-indigo-600' },
+                    { icon: Gauge, label: 'PageSpeed 90+', longLabel: 'Objectif PageSpeed 90+', color: 'text-indigo-600' },
                     { icon: Clock, label: 'Réponse 48h', longLabel: 'Réponse sous 48h', color: 'text-violet-600' },
-                    { icon: MapPin, label: 'Lille · France', longLabel: 'Lille, partout en France', color: 'text-cyan-600' },
+                    { icon: MapPin, label: 'À distance', longLabel: 'À distance, partout en France', color: 'text-cyan-600' },
                   ].map(({ icon: Icon, label, longLabel, color }) => (
                     <div key={label} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-slate-700">
                       <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${color}`} />
@@ -409,14 +408,14 @@ export default async function AgenceNextjsPage({
                   <p className="relative text-sm sm:text-base text-slate-700 leading-relaxed">
                     <strong>Next.js est un framework React qui ajoute le rendu côté serveur</strong>,
                     la génération statique et l&apos;optimisation automatique des ressources.
-                    Un site Next.js charge 3 à 5 fois plus vite qu&apos;un site WordPress équivalent
-                    et sert du HTML complet aux robots de Google comme à ceux des moteurs IA.
+                    Un site Next.js sert du HTML complet aux robots de Google comme à ceux des moteurs IA,
+                    et il est plus facile à garder rapide qu&apos;un WordPress chargé de plugins.
                     Chez NeuraWeb, un site Next.js démarre à <strong>1 490 € HT</strong>.
                   </p>
                   <div className="relative mt-5 pt-5 border-t border-slate-100 grid grid-cols-2 gap-4">
                     {[
-                      { value: '< 1 s', label: 'Temps de chargement' },
-                      { value: '90+', label: 'Score PageSpeed' },
+                      { value: 'HTML', label: 'Rendu côté serveur' },
+                      { value: '90+', label: 'Objectif PageSpeed' },
                       { value: '3-5 sem.', label: 'Délai site vitrine' },
                       { value: '1 490 €', label: 'À partir de (HT)' },
                     ].map((s) => (
@@ -559,8 +558,8 @@ export default async function AgenceNextjsPage({
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               {[
                 { href: '/fr/developpement-web', label: 'Nos packs web', sub: 'Starter, Business, Premium — tarifs détaillés' },
-                { href: '/fr/agence-web-lille', label: 'Agence web à Lille', sub: 'Notre ancrage local dans les Hauts-de-France' },
-                { href: '/fr/sous-traitance-web-lille', label: 'Sous-traitance agences', sub: 'Next.js en marque blanche pour votre agence' },
+                { href: '/fr/agence-web-lille', label: 'Agence web à Lille', sub: 'Agence immatriculée à Lille, clients partout en France' },
+                { href: '/fr/sous-traitance-web', label: 'Sous-traitance agences', sub: 'Next.js en marque blanche pour votre agence' },
                 { href: '/fr/integration-ia', label: 'Intégration IA', sub: 'Chatbots et agents branchés sur votre site' },
               ].map((item) => (
                 <LocalizedLink
