@@ -35,9 +35,9 @@ export function CookieConsentBanner() {
         <div
           role="dialog"
           aria-label={t('cookies.banner.title')}
-          className="fixed bottom-0 left-0 right-0 z-[60] border-t border-creme/10 bg-chypre px-4 py-5 sm:px-6"
+          className="fixed bottom-0 left-0 right-0 z-[60] border-t border-creme/10 bg-chypre px-4 py-4 sm:px-6 sm:py-5 max-h-[85svh] overflow-y-auto"
         >
-          <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-start gap-3">
               <Cookie className="mt-0.5 h-5 w-5 flex-shrink-0 text-creme/80" />
               <div>
@@ -51,25 +51,25 @@ export function CookieConsentBanner() {
               </div>
             </div>
 
-            <div className="flex flex-shrink-0 flex-wrap gap-2 sm:gap-3">
+            <div className="grid flex-shrink-0 grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3">
               <button
                 type="button"
                 onClick={rejectAll}
-                className="flex-1 rounded-xl border border-creme/30 px-4 py-2.5 text-sm font-medium text-creme transition-colors hover:bg-creme/10 sm:flex-none"
+                className="rounded-xl border border-creme/30 px-3 py-2.5 text-sm font-semibold text-creme transition-colors hover:bg-creme/10 sm:flex-none sm:px-4 sm:font-medium"
               >
                 {t('cookies.banner.rejectAll')}
               </button>
               <button
                 type="button"
                 onClick={() => { setPendingAnalytics(false); openPreferences(); }}
-                className="flex-1 rounded-xl border border-creme/30 px-4 py-2.5 text-sm font-medium text-creme transition-colors hover:bg-creme/10 sm:flex-none"
+                className="order-3 col-span-2 rounded-xl border border-creme/30 px-3 py-2.5 text-sm font-medium text-creme transition-colors hover:bg-creme/10 sm:order-none sm:col-span-1 sm:flex-none sm:px-4"
               >
                 {t('cookies.banner.customize')}
               </button>
               <button
                 type="button"
                 onClick={acceptAll}
-                className="flex-1 rounded-xl bg-creme px-4 py-2.5 text-sm font-semibold text-chypre transition-opacity hover:opacity-90 sm:flex-none"
+                className="rounded-xl bg-creme px-3 py-2.5 text-sm font-semibold text-chypre transition-opacity hover:opacity-90 sm:flex-none sm:px-4"
               >
                 {t('cookies.banner.acceptAll')}
               </button>
