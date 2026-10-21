@@ -56,7 +56,7 @@ export function LanguageSelector() {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="inline-flex items-center gap-2 rounded-full border border-navfg/30 px-3.5 py-1.5 text-sm font-semibold uppercase tracking-wide text-navfg transition-colors hover:bg-navfg/10"
-        aria-label="Change language"
+        aria-label={`${language} – Change language`}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
       >

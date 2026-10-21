@@ -304,10 +304,11 @@ export function CardsCarousel({
 
       {/* Indicateurs minimalistes — <div> pour éviter le min-height navigateur des <button> */}
       {showDots && count > 1 && (
-        <div className={cn('flex items-center justify-center gap-1.5 mt-4', adaptive?.dots)} role="tablist" aria-label="Navigation du carousel">
+        <div className={cn('flex items-center justify-center mt-1', adaptive?.dots)} role="tablist" aria-label="Navigation du carousel">
           {Array.from({ length: count }).map((_, i) => {
             const isActive = i === activeIndex;
             return (
+              // Zone tactile 44px de haut (WCAG 2.5.8) ; le trait visible reste de 3px
               <div
                 key={i}
                 role="tab"
@@ -316,14 +317,19 @@ export function CardsCarousel({
                 aria-label={`Aller au slide ${i + 1}`}
                 onClick={() => goTo(i)}
                 onKeyDown={(e) => e.key === 'Enter' && goTo(i)}
-                className="rounded-sm transition-all duration-300 cursor-pointer"
-                style={{
-                  width: isActive ? '20px' : '5px',
-                  height: '3px',
-                  background: isActive ? dotColor : 'rgba(148,163,184,0.3)',
-                  flexShrink: 0,
-                }}
-              />
+                className="flex h-11 cursor-pointer items-center px-2"
+              >
+                <span
+                  aria-hidden="true"
+                  className="block rounded-sm transition-all duration-300"
+                  style={{
+                    width: isActive ? '20px' : '5px',
+                    height: '3px',
+                    background: isActive ? dotColor : 'rgba(148,163,184,0.3)',
+                    flexShrink: 0,
+                  }}
+                />
+              </div>
             );
           })}
         </div>
