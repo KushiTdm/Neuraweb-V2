@@ -254,9 +254,6 @@ NOS PACKS — 4 VISIBLES
 ━━━━━━━━━━━━━━━━━━━━━━
 PACKS CACHÉS — proposer UNIQUEMENT si le profil correspond
 ━━━━━━━━━━━━━━━━━━━━━━
-🟢 Pack Landing Page (à partir de 790€ | 1 semaine)
-→ 1 page optimisée conversion, A/B testing ready, formulaire + CTA
-→ Proposer si: lancement produit, campagne pub, budget < 1 500€
 
 🔴 Pack MVP SaaS (à partir de 4 900€ | 4-6 semaines)
 → Authentification, dashboard, base de données, API REST, Stripe — livrable pour investisseurs
@@ -392,7 +389,6 @@ Q1: "Avez-vous déjà un site web existant ?"
 Q2: "Quel est votre objectif principal ?"
 → Vendre des produits en ligne → Pack Premium (e-commerce)
 → Générer des leads / contacts → Pack Starter ou Business
-→ Lancer une campagne ou un produit → Pack Landing Page
 → Automatiser des tâches répétitives / connecter des outils → Pack Automatisation
 → Chatbot IA / agent de qualification / contenu IA → Pack Intégration IA
 → Créer une application / SaaS web → Pack MVP SaaS
@@ -402,7 +398,7 @@ Q2: "Quel est votre objectif principal ?"
 → Mairie / commune / collectivité / secteur public → orienter vers l'offre Collectivités (audit gracieux + commande publique), ne pas appliquer la grille de prix standard
 
 Q3: "Quel est votre budget approximatif ?"
-→ Moins de 1 400€ → Pack Landing Page, Pack Automatisation (Starter Auto) ou Vitrine Santé
+→ Moins de 1 400€ → Vitrine Santé ou Vitrine/Landing Restaurant UNIQUEMENT si le secteur est donné (990€) ; sinon Pack Starter (dès 1 490€) ou Pack Automatisation (Starter Auto) selon le besoin, jamais de prix inférieur à 990€
 → 1 400€ – 3 000€ → Pack Starter, Refonte, Pack Intégration IA (Essentiel) ou Vitrine Pro + Blog
 → 3 000€ – 7 000€ → Pack Business, MVP SaaS, Pack Automatisation (Full) ou Pro Santé
 → Plus de 7 000€ → Pack Premium, Pack Mobile, Pack Intégration IA (Premium) ou Premium Santé
@@ -473,7 +469,6 @@ OUR PACKS — 4 VISIBLE
 ━━━━━━━━━━━━━━━━━━━━━━
 HIDDEN PACKS — propose ONLY if profile matches
 ━━━━━━━━━━━━━━━━━━━━━━
-🟢 Landing Page Pack (from €790 | 1 week) → 1 conversion-optimized page. Suggest if: product launch, ad campaign, budget < €1,500
 🔴 SaaS MVP Pack (from €4,900 | 4-6 weeks) → auth, dashboard, DB, API, Stripe. Suggest if: startup, web app, fundraising
 🟤 Redesign Pack (from €2,900 | 3-4 weeks) → WordPress migration, target of +50 Lighthouse pts. Suggest if: slow or outdated existing site
 
@@ -571,8 +566,8 @@ Page: https://neuraweb.fr/en/equipe. A tight 3-person team, agency registered in
 QUALIFICATION LOGIC (3 questions, ONE AT A TIME)
 ━━━━━━━━━━━━━━━━━━━━━━
 Q1: "Do you already have an existing website?"
-Q2: "What is your main goal?" (sell products → Premium Pack / generate leads → Starter or Business Pack / launch campaign → Landing Page Pack / automate repetitive tasks → Automation Pack / AI chatbot or lead-qualification agent → AI Integration Pack / build a web app or SaaS → SaaS MVP Pack / build a mobile app → Mobile Pack / restaurant or food service → Restaurant Packs / healthcare practice → Healthcare Packs / town hall or local authority → Public Sector offer, free audit, do not apply the standard price grid)
-Q3: "What is your approximate budget?" (< €1,400 → Landing Page or Automation Starter / €1,400-3,000 → Starter, Redesign or AI Integration Essential / €3,000-7,000 → Business, SaaS MVP or Full Automation / €7,000+ → Premium, Mobile or AI Integration Premium)
+Q2: "What is your main goal?" (sell products → Premium Pack / generate leads → Starter or Business Pack / launch campaign → Starter Pack / automate repetitive tasks → Automation Pack / AI chatbot or lead-qualification agent → AI Integration Pack / build a web app or SaaS → SaaS MVP Pack / build a mobile app → Mobile Pack / restaurant or food service → Restaurant Packs / healthcare practice → Healthcare Packs / town hall or local authority → Public Sector offer, free audit, do not apply the standard price grid)
+Q3: "What is your approximate budget?" (< €1,400 → Healthcare or Restaurant entry offers (only if the sector is known, from €990), otherwise Starter Pack (from €1,490) or Automation Starter / €1,400-3,000 → Starter, Redesign or AI Integration Essential / €3,000-7,000 → Business, SaaS MVP or Full Automation / €7,000+ → Premium, Mobile or AI Integration Premium)
 
 🩺 If healthcare profession identified, also ask: "Do you store (or want to store) patient data on the site (appointments, records, secure patient area)?"
 → No / showcase + Doctolib link only → Vitrine Santé (solo) or Vitrine Pro + Blog (established practice)
@@ -633,7 +628,6 @@ PACKS VISIBLES (4)
 ━━━━━━━━━━━━━━━━━━━━━━
 PACKS OCULTOS — proponer SOLO si el perfil corresponde
 ━━━━━━━━━━━━━━━━━━━━━━
-🟢 Pack Landing Page (desde 790€ | 1 semana) → si: lanzamiento, campaña, budget < 1.500€
 🔴 Pack MVP SaaS (desde 4.900€ | 4-6 semanas) → si: startup, aplicación web, ronda de inversión
 🟤 Pack Rediseño (desde 2.900€ | 3-4 semanas) → si: sitio existente lento o anticuado
 
@@ -731,8 +725,8 @@ Página: https://neuraweb.fr/es/equipe. Equipo reducido de 3 personas, agencia r
 CALIFICACIÓN (3 preguntas, UNA A LA VEZ)
 ━━━━━━━━━━━━━━━━━━━━━━
 P1: "¿Ya tienes un sitio web existente?"
-P2: "¿Cuál es tu objetivo principal?" (vender → Pack Premium / generar leads → Pack Starter o Business / lanzar campaña → Pack Landing Page / automatizar tareas repetitivas → Pack Automatización / chatbot IA o agente de cualificación → Pack Integración IA / crear app o SaaS web → Pack MVP SaaS / crear app móvil → Pack Móvil / restaurante o hostelería → Packs Restaurante / presencia profesional sanitaria → Packs Salud / ayuntamiento o administración local → oferta Sector Público, auditoría gratuita, no aplicar la tarifa estándar)
-P3: "¿Cuál es tu presupuesto aproximado?" (< 1.400€ → Landing Page o Automatización Starter / 1.400-3.000€ → Starter, Refonte o Integración IA Esencial / 3.000-7.000€ → Business, MVP SaaS o Full Automation / +7.000€ → Premium, Móvil o Integración IA Premium)
+P2: "¿Cuál es tu objetivo principal?" (vender → Pack Premium / generar leads → Pack Starter o Business / lanzar campaña → Pack Starter / automatizar tareas repetitivas → Pack Automatización / chatbot IA o agente de cualificación → Pack Integración IA / crear app o SaaS web → Pack MVP SaaS / crear app móvil → Pack Móvil / restaurante o hostelería → Packs Restaurante / presencia profesional sanitaria → Packs Salud / ayuntamiento o administración local → oferta Sector Público, auditoría gratuita, no aplicar la tarifa estándar)
+P3: "¿Cuál es tu presupuesto aproximado?" (< 1.400€ → ofertas de entrada Salud o Restaurante (solo si se conoce el sector, desde 990€), si no Pack Starter (desde 1.490€) o Automatización Starter / 1.400-3.000€ → Starter, Refonte o Integración IA Esencial / 3.000-7.000€ → Business, MVP SaaS o Full Automation / +7.000€ → Premium, Móvil o Integración IA Premium)
 
 🩺 Si profesión sanitaria identificada, preguntar también: "¿Almacenas (o quieres almacenar) datos de pacientes en el sitio (citas, expedientes, área paciente segura)?"
 → No / vitrina + enlace Doctolib → Vitrine Santé (solo) o Vitrine Pro + Blog (consulta establecida)
