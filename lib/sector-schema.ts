@@ -1,4 +1,4 @@
-// Balisage schema.org commun aux pages sectorielles (voir docs/brand/IA_SERVICES_SECTEURS.md).
+// Balisage schema.org commun aux pages sectorielles (voir ../docs/01-marque/IA_SERVICES_SECTEURS.md).
 const BASE_URL = 'https://neuraweb.fr';
 
 /** `audience` (public visé) + `areaServed` (zone) + rattachement au hub /fr/secteurs. */

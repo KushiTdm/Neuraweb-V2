@@ -2,7 +2,7 @@
 //
 // POST → traite les campagnes `scheduled` dont l'heure programmée est
 // atteinte et déclenche leur envoi réel. Appelée périodiquement par un
-// schedule trigger n8n (voir docs/automation/n8n-newsletter-scheduler-workflow.json).
+// déclencheur planifié (n8n n’est plus hébergé depuis sept. 2026 : à rebrancher sur un cron si la newsletter est réactivée).
 // Même secret partagé que /api/newsletter/campaigns.
 
 import { NextRequest, NextResponse } from 'next/server';

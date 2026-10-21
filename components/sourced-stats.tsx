@@ -5,7 +5,7 @@ import { useLanguage } from '@/contexts/language-context';
 
 // Repères chiffrés tiers (sources officielles ou indépendantes), vérifiés le 18/10/2026.
 // Règle : aucun chiffre ici n'est un résultat NeuraWeb ; chacun est cité avec son éditeur, son année et son lien.
-// Voir docs/brand/CHIFFRES_ET_PREUVES.md.
+// Voir ../docs/01-marque/CHIFFRES_ET_PREUVES.md.
 type L4 = { fr: string; en: string; es: string; vi: string };
 
 interface Stat {

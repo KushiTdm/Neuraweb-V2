@@ -7,7 +7,7 @@ import { SectorsSection } from '@/components/sections/sectors-section';
 import { JsonLd } from '@/components/json-ld';
 import { generateBreadcrumbSchema } from '@/lib/structured-data';
 
-// Hub « Secteurs » : cible de maillage interne, distinct des services (voir docs/brand/IA_SERVICES_SECTEURS.md).
+// Hub « Secteurs » : cible de maillage interne, distinct des services (voir ../docs/01-marque/IA_SERVICES_SECTEURS.md).
 const BASE_URL = 'https://neuraweb.fr';
 
 const COPY = {

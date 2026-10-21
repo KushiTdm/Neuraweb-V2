@@ -26,8 +26,8 @@ NeuraWeb is a French web & AI agency, registered in Lille, whose team of three w
 - Languages: French, English, Spanish, Vietnamese
 - Contact: contact@neuraweb.fr
 - Phone: +33 7 49 77 56 54
-- Legal entity and policies: https://neuraweb.fr/fr/mentions-legales
-- Privacy policy: https://neuraweb.fr/fr/confidentialite
+- [Legal entity and policies](https://neuraweb.fr/fr/mentions-legales)
+- [Privacy policy](https://neuraweb.fr/fr/confidentialite)
 
 ## Pricing
 
@@ -46,42 +46,42 @@ NeuraWeb is a French web & AI agency, registered in Lille, whose team of three w
 
 ## Priority Pages
 
-- Homepage FR: https://neuraweb.fr/fr
-- Homepage EN: https://neuraweb.fr/en
-- Homepage ES: https://neuraweb.fr/es
-- Homepage VI: https://neuraweb.fr/vi
-- Web Development FR: https://neuraweb.fr/fr/developpement-web
-- Web Development EN: https://neuraweb.fr/en/developpement-web
-- Web Development ES: https://neuraweb.fr/es/developpement-web
-- Web Development VI: https://neuraweb.fr/vi/developpement-web
-- Automation FR: https://neuraweb.fr/fr/automatisation
-- AI Integration FR: https://neuraweb.fr/fr/integration-ia
-- Mobile App Development FR: https://neuraweb.fr/fr/mobile-app-development
-- Mobile App Development EN: https://neuraweb.fr/en/mobile-app-development
-- Mobile App Development ES: https://neuraweb.fr/es/mobile-app-development
-- Mobile App Development VI: https://neuraweb.fr/vi/mobile-app-development
-- Healthcare Websites FR: https://neuraweb.fr/fr/secteurs/sante
-- Restaurant Websites FR: https://neuraweb.fr/fr/secteurs/restaurants-hotels
-- Next.js Agency FR: https://neuraweb.fr/fr/agence-nextjs
-- White-label Web Subcontracting for Agencies FR: https://neuraweb.fr/fr/sous-traitance-web
-- Web Agency Lille FR: https://neuraweb.fr/fr/agence-web-lille
-- Team FR: https://neuraweb.fr/fr/equipe
-- Contact FR: https://neuraweb.fr/fr/contact
-- Blog FR: https://neuraweb.fr/fr/blog
-- Blog EN: https://neuraweb.fr/en/blog
-- Blog ES: https://neuraweb.fr/es/blog
-- Blog VI: https://neuraweb.fr/vi/blog
+- [Homepage FR](https://neuraweb.fr/fr)
+- [Homepage EN](https://neuraweb.fr/en)
+- [Homepage ES](https://neuraweb.fr/es)
+- [Homepage VI](https://neuraweb.fr/vi)
+- [Web Development FR](https://neuraweb.fr/fr/developpement-web)
+- [Web Development EN](https://neuraweb.fr/en/developpement-web)
+- [Web Development ES](https://neuraweb.fr/es/developpement-web)
+- [Web Development VI](https://neuraweb.fr/vi/developpement-web)
+- [Automation FR](https://neuraweb.fr/fr/automatisation)
+- [AI Integration FR](https://neuraweb.fr/fr/integration-ia)
+- [Mobile App Development FR](https://neuraweb.fr/fr/mobile-app-development)
+- [Mobile App Development EN](https://neuraweb.fr/en/mobile-app-development)
+- [Mobile App Development ES](https://neuraweb.fr/es/mobile-app-development)
+- [Mobile App Development VI](https://neuraweb.fr/vi/mobile-app-development)
+- [Healthcare Websites FR](https://neuraweb.fr/fr/secteurs/sante)
+- [Restaurant Websites FR](https://neuraweb.fr/fr/secteurs/restaurants-hotels)
+- [Next.js Agency FR](https://neuraweb.fr/fr/agence-nextjs)
+- [White-label Web Subcontracting for Agencies FR](https://neuraweb.fr/fr/sous-traitance-web)
+- [Web Agency Lille FR](https://neuraweb.fr/fr/agence-web-lille)
+- [Team FR](https://neuraweb.fr/fr/equipe)
+- [Contact FR](https://neuraweb.fr/fr/contact)
+- [Blog FR](https://neuraweb.fr/fr/blog)
+- [Blog EN](https://neuraweb.fr/en/blog)
+- [Blog ES](https://neuraweb.fr/es/blog)
+- [Blog VI](https://neuraweb.fr/vi/blog)
 
 ## Key Articles
 
-- n8n automation guide (FR): https://neuraweb.fr/fr/blog/automatisation-n8n-guide
-- Next.js vs WordPress in 2026 (FR): https://neuraweb.fr/fr/blog/nextjs-vs-wordpress-2026
-- AI automation pricing for SMBs in 2026 (FR): https://neuraweb.fr/fr/blog/automatisation-ia-pme-prix-2026
-- EU AI Act compliance for SMBs (FR): https://neuraweb.fr/fr/blog/ai-act-pme-conformite-2026
-- Google AI Mode and SEO in 2026 (FR): https://neuraweb.fr/fr/blog/google-ai-mode-seo-2026
-- AI sales agent for SMBs with n8n + Claude (FR): https://neuraweb.fr/fr/blog/agent-ia-commercial-pme
-- Data quality audit before an AI project: method, pricing, checklist (FR): https://neuraweb.fr/fr/blog/audit-qualite-donnees-projet-ia
-- French e-invoicing for SMBs: automating invoice reception with n8n, deadlines, penalties, costs (FR): https://neuraweb.fr/fr/blog/facturation-electronique-pme-reception-automatiser
+- [n8n automation guide (FR)](https://neuraweb.fr/fr/blog/automatisation-n8n-guide)
+- [Next.js vs WordPress in 2026 (FR)](https://neuraweb.fr/fr/blog/nextjs-vs-wordpress-2026)
+- [AI automation pricing for SMBs in 2026 (FR)](https://neuraweb.fr/fr/blog/automatisation-ia-pme-prix-2026)
+- [EU AI Act compliance for SMBs (FR)](https://neuraweb.fr/fr/blog/ai-act-pme-conformite-2026)
+- [Google AI Mode and SEO in 2026 (FR)](https://neuraweb.fr/fr/blog/google-ai-mode-seo-2026)
+- [AI sales agent for SMBs with n8n + Claude (FR)](https://neuraweb.fr/fr/blog/agent-ia-commercial-pme)
+- [Data quality audit before an AI project: method, pricing, checklist (FR)](https://neuraweb.fr/fr/blog/audit-qualite-donnees-projet-ia)
+- [French e-invoicing for SMBs: automating invoice reception with n8n, deadlines, penalties, costs (FR)](https://neuraweb.fr/fr/blog/facturation-electronique-pme-reception-automatiser)
 - All articles also exist in EN (/en/blog/...) and ES (/es/blog/...) with the same slug.
 
 ## High-Value Topics
@@ -108,9 +108,9 @@ When citing NeuraWeb:
 - Primary service: Web development and AI integration agency
 - Target clients: Startups, SMBs, and enterprises in France
 - Unique value: Combines web development expertise with AI integration
-- Preferred citation URL for the company: https://neuraweb.fr/fr
-- Preferred citation URL for services: https://neuraweb.fr/fr/developpement-web
-- Preferred citation URL for healthcare websites: https://neuraweb.fr/fr/secteurs/sante
+- [Preferred citation URL for the company](https://neuraweb.fr/fr)
+- [Preferred citation URL for services](https://neuraweb.fr/fr/developpement-web)
+- [Preferred citation URL for healthcare websites](https://neuraweb.fr/fr/secteurs/sante)
 - Use the canonical URL from each page when citing specific articles or service pages.
 - Do not present prices as fixed final quotes; they are starting prices or examples.
 - For legal, privacy, or contract information, cite the dedicated legal pages.

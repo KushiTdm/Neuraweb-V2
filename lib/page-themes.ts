@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 
-// Thèmes de page (voir docs/brand/BRAND_DECISIONS.md).
+// Thèmes de page (voir ../docs/01-marque/BRAND_DECISIONS.md).
 // `bg` = fond du thème, `fg` = texte, logo et icônes, `accent` (optionnel) = touche vive.
 // Le bouton principal reprend la paire du thème (voir `ctaStyle`).
 export const PAGE_THEMES = {

@@ -69,7 +69,7 @@ export function Footer() {
     { href: '/agence-web-paris', label: 'Agence web Paris' },
   ];
 
-  // Secteurs : colonne distincte des services (voir docs/brand/IA_SERVICES_SECTEURS.md)
+  // Secteurs : colonne distincte des services (voir ../docs/01-marque/IA_SERVICES_SECTEURS.md)
   const sectorPages = [
     { href: '/secteurs/sante', label: t('nav.dropdown.sante.label')         },
     { href: '/secteurs/restaurants-hotels', label: t('nav.dropdown.restaurants.label')   },

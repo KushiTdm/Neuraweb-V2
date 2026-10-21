@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Génère le système de thèmes de page (docs/brand/BRAND_DECISIONS.md) :
+// Génère le système de thèmes de page (../docs/01-marque/BRAND_DECISIONS.md) :
 //   - lib/theme-tokens.json   : jetons de couleur → valeur par défaut (couleur Tailwind d'origine)
 //   - app/[lang]/themes.css   : `:root` (valeurs d'origine) + `.theme-<nom>` (recolorage)
 // Principe : chaque jeton (ex. `slate-500`, `indigo-600`, `white`, `navy-900`) devient une variable

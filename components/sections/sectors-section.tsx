@@ -10,7 +10,7 @@ import { ResponsiveCards } from '@/components/ui/cards-carousel';
 
 // Section « Pour votre métier » : les secteurs sont présentés À PART des services
 // (les services = ce que l'on fait ; les secteurs = pour qui). Chaque carte porte la paire de
-// couleurs de sa page et une étiquette « Secteur ». Voir docs/brand/IA_SERVICES_SECTEURS.md.
+// couleurs de sa page et une étiquette « Secteur ». Voir ../docs/01-marque/IA_SERVICES_SECTEURS.md.
 const SECTORS = [
   { key: 'sante', href: '/secteurs/sante', theme: PAGE_THEMES.sante, image: '/assets/redesign/pages/sante-hero.webp' },
   { key: 'restaurants', href: '/secteurs/restaurants-hotels', theme: PAGE_THEMES.restaurants, image: '/assets/redesign/pages/restaurants-hero.webp' },

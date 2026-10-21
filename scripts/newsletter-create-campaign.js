@@ -14,7 +14,7 @@
  *
  * Ce script est un déclencheur MANUEL — l'automatisation via n8n (après le
  * commit GitHub du nouvel article) appelle la même route directement en
- * HTTP, voir docs/automation/n8n-blog-publish-workflow.json.
+ * HTTP (n8n n’est plus hébergé depuis sept. 2026 : ce script reste le déclencheur manuel).
  */
 
 const https = require('https');
