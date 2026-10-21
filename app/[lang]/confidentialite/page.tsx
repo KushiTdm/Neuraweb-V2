@@ -1,3 +1,4 @@
+import '@/app/[lang]/themes/accueil.css';
 import { Metadata } from 'next';
 import { SUPPORTED_LANGUAGES } from '@/proxy';
 import { Header } from '@/components/header';

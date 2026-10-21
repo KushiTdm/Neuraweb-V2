@@ -1,5 +1,6 @@
 'use client';
 
+import '@/app/[lang]/themes/collectivites.css';
 import React from 'react';
 import Image from 'next/image';
 import { Header } from '@/components/header';

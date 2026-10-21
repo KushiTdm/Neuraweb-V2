@@ -1,5 +1,6 @@
 'use client';
 
+import '@/app/[lang]/themes/automatisation.css';
 import { SourcedStats } from '@/components/sourced-stats';
 import React, { useRef, useState } from 'react';
 import { useGsapReveal } from '@/hooks/use-gsap-reveal';

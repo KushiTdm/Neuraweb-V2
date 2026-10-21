@@ -1,5 +1,6 @@
 'use client';
 
+import '@/app/[lang]/themes/accueil.css';
 import React, { useEffect, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';

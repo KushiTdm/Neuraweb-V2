@@ -1,5 +1,6 @@
 'use client';
 
+import '@/app/[lang]/themes/collectivites.css';
 import { SectorHero } from '@/components/sector-hero';
 
 import React, { useEffect, useRef } from 'react';

@@ -1,5 +1,6 @@
 'use client';
 
+import '@/app/[lang]/themes/accueil.css';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';

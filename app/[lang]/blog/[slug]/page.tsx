@@ -1,3 +1,4 @@
+import '@/app/[lang]/themes/accueil.css';
 import { Metadata } from 'next';
 import { BlogPostClient } from '@/components/blog-post-client';
 import { Header } from '@/components/header';

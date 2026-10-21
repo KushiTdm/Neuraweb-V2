@@ -1,3 +1,4 @@
+import '@/app/[lang]/themes/accueil.css';
 import { Metadata } from 'next';
 import { permanentRedirect } from 'next/navigation';
 import { JsonLd } from '@/components/json-ld';

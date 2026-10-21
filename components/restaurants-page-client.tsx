@@ -1,5 +1,6 @@
 'use client';
 
+import '@/app/[lang]/themes/restaurants.css';
 import { SourcedStats } from '@/components/sourced-stats';
 import { SectorHero } from '@/components/sector-hero';
 
