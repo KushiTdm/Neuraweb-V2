@@ -317,7 +317,7 @@ export function CardsCarousel({
                 aria-label={`Aller au slide ${i + 1}`}
                 onClick={() => goTo(i)}
                 onKeyDown={(e) => e.key === 'Enter' && goTo(i)}
-                className="flex h-11 cursor-pointer items-center px-2"
+                className="flex h-11 cursor-pointer items-center px-[10px]"
               >
                 <span
                   aria-hidden="true"
