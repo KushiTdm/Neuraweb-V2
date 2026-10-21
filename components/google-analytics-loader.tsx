@@ -54,7 +54,7 @@ export function GoogleAnalyticsLoader({ gaId }: { gaId: string }) {
       {/* Doit précéder gtag.js : les commandes sont empilées dans dataLayer et traitées
           dans l'ordre, ce qui garantit que l'état « denied » s'applique avant tout
           dépôt de cookie. */}
-      <Script id="google-analytics-consent" strategy="afterInteractive">
+      <Script id="google-analytics-consent" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
@@ -76,7 +76,7 @@ export function GoogleAnalyticsLoader({ gaId }: { gaId: string }) {
           });
         `}
       </Script>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="lazyOnload" />
     </>
   );
 }
