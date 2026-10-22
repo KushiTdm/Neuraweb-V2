@@ -185,7 +185,7 @@ export const vi: Record<TranslationKey, string> = {
   'portfolio.osteo.sector': 'Y tế',
   'portfolio.osteo.desc': 'Website phòng khám nắn chỉnh xương: bảng giá theo từng nhóm bệnh nhân, đặt lịch hẹn và biểu mẫu tuân thủ GDPR.',
   'portfolio.tours.sector': 'Du lịch',
-  'portfolio.tours.desc': 'Công ty lữ hành ba ngôn ngữ: danh mục tour theo thời lượng và độ khó, yêu cầu đặt chỗ và trang điểm đến.',
+  'portfolio.tours.desc': 'Công ty lữ hành Việt Nam, Campuchia và Lào: hero parallax, hiệu ứng cuộn GSAP, tour theo điểm đến và gửi yêu cầu chuyến đi.',
   'portfolio.shop.sector': 'Thương mại điện tử',
   'portfolio.shop.desc': 'Cửa hàng trực tuyến hoàn chỉnh: danh mục lọc theo nhóm hàng, trang sản phẩm, giỏ hàng và danh sách yêu thích.',
   'portfolio.maison.sector': 'Khách sạn cao cấp',

@@ -75,12 +75,12 @@ const portfolio: Project[] = [
     stack: ['React', 'Prise de RDV', 'Formulaire RGPD'],
   },
   {
-    name: 'Sin Fronteras Tours',
+    name: 'Beyond the Mekong',
     sectorKey: 'portfolio.tours.sector',
     descKey: 'portfolio.tours.desc',
-    image: '/assets/portfolio/traveltour.webp',
-    url: 'https://traveltour-agency.netlify.app/',
-    stack: ['React', 'ES / EN / FR', 'Catalogue de tours'],
+    image: '/assets/portfolio/beyond-the-mekong.webp',
+    url: 'https://beyond-the-mekong.san3neb.workers.dev',
+    stack: ['React', 'GSAP', 'Parallax', 'FR / EN'],
   },
   {
     name: 'Minimal Store',

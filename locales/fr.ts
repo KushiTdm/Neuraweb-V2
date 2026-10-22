@@ -173,7 +173,7 @@ export const fr = {
   'portfolio.osteo.sector': 'Santé',
   'portfolio.osteo.desc': 'Site de cabinet d\'ostéopathie : consultations tarifées par profil patient, prise de rendez-vous et formulaire conforme RGPD.',
   'portfolio.tours.sector': 'Tourisme',
-  'portfolio.tours.desc': 'Agence de voyage trilingue : catalogue d\'excursions par durée et difficulté, demande de réservation et pages destinations.',
+  'portfolio.tours.desc': 'Tour opérateur Vietnam, Cambodge et Laos : hero en parallaxe, animations GSAP au scroll, circuits par destination et demande de voyage.',
   'portfolio.shop.sector': 'E-commerce',
   'portfolio.shop.desc': 'Boutique en ligne complète : catalogue filtrable par catégorie, fiches produits, panier et liste de favoris.',
   'portfolio.maison.sector': 'Hôtellerie de luxe',

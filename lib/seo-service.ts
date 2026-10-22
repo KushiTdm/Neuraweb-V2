@@ -6,6 +6,7 @@
 // ============================================================
 
 import { Metadata } from 'next';
+import { OFFICIAL_SAME_AS } from './structured-data';
 
 // Types pour le service SEO
 export interface SEOTemplate {
@@ -360,10 +361,7 @@ export function generateJsonLd(
       contactType: 'customer service',
       availableLanguage: ['French', 'English', 'Spanish'],
     },
-    sameAs: [
-      'https://www.google.com/maps/place/?q=place_id:0xa8265594c8f44721:0xb4ae61789886b8a9',
-      'https://x.com/neurawebtech',
-    ],
+    sameAs: OFFICIAL_SAME_AS,
     ...additionalData,
   };
 

@@ -19,6 +19,17 @@ const GEO_LNG = '3.0573';
 
 const OG_IMAGE = `${BASE_URL}/assets/og-image.png`;
 
+// Profils officiels de NeuraWeb — source unique pour tous les schémas (Organization,
+// LocalBusiness, schémas de pages). Ne lister que des profils réellement détenus :
+// un sameAs vers un homonyme (NeuraWeb Global Inc., Instagram « neuraweb.tech »
+// tenu par un tiers, LinkedIn) fusionnerait les entités aux yeux de Google.
+// Pas de LinkedIn : aucune page entreprise à ce jour.
+export const OFFICIAL_SAME_AS = [
+  'https://x.com/neurawebtech',
+  'https://www.facebook.com/people/Neuraweb/61587416320627/',
+  'https://www.google.com/maps?cid=13019450743357618345', // Google Business Profile (CID = partie décimale du place_id)
+];
+
 // ── Organization Schema ─────────────────────────────────────────────────────
 export const organizationSchema = {
   '@context': 'https://schema.org',
@@ -57,11 +68,7 @@ export const organizationSchema = {
     { '@type': 'Country', name: 'Vietnam' },
     { '@type': 'City', name: 'Hanoï' },
   ],
-  sameAs: [
-    'https://x.com/neurawebtech',
-    'https://www.facebook.com/people/Neuraweb/61587416320627/',
-    'https://maps.app.goo.gl/DUkC3mSovCR8cpRz5', // Google Business Profile
-  ],
+  sameAs: OFFICIAL_SAME_AS,
   foundingDate: '2023',
   numberOfEmployees: {
     '@type': 'QuantitativeValue',
@@ -128,12 +135,7 @@ export const localBusinessSchema = {
     bestRating: 5,
     worstRating: 1,
   },
-  sameAs: [
-    'https://www.linkedin.com/company/neuraweb',
-    'https://x.com/neurawebtech',
-    'https://www.facebook.com/people/Neuraweb/61587416320627/',
-    'https://maps.app.goo.gl/DUkC3mSovCR8cpRz5', // Google Business Profile
-  ],
+  sameAs: OFFICIAL_SAME_AS,
   parentOrganization: {
     '@id': `${BASE_URL}/#organization`,
   },

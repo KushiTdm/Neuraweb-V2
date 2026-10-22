@@ -175,7 +175,7 @@ export const es: Record<TranslationKey, string> = {
   'portfolio.osteo.sector': 'Salud',
   'portfolio.osteo.desc': 'Sitio de consulta de osteopatía: consultas con tarifas por perfil de paciente, reserva de cita y formulario conforme al RGPD.',
   'portfolio.tours.sector': 'Turismo',
-  'portfolio.tours.desc': 'Agencia de viajes trilingüe: catálogo de excursiones por duración y dificultad, solicitud de reserva y páginas de destinos.',
+  'portfolio.tours.desc': 'Operador turístico para Vietnam, Camboya y Laos: hero con parallax, animaciones GSAP al hacer scroll, circuitos por destino y solicitud de viaje.',
   'portfolio.shop.sector': 'E-commerce',
   'portfolio.shop.desc': 'Tienda en línea completa: catálogo filtrable por categoría, fichas de producto, carrito y lista de favoritos.',
   'portfolio.maison.sector': 'Hostelería de lujo',
